@@ -36,7 +36,7 @@ Die Anwendung verwendet ausschließlich die gekennzeichnete Datenbank `FIAE_AP2_
 
 ## Veröffentlichung und Lizenz
 
-Vorgesehen sind lokale Windows-x64-Pakete über das derzeit private [offizielle Repository](https://github.com/b0rnkilla/FIAE-AP2-Lernwerk). Das bisherige Paket 0.1.0 ist eine historische frühe Alpha. Neue Pakete entstehen erst am Entwicklungsende oder auf ausdrücklichen Wunsch; SQL Server bleibt eine separate Voraussetzung.
+Verteilt werden lokale Windows-x64-Pakete über den Bereich Releases des [offiziellen Repositorys](https://github.com/b0rnkilla/FIAE-AP2-Lernwerk/releases). Der Nutzer bereitet dessen öffentliche Freigabe vor; es wurde nichts automatisch veröffentlicht. Die neue Alpha 0.1.1-alpha.3 ist ausdrücklich beauftragt, mit aktueller privater Lizenz gebaut und aus dem ZIP geprüft. Das alte Paket 0.1.0 ist kein aktuelles Verteilungspaket. Die README beschreibt ausschließlich den ZIP-/EXE-Einstieg für Anwender; SQL Server bleibt eine separate Voraussetzung. Weitere Pakete entstehen auf ausdrücklichen Wunsch beziehungsweise zum vereinbarten Abschluss.
 
 Für die neue Fassung gelten eigene Bedingungen zur privaten Nutzung. Kommerzielle Nutzung, Programmänderungen und Weiterverbreitung werden nicht eingeräumt. Eine pauschale MIT-Freigabe wird nicht eingeräumt. Zwingende gesetzliche Rechte und Lizenzen der Abhängigkeiten bleiben unberührt. Einzelheiten: [LICENSE](../LICENSE) und [Lizenzwechsel](lizenz.md).
 

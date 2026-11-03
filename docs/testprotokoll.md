@@ -24,6 +24,16 @@ Stand: 03.11.2026. Geprüft wurde auf dem lokalen Windows-Rechner mit .NET-SDK 1
 
 Die 30 Ermittlungslösungen und zehn Werkstattlösungen werden innerhalb von Integrationsprüfungen einzeln auf beiden Datenbeständen durchlaufen; zusätzlich bestehen alle 30 Ermittlungslösungen auch mit explizitem Schemapräfix zur Abwärtskompatibilität. Die Zahl 230 bezeichnet .NET-Testfälle und nicht die Anzahl ausgeführter SQL-Abfragen. Tests zur Datenbankprüfung werden ohne `FIAE_SQL_TESTS=1` ausdrücklich übersprungen.
 
+## Windows-Paket 0.1.1-alpha.3 (03.11.2026)
+
+* Neues Paket auf ausdrücklichen Auftrag mit Release-erstellen.ps1 erstellt: artifacts/releases/AP2-Lernwerk-0.1.1-alpha.3-win-x64.zip, 50.659.895 Byte, dazu SHA256-Datei. Kein Upload und keine Änderung der Repositorysichtbarkeit.
+* Das tatsächlich erzeugte ZIP in einen eigenen QA-Ordner entpackt. 43 Dateien, keine geprüften privaten Konfigurations-/Profildateien, Logs, Debugsymbole, Schlüssel oder Datenbankdateien. Root-LICENSE stimmt per SHA256 mit der aktuellen privaten Projektlizenz überein. Benutzeranleitung, Versionshinweise und eigenständige Drittanbieterhinweise vorhanden; keine alte MIT-Projektlizenz mitgeliefert.
+* EXE aus einem anderen Arbeitsverzeichnis mit eigenem Fortschritts-/Einstellungspfad, ungültigem DOTNET_ROOT und abgeschalteter Mehrfach-Laufzeitsuche gestartet. Eigenständiger Lauf erfolgreich; diese Prüfung ersetzt keinen Test auf einem frisch installierten fremden Windows-Rechner. Normales Profil und normale laufende Anwendung nicht verwendet oder beendet.
+* Zehn HTTP-Prüfungen erfolgreich: Übersicht, beide SQL-Lernwege, Einrichtung, Lernplan, Nachschlagehilfe, CSS, reconnect.js, theme.js und Blazor-Skript. Browser zeigt 0.1.1-alpha.3; echte SELECT- und UPDATE-Abgabe korrekt bewertet und im separaten Profil gespeichert.
+* Dieselbe geprüfte Paketfassung in einen zweiten Programmordner kopiert und mit demselben QA-Profil neu gestartet. Beide Abschlüsse und Entwürfe erhalten und im Browser sichtbar. Vorschau: artifacts/alpha3-paket-getestet.png. Testprozess und Testtab danach beendet. Prüfdaten: artifacts/alpha3-verification.json.
+* SHA256: 545050564ab6119eca6447b20aa629b26b47f889ea0948deaf502329f853f652. Der letzte vollständige Fachteststand bleibt 230 .NET- und 13 JavaScript-Fälle aus der Entwicklung dieser Version; für das neue Paket wurden die oben beschriebenen Paket- und Laufzeitprüfungen durchgeführt, keine neuen Fachfunktionen geändert.
+* README und mitgelieferte Anleitung beschreiben Releases → Windows-ZIP → Entpacken → EXE statt Klonen/SDK/Quellprojektstart. Der Updatehinweis benötigt ein später veröffentlichtes Paket mit höherer Versionsnummer; derselbe Release ist kein Update. Ein tatsächlicher Live-Updatefund wurde nicht behauptet.
+
 ## Entwicklungsfassung 0.1.1-alpha.3: Verbindungsdialog und private Nutzung (03.11.2026)
 
 * Eigener statischer deutscher Verbindungsdialog anstelle des Blazor-Standardfensters. Bei echtem Abbruch des separaten QA-Servers auf 127.0.0.1:5082 angezeigt und in Hell/Dunkel visuell geprüft. Der Dialog bleibt ohne laufenden Server bedienbar; die Designwahl funktioniert weiterhin im Browser. Normale Lerninstanz und normale Profildateien wurden für diese Prüfung nicht verwendet oder beendet.

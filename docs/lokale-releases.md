@@ -1,6 +1,6 @@
 # AP2 Lernwerk lokal starten
 
-Stand der Dokumentation: 0.1.1-alpha.3 in Entwicklung. Das vorhandene ZIP 0.1.0 bleibt eine frühe Momentaufnahme und enthält die anschließend ergänzte Versions-/Updateanzeige und Einrichtungsseite noch nicht. Neue Pakete werden erst zum Abschluss oder nach ausdrücklicher Anweisung erstellt.
+Stand: Windows-Alpha 0.1.1-alpha.3. Auf ausdrücklichen Nutzerwunsch ist ein neues eigenständig startbares ZIP mit aktueller privater Projektlizenz gebaut und geprüft. Die alte Testfassung 0.1.0 ist kein Verteilungspaket für die aktuelle Fassung und soll nicht verwendet werden.
 
 ## Voraussetzungen
 
@@ -12,12 +12,12 @@ Das Windows-Paket enthält die benötigte .NET- und ASP.NET-Core-Laufzeit. Ein S
 
 ## Starten und beenden
 
-1. Das vollständige ZIP in einen eigenen Ordner entpacken.
+1. Das Windows-ZIP unter [GitHub-Releases](https://github.com/b0rnkilla/FIAE-AP2-Lernwerk/releases) herunterladen und vollständig in einen eigenen Ordner entpacken. Die automatisch erzeugten Source-code-Archive sind nicht das fertige Programm.
 2. AP2-Lernwerk.exe starten. Die Dateien und der Ordner wwwroot daneben gehören zum Programm und müssen erhalten bleiben.
 3. Der Browser öffnet http://localhost:5080 automatisch. Falls das nicht gelingt, öffne die Adresse selbst.
 4. Zum Beenden das Programmfenster schließen oder darin Strg+C drücken. Das Schließen des Browserfensters allein beendet die Anwendung nicht.
 
-Die Standardfassung ist nur auf dem eigenen Rechner erreichbar. Sie benötigt weder Konto noch Registrierung und lädt keine Lösungen zu einem KI-Dienst hoch. Die aktuelle Entwicklungsfassung prüft öffentliche GitHub-Releases und zeigt bei neuerer passender Version einen Hinweis. Es gibt keinen automatischen Dateiaustausch; die alte Momentaufnahme 0.1.0 hat diese Prüfung noch nicht.
+Die Standardfassung ist nur auf dem eigenen Rechner erreichbar. Sie benötigt weder Konto noch Registrierung und lädt keine Lösungen zu einem KI-Dienst hoch. Sie prüft öffentliche GitHub-Releases und zeigt bei neuerer passender Version einen Hinweis. Es gibt keinen automatischen Dateiaustausch.
 
 Läuft schon ein Trainer auf Port 5080, beende ihn vor dem Start einer neuen Fassung. Alternativ lässt sich aus einem Terminal ein anderer Port wählen:
 

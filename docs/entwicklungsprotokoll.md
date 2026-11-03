@@ -223,6 +223,14 @@
 * Release-Build fehler- und warnungsfrei; 230 .NET-Tests einschließlich echter SQL-Prüfungen und 13 JavaScript-Prüfungen erfolgreich. Echten Abbruch ausschließlich am separaten Testserver geprüft, helle/dunkle Ansicht sichtbar kontrolliert und tatsächliche Textkontraste gemessen. Detailnachweise und Grenzen im Testprotokoll. Keine normale Lerninstanz beendet, keine Nutzerdaten für Tests geändert, keine Paketierung, kein Commit/Push.
 
 ---
+## 03.11.2026 – Aktuelles Windows-ZIP und Einstieg über Releases
+
+* Auf ausdrücklichen Auftrag neues Paket 0.1.1-alpha.3 mit aktueller privater Projektlizenz erstellt; das alte 0.1.0-ZIP ist kein aktuelles Verteilungspaket. Keine neue Versionsnummer allein für die Paketierung eingeführt.
+* README auf Benutzerdownload über Releases/Assets, Entpacken und EXE-Start umgestellt. Aufforderung zum Klonen, Quellprojekt-Startbefehl und SDK-Voraussetzung aus dem Benutzereinstieg entfernt. Eine kurze eigene release/Anleitung.md ersetzt im ZIP die bisher kopierte technische Anleitung; passende Versionshinweise ergänzt.
+* ZIP und SHA256 erzeugt. Tatsächlich entpackte EXE mit eigener QA-Konfiguration, eigenem Profil und ungültigem DOTNET_ROOT geprüft; zehn HTTP-Pfade und echte SELECT-/UPDATE-Abgaben erfolgreich. Nach Wechsel in einen zweiten Programmordner bleiben beide Testabschlüsse und Entwürfe erhalten. Paketdateien und private Projektlizenz kontrolliert, keine geprüften privaten Dateien im ZIP. Detailnachweise im Testprotokoll.
+* Dokumentation und Projektvorgaben nachgeführt. Normalen Lernstand und normale App nicht für Tests verwendet; QA beendet. Kein Commit, Push, GitHub-Release oder Sichtbarkeitswechsel ausgeführt. Eine Live-Updateprüfung benötigt anschließend eine öffentlich verfügbare höhere Version als die laufende Alpha.
+
+---
 ## Geplant
 
 

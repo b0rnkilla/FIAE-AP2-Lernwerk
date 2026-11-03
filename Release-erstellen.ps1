@@ -43,7 +43,7 @@ if ($settings.ConnectionStrings.Training -cne $expectedConnection -or @($setting
 Move-Item -LiteralPath (Join-Path $packageDirectory 'FiaeTrainer.Web.exe') -Destination (Join-Path $packageDirectory 'AP2-Lernwerk.exe')
 $iisConfiguration = Join-Path $packageDirectory 'web.config'
 if (Test-Path -LiteralPath $iisConfiguration) { Remove-Item -LiteralPath $iisConfiguration }
-Copy-Item -LiteralPath (Join-Path $projectDirectory 'docs/lokale-releases.md') -Destination (Join-Path $packageDirectory 'ANLEITUNG.md')
+Copy-Item -LiteralPath (Join-Path $projectDirectory 'release/Anleitung.md') -Destination (Join-Path $packageDirectory 'ANLEITUNG.md')
 Copy-Item -LiteralPath (Join-Path $projectDirectory 'release/Verbindung.example.json') -Destination $packageDirectory
 $versionNotes = Join-Path $projectDirectory "release/Versionshinweise-$Version.md"
 if (Test-Path -LiteralPath $versionNotes) { Copy-Item -LiteralPath $versionNotes -Destination (Join-Path $packageDirectory 'VERSIONSHINWEISE.md') }

@@ -30,6 +30,6 @@ Die elf ursprünglichen SQL-Anpassungen sind abgeschlossen. Die nachfolgenden W�
 
 ## Spätere Veröffentlichung
 
-Lokale Windows-x64-Pakete über das offizielle GitHub-Repository bleiben das Ziel; das Repository ist derzeit privat. Das vorhandene Paket 0.1.0 bleibt eine nicht öffentlich verteilte frühe Testfassung und ist keine Vorlage für die aktuelle Lizenz. Weitere Pakete entstehen erst am Entwicklungsende oder nach ausdrücklicher Anweisung. Vorher stehen ein Test auf einem weiteren Windows-Rechner, passende Versionshinweise und eine Prüfung des vollständigen Paketumfangs aus. Es gibt keinen automatischen Upload.
+Auf ausdrücklichen Wunsch ist Windows-Alpha 0.1.1-alpha.3 mit aktueller privater Projektlizenz gebaut und aus dem ZIP geprüft. Die README führt Anwender zu Releases → Windows-ZIP → Entpacken → EXE; eine kurze eigene Anleitung liegt dem Paket bei. Paketumfang, Prüfsumme, SQL-Abgaben und Profilerhalt nach einem Programmordnerwechsel sind geprüft. Das alte 0.1.0-Paket wird nicht zur Verteilung empfohlen. Ein Test auf einem weiteren frisch eingerichteten Windows-Rechner und die tatsächliche öffentliche GitHub-Veröffentlichung stehen noch aus. Es gibt keinen automatischen Upload. Weitere Pakete bleiben ausdrücklich zu beauftragen beziehungsweise dem vereinbarten Abschluss vorbehalten.
 
 Login, Registrierung, Benutzertabellen und öffentlicher Homeserver-/nginx-Betrieb sind gestrichen. KI-Bewertung ist nicht implementiert; sie setzt eine gesonderte Entscheidung zu Kosten, Datenübertragung und fachlicher Verlässlichkeit voraus.

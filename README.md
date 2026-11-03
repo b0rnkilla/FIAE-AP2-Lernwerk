@@ -2,7 +2,7 @@
 
 Eine deutschsprachige Lernapp für die FIAE-Abschlussprüfung Teil 2. Du schreibst eigene Lösungen und erhältst direkte Rückmeldung. Der erste verfügbare Themenbereich ist **SQL & Datenbanken**; weitere AP2-Themen folgen.
 
-**Entwicklungsstand: 0.1.1-alpha.3.** Die Anwendung läuft lokal und wird im Browser bedient. Windows-Pakete sind für die spätere Veröffentlichung vorgesehen.
+**Alpha-Version: 0.1.1-alpha.3.** Die Anwendung läuft lokal und wird im Browser bedient. Das Windows-Paket wird über die GitHub-Releases bereitgestellt.
 
 ## Das kannst du bereits lernen
 
@@ -15,24 +15,20 @@ Lösungen werden auf Microsoft SQL Server ausgeführt und mit zwei Datenbeständ
 
 ## Voraussetzungen
 
-- Windows und ein aktueller Browser.
-- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) zum Starten aus dem Quellprojekt.
+- Windows auf einem 64-Bit-Rechner und ein aktueller Browser.
 - [Microsoft SQL Server](https://www.microsoft.com/de-de/sql-server/sql-server-downloads), beispielsweise Express oder LocalDB. SSMS allein reicht nicht.
 
-Für die lokale App sind ein Konto oder eine KI-API nicht erforderlich. Für das erstmalige Laden der .NET-Pakete wird Internet benötigt.
+Das ZIP enthält die benötigte .NET-Laufzeit. Visual Studio, ein SDK oder eine separate .NET-Installation sind nicht erforderlich. SQL Server muss separat vorhanden sein. Für die lokale App sind ein Konto oder eine KI-API nicht erforderlich.
 
 ## Starten
 
-1. Das Quellprojekt herunterladen beziehungsweise mit entsprechender Berechtigung aus dem Repository klonen.
-2. Im Projektordner **Trainer-starten.cmd** öffnen.
-3. Im Browser **http://localhost:5080** aufrufen, falls sich die Seite nicht automatisch öffnet.
-4. Bei Bedarf über **Updates & SQL-Einrichtung** deine SQL-Instanz auswählen und die Verbindung prüfen und speichern.
+1. Im Repository rechts auf **[Releases](https://github.com/b0rnkilla/FIAE-AP2-Lernwerk/releases)** gehen und die aktuelle Version öffnen.
+2. Unter **Assets** das Windows-Paket **AP2-Lernwerk-…-win-x64.zip** herunterladen. Die automatisch angebotenen **Source code**-Archive sind nicht das fertige Programm.
+3. Das vollständige ZIP in einen eigenen Ordner entpacken und darin **AP2-Lernwerk.exe** starten. Die übrigen Dateien und Ordner daneben gehören dazu.
+4. Im Browser **http://localhost:5080** aufrufen, falls sich die Seite nicht automatisch öffnet.
+5. Bei Bedarf über **Updates & SQL-Einrichtung** deine SQL-Instanz auswählen und die Verbindung prüfen und speichern.
 
-Alternativ im Projektordner:
-
-```powershell
-dotnet run --project src/FiaeTrainer.Web
-```
+Bitte die EXE erst nach dem Entpacken starten. Eine kurze **ANLEITUNG.md** liegt dem Paket bei.
 
 Die App verwendet Windows-Anmeldung und legt ausschließlich ihre eigene Datenbank `FIAE_AP2_Training` an. Dafür benötigt die Anmeldung die entsprechenden SQL-Rechte. Eine vorhandene gleichnamige fremde Datenbank wird nicht übernommen. Zum Beenden im Programmfenster **Strg+C** drücken.
 
