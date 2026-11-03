@@ -203,6 +203,26 @@
 * Insgesamt 230 .NET-Fälle in Debug auf SQLEXPRESS und LocalDB sowie in Release auf SQLEXPRESS erfolgreich, keine übersprungenen Fälle oder Buildwarnungen/-fehler. Sechs JavaScript-Prüfungen erfolgreich. README, Projektsteckbrief, Lernkonzept, Startanleitung, Heimnetz-Dokumentation, Verbesserungsplan, AGENTS.md und Testprotokoll aktualisiert. Normale Heimnetz-Instanz mit aktueller Version wieder gestartet; private Verbindung und Alpha-ZIP per Prüfsumme unverändert. Lernprofil nach dem Neustart im Appbetrieb erneut gespeichert; 21 bisherige Abschlüsse weiterhin vorhanden, kein Reset oder Rückkopieren. Alle QA-Instanzen beendet; Endergebnisse im Testprotokoll.
 
 ---
+## 03.11.2026 – Modulstruktur, öffentliche Dokumentation und private Nutzungsbedingungen
+
+* Nutzer hat das GitHub-Repository erstellt und die Projektmappe selbst gepusht. README auf Lernumfang, Voraussetzungen, Start, Lernstand, Updates und Nutzungsbedingungen gekürzt. Rechnerbezogene Einzelheiten und Entwicklungsgespräch entfernt; technische Orientierung in docs/entwicklung.md zusammengefasst. Projektsteckbrief und Verbesserungsplan auf den aktuellen Stand gestrafft. Historische Protokolle bleiben erhalten.
+* MIT-Freigabe auf neue ausdrückliche Entscheidung für die Projektfassung 0.1.1-alpha.2 durch eigene private Nutzungsbedingungen ersetzt. Keine kommerzielle Nutzung, Programmänderung oder Weitergabe eingeräumt; bestimmungsgemäße Konfiguration, eigene Lösungen und persönliche Fortschritte erlaubt. Frühere MIT-Rechte, zwingende gesetzliche Rechte, GitHub-Plattformrechte und Drittanbieterlizenzen ausdrücklich ausgenommen. Ursprünglichen MIT-Text separat bewahrt. docs/lizenz.md erklärt Distribution, Reichweite und Grenzen des Wechsels; keine juristische Prüfung behauptet.
+* Core-Fachlogik unter Sql gegliedert: Content, Database, Investigation, Results, Validation und Workshop. Webdienste in Configuration, Learning, Networking, Sql und Updates gegliedert. SQL-Komponenten, Aufgabenseiten und allgemeine Lernbedienung getrennt; Namespaces und Verweise angepasst. Öffentliche Modelle, Lernbereich und Updatezustände in eigene Dateien aufgeteilt. Program.cs bleibt einziger C#-Einstieg im Web-Projektroot.
+* Gemeinsamen eingebetteten Ressourcenloader SqlContent aus dem Ermittlungsaufgabenkatalog gelöst. Beide Kataloge und der Datenbankzugriff verwenden ihn; keine Änderung der vier Inhaltsdateien, Datenbanknamen, Datenbankmarker oder JSON-Lernstände. Eine Profilmigration ist nicht erforderlich.
+* Alle vorhandenen XML-Summaries geprüft und die alte Bezeichnung Mission in C#-Kommentaren und Testmeldungen durch Aufgabe ersetzt. Ungenaue Beschreibungen von Verbindungsprüfung, Rechteumfang, Ergebnisgrenzen, Profilreset und Updatezeitpunkt präzisiert; nicht offensichtliche Ablaufmethoden zusätzlich erklärt. Historische Protokollsprache und technische CSS-Klassen nicht umbenannt.
+* 230 .NET-Fälle in Debug und Release mit echten SQL-Integrationstests sowie sechs JavaScript-Prüfungen erfolgreich. Ein isolierter Teststart benötigte Zugriff auf den lokalen Testprozess; anschließend vollständige erfolgreiche Wiederholung. Acht Seiten-/Ressourcenpfade separat über HTTP geprüft, aktuelle Version sichtbar. 27 relative Dokumentationslinks und unveränderte private Profildatei geprüft. Einzelheiten im Testprotokoll.
+* Release-Skript für die Mitlieferung des historischen Lizenzhinweises ergänzt und nur syntaktisch geprüft. Keine neue Paketierung, keine Git-Indexänderung, kein Commit oder Push. Die GitHub-API lieferte beim separaten anonymen Kontrollabruf weiterhin 404; diese Momentaufnahme wird nicht mehr als allgemeiner Zustand in öffentlichen Einstiegsdokumenten ausgegeben.
+
+---
+## 03.11.2026 – Lesbare deutsche Verbindungsanzeige und präzisierte Privatnutzung
+
+* Fehlerursache des Screenshots nachvollzogen: Das Standardfenster des Frameworks verwendet eine weiße Fläche und übernimmt die helle Textfarbe des dunklen Appdesigns. Eigenen statischen ReconnectModal außerhalb des interaktiven Lernbereichs ergänzt, dessen Text, Fläche, Rahmen und Aktionen die bestehenden semantischen Farben verwenden. Allgemeine Fehlerleiste einschließlich Linkfarbe präzisiert.
+* Browserseitige Ereignisse für Verbindungsaufbau, Wiederholung, Fehlschlag, abgelehnte Sitzung, Pause und fehlgeschlagenes Fortsetzen auf deutsche Texte abgebildet. Wiederverbinden und Resume laufen ohne .NET-UI-Ereignisse; mehrere Klicks starten keine parallelen Versuche. Kein automatisches Neuladen, damit ungesicherte Eingaben nicht unbeabsichtigt verschwinden. Hinweis auf diese Grenze im Dialog.
+* Klarstellung übernommen: Das Repository ist derzeit privat und hat keine Forks. Die vorherige Annahme öffentlich veröffentlichter MIT-Projektfassungen war nicht belegt. Aktuelle Lizenz Fassung 1.1 erlaubt ausschließlich die beschriebene private, nichtkommerzielle Nutzung; Änderungen, Weitergabe, Unterlizenzierung und öffentlicher/gewerblicher Betrieb nicht eingeräumt. Pauschale frühere Projekt-MIT-Freigabe und zusätzliche Fork-Klausel entfernt. Ursprünglichen Projektlizenzentwurf aus der aktuellen Dateisammlung und der Paketvorbereitung entfernt; fremde Original-Lizenzen unverändert erhalten. Historische Protokolle dienen nicht als aktuelle Lizenzfreigabe.
+* Zentrale Version 0.1.1-alpha.3. Öffentliche Dokumente und Projektvorgaben benennen den privaten Repositorystand und die erst künftig mögliche anonyme Releaseprüfung, ohne Zugangsschlüssel einzubauen. README, Projektsteckbrief, Entwickleranleitung, Lernkonzept, private Nutzungsbedingungen, Verbesserungsplan und Release-Anleitung nachgeführt.
+* Release-Build fehler- und warnungsfrei; 230 .NET-Tests einschließlich echter SQL-Prüfungen und 13 JavaScript-Prüfungen erfolgreich. Echten Abbruch ausschließlich am separaten Testserver geprüft, helle/dunkle Ansicht sichtbar kontrolliert und tatsächliche Textkontraste gemessen. Detailnachweise und Grenzen im Testprotokoll. Keine normale Lerninstanz beendet, keine Nutzerdaten für Tests geändert, keine Paketierung, kein Commit/Push.
+
+---
 ## Geplant
 
 
@@ -226,7 +246,7 @@
 
 ## Bekannte Grenzen
 
-* Aktuell 30 lesende SQL-Missionen und zehn schreibende Werkstattaufgaben, keine vollständige Abdeckung der AP2.
+* Aktuell 30 lesende SQL-Aufgaben und zehn schreibende Werkstattaufgaben, keine vollständige Abdeckung der AP2.
 * Zwei Prüfdatenbestände verbessern die Bewertung, beweisen aber nicht die Gleichwertigkeit beliebiger SQL-Abfragen.
 * Lernstand ist ein lokales Einzelbenutzerprofil. Die Erfolgsanzeige ist keine Bestehensprognose.
 * Vollständige Visual-Studio-Unterstützung für .NET 10 setzt Visual Studio 2026 voraus.

@@ -1,6 +1,6 @@
 # Coding Guideline
 
-Die allgemeinen Konventionen wurden aus der vom Nutzer bereitgestellten Guideline des Projekts DummyDataGenerator übernommen. Dessen fachliche Vorgaben zu SODYS, Importen und .NET Framework gehören nicht zu diesem Projekt.
+Konventionen für die Pflege und Erweiterung von AP2 Lernwerk mit C#, .NET und Blazor.
 
 ## Grundsatz
 
@@ -56,10 +56,14 @@ SQL-Texte werden nicht mit frei gewählten Datenbanknamen oder Zugriffen auf bes
 
 ## Lerninhalte und Erweiterungen
 
-Jede Mission benötigt einen Auftrag mit eindeutiger Spaltenreihenfolge, drei freiwillige Hinweise, eine ausführbare Referenzlösung und eine fachliche Erklärung. Alternative korrekte SQL-Formulierungen dürfen nicht wegen abweichender Aliase oder Formatierung scheitern. Duplikate, NULL und Sortierung müssen bewusst behandelt werden.
+Jede SQL-Aufgabe benötigt einen Auftrag mit eindeutiger Spaltenreihenfolge, drei freiwillige Hinweise, eine ausführbare Referenzlösung und eine fachliche Erklärung. Alternative korrekte SQL-Formulierungen dürfen nicht wegen abweichender Aliase oder Formatierung scheitern. Duplikate, NULL und Sortierung müssen bewusst behandelt werden.
 
 Neue SQL-Musterlösungen verwenden große Schlüsselwörter und Funktionen, Semikolon je äußerer Anweisung, kurze Tabellennamen und Datums-/Zeitwerte als YYYY-MM-DD HH:mm:ss. Story und Entdeckungen dürfen Ergebnisse anderer ungelöster Schritte nicht als bereits bestätigt voraussetzen.
 
 Neue Inhalts- oder Bewertungsänderungen werden mit geeigneten Tests geprüft. Eine reine Ergebnisgleichheit auf zwei Datensätzen ist keine vollständige semantische SQL-Analyse. Der begrenzte Umfang wird transparent dokumentiert.
 
 Keine echten Firmen-, Kunden- oder Personendaten übernehmen. Keine Zugangsdaten versionieren. Keine kostenpflichtige KI-Anbindung ohne gesonderte Entscheidung des Nutzers einbauen.
+
+## Ordner und Namespaces
+
+Fachlogik wird nach Lernmodul gruppiert, derzeit unter Core/Sql. Ermittlung, Werkstatt, Validierung, Ergebnisse, Datenbankzugriff und Inhalte erhalten dort eigene Ordner. Allgemeine Webdienste liegen unter Configuration, Learning, Networking und Updates; SQL-spezifische Webdienste unter Sql. Namespaces folgen dem Ordnerpfad. Öffentliche Typen erhalten eigene Dateien; zusammengehörige Teile einer partial class bleiben im selben Ordner. Program.cs bleibt als Einstieg im Web-Projektroot. Neue Lernmodule nicht in den SQL-Bereich einordnen. Die konkrete Struktur steht in entwicklung.md.

@@ -1211,8 +1211,70 @@ th,td {
     padding:16px 25px;
     background:var(--warning-bg);
     color:var(--warning-text);
-    z-index:100;
+    border-top:1px solid var(--warning-border);
+    z-index:10001;
     font-size:14px
+}
+
+#blazor-error-ui a {
+    color:inherit;
+    font-weight:700
+}
+
+/* Auch der Verbindungsdialog verwendet das gewählte Farbschema statt Blazors weißer Standardfläche. */
+.reconnect-dialog {
+    width:min(480px,calc(100% - 32px));
+    max-height:calc(100dvh - 32px);
+    margin:auto;
+    padding:32px;
+    overflow:auto;
+    border:1px solid var(--border-strong);
+    border-radius:24px;
+    background:var(--white);
+    color:var(--ink);
+    box-shadow:var(--shadow);
+    font:inherit;
+    text-align:left
+}
+
+.reconnect-dialog::backdrop {
+    background:rgb(5 11 21 / 65%)
+}
+
+.reconnect-dialog h2 {
+    margin:12px 0 16px;
+    font-size:28px
+}
+
+.reconnect-dialog p {
+    color:var(--ink)
+}
+
+.reconnect-actions {
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:24px
+}
+
+.reconnect-actions [hidden] {
+    display:none
+}
+
+.reconnect-dialog .reconnect-note {
+    margin:20px 0 0;
+    color:var(--muted);
+    font-size:13px
+}
+
+@media(max-width:480px) {
+    .reconnect-dialog { padding:24px; }
+    .reconnect-actions .button { width:100%; }
+}
+
+@media(forced-colors:active) {
+    .reconnect-dialog { background:Canvas; color:CanvasText; }
+    .reconnect-dialog p { color:CanvasText; }
 }
 
 h1:focus {

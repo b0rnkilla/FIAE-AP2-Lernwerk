@@ -1,4 +1,8 @@
-using FiaeTrainer.Core;
+using FiaeTrainer.Core.Sql;
+using FiaeTrainer.Core.Sql.Database;
+using FiaeTrainer.Core.Sql.Investigation;
+using FiaeTrainer.Core.Sql.Results;
+using FiaeTrainer.Core.Sql.Validation;
 using Xunit;
 
 namespace FiaeTrainer.Tests;
@@ -44,7 +48,7 @@ public sealed class SqlIntegrationTests : IAsyncLifetime
         foreach (Lesson lesson in catalog.Lessons)
         {
             Evaluation evaluation = await evaluator.EvaluateAsync(lesson, lesson.ReferenceSql);
-            Assert.True(evaluation.Correct, $"Mission {lesson.Id}: {evaluation.Message}");
+            Assert.True(evaluation.Correct, $"Aufgabe {lesson.Id}: {evaluation.Message}");
             Assert.Equal(expectedCounts[lesson.Id - 1], evaluation.Result.Rows.Count);
             Assert.Equal(expectedColumns[lesson.Id - 1], evaluation.Result.Columns.Count);
         }
@@ -87,7 +91,7 @@ public sealed class SqlIntegrationTests : IAsyncLifetime
             (28, "SELECT m.Id, m.Vorname, m.Nachname FROM fall.Mitarbeiter m WHERE EXISTS (SELECT 1 FROM fall.Fahrten r WHERE r.Zielort = 'Privatdepot');"),
             (30, "SELECT Id, Vorname, Nachname FROM fall.Mitarbeiter WHERE Id = 4;")];
         foreach (var attempt in wrong)
-            Assert.False((await evaluator.EvaluateAsync(catalog.Lessons[attempt.Id - 1], attempt.Sql)).Correct, $"Falsche Lösung zu Mission {attempt.Id} wurde angenommen.");
+            Assert.False((await evaluator.EvaluateAsync(catalog.Lessons[attempt.Id - 1], attempt.Sql)).Correct, $"Falsche Lösung zu Aufgabe {attempt.Id} wurde angenommen.");
 
         Evaluation alternative = await evaluator.EvaluateAsync(catalog.Lessons[16], "SELECT f.Id AS Nummer, f.Kennzeichen AS Schild FROM fall.Fahrzeuge f WHERE NOT EXISTS (SELECT 1 FROM fall.Sendungen s WHERE s.FahrzeugId = f.Id);");
         Assert.True(alternative.Correct, alternative.Message);

@@ -1,4 +1,4 @@
-using FiaeTrainer.Core;
+using FiaeTrainer.Core.Sql.Results;
 using Xunit;
 
 namespace FiaeTrainer.Tests;

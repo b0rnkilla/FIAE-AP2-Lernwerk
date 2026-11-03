@@ -1,4 +1,5 @@
-using FiaeTrainer.Core;
+using FiaeTrainer.Core.Sql.Validation;
+using FiaeTrainer.Core.Sql.Workshop;
 using Xunit;
 
 namespace FiaeTrainer.Tests;

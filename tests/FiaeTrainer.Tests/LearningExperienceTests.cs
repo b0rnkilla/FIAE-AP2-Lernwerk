@@ -1,8 +1,12 @@
-using System.Net;
-using FiaeTrainer.Core;
-using FiaeTrainer.Web;
-using FiaeTrainer.Web.Components;
+using FiaeTrainer.Core.Sql;
+using FiaeTrainer.Core.Sql.Investigation;
+using FiaeTrainer.Core.Sql.Results;
+using FiaeTrainer.Core.Sql.Workshop;
 using FiaeTrainer.Web.Components.Pages;
+using FiaeTrainer.Web.Components.Sql;
+using FiaeTrainer.Web.Components.Sql.Investigation;
+using FiaeTrainer.Web.Learning;
+using System.Net;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Hosting;

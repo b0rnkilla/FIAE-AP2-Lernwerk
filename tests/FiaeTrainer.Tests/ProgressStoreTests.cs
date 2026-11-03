@@ -1,4 +1,4 @@
-using FiaeTrainer.Web;
+using FiaeTrainer.Web.Learning;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
 using Xunit;
@@ -27,7 +27,7 @@ public sealed class ProgressStoreTests : IDisposable
     }
 
     [Fact]
-    public async Task ConcurrentMissionsAndAchievementsArePreserved()
+    public async Task ConcurrentLessonsAndAchievementsArePreserved()
     {
         ProgressStore store = CreateStore();
         await Task.WhenAll(store.SaveLessonAsync(1, new LessonProgress { Completed = true, Independent = true }), store.SaveLessonAsync(2, new LessonProgress { Sql = "Entwurf" }));

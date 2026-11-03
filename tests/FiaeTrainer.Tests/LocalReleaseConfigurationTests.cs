@@ -1,4 +1,4 @@
-using FiaeTrainer.Web;
+using FiaeTrainer.Web.Configuration;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 

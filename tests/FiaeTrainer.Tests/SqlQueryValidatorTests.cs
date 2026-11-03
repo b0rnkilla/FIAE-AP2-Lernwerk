@@ -1,4 +1,6 @@
-using FiaeTrainer.Core;
+using FiaeTrainer.Core.Sql;
+using FiaeTrainer.Core.Sql.Investigation;
+using FiaeTrainer.Core.Sql.Validation;
 using Xunit;
 
 namespace FiaeTrainer.Tests;
@@ -74,7 +76,7 @@ public sealed class SqlQueryValidatorTests
     }
 
     [Fact]
-    public void CatalogContainsThirtyCompleteMissions()
+    public void CatalogContainsThirtyCompleteLessons()
     {
         LessonCatalog catalog = new();
         Assert.Equal(Enumerable.Range(1, 30), catalog.Lessons.Select(x => x.Id));

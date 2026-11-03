@@ -1,9 +1,16 @@
+using System.Diagnostics;
 using System.Globalization;
 using System.Net;
-using System.Diagnostics;
-using FiaeTrainer.Core;
-using FiaeTrainer.Web;
+using FiaeTrainer.Core.Sql.Database;
+using FiaeTrainer.Core.Sql.Investigation;
+using FiaeTrainer.Core.Sql.Validation;
+using FiaeTrainer.Core.Sql.Workshop;
 using FiaeTrainer.Web.Components;
+using FiaeTrainer.Web.Configuration;
+using FiaeTrainer.Web.Learning;
+using FiaeTrainer.Web.Networking;
+using FiaeTrainer.Web.Sql;
+using FiaeTrainer.Web.Updates;
 
 string releaseSettings = Path.Combine(AppContext.BaseDirectory, LocalReleaseConfiguration.SETTINGS_FILE_NAME);
 bool localRelease = File.Exists(releaseSettings);

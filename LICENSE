@@ -1,21 +1,72 @@
-MIT License
+AP2 Lernwerk – Nutzungsbedingungen für die private Nutzung
+Fassung 1.1 vom 03.11.2026; Projektfassung ab 0.1.1-alpha.3
 
-Copyright (c) 2026 AP2 Lernwerk contributors
+Copyright (c) 2026 b0rnkilla, soweit eigene Schutzrechte bestehen.
+Projekt: https://github.com/b0rnkilla/FIAE-AP2-Lernwerk
+Alle nicht ausdrücklich eingeräumten Rechte bleiben vorbehalten.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+1. Geltungsbereich
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Diese Bedingungen gelten für die eigenen Programmteile, Lerninhalte und
+Dokumente von AP2 Lernwerk in dieser und nachfolgenden entsprechend
+gekennzeichneten Fassungen. Für Komponenten Dritter gilt Abschnitt 5.
+Dies ist keine Open-Source-Lizenz.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+2. Erlaubte private Nutzung
+
+Natürliche Personen dürfen die unveränderte Software unentgeltlich für das
+eigene, nichtkommerzielle Lernen auf ihren eigenen Geräten herunterladen,
+installieren und ausführen. Dazu zählen die persönliche Prüfungsvorbereitung
+im Rahmen einer Ausbildung oder Umschulung sowie private Sicherungskopien.
+Der unveränderte Quelltext darf für diesen Zweck lokal übersetzt werden.
+
+Die vorgesehenen Einstellungen, eigene Übungslösungen und persönliche
+Lernstände dürfen angelegt, geändert, gesichert und zurückgesetzt werden.
+Diese bestimmungsgemäße Nutzung ist keine untersagte Programmänderung.
+Private Vorführungen ohne Weitergabe der Software sind ebenfalls erlaubt.
+
+3. Nicht eingeräumte Rechte
+
+Ohne vorherige ausdrückliche Erlaubnis des Rechteinhabers sind insbesondere
+nicht gestattet:
+
+- kommerzielle oder betriebliche Nutzung, Verkauf, Vermietung und der Einsatz
+  als Bestandteil entgeltlicher Angebote oder Schulungsleistungen;
+- Bearbeitung oder Veränderung des Programmcodes, der mitgelieferten
+  Lerninhalte und Dokumentation sowie die Erstellung abgeleiteter Software;
+- Weitergabe oder Veröffentlichung von Kopien, ob unverändert oder verändert,
+  einschließlich eigener Downloadangebote, Softwarepakete und Unterlizenzen;
+- Bereitstellung als öffentlich oder für Dritte zugänglicher Onlinedienst.
+
+Statt Dateien weiterzugeben, darf auf das offizielle Repository oder dessen
+offizielle Releases verlinkt werden. Die persönliche Prüfungsvorbereitung
+nach Abschnitt 2 wird nicht allein durch das Bestehen eines Ausbildungs-
+oder Arbeitsverhältnisses zur untersagten betrieblichen Nutzung.
+
+4. Vorbehaltene Rechte
+
+Außer der in Abschnitt 2 beschriebenen privaten Nutzung werden keine
+Nutzungsrechte eingeräumt. Insbesondere begründen der Zugriff auf das
+Repository, der Besitz einer Kopie oder die unentgeltliche Bereitstellung
+keine Erlaubnis zur Bearbeitung, kommerziellen Nutzung, Weiterverbreitung
+oder Unterlizenzierung. Eine solche Nutzung bedarf einer gesonderten
+ausdrücklichen Erlaubnis des Rechteinhabers.
+
+Zwingende gesetzliche Rechte bleiben unberührt.
+
+5. Drittanbieter
+
+Bibliotheken, Laufzeiten, Schriftarten und andere Drittanbieterkomponenten
+unterliegen ihren eigenen Lizenzen. Diese werden durch die Einschränkungen
+dieser Projektlizenz nicht abgeändert. Originalhinweise sind zu beachten;
+Windows-Paketen werden die entsprechenden Drittanbieterhinweise beigefügt.
+
+6. Verfügbarkeit und Haftung
+
+Die Software wird unentgeltlich im jeweiligen Entwicklungsstand angeboten.
+Ein bestimmter Lernerfolg, eine Prüfungsnote, Fehlerfreiheit, dauerhafte
+Verfügbarkeit oder zukünftige Pflege werden nicht zugesagt.
+
+Gewährleistung und Haftung sind nur im gesetzlich zulässigen Umfang
+beschränkt. Zwingende Haftung, insbesondere für Vorsatz, grobe Fahrlässigkeit
+und Schäden an Leben, Körper oder Gesundheit, bleibt unberührt.

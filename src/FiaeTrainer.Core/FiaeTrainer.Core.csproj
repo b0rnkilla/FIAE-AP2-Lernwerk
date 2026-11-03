@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <EmbeddedResource Include="Content/*.json" />
-    <EmbeddedResource Include="Content/*.sql" />
+    <EmbeddedResource Include="Sql/Content/*.json" />
+    <EmbeddedResource Include="Sql/Content/*.sql" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.1.1" />

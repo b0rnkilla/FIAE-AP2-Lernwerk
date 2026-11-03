@@ -1,9 +1,9 @@
+using FiaeTrainer.Web.Components.Updates;
+using FiaeTrainer.Web.Updates;
 using System.Net;
 using System.Text;
 using System.Text.Json;
-using FiaeTrainer.Web;
 using Xunit;
-using FiaeTrainer.Web.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,5 +1,10 @@
-using FiaeTrainer.Core;
-using FiaeTrainer.Web;
+using FiaeTrainer.Core.Sql;
+using FiaeTrainer.Core.Sql.Database;
+using FiaeTrainer.Core.Sql.Investigation;
+using FiaeTrainer.Core.Sql.Validation;
+using FiaeTrainer.Web.Configuration;
+using FiaeTrainer.Web.Networking;
+using FiaeTrainer.Web.Sql;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;

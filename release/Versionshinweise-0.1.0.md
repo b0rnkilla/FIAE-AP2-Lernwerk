@@ -1,5 +1,7 @@
 # AP2 Lernwerk 0.1.0
 
+Historische Versionshinweise zur nicht öffentlich verteilten Testfassung 0.1.0. Das alte Paket enthielt einen inzwischen verworfenen MIT-Lizenzentwurf und wird nicht als aktuelle Veröffentlichung angeboten.
+
 Erste lokale Windows-Version des deutschsprachigen FIAE-AP2-Trainers.
 
 * 30 aufeinander aufbauende SQL-Aufgaben in der Fallakte Nachtzug.
@@ -19,4 +21,4 @@ Die Anwendung läuft im eigenen Browser auf localhost. Es gibt kein Onlinekonto 
 
 SQL ist das erste verfügbare Modul. Pseudocode, UML und weitere AP2-Themen sind als künftige Lernbereiche gekennzeichnet. Eigene Übungsinhalte, keine offiziellen IHK-Prüfungsaufgaben und keine Bestehensprognose.
 
-Das Projekt steht unter der MIT-Lizenz. Lizenz- und Drittanbieterhinweise sind im Paket enthalten. Zum Download gehören ZIP und SHA256-Datei.
+Für eine spätere Veröffentlichung gelten die aktuellen privaten Nutzungsbedingungen in LICENSE. Eigenständige Drittanbieterhinweise bleiben erforderlich. Ein fertiger Download soll aus ZIP und passender SHA256-Datei bestehen.

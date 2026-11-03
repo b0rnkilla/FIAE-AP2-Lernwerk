@@ -1,6 +1,6 @@
 # Optionale Vorführung im Heimnetz
 
-Stand: 03.11.2026. Aktuelle Nutzerentscheidung: lokale Windows-Releases über GitHub. Login, Registrierung, Benutzertabellen, Homeserver und nginx sind nicht mehr geplant. Die folgenden Netzwerkangaben gelten nur für die bereits vorhandene optionale Vorführung.
+Stand: 0.1.1-alpha.3 · 03.11.2026. Aktuelle Nutzerentscheidung: lokale Windows-Releases über GitHub. Login, Registrierung, Benutzertabellen, Homeserver und nginx sind nicht mehr geplant. Die folgenden Netzwerkangaben gelten für eine private Vorführung ohne Weitergabe. Sie erweitern die [Nutzungsbedingungen](../LICENSE) nicht.
 
 ## Jetzt: Vorführung im Heimnetz
 
@@ -8,7 +8,7 @@ Stand: 03.11.2026. Aktuelle Nutzerentscheidung: lokale Windows-Releases über Gi
 2. Im Projektordner **Trainer-im-Netzwerk-starten.cmd** starten und das Fenster geöffnet lassen.
 3. Auf diesem Rechner bleibt **http://localhost:5080** erreichbar. Auf dem anderen Rechner die im Startfenster angezeigte Heimnetzadresse öffnen.
 
-Bei der Einrichtung lautete die WLAN-Adresse **192.168.1.21**, entsprechend **http://192.168.1.21:5080**. DHCP, ein anderes WLAN oder ein anderer Rechner können diese Adresse ändern. localhost bezeichnet auf dem zweiten Rechner diesen zweiten Rechner, nicht den Trainer-Rechner.
+Verwende die im Startfenster angezeigte Adresse des Trainer-Rechners mit Port 5080. Die Netzwerkadresse kann sich durch DHCP oder einen Netzwerkwechsel ändern. localhost bezeichnet auf dem zweiten Rechner diesen zweiten Rechner, nicht den Trainer-Rechner.
 
 Der Trainer-Rechner muss eingeschaltet, mit dem Netzwerk verbunden und wach bleiben. Eine Teams-Bildschirmfreigabe funktioniert unabhängig davon; Teilnehmer außerhalb des Heimnetzes können die private Adresse nicht allein über Teams öffnen.
 

@@ -1,6 +1,6 @@
 # AP2 Lernwerk lokal starten
 
-Stand der Dokumentation: 0.1.1-alpha.1 in Entwicklung. Das vorhandene ZIP 0.1.0 bleibt eine frühe Momentaufnahme und enthält die anschließend ergänzte Versions-/Updateanzeige und Einrichtungsseite noch nicht. Neue Pakete werden erst zum Abschluss oder nach ausdrücklicher Anweisung erstellt.
+Stand der Dokumentation: 0.1.1-alpha.3 in Entwicklung. Das vorhandene ZIP 0.1.0 bleibt eine frühe Momentaufnahme und enthält die anschließend ergänzte Versions-/Updateanzeige und Einrichtungsseite noch nicht. Neue Pakete werden erst zum Abschluss oder nach ausdrücklicher Anweisung erstellt.
 
 ## Voraussetzungen
 
@@ -24,6 +24,10 @@ Läuft schon ein Trainer auf Port 5080, beende ihn vor dem Start einer neuen Fas
 ```powershell
 .\AP2-Lernwerk.exe --urls http://localhost:5082
 ```
+
+## Unterbrochene Verbindung
+
+Der deutschsprachige Dialog zeigt, ob die App eine Verbindung sucht, ein erneuter Versuch nötig ist oder die Sitzung nicht mehr verfügbar ist. **Erneut verbinden** beziehungsweise **Weiterlernen** versucht die bestehende Sitzung fortzusetzen. **Seite neu laden** beginnt eine neue Verbindung. Gespeicherte Lernstände bleiben erhalten; noch nicht gespeicherte Eingaben können beim Neuladen verloren gehen. Auch dieser Dialog folgt System/Hell/Dunkel.
 
 ## Wo bleibt mein Lernstand?
 
@@ -66,15 +70,15 @@ Die bisherige Anwendung beenden, das neue vollständige ZIP in einen neuen Ordne
 Aus dem Quellprojekt lässt sich ein nummeriertes Windows-Paket erstellen:
 
 ```powershell
-.\Release-erstellen.ps1 -Version 0.1.1-alpha.1
+.\Release-erstellen.ps1 -Version 0.1.1-alpha.3
 ```
 
 Ohne Versionsparameter verwendet das Skript die zentrale Version aus Directory.Build.props. Während der laufenden Entwicklung wird es nicht automatisch ausgeführt. Dafür sind das im Projekt festgelegte .NET-SDK und beim ersten Wiederherstellen der Windows-Laufzeitpakete Internetzugang erforderlich. Der Ablauf erstellt ein neues Buildverzeichnis und schreibt ZIP sowie SHA256-Datei nach artifacts/releases. Vorhandene gleich nummerierte ZIP-Dateien werden nicht überschrieben. Private Konfiguration, Fortschrittsdateien, QA-Profile und Protokolle werden vor dem Verpacken abgeprüft.
 
-Zum öffentlichen GitHub-Release gehören das geprüfte ZIP, seine Prüfsumme und passende Versionshinweise. Das Skript lädt nichts hoch. Eine GitHub-Automatisierung ist noch nicht eingerichtet. Das Projekt steht auf ausdrücklichen Nutzerwunsch unter der MIT-Lizenz; LICENSE wird mitgeliefert. DRITTANBIETER.md und der Ordner Lizenzen dokumentieren die aufgelösten NuGet-Pakete und enthalten die vorhandenen Originalhinweise. Die jeweiligen Drittanbieterlizenzen gelten unabhängig von der Projektlizenz.
+Zum öffentlichen GitHub-Release gehören das geprüfte ZIP, seine Prüfsumme und passende Versionshinweise. Das Skript lädt nichts hoch. Eine GitHub-Automatisierung ist noch nicht eingerichtet. Für die aktuelle Projektfassung gelten die Bedingungen zur privaten Nutzung in LICENSE. LICENSE wird mitgeliefert; eine MIT-Freigabe des Projekts ist nicht vorgesehen. Drittanbieterlizenzen bleiben unabhängig davon wirksam; siehe [Private Nutzung](lizenz.md). DRITTANBIETER.md und der Ordner Lizenzen dokumentieren die aufgelösten NuGet-Pakete und enthalten die vorhandenen Originalhinweise. Die jeweiligen Drittanbieterlizenzen gelten unabhängig von der Projektlizenz.
 
 Das erste Paket ist nicht mit einem Code-Signing-Zertifikat signiert. Ein Test auf einem frisch eingerichteten fremden Windows-Rechner bleibt vor dem öffentlichen Release sinnvoll; lokale Tests ersetzen diese Prüfung nicht.
 
 ## Öffentliche Updatequelle
 
-Repository: https://github.com/b0rnkilla/FIAE-AP2-Lernwerk. Die Prüfung liest maximal 100 öffentliche Releases ohne Authentifizierung, benötigt einen gültigen SemVer-Tag und einen fertig hochgeladenen Anhang *-win-x64.zip. Alpha-Fassungen berücksichtigen Vorabversionen; stabile Fassungen bleiben beim stabilen Kanal. Abfragen haben ein kurzes Timeout und werden bei Wiederholung innerhalb einer Minute zusammengefasst. Fehler werden von „keine neuere Version“ unterschieden. Unter Updates & SQL-Einrichtung kann die automatische Startprüfung ausgeschaltet werden.
+Das Repository https://github.com/b0rnkilla/FIAE-AP2-Lernwerk ist derzeit privat. Ohne öffentliche Releases ist noch keine anonyme Updatequelle verfügbar. Die vorbereitete Prüfung benötigt später öffentlich erreichbare Releases und verwendet keine Zugangsschlüssel. Die Prüfung liest maximal 100 öffentliche Releases ohne Authentifizierung, benötigt einen gültigen SemVer-Tag und einen fertig hochgeladenen Anhang *-win-x64.zip. Alpha-Fassungen berücksichtigen Vorabversionen; stabile Fassungen bleiben beim stabilen Kanal. Abfragen haben ein kurzes Timeout und werden bei Wiederholung innerhalb einer Minute zusammengefasst. Fehler werden von „keine neuere Version“ unterschieden. Unter Updates & SQL-Einrichtung kann die automatische Startprüfung ausgeschaltet werden.

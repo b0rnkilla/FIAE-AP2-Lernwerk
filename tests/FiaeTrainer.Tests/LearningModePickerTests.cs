@@ -1,4 +1,4 @@
-using FiaeTrainer.Web.Components;
+using FiaeTrainer.Web.Components.Learning;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;

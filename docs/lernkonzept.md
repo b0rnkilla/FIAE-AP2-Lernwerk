@@ -8,11 +8,11 @@ Lernschritte kennzeichnen Auftrag und Editor. **Lösung prüfen** lädt zur Rüc
 
 ## Didaktischer Ablauf
 
-Ein Kapitel erweitert den vorhandenen Wortschatz um wenige SQL-Bausteine. Jede Mission besteht aus Geschichte, kurzer Erklärung, eindeutigem Auftrag, freiem Editor und überprüfbarem Ergebnis. Hilfen werden einzeln auf Wunsch geöffnet. Eine aufgedeckte Musterlösung wird als Unterstützung gespeichert.
+Ein Kapitel erweitert den vorhandenen Wortschatz um wenige SQL-Bausteine. Jede Aufgabe besteht aus Geschichte, kurzer Erklärung, eindeutigem Auftrag, freiem Editor und überprüfbarem Ergebnis. Hilfen werden einzeln auf Wunsch geöffnet. Eine aufgedeckte Musterlösung wird als Unterstützung gespeichert.
 
 Die Geschichte ist ein Anlass zum Abfragen; fachliche Lernziele und präzise Ausgabespalten stehen ausdrücklich im Auftrag. Der Name „Nachtzug“ ist der Deckname des Falls, kein Hinweis auf eine vorhandene Eisenbahntabelle.
 
-| Missionen | Fachlicher Schwerpunkt |
+| Aufgaben | Fachlicher Schwerpunkt |
 | --- | --- |
 | 1–6 | Spalten, Filter, logische Bedingungen, Sortierung, TOP |
 | 7–12 | Grenzen, Muster, Listen, fehlende Werte, Eindeutigkeit, Zeitintervalle |
@@ -97,7 +97,7 @@ Der Lernplan gibt keine Wochen vor. Er bietet neue Aufgaben ohne bisherigen Entw
 
 ## Lokale Windows-Verteilung (03.11.2026)
 
-Die Veröffentlichung verwendet eine eigenständige Windows-x64-EXE mit eingebauter .NET-/ASP.NET-Core-Laufzeit und Browseroberfläche. Der SQL Server bleibt separat. Login, Registrierung, Nutzertabellen und öffentlicher Homeserver-/nginx-Betrieb sind auf Nutzerwunsch entfallen. Das Quellprojekt behält seinen bisherigen Speicherort und optionalen Heimnetz-Modus.
+Die spätere Veröffentlichung verwendet eine eigenständige Windows-x64-EXE mit eingebauter .NET-/ASP.NET-Core-Laufzeit und Browseroberfläche. Der SQL Server bleibt separat. Login, Registrierung, Nutzertabellen und öffentlicher Homeserver-/nginx-Betrieb sind auf Nutzerwunsch entfallen. Das Quellprojekt behält seinen bisherigen Speicherort und optionalen Heimnetz-Modus.
 
 Nur das Publish-Paket enthält appsettings.Release.json als Startkennzeichnung. Es lädt Inhalte unabhängig vom aktuellen Arbeitsverzeichnis aus dem Programmordner; persönliche Einstellungen kommen aus LocalApplicationData/AP2-Lernwerk/appsettings.Local.json. Der Fortschritt liegt standardmäßig daneben unter progress. Umgebungsvariablen und Startparameter können Einstellungen gezielt überschreiben; QA-Starts erhalten dadurch ein eigenes Profil. Die Konfiguration im Paket ist eine allgemeine SQL-Express-Vorlage. Private Einstellungen und Lernstände werden nicht übernommen. Release-erstellen.ps1 erzeugt einen neuen Stagingordner, prüft den Inhalt, fügt Lizenzhinweise hinzu und erzeugt ZIP plus SHA256-Datei.
 
@@ -108,3 +108,11 @@ Die zentrale Version in Directory.Build.props wird über AssemblyInformationalVe
 Die SQL-Erkennung liest registrierte lokale Instanzen und LocalDB-Installationen aus beiden Windows-Registryansichten. Sie verändert keine Dienste und probiert keine willkürlichen Instanzen aus. Die echte Verbindung wird beim Start zur gespeicherten Instanz beziehungsweise bei einer vom Nutzer gewählten Einrichtung geprüft. LocalSettingsStore erzeugt für das Formular eine Windows-Anmeldung mit festem Trainingsdatenbanknamen und schreibt erst nach erfolgreichem Vorbereiten der eigenen Datenbank. Unbekannte oder beschädigte Einstellungsbereiche werden erhalten beziehungsweise nicht überschrieben.
 
 DatabaseState hält die aktuell geprüfte TrainingDatabase-Instanz. Neue SQL-Seiten erhalten darüber eigene Evaluatoren; laufende Auswertungen behalten ihre immutable Verbindung, damit ein Einstellungswechsel keine halbe Bewertung zwischen zwei Servern mischt. Bereits geöffnete Seiten nach einem Wechsel neu öffnen. Konfigurationsänderungen sind im Heimnetz-Modus serverseitig gesperrt, bevor ein neuer Datenbankserver angesprochen wird. [Microsoft: Instanzregistrierung](https://learn.microsoft.com/en-us/sql/sql-server/install/file-locations-for-default-and-named-instances-of-sql-server), [Microsoft: LocalDB-Registrierung](https://learn.microsoft.com/en-us/sql/relational-databases/express-localdb-instance-apis/sql-server-express-localdb-header-and-version-information).
+
+## Orientierung im Quellprojekt
+
+Seit 0.1.1-alpha.2 liegt die SQL-Fachlogik vollständig unter FiaeTrainer.Core/Sql mit getrennten Bereichen für Inhalte, Datenbank, Ermittlung, Ergebnisse, Prüfung und Werkstatt. Allgemeine Webdienste und Lernbedienelemente sind vom SQL-Modul getrennt. Namespaces entsprechen den Ordnern. Die Bewertung, Datenbankidentität und JSON-Lernstände ändern sich dadurch nicht. Der Ressourcenloader SqlContent gehört zum Inhaltsbereich und wird von beiden Katalogen und dem Datenbankzugriff verwendet. Konkrete Einstiegspunkte: [Entwicklung](entwicklung.md).
+
+## Verbindungsabbrüche und Sitzungsfortsetzung
+
+Seit 0.1.1-alpha.3 ersetzt ein statischer deutscher Dialog die Standardanzeige des Frameworks. Er bleibt ohne aktive Blazor-Verbindung bedienbar und verwendet dieselben Flächen-, Text- und Aktionsfarben wie die App. Zustände für Suche, Wiederholungsversuch, Pause, fehlgeschlagenes Fortsetzen und verlorene Sitzung werden getrennt erklärt. Der Nutzer entscheidet selbst über ein Neuladen; die Oberfläche verspricht keinen Erhalt ungesicherter Eingaben. Die allgemeine Fehlerleiste verwendet ausdrücklich die Warnfarben auch für ihren Link. [Microsoft: Verbindungszustand und eigener Dialog](https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/signalr?view=aspnetcore-10.0#reflect-the-server-side-connection-state-in-the-ui).

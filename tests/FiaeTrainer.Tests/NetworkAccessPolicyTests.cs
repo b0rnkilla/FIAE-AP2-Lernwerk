@@ -1,5 +1,5 @@
+using FiaeTrainer.Web.Networking;
 using System.Net;
-using FiaeTrainer.Web;
 using Xunit;
 
 namespace FiaeTrainer.Tests;
