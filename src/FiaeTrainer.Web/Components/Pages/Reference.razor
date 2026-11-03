@@ -1,0 +1,36 @@
+@page "/nachschlagen"
+<PageTitle>SQL-Spickzettel · AP2 Lernwerk</PageTitle>
+<main class="page reading-page"><div class="eyebrow">VERSTEHEN STATT ABSCHREIBEN</div><h1>Dein SQL-Spickzettel.</h1><p class="lead">Ein kurzer Überblick für die Ermittlungsakte. Die Beispiele verwenden die Falltabellen und den SQL-Server-Dialekt T-SQL.</p>
+    <section class="reference-section"><h2>Schreibregeln im Trainer</h2><p>Schreibe SQL-Schlüsselwörter und Funktionen groß, zum Beispiel SELECT, FROM, WHERE und COUNT. Jede vollständige Anweisung endet mit einem Semikolon. Tabellen, Spalten, Aliase und Textwerte behalten ihre Schreibweise. Innerhalb einer Unterabfrage steht kein zusätzliches Semikolon.</p></section>
+    <section class="reference-section"><h2>Die Reihenfolge beim Schreiben</h2><pre><code>SELECT Zielort, COUNT(*) AS Anzahl
+FROM Sendungen
+WHERE Status = 'Offen'
+GROUP BY Zielort
+HAVING COUNT(*) >= 2
+ORDER BY Anzahl DESC, Zielort ASC;</code></pre><p><strong>Gedanklich:</strong> Tabellen verbinden → Zeilen filtern → Gruppen bilden → Gruppen filtern → Ausgabespalten berechnen → Ergebnis sortieren. SQL besitzt weitere Details; diese Reihenfolge hilft bei den Aufgaben der Ermittlungsakte.</p></section>
+    <section class="reference-section"><h2>Filter, Texte und fehlende Werte</h2><dl><dt>AND / OR</dt><dd>AND bindet stärker. Setze Klammern, wenn Alternativen zusammengehören.</dd><dt>LIKE 'S%'</dt><dd>Beginnt mit S. % steht für beliebig viele Zeichen, _ für genau ein Zeichen.</dd><dt>IN ('Essen', 'Köln')</dt><dd>Ein Treffer aus einer Werteliste genügt.</dd><dt>BETWEEN 10 AND 20</dt><dd>Beide Grenzen sind eingeschlossen.</dd><dt>IS NULL / IS NOT NULL</dt><dd>Auf fehlende Werte prüfen. Nicht = NULL verwenden.</dd><dt>'Text' und N'Text'</dt><dd>Einfache Anführungszeichen für Zeichenketten. Das N kennzeichnet Unicode-Text in T-SQL.</dd></dl></section>
+    <section class="reference-section"><h2>Welche Anführungszeichen brauche ich?</h2><p>Textwerte stehen in einfachen Anführungszeichen: <code>WHERE Status = 'verschwunden'</code>. Doppelte Anführungszeichen kennzeichnen bei der hier verwendeten SQL-Server-Einstellung Spalten- und Tabellennamen: <code>SELECT "Id" FROM "Sendungen";</code> ist gültig, <code>WHERE Status = "verschwunden"</code> sucht dagegen eine Spalte namens verschwunden.</p><p>Enthält ein Text selbst ein einfaches Anführungszeichen, verdoppelst du es: <code>'O''Brien'</code>. Doppelte Anführungszeichen innerhalb eines korrekt begrenzten Textes bleiben normale Zeichen, zum Beispiel <code>'Er sagt "Hallo"'</code>.</p></section>
+    <section class="reference-section"><h2>JOINs: Schlüssel statt ähnlich aussehender Nummern</h2><pre><code>SELECT s.Id, f.Kennzeichen
+FROM Sendungen AS s
+LEFT JOIN Fahrzeuge AS f ON s.FahrzeugId = f.Id;</code></pre><p>INNER JOIN zeigt nur passende Kombinationen. LEFT JOIN erhält alle linken Datensätze und ergänzt bei fehlenden rechten Partnern NULL. Ein Filter auf rechte Spalten in WHERE kann diese erhaltenen Zeilen wieder entfernen.</p></section>
+    <section class="reference-section"><h2>Zählen und gruppieren</h2><p><code>COUNT(*)</code> zählt Zeilen. <code>COUNT(Spalte)</code> zählt nur Nicht-NULL-Werte. Nach LEFT JOIN ist deshalb häufig <code>COUNT(rechteTabelle.Id)</code> erforderlich, damit null Treffer korrekt als 0 erscheinen.</p><p>Jede gewöhnliche ausgewählte Spalte gehört bei diesen Aufgaben in GROUP BY. WHERE filtert einzelne Zeilen, HAVING filtert die gebildeten Gruppen. SUM, AVG, MIN und MAX ignorieren NULL; über einer leeren Menge liefern sie NULL, COUNT liefert 0.</p></section>
+    <section class="reference-section"><h2>Unterabfragen</h2><pre><code>SELECT m.Id, m.Nachname
+FROM Mitarbeiter AS m
+WHERE EXISTS (
+    SELECT 1 FROM Fahrten AS r
+    WHERE r.MitarbeiterId = m.Id
+);</code></pre><p>EXISTS fragt nach mindestens einem passenden Datensatz. Die Korrelation <code>r.MitarbeiterId = m.Id</code> bindet die innere Suche an die aktuelle Person. NOT EXISTS sucht fehlende Partner. Bei NOT IN können NULL-Werte in der Unterabfrage dazu führen, dass unerwartet keine Zeilen übrig bleiben.</p></section>
+    <section class="reference-section"><h2>SQL-Server-Besonderheiten</h2><p><code>TOP (3)</code> statt LIMIT; für eine verlässliche Auswahl mit ORDER BY kombinieren. Texte und Datumswerte stehen in einfachen Anführungszeichen. Wir verwenden Datums-/Zeitwerte wie <code>'2026-10-12 20:00:00'</code>. Der Trainer führt Abfragen mit der Datumsreihenfolge Jahr–Monat–Tag aus. In anderen SQL-Server-Umgebungen ist <code>'2026-10-12T20:00:00'</code> für datetime2 unabhängig von Sprache und DATEFORMAT eindeutig.</p><p>Für einen ganzen Tag mit Uhrzeiten: <code>Zeitpunkt &gt;= '2026-10-12 00:00:00' AND Zeitpunkt &lt; '2026-10-13 00:00:00'</code>. Ohne ORDER BY ist eine Reihenfolge nicht zugesichert.</p></section>
+    <section class="reference-section"><h2>Daten ändern: die Werkstatt</h2><pre><code>UPDATE Artikel SET Preis = Preis * 1.10
+WHERE Kategorie = 'Sensoren';
+
+INSERT INTO Artikel (Id, Name, Kategorie, Preis, Bestand, Aktiv)
+VALUES (90, 'Feuchtesensor', 'Sensoren', 32.50, 8, 1);
+
+DELETE FROM Artikel WHERE Aktiv = 0;</code></pre><p>UPDATE ändert vorhandene Zeilen, INSERT fügt neue ein, DELETE entfernt ganze Zeilen. WHERE begrenzt UPDATE und DELETE. Ohne WHERE wirken sie grundsätzlich auf alle Zeilen. Die <a href="/sql-werkstatt">SQL-Werkstatt</a> lässt dich diese Befehle mit frischen Arbeitskopien selbst erproben.</p></section>
+    <section class="reference-section"><h2>Struktur, Regeln und Transaktionen</h2><p>CREATE TABLE legt eine Tabelle an; ALTER TABLE verändert ihre Struktur. PRIMARY KEY erzwingt eindeutige, nicht leere Schlüssel. NOT NULL verlangt einen Wert. CHECK kontrolliert eine Bedingung; UNKNOWN bei SQL-NULL verletzt CHECK nicht automatisch, deshalb brauchen Pflichtwerte zusätzlich NOT NULL.</p><pre><code>BEGIN TRANSACTION;
+UPDATE Konten SET Guthaben = Guthaben - 50 WHERE Id = 1;
+UPDATE Konten SET Guthaben = Guthaben + 50 WHERE Id = 2;
+COMMIT;</code></pre><p>COMMIT bestätigt die zusammengehörigen Änderungen, ROLLBACK nimmt sie zurück. In einer echten Anwendung gehört eine passende Fehlerbehandlung dazu. In der Werkstatt zeigt der Zwischenstand vor ROLLBACK auch den versuchsweisen Abzug.</p></section>
+    <section class="notice"><strong>Was diese Version noch nicht vollständig abdeckt</strong><p>Fremdschlüssel als ausführbare Strukturaufgabe, Berechtigungen, UNION und weitere SQL-Themen fehlen noch. Pseudocode, UML und die übrigen Module sind in Vorbereitung. Die App ist kein vollständiger SQL- oder AP2-Prüfungskatalog.</p></section>
+</main>

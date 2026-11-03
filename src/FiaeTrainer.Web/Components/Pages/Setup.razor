@@ -1,0 +1,91 @@
+@page "/einrichtung"
+@implements IDisposable
+@inject AppVersionInfo Version
+@inject UpdateChecker Updates
+@inject LocalSettingsStore Settings
+@inject SqlInstanceDiscovery Discovery
+@inject DatabaseState Database
+<PageTitle>Updates &amp; SQL-Einrichtung · AP2 Lernwerk</PageTitle>
+<main class="page reading-page setup-page">
+    <span class="eyebrow">DEIN LOKALES LERNWERK</span><h1>Updates &amp;<br /><em>SQL-Einrichtung.</em></h1>
+    <section class="setup-section" id="updates">
+        <h2>Deine Version <span class="badge">@Version.Display</span></h2>
+        @if (Version.IsPrerelease) { <p>Du verwendest eine frühe Testversion. Für diesen Versionskanal werden auch neuere veröffentlichte Vorabversionen berücksichtigt.</p> }
+        <label class="setup-check"><input type="checkbox" checked="@Updates.Enabled" disabled="@(_busy || !Settings.CanEdit || Updates.Status == UpdateCheckStatus.Checking)" @onchange="SetUpdatePreferenceAsync" /> Beim Programmstart nach Updates suchen</label>
+        <p role="status">@Updates.Message</p>
+        @if (Updates.LastChecked != null) { <p class="muted">Letzter Abruf: @Updates.LastChecked.Value.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</p> }
+        <div class="setup-actions"><button type="button" class="button secondary" disabled="@(!Updates.Enabled || Updates.Status == UpdateCheckStatus.Checking)" @onclick="() => Updates.CheckAsync()">@(Updates.Status == UpdateCheckStatus.Checking ? "Wird geprüft …" : "Jetzt nach Updates suchen")</button>
+            @if (Updates.Repository != null) { <a href="@Updates.Repository.WebAddress" target="_blank" rel="noopener noreferrer">GitHub-Repository ↗</a> }
+        </div>
+        @if (Updates.Status == UpdateCheckStatus.Available) { <p>Öffne das <a href="@Updates.DownloadPage" target="_blank" rel="noopener noreferrer">neue Release</a>, lade das vollständige Windows-ZIP herunter, beende die App und entpacke es in einen neuen Ordner. Die lokalen Release-Lernstände bleiben im Windows-Benutzerordner erhalten. Dateien werden nicht automatisch ersetzt.</p> }
+        @if (_preferenceError != null) { <p class="notice warning" role="alert">@_preferenceError</p> }
+    </section>
+    <section class="setup-section" id="sql">
+        <h2>SQL Server verbinden</h2>
+        @if (!Settings.CanEdit)
+        {
+            <p class="notice">Während der Heimnetz-Vorführung ist die persönliche Einrichtung gesperrt. Beende die Vorführung und starte den Trainer über Trainer-starten.cmd im lokalen Modus, um die Verbindung zu ändern.</p>
+        }
+        else
+        {
+            <p>Wähle deine Instanz oder trage ihren Namen ein. Die App prüft die Verbindung mit deiner Windows-Anmeldung und legt bei Bedarf ausschließlich die eigene Trainingsdatenbank an.</p>
+            @if (_instances.Count == 0)
+            {
+                <p class="notice">Es wurde keine lokale SQL-Server-Installation erkannt. Du kannst einen bekannten Server trotzdem manuell eintragen. Falls noch kein SQL Server vorhanden ist, findest du unten den offiziellen Download.</p>
+            }
+            else { <p class="muted">@_instances.Count lokale Instanz(en) erkannt. Die Erkennung bestätigt noch nicht, dass Dienst und Anmeldung funktionieren.</p> }
+            <label for="sql-instance" class="setup-label">SQL-Server-Instanz</label>
+            <input id="sql-instance" class="setup-input" list="local-sql-instances" @bind="_server" @bind:event="oninput" disabled="@_busy" placeholder="MEIN-PC\MEINE-INSTANZ" autocomplete="off" spellcheck="false" />
+            <datalist id="local-sql-instances">@foreach (string instance in _instances) { <option value="@instance"></option> }</datalist>
+            <div class="setup-actions"><button type="button" class="button primary" disabled="@(_busy || string.IsNullOrWhiteSpace(_server))" @onclick="SaveSqlAsync">@(_busy ? "Verbindung wird geprüft …" : "Verbindung prüfen & speichern")</button><button type="button" class="text-button" disabled="@_busy" @onclick="() => _instances = Discovery.FindLocalInstances()">Instanzen erneut suchen</button></div>
+            @if (_sqlError != null) { <p class="notice warning" role="alert">@_sqlError</p> }
+            @if (_saved) { <p class="notice" role="status">Verbindung gespeichert. Die Trainingsdatenbank ist bereit. <a href="/sql">Zur SQL-Ermittlung →</a></p> }
+            <details class="setup-details" open="@(!Database.Ready && _instances.Count == 0)"><summary>Noch keinen SQL Server installiert?</summary><p>Installiere SQL Server Express über die offizielle Microsoft-Seite. SSMS allein ist ein Verwaltungswerkzeug und enthält keinen Datenbankserver. Wähle bei der Installation die Windows-Anmeldung und merke dir den Instanznamen. Suche danach erneut nach Instanzen oder starte die App neu.</p><p><a href="@SqlInstanceDiscovery.DOWNLOAD_URL" target="_blank" rel="noopener noreferrer">SQL Server bei Microsoft herunterladen ↗</a></p></details>
+            <details class="setup-details"><summary>Verbindung und Lernstand</summary><p>Die Verbindung wird nur lokal in <code>@Settings.FilePath</code> gespeichert. Lernstände werden beim Verbindungswechsel nicht gelöscht. Die Windows-Anmeldung benötigt Rechte zum Anlegen und Vorbereiten der eigenen Datenbank. Eine fremde gleichnamige Datenbank wird nicht überschrieben. Nach einem Wechsel öffne bereits laufende Lernseiten neu.</p></details>
+        }
+    </section>
+</main>
+@code {
+    /// <summary> Eingabe enthält ausschließlich den Servernamen, keine Kennwörter. </summary>
+    private string _server = "";
+    /// <summary> Registrierte lokale Instanzen als Auswahlhilfe. </summary>
+    private IReadOnlyList<string> _instances = [];
+    /// <summary> Verhindert konkurrierende Einrichtungsvorgänge. </summary>
+    private bool _busy;
+    /// <summary> Bestätigt eine geprüfte und gespeicherte Verbindung. </summary>
+    private bool _saved;
+    /// <summary> Verständliche Einrichtungsfehler. </summary>
+    private string? _sqlError, _preferenceError;
+
+    protected override void OnInitialized()
+    {
+        Updates.Changed += Refresh;
+        if (Settings.CanEdit)
+        {
+            _server = Settings.DataSource;
+            _instances = Discovery.FindLocalInstances();
+        }
+    }
+
+    private async Task SaveSqlAsync()
+    {
+        if (_busy)
+            return;
+        _busy = true;
+        _saved = false;
+        _sqlError = null;
+        try { _sqlError = await Database.ConfigureAsync(_server); _saved = _sqlError == null; }
+        finally { _busy = false; }
+    }
+
+    private async Task SetUpdatePreferenceAsync(ChangeEventArgs args)
+    {
+        _preferenceError = null;
+        try { await Settings.SaveUpdatePreferenceAsync(args.Value is true); await Updates.CheckAsync(); }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or System.Text.Json.JsonException or InvalidOperationException)
+        { _preferenceError = "Die Einstellung konnte nicht gespeichert werden. Die bisherige Einstellungsdatei bleibt erhalten."; }
+    }
+
+    private void Refresh() => _ = InvokeAsync(StateHasChanged);
+    public void Dispose() => Updates.Changed -= Refresh;
+}

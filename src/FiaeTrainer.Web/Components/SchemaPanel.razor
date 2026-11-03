@@ -1,0 +1,15 @@
+<div class="schema-heading"><span class="eyebrow">DEINE DATENBASIS</span><h2>Tabellen &amp; Beziehungen</h2><p>Hier findest du die Tabellen und ihre Spalten für deine Abfrage.<br />PK = Primärschlüssel · FK = Fremdschlüssel</p></div>
+@foreach (var table in _tables)
+{
+    <details class="schema-table" open><summary><span aria-hidden="true">▦</span> @table.Name</summary><div class="schema-columns">@foreach (var column in table.Columns) { <div><code>@column.Name</code><span>@column.Type</span></div> }</div></details>
+}
+<div class="schema-relations"><strong>So hängen die Daten zusammen</strong><p>Sendungen.StandortId → Standorte.Id</p><p>Sendungen.FahrzeugId → Fahrzeuge.Id</p><p>Mitarbeiter.StandortId → Standorte.Id</p><p>Zutritte.MitarbeiterId → Mitarbeiter.Id</p><p>Zutritte.StandortId → Standorte.Id</p><p>Fahrten.MitarbeiterId → Mitarbeiter.Id</p><p>Fahrten.FahrzeugId → Fahrzeuge.Id</p><small>FahrzeugId einer Sendung und Rueckkehr einer Fahrt können NULL sein. Eine Fahrt ist über das Fahrzeug mit möglichen Sendungen verbunden, nicht über eine SendungsId.</small></div>
+@code {
+    private readonly (string Name, (string Name, string Type)[] Columns)[] _tables = [
+        ("Sendungen", [("Id", "int · PK"), ("Bezeichnung", "Text"), ("Zielort", "Text"), ("Wert", "decimal · EUR"), ("Status", "Text"), ("Versanddatum", "date"), ("StandortId", "int · FK"), ("FahrzeugId", "int · FK · NULL")]),
+        ("Mitarbeiter", [("Id", "int · PK"), ("Vorname", "Text"), ("Nachname", "Text"), ("Abteilung", "Text"), ("StandortId", "int · FK")]),
+        ("Standorte", [("Id", "int · PK"), ("Name", "Text"), ("Ort", "Text")]),
+        ("Fahrzeuge", [("Id", "int · PK"), ("Kennzeichen", "Text · eindeutig"), ("Typ", "Text")]),
+        ("Zutritte", [("Id", "int · PK"), ("MitarbeiterId", "int · FK"), ("StandortId", "int · FK"), ("Zeitpunkt", "datetime2")]),
+        ("Fahrten", [("Id", "int · PK"), ("FahrzeugId", "int · FK"), ("MitarbeiterId", "int · FK"), ("Abfahrt", "datetime2"), ("Rueckkehr", "datetime2 · NULL"), ("Zielort", "Text")])];
+}

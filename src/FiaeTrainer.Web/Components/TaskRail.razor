@@ -1,0 +1,17 @@
+<aside class="mission-rail @(Collapsed ? "is-collapsed" : "")" aria-label="Aufgabenliste">
+    <button type="button" class="rail-toggle" aria-expanded="@(Collapsed ? "false" : "true")" aria-controls="@Id" aria-label="@(Collapsed ? "Aufgaben anzeigen" : "Aufgaben ausblenden")" title="@(Collapsed ? "Aufgaben anzeigen" : "Aufgaben ausblenden")" @onclick="() => CollapsedChanged.InvokeAsync(!Collapsed)">
+        <span aria-hidden="true">@(Collapsed ? ">" : "<")</span>
+    </button>
+    <div id="@Id" class="rail-content" hidden="@Collapsed">@ChildContent</div>
+</aside>
+
+@code {
+    /// <summary> Eindeutiges Ziel für die zugängliche Aufklappsteuerung. </summary>
+    [Parameter, EditorRequired] public string Id { get; set; } = "";
+    /// <summary> Blendet die Aufgabenliste aus und gibt dem Arbeitsbereich mehr Platz. </summary>
+    [Parameter] public bool Collapsed { get; set; }
+    /// <summary> Speichert die geänderte Anzeigeeinstellung im Lernprofil. </summary>
+    [Parameter] public EventCallback<bool> CollapsedChanged { get; set; }
+    /// <summary> Fortschritt und Navigation des jeweiligen Lernbereichs. </summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

@@ -1,0 +1,65 @@
+<section class="learning-mode" aria-label="Lernmodus">
+    <div class="mode-heading"><span class="eyebrow">DEIN LERNMODUS</span></div>
+    <div class="mode-selector" role="group" aria-label="Lernmodus auswählen">
+        <button class="@(ExamMode ? "chosen" : "")" aria-pressed="@(ExamMode ? "true" : "false")" disabled="@Busy" @onclick="RequestIndependentAsync"><span class="mode-symbol" aria-hidden="true">↗</span><span><strong>Ohne Hilfe lösen</strong><small>Selbst formulieren &amp; prüfen lassen</small></span></button>
+        <button class="@(!ExamMode ? "chosen" : "")" aria-pressed="@(!ExamMode ? "true" : "false")" disabled="@Busy" @onclick="UseGuidanceAsync"><span class="mode-symbol" aria-hidden="true">✦</span><span><strong>Geführt lernen</strong><small>Erklärung, Tipps &amp; Ausprobieren</small></span></button>
+    </div>
+    @if (_confirmRestart)
+    {
+        <div class="mode-confirmation" role="status">
+            <strong>Bereit für einen neuen Selbsttest?</strong>
+            <p>Dein aktueller Entwurf und die geöffneten Hilfen werden geleert. Deine gelösten Aufgaben bleiben erhalten.</p>
+            <div><button class="button primary" disabled="@Busy" @onclick="StartIndependentAsync">Neuen Versuch starten</button><button class="button secondary" disabled="@Busy" @onclick="() => _confirmRestart = false">Entwurf behalten</button></div>
+        </div>
+    }
+    else if (ExamMode && AssistedAttempt)
+    {
+        <p class="mode-description">Übernommener Versuch · <button class="inline-button" disabled="@Busy" @onclick="RequestRestartAsync">Neu ohne Hilfe starten</button></p>
+    }
+</section>
+
+@code {
+    /// <summary> Zeigt den Modus ohne Unterstützung an. </summary>
+    [Parameter] public bool ExamMode { get; set; }
+    /// <summary> Sperrt den Wechsel während laufender Datenbankabfragen. </summary>
+    [Parameter] public bool Busy { get; set; }
+    /// <summary> Verhindert einen unbemerkten Verlust eines vorhandenen Entwurfs. </summary>
+    [Parameter] public bool HasDraft { get; set; }
+    /// <summary> Kennzeichnet bereits unterstützte oder ältere gespeicherte Entwürfe. </summary>
+    [Parameter] public bool AssistedAttempt { get; set; }
+    /// <summary> Übergibt den gewählten Modus; true startet nach Bestätigung einen leeren Versuch. </summary>
+    [Parameter] public EventCallback<bool> ModeChanged { get; set; }
+    /// <summary> Zeigt vor dem Leeren des aktuellen Versuchs eine ausdrückliche Auswahl. </summary>
+    private bool _confirmRestart;
+
+    private async Task RequestIndependentAsync()
+    {
+        if (Busy || ExamMode)
+            return;
+        await RequestRestartAsync();
+    }
+
+    /// <summary> Bestätigt nur das Verwerfen eines vorhandenen Entwurfs; bei leerem Editor beginnt der Selbsttest direkt. </summary>
+    private async Task RequestRestartAsync()
+    {
+        if (Busy)
+            return;
+        if (HasDraft)
+            _confirmRestart = true;
+        else
+            await StartIndependentAsync();
+    }
+
+    private async Task StartIndependentAsync()
+    {
+        _confirmRestart = false;
+        await ModeChanged.InvokeAsync(true);
+    }
+
+    private async Task UseGuidanceAsync()
+    {
+        _confirmRestart = false;
+        if (!Busy && ExamMode)
+            await ModeChanged.InvokeAsync(false);
+    }
+}

@@ -1,0 +1,19 @@
+@if (!ExamMode)
+{
+    <small>Du hast diese Aufgabe im geführten Lernen gelöst. Für einen frischen Selbsttest wähle „Ohne Hilfe lösen“.</small>
+}
+else if (AssistedAttempt)
+{
+    <small>Richtig gelöst im Modus „Ohne Hilfe lösen“. Dieser übernommene Versuch zählt noch nicht als frischer Selbsttest. Mit „Neu ohne Hilfe starten“ kannst du die Aufgabe erneut selbstständig lösen; dein Abschluss bleibt erhalten.</small>
+}
+else
+{
+    <small>Du hast diese Aufgabe ohne Hilfe gelöst. Wiederhole sie später, um dein Wissen zu festigen.</small>
+}
+
+@code {
+    /// <summary> Aktuell sichtbarer Lernmodus. </summary>
+    [Parameter] public bool ExamMode { get; set; }
+    /// <summary> Unterscheidet einen übernommenen oder unterstützten Versuch von einem frischen Selbsttest. </summary>
+    [Parameter] public bool AssistedAttempt { get; set; }
+}

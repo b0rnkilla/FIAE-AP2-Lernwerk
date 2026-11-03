@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "chapter": "01 · Daten gezielt ändern",
+    "title": "Einen Preis berichtigen",
+    "topic": "UPDATE mit WHERE",
+    "operation": "Update",
+    "story": "Nach der Ermittlung unterstützt du die Werkstatt bei einer Bestandskorrektur. Du arbeitest mit frischen Übungsdaten: Jede Ausführung beginnt wieder am Ausgangspunkt.",
+    "briefing": "UPDATE Tabelle SET Spalte = Wert ändert vorhandene Zeilen. WHERE begrenzt die Änderung. Ohne WHERE betrifft sie grundsätzlich alle Zeilen der Tabelle. Beispiel: UPDATE Produkte SET Preis = 9.90 WHERE Id = 7;",
+    "task": "Ändere in Artikel ausschließlich den Preis des Artikels mit Id 2 auf 44.90. Alle übrigen Werte und Tabellen müssen unverändert bleiben.",
+    "referenceSql": "UPDATE Artikel SET Preis = 44.90 WHERE Id = 2;",
+    "hints": [
+      "Eine vorhandene Zeile soll geändert, keine neue eingefügt werden.",
+      "SET nennt Preis und den neuen Wert. WHERE identifiziert die Id.",
+      "UPDATE Artikel SET Preis = 44.90 WHERE Id = 2;"
+    ],
+    "explanation": "SQL-Zahlen verwenden einen Punkt als Dezimaltrennzeichen, auch wenn die Oberfläche Preise deutsch anzeigt. Ein UPDATE ohne WHERE würde sämtliche Artikelpreise ersetzen. Kontrolliere den Endzustand, nicht nur die Anzahl betroffener Zeilen.",
+    "discovery": "Die Preiskorrektur betrifft genau einen Artikel."
+  },
+  {
+    "id": 2,
+    "chapter": "01 · Daten gezielt ändern",
+    "title": "Eine allgemeine Preisregel",
+    "topic": "Berechnetes UPDATE",
+    "operation": "Update",
+    "story": "Nach der Ermittlung unterstützt du die Werkstatt bei einer Bestandskorrektur. Du arbeitest mit frischen Übungsdaten: Jede Ausführung beginnt wieder am Ausgangspunkt.",
+    "briefing": "Rechts von SET kann der bisherige Spaltenwert in einer Berechnung stehen. Eine Erhöhung um zehn Prozent entspricht der Multiplikation mit 1.10. ROUND(Ausdruck, 2) rundet auf zwei Nachkommastellen.",
+    "task": "Erhöhe die Preise aller Artikel der Kategorie 'Sensoren' um 10 Prozent. Runde auf zwei Nachkommastellen. Ändere keine anderen Artikel oder Spalten.",
+    "referenceSql": "UPDATE Artikel SET Preis = ROUND(Preis * 1.10, 2) WHERE Kategorie = N'Sensoren';",
+    "hints": [
+      "Nutze den bisherigen Preis als Berechnungsgrundlage.",
+      "Filtere nach Kategorie statt nach einer bekannten Liste von Ids.",
+      "SET Preis = ROUND(Preis * 1.10, 2) WHERE Kategorie = 'Sensoren'"
+    ],
+    "explanation": "Die Regel gilt auch bei zusätzlichen Sensorartikeln und abweichenden Startpreisen. Fest eingetragene Zielpreise oder einzelne bekannte Ids sind deshalb kein allgemeiner Lösungsweg. Auch ein inaktiver Sensor wäre von dieser ausdrücklich allein auf die Kategorie bezogenen Regel betroffen.",
+    "discovery": "Die Preisregel funktioniert unabhängig von den aktuellen Einzelpreisen."
+  },
+  {
+    "id": 3,
+    "chapter": "01 · Daten gezielt ändern",
+    "title": "Einen neuen Artikel aufnehmen",
+    "topic": "INSERT mit Spaltenliste",
+    "operation": "Insert",
+    "story": "Nach der Ermittlung unterstützt du die Werkstatt bei einer Bestandskorrektur. Du arbeitest mit frischen Übungsdaten: Jede Ausführung beginnt wieder am Ausgangspunkt.",
+    "briefing": "INSERT INTO Tabelle (Spalten) VALUES (Werte) fügt neue Zeilen ein. Die Reihenfolge der Werte gehört zur angegebenen Spaltenliste. Eine explizite Liste bleibt nachvollziehbar, wenn Tabellen später erweitert werden.",
+    "task": "Füge in Artikel genau einen Datensatz ein: Id 90, Name 'Feuchtesensor', Kategorie 'Sensoren', Preis 32.50, Bestand 8 und Aktiv 1. Bestehende Datensätze bleiben unverändert.",
+    "referenceSql": "INSERT INTO Artikel (Id, Name, Kategorie, Preis, Bestand, Aktiv) VALUES (90, N'Feuchtesensor', N'Sensoren', 32.50, 8, 1);",
+    "hints": [
+      "Du brauchst INSERT statt UPDATE.",
+      "Nenne alle sechs Spalten ausdrücklich.",
+      "VALUES (90, N'Feuchtesensor', N'Sensoren', 32.50, 8, 1)"
+    ],
+    "explanation": "Der Primärschlüssel Id ist eindeutig. Eine schon vorhandene Id würde von SQL Server zurückgewiesen. N kennzeichnet Unicode-Zeichenketten. Für das bit-Feld Aktiv steht 1 für wahr.",
+    "discovery": "Der Artikelbestand enthält genau den neuen Feuchtesensor."
+  },
+  {
+    "id": 4,
+    "chapter": "01 · Daten gezielt ändern",
+    "title": "Ausgemusterte Artikel entfernen",
+    "topic": "DELETE mit Bedingung",
+    "operation": "Delete",
+    "story": "Nach der Ermittlung unterstützt du die Werkstatt bei einer Bestandskorrektur. Du arbeitest mit frischen Übungsdaten: Jede Ausführung beginnt wieder am Ausgangspunkt.",
+    "briefing": "DELETE FROM Tabelle WHERE Bedingung entfernt ganze Zeilen. Es gibt dabei keine Spaltenliste hinter DELETE. DELETE ohne WHERE entfernt alle Zeilen, nicht die Tabellenstruktur.",
+    "task": "Lösche aus Artikel sämtliche inaktiven Artikel (Aktiv = 0). Aktive Artikel und die Tabelle Konten bleiben unverändert.",
+    "referenceSql": "DELETE FROM Artikel WHERE Aktiv = 0;",
+    "hints": [
+      "Die Bedingung bezieht sich auf Aktiv.",
+      "Filtere allgemein auf inaktive Artikel statt auf eine bekannte Artikel-Id.",
+      "DELETE FROM Artikel WHERE Aktiv = 0;"
+    ],
+    "explanation": "Die Zusatzprüfung enthält mehr als einen inaktiven Artikel. DELETE WHERE Id = 4 beantwortet den Auftrag deshalb nicht allgemein. DROP TABLE wäre eine Strukturänderung und ist in dieser Werkstatt nicht erlaubt.",
+    "discovery": "Nur die ausgemusterten Artikel sind entfernt."
+  },
+  {
+    "id": 5,
+    "chapter": "01 · Daten gezielt ändern",
+    "title": "Den Lagerbestand auffüllen",
+    "topic": "UPDATE mit Rechnung und Filter",
+    "operation": "Update",
+    "story": "Nach der Ermittlung unterstützt du die Werkstatt bei einer Bestandskorrektur. Du arbeitest mit frischen Übungsdaten: Jede Ausführung beginnt wieder am Ausgangspunkt.",
+    "briefing": "Mit SET Bestand = Bestand + Anzahl wird ein vorhandener Wert relativ geändert. WHERE kann den Startwert prüfen. Jede passende Zeile wird einmal anhand dieser Anweisung geändert.",
+    "task": "Erhöhe den Bestand jedes aktiven Artikels mit weniger als 5 Stück um genau 10 Stück. Artikel mit mindestens 5 Stück und inaktive Artikel dürfen sich nicht ändern.",
+    "referenceSql": "UPDATE Artikel SET Bestand = Bestand + 10 WHERE Aktiv = 1 AND Bestand < 5;",
+    "hints": [
+      "Zwei Bedingungen müssen zugleich gelten.",
+      "Verwende Aktiv = 1 AND Bestand < 5.",
+      "UPDATE Artikel SET Bestand = Bestand + 10 WHERE Aktiv = 1 AND Bestand < 5;"
+    ],
+    "explanation": "Ein Zielwert von 10 wäre nicht gleichbedeutend mit einer Erhöhung um 10. Bestand 3 wird zu 13, Bestand 0 zu 10. Die Grenze 5 ist bei 'weniger als 5' nicht eingeschlossen.",
+    "discovery": "Die Nachbestellregel berücksichtigt sowohl Aktivität als auch vorhandenen Bestand."
+  },
+  {
+    "id": 6,
+    "chapter": "02 · Tabellen und Regeln",
+    "title": "Eine Rückgabetabelle entwerfen",
+    "topic": "CREATE TABLE, PRIMARY KEY, NOT NULL, CHECK",
+    "operation": "CreateTable",
+    "story": "Nach der Ermittlung unterstützt du die Werkstatt bei einer Bestandskorrektur. Du arbeitest mit frischen Übungsdaten: Jede Ausführung beginnt wieder am Ausgangspunkt.",
+    "briefing": "CREATE TABLE legt Spalten mit Datentypen und Regeln fest. PRIMARY KEY verlangt eindeutige, nicht leere Schlüssel. NOT NULL verlangt einen Wert. CHECK (Menge > 0) verbietet null und negative Stückzahlen als Zahlenwerte; die SQL-NULL-Zulässigkeit wird zusätzlich mit NOT NULL festgelegt.",
+    "task": "Erstelle eine leere Tabelle Rueckgaben mit genau diesen Spalten in dieser Reihenfolge: Id int als Primärschlüssel, Grund nvarchar(120) NOT NULL und Menge int NOT NULL mit CHECK (Menge > 0). Artikel und Konten bleiben unverändert.",
+    "referenceSql": "CREATE TABLE Rueckgaben (Id int PRIMARY KEY, Grund nvarchar(120) NOT NULL, Menge int NOT NULL CHECK (Menge > 0));",
+    "hints": [
+      "Die neue Tabelle existiert zu Beginn noch nicht.",
+      "Die Spalten brauchen jeweils einen Typ; zwei Datenregeln betreffen Menge.",
+      "CREATE TABLE Rueckgaben (Id int PRIMARY KEY, Grund nvarchar(120) NOT NULL, Menge int NOT NULL CHECK (Menge > 0));"
+    ],
+    "explanation": "CHECK allein verbietet SQL-NULL nicht automatisch: UNKNOWN verletzt eine CHECK-Bedingung nicht. Deshalb benötigt Menge zusätzlich NOT NULL. Die App prüft nicht nur den Namen des Constraints, sondern auch, ob ungültige Einfügeversuche abgewiesen werden. Fremdschlüssel sind in diesen sitzungsisolierten Strukturübungen noch nicht enthalten.",
+    "discovery": "Die Rückgabetabelle schützt sich gegen doppelte Schlüssel, fehlende Gründe und unzulässige Mengen."
+  },
+  {
+    "id": 7,
+    "chapter": "02 · Tabellen und Regeln",
+    "title": "Eine Tabelle erweitern",
+    "topic": "ALTER TABLE ADD",
+    "operation": "AlterTable",
+    "story": "Nach der Ermittlung unterstützt du die Werkstatt bei einer Bestandskorrektur. Du arbeitest mit frischen Übungsdaten: Jede Ausführung beginnt wieder am Ausgangspunkt.",
+    "briefing": "ALTER TABLE verändert eine vorhandene Tabellenstruktur. ADD ergänzt eine Spalte. Eine neue nullable Spalte erhält bei bestehenden Zeilen zunächst NULL, sofern kein anderer Standardwert festgelegt wurde.",
+    "task": "Ergänze Artikel um die Spalte Notiz vom Typ nvarchar(100), die NULL erlauben soll. Vorhandene Artikelwerte und die Tabelle Konten müssen unverändert bleiben.",
+    "referenceSql": "ALTER TABLE Artikel ADD Notiz nvarchar(100) NULL;",
+    "hints": [
+      "Die Tabelle existiert bereits, also ist CREATE TABLE nicht gefragt.",
+      "Nutze ADD mit Name, Typ und NULL-Zulässigkeit.",
+      "ALTER TABLE Artikel ADD Notiz nvarchar(100) NULL;"
+    ],
+    "explanation": "Die neue Spalte hängt hinter den vorhandenen Spalten. Bestehende Zeilen werden nicht gelöscht oder neu angelegt. NOT NULL ohne passenden Wert wäre für die bereits vorhandenen Zeilen problematisch.",
+    "discovery": "Die Struktur ist um eine optionale Notiz erweitert."
+  },
+  {
+    "id": 8,
+    "chapter": "02 · Tabellen und Regeln",
+    "title": "Unmögliche Bestände verhindern",
+    "topic": "ALTER TABLE ADD CHECK",
+    "operation": "AlterTable",
+    "story": "Nach der Ermittlung unterstützt du die Werkstatt bei einer Bestandskorrektur. Du arbeitest mit frischen Übungsdaten: Jede Ausführung beginnt wieder am Ausgangspunkt.",
+    "briefing": "Eine Datenbank kann fachliche Grenzen selbst erzwingen. CHECK (Bestand >= 0) lässt null Stück als Zahlenwert zu, weist negative Bestände aber zurück. Das ist etwas anderes als eine WHERE-Bedingung, die nur eine einzelne Abfrage begrenzt.",
+    "task": "Ergänze für Artikel eine CHECK-Regel, die negative Bestände verbietet und Bestand 0 ausdrücklich zulässt. Die vorhandenen Spalten und Datensätze bleiben unverändert.",
+    "referenceSql": "ALTER TABLE Artikel ADD CHECK (Bestand >= 0);",
+    "hints": [
+      "Die Regel gehört zur Tabelle, nicht zu einem UPDATE.",
+      "Verwende ALTER TABLE Artikel ADD CHECK (...).",
+      "ALTER TABLE Artikel ADD CHECK (Bestand >= 0);"
+    ],
+    "explanation": "Bestand > 0 wäre zu streng, denn ausverkaufte Artikel mit null Stück sind zulässig. Die App probiert sowohl -1 als auch 0 aus. Eine Regel muss auf die richtige Spalte zielen; ein lediglich vorhandener CHECK-Name genügt nicht.",
+    "discovery": "SQL Server weist negative Bestände zurück und erlaubt weiterhin ausverkaufte Artikel."
+  },
+  {
+    "id": 9,
+    "chapter": "03 · Änderungen zusammenfassen",
+    "title": "Eine Umbuchung vollständig abschließen",
+    "topic": "BEGIN TRANSACTION und COMMIT",
+    "operation": "Commit",
+    "story": "Nach der Ermittlung unterstützt du die Werkstatt bei einer Bestandskorrektur. Du arbeitest mit frischen Übungsdaten: Jede Ausführung beginnt wieder am Ausgangspunkt.",
+    "briefing": "Eine Transaktion fasst mehrere zusammengehörige Änderungen zusammen. BEGIN TRANSACTION beginnt sie, COMMIT bestätigt sie. Für automatische Reaktion auf Fehler braucht eine echte Anwendung zusätzlich geeignete Fehlerbehandlung; in dieser Werkstatt werden fehlerhafte Versuche vollständig verworfen.",
+    "task": "Buche genau 50.00 vom Konto mit Id 1 auf das Konto mit Id 2 um: erst vom bestehenden Guthaben abziehen, dann auf das bestehende Guthaben addieren. Führe beide UPDATE-Anweisungen innerhalb genau einer mit COMMIT abgeschlossenen Transaktion aus. Konto 3 und Artikel bleiben unverändert.",
+    "referenceSql": "BEGIN TRANSACTION; UPDATE Konten SET Guthaben = Guthaben - 50.00 WHERE Id = 1; UPDATE Konten SET Guthaben = Guthaben + 50.00 WHERE Id = 2; COMMIT;",
+    "hints": [
+      "Die beiden Änderungen gehören zwischen BEGIN TRANSACTION und COMMIT.",
+      "Rechne relativ zum bestehenden Guthaben und filtere jede Buchung auf die richtige Id.",
+      "BEGIN TRANSACTION; UPDATE Konten SET Guthaben = Guthaben - 50.00 WHERE Id = 1; UPDATE Konten SET Guthaben = Guthaben + 50.00 WHERE Id = 2; COMMIT;"
+    ],
+    "explanation": "Der Gesamtbetrag bleibt erhalten. Ein fest eingetragenes Guthaben wie 550 wäre bei anderen Startwerten falsch. COMMIT bestätigt hier ausschließlich die isolierte Arbeitskopie; beim nächsten Ausführen beginnt die Aufgabe wieder mit den Startdaten.",
+    "discovery": "Beide Teilbuchungen sind gemeinsam abgeschlossen; die Summe der Guthaben ist gleich geblieben."
+  },
+  {
+    "id": 10,
+    "chapter": "03 · Änderungen zusammenfassen",
+    "title": "Eine Änderung zurücknehmen",
+    "topic": "ROLLBACK",
+    "operation": "Rollback",
+    "story": "Nach der Ermittlung unterstützt du die Werkstatt bei einer Bestandskorrektur. Du arbeitest mit frischen Übungsdaten: Jede Ausführung beginnt wieder am Ausgangspunkt.",
+    "briefing": "ROLLBACK nimmt die Datenänderungen seit BEGIN TRANSACTION zurück. In SQL Server kann ein vollständiges ROLLBACK auch Änderungen an den hier verwendeten lokalen temporären Tabellen zurücknehmen. Ein unveränderter Endstand allein beweist deshalb noch nicht, dass du die Transaktion tatsächlich ausgeführt hast.",
+    "task": "Beginne eine Transaktion, ziehe mit UPDATE versuchsweise 50.00 vom Guthaben des Kontos mit Id 1 ab und nimm diese Änderung anschließend mit ROLLBACK zurück. Der Endstand aller Tabellen soll dem Ausgangszustand entsprechen.",
+    "referenceSql": "BEGIN TRANSACTION; UPDATE Konten SET Guthaben = Guthaben - 50.00 WHERE Id = 1; ROLLBACK;",
+    "hints": [
+      "Eine echte Änderung muss zwischen Beginn und Rücknahme stehen.",
+      "COMMIT würde die Änderung bestätigen. Gesucht ist ROLLBACK.",
+      "BEGIN TRANSACTION; UPDATE Konten SET Guthaben = Guthaben - 50.00 WHERE Id = 1; ROLLBACK;"
+    ],
+    "explanation": "Die Ergebnisprüfung kontrolliert die vollständige Rückkehr zum Ausgangszustand. Zusätzlich wird geprüft, dass UPDATE tatsächlich innerhalb einer mit ROLLBACK abgeschlossenen Transaktion steht. Eine reine SELECT-Abfrage oder ein ROLLBACK ohne vorherigen Beginn reicht nicht.",
+    "discovery": "Der Probeabzug wurde zurückgenommen. Die Konten stehen wieder auf ihren Ausgangswerten."
+  }
+]

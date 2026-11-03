@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "Training": "Server=.\\SQLEXPRESS;Database=FIAE_AP2_Training;Integrated Security=True;Encrypt=True;TrustServerCertificate=True;Connect Timeout=5"
+  }
+}

@@ -1,0 +1,130 @@
+@page "/"
+@inject LessonCatalog Catalog
+@inject WorkshopCatalog WorkshopCatalog
+@inject ProgressStore Store
+@inject DatabaseState Database
+<PageTitle>Dein Lernraum · AP2 Lernwerk</PageTitle>
+
+<main class="page home">
+    <section class="overview-hero" aria-labelledby="home-heading">
+        <div>
+            <div class="eyebrow">DEIN TRAININGSRAUM FÜR DIE FIAE-AP2</div>
+            <h1 id="home-heading">Verstehen.<br />Anwenden.<br /><em>Sicherer werden.</em></h1>
+            <p class="overview-description">Von Datenbanken und Algorithmen bis zu Modellierung und Softwareplanung: Hier wächst dein Lernraum für die Abschlussprüfung.</p>
+            <p class="overview-description">Mit verständlichen Erklärungen, eigenen Lösungsversuchen und Wiederholungen, die dir beim selbstständigen Antworten helfen.</p>
+            <div class="hero-actions"><a class="button primary" href="#themen">Lernbereich auswählen ↓</a><a class="button secondary" href="/lernplan">Mein Lernplan →</a></div>
+        </div>
+        <aside class="learning-compass" aria-label="So lernst du im Lernwerk">
+            <div class="compass-kicker">EIN SCHRITT NACH DEM ANDEREN</div>
+            <h2>Aus Wissen<br />wird Können.</h2>
+            <div class="compass-step"><span>01</span><div><strong>Eine Aufgabe wählen</strong><p>Starte dort, wo du üben möchtest.</p></div></div>
+            <div class="compass-step"><span>02</span><div><strong>Selbst probieren</strong><p>Bei Bedarf ins geführte Lernen wechseln.</p></div></div>
+            <div class="compass-step"><span>03</span><div><strong>Aus Feedback lernen</strong><p>Verstehen, verbessern, erneut versuchen.</p></div></div>
+        </aside>
+    </section>
+
+    @if (!Database.Ready)
+    {
+        <section class="notice warning" role="status">
+            <strong>Die SQL-Lernwege brauchen eine Datenbankverbindung.</strong><p>@Database.Error</p>
+            <a class="button primary" href="/einrichtung#sql">SQL-Verbindung einrichten</a>
+            <button class="button secondary" disabled="@_connecting" @onclick="ConnectAsync">@(_connecting ? "Verbindung wird geprüft …" : "SQL-Verbindung erneut prüfen")</button>
+        </section>
+    }
+
+    <section class="progress-strip" aria-label="Dein gesamter Lernfortschritt">
+        <div><strong>@_completed<span> / @TotalExercises</span></strong><small>Übungen gelöst</small></div>
+        <div><strong>@_independent</strong><small>Ohne Hilfe gelöst</small></div>
+        <div class="progress-copy"><p>Dein Fortschritt über alle verfügbaren Lernwege.</p><progress value="@_completed" max="@TotalExercises" aria-label="Gelöste Übungen insgesamt"></progress></div>
+    </section>
+
+    @if (_storageError != null)
+    {
+        <p class="notice warning" role="alert">@_storageError</p>
+    }
+
+    <div class="section-heading" id="themen">
+        <div><div class="eyebrow">DEIN THEMENKOMPASS</div><h2>Was möchtest du heute üben?</h2></div>
+        <span>1 Themenbereich bereit · weitere im Aufbau</span>
+    </div>
+
+    <section class="module-grid learning-modules" aria-label="Lernbereiche der FIAE-AP2">
+        <article class="module-card ready">
+            <span class="module-number">01</span><span class="badge">Bereit zum Lernen</span>
+            <h3>SQL &amp; Datenbanken</h3>
+            <p>Eine geführte Ermittlung und eine Werkstatt für eigene SQL-Skripte. Von SELECT bis zu Tabellenregeln und Transaktionen.</p>
+            <div class="module-progress">@_sqlCompleted / @TotalExercises Übungen gelöst</div>
+            <div class="module-actions">
+                <a class="button primary" href="@($"/sql/{_progress.LastLessonId}")">@(InvestigationStarted ? "Weiter ermitteln" : "Ermittlung starten") →</a>
+                <a class="button secondary" href="@($"/sql-werkstatt/{_progress.LastWorkshopLessonId}")">Daten ändern →</a>
+            </div>
+            <small>Fallakte Nachtzug · @Catalog.Lessons.Count Aufgaben · @WorkshopCatalog.Lessons.Count Werkstattaufgaben</small>
+        </article>
+        @foreach (var module in _modules)
+        {
+            <article class="module-card">
+                <span class="module-number">@module.Number</span><span class="badge muted">In Vorbereitung</span>
+                <h3>@module.Title</h3><p>@module.Description</p>
+            </article>
+        }
+    </section>
+
+    <section class="learning-note"><div class="eyebrow">DEIN TEMPO. DEIN NÄCHSTER SCHRITT.</div><h2>Heute musst du nicht alles können.</h2><p>Wähle eine Aufgabe, versuche sie selbst und halte fest, was dir noch schwerfällt. Ein Fehler zeigt dir, was du als Nächstes üben kannst.</p></section>
+
+
+    @if (Database.Ready)
+    {
+        <p class="connection-line"><span class="status-dot"></span> SQL-Lernwege bereit · Verbindung zur Trainingsdatenbank aktiv.</p>
+    }
+</main>
+
+@code {
+    /// <summary> Geladener Fortschritt des lokalen Profils. </summary>
+    private TrainingProgress _progress = new();
+    /// <summary> Abschlüsse aller aktuell verfügbaren Lernwege. </summary>
+    private int _completed;
+    /// <summary> Ohne Hilfen gelöste Übungen über beide SQL-Lernwege. </summary>
+    private int _independent;
+    /// <summary> Ein leerer, nur beim Seitenaufruf angelegter Eintrag zählt noch nicht als begonnene Ermittlung. </summary>
+    private bool InvestigationStarted => _progress.LastLessonId > 1 || _progress.Lessons.Values.Any(x => x.Completed || x.Attempts > 0 || x.HintLevel > 0 || x.SolutionViewed || !string.IsNullOrWhiteSpace(x.Sql));
+    /// <summary> Abschlüsse im derzeit verfügbaren Themenbereich SQL. </summary>
+    private int _sqlCompleted;
+    /// <summary> Verhindert wiederholte Verbindungsversuche durch Doppelklick. </summary>
+    private bool _connecting;
+    /// <summary> Verständlicher Hinweis bei nicht lesbarem Fortschritt. </summary>
+    private string? _storageError;
+    /// <summary> Geplante Themenbereiche der allgemeinen FIAE-AP2-App. </summary>
+    private readonly (string Number, string Title, string Description)[] _modules = [
+        ("02", "Pseudocode & Algorithmen", "Abläufe verstehen, Fehler aufspüren und eigene Lösungen formulieren."),
+        ("03", "UML & Modellierung", "Diagramme lesen, Fehler finden und eigene Modelle entwerfen."),
+        ("04", "Datenbankentwurf", "Schlüssel, Kardinalitäten und Normalisierung an greifbaren Beispielen."),
+        ("05", "Softwareplanung & OOP", "Anforderungen in verständliche Klassen, Schnittstellen und Entwürfe übersetzen."),
+        ("06", "Tests, Qualität & Sicherheit", "Grenzfälle erkennen, Testfälle entwerfen und Schutzmaßnahmen begründen."),
+        ("07", "Projekte & Wirtschaftlichkeit", "Vorgehen planen, Alternativen vergleichen und Kosten berechnen."),
+        ("08", "Wirtschafts- & Sozialkunde", "Prüfungsnahe Fragen beantworten und Zusammenhänge verstehen.")];
+
+    /// <summary> Anzahl der tatsächlich implementierten Übungen. </summary>
+    private int TotalExercises => Catalog.Lessons.Count + WorkshopCatalog.Lessons.Count;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _progress = await Store.LoadAsync();
+            _sqlCompleted = _progress.Lessons.Values.Count(x => x.Completed) + _progress.WorkshopLessons.Values.Count(x => x.Completed);
+            _completed = _sqlCompleted;
+            _independent = _progress.Lessons.Values.Count(x => x.Independent) + _progress.WorkshopLessons.Values.Count(x => x.Independent);
+        }
+        catch (Exception exception) when (exception is IOException or System.Text.Json.JsonException or UnauthorizedAccessException)
+        {
+            _storageError = "Dein gespeicherter Lernstand konnte nicht gelesen werden. Die Datei wird nicht überschrieben. Hinweise zur Wiederherstellung stehen in der Anleitung.";
+        }
+    }
+
+    private async Task ConnectAsync()
+    {
+        _connecting = true;
+        try { await Database.ConnectAsync(); }
+        finally { _connecting = false; }
+    }
+}

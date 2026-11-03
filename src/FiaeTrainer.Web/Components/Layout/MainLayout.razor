@@ -1,0 +1,23 @@
+@inherits LayoutComponentBase
+@inject NavigationManager Navigation
+@inject NetworkAccessPolicy NetworkAccess
+@inject AppVersionInfo Version
+<a class="skip-link" href="@(Navigation.Uri.Split('#')[0] + "#inhalt")">Zum Inhalt</a>
+<header class="topbar">
+    <a class="brand" href="/" aria-label="AP2 Lernwerk – zur Übersicht"><span class="brand-symbol">a<span>2</span></span><span>AP2 <strong>Lernwerk</strong><small>FACHINFORMATIK · ANWENDUNGSENTWICKLUNG</small></span></a>
+    <nav aria-label="Hauptnavigation">
+        <NavLink href="/" Match="NavLinkMatch.All">Übersicht</NavLink>
+        <NavLink href="sql">SQL-Ermittlung</NavLink>
+        <NavLink href="sql-werkstatt">SQL-Werkstatt</NavLink>
+        <NavLink href="lernplan">Lernplan</NavLink>
+        <NavLink href="nachschlagen">SQL-Spickzettel</NavLink>
+    </nav>
+    <label class="theme-choice"><span>Darstellung</span><select aria-label="Darstellung" data-theme-selector><option value="system">System</option><option value="light">Hell</option><option value="dark">Dunkel</option></select></label>
+</header>
+@if (NetworkAccess.AllowLan)
+{
+    <aside class="network-notice" aria-label="Heimnetz-Modus"><strong>Heimnetz-Vorführung</strong> Alle Besucher teilen sich den Lernstand dieser Vorführung.</aside>
+}
+<UpdateNotice />
+<div id="inhalt">@Body</div>
+<footer class="site-footer"><a href="/einrichtung">Version @Version.Display@(Version.IsPrerelease ? " · Testversion" : "")</a><span>Eigene Übungsaufgaben · keine offiziellen IHK-Prüfungsaufgaben</span><a href="/einrichtung">Updates &amp; SQL-Einrichtung</a></footer>

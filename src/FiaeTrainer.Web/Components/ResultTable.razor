@@ -1,0 +1,25 @@
+@if (Result.Error != null)
+{
+    <p class="notice warning" role="alert">@Result.Error</p>
+}
+else
+{
+    <div class="results-heading"><h3>@Title</h3><span>@Result.Rows.Count @(Result.Rows.Count == 1 ? "Zeile" : "Zeilen")@(Result.Truncated ? " · gekürzt" : "")</span></div>
+    @if (Result.Rows.Count == 0) { <p class="empty-state">@EmptyMessage</p> }
+    <div class="table-scroll"><table><thead><tr>@foreach (string column in Result.Columns) { <th scope="col">@column</th> }</tr></thead><tbody>@foreach (object?[] row in Result.Rows) { <tr>@foreach (object? value in row) { <td>@if (value == null) { <span class="null-value">NULL</span> } else { @Format(value) }</td> }</tr> }</tbody></table></div>
+    @if (Result.Truncated) { <p class="notice warning">Es werden höchstens 200 Zeilen angezeigt. Begrenze das Ergebnis gezielter.</p> }
+}
+@code {
+    [Parameter, EditorRequired] public QueryResult Result { get; set; } = new();
+    /// <summary> Fachlicher Titel der angezeigten Tabelle. </summary>
+    [Parameter] public string Title { get; set; } = "Dein Abfrageergebnis";
+    /// <summary> Erläutert leere Abfrageergebnisse oder leere Tabellen passend zum Kontext. </summary>
+    [Parameter] public string EmptyMessage { get; set; } = "Die Abfrage liefert keine Zeilen. Das kann korrekt sein – prüfe, ob es zur Aufgabe passt.";
+    private static string Format(object value) => value switch
+    {
+        DateTime date => date.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
+        decimal number => number.ToString("0.####", CultureInfo.GetCultureInfo("de-DE")),
+        bool flag => flag ? "Ja" : "Nein",
+        _ => Convert.ToString(value, CultureInfo.GetCultureInfo("de-DE")) ?? ""
+    };
+}

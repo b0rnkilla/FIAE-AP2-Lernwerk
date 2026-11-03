@@ -1,0 +1,20 @@
+{
+  "profiles": {
+    "FiaeTrainer": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:5080",
+      "environmentVariables": { "ASPNETCORE_ENVIRONMENT": "Development" }
+    },
+    "FiaeTrainerLan": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "applicationUrl": "http://0.0.0.0:5080",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "LanDemo",
+        "Network__AllowLan": "true",
+        "AllowedHosts": "*"
+      }
+    }
+  }
+}

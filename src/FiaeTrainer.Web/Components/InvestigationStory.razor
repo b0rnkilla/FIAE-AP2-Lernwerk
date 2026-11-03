@@ -1,0 +1,20 @@
+<section class="story-note" aria-label="Aktuelle Spur im Fall Nachtzug">
+    <div class="avatar" aria-hidden="true">MK</div>
+    <div>
+        <span>Ermittlerin Mara König · Fall Nachtzug</span>
+        @if (PreviousLesson != null && !PreviousCompleted)
+        {
+            <p class="story-context">Vorherige Spur noch offen: <a href="@($"/sql/{PreviousLesson.Id}")">Aufgabe @PreviousLesson.Id · @PreviousLesson.Title</a>.</p>
+        }
+        <p>@Lesson.Story</p>
+    </div>
+</section>
+
+@code {
+    /// <summary> Erklärt die aktuelle Datenfrage und ihre Rolle in der Ermittlung. </summary>
+    [Parameter, EditorRequired] public Lesson Lesson { get; set; } = new();
+    /// <summary> Vorheriger Schritt; bleibt für die erste Aufgabe leer. </summary>
+    [Parameter] public Lesson? PreviousLesson { get; set; }
+    /// <summary> Verhindert, dass übersprungene Spuren als bereits bearbeitet erscheinen. </summary>
+    [Parameter] public bool PreviousCompleted { get; set; }
+}

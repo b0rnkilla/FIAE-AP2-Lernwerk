@@ -1,0 +1,20 @@
+@if (Run.Error != null)
+{
+    <p class="notice warning" role="alert">@Run.Error</p>
+}
+else
+{
+    @foreach (var table in Run.Tables)
+    {
+        <section class="result-card"><ResultTable Result="table.Value" Title="@table.Key" EmptyMessage="Diese Tabelle enthält nach deinem Skript keine Zeilen." /></section>
+    }
+    @if (Run.BeforeRollback.Count > 0)
+    {
+        <details class="workshop-detail"><summary>Zwischenstand vor ROLLBACK ansehen</summary><p>Diese Änderungen wurden anschließend zurückgenommen. Auch der Probeabzug wird bei der Bewertung geprüft.</p>@foreach (var table in Run.BeforeRollback) { <section class="result-card"><ResultTable Result="table.Value" Title="@($"{table.Key} vor ROLLBACK")" /></section> }</details>
+    }
+    <details class="workshop-detail"><summary>Tabellenstruktur und Datenregeln ansehen</summary><p>Länge: bei nvarchar Zeichen, bei anderen Typen Speicherbytes. Präzision bezeichnet die Ziffernzahl, Nachkommastellen die Dezimalstellen. NullErlaubt zeigt, ob SQL-NULL zulässig ist. „Einfügen erlaubt“ zeigt das Ergebnis eines gezielten Prüfversuchs; alle Prüfzeilen werden zurückgenommen.</p>@foreach (var structure in Run.Structures) { <section class="result-card"><ResultTable Result="structure.Value" Title="@($"Struktur: {structure.Key}")" /></section> }<section class="result-card"><ResultTable Result="Run.ConstraintChecks" Title="Datenregeln im Verhaltenstest" /></section></details>
+}
+@code {
+    /// <summary> Datenstand einer isolierten Skriptausführung. </summary>
+    [Parameter, EditorRequired] public WorkshopRun Run { get; set; } = new();
+}

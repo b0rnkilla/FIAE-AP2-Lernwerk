@@ -1,0 +1,18 @@
+@if (!Hidden)
+{
+    <aside class="exam-note dismissible-note" aria-label="Bedienhinweis zum Selbsttest">
+        <button type="button" class="close-note" disabled="@Busy" aria-label="Selbsttest-Hinweis ausblenden" title="Für alle Aufgaben ausblenden" @onclick="() => HiddenChanged.InvokeAsync(true)"><span aria-hidden="true">×</span></button>
+        @ChildContent
+    </aside>
+}
+
+@code {
+    /// <summary> Gemeinsame gespeicherte Anzeigeeinstellung des lokalen Lernprofils. </summary>
+    [Parameter] public bool Hidden { get; set; }
+    /// <summary> Verhindert einen Wechsel während laufender SQL-Abfragen. </summary>
+    [Parameter] public bool Busy { get; set; }
+    /// <summary> Erläuterung für die jeweilige Art der SQL-Aufgabe. </summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    /// <summary> Meldet das Ausblenden oder erneute Anzeigen an die Profilverwaltung. </summary>
+    [Parameter] public EventCallback<bool> HiddenChanged { get; set; }
+}

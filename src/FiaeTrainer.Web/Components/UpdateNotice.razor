@@ -1,0 +1,11 @@
+@implements IDisposable
+@inject UpdateChecker Updates
+@if (Updates.Status == UpdateCheckStatus.Available)
+{
+    <aside class="update-notice" role="status"><span><strong>Neue Version @Updates.AvailableVersion verfügbar.</strong> Du kannst sie herunterladen und nach dem Beenden der App vollständig entpacken.</span><a href="@Updates.DownloadPage" target="_blank" rel="noopener noreferrer">Release öffnen ↗</a></aside>
+}
+@code {
+    protected override void OnInitialized() => Updates.Changed += Refresh;
+    private void Refresh() => _ = InvokeAsync(StateHasChanged);
+    public void Dispose() => Updates.Changed -= Refresh;
+}

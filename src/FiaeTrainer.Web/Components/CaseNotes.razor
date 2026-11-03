@@ -1,0 +1,25 @@
+<div class="findings">
+    <h2>Deine Fallnotizen</h2>
+    <p>Fall Nachtzug: Eine Lieferung medizinischer Sensoren fehlt. Ziel ist, ihren Weg vom Nordlager bis zur letzten dokumentierten Fahrt nachzuvollziehen.</p>
+    @{
+        int previous = 0;
+        var completed = Lessons.Where(x => Progress.TryGetValue(x.Id, out LessonProgress? state) && state.Completed).OrderBy(x => x.Id).ToList();
+    }
+    @if (completed.Count == 0) { <p>Die erste Erkenntnis erscheint nach deiner ersten richtig gelösten Aufgabe.</p> }
+    @foreach (Lesson lesson in completed)
+    {
+        @if (lesson.Id > previous + 1)
+        {
+            <article class="findings-gap"><span>ZWISCHENSCHRITT NOCH OFFEN</span><p>@(lesson.Id == previous + 2 ? $"Aufgabe {previous + 1} ist noch nicht gelöst." : $"Aufgaben {previous + 1} bis {lesson.Id - 1} sind noch nicht gelöst.") Die folgenden Notizen enthalten nur deine bereits bestätigten Ergebnisse.</p><a href="@($"/sql/{previous + 1}")">Fehlende Spur aufgreifen →</a></article>
+        }
+        <article><a class="finding-title" href="@($"/sql/{lesson.Id}")">AUFGABE @lesson.Id.ToString("D2") · @lesson.Title</a><p>@lesson.Discovery</p></article>
+        previous = lesson.Id;
+    }
+</div>
+
+@code {
+    /// <summary> Fallakte in fachlicher Reihenfolge; ungelöste Inhalte bleiben verborgen. </summary>
+    [Parameter, EditorRequired] public IReadOnlyList<Lesson> Lessons { get; set; } = [];
+    /// <summary> Freigabe der Notizen ausschließlich für richtig gelöste Aufgaben. </summary>
+    [Parameter, EditorRequired] public IReadOnlyDictionary<int, LessonProgress> Progress { get; set; } = new Dictionary<int, LessonProgress>();
+}
