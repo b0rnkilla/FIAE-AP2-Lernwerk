@@ -1,26 +1,29 @@
 # AP2 Lernwerk
 
-Eine deutschsprachige Lernapp für die FIAE-Abschlussprüfung Teil 2. Du schreibst eigene Lösungen und erhältst direkte Rückmeldung. Neben **SQL & Datenbanken** entsteht der zweite Lernbereich **Pseudocode & Algorithmen**.
+Eine deutschsprachige Lernapp für die FIAE-Abschlussprüfung Teil 2. Du schreibst eigene Lösungen und erhältst direkte Rückmeldung. Verfügbar sind **SQL & Datenbanken** sowie der erste Lernweg für **Pseudocode & Algorithmen**.
 
-**Windows-Alpha: 0.1.1-alpha.3 · in Entwicklung: 0.1.1-alpha.4.** Die Anwendung läuft lokal und wird im Browser bedient. Das Windows-Paket wird über die GitHub-Releases bereitgestellt.
+**Windows-Alpha: 0.1.1-alpha.7.** Die Anwendung läuft lokal und wird im Browser bedient. Das Windows-Paket ist gebaut und aus dem ZIP geprüft; die Bereitstellung über GitHub-Releases erfolgt durch den Projektinhaber.
+
+Die Version enthält **70 Übungen**, darunter **30 Pseudocode-Aufgaben** zu Listen, Suche, Sortierung, Funktionen, Prüfziffern, Grenzwerttests und Rekursion. Der nummerierte Editor unterstützt Tab-Einrückung; Schlüsselwörter werden großgeschrieben.
 
 ## Das kannst du bereits lernen
 
 - **Fallakte Nachtzug:** 30 aufeinander aufbauende SQL-Aufgaben mit einer eigenen Ermittlungsgeschichte – von SELECT und Filtern über JOINs und GROUP BY bis zu Unterabfragen.
 - **SQL-Werkstatt:** zehn Aufgaben zu Datenänderungen, Tabellen, einfachen Constraints und Transaktionen.
+- **Leitstelle im Ausnahmezustand:** 30 Pseudocode-Aufgaben mit eigenen Abläufen, Fehlersuche, Schreibtischtests und Testfällen.
 - **Zwei Lernmodi:** selbstständig lösen oder mit Erklärungen, freiwilligen Tipps und Musterlösungen lernen. Im geführten Hilfebereich kannst du auch direkt im SQL-Spickzettel nachschlagen.
-- **Lernplan und Spickzettel:** offene Aufgaben fortsetzen und bereits gelöste Aufgaben wiederholen.
+- **Lernplan und Spickzettel:** offene Aufgaben fortsetzen und bereits gelöste Aufgaben wiederholen. Beide Spickzettel führen mit einem Button zurück zur Aufgabe; SQL merkt sich dabei auch Ermittlung oder Werkstatt.
 
 SQL-Lösungen werden auf Microsoft SQL Server ausgeführt und mit zwei Datenbeständen geprüft. Die App ist noch keine vollständige AP2-Vorbereitung und enthält keine Originalprüfungsaufgaben.
 
-Die Entwicklungsfassung **0.1.1-alpha.4** ergänzt **acht Pseudocode-Aufgaben** in der Geschichte „Leitstelle im Ausnahmezustand“: eigene Abläufe, Fehlersuche, Schreibtischtests und Testfälle. Ein lokaler Interpreter bewertet Lösungen und zeigt im geführten Modus die Ausführung Schritt für Schritt. Beispiele verwenden `=` für Zuweisungen. Dafür ist keine SQL-Verbindung nötig. Übersicht und Lernplan fassen beide Themen zusammen; die weiteren Navigationspunkte wechseln mit dem Lernbereich. **Diese Ergänzungen sind noch nicht im Windows-Paket 0.1.1-alpha.3 enthalten.** UML und weitere Bereiche bleiben in Vorbereitung.
+Ein lokaler Interpreter bewertet Pseudocode-Lösungen und zeigt im geführten Modus die Ausführung Schritt für Schritt. Beispiele verwenden `=` für Zuweisungen. Der erweiterte Lernweg führt bis zu verschachtelten Listen, Sortierung und Funktionen mit Parametern und Rückgaben. Dafür ist keine SQL-Verbindung nötig. Übersicht und Lernplan fassen beide Themen zusammen; die weiteren Navigationspunkte wechseln mit dem Lernbereich. UML und weitere Bereiche bleiben in Vorbereitung.
 
 ## Voraussetzungen
 
 - Windows auf einem 64-Bit-Rechner und ein aktueller Browser.
-- [Microsoft SQL Server](https://www.microsoft.com/de-de/sql-server/sql-server-downloads), beispielsweise Express oder LocalDB. SSMS allein reicht nicht.
+- Für die SQL-Lernwege: [Microsoft SQL Server](https://www.microsoft.com/de-de/sql-server/sql-server-downloads), beispielsweise Express oder LocalDB. SSMS allein reicht nicht.
 
-Das ZIP enthält die benötigte .NET-Laufzeit. Visual Studio, ein SDK oder eine separate .NET-Installation sind nicht erforderlich. SQL Server muss separat vorhanden sein. Für die lokale App sind ein Konto oder eine KI-API nicht erforderlich.
+Das ZIP enthält die benötigte .NET-Laufzeit. Visual Studio, ein SDK oder eine separate .NET-Installation sind nicht erforderlich. Pseudocode funktioniert auch ohne SQL Server. Für die lokale App sind ein Konto oder eine KI-API nicht erforderlich.
 
 ## Starten
 
@@ -38,14 +41,15 @@ Die App verwendet Windows-Anmeldung und legt ausschließlich ihre eigene Datenba
 
 Entwürfe und Erfolge werden automatisch lokal gespeichert. Unter **Lernplan** kannst du den Lernstand zurücksetzen; die SQL-Datenbank bleibt dabei erhalten. Jede lokale Installation verwendet ein gemeinsames Profil für ihre Browser.
 
-Das GitHub-Repository ist derzeit privat. Die vorbereitete Updateprüfung kann erst öffentlich zugängliche Releases auswerten; sie verwendet keine GitHub-Zugangsdaten. Version und Updateprüfung findest du unter **Updates & SQL-Einrichtung**. Die abschaltbare Startprüfung liest öffentliche GitHub-Releases und weist auf neue Windows-Pakete hin. Dateien werden nicht automatisch heruntergeladen oder ersetzt.
+Die Updateprüfung wertet öffentlich zugängliche Releases aus; sie verwendet keine GitHub-Zugangsdaten. Version und Updateprüfung findest du unter **Updates & SQL-Einrichtung**. Die abschaltbare Startprüfung weist auf neue Windows-Pakete hin. Dateien werden nicht automatisch heruntergeladen oder ersetzt. Private Releases kann die anonyme Prüfung nicht erkennen.
 
 ## Dokumentation
 
 - [Entwicklung und Projektstruktur](docs/entwicklung.md) – Orientierung im Code, Debuggen und Tests.
 - [Lernkonzept](docs/lernkonzept.md) – Lernmodi, Bewertung und technische Grenzen.
-- [Pseudocode und Algorithmen](docs/pseudocode.md) – erster Lernweg und unterstützte Schreibweise.
+- [Pseudocode und Algorithmen](docs/pseudocode.md) – Aufgabenübersicht und unterstützte Schreibweise.
 - [Lokale Windows-Pakete](docs/lokale-releases.md) – Voraussetzungen, Profil und Versionswechsel.
+- [Optionale Vorführung im Heimnetz](docs/heimnetz-und-serverbetrieb.md) – Netzwerkzugriff und Android-/Chrome-Berechtigungen.
 - [Projektsteckbrief](docs/projektsteckbrief.md) und [weitere Entwicklung](docs/verbesserungsplan.md).
 - [Entwicklungsprotokoll](docs/entwicklungsprotokoll.md) und [Testprotokoll](docs/testprotokoll.md).
 

@@ -1,18 +1,28 @@
 # AP2 Lernwerk lokal starten
 
-Stand: Windows-Alpha 0.1.1-alpha.3. Auf ausdrücklichen Nutzerwunsch ist ein neues eigenständig startbares ZIP mit aktueller privater Projektlizenz gebaut und geprüft. Die alte Testfassung 0.1.0 ist kein Verteilungspaket für die aktuelle Fassung und soll nicht verwendet werden.
+Stand: Windows-Alpha 0.1.1-alpha.7, gebaut und aus dem ZIP geprüft am 04.11.2026. Das Paket enthält die aktuelle private Projektlizenz. Die alte Testfassung 0.1.0 ist kein Verteilungspaket für die aktuelle Fassung und soll nicht verwendet werden.
 
-Die anschließende Quellprojektfassung 0.1.1-alpha.4 ergänzt die erhaltene Listenposition, den überarbeiteten geführten Hilfebereich, die modulabhängige Kopfnavigation und den ersten Pseudocode-Lernweg mit acht Aufgaben. Die Pseudocode-Aufgaben dieser Entwicklungsfassung benötigen keine SQL-Verbindung. Dafür wurde noch kein neues Windows-Paket erstellt; das bestehende ZIP 0.1.1-alpha.3 bleibt unverändert und enthält weiterhin nur die SQL-Lernwege.
+Alpha 7 enthält Pseudocode-Zeilennummern, Tab-Einrückung, große Schlüsselwörter und alle 30 Algorithmus-Aufgaben mit Suche, Sortierung, verschachtelten Listen, Funktionen, Prüfziffern, Grenztests und Rekursion. Zusammen mit den SQL-Lernwegen stehen 70 Übungen bereit. SQL-Spickzettel und Werkstatt besitzen den erhaltenen Rückweg zur Aufgabe.
 
-Für das nächste Paket sind die angepasste `release/Anleitung.md` und `release/Versionshinweise-0.1.1-alpha.4.md` vorbereitet. Die Paketierung ist ausdrücklich erst nach dem vom Nutzer durchgeführten Commit und Push beauftragt. Bis dahin bleiben dies vorbereitete Unterlagen, kein Nachweis eines gebauten oder veröffentlichten Alpha-4-Pakets.
+Datei: `artifacts/releases/AP2-Lernwerk-0.1.1-alpha.7-win-x64.zip`, 50.740.598 Bytes (48,39 MiB), plus `.zip.sha256`. SHA256: `57c1aee1c6a791fd938290c9c767aaed11569058c2b0efb4b4b4d20c3b5e0fab`. Das ZIP wurde nach der Prüfung nicht verändert. Die EXE startet mit mitgelieferter Laufzeit; Anleitung, Versionshinweise, Projektlizenz und Drittanbieterhinweise sind enthalten. Private Einstellungen und Lernstände sind ausgeschlossen.
+
+GitHub: Tag `v0.1.1-alpha.7`, Titel `AP2 Lernwerk 0.1.1-alpha.7`, als **Pre-release** kennzeichnen. ZIP und SHA256-Datei unter Assets hochladen. Gebaut wurde auf ausdrücklichen Nutzerwunsch aus der noch uncommitteten Arbeitsfassung. Der alte Commit `b590044` ist deshalb kein passendes Release-Ziel; Änderungen zuerst committen und pushen und den Tag auf diesen neuen Commit setzen. Es wurde nichts automatisch veröffentlicht. Ältere Alpha-Fassungen können das höhere öffentliche Release nach fertigem Asset-Upload erkennen; dieser Live-Schritt ist vor Veröffentlichung nicht geprüft.
+
+## Frühere Pakete
+
+Alpha 4 ergänzt die erhaltene Listenposition, den überarbeiteten geführten Hilfebereich, die modulabhängige Kopfnavigation und den ersten Pseudocode-Lernweg mit acht Aufgaben. Die Pseudocode-Aufgaben benötigen keine SQL-Verbindung. Das bestehende ältere ZIP 0.1.1-alpha.3 bleibt unverändert und enthält nur die SQL-Lernwege.
+
+Nach dem vom Nutzer durchgeführten Commit und Push wurde das Paket aus `b5900441d3bb8269f0df9ed0b1d1e4fdf94f6547` erstellt. Anleitung und Versionshinweise sind enthalten. Lokal liegen `artifacts/releases/AP2-Lernwerk-0.1.1-alpha.4-win-x64.zip` (50.701.318 Bytes) und die zugehörige `.zip.sha256` vor. SHA256: `09909501a0d6a7679b6930998db60bc6462e1d8c72c0fdff3076c9620bbcc5fc`. Das Paket ist vorbereitet, nicht automatisch veröffentlicht.
+
+GitHub-Angaben: Tag `v0.1.1-alpha.4`, Titel `Alpha 0.1.1-alpha.4`, Zielcommit `b590044`, Kennzeichnung als Vorabversion. ZIP und SHA256-Datei als Assets hochladen. Ein öffentliches veröffentlichtes Alpha-4-Release mit vollständig hochgeladenem Windows-ZIP kann von Alpha 3 als Update erkannt werden; derselbe Versionsstand ist kein neues Update.
 
 ## Voraussetzungen
 
 * Windows auf einem x64-Rechner und ein aktueller Browser.
-* Eine erreichbare Microsoft-SQL-Server-Instanz, beispielsweise SQL Server Express. SSMS allein enthält keinen Datenbankserver. Standard ist die lokale Instanz .\SQLEXPRESS mit Windows-Anmeldung.
+* Für die SQL-Lernwege eine erreichbare Microsoft-SQL-Server-Instanz, beispielsweise SQL Server Express. SSMS allein enthält keinen Datenbankserver. Standard ist die lokale Instanz .\SQLEXPRESS mit Windows-Anmeldung. Pseudocode kann ohne SQL Server bearbeitet werden.
 * Beim ersten Start benötigt deine Windows-Anmeldung das Recht, die eigene Datenbank FIAE_AP2_Training anzulegen. Andere Datenbanken werden nicht befüllt oder verändert. Eine gleichnamige fremde Datenbank ohne Trainer-Kennzeichnung wird abgewiesen.
 
-Das Windows-Paket enthält die benötigte .NET- und ASP.NET-Core-Laufzeit. Ein SDK, Visual Studio oder eine separate .NET-Installation sind für dieses Paket nicht erforderlich. SQL Server ist separat erforderlich und wird vom Lernwerk weder installiert noch aktualisiert. [Microsoft: eigenständige Single-File-Veröffentlichung](https://learn.microsoft.com/en-us/dotnet/core/deploying/single-file/), [SQL Server herunterladen](https://www.microsoft.com/sql-server/sql-server-downloads).
+Das Windows-Paket enthält die benötigte .NET- und ASP.NET-Core-Laufzeit. Ein SDK, Visual Studio oder eine separate .NET-Installation sind für dieses Paket nicht erforderlich. SQL Server ist nur für SQL separat erforderlich und wird vom Lernwerk weder installiert noch aktualisiert. Das technische Feld `RequiresSqlServer` in `release-info.json` bezieht sich auf die SQL-Funktionen; es sperrt den Algorithmus-Lernweg nicht. [Microsoft: eigenständige Single-File-Veröffentlichung](https://learn.microsoft.com/en-us/dotnet/core/deploying/single-file/), [SQL Server herunterladen](https://www.microsoft.com/sql-server/sql-server-downloads).
 
 ## Starten und beenden
 
@@ -74,7 +84,7 @@ Die bisherige Anwendung beenden, das neue vollständige ZIP in einen neuen Ordne
 Aus dem Quellprojekt lässt sich ein nummeriertes Windows-Paket erstellen:
 
 ```powershell
-.\Release-erstellen.ps1 -Version 0.1.1-alpha.3
+.\Release-erstellen.ps1 -Version 0.1.1-alpha.4
 ```
 
 Ohne Versionsparameter verwendet das Skript die zentrale Version aus Directory.Build.props. Während der laufenden Entwicklung wird es nicht automatisch ausgeführt. Dafür sind das im Projekt festgelegte .NET-SDK und beim ersten Wiederherstellen der Windows-Laufzeitpakete Internetzugang erforderlich. Der Ablauf erstellt ein neues Buildverzeichnis und schreibt ZIP sowie SHA256-Datei nach artifacts/releases. Vorhandene gleich nummerierte ZIP-Dateien werden nicht überschrieben. Private Konfiguration, Fortschrittsdateien, QA-Profile und Protokolle werden vor dem Verpacken abgeprüft.
@@ -85,4 +95,4 @@ Das erste Paket ist nicht mit einem Code-Signing-Zertifikat signiert. Ein Test a
 
 ## Öffentliche Updatequelle
 
-Das Repository https://github.com/b0rnkilla/FIAE-AP2-Lernwerk ist derzeit privat. Ohne öffentliche Releases ist noch keine anonyme Updatequelle verfügbar. Die vorbereitete Prüfung benötigt später öffentlich erreichbare Releases und verwendet keine Zugangsschlüssel. Die Prüfung liest maximal 100 öffentliche Releases ohne Authentifizierung, benötigt einen gültigen SemVer-Tag und einen fertig hochgeladenen Anhang *-win-x64.zip. Alpha-Fassungen berücksichtigen Vorabversionen; stabile Fassungen bleiben beim stabilen Kanal. Abfragen haben ein kurzes Timeout und werden bei Wiederholung innerhalb einer Minute zusammengefasst. Fehler werden von „keine neuere Version“ unterschieden. Unter Updates & SQL-Einrichtung kann die automatische Startprüfung ausgeschaltet werden.
+Die konfigurierte Quelle ist https://github.com/b0rnkilla/FIAE-AP2-Lernwerk. Ist das Repository oder ein Release privat, kann die anonyme Prüfung es nicht erkennen. Die Prüfung verwendet keine Zugangsschlüssel und liest maximal 100 öffentliche Releases. Sie benötigt einen gültigen SemVer-Tag und einen fertig hochgeladenen Anhang *-win-x64.zip. Alpha-Fassungen berücksichtigen Vorabversionen; stabile Fassungen bleiben beim stabilen Kanal. Abfragen haben ein kurzes Timeout und werden bei Wiederholung innerhalb einer Minute zusammengefasst. Fehler werden von „keine neuere Version“ unterschieden. Unter Updates & SQL-Einrichtung kann die automatische Startprüfung ausgeschaltet werden.

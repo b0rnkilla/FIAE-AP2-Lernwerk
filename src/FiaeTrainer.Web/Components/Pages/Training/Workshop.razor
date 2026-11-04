@@ -40,7 +40,7 @@ else
                         @for (int i = 0; i < _current.HintLevel; i++) { <div class="hint"><span>@(i + 1)</span><p>@_lesson.Hints[i]</p></div> }
                         <div class="help-row">
                             <div><h2>Syntax gerade nicht im Kopf?</h2><p>Im SQL-Spickzettel findest du Regeln und Beispiele.</p></div>
-                            <a href="/nachschlagen" class="button secondary">SQL-Spickzettel öffnen</a>
+                            <a href="@($"/nachschlagen?zurueck=/sql-werkstatt/{_lesson.Id}")" class="button secondary">SQL-Spickzettel öffnen</a>
                         </div>
                         <div class="help-row">
                             <div><h2>Musterlösung</h2><p>Eine aufgedeckte Lösung zählt nicht als selbstständiger Versuch.</p></div>

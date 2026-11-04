@@ -1,6 +1,8 @@
 @page "/nachschlagen"
+@inject LearningNavigation LearningNavigation
 <PageTitle>SQL-Spickzettel · AP2 Lernwerk</PageTitle>
 <main class="page reading-page"><div class="eyebrow">VERSTEHEN STATT ABSCHREIBEN</div><h1>Dein SQL-Spickzettel.</h1><p class="lead">Ein kurzer Überblick für die Ermittlungsakte. Die Beispiele verwenden die Falltabellen und den SQL-Server-Dialekt T-SQL.</p>
+    <a class="button secondary" href="@LearningNavigation.SqlReturnPath(ReturnTo)">Zurück zu deiner Aufgabe →</a>
     <section class="reference-section"><h2>Schreibregeln im Trainer</h2><p>Schreibe SQL-Schlüsselwörter und Funktionen groß, zum Beispiel SELECT, FROM, WHERE und COUNT. Jede vollständige Anweisung endet mit einem Semikolon. Tabellen, Spalten, Aliase und Textwerte behalten ihre Schreibweise. Innerhalb einer Unterabfrage steht kein zusätzliches Semikolon.</p></section>
     <section class="reference-section"><h2>Die Reihenfolge beim Schreiben</h2><pre><code>SELECT Zielort, COUNT(*) AS Anzahl
 FROM Sendungen
@@ -32,5 +34,10 @@ DELETE FROM Artikel WHERE Aktiv = 0;</code></pre><p>UPDATE ändert vorhandene Ze
 UPDATE Konten SET Guthaben = Guthaben - 50 WHERE Id = 1;
 UPDATE Konten SET Guthaben = Guthaben + 50 WHERE Id = 2;
 COMMIT;</code></pre><p>COMMIT bestätigt die zusammengehörigen Änderungen, ROLLBACK nimmt sie zurück. In einer echten Anwendung gehört eine passende Fehlerbehandlung dazu. In der Werkstatt zeigt der Zwischenstand vor ROLLBACK auch den versuchsweisen Abzug.</p></section>
-    <section class="notice"><strong>Was diese Version noch nicht vollständig abdeckt</strong><p>Fremdschlüssel als ausführbare Strukturaufgabe, Berechtigungen, UNION und weitere SQL-Themen fehlen noch. Pseudocode, UML und die übrigen Module sind in Vorbereitung. Die App ist kein vollständiger SQL- oder AP2-Prüfungskatalog.</p></section>
+    <section class="notice"><strong>Was diese Version noch nicht vollständig abdeckt</strong><p>Fremdschlüssel als ausführbare Strukturaufgabe, Berechtigungen, UNION und weitere SQL-Themen fehlen noch. UML und die übrigen Module sind in Vorbereitung. Die App ist kein vollständiger SQL- oder AP2-Prüfungskatalog.</p></section>
 </main>
+
+@code {
+    /// <summary> Rücksprungziel aus der Adresse; vor Verwendung auf lokale SQL-Aufgabenseiten begrenzt. </summary>
+    [SupplyParameterFromQuery(Name = "zurueck")] public string? ReturnTo { get; set; }
+}

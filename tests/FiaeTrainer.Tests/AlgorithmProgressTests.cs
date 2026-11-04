@@ -33,6 +33,29 @@ public sealed class AlgorithmProgressTests : IDisposable
     }
 
     [Fact]
+    public async Task EightTaskProfileRetainsDraftsModesAndAchievementsWhenTaskNineIsAdded()
+    {
+        ProgressStore store = Store();
+        for (int id = 1; id <= 8; id++)
+            await store.SaveAlgorithmAsync(id, new() { Completed = true, Independent = true, Draft = $"Entwurf {id}", ExamMode = id % 2 == 0 });
+        await store.SaveLessonAsync(17, new() { Sql = "SQL bleibt erhalten", Completed = true });
+        await store.SaveAlgorithmAsync(9, new() { Draft = "AUSGABE -2" });
+        TrainingProgress restored = await Store().LoadAsync();
+        Assert.Equal(9, restored.LastAlgorithmLessonId);
+        for (int id = 1; id <= 8; id++)
+        {
+            Assert.Equal($"Entwurf {id}", restored.AlgorithmLessons[id].Draft);
+            Assert.True(restored.AlgorithmLessons[id].Independent);
+            Assert.True(restored.AlgorithmLessons[id].Completed);
+            Assert.Equal(id % 2 == 0, restored.AlgorithmLessons[id].ExamMode);
+        }
+        Assert.True(restored.AlgorithmLessons[9].ExamMode);
+        Assert.False(restored.AlgorithmLessons[9].Completed);
+        Assert.Equal("SQL bleibt erhalten", restored.Lessons[17].Sql);
+        Assert.False(restored.AlgorithmLessons.ContainsKey(24));
+    }
+
+    [Fact]
     public async Task SavingDifferentAreasRetainsAchievementsAndSettings()
     {
         ProgressStore store = Store();
@@ -71,6 +94,27 @@ public sealed class AlgorithmProgressTests : IDisposable
         await File.WriteAllTextAsync(path, damaged);
         await Assert.ThrowsAsync<InvalidDataException>(() => Store().SaveAlgorithmAsync(2, new()));
         Assert.Equal(damaged, await File.ReadAllTextAsync(path));
+    }
+
+    [Fact]
+    public void SqlReferenceKeepsTheVisitedTaskAndAcceptsOnlyLocalSqlTargets()
+    {
+        LearningNavigation navigation = new();
+        Assert.Equal("/sql", navigation.SqlReturnPath(null));
+        navigation.Visit("sql-werkstatt/4");
+        Assert.Equal("/sql-werkstatt/4", navigation.SqlReturnPath(null));
+        Assert.Equal("/nachschlagen?zurueck=%2Fsql-werkstatt%2F4", navigation.SqlReferenceHref);
+        navigation.Visit("nachschlagen?zurueck=%2Fsql-werkstatt%2F4");
+        Assert.Equal("/sql-werkstatt/4", navigation.SqlReturnPath(null));
+        Assert.Equal("/sql-werkstatt/4", new LearningNavigation().SqlReturnPath("/sql-werkstatt/4"));
+        LearningNavigation reloaded = new();
+        reloaded.Visit("nachschlagen?zurueck=%2Fsql-werkstatt%2F4");
+        Assert.Equal("/sql-werkstatt/4", reloaded.SqlReturnPath(null));
+        foreach (string target in new[] { "https://example.com", "//example.com", "/sql/1?next=https://example.com", "/sql/0", "/sql/-2", "/sql/1/extra", "/sql-werkstatt-malware/1", "/algorithmen/1", "/sql/1\\extra" })
+            Assert.Equal("/sql-werkstatt/4", navigation.SqlReturnPath(target));
+        navigation.Visit("sql/17?test=1#editor");
+        navigation.Visit("lernplan");
+        Assert.Equal("/sql/17", navigation.SqlReturnPath(null));
     }
 
     [Fact]

@@ -24,6 +24,21 @@ public sealed class LearningExperienceTests : IDisposable
     private readonly string _directory = Path.Combine(Path.GetTempPath(), "FiaeTrainer-Experience", Guid.NewGuid().ToString("N"));
 
     [Fact]
+    public async Task SqlReferenceOffersTheSameReturnButtonForInvestigationAndWorkshop()
+    {
+        LearningNavigation navigation = new();
+        using ServiceProvider services = new ServiceCollection().AddLogging().AddSingleton(navigation).BuildServiceProvider();
+        navigation.Visit("sql/17");
+        string investigation = await RenderAsync<Reference>([], services);
+        Assert.Contains("href=\"/sql/17\"", investigation);
+        Assert.Contains("Zurück zu deiner Aufgabe →", investigation);
+        navigation.Visit("sql-werkstatt/4");
+        string workshop = await RenderAsync<Reference>([], services);
+        Assert.Contains("href=\"/sql-werkstatt/4\"", workshop);
+        Assert.DoesNotContain("Pseudocode, UML und die übrigen Module sind in Vorbereitung", workshop);
+    }
+
+    [Fact]
     public async Task EmptyPlanOffersBothFirstTasksWithoutCalendarDeadlines()
     {
         string html = await RenderPlanAsync();
@@ -44,7 +59,7 @@ public sealed class LearningExperienceTests : IDisposable
         await store.SaveAlgorithmAsync(2, new AlgorithmProgress { Completed = true });
         await store.SaveAlgorithmAsync(3, new AlgorithmProgress { Draft = "Entwurf" });
         string html = await RenderPlanAsync();
-        Assert.Contains("2 / 8 gelöst", html);
+        Assert.Contains("2 / 30 gelöst", html);
         string review = html.Split("Gelöst – jetzt ohne Hilfe wiederholen")[1].Split("DEINE LERNROUTINE")[0];
         Assert.Contains("href=\"/algorithmen/2\"", review);
         Assert.DoesNotContain("href=\"/algorithmen/1\"", review);
@@ -89,7 +104,7 @@ public sealed class LearningExperienceTests : IDisposable
         foreach (var lesson in new FiaeTrainer.Core.Algorithms.Content.AlgorithmCatalog().Lessons)
             await store.SaveAlgorithmAsync(lesson.Id, new AlgorithmProgress { Completed = true, Independent = true });
         string html = await RenderPlanAsync();
-        Assert.Contains("Alle 48 Übungen sind gelöst", html);
+        Assert.Contains("Alle 70 Übungen sind gelöst", html);
         Assert.Contains("unbekannte Aufgaben auf Papier", html);
         Assert.DoesNotContain("Weiter ermitteln →", html);
     }
@@ -106,7 +121,7 @@ public sealed class LearningExperienceTests : IDisposable
             await store.SaveAlgorithmAsync(lesson.Id, new AlgorithmProgress { Draft = "Entwurf" });
         string html = await RenderPlanAsync();
         Assert.Contains("Du hast alle Aufgaben bereits begonnen", html);
-        Assert.DoesNotContain("Alle 48 Übungen sind gelöst", html);
+        Assert.DoesNotContain("Alle 70 Übungen sind gelöst", html);
         Assert.Contains("href=\"/sql/1\"", html);
         Assert.Contains("href=\"/sql-werkstatt/10\"", html);
     }

@@ -47,11 +47,12 @@ else
                 }
                 <section class="task-card"><div class="eyebrow">01 · AUFGABE VERSTEHEN</div><p>@_lesson.Task</p>
                     @if (_lesson.ExampleInputs.Count > 0) { <div class="algorithm-inputs"><strong>Beispieleingaben für die Vorschau</strong><dl>@foreach (var input in _lesson.ExampleInputs) { <div><dt>@input.Key</dt><dd><code>@AlgorithmDisplay.Input(input.Value)</code></dd></div> }</dl></div> }
+                    @if (_lesson.FunctionName.Length > 0) { <p class="function-contract"><strong>Deine Funktion:</strong> <code>@(_lesson.FunctionName + "(" + string.Join(", ", _lesson.FunctionInputs) + ")")</code><br />Die Prüfung ruft sie automatisch auf. Gib das Ergebnis mit <code>RÜCKGABE</code> zurück; ein Hauptablauf mit AUSGABE ist hier nicht nötig.</p> }
                     @if (_lesson.Kind == AlgorithmTaskKind.Trace) { <pre class="given-algorithm"><code>@_lesson.GivenCode</code></pre> }
                 </section>
                 <section class="editor-card" aria-label="Pseudocode-Arbeitsbereich">
                     <div class="editor-toolbar"><label for="algorithm-editor">02 · @EditorLabel</label><span>@(_lesson.Kind is AlgorithmTaskKind.Trace or AlgorithmTaskKind.TestCases ? "Eine Antwort pro Zeile" : "Deutscher Pseudocode")</span></div>
-                    <textarea id="algorithm-editor" class="sql-editor" spellcheck="false" autocapitalize="off" autocomplete="off" maxlength="12000" placeholder="@EditorPlaceholder" @bind="_draft" @bind:event="oninput" @bind:after="ClearFeedback" @onblur="SaveAsync" readonly="@_busy"></textarea>
+                    <CodeEditor Id="algorithm-editor" Placeholder="@EditorPlaceholder" Value="@_draft" ValueChanged="@(value => { _draft = value; ClearFeedback(); })" Blur="SaveAsync" ReadOnly="@_busy" CodeMode="@(_lesson.Kind is AlgorithmTaskKind.Write or AlgorithmTaskKind.Repair)" />
                     <div class="editor-actions"><div>@if (!_current.ExamMode) { <button class="button secondary" disabled="@_busy" @onclick="PreviewAsync">Ablauf untersuchen</button> }<button class="button primary" disabled="@(_busy || string.IsNullOrWhiteSpace(_draft))" @onclick="EvaluateAsync">@(_busy ? "Wird geprüft …" : "Lösung prüfen") →</button></div></div>
                 </section>
                 @if (_storageError != null) { <p class="notice warning" role="alert">@_storageError</p> }
@@ -73,12 +74,13 @@ else
                     {
                         <section class="algorithm-trace" aria-label="Schrittweise Ausführung">
                             <h2>Den Ablauf verstehen</h2>
+                            @if (_lesson.FunctionName.Length > 0 && _run.Error == null) { <p><strong>Rückgabewert des Beispielaufrufs:</strong> <code>@string.Join(" → ", _run.Output)</code></p> }
                             @if (_run.Error != null) { <p class="notice warning" role="alert">@_run.Error</p> }
                             @if (_run.Steps.Count > 0)
                             {
                                 AlgorithmStep step = _run.Steps[_step];
                                 <div class="trace-controls"><button class="button secondary" disabled="@(_step == 0)" @onclick="() => _step--">← Zurück</button><span>Schritt @(_step + 1) / @_run.Steps.Count</span><button class="button secondary" disabled="@(_step == _run.Steps.Count - 1)" @onclick="() => _step++">Nächster Schritt →</button></div>
-                                <p role="status">Zeile @step.Line · @step.Action</p>
+                                <p role="status">@step.Scope@if (step.CallDepth > 0) { <span> · Aufrufebene @step.CallDepth</span> } · Zeile @step.Line · @step.Action</p>
                                 <pre class="trace-code">@for (int i = 0; i < _previewLines.Length; i++) { <span class="@(i + 1 == step.Line ? "current-line" : "")"><span class="line-number">@(i + 1)</span>@_previewLines[i]</span> }</pre>
                                 <h3>Variablen nach diesem Schritt</h3><dl class="trace-values">@foreach (var variable in step.Variables) { <div><dt>@variable.Key</dt><dd><code>@variable.Value</code></dd></div> }</dl>
                                 <h3>Bisherige Ausgaben</h3><pre><code>@(step.Output.Count == 0 ? "Noch keine Ausgabe" : string.Join("\n", step.Output))</code></pre>

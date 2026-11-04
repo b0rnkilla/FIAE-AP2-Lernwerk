@@ -25,7 +25,9 @@ public sealed class AlgorithmEvaluator(AlgorithmInterpreter interpreter)
         {
             foreach (AlgorithmTest test in lesson.Tests)
             {
-                AlgorithmRun run = interpreter.Run(answer, test.Inputs);
+                AlgorithmRun run = lesson.FunctionName.Length == 0
+                    ? interpreter.Run(answer, test.Inputs)
+                    : interpreter.RunFunction(answer, lesson.FunctionName, lesson.FunctionInputs.Select(name => test.Inputs[name]).ToArray());
                 checks.Add(new(test.Name, Inputs(test.Inputs), string.Join(" → ", test.Output), run.Error ?? (run.Output.Count == 0 ? "Keine Ausgabe" : string.Join(" → ", run.Output)), run.Error == null && Same(test.Output, run.Output)));
                 if (run.Error != null) return new(false, run.Error, checks);
             }
@@ -33,7 +35,7 @@ public sealed class AlgorithmEvaluator(AlgorithmInterpreter interpreter)
         return Finish(checks);
     }
 
-    /// <summary> Erwartet pro Zeile „gewicht => Ausgabe“ und prüft Korrektheit sowie ausdrücklich geforderte Eingabegruppen. </summary>
+    /// <summary> Erwartet pro Zeile „Zahl => Ausgabe“ für die benannte Eingabe und prüft Korrektheit sowie geforderte Eingabegruppen. </summary>
     private AlgorithmEvaluation EvaluateCases(AlgorithmLesson lesson, string answer)
     {
         List<AlgorithmCheck> checks = [];
@@ -44,12 +46,12 @@ public sealed class AlgorithmEvaluator(AlgorithmInterpreter interpreter)
         {
             string[] parts = lines[i].Split("=>", 2, StringSplitOptions.TrimEntries);
             if (parts.Length != 2 || !decimal.TryParse(parts[0], NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out decimal input) || input != decimal.Truncate(input))
-                return new(false, $"Antwortzeile {i + 1}: Schreibe eine ganze Zahl, dann => und die erwartete Ausgabe, zum Beispiel 50 => zulässig.", checks);
-            Dictionary<string, JsonElement> inputs = new() { ["gewicht"] = JsonSerializer.SerializeToElement(input) };
+                return new(false, $"Antwortzeile {i + 1}: Schreibe eine ganze Zahl für {lesson.CaseInputName}, dann => und die erwartete Ausgabe. Verwende pro Zeile genau einen Testfall.", checks);
+            Dictionary<string, JsonElement> inputs = new() { [lesson.CaseInputName] = JsonSerializer.SerializeToElement(input) };
             AlgorithmRun run = interpreter.Run(lesson.ReferenceCode, inputs);
             if (run.Error != null) throw new InvalidDataException("Die Testfall-Referenz ist nicht ausführbar: " + run.Error);
             bool correct = Same(run.Output, [parts[1]]);
-            checks.Add(new($"Testfall {i + 1}", $"gewicht = {input}", string.Join(" → ", run.Output), parts[1], correct));
+            checks.Add(new($"Testfall {i + 1}", $"{lesson.CaseInputName} = {input.ToString(CultureInfo.InvariantCulture)}", string.Join(" → ", run.Output), parts[1], correct));
             if (correct) values.Add(input);
         }
         foreach (TestCoverage group in lesson.Coverage)

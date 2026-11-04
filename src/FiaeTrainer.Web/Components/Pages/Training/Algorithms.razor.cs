@@ -60,7 +60,7 @@ public partial class Algorithms : IAsyncDisposable
     private bool HasOwnDraft => !string.IsNullOrWhiteSpace(_draft) && _draft != InitialDraft;
     private string KindLabel => _lesson?.Kind switch { AlgorithmTaskKind.Repair => "Fehlersuche", AlgorithmTaskKind.Trace => "Schreibtischtest", AlgorithmTaskKind.TestCases => "Testfälle entwerfen", _ => "Eigene Lösung" };
     private string EditorLabel => _lesson?.Kind switch { AlgorithmTaskKind.Trace => "Deine vorhergesagten Ausgaben", AlgorithmTaskKind.TestCases => "Deine Testfälle", _ => "Dein Pseudocode" };
-    private string EditorPlaceholder => _lesson?.Kind switch { AlgorithmTaskKind.Trace => "Eine Ausgabe pro Zeile …", AlgorithmTaskKind.TestCases => "Zum Beispiel: 50 => zulässig", _ => "Schreibe hier deinen Ablauf …" };
+    private string EditorPlaceholder => _lesson?.Kind switch { AlgorithmTaskKind.Trace => "Eine Ausgabe pro Zeile …", AlgorithmTaskKind.TestCases => "Ganze Zahl => erwartete Ausgabe · ein Testfall pro Zeile …", _ => "Schreibe hier deinen Ablauf …" };
 
     #endregion
 
@@ -107,7 +107,9 @@ public partial class Algorithms : IAsyncDisposable
         _current.AttemptAssisted = true;
         _previewCode = _lesson.Kind is AlgorithmTaskKind.Trace or AlgorithmTaskKind.TestCases ? _lesson.ReferenceCode : _draft;
         _previewLines = _previewCode.Replace("\r", "").Split('\n');
-        AlgorithmRun run = Interpreter.Run(_previewCode, _lesson.ExampleInputs, true);
+        AlgorithmRun run = _lesson.FunctionName.Length == 0
+            ? Interpreter.Run(_previewCode, _lesson.ExampleInputs, true)
+            : Interpreter.RunFunction(_previewCode, _lesson.FunctionName, _lesson.FunctionInputs.Select(name => _lesson.ExampleInputs[name]).ToArray(), true);
         _run = run;
         _step = 0;
         _evaluation = null;

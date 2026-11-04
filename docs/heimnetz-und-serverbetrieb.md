@@ -1,6 +1,6 @@
 # Optionale Vorführung im Heimnetz
 
-Stand: 0.1.1-alpha.3 · 03.11.2026. Aktuelle Nutzerentscheidung: lokale Windows-Releases über GitHub. Login, Registrierung, Benutzertabellen, Homeserver und nginx sind nicht mehr geplant. Die folgenden Netzwerkangaben gelten für eine private Vorführung ohne Weitergabe. Sie erweitern die [Nutzungsbedingungen](../LICENSE) nicht.
+Stand: 0.1.1-alpha.4 · 04.11.2026. Aktuelle Nutzerentscheidung: lokale Windows-Releases über GitHub. Login, Registrierung, Benutzertabellen, Homeserver und nginx sind nicht mehr geplant. Die folgenden Netzwerkangaben gelten für eine private Vorführung ohne Weitergabe. Sie erweitern die [Nutzungsbedingungen](../LICENSE) nicht.
 
 ## Jetzt: Vorführung im Heimnetz
 
@@ -38,6 +38,20 @@ Der normale Start über **Trainer-starten.cmd** bleibt lokal. Für den Heimnetzs
 * **HTTP 403:** Die App läuft lokal oder sieht keine erlaubte Quelladresse.
 * **Statische Seite ohne funktionierende Buttons:** Beim Start das Profil FiaeTrainerLan verwenden. Die Prüfung umfasst ausdrücklich das Blazor-Skript und eine tatsächlich abgegebene SQL-Lösung.
 * **SQL-Verbindungsfehler:** Der Datenbankzugriff erfolgt vom Trainer-Rechner. Auf dem zweiten Rechner werden weder SQL Server noch SSMS benötigt. Die vorhandene SQL-Verbindung wird durch den Browserzugriff nicht ersetzt.
+
+### Chrome auf Android erreicht keine Geräte im Heimnetz
+
+Wenn derselbe Trainer auf demselben Handy mit Samsung Internet funktioniert, Chrome aber auch die Routerseite nicht öffnen kann, zuerst die Android-App-Berechtigungen von Chrome prüfen. Android 17 verlangt bei entsprechend aktuellen Apps eine eigene Berechtigung für lokale Netzwerkzugriffe; sie gehört zur Gruppe „Geräte in der Nähe“. Sie ist von den Website-Einstellungen innerhalb von Chrome getrennt.
+
+1. In den **Handy-Einstellungen → Apps → Chrome → Berechtigungen** öffnen.
+2. **Geräte in der Nähe** beziehungsweise **Lokales Netzwerk** wählen und bei verweigertem Zugriff **Zulassen** setzen. Die genaue Bezeichnung kann je nach Systemversion abweichen.
+3. Chrome neu starten und die lokale Traineradresse erneut aufrufen.
+
+Der Nutzer hat diesen Lösungsweg am 04.11.2026 auf einem Samsung-Gerät mit One UI 9.0 und Chrome 156.0.8078.79 erfolgreich bestätigt. Zuvor scheiterten Trainer und Router in Chrome, während Samsung Internet beide erreichte. Inkognito, gelöschte Websitedaten und ausgeschaltete mobile Daten hatten den Fehler nicht behoben.
+
+Die vorhandene Windows-Regel mit `RemoteAddress LocalSubnet` gilt bereits für alle Geräte im direkt angeschlossenen lokalen Subnetz. Eine Regel pro Handy-IP ist nicht erforderlich. Den Browserzugriff erlaubt man einmal für die Android-App; zusätzliche Windows-Freigaben oder das Abschalten von Safe Browsing, sicherem DNS und weiteren Schutzfunktionen sind hierfür nicht erforderlich. Zum Test veränderte Schutzfunktionen anschließend wieder auf ihre bisherigen Werte stellen.
+
+Quellen: [Android: Lokale Netzwerkberechtigung](https://developer.android.com/privacy-and-security/local-network-permission), [Chromium: Android-Berechtigung für lokale Netzwerkzugriffe](https://chromium.googlesource.com/chromium/src/+/6a6d202a1596821b35195abc88eaca7ee4ae4133%5E%21/).
 
 ## Veröffentlichung ohne zentralen Server
 

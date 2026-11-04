@@ -24,7 +24,7 @@ public sealed class AlgorithmTests
     [Fact]
     public void AllReferenceProgramsMatchIndependentlySpecifiedOutputs()
     {
-        Assert.Equal(8, _catalog.Lessons.Count);
+        Assert.Equal(30, _catalog.Lessons.Count);
         foreach (AlgorithmLesson lesson in _catalog.Lessons)
         {
             Assert.Equal(3, lesson.Hints.Length);
@@ -32,8 +32,10 @@ public sealed class AlgorithmTests
             Assert.False(string.IsNullOrWhiteSpace(lesson.Discovery));
             foreach (AlgorithmTest test in lesson.Tests)
             {
-                AlgorithmRun run = _interpreter.Run(lesson.ReferenceCode, test.Inputs, true);
-                Assert.Null(run.Error);
+                AlgorithmRun run = lesson.FunctionName.Length == 0
+                    ? _interpreter.Run(lesson.ReferenceCode, test.Inputs, true)
+                    : _interpreter.RunFunction(lesson.ReferenceCode, lesson.FunctionName, lesson.FunctionInputs.Select(name => test.Inputs[name]).ToArray(), true);
+                Assert.True(run.Error == null, $"Aufgabe {lesson.Id}, Fall {test.Name}: {run.Error}");
                 Assert.Equal(test.Output, run.Output);
             }
             string answer = lesson.Kind is AlgorithmTaskKind.Trace or AlgorithmTaskKind.TestCases ? lesson.ReferenceAnswer : lesson.ReferenceCode;
@@ -51,7 +53,7 @@ public sealed class AlgorithmTests
     [InlineData("AUSGABE FALSCH UND 1 / 0 = 0", "FALSCH")]
     [InlineData("AUSGABE WAHR ODER unbekannt = 0", "WAHR")]
     [InlineData("AUSGABE 'WENN UND SONST'", "WENN UND SONST")]
-    [InlineData("x := 5; ausgabe X", "5")]
+    [InlineData("x := 5; AUSGABE X", "5")]
     [InlineData("x <- 5\nAUSGABE x", "5")]
     [InlineData("x = 5\nAUSGABE x", "5")]
     [InlineData("x = 5\nWENN x == 5 DANN\nx = x + 1\nENDE WENN\nAUSGABE x", "6")]
@@ -64,6 +66,62 @@ public sealed class AlgorithmTests
         AlgorithmRun run = _interpreter.Run(code);
         Assert.Null(run.Error);
         Assert.Equal(expected.Split('|'), run.Output);
+    }
+
+    [Theory]
+    [InlineData("WENN")]
+    [InlineData("DANN")]
+    [InlineData("SONST")]
+    [InlineData("ENDE")]
+    [InlineData("SOLANGE")]
+    [InlineData("FÜR")]
+    [InlineData("FUER")]
+    [InlineData("JEDES")]
+    [InlineData("IN")]
+    [InlineData("VON")]
+    [InlineData("BIS")]
+    [InlineData("TUE")]
+    [InlineData("AUSGABE")]
+    [InlineData("WAHR")]
+    [InlineData("FALSCH")]
+    [InlineData("NICHT")]
+    [InlineData("UND")]
+    [InlineData("ODER")]
+    [InlineData("DIV")]
+    [InlineData("MOD")]
+    [InlineData("LÄNGE")]
+    [InlineData("LAENGE")]
+    [InlineData("FUNKTION")]
+    [InlineData("RÜCKGABE")]
+    [InlineData("RUECKGABE")]
+    public void LowercaseKeywordsProduceLineAndExactCorrection(string keyword)
+    {
+        string word = keyword.ToLowerInvariant();
+        AlgorithmRun run = _interpreter.Run("// Kommentare enthalten wenn und sonst\n\nx = 1\n" + word);
+        Assert.NotNull(run.Error);
+        Assert.Contains("Zeile 4:", run.Error);
+        Assert.Contains($"„{word}“ muss „{keyword}“ heißen", run.Error);
+    }
+
+    [Fact]
+    public void KeywordRuleAppliesToPreviewAndEvaluationWithoutChangingTextsOrVariables()
+    {
+        string code = "Rest = kapazitaet - beladen\nAusgabe rest";
+        Assert.Contains("„Ausgabe“ muss „AUSGABE“ heißen", _interpreter.Run(code, trace: true).Error);
+        AlgorithmEvaluation result = new AlgorithmEvaluator(_interpreter).Evaluate(_catalog.Lessons[0], code);
+        Assert.False(result.Correct);
+        Assert.Contains("Zeile 2", result.Message);
+        AlgorithmRun valid = _interpreter.Run("Rest = 42 // ausgabe wenn dann\nAUSGABE rest\nAUSGABE 'wenn Dann sonst'\nAUSGABE \"ausgabe\"\nFUER i VON 1 BIS 1\nAUSGABE LAENGE([1, 2])\nENDE FUER");
+        Assert.Null(valid.Error);
+        Assert.Equal(["42", "wenn Dann sonst", "ausgabe", "2"], valid.Output);
+    }
+
+    [Fact]
+    public void MissingThenKeepsTheOriginalPhysicalLineNumberIncludingBlankLines()
+    {
+        string code = "WENN FALSCH DANN\n    AUSGABE 1\nSONST\n    WENN WAHR\n        AUSGABE 2\n    ENDE WENN\nENDE WENN";
+        Assert.Contains("Zeile 4: Hier fehlt „DANN“", _interpreter.Run(code).Error);
+        Assert.Contains("Zeile 5: Hier fehlt „DANN“", _interpreter.Run("\n" + code).Error);
     }
 
     [Theory]

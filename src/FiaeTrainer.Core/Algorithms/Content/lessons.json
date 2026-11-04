@@ -132,7 +132,7 @@
     "hints": ["Du brauchst zwei Werte, die anfangs 0 sind: Anzahl und Gesamtgewicht.", "Die Bedingung lautet gewicht >= 0 UND gewicht <= 100.", "Im gültigen Zweig: anzahl = anzahl + 1 und gesamt = gesamt + gewicht. Gib beides erst nach ENDE FÜR aus."],
     "referenceCode": "anzahl = 0\ngesamt = 0\nFÜR JEDES gewicht IN gewichte\n    WENN gewicht >= 0 UND gewicht <= 100 DANN\n        anzahl = anzahl + 1\n        gesamt = gesamt + gewicht\n    ENDE WENN\nENDE FÜR\nAUSGABE anzahl\nAUSGABE gesamt", "referenceAnswer": "",
     "explanation": "Zähler und Summe werden nur für zulässige Einträge erhöht. Ein Paket mit Gewicht 0 zählt mit, verändert aber die Summe nicht. Anfangswerte außerhalb der Schleife sichern den Fall einer leeren Liste ab. Auch eine korrekt begrenzte Indexschleife ist zulässig.",
-    "discovery": "Der erste Planungsstand ist wieder nutzbar: Die Leitstelle kann Restkapazität, Prioritäten und eine geprüfte Übersicht zulässiger Pakete bestimmen. Funktionen, weitere Listenaufgaben sowie Suche und Sortierung folgen in einem späteren Ausbau.",
+    "discovery": "Der erste Planungsstand ist wieder nutzbar: Die Leitstelle kann Restkapazität, Prioritäten und eine geprüfte Übersicht zulässiger Pakete bestimmen. Als Nächstes braucht die Leitstelle Kennzahlen aus den Meldelisten und einen verlässlichen Zugriff auf einzelne Aufträge.",
     "tests": [
       { "name": "Gemischte Ladung", "inputs": { "gewichte": [20, 110, 0, -5, 100] }, "output": ["3", "120"] },
       { "name": "Leere Liste", "inputs": { "gewichte": [] }, "output": ["0", "0"] },
@@ -140,6 +140,2076 @@
       { "name": "Beide Grenzen", "inputs": { "gewichte": [0, 100] }, "output": ["2", "100"] },
       { "name": "Gleiche Gewichte mehrfach", "inputs": { "gewichte": [25, 25, 25] }, "output": ["3", "75"] },
       { "name": "Ein einzelnes Paket", "inputs": { "gewichte": [1] }, "output": ["1", "1"] }
+    ]
+  },
+  {
+    "id": 9,
+    "chapter": "05 · Listen gezielt auswerten",
+    "title": "Der höchste Messwert",
+    "kind": "Write",
+    "story": "Die Leitstelle möchte Verzögerungen nicht nur als Summe sehen. Für die nächste Lagebesprechung braucht Nora den höchsten gemeldeten Zeitunterschied. Negative Werte bedeuten, dass ein Fahrzeug früher als geplant ankommt. Auch eine noch leere Meldeliste muss verständlich behandelt werden.",
+    "previousContext": "Die Auswertung aus Aufgabe 8 zählt und summiert passende Pakete. Jetzt erweiterst du die Listenverarbeitung um die Suche nach einem Extremwert.",
+    "task": "Die Liste abweichungen enthält ganze Zahlen, auch negative. Gib ihren größten Wert aus. Ist sie leer, gib ausschließlich den Text leer aus. Ein Maximum darf nicht pauschal bei 0 beginnen: Bei [-7, -2, -9] ist das Ergebnis -2.",
+    "exampleInputs": {
+      "abweichungen": [
+        -7,
+        -2,
+        -9
+      ]
+    },
+    "briefing": "Ein Maximum wird mit jedem größeren Wert aktualisiert. Für eine nichtleere Liste ist der erste Eintrag ein geeigneter Anfangswert. Prüfe die Länge, bevor du abweichungen[0] liest.",
+    "hints": [
+      "Behandle die leere Liste vor dem ersten Indexzugriff.",
+      "Starte das Maximum mit abweichungen[0], damit auch ausschließlich negative Werte funktionieren.",
+      "Vergleiche jeden Wert mit dem bisherigen Maximum; gib das Ergebnis erst nach der Schleife aus."
+    ],
+    "referenceCode": "WENN LÄNGE(abweichungen) == 0 DANN\n    AUSGABE \"leer\"\nSONST\n    maximum = abweichungen[0]\n    FÜR JEDES wert IN abweichungen\n        WENN wert > maximum DANN\n            maximum = wert\n        ENDE WENN\n    ENDE FÜR\n    AUSGABE maximum\nENDE WENN",
+    "referenceAnswer": "",
+    "explanation": "Der erste vorhandene Messwert ist ein gültiger Kandidat. Die Schleife ersetzt ihn nur durch größere Werte. Dadurch funktionieren negative Zahlen, gleiche Werte und ein einzelner Eintrag. Der Leerfall verhindert einen ungültigen Indexzugriff.",
+    "discovery": "Die Lagebesprechung kann den höchsten Zeitunterschied auch dann korrekt anzeigen, wenn alle Fahrzeuge früher kommen oder noch keine Meldung vorliegt.",
+    "tests": [
+      {
+        "name": "Nur frühere Ankünfte",
+        "inputs": {
+          "abweichungen": [
+            -7,
+            -2,
+            -9
+          ]
+        },
+        "output": [
+          "-2"
+        ]
+      },
+      {
+        "name": "Noch keine Meldung",
+        "inputs": {
+          "abweichungen": []
+        },
+        "output": [
+          "leer"
+        ]
+      },
+      {
+        "name": "Genau pünktlich",
+        "inputs": {
+          "abweichungen": [
+            0
+          ]
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Maximum am Ende",
+        "inputs": {
+          "abweichungen": [
+            3,
+            5,
+            17
+          ]
+        },
+        "output": [
+          "17"
+        ]
+      },
+      {
+        "name": "Maximum mehrfach",
+        "inputs": {
+          "abweichungen": [
+            8,
+            8,
+            -1
+          ]
+        },
+        "output": [
+          "8"
+        ]
+      },
+      {
+        "name": "Ein negativer Wert",
+        "inputs": {
+          "abweichungen": [
+            -30
+          ]
+        },
+        "output": [
+          "-30"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "chapter": "05 · Listen gezielt auswerten",
+    "title": "Der verschwundene halbe Wert",
+    "kind": "Repair",
+    "story": "Für dieselbe Lagebesprechung soll außerdem die durchschnittliche Bearbeitungszeit erscheinen. Die Anzeige rundet aber scheinbar immer ab. Nora gibt dir den betroffenen Ablauf; die Berechnung darf vorhandene Nachkommastellen nicht verlieren.",
+    "previousContext": "Aufgabe 9 liefert den höchsten Messwert. Daneben braucht die Übersicht einen korrekt berechneten Durchschnitt.",
+    "task": "Die Liste zeiten enthält nichtnegative ganze Zahlen. Repariere die Berechnung des arithmetischen Mittels. Gib den ungerundeten Durchschnitt aus; bei einer leeren Liste den Text leer. Beispiel: [10, 11] ergibt 10.5. Alle Prüffälle besitzen einen endlichen Dezimalwert.",
+    "exampleInputs": {
+      "zeiten": [
+        10,
+        11
+      ]
+    },
+    "briefing": "DIV schneidet den Quotienten zur 0 hin ab. / behält den Dezimalanteil. Die Division darf nur erfolgen, wenn mindestens ein Wert vorhanden ist.",
+    "hints": [
+      "Welche Rechenoperation kann Nachkommastellen abschneiden?",
+      "Summe und Anzahl sind bereits richtig bestimmt. Prüfe den Operator der letzten AUSGABE.",
+      "Ersetze DIV durch /, ohne die Behandlung der leeren Liste zu entfernen."
+    ],
+    "referenceCode": "WENN LÄNGE(zeiten) == 0 DANN\n    AUSGABE \"leer\"\nSONST\n    summe = 0\n    FÜR JEDES zeit IN zeiten\n        summe = summe + zeit\n    ENDE FÜR\n    AUSGABE summe / LÄNGE(zeiten)\nENDE WENN",
+    "referenceAnswer": "",
+    "explanation": "Das arithmetische Mittel ist Summe geteilt durch Anzahl. DIV wäre eine Ganzzahldivision und verwirft beispielsweise die .5 aus 21 / 2. Der Leerzweig verhindert eine Division durch 0.",
+    "discovery": "Die Übersicht unterscheidet nun Spitzenwerte und Durchschnittswerte; halbe Minuten gehen bei der Berechnung nicht mehr verloren.",
+    "tests": [
+      {
+        "name": "Halbe Minute",
+        "inputs": {
+          "zeiten": [
+            10,
+            11
+          ]
+        },
+        "output": [
+          "10.5"
+        ]
+      },
+      {
+        "name": "Leer",
+        "inputs": {
+          "zeiten": []
+        },
+        "output": [
+          "leer"
+        ]
+      },
+      {
+        "name": "Vier Werte",
+        "inputs": {
+          "zeiten": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        "output": [
+          "1.5"
+        ]
+      },
+      {
+        "name": "Ganze Zahl",
+        "inputs": {
+          "zeiten": [
+            10,
+            20
+          ]
+        },
+        "output": [
+          "15"
+        ]
+      },
+      {
+        "name": "Einzelwert",
+        "inputs": {
+          "zeiten": [
+            7
+          ]
+        },
+        "output": [
+          "7"
+        ]
+      },
+      {
+        "name": "Andere Anzahl",
+        "inputs": {
+          "zeiten": [
+            2,
+            2,
+            5
+          ]
+        },
+        "output": [
+          "3"
+        ]
+      }
+    ],
+    "givenCode": "WENN LÄNGE(zeiten) == 0 DANN\n    AUSGABE \"leer\"\nSONST\n    summe = 0\n    FÜR JEDES zeit IN zeiten\n        summe = summe + zeit\n    ENDE FÜR\n    AUSGABE summe DIV LÄNGE(zeiten)\nENDE WENN"
+  },
+  {
+    "id": 11,
+    "chapter": "06 · Aufträge wiederfinden",
+    "title": "Wo steht der Auftrag?",
+    "kind": "Write",
+    "story": "Während der Besprechung meldet sich ein Fahrer mit einer Auftragsnummer. Die Disposition möchte sofort die erste passende Position in der Warteliste finden. Die Liste ist unsortiert und kann wiederholte Nummern enthalten.",
+    "previousContext": "Nach den Kennzahlen aus Aufgabe 10 folgt der Zugriff auf einen konkreten Auftrag in derselben Warteliste.",
+    "task": "Die Liste nummern und die Zahl gesucht sind gegeben. Gib den Index des ersten passenden Eintrags aus, beginnend bei 0. Falls gesucht nicht vorkommt oder die Liste leer ist, gib -1 aus. Bei [42, 17, 42] und gesucht = 42 lautet die Ausgabe 0. Die Liste ist nicht sortiert.",
+    "exampleInputs": {
+      "nummern": [
+        42,
+        17,
+        42
+      ],
+      "gesucht": 42
+    },
+    "briefing": "Die lineare Suche prüft Einträge der Reihe nach. Ein Ergebniswert -1 kennzeichnet zunächst keinen Treffer. Die Suche kann beim ersten Treffer enden; alternativ darfst du ein bereits gefundenes Ergebnis nicht überschreiben.",
+    "hints": [
+      "Initialisiere die Ergebnisposition mit -1 und den Index mit 0.",
+      "Ein Zugriff nummern[i] ist nur erlaubt, solange i < LÄNGE(nummern) gilt.",
+      "Eine mögliche Schleifenbedingung ist i < LÄNGE(nummern) UND position == -1. Bei Gleichheit speicherst du i."
+    ],
+    "referenceCode": "position = -1\ni = 0\nSOLANGE i < LÄNGE(nummern) UND position == -1\n    WENN nummern[i] == gesucht DANN\n        position = i\n    ENDE WENN\n    i = i + 1\nENDE SOLANGE\nAUSGABE position",
+    "referenceAnswer": "",
+    "explanation": "Die Suche beginnt links. Sobald ein Treffer gefunden wurde, wird die Schleifenbedingung falsch. Dadurch bleibt bei mehrfach vorkommenden Nummern der erste Index erhalten. Kein Treffer lässt den Anfangswert -1 bestehen.",
+    "discovery": "Die Disposition findet den ersten passenden Auftrag, ohne sich auf eine Sortierung oder eine garantierte Existenz zu verlassen.",
+    "tests": [
+      {
+        "name": "Erster von mehreren Treffern",
+        "inputs": {
+          "nummern": [
+            42,
+            17,
+            42
+          ],
+          "gesucht": 42
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Treffer in der Mitte",
+        "inputs": {
+          "nummern": [
+            3,
+            9,
+            9,
+            4
+          ],
+          "gesucht": 9
+        },
+        "output": [
+          "1"
+        ]
+      },
+      {
+        "name": "Letzte Position",
+        "inputs": {
+          "nummern": [
+            6,
+            2,
+            8
+          ],
+          "gesucht": 8
+        },
+        "output": [
+          "2"
+        ]
+      },
+      {
+        "name": "Nicht vorhanden",
+        "inputs": {
+          "nummern": [
+            1,
+            2,
+            3
+          ],
+          "gesucht": 7
+        },
+        "output": [
+          "-1"
+        ]
+      },
+      {
+        "name": "Leer",
+        "inputs": {
+          "nummern": [],
+          "gesucht": 5
+        },
+        "output": [
+          "-1"
+        ]
+      },
+      {
+        "name": "Ein Treffer",
+        "inputs": {
+          "nummern": [
+            0
+          ],
+          "gesucht": 0
+        },
+        "output": [
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "chapter": "06 · Aufträge wiederfinden",
+    "title": "Ein Treffer ist nicht genug",
+    "kind": "Write",
+    "story": "Ein Auftrag kann durch mehrere Statusmeldungen in der Protokollliste stehen. Die Leitstelle braucht deshalb neben der ersten Position auch eine Häufigkeit: Wie oft wurde die gesuchte Nummer tatsächlich gemeldet?",
+    "previousContext": "Die erste Trefferposition aus Aufgabe 11 beantwortet, wo ein Auftrag steht. Jetzt zählst du alle Vorkommen statt beim ersten Treffer aufzuhören.",
+    "task": "Die Liste nummern und die Zahl gesucht sind gegeben. Gib aus, wie oft gesucht in nummern vorkommt. Mehrere gleiche Einträge zählen jeweils einzeln. Keine Treffer und eine leere Liste ergeben 0. Beispiel: [7, 2, 7, 7] mit gesucht = 7 ergibt 3.",
+    "exampleInputs": {
+      "nummern": [
+        7,
+        2,
+        7,
+        7
+      ],
+      "gesucht": 7
+    },
+    "briefing": "Ein Suchzähler beginnt bei 0. Für die Häufigkeit muss die gesamte Liste untersucht werden; die Abbruchbedingung des ersten Treffers passt hier nicht.",
+    "hints": [
+      "Durchlaufe jeden Eintrag, auch nach einem Treffer.",
+      "Erhöhe den Zähler nur bei nummer == gesucht.",
+      "Initialisiere anzahl = 0 vor der Schleife und gib anzahl nach ENDE FÜR aus."
+    ],
+    "referenceCode": "anzahl = 0\nFÜR JEDES nummer IN nummern\n    WENN nummer == gesucht DANN\n        anzahl = anzahl + 1\n    ENDE WENN\nENDE FÜR\nAUSGABE anzahl",
+    "referenceAnswer": "",
+    "explanation": "Jeder passende Eintrag erhöht den Zähler um genau 1. Es wird weder nach dem ersten Treffer abgebrochen noch eine Menge eindeutiger Nummern gebildet. So werden auch mehrere Meldungen desselben Auftrags erfasst.",
+    "discovery": "Die Leitstelle kann einen einzelnen Fund von wiederholten Meldungen unterscheiden und gezielt nach auffälligen Häufigkeiten fragen.",
+    "tests": [
+      {
+        "name": "Drei Meldungen",
+        "inputs": {
+          "nummern": [
+            7,
+            2,
+            7,
+            7
+          ],
+          "gesucht": 7
+        },
+        "output": [
+          "3"
+        ]
+      },
+      {
+        "name": "Keine Meldung",
+        "inputs": {
+          "nummern": [
+            1,
+            2
+          ],
+          "gesucht": 9
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Leeres Protokoll",
+        "inputs": {
+          "nummern": [],
+          "gesucht": 7
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Alle gleich",
+        "inputs": {
+          "nummern": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gesucht": 0
+        },
+        "output": [
+          "4"
+        ]
+      },
+      {
+        "name": "Einzelne Meldung",
+        "inputs": {
+          "nummern": [
+            5
+          ],
+          "gesucht": 5
+        },
+        "output": [
+          "1"
+        ]
+      },
+      {
+        "name": "Getrennte Treffer",
+        "inputs": {
+          "nummern": [
+            4,
+            8,
+            4,
+            1,
+            4,
+            4
+          ],
+          "gesucht": 4
+        },
+        "output": [
+          "4"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "chapter": "06 · Aufträge wiederfinden",
+    "title": "Immer die halbe Warteliste",
+    "kind": "Trace",
+    "story": "Für ein bereits aufsteigend sortiertes Archiv schlägt Nora eine andere Suchstrategie vor: Prüfe die Mitte und verwerfe die Hälfte, in der die Nummer nicht liegen kann. Bevor die Strategie eingesetzt wird, verfolgst du die Suchgrenzen.",
+    "previousContext": "Aufgabe 12 zählt alle Meldungen. Für den gezielten Zugriff auf das sortierte Archiv wechselst du nun zur binären Suche.",
+    "task": "Untersuche den gegebenen Ablauf für nummern = [10, 20, 30, 40, 50, 60, 70] und gesucht = 50. Trage alle vier Ausgaben in ihrer Reihenfolge ein, je eine Zahl pro Zeile. Die ersten Ausgaben zeigen den jeweils geprüften Index mitte; die letzte Ausgabe ist die gefundene Position. DIV berechnet hier einen ganzzahligen mittleren Index.",
+    "exampleInputs": {
+      "nummern": [
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70
+      ],
+      "gesucht": 50
+    },
+    "briefing": "links und rechts begrenzen den noch möglichen Bereich einschließlich beider Grenzen. Nach einem zu kleinen Mittelwert geht links nach rechts; nach einem zu großen geht rechts nach links. Indizes und gespeicherte Nummern sind verschiedene Dinge.",
+    "hints": [
+      "Notiere links, rechts und mitte für jeden Durchlauf.",
+      "Der erste Index ist 3 und enthält die Nummer 40. Gesucht wird rechts davon weiter.",
+      "Nach Index 5 mit Nummer 60 bleibt nur Index 4 übrig. Anschließend wird position ausgegeben."
+    ],
+    "referenceCode": "links = 0\nrechts = LÄNGE(nummern) - 1\nposition = -1\nSOLANGE links <= rechts UND position == -1\n    mitte = (links + rechts) DIV 2\n    AUSGABE mitte\n    WENN nummern[mitte] == gesucht DANN\n        position = mitte\n    SONST\n        WENN nummern[mitte] < gesucht DANN\n            links = mitte + 1\n        SONST\n            rechts = mitte - 1\n        ENDE WENN\n    ENDE WENN\nENDE SOLANGE\nAUSGABE position",
+    "referenceAnswer": "3\n5\n4\n4",
+    "explanation": "Die geprüften Indizes sind 3, 5 und 4. Dort stehen 40, 60 und 50. Die abschließende Position ist ebenfalls 4. Die Sortierung ist die entscheidende Voraussetzung dafür, eine ganze Hälfte ausschließen zu dürfen.",
+    "discovery": "Die Suchgrenzen sind nachvollzogen. Bei einem sortierten Archiv reicht es, den möglichen Bereich wiederholt zu halbieren.",
+    "tests": [
+      {
+        "name": "Sortiertes Archiv",
+        "inputs": {
+          "nummern": [
+            10,
+            20,
+            30,
+            40,
+            50,
+            60,
+            70
+          ],
+          "gesucht": 50
+        },
+        "output": [
+          "3",
+          "5",
+          "4",
+          "4"
+        ]
+      }
+    ],
+    "givenCode": "links = 0\nrechts = LÄNGE(nummern) - 1\nposition = -1\nSOLANGE links <= rechts UND position == -1\n    mitte = (links + rechts) DIV 2\n    AUSGABE mitte\n    WENN nummern[mitte] == gesucht DANN\n        position = mitte\n    SONST\n        WENN nummern[mitte] < gesucht DANN\n            links = mitte + 1\n        SONST\n            rechts = mitte - 1\n        ENDE WENN\n    ENDE WENN\nENDE SOLANGE\nAUSGABE position"
+  },
+  {
+    "id": 14,
+    "chapter": "06 · Aufträge wiederfinden",
+    "title": "Die Suche muss kleiner werden",
+    "kind": "Repair",
+    "story": "Im Suchbaustein des Updates sitzt ein Grenzfehler: Bei bestimmten Nummern bleibt derselbe Bereich immer wieder übrig. Nora möchte eine Reparatur, die auch beim erfolglosen Suchen zuverlässig endet.",
+    "previousContext": "Du hast in Aufgabe 13 das Halbieren der Suchgrenzen verfolgt. Jetzt prüfst du, ob der gegebene Baustein diese Grenzen korrekt verschiebt.",
+    "task": "Die Liste nummern ist aufsteigend sortiert und enthält unterschiedliche ganze Zahlen. Repariere die binäre Suche. Gib den Index von gesucht aus, sonst -1, auch bei leerer Liste. Der bereits geprüfte mittlere Eintrag muss bei einer weiteren Suche aus dem möglichen Bereich verschwinden.",
+    "exampleInputs": {
+      "nummern": [
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70
+      ],
+      "gesucht": 10
+    },
+    "briefing": "Eine Schleife muss Fortschritt machen. Wenn die Mitte zu groß ist, kann weder sie selbst noch ein Eintrag rechts von ihr passen. Die rechte Grenze muss dann links von mitte liegen.",
+    "hints": [
+      "Betrachte gesucht kleiner als nummern[mitte].",
+      "Der bereits geprüfte Index mitte darf nicht noch einmal zum verbleibenden Bereich gehören.",
+      "Im Zweig für einen zu großen Mittelwert muss rechts = mitte - 1 stehen."
+    ],
+    "referenceCode": "links = 0\nrechts = LÄNGE(nummern) - 1\nposition = -1\nSOLANGE links <= rechts UND position == -1\n    mitte = (links + rechts) DIV 2\n    WENN nummern[mitte] == gesucht DANN\n        position = mitte\n    SONST\n        WENN nummern[mitte] < gesucht DANN\n            links = mitte + 1\n        SONST\n            rechts = mitte - 1\n        ENDE WENN\n    ENDE WENN\nENDE SOLANGE\nAUSGABE position",
+    "referenceAnswer": "",
+    "explanation": "Nach einem zu großen Mittelwert endet der mögliche Bereich unmittelbar davor. mitte + 1 würde die falsche Richtung wählen und kann zu einer Endlosschleife führen. Leere Listen starten mit rechts = -1 und liefern ohne Zugriff -1.",
+    "discovery": "Der Suchbaustein verkleinert seinen Bereich korrekt und kann auch eine nicht vorhandene Nummer mit -1 beantworten.",
+    "tests": [
+      {
+        "name": "Ganz links",
+        "inputs": {
+          "nummern": [
+            10,
+            20,
+            30,
+            40,
+            50,
+            60,
+            70
+          ],
+          "gesucht": 10
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Ganz rechts",
+        "inputs": {
+          "nummern": [
+            10,
+            20,
+            30
+          ],
+          "gesucht": 30
+        },
+        "output": [
+          "2"
+        ]
+      },
+      {
+        "name": "Lücke",
+        "inputs": {
+          "nummern": [
+            10,
+            20,
+            30
+          ],
+          "gesucht": 15
+        },
+        "output": [
+          "-1"
+        ]
+      },
+      {
+        "name": "Kleiner als alle",
+        "inputs": {
+          "nummern": [
+            10
+          ],
+          "gesucht": 5
+        },
+        "output": [
+          "-1"
+        ]
+      },
+      {
+        "name": "Leeres Archiv",
+        "inputs": {
+          "nummern": [],
+          "gesucht": 5
+        },
+        "output": [
+          "-1"
+        ]
+      },
+      {
+        "name": "Ein Treffer",
+        "inputs": {
+          "nummern": [
+            8
+          ],
+          "gesucht": 8
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "In der Mitte",
+        "inputs": {
+          "nummern": [
+            -5,
+            0,
+            4,
+            9,
+            12
+          ],
+          "gesucht": 4
+        },
+        "output": [
+          "2"
+        ]
+      }
+    ],
+    "givenCode": "links = 0\nrechts = LÄNGE(nummern) - 1\nposition = -1\nSOLANGE links <= rechts UND position == -1\n    mitte = (links + rechts) DIV 2\n    WENN nummern[mitte] == gesucht DANN\n        position = mitte\n    SONST\n        WENN nummern[mitte] < gesucht DANN\n            links = mitte + 1\n        SONST\n            rechts = mitte + 1\n        ENDE WENN\n    ENDE WENN\nENDE SOLANGE\nAUSGABE position"
+  },
+  {
+    "id": 15,
+    "chapter": "07 · Reihenfolgen korrigieren",
+    "title": "Tauschen ohne Verlust",
+    "kind": "Repair",
+    "story": "Die schnelle Suche setzt eine geordnete Liste voraus. Als ersten Baustein für das Herstellen einer Reihenfolge untersucht Nora einen Tausch. Dabei verschwindet jedoch einer der beiden Werte, weil er zu früh überschrieben wird.",
+    "previousContext": "Die binäre Suche aus Aufgabe 14 benötigt ein sortiertes Archiv. Bevor du selbst sortierst, sicherst du das dafür nötige Vertauschen von Listeneinträgen ab.",
+    "task": "Gegeben sind die nichtleere Liste werte und zwei gültige Indizes links und rechts. Repariere den Tausch und gib die gesamte Liste mit AUSGABE werte aus. Alle anderen Positionen bleiben gleich. Die beiden Indizes dürfen auch gleich sein. Einzelne Einträge weist du mit werte[index] = wert zu.",
+    "exampleInputs": {
+      "werte": [
+        10,
+        20,
+        30
+      ],
+      "links": 0,
+      "rechts": 2
+    },
+    "briefing": "Eine Zuweisung überschreibt den alten Zielwert sofort. Sichere deshalb einen der beiden Werte in einer Hilfsvariablen, bevor du die erste Position veränderst. Der letzte gültige Listenindex ist LÄNGE(werte) - 1.",
+    "hints": [
+      "Welcher ursprüngliche Wert ist nach der ersten Zuweisung nicht mehr in der Liste vorhanden?",
+      "Eine Hilfsvariable bewahrt werte[links] vor dem Überschreiben.",
+      "Reihenfolge: hilfe = werte[links], werte[links] = werte[rechts], werte[rechts] = hilfe."
+    ],
+    "referenceCode": "hilfe = werte[links]\nwerte[links] = werte[rechts]\nwerte[rechts] = hilfe\nAUSGABE werte",
+    "referenceAnswer": "",
+    "explanation": "Die Hilfsvariable speichert den ursprünglichen linken Wert. Nach dem Kopieren des rechten Wertes nach links kann dieser gesicherte Wert nach rechts geschrieben werden. Gleiche Indizes verändern die Liste nicht.",
+    "discovery": "Der Tausch verliert keine Werte mehr. Damit steht ein verlässlicher Baustein für die folgende Sortierung bereit.",
+    "tests": [
+      {
+        "name": "Äußere Positionen",
+        "inputs": {
+          "werte": [
+            10,
+            20,
+            30
+          ],
+          "links": 0,
+          "rechts": 2
+        },
+        "output": [
+          "[30, 20, 10]"
+        ]
+      },
+      {
+        "name": "Gleicher Index",
+        "inputs": {
+          "werte": [
+            7
+          ],
+          "links": 0,
+          "rechts": 0
+        },
+        "output": [
+          "[7]"
+        ]
+      },
+      {
+        "name": "Gleiche Werte",
+        "inputs": {
+          "werte": [
+            4,
+            4
+          ],
+          "links": 0,
+          "rechts": 1
+        },
+        "output": [
+          "[4, 4]"
+        ]
+      },
+      {
+        "name": "Negative Zahl",
+        "inputs": {
+          "werte": [
+            2,
+            -3
+          ],
+          "links": 0,
+          "rechts": 1
+        },
+        "output": [
+          "[-3, 2]"
+        ]
+      },
+      {
+        "name": "Nur innere Positionen",
+        "inputs": {
+          "werte": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "links": 1,
+          "rechts": 2
+        },
+        "output": [
+          "[1, 3, 2, 4]"
+        ]
+      }
+    ],
+    "givenCode": "werte[links] = werte[rechts]\nwerte[rechts] = werte[links]\nAUSGABE werte"
+  },
+  {
+    "id": 16,
+    "chapter": "07 · Reihenfolgen korrigieren",
+    "title": "Ein Durchlauf ist noch keine Sortierung",
+    "kind": "Trace",
+    "story": "Nora verbindet mehrere benachbarte Tausche zu einem ersten Sortierdurchlauf. Jeder Vergleich sieht die bereits veränderte Liste. Du prüfst, wie weit ein einzelner Durchlauf die Reihenfolge tatsächlich verbessert.",
+    "previousContext": "Der Tausch aus Aufgabe 15 ist verlustfrei. Jetzt verfolgst du mehrere solche Tausche hintereinander.",
+    "task": "Führe den gegebenen Ablauf gedanklich aus. Gib zuerst die Liste nach genau diesem einen Durchlauf und danach die Anzahl der Tausche an, jeweils in einer eigenen Zeile. Schreibe die Liste mit eckigen Klammern und Komma plus Leerzeichen, zum Beispiel [1, 2, 3]. Es finden keine weiteren Durchläufe statt.",
+    "exampleInputs": {},
+    "briefing": "Ein Bubble-Sort-Durchlauf vergleicht Nachbarn von links nach rechts und tauscht bei falscher Reihenfolge. Der größte Wert wandert dadurch bis nach rechts. Die übrige Liste ist danach noch nicht zwingend sortiert.",
+    "hints": [
+      "Der erste Vergleich tauscht 9 und 2.",
+      "Die 9 steht danach an Index 1 und wird im nächsten Vergleich mit 7 verglichen.",
+      "Nach dem dritten Tausch steht 9 ganz rechts. Verfolge auch, wo die 1 dabei landet."
+    ],
+    "referenceCode": "werte = [9, 2, 7, 1]\ntausche = 0\nFÜR i VON 0 BIS LÄNGE(werte) - 2\n    WENN werte[i] > werte[i + 1] DANN\n        hilfe = werte[i]\n        werte[i] = werte[i + 1]\n        werte[i + 1] = hilfe\n        tausche = tausche + 1\n    ENDE WENN\nENDE FÜR\nAUSGABE werte\nAUSGABE tausche",
+    "referenceAnswer": "[2, 7, 1, 9]\n3",
+    "explanation": "Es entstehen nacheinander [2, 9, 7, 1], [2, 7, 9, 1] und [2, 7, 1, 9]. Die Ausgabe ist deshalb [2, 7, 1, 9], danach 3. Erst weitere Durchläufe würden die übrigen Werte ordnen.",
+    "discovery": "Ein einzelner Durchlauf platziert den größten Wert korrekt, reicht aber noch nicht für eine vollständig geordnete Warteliste.",
+    "tests": [
+      {
+        "name": "Ein Bubble-Durchlauf",
+        "inputs": {},
+        "output": [
+          "[2, 7, 1, 9]",
+          "3"
+        ]
+      }
+    ],
+    "givenCode": "werte = [9, 2, 7, 1]\ntausche = 0\nFÜR i VON 0 BIS LÄNGE(werte) - 2\n    WENN werte[i] > werte[i + 1] DANN\n        hilfe = werte[i]\n        werte[i] = werte[i + 1]\n        werte[i + 1] = hilfe\n        tausche = tausche + 1\n    ENDE WENN\nENDE FÜR\nAUSGABE werte\nAUSGABE tausche"
+  },
+  {
+    "id": 17,
+    "chapter": "07 · Reihenfolgen korrigieren",
+    "title": "Die ganze Liste in Ordnung bringen",
+    "kind": "Write",
+    "story": "Für den Archivzugriff reicht ein einzelner Sortierdurchlauf nicht. Die Leitstelle benötigt eine vollständig aufsteigende Reihenfolge, ohne Nummern zu verlieren oder doppelte Werte zu entfernen.",
+    "previousContext": "Aufgabe 16 zeigt die Grenze eines einzelnen Durchlaufs. Jetzt wiederholst du die notwendigen Vergleiche bis zur vollständigen Sortierung.",
+    "task": "Sortiere die Eingabeliste werte aufsteigend und gib ausschließlich die gesamte sortierte Liste aus. Alle Werte müssen mit derselben Häufigkeit erhalten bleiben. Negative Zahlen, gleiche Werte, eine leere Liste und ein einzelner Wert sind möglich. Bubble Sort mit verschachtelten Schleifen ist ein möglicher Weg; andere korrekte Sortierverfahren sind ebenfalls erlaubt. Eine eingebaute Sortierfunktion gibt es nicht.",
+    "exampleInputs": {
+      "werte": [
+        4,
+        1,
+        3,
+        2
+      ]
+    },
+    "briefing": "Nach jedem Bubble-Durchlauf steht ein weiterer großer Wert am rechten Ende fest. Die äußere Schleife wiederholt die Durchläufe, die innere vergleicht benachbarte Einträge. Bei weniger als zwei Werten sind keine Tausche erforderlich.",
+    "hints": [
+      "Du benötigst mehr als einen Durchlauf durch benachbarte Paare.",
+      "Der Index j + 1 muss gültig bleiben. Eine mögliche innere Grenze lautet LÄNGE(werte) - 2 - i.",
+      "Verwende außen FÜR i VON 0 BIS LÄNGE(werte) - 2 und innen FÜR j VON 0 BIS LÄNGE(werte) - 2 - i; tausche nur bei werte[j] > werte[j + 1]."
+    ],
+    "referenceCode": "FÜR i VON 0 BIS LÄNGE(werte) - 2\n    FÜR j VON 0 BIS LÄNGE(werte) - 2 - i\n        WENN werte[j] > werte[j + 1] DANN\n            hilfe = werte[j]\n            werte[j] = werte[j + 1]\n            werte[j + 1] = hilfe\n        ENDE WENN\n    ENDE FÜR\nENDE FÜR\nAUSGABE werte",
+    "referenceAnswer": "",
+    "explanation": "Die äußere Schleife wiederholt den Nachbarvergleich. Der schon geordnete rechte Teil muss nicht erneut untersucht werden. Tauschen statt Überschreiben erhält alle Werte und ihre Häufigkeit. Leere und einstellige Listen lösen keine Schleifendurchläufe aus.",
+    "discovery": "Die Leitstelle kann aus einer ungeordneten Liste ein sortiertes Archiv erzeugen; gleiche Nummern und negative Werte bleiben dabei erhalten.",
+    "tests": [
+      {
+        "name": "Ungeordnet",
+        "inputs": {
+          "werte": [
+            4,
+            1,
+            3,
+            2
+          ]
+        },
+        "output": [
+          "[1, 2, 3, 4]"
+        ]
+      },
+      {
+        "name": "Leer",
+        "inputs": {
+          "werte": []
+        },
+        "output": [
+          "[]"
+        ]
+      },
+      {
+        "name": "Ein Wert",
+        "inputs": {
+          "werte": [
+            9
+          ]
+        },
+        "output": [
+          "[9]"
+        ]
+      },
+      {
+        "name": "Doppelte und negative Werte",
+        "inputs": {
+          "werte": [
+            3,
+            -1,
+            3,
+            0,
+            -1
+          ]
+        },
+        "output": [
+          "[-1, -1, 0, 3, 3]"
+        ]
+      },
+      {
+        "name": "Schon sortiert",
+        "inputs": {
+          "werte": [
+            -2,
+            0,
+            8
+          ]
+        },
+        "output": [
+          "[-2, 0, 8]"
+        ]
+      },
+      {
+        "name": "Umgekehrte Reihenfolge",
+        "inputs": {
+          "werte": [
+            8,
+            7,
+            6,
+            5,
+            4,
+            3,
+            2,
+            1
+          ]
+        },
+        "output": [
+          "[1, 2, 3, 4, 5, 6, 7, 8]"
+        ]
+      },
+      {
+        "name": "Alle gleich",
+        "inputs": {
+          "werte": [
+            5,
+            5,
+            5
+          ]
+        },
+        "output": [
+          "[5, 5, 5]"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "chapter": "08 · Mehrere Dimensionen",
+    "title": "Die Auslastung je Reihe",
+    "kind": "Write",
+    "story": "Neben dem Archiv wartet die Übersicht der Ladehalle. Sie besteht aus Reihen mit unterschiedlich vielen Stellplätzen. Nora braucht die gesamte Belegung und die erste Reihe mit der höchsten Belegung, auch wenn einzelne Reihen noch leer sind.",
+    "previousContext": "In Aufgabe 17 hast du verschachtelte Schleifen für eine flache Liste eingesetzt. Jetzt verwendest du sie für eine Liste von Reihen.",
+    "task": "belegung ist eine Liste von Listen nichtnegativer ganzer Zahlen. Berechne die Summe aller Werte und den Index der Reihe mit der größten Reihensumme. Gib zuerst die Gesamtsumme und dann den Reihenindex aus. Bei Gleichstand gilt die erste Reihe. Eine leere äußere Liste ergibt 0 und -1. Leere innere Reihen sind erlaubt und haben Summe 0. Beispiel: [[2, 3], [7], [1, 1, 1]] ergibt 15 und 1.",
+    "exampleInputs": {
+      "belegung": [
+        [
+          2,
+          3
+        ],
+        [
+          7
+        ],
+        [
+          1,
+          1,
+          1
+        ]
+      ]
+    },
+    "briefing": "Die äußere Schleife wählt eine Reihe, die innere durchläuft deren Werte. Setze die Reihensumme für jede Reihe neu auf 0. Eine eigene Gesamtsumme bleibt über alle Reihen bestehen. belegung[i] ist selbst wieder eine Liste.",
+    "hints": [
+      "Halte Gesamtsumme, aktuelle Reihensumme und beste Reihe getrennt.",
+      "Bei nichtnegativen Werten ist -1 ein geeigneter Anfangswert für die bisher größte Reihensumme; besteReihe beginnt ebenfalls bei -1.",
+      "Aktualisiere die beste Reihe nur bei reihensumme > maximum. Ein >= würde bei Gleichstand die letzte statt der ersten Reihe auswählen."
+    ],
+    "referenceCode": "gesamt = 0\nbesteReihe = -1\nmaximum = -1\nFÜR i VON 0 BIS LÄNGE(belegung) - 1\n    reihensumme = 0\n    FÜR JEDES wert IN belegung[i]\n        reihensumme = reihensumme + wert\n    ENDE FÜR\n    gesamt = gesamt + reihensumme\n    WENN reihensumme > maximum DANN\n        maximum = reihensumme\n        besteReihe = i\n    ENDE WENN\nENDE FÜR\nAUSGABE gesamt\nAUSGABE besteReihe",
+    "referenceAnswer": "",
+    "explanation": "Jede innere Schleife bildet genau eine Reihensumme. Die Gesamtsumme addiert diese Teilergebnisse. Ein strenger Vergleich erhält bei Gleichstand die zuerst gefundene Reihe. Der Anfangswert -1 lässt auch eine leere erste Reihe mit Summe 0 zum Kandidaten werden.",
+    "discovery": "Die Ladehallenübersicht kann unterschiedlich lange und leere Reihen auswerten und bei gleicher Auslastung eindeutig die erste Reihe nennen.",
+    "tests": [
+      {
+        "name": "Unterschiedlich lange Reihen",
+        "inputs": {
+          "belegung": [
+            [
+              2,
+              3
+            ],
+            [
+              7
+            ],
+            [
+              1,
+              1,
+              1
+            ]
+          ]
+        },
+        "output": [
+          "15",
+          "1"
+        ]
+      },
+      {
+        "name": "Keine Reihen",
+        "inputs": {
+          "belegung": []
+        },
+        "output": [
+          "0",
+          "-1"
+        ]
+      },
+      {
+        "name": "Nur leere Reihen",
+        "inputs": {
+          "belegung": [
+            [],
+            []
+          ]
+        },
+        "output": [
+          "0",
+          "0"
+        ]
+      },
+      {
+        "name": "Gleichstand",
+        "inputs": {
+          "belegung": [
+            [
+              2,
+              3
+            ],
+            [
+              5
+            ]
+          ]
+        },
+        "output": [
+          "10",
+          "0"
+        ]
+      },
+      {
+        "name": "Leere und Nullreihe",
+        "inputs": {
+          "belegung": [
+            [],
+            [
+              0
+            ]
+          ]
+        },
+        "output": [
+          "0",
+          "0"
+        ]
+      },
+      {
+        "name": "Maximum hinten",
+        "inputs": {
+          "belegung": [
+            [
+              1
+            ],
+            [
+              1
+            ],
+            [
+              2
+            ]
+          ]
+        },
+        "output": [
+          "4",
+          "2"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "chapter": "09 · Funktionen und Verträge",
+    "title": "Welcher Wert gehört zu welchem Aufruf?",
+    "kind": "Trace",
+    "story": "Nora möchte wiederkehrende Berechnungen in Funktionen zusammenfassen. Dabei darf eine lokale Variable nicht versehentlich einen Wert im aufrufenden Ablauf verändern. Du untersuchst zwei Aufrufe derselben Funktion.",
+    "previousContext": "Aufgabe 18 fasst mehrere Berechnungen zusammen. Bevor diese Bausteine wiederverwendet werden, klärst du Parameter, lokale Werte und Rückgaben.",
+    "task": "Welche drei Ausgaben entstehen im gegebenen Ablauf? Trage nur die drei Zahlen ein, jeweils in einer eigenen Zeile. Die Parameter einer Funktion besitzen eigene Werte. RÜCKGABE beendet den Aufruf und liefert einen Wert an die Aufrufstelle zurück; die Definition selbst wird nicht wie ein normaler Ablauf ausgeführt.",
+    "exampleInputs": {},
+    "briefing": "Eine Funktion wird mit FUNKTION name(parameter) begonnen und mit ENDE FUNKTION abgeschlossen. Erst ein Aufruf führt ihren Rumpf aus. Jeder Aufruf hat eigene Parameter und lokale Variablen. Gleichnamige Variablen außerhalb der Funktion bleiben unverändert.",
+    "hints": [
+      "Der erste Aufruf erhält 100 und 30 als eigene Parameterwerte.",
+      "Die Zuweisung an platz innerhalb der Funktion verändert nicht platz im Hauptablauf.",
+      "Der zweite Funktionsaufruf arbeitet mit 50 und 10 und verwendet keine lokalen Werte des ersten Aufrufs."
+    ],
+    "referenceCode": "platz = 100\nFUNKTION reserviere(platz, anzahl)\n    platz = platz - anzahl\n    RÜCKGABE platz\nENDE FUNKTION\nAUSGABE reserviere(platz, 30)\nAUSGABE platz\nAUSGABE reserviere(50, 10)",
+    "referenceAnswer": "70\n100\n40",
+    "explanation": "Der erste Aufruf gibt 70 zurück. platz im Hauptablauf bleibt 100. Der zweite Aufruf gibt 40 zurück. Die Ablaufanzeige benennt den aktiven Bereich, damit gleichnamige Variablen nicht verwechselt werden.",
+    "discovery": "Parameter und Rückgaben sind geklärt: Jeder Aufruf besitzt einen eigenen lokalen Bereich und verändert gleichnamige Werte im Hauptablauf nicht.",
+    "tests": [
+      {
+        "name": "Getrennte lokale Werte",
+        "inputs": {},
+        "output": [
+          "70",
+          "100",
+          "40"
+        ]
+      }
+    ],
+    "givenCode": "platz = 100\nFUNKTION reserviere(platz, anzahl)\n    platz = platz - anzahl\n    RÜCKGABE platz\nENDE FUNKTION\nAUSGABE reserviere(platz, 30)\nAUSGABE platz\nAUSGABE reserviere(50, 10)"
+  },
+  {
+    "id": 20,
+    "chapter": "09 · Funktionen und Verträge",
+    "title": "Jeder Pfad braucht eine Rückgabe",
+    "kind": "Repair",
+    "story": "Die Restkapazität soll als wiederverwendbare Funktion in mehrere Ansichten eingehen. Im fehlerhaften Baustein fehlt jedoch bei Überladung ein Ergebnis. Die Anzeige braucht für jeden zulässigen Eingabesatz einen definierten Wert.",
+    "previousContext": "In Aufgabe 19 hast du lokale Aufrufe verfolgt. Jetzt reparierst du den Rückgabevertrag einer Funktion.",
+    "task": "Repariere die Funktion restkapazitaet(kapazitaet, beladen). Beide Eingaben sind nichtnegative Zahlen. Sie soll kapazitaet - beladen zurückgeben, bei einem negativen Ergebnis jedoch 0. Reiche ausschließlich Funktionsdefinitionen ein. Die App ruft restkapazitaet mit verschiedenen Eingaben auf und prüft ihren Rückgabewert; schreibe keinen zusätzlichen Hauptablauf.",
+    "exampleInputs": {
+      "kapazitaet": 100,
+      "beladen": 130
+    },
+    "briefing": "Ein Rückgabewert ist etwas anderes als eine Bildschirmausgabe. Jeder tatsächlich durchlaufene Pfad muss RÜCKGABE erreichen. Eine Funktion mit fehlendem Ergebnis wird mit einem gezielten Hinweis abgelehnt.",
+    "hints": [
+      "Was passiert, wenn beladen größer als kapazitaet ist?",
+      "In diesem Fall darf die Funktion nicht ohne Wert am ENDE FUNKTION ankommen.",
+      "Berechne rest. Bei rest < 0 gib 0 zurück, danach für alle übrigen Fälle rest."
+    ],
+    "referenceCode": "FUNKTION restkapazitaet(kapazitaet, beladen)\n    rest = kapazitaet - beladen\n    WENN rest < 0 DANN\n        RÜCKGABE 0\n    ENDE WENN\n    RÜCKGABE rest\nENDE FUNKTION",
+    "referenceAnswer": "",
+    "explanation": "Der frühe Rückgabepfad fängt Überladung ab. Alle anderen Eingaben erreichen die abschließende Rückgabe der Differenz. Auch exakt volle und leere Fahrzeuge liefern einen definierten Wert.",
+    "discovery": "Der Restkapazitätsbaustein erfüllt seinen Vertrag auf allen Pfaden und lässt sich zuverlässig aus anderen Abläufen aufrufen.",
+    "tests": [
+      {
+        "name": "Überladen",
+        "inputs": {
+          "kapazitaet": 100,
+          "beladen": 130
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Teilweise beladen",
+        "inputs": {
+          "kapazitaet": 100,
+          "beladen": 30
+        },
+        "output": [
+          "70"
+        ]
+      },
+      {
+        "name": "Exakt voll",
+        "inputs": {
+          "kapazitaet": 80,
+          "beladen": 80
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Leer",
+        "inputs": {
+          "kapazitaet": 75,
+          "beladen": 0
+        },
+        "output": [
+          "75"
+        ]
+      },
+      {
+        "name": "Keine Kapazität",
+        "inputs": {
+          "kapazitaet": 0,
+          "beladen": 2
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Nachkommastellen",
+        "inputs": {
+          "kapazitaet": 10.5,
+          "beladen": 1.25
+        },
+        "output": [
+          "9.25"
+        ]
+      }
+    ],
+    "functionName": "restkapazitaet",
+    "functionInputs": [
+      "kapazitaet",
+      "beladen"
+    ],
+    "givenCode": "FUNKTION restkapazitaet(kapazitaet, beladen)\n    WENN kapazitaet >= beladen DANN\n        RÜCKGABE kapazitaet - beladen\n    ENDE WENN\nENDE FUNKTION"
+  },
+  {
+    "id": 21,
+    "chapter": "09 · Funktionen und Verträge",
+    "title": "Eine Gewichtsregel für alle Ansichten",
+    "kind": "Write",
+    "story": "Die Gewichtsregel taucht in mehreren Teilen der Einsatzplanung auf. Nora möchte die Entscheidung an einer Stelle bündeln, damit Anzeigen und weitere Funktionen dieselben Grenzwerte verwenden.",
+    "previousContext": "Aufgabe 20 sichert eine Funktion mit einem Ergebnis auf jedem Pfad ab. Jetzt formulierst du selbst einen solchen Entscheidungsbaustein.",
+    "task": "Schreibe die Funktion pruefeGewicht(gewicht). Die Eingabe ist eine ganze Zahl. Gib für negative Werte den Text ungültig zurück, für 0 bis einschließlich 100 den Text zulässig und darüber den Text zu schwer. Verwende RÜCKGABE, keine AUSGABE und keinen Hauptablauf. Der Funktionsname ist vorgegeben; deine internen Parameternamen darfst du frei wählen.",
+    "exampleInputs": {
+      "gewicht": 100
+    },
+    "briefing": "Der Testaufruf übergibt den Wert an deinen Parameter. Ein früher Rückgabewert beendet nur den aktuellen Aufruf. Du kannst deshalb zuerst einen Sonderfall behandeln und für die übrigen Fälle darunter fortfahren.",
+    "hints": [
+      "Trenne zuerst negative Eingaben von nichtnegativen.",
+      "Nach der Behandlung negativer Werte genügt für zulässig die Bedingung gewicht <= 100.",
+      "Ein möglicher Aufbau: WENN gewicht < 0 DANN RÜCKGABE \"ungültig\", danach bis 100 \"zulässig\", abschließend \"zu schwer\". Jeder Block und jede Anweisung erhält eine eigene Zeile."
+    ],
+    "referenceCode": "FUNKTION pruefeGewicht(gewicht)\n    WENN gewicht < 0 DANN\n        RÜCKGABE \"ungültig\"\n    ENDE WENN\n    WENN gewicht <= 100 DANN\n        RÜCKGABE \"zulässig\"\n    ENDE WENN\n    RÜCKGABE \"zu schwer\"\nENDE FUNKTION",
+    "referenceAnswer": "",
+    "explanation": "Die Sonderfälle werden von oben nach unten abgefangen. 0 und 100 gehören ausdrücklich zum zulässigen Bereich. Die verbleibenden Eingaben sind größer als 100 und erreichen den letzten Rückgabewert.",
+    "discovery": "Die Gewichtsentscheidung liegt nun als einzeln prüfbare Funktion vor, statt an jeder Aufrufstelle neu formuliert werden zu müssen.",
+    "tests": [
+      {
+        "name": "Negativ",
+        "inputs": {
+          "gewicht": -1
+        },
+        "output": [
+          "ungültig"
+        ]
+      },
+      {
+        "name": "Untere Grenze",
+        "inputs": {
+          "gewicht": 0
+        },
+        "output": [
+          "zulässig"
+        ]
+      },
+      {
+        "name": "Oberhalb der unteren Grenze",
+        "inputs": {
+          "gewicht": 1
+        },
+        "output": [
+          "zulässig"
+        ]
+      },
+      {
+        "name": "Normalfall",
+        "inputs": {
+          "gewicht": 50
+        },
+        "output": [
+          "zulässig"
+        ]
+      },
+      {
+        "name": "Obere Grenze",
+        "inputs": {
+          "gewicht": 100
+        },
+        "output": [
+          "zulässig"
+        ]
+      },
+      {
+        "name": "Über der Grenze",
+        "inputs": {
+          "gewicht": 101
+        },
+        "output": [
+          "zu schwer"
+        ]
+      },
+      {
+        "name": "Andere negative Eingabe",
+        "inputs": {
+          "gewicht": -200
+        },
+        "output": [
+          "ungültig"
+        ]
+      }
+    ],
+    "functionName": "pruefeGewicht",
+    "functionInputs": [
+      "gewicht"
+    ]
+  },
+  {
+    "id": 22,
+    "chapter": "09 · Funktionen und Verträge",
+    "title": "Eine Liste als Parameter",
+    "kind": "Write",
+    "story": "Für die Tagesübersicht soll ein Baustein die Summe aller zulässigen Einzelgewichte liefern. Statt einer einzelnen Zahl erhält die Funktion diesmal eine ganze Liste. Nora schlägt vor, eine kleine Hilfsfunktion für die Gültigkeit zu verwenden.",
+    "previousContext": "Die Entscheidung aus Aufgabe 21 behandelt ein Gewicht. Nun wendest du eine solche Regel innerhalb einer Funktion auf eine ganze Liste an.",
+    "task": "Schreibe die Funktion summeGueltig(gewichte). Sie erhält eine Liste ganzer Zahlen und gibt die Summe aller Werte von 0 bis einschließlich 100 zurück. Andere Werte werden ignoriert; eine leere Liste ergibt 0. Zusätzliche eigene Hilfsfunktionen sind erlaubt, aber nicht nötig. Reiche nur Funktionsdefinitionen ein; Eingaben werden automatisch übergeben.",
+    "exampleInputs": {
+      "gewichte": [
+        20,
+        110,
+        0,
+        -5,
+        100
+      ]
+    },
+    "briefing": "Ein Listenparameter ist im Trainer eine eigene Wertkopie. Du kannst ihn mit FÜR JEDES durchlaufen. Eine Hilfsfunktion kann ebenfalls als Ausdruck aufgerufen werden, zum Beispiel WENN istGueltig(gewicht) DANN. Alle Definitionen gehören außerhalb anderer Funktionen.",
+    "hints": [
+      "Initialisiere die Summe vor dem Durchlaufen der Liste.",
+      "Prüfe jeden Eintrag auf beide Grenzen: gewicht >= 0 UND gewicht <= 100.",
+      "Gib die Summe nach der Schleife mit RÜCKGABE zurück. Eine Hilfsfunktion für die Bedingung kann WAHR oder FALSCH liefern."
+    ],
+    "referenceCode": "FUNKTION istGueltig(gewicht)\n    RÜCKGABE gewicht >= 0 UND gewicht <= 100\nENDE FUNKTION\nFUNKTION summeGueltig(gewichte)\n    summe = 0\n    FÜR JEDES gewicht IN gewichte\n        WENN istGueltig(gewicht) DANN\n            summe = summe + gewicht\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE summe\nENDE FUNKTION",
+    "referenceAnswer": "",
+    "explanation": "Die Hilfsfunktion bündelt die beiden Grenzen. Der aufrufende Baustein addiert nur passende Werte und gibt erst nach dem vollständigen Durchlauf die Summe zurück. Jeder Aufruf besitzt eigene lokale Variablen; eine globale Summe wird nicht vorausgesetzt.",
+    "discovery": "Die Tagesübersicht kann ganze Listen an einen wiederverwendbaren Baustein übergeben und darin weitere Funktionen aufrufen.",
+    "tests": [
+      {
+        "name": "Gemischt",
+        "inputs": {
+          "gewichte": [
+            20,
+            110,
+            0,
+            -5,
+            100
+          ]
+        },
+        "output": [
+          "120"
+        ]
+      },
+      {
+        "name": "Leer",
+        "inputs": {
+          "gewichte": []
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Nur ungültige Werte",
+        "inputs": {
+          "gewichte": [
+            -4,
+            101,
+            300
+          ]
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Grenzen",
+        "inputs": {
+          "gewichte": [
+            0,
+            100
+          ]
+        },
+        "output": [
+          "100"
+        ]
+      },
+      {
+        "name": "Wiederholungen",
+        "inputs": {
+          "gewichte": [
+            25,
+            25,
+            25
+          ]
+        },
+        "output": [
+          "75"
+        ]
+      },
+      {
+        "name": "Nur Null",
+        "inputs": {
+          "gewichte": [
+            0
+          ]
+        },
+        "output": [
+          "0"
+        ]
+      }
+    ],
+    "functionName": "summeGueltig",
+    "functionInputs": [
+      "gewichte"
+    ]
+  },
+  {
+    "id": 23,
+    "chapter": "09 · Funktionen und Verträge",
+    "title": "Doppelte Werte sind kein Sortierfehler",
+    "kind": "Repair",
+    "story": "Bevor das Archiv die binäre Suche verwenden darf, soll eine Funktion die aufsteigende Reihenfolge prüfen. Der neue Kontrollbaustein beanstandet aber auch gleiche Nachbarn, obwohl doppelte Nummern ausdrücklich erlaubt sind.",
+    "previousContext": "Aufgabe 22 verbindet Liste und Funktion. Jetzt verwendest du einen solchen Baustein, um die Voraussetzung für den geordneten Archivzugriff zu kontrollieren.",
+    "task": "Repariere istSortiert(werte). Die Funktion muss WAHR zurückgeben, wenn die Zahlenliste nicht absteigend sortiert ist, also jeder Eintrag höchstens so groß wie sein Nachfolger ist. Gleiche Werte sind erlaubt. Leere und einstellige Listen gelten als sortiert. Bei mindestens einem fallenden Nachbarpaar gib FALSCH zurück. Reiche nur Funktionsdefinitionen ein.",
+    "exampleInputs": {
+      "werte": [
+        1,
+        1,
+        2
+      ]
+    },
+    "briefing": "Um eine allgemeine Behauptung zu widerlegen, genügt ein Gegenbeispiel. Ein fallendes Paar kann sofort FALSCH zurückgeben. WAHR darf dagegen erst nach allen Vergleichen zurückgegeben werden.",
+    "hints": [
+      "Vergleiche [1, 1, 2] mit [2, 1]. Nur die zweite Liste verletzt die Reihenfolge.",
+      "Gleichheit ist hier zulässig; der Fehlerfall braucht einen strengen Vergleich.",
+      "Verwende werte[i] > werte[i + 1] als Bedingung für RÜCKGABE FALSCH."
+    ],
+    "referenceCode": "FUNKTION istSortiert(werte)\n    FÜR i VON 0 BIS LÄNGE(werte) - 2\n        WENN werte[i] > werte[i + 1] DANN\n            RÜCKGABE FALSCH\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE WAHR\nENDE FUNKTION",
+    "referenceAnswer": "",
+    "explanation": "Nur ein tatsächlich größerer Vorgänger verletzt die nicht absteigende Reihenfolge. Ein >= würde auch gleiche Nachbarn zurückweisen. Für Listen mit weniger als zwei Einträgen findet die Schleife kein Gegenbeispiel und liefert WAHR.",
+    "discovery": "Die Ordnungskontrolle erlaubt doppelte Nummern und weist echte fallende Nachbarpaare zurück. Leere Listen bleiben ein gültiger Sonderfall.",
+    "tests": [
+      {
+        "name": "Gleiche Nachbarn",
+        "inputs": {
+          "werte": [
+            1,
+            1,
+            2
+          ]
+        },
+        "output": [
+          "WAHR"
+        ]
+      },
+      {
+        "name": "Alle gleich",
+        "inputs": {
+          "werte": [
+            3,
+            3,
+            3
+          ]
+        },
+        "output": [
+          "WAHR"
+        ]
+      },
+      {
+        "name": "Leer",
+        "inputs": {
+          "werte": []
+        },
+        "output": [
+          "WAHR"
+        ]
+      },
+      {
+        "name": "Ein Wert",
+        "inputs": {
+          "werte": [
+            5
+          ]
+        },
+        "output": [
+          "WAHR"
+        ]
+      },
+      {
+        "name": "Fehler am Ende",
+        "inputs": {
+          "werte": [
+            1,
+            3,
+            2
+          ]
+        },
+        "output": [
+          "FALSCH"
+        ]
+      },
+      {
+        "name": "Fehler am Anfang",
+        "inputs": {
+          "werte": [
+            2,
+            1,
+            3
+          ]
+        },
+        "output": [
+          "FALSCH"
+        ]
+      },
+      {
+        "name": "Negative Werte",
+        "inputs": {
+          "werte": [
+            -5,
+            -5,
+            0
+          ]
+        },
+        "output": [
+          "WAHR"
+        ]
+      }
+    ],
+    "functionName": "istSortiert",
+    "functionInputs": [
+      "werte"
+    ],
+    "givenCode": "FUNKTION istSortiert(werte)\n    FÜR i VON 0 BIS LÄNGE(werte) - 2\n        WENN werte[i] >= werte[i + 1] DANN\n            RÜCKGABE FALSCH\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE WAHR\nENDE FUNKTION"
+  },
+  {
+    "id": 24,
+    "chapter": "10 · Wieder im Plan",
+    "title": "Die nächste Ladung sicher zusammenstellen",
+    "kind": "Write",
+    "story": "Für die Abnahme braucht die Leitstelle einen letzten zusammenhängenden Planungsbaustein. Die Disposition hat die Reihenfolge der Pakete bereits festgelegt. Deine Funktion soll diese Reihenfolge respektieren, unzulässige Gewichte ignorieren und nach jedem angenommenen Paket die freie Kapazität fortschreiben.",
+    "previousContext": "In Aufgabe 23 hast du einen Listenvertrag abgesichert. Die Abschlussaufgabe verbindet nun geprüfte Grenzen, lokale Funktionen und einen vollständigen Listendurchlauf.",
+    "task": "Schreibe planeLadung(gewichte, kapazitaet). gewichte enthält ganze Zahlen, kapazitaet ist eine nichtnegative ganze Zahl. Bearbeite die Pakete in genau der gegebenen Reihenfolge. Ein Paket wird angenommen, wenn 0 <= gewicht <= 100 gilt und es vollständig in die aktuelle Restkapazität passt. Sonst wird es übersprungen; die Suche geht mit dem nächsten Paket weiter. Auch Gewicht 0 zählt als angenommen. Gib die Liste [anzahlAngenommen, restkapazitaet] mit RÜCKGABE zurück. Nicht sortieren und keine optimale Packung suchen. Beispiel: [60, 50, 40] bei Kapazität 100 ergibt [2, 0]. Reiche nur Funktionsdefinitionen ein.",
+    "exampleInputs": {
+      "gewichte": [
+        60,
+        50,
+        40
+      ],
+      "kapazitaet": 100
+    },
+    "briefing": "Die verfügbare Kapazität ändert sich nur bei einer Annahme. Eine Ablehnung darf spätere kleinere Pakete nicht blockieren. Die Ausgabe ist diesmal ein einzelner Rückgabewert mit zwei Listeneinträgen: RÜCKGABE [anzahl, rest].",
+    "hints": [
+      "Starte anzahl bei 0 und rest mit kapazitaet.",
+      "Die Annahmebedingung verbindet die Einzelgewichtsgrenzen und gewicht <= rest mit UND.",
+      "Verringere rest und erhöhe anzahl nur im Annahmezweig. Nach dem vollständigen Durchlauf folgt RÜCKGABE [anzahl, rest]."
+    ],
+    "referenceCode": "FUNKTION planeLadung(gewichte, kapazitaet)\n    anzahl = 0\n    rest = kapazitaet\n    FÜR JEDES gewicht IN gewichte\n        WENN gewicht >= 0 UND gewicht <= 100 UND gewicht <= rest DANN\n            rest = rest - gewicht\n            anzahl = anzahl + 1\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE [anzahl, rest]\nENDE FUNKTION",
+    "referenceAnswer": "",
+    "explanation": "Die Funktion verarbeitet jeden Eintrag genau in der vorgegebenen Reihenfolge. Nur passende, einzeln zulässige Pakete verändern Zähler und Rest. Ein übersprungenes Paket beendet die Verarbeitung nicht. Gewicht 0 erhöht den Zähler, lässt die Restkapazität aber gleich. Diese Regel ist bewusst keine Optimierung der maximal möglichen Paketanzahl.",
+    "discovery": "Die Leitstelle hat einen geprüften Planungsbaustein: Grenzen, Restkapazität, Reihenfolge und Rückgabevertrag greifen zusammen. Vor der endgültigen Freigabe untersucht Nora noch Kennungen, Prüfdaten und das Verhalten verschachtelter Aufrufe.",
+    "tests": [
+      {
+        "name": "Späteres Paket passt noch",
+        "inputs": {
+          "gewichte": [
+            60,
+            50,
+            40
+          ],
+          "kapazitaet": 100
+        },
+        "output": [
+          "[2, 0]"
+        ]
+      },
+      {
+        "name": "Reihenfolge nicht optimieren",
+        "inputs": {
+          "gewichte": [
+            90,
+            60,
+            40
+          ],
+          "kapazitaet": 100
+        },
+        "output": [
+          "[1, 10]"
+        ]
+      },
+      {
+        "name": "Leere Warteliste",
+        "inputs": {
+          "gewichte": [],
+          "kapazitaet": 75
+        },
+        "output": [
+          "[0, 75]"
+        ]
+      },
+      {
+        "name": "Nur ungültige Pakete",
+        "inputs": {
+          "gewichte": [
+            -1,
+            101,
+            200
+          ],
+          "kapazitaet": 300
+        },
+        "output": [
+          "[0, 300]"
+        ]
+      },
+      {
+        "name": "Gewicht Null zählt",
+        "inputs": {
+          "gewichte": [
+            0,
+            100,
+            0,
+            1
+          ],
+          "kapazitaet": 100
+        },
+        "output": [
+          "[3, 0]"
+        ]
+      },
+      {
+        "name": "Kapazität Null",
+        "inputs": {
+          "gewichte": [
+            0,
+            1,
+            -1,
+            0
+          ],
+          "kapazitaet": 0
+        },
+        "output": [
+          "[2, 0]"
+        ]
+      },
+      {
+        "name": "Rest bleibt übrig",
+        "inputs": {
+          "gewichte": [
+            10,
+            20,
+            5
+          ],
+          "kapazitaet": 60
+        },
+        "output": [
+          "[3, 25]"
+        ]
+      },
+      {
+        "name": "Obergrenze und Übergewicht",
+        "inputs": {
+          "gewichte": [
+            101,
+            100
+          ],
+          "kapazitaet": 200
+        },
+        "output": [
+          "[1, 100]"
+        ]
+      }
+    ],
+    "functionName": "planeLadung",
+    "functionInputs": [
+      "gewichte",
+      "kapazitaet"
+    ]
+  },
+  {
+    "id": 25,
+    "chapter": "11 · Zusätzliche Abnahmeprüfungen",
+    "title": "Die Prüfziffer der Kennung",
+    "kind": "Write",
+    "story": "Der Planungsbaustein geht in die Abnahme. Zuvor möchte Nora auch fehlerhafte Kennungen erkennen können. Für eine einfache Kontrollziffer soll die Anwendung die Ziffern einer Nummer einzeln auswerten, ohne sie als Text bearbeiten zu müssen.",
+    "previousContext": "Die Ladungsplanung aus Aufgabe 24 respektiert Reihenfolge und Kapazität. Die zusätzlichen Abnahmeprüfungen beginnen nun bei den verwendeten Kennungen.",
+    "task": "Schreibe pruefziffer(nummer). nummer ist eine ganze Zahl von 0 bis 2147483647. Addiere alle Dezimalziffern und gib den Rest dieser Summe bei Division durch 10 zurück. Beispiel: 12345 hat Ziffernsumme 15 und Prüfziffer 5. Für 0 ist das Ergebnis 0. Diese einfache Übungsregel ist kein vollständiges reales Prüfzifferverfahren. Reiche nur Funktionsdefinitionen ein.",
+    "exampleInputs": {
+      "nummer": 12345
+    },
+    "briefing": "nummer MOD 10 liefert bei einer nichtnegativen ganzen Zahl die letzte Ziffer. nummer DIV 10 entfernt diese letzte Ziffer. Wiederhole beide Schritte, bis keine weitere Ziffer übrig ist. Der ursprüngliche Aufruferwert bleibt wegen der lokalen Parameter unverändert.",
+    "hints": [
+      "Beginne mit einer Ziffernsumme von 0.",
+      "Addiere in der Schleife nummer MOD 10 und ersetze nummer danach durch nummer DIV 10.",
+      "Die Schleife läuft, solange nummer > 0 gilt. Gib anschließend summe MOD 10 zurück; damit funktioniert auch die Eingabe 0."
+    ],
+    "referenceCode": "FUNKTION pruefziffer(nummer)\n    summe = 0\n    SOLANGE nummer > 0\n        summe = summe + nummer MOD 10\n        nummer = nummer DIV 10\n    ENDE SOLANGE\n    RÜCKGABE summe MOD 10\nENDE FUNKTION",
+    "referenceAnswer": "",
+    "explanation": "MOD gewinnt die letzte Ziffer, DIV entfernt sie. Die Summe wird erst nach dem Durchlauf auf eine einzelne Prüfziffer reduziert. Die leere Schleife bei nummer = 0 lässt summe bei 0. Der Trainer rechnet mit Zahlen, nicht mit einzelnen Textzeichen.",
+    "discovery": "Die Kontrollziffer lässt sich aus den Ziffern der Kennung berechnen. DIV und MOD übernehmen dabei unterschiedliche Aufgaben.",
+    "tests": [
+      {
+        "name": "Mehrere Ziffern",
+        "inputs": {
+          "nummer": 12345
+        },
+        "output": [
+          "5"
+        ]
+      },
+      {
+        "name": "Null",
+        "inputs": {
+          "nummer": 0
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Eine Ziffer",
+        "inputs": {
+          "nummer": 7
+        },
+        "output": [
+          "7"
+        ]
+      },
+      {
+        "name": "Summenübertrag",
+        "inputs": {
+          "nummer": 99
+        },
+        "output": [
+          "8"
+        ]
+      },
+      {
+        "name": "Innere Nullen",
+        "inputs": {
+          "nummer": 1203
+        },
+        "output": [
+          "6"
+        ]
+      },
+      {
+        "name": "Große Kennung",
+        "inputs": {
+          "nummer": 2147483647
+        },
+        "output": [
+          "6"
+        ]
+      },
+      {
+        "name": "Viele Nullen",
+        "inputs": {
+          "nummer": 2000000000
+        },
+        "output": [
+          "2"
+        ]
+      }
+    ],
+    "functionName": "pruefziffer",
+    "functionInputs": [
+      "nummer"
+    ]
+  },
+  {
+    "id": 26,
+    "chapter": "11 · Zusätzliche Abnahmeprüfungen",
+    "title": "Doppelt so viele Daten – viermal so viel Arbeit?",
+    "kind": "Trace",
+    "story": "Die Abnahme prüft nicht nur einzelne Ergebnisse. Nora möchte wissen, wie stark ein Baustein bei größeren Datenmengen wächst. Der folgende Zähler steht stellvertretend für eine Prüfung jeder Kombination aus zwei Datenreihen.",
+    "previousContext": "Aufgabe 25 verarbeitet jede Ziffer einer Kennung. Jetzt untersuchst du dagegen zwei vollständig verschachtelte Schleifen und deren Aufwand.",
+    "task": "Welche zwei Zahlen gibt der Ablauf aus? Trage nur die beiden Zahlen ein, je eine pro Zeile. Zähle ausschließlich die Ausführungen von anzahl = anzahl + 1, nicht interne Rechenschritte des Trainers. Vergleiche anschließend gedanklich: Was passiert mit dieser Anzahl, wenn n von 4 auf 8 verdoppelt wird?",
+    "exampleInputs": {},
+    "briefing": "Die äußere Schleife läuft n-mal. Für jeden dieser Durchläufe läuft die innere erneut n-mal. Die Anzahl der Zählererhöhungen ist deshalb n * n. Das wird als quadratisches Wachstum beziehungsweise O(n²) bezeichnet; Konstanten und kleinere Terme werden bei dieser Einordnung nicht betrachtet.",
+    "hints": [
+      "Bei n = 4 werden vier äußere Durchläufe mit je vier inneren kombiniert.",
+      "Für n = 8 gibt es acht äußere Durchläufe mit je acht inneren.",
+      "Die Verdopplung von n vervierfacht n * n. Gib die beiden konkreten Anzahlen aus, keine Formel."
+    ],
+    "referenceCode": "FUNKTION vergleiche(n)\n    anzahl = 0\n    FÜR i VON 0 BIS n - 1\n        FÜR j VON 0 BIS n - 1\n            anzahl = anzahl + 1\n        ENDE FÜR\n    ENDE FÜR\n    RÜCKGABE anzahl\nENDE FUNKTION\nAUSGABE vergleiche(4)\nAUSGABE vergleiche(8)",
+    "referenceAnswer": "16\n64",
+    "explanation": "Die Ausgaben sind 16 und 64. Verdoppeln beide Schleifengrenzen sich, multiplizieren sich zwei Faktoren 2 zum Faktor 4. Zwei nacheinander ausgeführte Schleifen hätten dieses quadratische Wachstum dagegen nicht. Hier wird eine konkrete Anweisung gezählt, nicht die vom Interpreter begrenzte Zahl aller Rechenoperationen.",
+    "discovery": "Die Abnahme unterscheidet nun einen linearen Durchlauf von vollständig verschachtelten Durchläufen und kann quadratisches Wachstum an konkreten Zahlen erkennen.",
+    "tests": [
+      {
+        "name": "Zwei Eingabegrößen",
+        "inputs": {},
+        "output": [
+          "16",
+          "64"
+        ]
+      }
+    ],
+    "givenCode": "FUNKTION vergleiche(n)\n    anzahl = 0\n    FÜR i VON 0 BIS n - 1\n        FÜR j VON 0 BIS n - 1\n            anzahl = anzahl + 1\n        ENDE FÜR\n    ENDE FÜR\n    RÜCKGABE anzahl\nENDE FUNKTION\nAUSGABE vergleiche(4)\nAUSGABE vergleiche(8)"
+  },
+  {
+    "id": 27,
+    "chapter": "11 · Zusätzliche Abnahmeprüfungen",
+    "title": "Beide Seiten einer Grenze prüfen",
+    "kind": "TestCases",
+    "story": "Für eine Mengenstaffel meldet die Abnahme einen weiteren Grenzfall. Ein normaler Test in der Mitte eines Bereichs reicht nicht: Direkt vor und auf jeder Grenze muss sich die Ausgabe an der richtigen Stelle ändern.",
+    "previousContext": "Der Aufwand aus Aufgabe 26 ist nachvollzogen. Nun ergänzt du die funktionale Abnahme durch bewusst gewählte Grenzwerte statt zufälliger Normalfälle.",
+    "task": "Entwirf Testfälle für die Eingabe anzahl, eine ganze Zahl. Die Regel lautet: negativ ergibt ungültig, 0 bis 9 ergibt 0, 10 bis 49 ergibt 5, ab 50 ergibt 10. Schreibe je Zeile anzahl => erwartete Ausgabe. Abdecken musst du einen beliebigen negativen Wert sowie genau 0, 9, 10, 49 und 50. Nur korrekte Sollausgaben zählen zur Abdeckung. Es werden Testdaten abgegeben, kein Pseudocode.",
+    "exampleInputs": {
+      "anzahl": 10
+    },
+    "briefing": "Äquivalenzklassen teilen den Eingabebereich in Gruppen mit gleichem Verhalten. Grenzwerttests betrachten besonders die Stellen, an denen sich dieses Verhalten ändert. Ein Wert direkt vor und ein Wert direkt auf einer Grenze finden oft fehlerhafte < oder <= Vergleiche.",
+    "hints": [
+      "Du brauchst sechs verschiedene Eingabegruppen, darunter eine ungültige negative Menge.",
+      "Die Paare 9/10 und 49/50 liegen jeweils auf beiden Seiten einer Änderung.",
+      "0 und 9 ergeben 0; 10 und 49 ergeben 5; 50 ergibt 10. Ergänze einen negativen Test mit Ausgabe ungültig."
+    ],
+    "referenceCode": "WENN anzahl < 0 DANN\n    AUSGABE \"ungültig\"\nSONST\n    WENN anzahl >= 50 DANN\n        AUSGABE 10\n    SONST\n        WENN anzahl >= 10 DANN\n            AUSGABE 5\n        SONST\n            AUSGABE 0\n        ENDE WENN\n    ENDE WENN\nENDE WENN",
+    "referenceAnswer": "-1 => ungültig\n0 => 0\n9 => 0\n10 => 5\n49 => 5\n50 => 10",
+    "explanation": "Die sechs Gruppen sichern ungültige Eingaben, die untere Grenze und beide Seiten der zwei Staffelwechsel ab. Andere negative Zahlen als -1 sind ebenfalls erlaubt. Ein korrekter Normalfall wie 20 => 5 ersetzt keinen der ausdrücklich verlangten Grenzwerte.",
+    "discovery": "Die Staffelentscheidung ist mit gezielten Grenztests abgesichert. Abnahme bedeutet nicht mehr nur, dass ein einzelner gewöhnlicher Fall zufällig passt.",
+    "tests": [
+      {
+        "name": "Negativ",
+        "inputs": {
+          "anzahl": -1
+        },
+        "output": [
+          "ungültig"
+        ]
+      },
+      {
+        "name": "Null",
+        "inputs": {
+          "anzahl": 0
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Vor erster Grenze",
+        "inputs": {
+          "anzahl": 9
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Erste Grenze",
+        "inputs": {
+          "anzahl": 10
+        },
+        "output": [
+          "5"
+        ]
+      },
+      {
+        "name": "Vor zweiter Grenze",
+        "inputs": {
+          "anzahl": 49
+        },
+        "output": [
+          "5"
+        ]
+      },
+      {
+        "name": "Zweite Grenze",
+        "inputs": {
+          "anzahl": 50
+        },
+        "output": [
+          "10"
+        ]
+      },
+      {
+        "name": "Über der Staffel",
+        "inputs": {
+          "anzahl": 100
+        },
+        "output": [
+          "10"
+        ]
+      }
+    ],
+    "caseInputName": "anzahl",
+    "coverage": [
+      {
+        "name": "Negativer Wert",
+        "minimum": null,
+        "maximum": -1
+      },
+      {
+        "name": "Untere Grenze 0",
+        "minimum": 0,
+        "maximum": 0
+      },
+      {
+        "name": "Vor erster Staffel: 9",
+        "minimum": 9,
+        "maximum": 9
+      },
+      {
+        "name": "Erste Staffel: 10",
+        "minimum": 10,
+        "maximum": 10
+      },
+      {
+        "name": "Vor zweiter Staffel: 49",
+        "minimum": 49,
+        "maximum": 49
+      },
+      {
+        "name": "Zweite Staffel: 50",
+        "minimum": 50,
+        "maximum": 50
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "chapter": "12 · Aufrufe und Abschluss",
+    "title": "Wenn eine Funktion sich selbst aufruft",
+    "kind": "Trace",
+    "story": "Zum Schluss der Abnahme untersucht Nora einen rekursiven Baustein. Jeder Aufruf wartet auf das Ergebnis seines kleineren Teilproblems. Erst beim Rückweg entstehen die sichtbaren Zwischenergebnisse.",
+    "previousContext": "Die Grenztests aus Aufgabe 27 prüfen, wo Entscheidungen umschlagen. Bei Rekursion suchst du nun die Bedingung, die weitere Aufrufe beendet.",
+    "task": "Welche vier Ausgaben entstehen beim Aufruf summeBis(3)? Trage sie in der tatsächlichen Reihenfolge ein, jeweils eine Zahl pro Zeile. Der Aufruf mit n = 0 gibt einen Wert zurück, führt aber keine AUSGABE aus. Beachte auch die letzte AUSGABE im Hauptablauf.",
+    "exampleInputs": {},
+    "briefing": "Rekursion ist ein Selbstaufruf mit einem kleineren Teilproblem. Der Basisfall beendet die Kette. Jeder Aufruf hat eigene Parameter und lokale Werte. Beim Rückweg verarbeitet der wartende Aufrufer den Rückgabewert des Kindes weiter. Die Ablaufanzeige unterscheidet die Aufrufe durch ihre Aufrufebene.",
+    "hints": [
+      "Die Aufrufkette führt von n = 3 über 2 und 1 zum Basisfall 0.",
+      "Der erste sichtbare ergebnis-Wert entsteht beim Rückweg im Aufruf mit n = 1.",
+      "Die Zwischenergebnisse sind 1, 3 und 6. Der Hauptablauf gibt danach noch einmal den zurückgegebenen Endwert aus."
+    ],
+    "referenceCode": "FUNKTION summeBis(n)\n    WENN n == 0 DANN\n        RÜCKGABE 0\n    ENDE WENN\n    ergebnis = n + summeBis(n - 1)\n    AUSGABE ergebnis\n    RÜCKGABE ergebnis\nENDE FUNKTION\nAUSGABE summeBis(3)",
+    "referenceAnswer": "1\n3\n6\n6",
+    "explanation": "summeBis(0) liefert 0 ohne Ausgabe. summeBis(1) berechnet und zeigt 1, der Aufruf mit 2 zeigt 3 und der mit 3 zeigt 6. Anschließend zeigt der Hauptablauf den Endwert 6 erneut. Rückgabe und Ausgabe sind verschiedene Vorgänge.",
+    "discovery": "Der Rückweg rekursiver Aufrufe ist nachvollzogen. Gleiche Variablennamen gehören je nach Aufrufebene zu unterschiedlichen lokalen Zuständen.",
+    "tests": [
+      {
+        "name": "Rekursiver Rückweg",
+        "inputs": {},
+        "output": [
+          "1",
+          "3",
+          "6",
+          "6"
+        ]
+      }
+    ],
+    "givenCode": "FUNKTION summeBis(n)\n    WENN n == 0 DANN\n        RÜCKGABE 0\n    ENDE WENN\n    ergebnis = n + summeBis(n - 1)\n    AUSGABE ergebnis\n    RÜCKGABE ergebnis\nENDE FUNKTION\nAUSGABE summeBis(3)"
+  },
+  {
+    "id": 29,
+    "chapter": "12 · Aufrufe und Abschluss",
+    "title": "Der Aufruf muss dem Basisfall näherkommen",
+    "kind": "Repair",
+    "story": "Die Abnahme findet eine Funktion, deren Basisfall zwar richtig formuliert ist, aber von größeren Eingaben nie erreicht wird. Nora möchte den Fortschritt im rekursiven Aufruf reparieren.",
+    "previousContext": "Aufgabe 28 zeigt einen funktionierenden rekursiven Rückweg. Jetzt prüfst du den Weg zum Basisfall und reparierst ein unverändertes Argument.",
+    "task": "Repariere fakultaet(n) für ganze Zahlen von 0 bis 10. Die Funktion soll n! zurückgeben: 0! = 1, 1! = 1 und für n > 1 gilt n! = n * (n - 1)!. Die gegebene Funktion erreicht bei größeren Eingaben die Aufrufgrenze. Reiche nur Funktionsdefinitionen ein. Ein iterativ korrekt berechnetes Ergebnis ist ebenfalls zulässig.",
+    "exampleInputs": {
+      "n": 5
+    },
+    "briefing": "Ein Basisfall allein genügt nicht. Jeder weitere Selbstaufruf muss ein kleineres Teilproblem bearbeiten, das den Basisfall erreichen kann. Der Trainer begrenzt alle verschachtelten Aufrufe gemeinsam auf 16 Ebenen und behält zusätzlich das Rechenbudget bei.",
+    "hints": [
+      "Vergleiche das Argument des Selbstaufrufs mit dem aktuellen n.",
+      "Wird immer wieder dasselbe n übergeben, bleibt auch die Entscheidung n <= 1 unverändert.",
+      "Im rekursiven Zweig muss fakultaet(n - 1) aufgerufen werden. Multipliziere dessen Rückgabewert mit dem aktuellen n."
+    ],
+    "referenceCode": "FUNKTION fakultaet(n)\n    WENN n <= 1 DANN\n        RÜCKGABE 1\n    ENDE WENN\n    RÜCKGABE n * fakultaet(n - 1)\nENDE FUNKTION",
+    "referenceAnswer": "",
+    "explanation": "n - 1 nähert sich bei jeder Wiederholung dem Basisfall. Die wartenden Aufrufe multiplizieren beim Rückweg ihre jeweiligen Faktoren. Für 0 und 1 beendet schon die erste Bedingung den Aufruf mit 1.",
+    "discovery": "Die Rekursion besitzt jetzt sowohl einen Basisfall als auch echten Fortschritt. Fehlerhafte Selbstaufrufe enden im Trainer mit einem Hinweis statt einer unkontrollierten Aufrufkette.",
+    "tests": [
+      {
+        "name": "Nullfakultät",
+        "inputs": {
+          "n": 0
+        },
+        "output": [
+          "1"
+        ]
+      },
+      {
+        "name": "Eins",
+        "inputs": {
+          "n": 1
+        },
+        "output": [
+          "1"
+        ]
+      },
+      {
+        "name": "Zwei",
+        "inputs": {
+          "n": 2
+        },
+        "output": [
+          "2"
+        ]
+      },
+      {
+        "name": "Fünf",
+        "inputs": {
+          "n": 5
+        },
+        "output": [
+          "120"
+        ]
+      },
+      {
+        "name": "Sieben",
+        "inputs": {
+          "n": 7
+        },
+        "output": [
+          "5040"
+        ]
+      },
+      {
+        "name": "Zehn",
+        "inputs": {
+          "n": 10
+        },
+        "output": [
+          "3628800"
+        ]
+      }
+    ],
+    "functionName": "fakultaet",
+    "functionInputs": [
+      "n"
+    ],
+    "givenCode": "FUNKTION fakultaet(n)\n    WENN n <= 1 DANN\n        RÜCKGABE 1\n    ENDE WENN\n    RÜCKGABE n * fakultaet(n)\nENDE FUNKTION"
+  },
+  {
+    "id": 30,
+    "chapter": "12 · Aufrufe und Abschluss",
+    "title": "Doppelte Meldungen paarweise prüfen",
+    "kind": "Write",
+    "story": "Die letzte Abnahmeprüfung sucht doppelte Meldungen. Diesmal genügt die Häufigkeit einer einzelnen Nummer nicht: Die Leitstelle möchte wissen, wie viele verschiedene Paare von Positionen dieselbe Nummer enthalten. Eine Meldung darf mit jeder späteren Position genau einmal verglichen werden.",
+    "previousContext": "Nach der abgesicherten Aufrufkette aus Aufgabe 29 formulierst du die letzte Auswertung wieder selbst und verbindest Funktionsvertrag, Listen und verschachtelte Schleifen.",
+    "task": "Schreibe doppeltePaare(nummern). Die Liste enthält höchstens 20 ganze Zahlen, auch negative. Zähle alle Positionspaare i < j, für die nummern[i] == nummern[j] gilt, und gib diese Anzahl zurück. Dasselbe Paar darf nicht rückwärts erneut gezählt werden; eine Position mit sich selbst zählt nicht. Beispiele: [7, 7, 7] ergibt 3, [1, 2, 1, 2] ergibt 2, eine leere Liste ergibt 0. Reiche nur Funktionsdefinitionen ein.",
+    "exampleInputs": {
+      "nummern": [
+        7,
+        7,
+        7
+      ]
+    },
+    "briefing": "Die äußere Schleife wählt die erste Position. Die innere startet erst bei i + 1. Dadurch werden weder ein Selbstvergleich noch das spiegelverkehrte Paar untersucht. Drei gleiche Meldungen ergeben drei verschiedene Paare von Positionen.",
+    "hints": [
+      "Zähle passende Positionspaare, nicht nur unterschiedliche Werte oder die Zahl zusätzlicher Meldungen.",
+      "Wenn i die erste Position ist, beginnt j bei i + 1 und läuft bis LÄNGE(nummern) - 1.",
+      "Initialisiere paare = 0. Erhöhe es bei nummern[i] == nummern[j] und gib den Zähler erst nach beiden Schleifen zurück."
+    ],
+    "referenceCode": "FUNKTION doppeltePaare(nummern)\n    paare = 0\n    FÜR i VON 0 BIS LÄNGE(nummern) - 2\n        FÜR j VON i + 1 BIS LÄNGE(nummern) - 1\n            WENN nummern[i] == nummern[j] DANN\n                paare = paare + 1\n            ENDE WENN\n        ENDE FÜR\n    ENDE FÜR\n    RÜCKGABE paare\nENDE FUNKTION",
+    "referenceAnswer": "",
+    "explanation": "Jedes Paar wird genau in der Reihenfolge i < j betrachtet. Drei gleiche Einträge bilden die Paare (0,1), (0,2) und (1,2). Vier gleiche Einträge ergeben sechs Paare. Der Leerfall und ein einzelner Eintrag führen zu keinem Vergleich. Auch mit verkürzter innerer Schleife wächst die Zahl möglicher Vergleiche quadratisch.",
+    "discovery": "Die zusätzlichen Abnahmeprüfungen sind abgeschlossen: Kennungen, Grenzwerte, Aufwand und Aufrufverhalten sind nachvollziehbar. Die Leitstelle verbindet nun berechenbare Ergebnisse mit gezielten Tests und verständlichen Algorithmen.",
+    "tests": [
+      {
+        "name": "Drei gleiche Meldungen",
+        "inputs": {
+          "nummern": [
+            7,
+            7,
+            7
+          ]
+        },
+        "output": [
+          "3"
+        ]
+      },
+      {
+        "name": "Zwei getrennte Paare",
+        "inputs": {
+          "nummern": [
+            1,
+            2,
+            1,
+            2
+          ]
+        },
+        "output": [
+          "2"
+        ]
+      },
+      {
+        "name": "Leer",
+        "inputs": {
+          "nummern": []
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Ein Eintrag",
+        "inputs": {
+          "nummern": [
+            5
+          ]
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Alle unterschiedlich",
+        "inputs": {
+          "nummern": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Vier gleiche",
+        "inputs": {
+          "nummern": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "output": [
+          "6"
+        ]
+      },
+      {
+        "name": "Negative Kennungen",
+        "inputs": {
+          "nummern": [
+            -1,
+            2,
+            -1,
+            -1
+          ]
+        },
+        "output": [
+          "3"
+        ]
+      },
+      {
+        "name": "Mehrere Häufigkeiten",
+        "inputs": {
+          "nummern": [
+            3,
+            3,
+            3,
+            4,
+            4
+          ]
+        },
+        "output": [
+          "4"
+        ]
+      }
+    ],
+    "functionName": "doppeltePaare",
+    "functionInputs": [
+      "nummern"
     ]
   }
 ]

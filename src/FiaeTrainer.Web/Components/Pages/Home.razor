@@ -63,7 +63,7 @@
         </article>
         <article class="module-card ready">
             <span class="module-number">02</span><span class="badge">Bereit zum Lernen</span>
-            <h3>Pseudocode &amp; Algorithmen</h3><p>Bring die Leitstelle wieder in den Plan. Eigene Abläufe schreiben, Fehler finden und Entscheidungen Schritt für Schritt nachvollziehen.</p>
+            <h3>Pseudocode &amp; Algorithmen</h3><p>Bring die Leitstelle wieder in den Plan. Von Bedingungen und Schleifen bis zu Listen, Suche, Sortierung und eigenen Funktionen.</p>
             <div class="module-progress">@_progress.AlgorithmLessons.Values.Count(x => x.Completed) / @AlgorithmCatalog.Lessons.Count Übungen gelöst</div>
             <div class="module-actions"><a class="button primary" href="@($"/algorithmen/{_progress.LastAlgorithmLessonId}")">@(_progress.AlgorithmLessons.Values.Any(x => x.Completed || x.Attempts > 0 || !string.IsNullOrWhiteSpace(x.Draft)) ? "Weiter lernen" : "Leitstelle übernehmen") →</a></div>
             <small>Leitstelle im Ausnahmezustand · @AlgorithmCatalog.Lessons.Count Aufgaben</small>

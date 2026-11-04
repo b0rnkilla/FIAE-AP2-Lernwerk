@@ -1,0 +1,44 @@
+@using Microsoft.JSInterop
+@inject IJSRuntime JavaScript
+
+<div @ref="_root" class="code-editor" data-code-mode="@(CodeMode ? "true" : "false")">
+    <div class="code-editor-input">
+        <div class="code-editor-gutter" aria-hidden="true"><pre></pre></div>
+        <textarea id="@Id" class="sql-editor" wrap="off" spellcheck="false" autocapitalize="off" autocomplete="off"
+                  maxlength="12000" placeholder="@Placeholder" value="@Value" @oninput="InputAsync" @onblur="Blur"
+                  readonly="@ReadOnly" aria-describedby="@(CodeMode ? Id + "-keys" : null)"></textarea>
+    </div>
+    @if (CodeMode)
+    {
+        <p id="@(Id + "-keys")" class="code-editor-keys">Tab: einrücken · Umschalt+Tab: ausrücken · Esc, dann Tab: Feld verlassen.</p>
+    }
+    <span class="code-editor-status" role="status" aria-live="polite"></span>
+</div>
+
+@code {
+    /// <summary> Wurzelelement für lokal arbeitende Zeilenzählung und Tastaturbedienung. </summary>
+    private ElementReference _root;
+
+    /// <summary> ID des Eingabefelds, auf die das sichtbare Label verweist. </summary>
+    [Parameter, EditorRequired] public string Id { get; set; } = "";
+    /// <summary> Aktueller Entwurf einschließlich Leerzeilen und Einrückungen. </summary>
+    [Parameter] public string Value { get; set; } = "";
+    /// <summary> Übernimmt Eingaben einschließlich der per Tab eingefügten Leerzeichen. </summary>
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+    /// <summary> Aufgabenabhängige Einstiegshilfe im leeren Feld. </summary>
+    [Parameter] public string Placeholder { get; set; } = "";
+    /// <summary> Verhindert Bearbeitung während einer laufenden Prüfung. </summary>
+    [Parameter] public bool ReadOnly { get; set; }
+    /// <summary> Aktiviert Einrückung per Tab nur für echte Codeantworten. </summary>
+    [Parameter] public bool CodeMode { get; set; }
+    /// <summary> Speichert den Entwurf beim Verlassen des Eingabefelds. </summary>
+    [Parameter] public EventCallback<FocusEventArgs> Blur { get; set; }
+
+    private Task InputAsync(ChangeEventArgs args) => ValueChanged.InvokeAsync(args.Value?.ToString() ?? "");
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        try { await JavaScript.InvokeVoidAsync("fiaeCodeEditor.refresh", _root); }
+        catch (JSDisconnectedException) { /* Beim Verbindungsabbruch bleibt das normale Textfeld erhalten. */ }
+    }
+}

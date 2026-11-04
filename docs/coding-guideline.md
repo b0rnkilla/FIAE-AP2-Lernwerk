@@ -68,6 +68,12 @@ Algorithmus-Aufgaben liegen getrennt von SQL unter `Core/Algorithms`. Jede benö
 
 Pseudocode-Beispiele, Hinweise, Reparaturvorgaben und Musterlösungen verwenden bevorzugt `=` für Zuweisungen und `==` für Gleichheitsvergleiche. Die zusätzlich akzeptierten Zuweisungszeichen bleiben für vorhandene Entwürfe erhalten. Das vorgelegte alte Prüfungsbeispiel dient als Orientierung für diese Schreibweise; dessen Aufgabe wird nicht übernommen und seine gesamte Syntax ist damit nicht automatisch Bestandteil des Interpreters.
 
+Pseudocode-Schlüsselwörter, Wortoperatoren, Wahrheitswerte und die Längenfunktion müssen großgeschrieben sein. Die zentrale Schlüsselwortmenge in `AlgorithmSyntax` für Prüfung und reservierte Namen gemeinsam pflegen; Textliterale, Kommentare und Variablennamen nicht automatisch umschreiben. Änderungen an der Editor-Tastaturbedienung müssen einen dokumentierten Weg aus dem Feld und das Zeichenlimit erhalten. Einrückung, Auswahl und Rückgängig zusätzlich im Browser prüfen.
+
+Funktionsaufgaben erhalten einen expliziten Vertrag über `FunctionName` und `FunctionInputs`; deren Rückgaben über `RunFunction` prüfen, keine passende Hauptausgabe als Ersatz akzeptieren. Eigene Parameternamen und zusätzliche Hilfsfunktionen sind erlaubt. Neue Interpreterfunktionen müssen lokale Bereiche, Listen-Wertsemantik, gemeinsame Budgets und unveränderliche Vorschauzustände erhalten. Bei einem Ausbau keine bestehenden Aufgaben-IDs umnummerieren oder Nutzerentwürfe ersetzen.
+
 ## Ordner und Namespaces
 
 Fachlogik wird nach Lernmodul gruppiert, derzeit unter Core/Sql. Ermittlung, Werkstatt, Validierung, Ergebnisse, Datenbankzugriff und Inhalte erhalten dort eigene Ordner. Allgemeine Webdienste liegen unter Configuration, Learning, Networking und Updates; SQL-spezifische Webdienste unter Sql. Namespaces folgen dem Ordnerpfad. Öffentliche Typen erhalten eigene Dateien; zusammengehörige Teile einer partial class bleiben im selben Ordner. Program.cs bleibt als Einstieg im Web-Projektroot. Neue Lernmodule nicht in den SQL-Bereich einordnen. Die konkrete Struktur steht in entwicklung.md.
+
+Rekursive Funktionen müssen mit Basisfall, Fortschritt, getrennten lokalen Werten und genau an der 16-Ebenen-Grenze geprüft werden. Das Rechenbudget gilt auch über mehrere rekursive Zweige hinweg. Fehlender Fortschritt darf nicht zu einem unkontrollierten Aufrufstapel führen. Rücksprungziele aus URLs ausschließlich auf die erlaubten lokalen Aufgabenrouten begrenzen.

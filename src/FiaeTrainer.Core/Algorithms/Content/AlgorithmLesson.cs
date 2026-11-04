@@ -31,6 +31,10 @@ public sealed class AlgorithmLesson
     public string ReferenceCode { get; init; } = "";
     /// <summary> Musterantwort für Schreibtischtests und Testfälle. </summary>
     public string ReferenceAnswer { get; init; } = "";
+    /// <summary> Optionaler Funktionsvertrag: Die Bewertung ruft diese Funktion statt eines Hauptablaufs auf. </summary>
+    public string FunctionName { get; init; } = "";
+    /// <summary> Reihenfolge der Testeingaben für den Funktionsaufruf; eigene Parameternamen sind frei wählbar. </summary>
+    public string[] FunctionInputs { get; init; } = [];
     /// <summary> Erläutert die fachliche Entscheidung in der Musterlösung. </summary>
     public string Explanation { get; init; } = "";
     /// <summary> Erkenntnis, die erst nach erfolgreicher Bearbeitung freigeschaltet wird. </summary>
@@ -39,4 +43,6 @@ public sealed class AlgorithmLesson
     public AlgorithmTest[] Tests { get; init; } = [];
     /// <summary> Benötigte Grenz- und Normalfallgruppen für selbst entworfene Testfälle. </summary>
     public TestCoverage[] Coverage { get; init; } = [];
+    /// <summary> Eingabename der skalaren Testfallaufgabe; das Antwortformat bleibt Zahl => Ausgabe. </summary>
+    public string CaseInputName { get; init; } = "gewicht";
 }

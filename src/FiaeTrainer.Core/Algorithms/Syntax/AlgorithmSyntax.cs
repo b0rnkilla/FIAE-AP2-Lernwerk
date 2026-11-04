@@ -5,6 +5,14 @@ namespace FiaeTrainer.Core.Algorithms.Syntax;
 /// <summary> Interne Syntaxelemente; sie führen selbst weder Code noch externe Zugriffe aus. </summary>
 internal static class AlgorithmSyntax
 {
+    /// <summary> Reservierte Befehle, Operatoren, Wahrheitswerte und die Listenfunktion des Trainers. </summary>
+    internal static readonly HashSet<string> KEYWORDS = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "WENN", "SONST", "ENDE", "DANN", "SOLANGE", "FÜR", "FUER", "JEDES", "IN", "VON", "BIS", "TUE",
+        "AUSGABE", "WAHR", "FALSCH", "NICHT", "UND", "ODER", "DIV", "MOD", "LÄNGE", "LAENGE",
+        "FUNKTION", "RÜCKGABE", "RUECKGABE"
+    };
+
     internal sealed record Token(string Text, int Line, bool Quoted = false);
     internal abstract record Expression;
     internal sealed record Literal(object Value) : Expression;
@@ -14,8 +22,13 @@ internal static class AlgorithmSyntax
     internal sealed record ArrayLiteral(IReadOnlyList<Expression> Items) : Expression;
     internal sealed record ListIndex(Expression Array, Expression Position) : Expression;
     internal sealed record Length(Expression Array) : Expression;
+    internal sealed record Call(string Name, IReadOnlyList<Expression> Arguments) : Expression;
+    internal sealed record Function(int Line, string Name, IReadOnlyList<string> Parameters, IReadOnlyList<Statement> Body);
+    internal sealed record AlgorithmProgram(IReadOnlyList<Statement> Statements, IReadOnlyList<Function> Functions);
     internal abstract record Statement(int Line);
     internal sealed record Assignment(int Line, string Name, Expression Value) : Statement(Line);
+    internal sealed record IndexedAssignment(int Line, string Name, IReadOnlyList<Expression> Indices, Expression Value) : Statement(Line);
+    internal sealed record Return(int Line, Expression Value) : Statement(Line);
     internal sealed record Print(int Line, Expression Value) : Statement(Line);
     internal sealed record Branch(int Line, Expression Condition, IReadOnlyList<Statement> Then, IReadOnlyList<Statement> Else) : Statement(Line);
     internal sealed record While(int Line, Expression Condition, IReadOnlyList<Statement> Body) : Statement(Line);
@@ -48,7 +61,10 @@ internal static class AlgorithmSyntax
             {
                 int start = i++;
                 while (i < code.Length && (char.IsLetterOrDigit(code[i]) || code[i] == '_')) i++;
-                tokens.Add(new(code[start..i], line));
+                string word = code[start..i];
+                if (KEYWORDS.Contains(word) && word != word.ToUpperInvariant())
+                    throw new AlgorithmException(line, $"Schreibe Schlüsselwörter groß: „{word}“ muss „{word.ToUpperInvariant()}“ heißen. Variablennamen und Texte bleiben unverändert.");
+                tokens.Add(new(word, line));
             }
             else if (char.IsDigit(c))
             {

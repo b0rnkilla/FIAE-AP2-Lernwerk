@@ -12,6 +12,8 @@ internal sealed class AlgorithmParser(List<Token> tokens)
     private int _position;
     /// <summary> Gemeinsame Verschachtelungsgrenze für Blöcke und Ausdrücke. </summary>
     private int _depth;
+    /// <summary> Rückgaben sind nur innerhalb einer Funktionsdefinition zulässig. </summary>
+    private bool _insideFunction;
 
     #endregion
 
@@ -25,11 +27,38 @@ internal sealed class AlgorithmParser(List<Token> tokens)
     #region Methods
 
     /// <summary> Liest das gesamte Programm und weist überzählige Blockabschlüsse zurück. </summary>
-    internal IReadOnlyList<Statement> Parse()
+    internal AlgorithmProgram Parse()
     {
-        IReadOnlyList<Statement> result = Block();
-        if (!Is("<EOF>")) throw Error("Hier steht ein SONST oder ENDE ohne passenden Anfang.");
-        return result;
+        List<Statement> statements = [];
+        List<Function> functions = [];
+        SkipLines();
+        while (!Is("<EOF>"))
+        {
+            if (Take("FUNKTION"))
+            {
+                int line = tokens[_position - 1].Line;
+                string name = Name(); Require("(");
+                List<string> parameters = [];
+                if (!Is(")"))
+                    do
+                    {
+                        string parameter = Name();
+                        if (parameters.Contains(parameter, StringComparer.OrdinalIgnoreCase)) throw Error("Ein Parametername darf in einer Funktion nur einmal vorkommen.");
+                        if (parameters.Count >= 16) throw Error("Verwende höchstens 16 Parameter je Funktion.");
+                        parameters.Add(parameter);
+                    } while (Take(","));
+                Require(")"); EndLine();
+                _insideFunction = true;
+                IReadOnlyList<Statement> body = Block();
+                _insideFunction = false;
+                Require("ENDE"); Require("FUNKTION");
+                if (functions.Any(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase))) throw Error($"Die Funktion „{name}“ ist mehrfach definiert.");
+                functions.Add(new(line, name, parameters, body));
+            }
+            else statements.Add(ReadStatement());
+            EndLine();
+        }
+        return new(statements, functions);
     }
 
     /// <summary> Liest bis zum Ende des Programms oder bis zum Abschluss des umgebenden Blocks. </summary>
@@ -50,6 +79,12 @@ internal sealed class AlgorithmParser(List<Token> tokens)
     private Statement ReadStatement()
     {
         int line = Current.Line;
+        if (Is("FUNKTION")) throw Error("Definiere Funktionen außerhalb von Bedingungen, Schleifen und anderen Funktionen.");
+        if (Take("RÜCKGABE") || Take("RUECKGABE"))
+        {
+            if (!_insideFunction) throw Error("RÜCKGABE gehört in eine Funktion. Im Hauptablauf verwendest du AUSGABE.");
+            return new Return(line, ReadExpression());
+        }
         if (Take("AUSGABE")) return new Print(line, ReadExpression());
         if (Take("WENN"))
         {
@@ -81,9 +116,12 @@ internal sealed class AlgorithmParser(List<Token> tokens)
             return new For(line, name, start, end, loop);
         }
         string variable = Name();
+        List<Expression> indices = [];
+        while (Take("[")) { indices.Add(ReadExpression()); Require("]"); }
         if (!(Take("←") || Take("<-") || Take(":=") || Take("=")))
             throw Error("Nach dem Variablennamen fehlt eine Zuweisung, zum Beispiel „anzahl = 0“.");
-        return new Assignment(line, variable, ReadExpression());
+        Expression value = ReadExpression();
+        return indices.Count == 0 ? new Assignment(line, variable, value) : new IndexedAssignment(line, variable, indices, value);
     }
 
     /// <summary> Prioritäten: ODER, UND, Vergleiche, Addition, Multiplikation, unäre Operatoren. </summary>
@@ -127,7 +165,22 @@ internal sealed class AlgorithmParser(List<Token> tokens)
             Require("]"); value = new ArrayLiteral(items);
         }
         else if (Take("LÄNGE") || Take("LAENGE")) { Require("("); value = new Length(ReadExpression()); Require(")"); }
-        else value = new Variable(Name());
+        else
+        {
+            string name = Name();
+            if (Take("("))
+            {
+                List<Expression> arguments = [];
+                if (!Is(")"))
+                    do
+                    {
+                        if (arguments.Count >= 16) throw Error("Verwende höchstens 16 Argumente je Funktionsaufruf.");
+                        arguments.Add(ReadExpression());
+                    } while (Take(","));
+                Require(")"); value = new Call(name, arguments);
+            }
+            else value = new Variable(name);
+        }
         while (Take("[")) { Expression index = ReadExpression(); Require("]"); value = new ListIndex(value, index); }
         return value;
     }
@@ -140,8 +193,7 @@ internal sealed class AlgorithmParser(List<Token> tokens)
     private string Name()
     {
         Token token = Current;
-        string[] reserved = ["WENN", "SONST", "ENDE", "DANN", "SOLANGE", "FÜR", "FUER", "JEDES", "IN", "VON", "BIS", "TUE", "AUSGABE", "WAHR", "FALSCH", "NICHT", "UND", "ODER", "DIV", "MOD", "LÄNGE", "LAENGE"];
-        if (token.Quoted || token.Text.Length == 0 || !(char.IsLetter(token.Text[0]) || token.Text[0] == '_') || reserved.Contains(token.Text, StringComparer.OrdinalIgnoreCase))
+        if (token.Quoted || token.Text.Length == 0 || !(char.IsLetter(token.Text[0]) || token.Text[0] == '_') || KEYWORDS.Contains(token.Text))
             throw Error("Hier fehlt ein Variablenname oder ein Wert. Prüfe auch Klammern und das Ende der vorherigen Anweisung.");
         _position++;
         return token.Text;
