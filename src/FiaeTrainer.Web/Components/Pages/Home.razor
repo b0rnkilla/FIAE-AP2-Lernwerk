@@ -2,6 +2,7 @@
 @inject LessonCatalog Catalog
 @inject WorkshopCatalog WorkshopCatalog
 @inject AlgorithmCatalog AlgorithmCatalog
+@inject BusinessCatalog BusinessCatalog
 @inject ProgressStore Store
 @inject DatabaseState Database
 <PageTitle>Dein Lernraum · AP2 Lernwerk</PageTitle>
@@ -46,7 +47,7 @@
 
     <div class="section-heading" id="themen">
         <div><div class="eyebrow">DEIN THEMENKOMPASS</div><h2>Was möchtest du heute üben?</h2></div>
-        <span>2 Themenbereiche bereit · weitere im Aufbau</span>
+        <span>3 Themenbereiche bereit · weitere im Aufbau</span>
     </div>
 
     <section class="module-grid learning-modules" aria-label="Lernbereiche der FIAE-AP2">
@@ -75,10 +76,18 @@
                 <h3>@module.Title</h3><p>@module.Description</p>
             </article>
         }
+        <article class="module-card ready">
+            <span class="module-number">08</span><span class="badge">Bereit zum Lernen</span>
+            <h3>Wirtschafts- &amp; Sozialkunde</h3><p>Berufliche Situationen einordnen, Zusammenhänge verstehen und sicher rechnen. Mit Themenrunden, Fehlerwiederholung und Prüfungsübung.</p>
+            <div class="module-progress">@_progress.BusinessQuestions.Values.Count(x => x.Completed) / @BusinessCatalog.Questions.Count Aufgaben richtig gelöst</div>
+            <div class="module-actions"><a class="button primary" href="/wiso">@(_progress.BusinessQuestions.Count > 0 || _progress.BusinessRound != null ? "Weiter lernen" : "WiSo entdecken") →</a></div>
+            <small>@BusinessCatalog.Topics.Count Themen · @BusinessCatalog.Questions.Count eigene Aufgaben</small>
+        </article>
     </section>
 
     <section class="learning-note"><div class="eyebrow">DEIN TEMPO. DEIN NÄCHSTER SCHRITT.</div><h2>Heute musst du nicht alles können.</h2><p>Wähle eine Aufgabe, versuche sie selbst und halte fest, was dir noch schwerfällt. Ein Fehler zeigt dir, was du als Nächstes üben kannst.</p></section>
 
+    <ProjectSupport />
 
     @if (Database.Ready)
     {
@@ -107,11 +116,10 @@
         ("04", "Datenbankentwurf", "Schlüssel, Kardinalitäten und Normalisierung an greifbaren Beispielen."),
         ("05", "Softwareplanung & OOP", "Anforderungen in verständliche Klassen, Schnittstellen und Entwürfe übersetzen."),
         ("06", "Tests, Qualität & Sicherheit", "Grenzfälle erkennen, Testfälle entwerfen und Schutzmaßnahmen begründen."),
-        ("07", "Projekte & Wirtschaftlichkeit", "Vorgehen planen, Alternativen vergleichen und Kosten berechnen."),
-        ("08", "Wirtschafts- & Sozialkunde", "Prüfungsnahe Fragen beantworten und Zusammenhänge verstehen.")];
+        ("07", "Projekte & Wirtschaftlichkeit", "Vorgehen planen, Alternativen vergleichen und Kosten berechnen.")];
 
     /// <summary> Anzahl der tatsächlich implementierten Übungen. </summary>
-    private int TotalExercises => Catalog.Lessons.Count + WorkshopCatalog.Lessons.Count + AlgorithmCatalog.Lessons.Count;
+    private int TotalExercises => Catalog.Lessons.Count + WorkshopCatalog.Lessons.Count + AlgorithmCatalog.Lessons.Count + BusinessCatalog.Questions.Count;
 
     protected override async Task OnInitializedAsync()
     {
@@ -119,8 +127,8 @@
         {
             _progress = await Store.LoadAsync();
             _sqlCompleted = _progress.Lessons.Values.Count(x => x.Completed) + _progress.WorkshopLessons.Values.Count(x => x.Completed);
-            _completed = _sqlCompleted + _progress.AlgorithmLessons.Values.Count(x => x.Completed);
-            _independent = _progress.Lessons.Values.Count(x => x.Independent) + _progress.WorkshopLessons.Values.Count(x => x.Independent) + _progress.AlgorithmLessons.Values.Count(x => x.Independent);
+            _completed = _sqlCompleted + _progress.AlgorithmLessons.Values.Count(x => x.Completed) + _progress.BusinessQuestions.Values.Count(x => x.Completed);
+            _independent = _progress.Lessons.Values.Count(x => x.Independent) + _progress.WorkshopLessons.Values.Count(x => x.Independent) + _progress.AlgorithmLessons.Values.Count(x => x.Independent) + _progress.BusinessQuestions.Values.Count(x => x.Independent);
         }
         catch (Exception exception) when (exception is IOException or System.Text.Json.JsonException or UnauthorizedAccessException)
         {

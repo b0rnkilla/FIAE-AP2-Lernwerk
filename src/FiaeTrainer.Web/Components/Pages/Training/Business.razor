@@ -1,0 +1,52 @@
+@page "/wiso/runde"
+<PageTitle>Deine WiSo-Runde · AP2 Lernwerk</PageTitle>
+<main class="page business-round">
+    @if (_error != null)
+    {
+        <section class="notice warning" role="alert"><h2>Deine Runde ist geschützt.</h2><p>@_error</p><a class="button secondary" href="/wiso/runde" data-enhance-nav="false">Runde neu laden</a></section>
+    }
+    else if (_round == null)
+    {
+        <h1>Deine nächste WiSo-Runde wartet.</h1><p class="lead">Wähle ein Thema, eine gemischte Runde oder eine Prüfungsübung.</p><a class="button primary" href="/wiso">Zum WiSo-Training →</a>
+    }
+    else
+    {
+        <div class="business-round-toolbar"><div><a href="/wiso">← WiSo-Training</a><div class="eyebrow">@FiaeTrainer.Web.Components.Pages.BusinessHome.RoundName(_round.Kind)</div></div><div class="business-timer-actions">
+            @if (_round.Kind == BusinessRoundKind.Exam && _round.FinishedUtc == null) { <span class="business-timer" aria-label="Verbleibende Prüfungszeit">@TimeLeft</span><button class="button secondary" disabled="@_busy" @onclick="TogglePauseAsync">@(_round.Paused ? "Fortsetzen" : "Pause")</button> }
+            @if (_round.FinishedUtc == null) { <button class="button secondary" disabled="@_busy" @onclick="RequestFinish">Runde auswerten</button> }
+        </div></div>
+        @if (_round.FinishedUtc != null)
+        {
+            <section class="business-result-hero business-round-status" @ref="_roundStatus" tabindex="-1" aria-labelledby="round-result-heading"><div class="eyebrow">DEINE AUSWERTUNG</div><h1 id="round-result-heading">@_round.Earned <span>/ @_round.Maximum Punkte</span></h1><p class="lead">@Percentage % der Trainingspunkte erreicht@(_round.UsedReference ? " · mit Nachschlagen" : "").</p><p>Gehe deine Antworten durch und kläre die Stellen, an denen du noch unsicher bist.</p><div class="hero-actions"><a class="button primary" href="/wiso">Nächste Runde wählen →</a><a class="button secondary" href="/wiso/spickzettel">WiSo-Spickzettel</a></div><p class="business-format">Eigene Trainingsbewertung: Auswahl und Reihenfolge jeweils ganz richtig = 1 Punkt; bei Zuordnungen und Ergebnisfeldern 1 Punkt je richtigem Feld. Unbeantwortetes zählt 0. Keine amtliche IHK-Note.</p></section>
+            <section class="business-topic-results" aria-label="Ergebnis nach Themen">@foreach (var group in _round.QuestionIds.Select(QuestionById).GroupBy(question => question.TopicId)) { var evaluations = group.Select(question => Evaluation(question.Id)).ToArray(); <div><strong>@Catalog.Topics.Single(topic => topic.Id == group.Key).Title</strong><span>@evaluations.Sum(result => result.Earned) / @evaluations.Sum(result => result.Maximum) Punkte</span></div> }</section>
+        }
+        else if (_round.Paused)
+        {
+            <section class="business-pause"><h1>Eine Pause für den Kopf.</h1><p>Die Prüfungsuhr steht. Deine Antworten bleiben erhalten.</p><button class="button primary" disabled="@_busy" @onclick="TogglePauseAsync">Prüfungsrunde fortsetzen →</button></section>
+        }
+        @if (_confirmFinish && _round.FinishedUtc == null)
+        {
+            <section class="notice warning business-round-status" @ref="_roundStatus" tabindex="-1" role="alert" aria-labelledby="round-confirmation-heading"><strong id="round-confirmation-heading">Runde jetzt abgeben?</strong><p>Unvollständige Antworten: @UnansweredCount von @_round.QuestionIds.Count. Zur Kontrolle markiert: @_round.FlaggedIds.Count. Nach der Abgabe bleiben die Antworten gesperrt.</p><button class="button secondary" disabled="@_busy" @onclick="() => _confirmFinish = false">Weiter bearbeiten</button> <button class="button primary" disabled="@_busy" @onclick="FinishAsync">Jetzt abgeben &amp; auswerten</button></section>
+        }
+        @if (!_round.Paused)
+        {
+            <details class="business-overview"><summary>Aufgabenübersicht · @(_round.Index + 1) / @_round.QuestionIds.Count</summary><p>✓ geprüft · ● vollständig beantwortet · ⚑ zur Kontrolle markiert</p><div class="business-question-grid">@for (int i = 0; i < _round.QuestionIds.Count; i++) { int index = i; int id = _round.QuestionIds[i]; <button type="button" class="@OverviewClass(id, index)" aria-current="@(index == _round.Index ? "step" : null)" aria-label="@OverviewLabel(id, index)" disabled="@_busy" @onclick="() => GoAsync(index)">@(i + 1)<span>@(_round.FlaggedIds.Contains(id) ? " ⚑" : _round.CheckedIds.Contains(id) ? " ✓" : IsComplete(id) ? " ●" : "")</span></button> }</div></details>
+            <div class="mission-topline"><span class="eyebrow">AUFGABE @(_round.Index + 1) / @_round.QuestionIds.Count</span><span class="badge">@Catalog.Topics.Single(topic => topic.Id == CurrentQuestion.TopicId).Title</span></div>
+            <h1 class="business-question-title">@CurrentQuestion.Title</h1>
+            @if (_round.Kind == BusinessRoundKind.Topic && _round.Index == 0 && _round.FinishedUtc == null) { <details class="business-topic-intro"><summary>Das hilft dir bei diesem Thema</summary><p>@Catalog.Topics.Single(topic => topic.Id == CurrentQuestion.TopicId).Introduction</p></details> }
+            <section class="story-note"><div class="avatar" aria-hidden="true">ND</div><div><span>Ein Fall aus dem Berufsleben</span><p>@CurrentQuestion.Scenario</p></div></section>
+            <BusinessIllustration Question="CurrentQuestion" />
+            @if (CurrentQuestion.TableHeaders.Length > 0) { <div class="business-table-wrap"><table><caption>Angaben zu dieser Aufgabe</caption><thead><tr>@foreach (string heading in CurrentQuestion.TableHeaders) { <th scope="col">@heading</th> }</tr></thead><tbody>@foreach (string[] row in CurrentQuestion.TableRows) { <tr>@foreach (string cell in row) { <td>@cell</td> }</tr> }</tbody></table></div> }
+            <section class="business-task"><h2>@CurrentQuestion.Task</h2><BusinessAnswerInput @key="CurrentQuestion.Id" Question="CurrentQuestion" Answer="CurrentAnswer" Options="CurrentOptions" Changed="SaveAsync" Disabled="@(_busy || IsLocked)" />
+                @if (!IsLocked)
+                {
+                    <div class="business-answer-actions"><label class="business-unsure"><input type="checkbox" checked="@CurrentAnswer.Unsure" @onchange="SetUnsureAsync" disabled="@_busy" /> Ich bin mir noch unsicher.</label>@if (_round.Kind != BusinessRoundKind.Exam) { <button class="button primary" disabled="@_busy" @onclick="CheckAsync">Antwort prüfen →</button> }</div>
+                }
+                @if (_validation != null) { <p class="notice warning" role="alert">@_validation</p> }
+            </section>
+            @if (IsLocked) { <BusinessFeedback Question="CurrentQuestion" Evaluation="Evaluation(CurrentQuestion.Id)" Catalog="Catalog" /> }
+            <nav class="business-task-navigation" aria-label="Aufgaben der Runde"><button class="button secondary" disabled="@(_busy || _round.Index == 0)" @onclick="() => GoAsync(_round.Index - 1)">← Vorherige Aufgabe</button>@if (_round.FinishedUtc == null) { <button class="business-flag" disabled="@_busy" @onclick="ToggleFlagAsync">@(_round.FlaggedIds.Contains(CurrentQuestion.Id) ? "⚑ Markierung entfernen" : "⚑ Zur Kontrolle markieren")</button> }@if (_round.Index < _round.QuestionIds.Count - 1) { <button class="button primary" disabled="@_busy" @onclick="() => GoAsync(_round.Index + 1)">Nächste Aufgabe →</button> } else if (_round.FinishedUtc == null) { <button class="button primary" disabled="@_busy" @onclick="RequestFinish">Runde auswerten →</button> }</nav>
+            @if (_round.Kind != BusinessRoundKind.Exam || _round.FinishedUtc != null) { <div class="help-row"><div><h3>Einen Begriff noch einmal klären?</h3><p>Im WiSo-Spickzettel findest du Zusammenhänge, Formeln und typische Verwechslungen.</p></div><a class="button secondary" href="/wiso/spickzettel">Spickzettel öffnen →</a></div> }
+        }
+    }
+</main>

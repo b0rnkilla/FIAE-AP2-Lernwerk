@@ -1,0 +1,80 @@
+@page "/wiso/spickzettel"
+@inject BusinessCatalog Catalog
+@inject ProgressStore Store
+<PageTitle>WiSo-Spickzettel · AP2 Lernwerk</PageTitle>
+<main class="page reading-page business-reference">
+    <div class="eyebrow">BERUFSLEBEN VERSTEHEN · ZUSAMMENHÄNGE ERKENNEN</div>
+    <h1>Dein WiSo-<br /><em>Spickzettel.</em></h1>
+    <p class="lead">Die wichtigsten Unterscheidungen, Rechenwege und Merksätze für unsere Aufgaben. Fachlicher Prüfstand: 04.11.2026. Konkrete Annahmen und Werte stehen immer in der Aufgabe.</p>
+    <a class="button secondary" href="@(_hasRound ? "/wiso/runde" : "/wiso")">@(_hasRound ? "Zurück zu deiner Aufgabe →" : "Zum WiSo-Training →")</a>
+    @if (_error != null) { <p class="notice warning" role="alert">@_error</p> }
+    @if (_pausedExam) { <p class="notice">Deine Prüfungsrunde ist pausiert und als Übung mit Nachschlagen gekennzeichnet. Zum Fortsetzen kehrst du zur Aufgabe zurück.</p> }
+    <aside class="notice business-round-guide" aria-labelledby="round-guide-heading">
+        <h2 id="round-guide-heading">Unsicher oder zur Kontrolle markieren?</h2>
+        <p><strong>„Ich bin mir noch unsicher“:</strong> Diese Aufgabe kommt in die Fehler- und Unsicherheitswiederholung – auch wenn deine Antwort richtig ist.</p>
+        <p><strong>„Zur Kontrolle markieren“:</strong> Setzt ein Fähnchen in der Aufgabenübersicht dieser Runde, damit du die Aufgabe schnell wiederfindest. Punkte und Wiederholungsliste bleiben dadurch unverändert.</p>
+    </aside>
+    <p class="business-format">Quellenlinks öffnen externe Seiten in einem neuen Tab.</p>
+    <nav class="business-reference-index" aria-label="Themen im Spickzettel">@foreach (BusinessTopic topic in Catalog.Topics) { <a href="@($"/wiso/spickzettel#{topic.Id}")">@topic.Title</a> }</nav>
+    @foreach (BusinessTopic topic in Catalog.Topics)
+    {
+        <section class="reference-section" id="@topic.Id"><h2>@topic.Title</h2><p>@topic.Introduction</p>
+            @switch (topic.Id)
+            {
+                case "education":
+                    <ul><li><strong>Probezeit:</strong> Ausbildung grundsätzlich mindestens ein und höchstens vier Monate.</li><li><strong>Kündigung in der Probezeit:</strong> ohne Kündigungsfrist, aber schriftlich.</li><li><strong>Nach der Probezeit:</strong> Auszubildende können bei Aufgabe der Ausbildung oder Wechsel in einen anderen Beruf mit vier Wochen Frist kündigen; schriftlich und mit Grund. Ein wichtiger Grund ist eine andere Kündigungsmöglichkeit.</li><li><strong>Ausbildungsende:</strong> Bei vorzeitig bestandener Prüfung mit Bekanntgabe des Ergebnisses durch den Prüfungsausschuss.</li><li><strong>Nicht bestanden:</strong> Auf Verlangen Verlängerung bis zur nächsten Wiederholungsprüfung, höchstens ein Jahr.</li><li><strong>Zeugnis:</strong> Bei Beendigung ausstellen; Verhalten und Leistung auf Verlangen ergänzen.</li></ul>
+                    break;
+                case "employment":
+                    <div class="business-table-wrap"><table><caption>Wichtige gesetzliche Regelfälle ohne Sondervereinbarungen</caption><thead><tr><th scope="col">Sachverhalt</th><th scope="col">Merksatz</th></tr></thead><tbody><tr><td>Arbeitnehmerkündigung</td><td>Vier Wochen zum 15. oder Monatsende; vier Wochen sind 28 Tage.</td></tr><tr><td>Arbeitsprobezeit</td><td>Bei vereinbarter Probezeit längstens sechs Monate: grundsätzlich zwei Wochen Frist.</td></tr><tr><td>Kündigungsschutzklage</td><td>Grundsätzlich drei Wochen ab Zugang der schriftlichen Kündigung.</td></tr><tr><td>Erwachsene: Pausen</td><td>Über 6 bis 9 Stunden: 30 Minuten. Über 9 Stunden: 45 Minuten.</td></tr><tr><td>Jugendliche: Pausen</td><td>Über 4,5 bis 6 Stunden: 30 Minuten. Über 6 Stunden: 60 Minuten.</td></tr><tr><td>Ruhezeit zwischen Arbeitstagen</td><td>Erwachsene grundsätzlich 11 Stunden; Jugendliche 12 Stunden.</td></tr><tr><td>Mindesturlaub Erwachsene</td><td>24 Werktage bei sechs Tagen pro Woche entsprechen 20 Arbeitstagen bei fünf Tagen.</td></tr><tr><td>Jugendurlaub</td><td>Alter zu Jahresbeginn: unter 16 → 30, unter 17 → 27, unter 18 → 25 Werktage.</td></tr><tr><td>Mutterschutz im Normalfall</td><td>6 Wochen vor dem errechneten Termin, 8 Wochen nach der Geburt; gesetzliche Sonderfälle beachten.</td></tr></tbody></table></div>
+                    <p><strong>Bei Kündigungsgründen:</strong> Betrieb = betriebliche Erfordernisse; Person = persönliche Voraussetzungen; Verhalten = steuerbare Pflichtverletzungen. Eine Kategorie allein beweist noch keine wirksame Kündigung.</p><p><strong>AGG:</strong> Geschützte Merkmale und tätigkeitsbezogene Qualifikation auseinanderhalten. Eine Benachteiligung kann auch mittelbar erfolgen; Rechtfertigungen sind gesondert zu prüfen.</p>
+                    break;
+                case "participation":
+                    <ul><li><strong>Betriebsrat wählen:</strong> grundsätzlich ab 16 Jahren.</li><li><strong>In den Betriebsrat gewählt werden:</strong> grundsätzlich ab 18 und nach sechs Monaten Betriebszugehörigkeit; gesetzliche Ausnahmen beachten.</li><li><strong>JAV:</strong> vertritt Jugendliche und zu ihrer Berufsausbildung Beschäftigte. Die Altersgrenze unter 25 ist für Auszubildende keine allgemeine Ausschlussgrenze mehr.</li><li><strong>Amtszeiten:</strong> Betriebsrat regelmäßig vier Jahre, JAV zwei Jahre.</li><li><strong>Betriebsvereinbarung:</strong> Arbeitgeber und Betriebsrat.</li><li><strong>Tarifvertrag:</strong> Gewerkschaft mit Arbeitgeberverband oder einzelnem Arbeitgeber.</li><li><strong>Mitbestimmung:</strong> etwa Arbeitszeitlage, Urlaubsgrundsätze und technische Überwachung, soweit keine abschließende gesetzliche oder tarifliche Regelung besteht.</li><li><strong>Kündigung:</strong> Besteht ein Betriebsrat, muss er vorher angehört werden. Anhörung ist nicht gleich Zustimmung.</li></ul>
+                    break;
+                case "social":
+                    <ul><li><strong>Fünf Zweige:</strong> Kranken-, Pflege-, Renten-, Arbeitslosen- und Unfallversicherung.</li><li><strong>Unfallversicherung:</strong> für gewöhnliche Beschäftigte grundsätzlich vom Arbeitgeber finanziert. Arbeitsunfälle und unmittelbare Arbeitswege können versichert sein.</li><li><strong>Umlageverfahren:</strong> Laufende Einnahmen finanzieren im Wesentlichen laufende Rentenausgaben.</li><li><strong>Beitragsbemessungsgrenze:</strong> begrenzt die für Beiträge herangezogene Entgelthöhe.</li><li><strong>Versicherungspflichtgrenze:</strong> betrifft unter Voraussetzungen den Status in der Krankenversicherung. Überschreiten zwingt nicht automatisch zum Wechsel in eine private Versicherung.</li><li><strong>Bei hälftiger Teilung:</strong> Beitragspflichtiges Entgelt × vorgegebenen Gesamtsatz ÷ 2. In der Pflegeversicherung und anderen Sonderfällen nicht pauschal von einer hälftigen Teilung ausgehen.</li></ul><p>Jährliche Grenzwerte und kassenindividuelle Beitragssätze ändern sich. Rechne mit den ausdrücklich angegebenen Werten der jeweiligen Aufgabe.</p>
+                    break;
+                case "company":
+                    <ul><li><strong>Reguläre GmbH:</strong> 25.000 EUR Mindeststammkapital; auch allein gründbar. Gesellschaftsvermögen haftet grundsätzlich vollständig; 25.000 EUR sind keine Haftungsobergrenze.</li><li><strong>AG:</strong> 50.000 EUR Mindestgrundkapital.</li><li><strong>OHG:</strong> persönliche gesamtschuldnerische Gesellschafterhaftung.</li><li><strong>KG:</strong> Komplementär persönlich haftend; beim Kommanditisten Haftsumme und geleistete Einlage unterscheiden.</li><li><strong>Handelsregister:</strong> Kapitalgesellschaften wie GmbH und AG in Abteilung B.</li><li><strong>Einlinie:</strong> eine direkte vorgesetzte Instanz. <strong>Stab:</strong> grundsätzlich beratend. <strong>Matrix:</strong> zwei Führungsdimensionen.</li><li><strong>Businessplan:</strong> Geschäftsidee, Markt, Umsetzung, Finanzierung, Liquidität und Risiken nachvollziehbar darstellen.</li></ul>
+                    break;
+                case "economy":
+                    <ul><li><strong>Angebotsmonopol:</strong> ein Anbieter, viele Nachfrager. <strong>Angebotsoligopol:</strong> wenige Anbieter, viele Nachfrager. <strong>Polypol:</strong> viele auf beiden Seiten.</li><li><strong>Vollkommener Markt:</strong> zusätzliche Modellannahmen wie gleichartige Güter und vollständige Transparenz. Ein Polypol allein beweist dies nicht.</li><li><strong>Konjunktur:</strong> Aufschwung → Hochkonjunktur → Abschwung → Tief als vereinfachter Zyklus.</li><li><strong>Nominal:</strong> Geldbetrag. <strong>Real:</strong> Kaufkraft. Höhere Preise können einen Einkommensanstieg überwiegen.</li><li><strong>Komplementäre Ziele:</strong> unterstützen sich. <strong>Konkurrierende Ziele:</strong> behindern sich. <strong>Indifferente Ziele:</strong> sind im Fall unabhängig.</li><li><strong>Soziale Marktwirtschaft:</strong> Wettbewerb und Marktordnung mit sozialem Ausgleich verbinden.</li></ul>
+                    break;
+                case "calculation":
+                    <div class="business-table-wrap"><table><caption>Formeln für unsere Rechenaufgaben</caption><thead><tr><th scope="col">Gesucht</th><th scope="col">Rechenweg</th></tr></thead><tbody><tr><td>Gewinn</td><td>Ertrag − Aufwand</td></tr><tr><td>Wirtschaftlichkeit</td><td>Ertrag ÷ Aufwand</td></tr><tr><td>Eigenkapitalrentabilität in %</td><td>Gewinn ÷ maßgebliches Eigenkapital × 100</td></tr><tr><td>Produktivität</td><td>Outputmenge ÷ Einsatzmenge</td></tr><tr><td>Prozentuale Änderung</td><td>(Neuer Wert − alter Wert) ÷ alter Wert × 100</td></tr><tr><td>Gewinnanteil</td><td>Eigener Kapitalanteil ÷ Gesamtkapital × ausgeschütteter Gewinn</td></tr><tr><td>Preis nach Rabatt</td><td>Ausgangspreis × (1 − Rabattsatz als Dezimalzahl)</td></tr><tr><td>Brutto bei gegebenem Steuersatz</td><td>Netto × (1 + Steuersatz als Dezimalzahl)</td></tr><tr><td>Netto aus Brutto</td><td>Brutto ÷ (1 + Steuersatz als Dezimalzahl)</td></tr><tr><td>Gewinnschwelle in Stück</td><td>Fixkosten ÷ (Erlös je Stück − variable Kosten je Stück)</td></tr></tbody></table></div><p><strong>Beispiel:</strong> 50.000 EUR Ertrag ÷ 40.000 EUR Aufwand = 1,25 Wirtschaftlichkeit. Das ist eine Verhältniszahl. Der Gewinn beträgt dagegen 10.000 EUR.</p><p>Einheit und geforderte Rundung beachten. Zahlen im Antwortfeld ohne Tausendertrennzeichen eingeben; Dezimalkomma und Dezimalpunkt sind möglich.</p>
+                    break;
+                case "responsibility":
+                    <ul><li><strong>Arbeitsschutz:</strong> Arbeitgeberpflicht, unterstützt durch Fachleute. Unterweisung vor Beginn der entsprechenden Tätigkeit und bei relevanten Änderungen.</li><li><strong>Gefährdungsbeurteilung:</strong> körperliche Gefährdungen und psychische Belastungen berücksichtigen.</li><li><strong>Zeichengruppen:</strong> gelbes Dreieck warnt; blauer Kreis gebietet; roter Kreis mit Schrägbalken verbietet; grünes Feld betrifft Rettung, rotes Feld Brandschutz.</li><li><strong>Abfallhierarchie:</strong> Vermeidung → Vorbereitung zur Wiederverwendung → Recycling → sonstige Verwertung → Beseitigung.</li><li><strong>Emission:</strong> Abgabe von der Quelle. <strong>Immission:</strong> Einwirkung am betroffenen Ort.</li><li><strong>Verursacherprinzip:</strong> Verursacher sollen ausgelöste Umweltkosten tragen.</li><li><strong>Blauer Engel:</strong> konkrete Umweltkriterien einer Produktgruppe, keine Garantie völliger Umweltwirkungslosigkeit.</li><li><strong>Compliance:</strong> geltende Regeln einhalten, Interessenkonflikte über die vorgesehenen Wege offenlegen.</li></ul>
+                    break;
+            }
+            <details class="business-sources"><summary>Quellen zu diesem Themenbereich</summary><ul>@foreach (string id in Catalog.Questions.Where(question => question.TopicId == topic.Id).SelectMany(question => question.SourceIds).Distinct()) { var source = Catalog.Sources.Single(source => source.Id == id); <li><a href="@source.Url" target="_blank" rel="noopener noreferrer">@source.Title</a></li> }</ul></details>
+        </section>
+    }
+    <a class="button secondary" href="@(_hasRound ? "/wiso/runde" : "/wiso")">@(_hasRound ? "Zurück zu deiner Aufgabe →" : "Zum WiSo-Training →")</a>
+</main>
+
+@code {
+    /// <summary> Bietet bei bestehender Runde den Rückweg zur gespeicherten Aufgabe. </summary>
+    private bool _hasRound;
+    /// <summary> Erklärt ausschließlich die beim Nachschlagen pausierte offene Prüfung. </summary>
+    private bool _pausedExam;
+    /// <summary> Hinweis auf einen nicht sicher speicherbaren Rundenstatus. </summary>
+    private string? _error;
+    /// <summary> Erhält den Rückweg und verhindert, dass Nachschlagen als ununterstützte Prüfungsrunde erscheint. </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            BusinessRound? round = (await Store.LoadAsync()).BusinessRound;
+            _hasRound = round != null;
+            if (round is { FinishedUtc: null })
+            {
+                round.UsedReference = true;
+                if (round.Kind == BusinessRoundKind.Exam) { round.Pause(DateTimeOffset.UtcNow); _pausedExam = true; }
+                await Store.SaveBusinessRoundAsync(round, Catalog);
+                _pausedExam &= round.FinishedUtc == null;
+            }
+        }
+        catch (Exception exception) when (exception is IOException or System.Text.Json.JsonException or UnauthorizedAccessException or InvalidOperationException) { _error = "Der Rundenstatus konnte nicht gespeichert werden. Lade deine Runde neu, bevor du weiterarbeitest."; }
+    }
+}

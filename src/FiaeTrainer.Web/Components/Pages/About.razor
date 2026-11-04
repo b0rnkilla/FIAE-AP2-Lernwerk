@@ -1,0 +1,32 @@
+@page "/ueber-das-lernwerk"
+@inject AppVersionInfo Version
+<PageTitle>Über das Lernwerk · AP2 Lernwerk</PageTitle>
+
+<main class="page project-about">
+    <a class="project-back-link" href="/">← Zur Übersicht</a>
+    <div class="eyebrow">DIE IDEE HINTER DEINEM LERNRAUM</div>
+    <h1>Aus eigener<br /><em>Prüfungsvorbereitung entstanden.</em></h1>
+    <p class="lead">Eine verständliche, deutschsprachige Lernumgebung, in der du selbst Lösungen entwickelst, Zusammenhänge erkennst und aus Fehlern lernst.</p>
+
+    <section class="project-creator" aria-labelledby="project-author-heading">
+        <div class="project-wordmark" aria-label="Projekt von b0rnkilla">@ProjectInformation.AUTHOR_HANDLE</div>
+        <div><span class="eyebrow">KONZEPT &amp; PROJEKTENTWICKLUNG</span><h2 id="project-author-heading">@ProjectInformation.AUTHOR_NAME</h2><p>AP2 Lernwerk ist mein persönliches Projekt. Es ist aus meiner eigenen Vorbereitung auf die Abschlussprüfung zum Fachinformatiker für Anwendungsentwicklung entstanden.</p><p>Ich möchte einen Lernraum schaffen, in dem du Aufgaben selbst bearbeitest und danach verstehst, warum eine Lösung funktioniert. Dein Feedback hilft mir, diesen Lernraum weiterzuentwickeln.</p></div>
+    </section>
+
+    <section class="project-feedback" aria-labelledby="project-feedback-heading">
+        <div><span class="eyebrow">GEMEINSAM BESSER MACHEN</span><h2 id="project-feedback-heading">Deine Rückmeldung hilft.</h2><p>Ein Fehler, eine unklare Erklärung oder eine Idee für eine Aufgabe? Schau auf GitHub nach, ob es dazu bereits eine Meldung gibt. Falls nicht, kannst du dort ein neues Issue anlegen.</p><p>Nenne möglichst die App-Version, die betroffene Aufgabe und die Schritte, mit denen sich das Problem nachvollziehen lässt.</p><small>GitHub-Meldungen sind öffentlich. Der Link öffnet einen neuen Tab.</small></div>
+        <a class="button secondary" href="@ProjectInformation.ISSUES_URL" target="_blank" rel="noopener noreferrer">Fehler oder Vorschlag melden <span aria-hidden="true">↗</span></a>
+    </section>
+
+    <ProjectSupport ShowAuthor="false" ShowFeedback="false" />
+
+    <section class="project-notes" aria-labelledby="project-notes-heading">
+        <h2 id="project-notes-heading">Zum Projekt</h2>
+        <div class="project-notes-grid">
+            <div><h3>Eigene Lerninhalte</h3><p>Das Lernwerk ist ein unabhängiges Projekt mit eigenen Übungsaufgaben. Es ist kein offizielles IHK-Angebot und deckt noch nicht die gesamte AP2 ab.</p></div>
+            <div><h3>Private Nutzung</h3><p>Die App ist für die private, nichtkommerzielle Nutzung vorgesehen. Für Programmänderungen und Weiterverbreitung ist eine gesonderte Erlaubnis erforderlich.</p><a href="@ProjectInformation.LICENSE_URL" target="_blank" rel="noopener noreferrer">Nutzungsbedingungen auf GitHub <span aria-hidden="true">↗</span></a></div>
+            <div><h3>Bibliotheken &amp; Laufzeit</h3><p>Eigenständige Drittanbieterlizenzen bleiben unberührt. Im Windows-Paket findest du die vollständigen Hinweise in <strong>DRITTANBIETER.md</strong> und im Ordner <strong>Lizenzen</strong>.</p></div>
+        </div>
+        <p class="project-copyright">© @DateTime.Now.Year @ProjectInformation.AUTHOR_NAME · @ProjectInformation.AUTHOR_HANDLE <span>AP2 Lernwerk · Version @Version.Display</span></p>
+    </section>
+</main>

@@ -1,0 +1,80 @@
+@page "/wiso"
+@inject BusinessCatalog Catalog
+@inject ProgressStore Store
+@inject NavigationManager Navigation
+<PageTitle>WiSo-Training · AP2 Lernwerk</PageTitle>
+<main class="page business-home">
+    <div class="eyebrow">WIRTSCHAFTS- &amp; SOZIALKUNDE</div>
+    <h1>Zusammenhänge verstehen.<br /><em>Sicher entscheiden.</em></h1>
+    <p class="lead">Kurze Fälle aus dem Berufsleben. Wähle Antworten, rechne nach und lerne aus verständlichen Erklärungen.</p>
+    @if (_error != null) { <p class="notice warning" role="alert">@_error</p> }
+    <section class="progress-strip" aria-label="Dein WiSo-Lernstand"><div><strong>@_progress.BusinessQuestions.Values.Count(progress => progress.Completed)<span> / @Catalog.Questions.Count</span></strong><small>Aufgaben richtig gelöst</small></div><div><strong>@ReviewIds.Count()</strong><small>Zum Wiederholen</small></div><div class="progress-copy"><p>Ein früherer Erfolg bleibt erhalten. Fehler und unsichere Antworten kommen erneut dran.</p></div></section>
+    @if (_progress.BusinessRound is { FinishedUtc: null } round)
+    {
+        <section class="business-resume"><div><div class="eyebrow">DEINE OFFENE RUNDE</div><h2>@RoundName(round.Kind)</h2><p>Aufgabe @(round.Index + 1) von @round.QuestionIds.Count@(round.Kind == BusinessRoundKind.Exam ? round.Paused ? " · pausiert" : " · Prüfungsuhr läuft weiter" : "")</p></div><a class="button primary" href="/wiso/runde">Runde fortsetzen →</a></section>
+    }
+    @if (_pendingKind != null && _progress.BusinessRound is { FinishedUtc: null })
+    {
+        <section class="notice warning" role="alert"><strong>Eine neue Runde beginnen?</strong><p>Deine offene Runde wird ersetzt. Bereits geprüfte Antworten und frühere Erfolge bleiben erhalten; noch ungeprüfte Antworten dieser Runde werden verworfen.</p><button class="button secondary" disabled="@_busy" @onclick="() => _pendingKind = null">Offene Runde behalten</button> <button class="button primary" disabled="@_busy" @onclick="ConfirmStartAsync">Neue Runde beginnen</button></section>
+    }
+    <section class="module-grid business-paths" aria-label="Lernweg wählen">
+        <article class="module-card ready"><span class="eyebrow">KURZ &amp; GEMISCHT</span><h2>Zehn Fragen für heute.</h2><p>Verschiedene Themen, neue Fälle und gezielte Wiederholung. Nach jeder Antwort verstehst du den Lösungsweg.</p><button class="button primary" disabled="@(_busy || _error != null)" @onclick="() => StartAsync(BusinessRoundKind.Mixed)">Gemischt trainieren →</button></article>
+        <article class="module-card"><span class="eyebrow">MIT RUHE PRÜFUNGSNAH ÜBEN</span><h2>Deine Prüfungsrunde.</h2><p>30 Aufgaben · 60 Minuten · Auswertung nach der Abgabe. Alle acht Themen und unterschiedliche Antwortformate kommen vor.</p><button class="button secondary" disabled="@(_busy || _error != null)" @onclick="() => StartAsync(BusinessRoundKind.Exam)">Prüfung üben →</button></article>
+        <article class="module-card"><span class="eyebrow">AUS FEHLERN LERNEN</span><h2>Noch einmal klarziehen.</h2><p>Bis zu 20 zuletzt falsch oder unsicher beantwortete Aufgaben. Jede Runde gibt dir erneut eine eigene Chance.</p><button class="button secondary" disabled="@(_busy || _error != null || !ReviewIds.Any())" @onclick="() => StartAsync(BusinessRoundKind.Review)">Fehler &amp; Unsicheres wiederholen →</button>@if (!ReviewIds.Any()) { <small>Aktuell wartet keine Antwort auf Wiederholung.</small> }</article>
+    </section>
+    <div class="section-heading"><div><div class="eyebrow">GEZIELT FESTIGEN</div><h2>Welches Thema ist heute dran?</h2></div><a href="/wiso/spickzettel">Zum WiSo-Spickzettel →</a></div>
+    <section class="business-topic-grid" aria-label="Thementraining">
+        @foreach (BusinessTopic topic in Catalog.Topics)
+        {
+            var questions = Catalog.Questions.Where(question => question.TopicId == topic.Id).ToArray();
+            int complete = questions.Count(question => _progress.BusinessQuestions.TryGetValue(question.Id, out BusinessProgress? saved) && saved.Completed);
+            <article class="business-topic"><h3>@topic.Title</h3><p>@topic.Description</p><span class="business-topic-progress">@complete / @questions.Length richtig gelöst</span><progress value="@complete" max="@questions.Length" aria-label="@($"Fortschritt {topic.Title}")"></progress><button class="button secondary" disabled="@(_busy || _error != null)" @onclick="() => StartAsync(BusinessRoundKind.Topic, topic.Id)">Thema üben →</button></article>
+        }
+    </section>
+    @if (_progress.BusinessHistory.Count > 0)
+    {
+        <section class="reference-section"><h2>Deine letzten Runden</h2><div class="business-history">@foreach (BusinessRound history in _progress.BusinessHistory.Take(5)) { <div><strong>@RoundName(history.Kind)</strong><span>@history.FinishedUtc?.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</span><span>@history.Earned / @history.Maximum Punkte · @(history.Maximum == 0 ? "0" : (100m * history.Earned / history.Maximum).ToString("0.#")) %@(history.UsedReference ? " · mit Nachschlagen" : "")</span></div> }</div><p class="business-format">Eigene Trainingsbewertung. Die Ergebnisse sind keine amtliche IHK-Note oder Bestehensprognose.</p></section>
+    }
+</main>
+
+@code {
+    /// <summary> Eigenes WiSo-Profil neben den bestehenden Lernwegen. </summary>
+    private TrainingProgress _progress = new();
+    /// <summary> Offen gelassene Auswahl für den ausdrücklich zu bestätigenden Rundenwechsel. </summary>
+    private BusinessRoundKind? _pendingKind;
+    /// <summary> Gewähltes Thema für die nächste Runde. </summary>
+    private string _pendingTopic = "";
+    /// <summary> Verhindert einen Neustart auf Basis eines unlesbaren Profils. </summary>
+    private string? _error;
+    /// <summary> Verhindert doppelte Rundenanlage während des Speicherns. </summary>
+    private bool _busy;
+    /// <summary> Nur der letzte Versuch entscheidet über die nächste Wiederholung. </summary>
+    private IEnumerable<int> ReviewIds => _progress.BusinessQuestions.Where(entry => entry.Value.NeedsReview && Catalog.Questions.Any(question => question.Id == entry.Key)).Select(entry => entry.Key);
+    protected override async Task OnInitializedAsync()
+    {
+        try { _progress = await Store.LoadAsync(); }
+        catch (Exception exception) when (exception is IOException or System.Text.Json.JsonException or UnauthorizedAccessException) { _error = "Dein Lernstand konnte nicht gelesen werden. Er wird nicht überschrieben. Prüfe die Hinweise in der Anleitung."; }
+    }
+    /// <summary> Die Prüfungsuhr beginnt erst nach einer eventuell erforderlichen Neustartbestätigung. </summary>
+    private async Task StartAsync(BusinessRoundKind kind, string topicId = "")
+    {
+        _pendingKind = kind;
+        _pendingTopic = topicId;
+        if (_progress.BusinessRound is not { FinishedUtc: null }) await ConfirmStartAsync();
+    }
+    private async Task ConfirmStartAsync()
+    {
+        if (_pendingKind == null || _busy) return;
+        _busy = true;
+        try
+        {
+            BusinessRound round = BusinessRoundBuilder.Create(Catalog, _pendingKind.Value, _pendingTopic, ReviewIds);
+            await Store.StartBusinessRoundAsync(round, _progress.BusinessRound?.Id);
+            Navigation.NavigateTo("/wiso/runde");
+        }
+        catch (Exception exception) when (exception is IOException or System.Text.Json.JsonException or UnauthorizedAccessException or InvalidOperationException) { _error = exception is InvalidOperationException ? exception.Message : "Die neue Runde konnte nicht gespeichert werden. Dein bisheriger Lernstand bleibt erhalten."; }
+        finally { _busy = false; }
+    }
+    /// <summary> Einheitliche deutsche Namen in Startseite und Historie. </summary>
+    public static string RoundName(BusinessRoundKind kind) => kind switch { BusinessRoundKind.Topic => "Thementraining", BusinessRoundKind.Review => "Fehlerwiederholung", BusinessRoundKind.Exam => "Prüfungsrunde", _ => "Gemischtes Training" };
+}

@@ -1,0 +1,30 @@
+<section class="project-support" aria-labelledby="project-support-heading">
+    <div class="project-support-copy">
+        <span class="eyebrow">EIN PERSÖNLICHES PROJEKT</span>
+        <h2 id="project-support-heading">Hilft dir das Lernwerk bei deiner Vorbereitung?</h2>
+        <p>Hinter diesem Projekt stecken viele Ideen, Lerninhalte und Entwicklungszeit. Wenn dir das Lernwerk hilft, freue ich mich über deine Unterstützung.</p>
+        @if (ShowAuthor)
+        {
+            <a class="project-author-link" href="/ueber-das-lernwerk">@ProjectInformation.AUTHOR_NAME · @ProjectInformation.AUTHOR_HANDLE →</a>
+        }
+    </div>
+    <div class="project-support-actions">
+        <a class="button secondary" href="@ProjectInformation.REPOSITORY_URL" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">☆</span> Auf GitHub unterstützen <span aria-hidden="true">↗</span></a>
+        @if (ProjectInformation.HasPayPal)
+        {
+            <a class="button secondary" href="@ProjectInformation.PAYPAL_URL" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">☕</span> Einen Kaffee spendieren <small>PayPal</small><span aria-hidden="true">↗</span></a>
+        }
+        <p>Auf GitHub oben rechts auf „Star“ klicken, um dem Projekt einen Stern zu geben.@(ProjectInformation.HasPayPal ? " GitHub und PayPal öffnen in einem neuen Tab." : " GitHub öffnet in einem neuen Tab.")</p>
+    </div>
+    @if (ShowFeedback)
+    {
+        <div class="project-feedback-link"><span>Etwas funktioniert nicht oder du hast eine Idee?</span><a href="@ProjectInformation.ISSUES_URL" target="_blank" rel="noopener noreferrer">Fehler oder Vorschlag melden <span aria-hidden="true">↗</span></a></div>
+    }
+</section>
+
+@code {
+    /// <summary> Auf der Urheberseite entfällt der Rücklink auf dieselbe Seite. </summary>
+    [Parameter] public bool ShowAuthor { get; set; } = true;
+    /// <summary> Die Urheberseite besitzt bereits einen eigenen Bereich für Fehlermeldungen und Vorschläge. </summary>
+    [Parameter] public bool ShowFeedback { get; set; } = true;
+}

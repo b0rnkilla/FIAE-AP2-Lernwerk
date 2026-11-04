@@ -1,0 +1,84 @@
+<fieldset class="business-answer" disabled="@Disabled">
+    <legend>@Instruction</legend>
+    @if (Question.Kind is BusinessQuestionKind.Single or BusinessQuestionKind.Multiple)
+    {
+        <div class="business-choices">
+            @foreach (BusinessOption option in Options)
+            {
+                <label class="business-choice @(Answer.SelectedIds.Contains(option.Id) ? "chosen" : "")">
+                    @if (Question.Kind == BusinessQuestionKind.Single)
+                    {
+                        <input type="radio" name="@($"question-{Question.Id}")" value="@option.Id" checked="@Answer.SelectedIds.Contains(option.Id)" @onchange="() => SelectAsync(option.Id)" />
+                    }
+                    else
+                    {
+                        <input type="checkbox" value="@option.Id" checked="@Answer.SelectedIds.Contains(option.Id)" @onchange="() => ToggleAsync(option.Id)" />
+                    }
+                    <span>@option.Text</span>
+                </label>
+            }
+        </div>
+        @if (Question.Kind == BusinessQuestionKind.Multiple) { <p class="business-selection-count" role="status">@Answer.SelectedIds.Count von @Question.CorrectIds.Length Antworten ausgewählt</p> }
+    }
+    else if (Question.Kind == BusinessQuestionKind.Sequence)
+    {
+        <ol class="business-sequence">
+            @for (int position = 0; position < Answer.Order.Count; position++)
+            {
+                int index = position;
+                string id = Answer.Order[index];
+                <li @key="id"><span class="business-step-number">@(index + 1)</span><span>@Question.Options.Single(option => option.Id == id).Text</span><div class="business-move-actions"><button type="button" disabled="@(Disabled || index == 0)" aria-label="@($"Schritt {index + 1} nach oben")" @onclick="() => MoveAsync(index, -1)">↑</button><button type="button" disabled="@(Disabled || index == Answer.Order.Count - 1)" aria-label="@($"Schritt {index + 1} nach unten")" @onclick="() => MoveAsync(index, 1)">↓</button></div></li>
+            }
+        </ol>
+        <p class="business-format">Mit den Pfeilen ordnen. Die Schaltflächen lassen sich auch mit Tab und Eingabetaste bedienen.</p>
+    }
+    else
+    {
+        <div class="business-fields">
+            @foreach (BusinessField field in Question.Fields)
+            {
+                string inputId = $"answer-{Question.Id}-{field.Id}";
+                <div class="business-field"><label for="@inputId">@field.Label</label>
+                    @if (Question.Kind == BusinessQuestionKind.Assignment)
+                    {
+                        <select id="@inputId" value="@Answer.Values.GetValueOrDefault(field.Id, "")" @onchange="args => SetValueAsync(field.Id, args.Value?.ToString() ?? string.Empty)"><option value="">Bitte zuordnen …</option>@foreach (BusinessOption option in Options) { <option value="@option.Id">@option.Text</option> }</select>
+                    }
+                    else
+                    {
+                        <div class="business-input-unit"><input id="@inputId" type="text" inputmode="@(Question.Kind == BusinessQuestionKind.Number ? "decimal" : "text")" maxlength="40" autocomplete="off" value="@Answer.Values.GetValueOrDefault(field.Id, "")" aria-describedby="@(inputId + "-format")" @oninput="args => SetDraft(field.Id, args.Value?.ToString() ?? string.Empty)" @onblur="() => Changed.InvokeAsync()" />@if (field.Unit.Length > 0) { <span>@field.Unit</span> }</div>
+                        <small id="@(inputId + "-format")">@Format(field)</small>
+                    }
+                </div>
+            }
+        </div>
+    }
+</fieldset>
+
+@code {
+    /// <summary> Aktuelle Aufgabe mit dem Eingabevertrag. </summary>
+    [Parameter, EditorRequired] public BusinessQuestion Question { get; set; } = default!;
+    /// <summary> Getrennte Antwortdaten der aktuellen Aufgabe. </summary>
+    [Parameter, EditorRequired] public BusinessAnswer Answer { get; set; } = default!;
+    /// <summary> In dieser Runde stabile Darstellung der Optionen. </summary>
+    [Parameter, EditorRequired] public IReadOnlyList<BusinessOption> Options { get; set; } = [];
+    /// <summary> Sperrt bereits aufgelöste oder abgegebene Antworten. </summary>
+    [Parameter] public bool Disabled { get; set; }
+    /// <summary> Speichert Änderungen nach einer Auswahl oder dem Verlassen eines Ergebnisfeldes. </summary>
+    [Parameter] public EventCallback Changed { get; set; }
+    /// <summary> Kurze, formatspezifische Bedienanweisung. </summary>
+    private string Instruction => Question.Kind switch { BusinessQuestionKind.Single => "Wähle eine Antwort.", BusinessQuestionKind.Multiple => $"Wähle genau {Question.CorrectIds.Length} Antworten.", BusinessQuestionKind.Assignment => "Ordne jede Aussage zu. Eine Auswahl darf mehrfach vorkommen.", BusinessQuestionKind.Sequence => "Ordne die Schritte von oben nach unten.", _ => "Trage die gesuchten Ergebnisse ein." };
+    private async Task SelectAsync(string id) { Answer.SelectedIds = [id]; await Changed.InvokeAsync(); }
+    private async Task ToggleAsync(string id) { if (!Answer.SelectedIds.Remove(id)) Answer.SelectedIds.Add(id); await Changed.InvokeAsync(); }
+    private async Task SetValueAsync(string id, string value) { Answer.Values[id] = value; await Changed.InvokeAsync(); }
+    /// <summary> Übernimmt jeden Tastendruck sofort in den Entwurf; das Speichern erfolgt bei Blur oder der nächsten Seitenaktion. </summary>
+    private void SetDraft(string id, string value) => Answer.Values[id] = value;
+    /// <summary> Ändert nur die Reihenfolge vorhandener Schritte; die stabilen Kennungen bleiben erhalten. </summary>
+    private async Task MoveAsync(int index, int direction)
+    {
+        int next = index + direction;
+        if (next < 0 || next >= Answer.Order.Count || Disabled) return;
+        (Answer.Order[index], Answer.Order[next]) = (Answer.Order[next], Answer.Order[index]);
+        await Changed.InvokeAsync();
+    }
+    private string Format(BusinessField field) => Question.Kind switch { BusinessQuestionKind.Date => "TT.MM.JJJJ, zum Beispiel 15.12.2026.", BusinessQuestionKind.Time => "HH:mm, zum Beispiel 08:30.", _ => (field.Decimals == 0 ? "Ganze Zahl." : $"Auf {field.Decimals} Nachkommastellen runden.") + " Ohne Tausendertrennzeichen; Dezimalkomma oder Dezimalpunkt möglich." };
+}

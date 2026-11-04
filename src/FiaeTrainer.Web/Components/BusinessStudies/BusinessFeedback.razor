@@ -1,0 +1,22 @@
+<section class="business-feedback" aria-label="Auflösung">
+    <div class="feedback @(Evaluation.Correct ? "correct" : "retry")" role="status"><strong>@(Evaluation.Correct ? "Richtig eingeordnet." : Evaluation.Earned > 0 ? "Ein Teil stimmt schon." : "Das klären wir gemeinsam.")</strong><p>@Evaluation.Earned von @Evaluation.Maximum Trainingspunkten · @Question.Explanation</p></div>
+    @foreach (BusinessCheck check in Evaluation.Checks)
+    {
+        <div class="business-check"><strong>@(check.Correct ? "✓" : "○") @check.Label</strong><dl><dt>Deine Antwort</dt><dd>@(string.IsNullOrWhiteSpace(check.Actual) ? "Keine Antwort" : check.Actual)</dd><dt>Richtige Antwort</dt><dd>@check.Expected</dd></dl>@if (check.Explanation.Length > 0 && check.Explanation != Question.Explanation) { <p>@check.Explanation</p> }</div>
+    }
+    @if (Question.Kind is BusinessQuestionKind.Single or BusinessQuestionKind.Multiple)
+    {
+        <details class="business-option-explanations"><summary>Alle Antwortmöglichkeiten verstehen</summary>@foreach (BusinessOption option in Question.Options) { <p><strong>@(Question.CorrectIds.Contains(option.Id) ? "Richtig:" : "Unzutreffend:") @option.Text</strong><br />@option.Explanation</p> }</details>
+    }
+    <p class="business-memory"><strong>Zum Merken</strong><br />@Question.MemoryAid</p>
+    <details class="business-sources"><summary>Fachliche Quellen · Stand @Question.AsOf</summary><p>Quellenlinks öffnen externe Seiten in einem neuen Tab.</p><ul>@foreach (string id in Question.SourceIds) { BusinessSource source = Catalog.Sources.Single(source => source.Id == id); <li><a href="@source.Url" target="_blank" rel="noopener noreferrer">@source.Title</a></li> }</ul><p>Eigene Trainingsaufgabe mit eigener Bewertung; kein offizieller IHK-Lösungsschlüssel.</p></details>
+</section>
+
+@code {
+    /// <summary> Aufgelöste eigene Aufgabe. </summary>
+    [Parameter, EditorRequired] public BusinessQuestion Question { get; set; } = default!;
+    /// <summary> Serverseitig berechnete Teilprüfung. </summary>
+    [Parameter, EditorRequired] public BusinessEvaluation Evaluation { get; set; } = default!;
+    /// <summary> Quellen werden erst nach der Antwort aufgelöst. </summary>
+    [Parameter, EditorRequired] public BusinessCatalog Catalog { get; set; } = default!;
+}

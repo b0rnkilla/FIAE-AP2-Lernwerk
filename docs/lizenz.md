@@ -12,7 +12,7 @@ Distribution bedeutet Weitergabe beziehungsweise Verbreitung: beispielsweise ein
 
 ## Stand des Repositories
 
-Das GitHub-Repository ist nach Klarstellung des Projektinhabers derzeit privat; es gibt keine Forks. Die zuvor angenommene öffentliche MIT-Veröffentlichung war nicht belegt. Die aktuelle Projektlizenz enthält deshalb keine pauschale MIT-Freigabe für frühere Versionsnummern und keine zusätzliche Fork-Erlaubnis. Der bisherige MIT-Lizenzentwurf wird nicht mit neuen Paketen ausgeliefert. Frühere Entwicklungs- und Testprotokolle bleiben als Historie erhalten; die neue Klarstellung ist dort vermerkt.
+Zum Zeitpunkt der Lizenzentscheidung war das GitHub-Repository nach Klarstellung des Projektinhabers privat und ohne Forks. Inzwischen hat der Nutzer das Repository öffentlich bereitgestellt; die aktuellen Bedingungen zur privaten Nutzung bleiben unverändert. Die zuvor angenommene öffentliche MIT-Veröffentlichung war nicht belegt. Die aktuelle Projektlizenz enthält deshalb keine pauschale MIT-Freigabe für frühere Versionsnummern und keine zusätzliche Fork-Erlaubnis. Der bisherige MIT-Lizenzentwurf wird nicht mit neuen Paketen ausgeliefert. Frühere Entwicklungs- und Testprotokolle bleiben als Historie erhalten; die neue Klarstellung ist dort vermerkt.
 
 ## Unabhängige Rechte
 

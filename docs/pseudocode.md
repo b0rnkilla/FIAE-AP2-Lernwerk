@@ -1,6 +1,6 @@
 # Pseudocode und Algorithmen
 
-Stand: 04.11.2026, Fassung 0.1.1-alpha.7 mit 30 Aufgaben im Quellprojekt und im neu gebauten, aus dem ZIP geprüften Windows-Paket. Enthalten sind Zeilennummern, Tab-Einrückung, große Schlüsselwörter und der vollständige bisherige Algorithmus-Ausbau. Das ältere Alpha-4-ZIP mit acht Algorithmus-Aufgaben und Alpha 3 mit ausschließlich SQL bleiben unverändert.
+Fachlicher Stand: 04.11.2026, seit 0.1.1-alpha.7 mit 30 Aufgaben. In der aktuellen Quellfassung 0.1.1-alpha.8 bleibt dieser Lernweg unverändert. Das zuletzt gebaute und aus dem ZIP geprüfte Alpha-7-Paket enthält ebenfalls alle 30 Aufgaben mit Zeilennummern, Tab-Einrückung und großen Schlüsselwörtern. Das ältere Alpha-4-ZIP mit acht Algorithmus-Aufgaben und Alpha 3 mit ausschließlich SQL bleiben unverändert.
 
 ## Lernweg und Aufgaben
 

@@ -12,15 +12,17 @@ Die Anwendung benötigt Windows auf einem 64-Bit-Rechner und einen aktuellen Bro
 
 ## SQL Server einrichten
 
-Für die SQL-Lernwege muss Microsoft SQL Server separat installiert sein, beispielsweise Express oder LocalDB. **SSMS allein ist kein Datenbankserver.** Bei Bedarf hilft der [offizielle Microsoft-Download](https://www.microsoft.com/de-de/sql-server/sql-server-downloads). Die Pseudocode-Aufgaben lassen sich auch ohne SQL Server bearbeiten.
+Für die SQL-Lernwege muss Microsoft SQL Server separat installiert sein, beispielsweise Express oder LocalDB. **SSMS allein ist kein Datenbankserver.** Bei Bedarf hilft der [offizielle Microsoft-Download](https://www.microsoft.com/de-de/sql-server/sql-server-downloads). Pseudocode und WiSo lassen sich auch ohne SQL Server bearbeiten.
 
 Im Fußbereich **Updates & SQL-Einrichtung** öffnen, die eigene Instanz auswählen oder deren Namen eintragen und **Verbindung prüfen & speichern** wählen. Die Anwendung verwendet deine Windows-Anmeldung und legt ausschließlich ihre eigene Datenbank **FIAE_AP2_Training** an. Dafür benötigt die Anmeldung passende SQL-Rechte. Eine gleichnamige fremde Datenbank wird nicht übernommen. Eine fehlgeschlagene Verbindung bedeutet nicht automatisch, dass SQL Server fehlt.
 
 ## Lernstand und Updates
 
-Über die Übersicht zwischen SQL und Pseudocode & Algorithmen wählen. Die Kopfnavigation beginnt immer mit Übersicht und Lernplan; die folgenden Links passen zum gewählten Lernbereich. Neue Aufgaben starten im Modus **Ohne Hilfe lösen**. **Geführt lernen** ergänzt Erklärungen, Hinweise, Spickzettel und Musterlösung; bei Pseudocode zusätzlich eine schrittweise Ablaufansicht. Pseudocode-Beispiele verwenden **=** für Zuweisungen und **==** für Gleichheitsvergleiche.
+Über die Übersicht zwischen SQL, Pseudocode & Algorithmen und Wirtschafts- & Sozialkunde wählen. Die Kopfnavigation beginnt immer mit Übersicht und Lernplan; die folgenden Links passen zum gewählten Lernbereich. Neue SQL- und Pseudocode-Aufgaben starten im Modus **Ohne Hilfe lösen**. **Geführt lernen** ergänzt Erklärungen, Hinweise, Spickzettel und Musterlösung; bei Pseudocode zusätzlich eine schrittweise Ablaufansicht. Pseudocode-Beispiele verwenden **=** für Zuweisungen und **==** für Gleichheitsvergleiche.
 
-Es gibt 30 SQL-Ermittlungsaufgaben, zehn SQL-Werkstattaufgaben und 30 Pseudocode-Aufgaben. Der Pseudocode-Lernweg reicht von Bedingungen und Schleifen über Listen, Suche und Sortierung bis zu Funktionen und Rekursion. Schlüsselwörter wie **WENN**, **DANN** und **AUSGABE** müssen großgeschrieben sein. Im nummerierten Codefeld rückt **Tab** ein, **Umschalt+Tab** aus. **Esc, danach Tab** verlässt das Codefeld; reine Ausgabe- und Testfallantworten behalten die normale Tab-Navigation. Beide Spickzettel besitzen einen Button zurück zur Aufgabe.
+Es gibt 30 SQL-Ermittlungsaufgaben, zehn SQL-Werkstattaufgaben, 30 Pseudocode- und 150 WiSo-Aufgaben, insgesamt 220. Der Pseudocode-Lernweg reicht von Bedingungen und Schleifen über Listen, Suche und Sortierung bis zu Funktionen und Rekursion. Schlüsselwörter wie **WENN**, **DANN** und **AUSGABE** müssen großgeschrieben sein. Im nummerierten Codefeld rückt **Tab** ein, **Umschalt+Tab** aus. **Esc, danach Tab** verlässt das Codefeld; reine Ausgabe- und Testfallantworten behalten die normale Tab-Navigation. Alle Spickzettel besitzen einen Rückweg zum Lernen.
+
+WiSo bietet Themenlernen, gemischte Zehnerrunden, Fehlerwiederholung und eine Prüfungsrunde mit 30 Aufgaben und 60 Minuten. Im Training zeigt **Antwort prüfen** die Erklärung und sperrt die Antwort bis zur nächsten Runde. In der Prüfung erscheinen Lösungen erst nach Abgabe. Die Uhr läuft beim Seitenwechsel und Schließen weiter; **Pause** hält sie an. Nachschlagen im Spickzettel pausiert die Prüfung und kennzeichnet die Runde entsprechend. Teilpunkte und Prozentwert folgen eigenen Trainingsregeln, keiner amtlichen IHK-Note. Antworten und Markierungen bleiben beim Fortsetzen erhalten; Ergebnisfelder speichern beim Verlassen oder bei der nächsten Aktion.
 
 Lernstände und persönliche Einstellungen liegen unter **%LOCALAPPDATA%\AP2-Lernwerk**, außerhalb des Programmordners. Die App verwendet ein lokales Profil für deine Browser. Unter **Lernplan** lässt sich dieses Profil zurücksetzen; die Datenbank bleibt dabei erhalten.
 
@@ -35,5 +37,7 @@ Die App zeigt nur **höhere** Versionsnummern als Update an. Zum Testen muss dah
 - **SQL-Verbindung fehlt:** Instanzname, laufenden SQL-Dienst und Rechte der Windows-Anmeldung prüfen; anschließend erneut verbinden.
 
 ## Nutzung
+
+Über die Fußzeile erreichst du **Über das Lernwerk**, die freiwillige **Unterstützung** und **Fehler oder Vorschlag melden**. Projektinhaber ist **Christopher Weismantel · b0rnkilla**. GitHub und PayPal öffnen in einem neuen Tab. Einen GitHub-Stern vergibst du dort über **Star**; Fehlermeldungen und Vorschläge werden als öffentliche GitHub-Issues angelegt. Diese Aktionen verändern deinen Lernstand nicht.
 
 Es gelten die privaten Nutzungsbedingungen in **LICENSE**. **DRITTANBIETER.md** und **Lizenzen** enthalten eigenständige Hinweise zu Bibliotheken und Laufzeiten. Deren Lizenztexte sind keine zusätzliche Freigabe des Lernwerks.

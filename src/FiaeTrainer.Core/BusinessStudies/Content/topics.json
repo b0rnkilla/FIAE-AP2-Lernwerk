@@ -1,0 +1,50 @@
+[
+  {
+    "id": "education",
+    "title": "Ausbildung & Entwicklung",
+    "description": "Verträge, Pflichten und der Übergang ins Berufsleben.",
+    "introduction": "Unterscheide die Regeln der Berufsausbildung von denen eines normalen Arbeitsverhältnisses. Probezeit, Kündigung und Ausbildungsende folgen eigenen Vorschriften im BBiG. Fortbildung baut berufliche Fähigkeiten aus; Umschulung bereitet auf eine andere Tätigkeit vor."
+  },
+  {
+    "id": "employment",
+    "title": "Arbeitsrecht & Schutz",
+    "description": "Arbeitsvertrag, Kündigung, Urlaub, Arbeitszeiten und Gleichbehandlung.",
+    "introduction": "Lies zuerst: Geht es um Ausbildung oder Beschäftigung, um Jugendliche oder Erwachsene, um Arbeitgeber- oder Arbeitnehmerkündigung? Vier Wochen sind 28 Tage und nicht ein Kalendermonat. Bei Urlaub unterscheide Werktage einer Sechstagewoche und Arbeitstage der tatsächlichen Arbeitswoche."
+  },
+  {
+    "id": "participation",
+    "title": "Mitbestimmung & Tarifrecht",
+    "description": "Betriebsrat, JAV und Tarifvereinbarungen auseinanderhalten.",
+    "introduction": "Der Betriebsrat handelt im Betrieb, die Gewerkschaft mit der Arbeitgeberseite über Tarifverträge. Aktives Wahlrecht bedeutet wählen, passives Wahlrecht bedeutet gewählt werden. Die JAV kümmert sich über den Betriebsrat um die besonderen Belange Jugendlicher und Auszubildender."
+  },
+  {
+    "id": "social",
+    "title": "Sozialversicherung & Entgelt",
+    "description": "Versicherungszweige, Beitragsanteile und Gehaltsabrechnungen verstehen.",
+    "introduction": "Beitragsbemessungsgrenze begrenzt das für Beiträge herangezogene Entgelt. Versicherungspflichtgrenze betrifft unter Voraussetzungen den Versicherungsstatus in der Krankenversicherung. Bei Beitragsrechnungen erst den Gesamtbeitrag und dann den gefragten Anteil beachten. Alle nötigen Rechensätze stehen ausdrücklich in der Aufgabe."
+  },
+  {
+    "id": "company",
+    "title": "Unternehmen & Organisation",
+    "description": "Rechtsformen, Haftung, Register und Leitungssysteme sicher unterscheiden.",
+    "introduction": "Bei einer GmbH haftet grundsätzlich die Gesellschaft mit ihrem gesamten Vermögen; das ist keine Haftungsobergrenze von 25.000 Euro. In Organigrammen zeigen Linien Zuständigkeiten. Eine Stabsstelle berät grundsätzlich, während eine Linieninstanz Weisungen erteilt."
+  },
+  {
+    "id": "economy",
+    "title": "Wirtschaft & Märkte",
+    "description": "Marktformen, Konjunktur, Kaufkraft und Unternehmensziele.",
+    "introduction": "Anbieter und Nachfrager getrennt zählen: ein Anbieter ist etwas anderes als ein Nachfrager. Nominales Einkommen ist der Geldbetrag, reales Einkommen dessen Kaufkraft. Bei Zielen prüfst du, ob sie sich unterstützen, behindern oder in der beschriebenen Situation unabhängig sind."
+  },
+  {
+    "id": "calculation",
+    "title": "Wirtschaftlich rechnen",
+    "description": "Kennzahlen, Prozentrechnung und nachvollziehbare Rechenwege.",
+    "introduction": "Schreibe die gesuchte Größe zuerst auf: Gewinn ist eine Differenz, Wirtschaftlichkeit ein Verhältnis, Rentabilität ein Prozentsatz. Ein hoher Umsatz allein beweist weder hohen Gewinn noch hohe Wirtschaftlichkeit. Alle Rechenaufgaben nennen Einheiten und Rundung."
+  },
+  {
+    "id": "responsibility",
+    "title": "Sicherheit & Verantwortung",
+    "description": "Arbeitsschutz, Nachhaltigkeit und verantwortliches Handeln im Betrieb.",
+    "introduction": "Arbeitsschutz bleibt eine Arbeitgeberpflicht, auch wenn Fachleute unterstützen. Bei Abfällen steht Vermeidung in der gesetzlichen Rangfolge vor Recycling. Emission ist die Abgabe von einer Quelle; Immission die Einwirkung auf Menschen oder Umwelt. Umweltzeichen immer nach ihren konkreten Kriterien beurteilen."
+  }
+]

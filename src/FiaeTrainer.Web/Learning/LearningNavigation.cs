@@ -6,7 +6,9 @@ namespace FiaeTrainer.Web.Learning;
 public sealed class LearningNavigation
 {
     /// <summary> Wählt die kontextbezogenen Pseudocode-Einträge; ohne Auswahl bleibt SQL der Einstieg. </summary>
-    public bool Algorithms { get; private set; }
+    public bool Algorithms => Module == LearningModule.Algorithms;
+    /// <summary> Der zuletzt besuchte fachliche Bereich bleibt auf allgemeinen Seiten erhalten. </summary>
+    public LearningModule Module { get; private set; }
     /// <summary> Letzte SQL-Aufgabenseite dieser Browsersitzung; ein direkter Einstieg verwendet die Ermittlungsakte. </summary>
     public string SqlTaskPath { get; private set; } = "/sql";
     /// <summary> Erhält das lokale Rücksprungziel auch beim Neuladen des Spickzettels. </summary>
@@ -41,8 +43,10 @@ public sealed class LearningNavigation
             }
         }
         if (path.Equals("algorithmen", StringComparison.OrdinalIgnoreCase) || path.StartsWith("algorithmen/", StringComparison.OrdinalIgnoreCase))
-            Algorithms = true;
+            Module = LearningModule.Algorithms;
+        else if (path.Equals("wiso", StringComparison.OrdinalIgnoreCase) || path.StartsWith("wiso/", StringComparison.OrdinalIgnoreCase))
+            Module = LearningModule.BusinessStudies;
         else if (path.Equals("sql", StringComparison.OrdinalIgnoreCase) || path.StartsWith("sql/", StringComparison.OrdinalIgnoreCase) || path.Equals("sql-werkstatt", StringComparison.OrdinalIgnoreCase) || path.StartsWith("sql-werkstatt/", StringComparison.OrdinalIgnoreCase) || path.Equals("nachschlagen", StringComparison.OrdinalIgnoreCase))
-            Algorithms = false;
+            Module = LearningModule.Sql;
     }
 }

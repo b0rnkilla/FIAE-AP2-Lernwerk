@@ -1,3 +1,5 @@
+using FiaeTrainer.Core.BusinessStudies.Practice;
+
 namespace FiaeTrainer.Web.Learning;
 
 /// <summary> Lernstand des lokalen Profils. </summary>
@@ -20,6 +22,13 @@ public sealed class TrainingProgress
     public int LastAlgorithmLessonId { get; set; } = 1;
     /// <summary> Eigene Entwürfe und Erfolge des Pseudocode-Lernwegs. </summary>
     public Dictionary<int, AlgorithmProgress> AlgorithmLessons { get; set; } = [];
+
+    /// <summary> Getrennte WiSo-Erfolge; ältere Profile beginnen mit einem leeren Bereich. </summary>
+    public Dictionary<int, BusinessProgress> BusinessQuestions { get; set; } = [];
+    /// <summary> Aktuelle oder zuletzt abgeschlossene WiSo-Runde einschließlich Entwürfen. </summary>
+    public BusinessRound? BusinessRound { get; set; }
+    /// <summary> Die letzten zwanzig abgegebenen Runden mit ihren damaligen Ergebnissen. </summary>
+    public List<BusinessRound> BusinessHistory { get; set; } = [];
 
     /// <summary> Wählt den getrennten Fortschrittsbereich. </summary>
     public Dictionary<int, LessonProgress> GetLessons(LearningArea area) => area == LearningArea.Investigation ? Lessons : WorkshopLessons;

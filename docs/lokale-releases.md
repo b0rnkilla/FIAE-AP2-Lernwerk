@@ -1,5 +1,9 @@
 # AP2 Lernwerk lokal starten
 
+**Aktuelle Entwicklung: 0.1.1-alpha.8 mit 150 WiSo-Aufgaben, insgesamt 220 Übungen. Dafür wurde noch kein Windows-Paket erstellt.** Die folgende Paketbeschreibung betrifft das unveränderte Alpha-7-ZIP ohne WiSo. `release/Anleitung.md` ist bereits die Vorlage für einen später ausdrücklich beauftragten neuen Paketbau; sie verändert kein vorhandenes ZIP.
+
+Die README ist inzwischen freigegeben. `release/Versionshinweise-0.1.1-alpha.8.md` ist vor dem Nutzer-Commit vorbereitet; ZIP-Bau und Paketprüfung folgen erst nach Commit/Push. Noch kein Alpha-8-Paket erzeugt.
+
 Stand: Windows-Alpha 0.1.1-alpha.7, gebaut und aus dem ZIP geprüft am 04.11.2026. Das Paket enthält die aktuelle private Projektlizenz. Die alte Testfassung 0.1.0 ist kein Verteilungspaket für die aktuelle Fassung und soll nicht verwendet werden.
 
 Alpha 7 enthält Pseudocode-Zeilennummern, Tab-Einrückung, große Schlüsselwörter und alle 30 Algorithmus-Aufgaben mit Suche, Sortierung, verschachtelten Listen, Funktionen, Prüfziffern, Grenztests und Rekursion. Zusammen mit den SQL-Lernwegen stehen 70 Übungen bereit. SQL-Spickzettel und Werkstatt besitzen den erhaltenen Rückweg zur Aufgabe.

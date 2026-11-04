@@ -15,6 +15,12 @@
             <a href="/algorithmen" class="@(AlgorithmTrainingActive ? "active" : null)" aria-current="@(AlgorithmTrainingActive ? "page" : null)">Algorithmen-Training</a>
             <NavLink href="algorithmen/spickzettel">Pseudocode-Spickzettel</NavLink>
         }
+        else if (LearningNavigation.Module == LearningModule.BusinessStudies)
+        {
+            <NavLink href="wiso" Match="NavLinkMatch.All">WiSo-Training</NavLink>
+            <NavLink href="wiso/runde">Deine Runde</NavLink>
+            <NavLink href="wiso/spickzettel">WiSo-Spickzettel</NavLink>
+        }
         else
         {
             <NavLink href="sql">SQL-Ermittlung</NavLink>
@@ -30,7 +36,18 @@
 }
 <UpdateNotice />
 <div id="inhalt">@Body</div>
-<footer class="site-footer"><a href="/einrichtung">Version @Version.Display@(Version.IsPrerelease ? " · Testversion" : "")</a><span>Eigene Übungsaufgaben · keine offiziellen IHK-Prüfungsaufgaben</span><a href="/einrichtung">Updates &amp; SQL-Einrichtung</a></footer>
+<footer class="site-footer">
+    <div class="footer-information"><a href="/einrichtung">Version @Version.Display@(Version.IsPrerelease ? " · Testversion" : "")</a><span>Eigene Übungsaufgaben · keine offiziellen IHK-Prüfungsaufgaben</span></div>
+    <nav class="footer-project-links" aria-label="Projekt und Hilfe">
+        <a href="/ueber-das-lernwerk">Über das Lernwerk</a>
+        <a href="@ProjectInformation.ISSUES_URL" target="_blank" rel="noopener noreferrer">Fehler oder Vorschlag melden <span aria-hidden="true">↗</span></a>
+        @if (ProjectInformation.HasPayPal)
+        {
+            <a href="@ProjectInformation.PAYPAL_URL" target="_blank" rel="noopener noreferrer" title="Freiwillige Unterstützung über PayPal"><span aria-hidden="true">☕</span> Unterstützen <span aria-hidden="true">↗</span></a>
+        }
+        <a href="/einrichtung">Updates &amp; SQL-Einrichtung</a>
+    </nav>
+</footer>
 
 @code {
     /// <summary> Hält den Trainingseintrag auch auf nummerierten Aufgaben aktiv, aber nicht im Spickzettel. </summary>

@@ -59,7 +59,7 @@ Bekannte Falltabellen dürfen mit oder ohne Schemapräfix angegeben werden. Der 
 
 ## Allgemeine Oberfläche und Darstellung
 
-Die Startseite zeigt den allgemeinen AP2-Themenkompass. Der SQL-Bereich ist eine Karte unter den vorgesehenen Themen, keine dominierende Einstiegsgeschichte mehr. Der Gesamtfortschritt umfasst Ermittlungsakte und Werkstatt gemeinsam.
+Die Startseite zeigt den allgemeinen AP2-Themenkompass. Der SQL-Bereich ist eine Karte unter den vorgesehenen Themen, keine dominierende Einstiegsgeschichte mehr. Der Gesamtfortschritt umfasst die 40 SQL-, 30 Algorithmus- und 150 WiSo-Aufgaben, insgesamt 220. Die Kopfnavigation beginnt immer mit Übersicht und Lernplan; danach folgen die Links des besuchten Moduls.
 
 Die Auswahl System/Hell/Dunkel wird rein im Browser angewendet. Ein früh im Dokument geladenes kleines Skript wertet die Systempräferenz und ein validiertes Präferenzcookie aus, bevor die Styles geladen werden. Explizite Auswahl überschreibt die Systempräferenz; die Option System aktiviert deren automatische Nachführung wieder. Ein neu von Blazor eingesetzter Auswahlschalter wird mit der aktuellen Auswahl synchronisiert. Das Cookie enthält ausschließlich einen der drei festgelegten Auswahlwerte.
 
@@ -104,6 +104,20 @@ Nach der Sicherheits- und Syntaxprüfung kontrolliert SqlWritingRules die echten
 Beispiele und Tabellen zeigen Datum/Uhrzeit als YYYY-MM-DD HH:mm:ss, auch Mitternacht. Die Abfragesitzungen setzen DATEFORMAT ymd ausdrücklich, damit die gewünschte Schreibweise mit Leerzeichen im Trainer zuverlässig funktioniert. Ein Integrationstest verwendet eine deutsche Verbindungssprache. Andere SQL-Server-Umgebungen müssen ihre Sitzungseinstellungen berücksichtigen; das datetime2-Format mit T ist davon unabhängig. [Microsoft: datetime2](https://learn.microsoft.com/en-us/sql/t-sql/data-types/datetime2-transact-sql), [Microsoft: SET DATEFORMAT](https://learn.microsoft.com/en-us/sql/t-sql/statements/set-dateformat-transact-sql), [Microsoft ScriptDOM: Token-Klassifikation](https://github.com/microsoft/SqlScriptDOM/blob/main/SqlScriptDom/Parser/TSql/TSqlParserToken.cs).
 
 Der Lernplan gibt keine Wochen vor. Er bietet neue Aufgaben ohne bisherigen Entwurf oder Abgabe, begonnene ungelöste Aufgaben einschließlich reiner Entwürfe sowie abgeschlossene Aufgaben ohne bisherigen selbstständigen Erfolg getrennt an. Vollständig bearbeitete oder vollständig begonnene Kataloge erhalten passende Rückmeldungen. Die Empfehlungen sind aus dem Profil abgeleitete Arbeitsvorschläge, keine Diagnose des Wissensstands.
+
+## Wirtschafts- und Sozialkunde (04.11.2026)
+
+WiSo ergänzt 150 eigene Fälle aus acht Themenbereichen und behält den letzten Platz im ursprünglichen Themenkompass. Themen und Aufgabenformen orientieren sich an den vorgelegten alten Prüfungen; Texte und Abbildungen sind eigenständig, fachliche Aussagen anhand aktueller Primärquellen gepflegt. Es gibt Einfach-/Mehrfachauswahl, Zuordnung, Reihenfolge, Zahlen-, Datums- und Uhrzeitergebnisse. Die Referenzseite bündelt Zusammenhänge und Formeln, statt die Aufgaben durch Lückentexte zu ersetzen. Ein kurzer Einstieg erklärt Unsicherheit gegenüber der reinen Kontrollmarkierung. Quellenlisten verzichten auf wiederholte Tab-Hinweise an jedem Link; ein gemeinsamer Hinweis genügt.
+
+Themenrunden geben Raum für gezieltes Üben. Gemischte Zehnerrunden verbinden neue Aufgaben mit Wiederholung; die Fehlerliste richtet sich nach dem letzten falschen oder unsicheren Versuch. Im Training folgt nach der Antwort eine Erklärung einschließlich typischer Verwechslungen. Aufgedeckte Antworten sind für diese Runde gesperrt, ein neuer Versuch beginnt in einer neuen Runde. Kontrollmarkierungen und Unsicherheit sind getrennte Entscheidungen. Frühere vollständige Erfolge bleiben sichtbar, spätere Fehler werden trotzdem wiederholt.
+
+Die Prüfungsrunde wählt 30 unterschiedliche Aufgaben aus allen acht Themen und allen sieben Formaten. Sie gibt 60 Minuten und zeigt keine vorzeitige Lösung. Pausieren ist ausdrücklich möglich; beim bloßen Verlassen der Seite läuft die gespeicherte Frist weiter. Nachschlagen wird als Unterstützung kenntlich gemacht. Abgabebestätigung und anschließendes Ergebnis erhalten sichtbar den Fokus, damit die Aktion auch vom Seitenende aus unmittelbar nachvollziehbar bleibt. Teilpunkte für Ergebnisfelder, Nullpunkte bei Unbeantwortetem und die Prozentberechnung sind vor der Nutzung nachvollziehbar beschrieben. Es wird keine amtliche IHK-Note oder vollständige Prüfungsprognose daraus abgeleitet.
+
+SQL, Algorithmen und WiSo besitzen getrennte Antworten und Fortschritte innerhalb eines lokalen Profils. Eine offene WiSo-Runde kann fortgesetzt werden; Ersetzen erfordert eine ausdrückliche Bestätigung. Die letzten 20 abgeschlossenen Runden bleiben erhalten. Fachliche Grenzen, Quellenpflege, Dateiverträge und Eingabeformate: [WiSo](wiso.md).
+
+## Projektbereich (04.11.2026)
+
+Unterstützung und Rückmeldungen stehen am Ende der Übersicht und in der Fußzeile. Eine Lernaufgabe wird dadurch nicht unterbrochen. „Über das Lernwerk“ erläutert Urheberschaft, Entstehung und Rückmeldewege. Ein GitHub-Stern dient der Anerkennung; Fehler und Vorschläge erhalten einen getrennten Issues-Link. Die freiwillige PayPal-Unterstützung erfolgt extern. Die interne Projektseite erhält den Modulkontext, externe Links öffnen einen weiteren Tab und lassen die aktuelle Lernseite bestehen. Es gibt keine Auswirkung auf Aufgabenbewertung oder Fortschritt. Details: [Projektauftritt](projektauftritt.md).
 
 ## Lokale Windows-Verteilung (03.11.2026)
 

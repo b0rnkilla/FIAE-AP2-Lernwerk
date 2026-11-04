@@ -1,6 +1,6 @@
 # Optionale Vorführung im Heimnetz
 
-Stand: 0.1.1-alpha.4 · 04.11.2026. Aktuelle Nutzerentscheidung: lokale Windows-Releases über GitHub. Login, Registrierung, Benutzertabellen, Homeserver und nginx sind nicht mehr geplant. Die folgenden Netzwerkangaben gelten für eine private Vorführung ohne Weitergabe. Sie erweitern die [Nutzungsbedingungen](../LICENSE) nicht.
+Netzwerkfunktion seit 0.1.1-alpha.4, geprüft am 04.11.2026; im Quellstand 0.1.1-alpha.8 unverändert. Aktuelle Nutzerentscheidung: lokale Windows-Releases über GitHub. Login, Registrierung, Benutzertabellen, Homeserver und nginx sind nicht mehr geplant. Die folgenden Netzwerkangaben gelten für eine private Vorführung ohne Weitergabe. Sie erweitern die [Nutzungsbedingungen](../LICENSE) nicht.
 
 ## Jetzt: Vorführung im Heimnetz
 
@@ -12,7 +12,7 @@ Verwende die im Startfenster angezeigte Adresse des Trainer-Rechners mit Port 50
 
 Der Trainer-Rechner muss eingeschaltet, mit dem Netzwerk verbunden und wach bleiben. Eine Teams-Bildschirmfreigabe funktioniert unabhängig davon; Teilnehmer außerhalb des Heimnetzes können die private Adresse nicht allein über Teams öffnen.
 
-**Alle Besucher teilen sich momentan denselben Lernstand**, einschließlich Entwürfen, Abschlüssen, aufgabenspezifischer Moduswahl, Anzeige der allgemeinen Bedienhilfe und Zurücksetzen. Der Heimnetz-Modus zeigt diesen Umstand auf jeder Seite. Die SQL-Ausführungen der Werkstatt bleiben trotzdem in eigenen Sitzungen isoliert. Für unabhängige Fortschritte verwendet jeder seine eigene lokale Kopie; Onlinekonten werden nicht ergänzt.
+**Alle Besucher teilen sich momentan denselben Lernstand**, einschließlich Entwürfen, Abschlüssen, aufgabenspezifischer Moduswahl, WiSo-Runde samt Antworten und Prüfungszeit, Anzeige der allgemeinen Bedienhilfe und Zurücksetzen. Eine WiSo-Runde kann deshalb nicht von mehreren Personen unabhängig gleichzeitig bearbeitet werden; veraltete Fenster werden beim Speichern zum Neuladen aufgefordert. Der Heimnetz-Modus zeigt das gemeinsame Profil auf jeder Seite. Die SQL-Ausführungen der Werkstatt bleiben trotzdem in eigenen Sitzungen isoliert. Für unabhängige Fortschritte verwendet jeder seine eigene lokale Kopie; Onlinekonten werden nicht ergänzt.
 
 ## Technische Änderungen
 

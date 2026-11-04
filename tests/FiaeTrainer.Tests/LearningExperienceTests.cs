@@ -104,7 +104,7 @@ public sealed class LearningExperienceTests : IDisposable
         foreach (var lesson in new FiaeTrainer.Core.Algorithms.Content.AlgorithmCatalog().Lessons)
             await store.SaveAlgorithmAsync(lesson.Id, new AlgorithmProgress { Completed = true, Independent = true });
         string html = await RenderPlanAsync();
-        Assert.Contains("Alle 70 Übungen sind gelöst", html);
+        Assert.Contains("Alle 70 Übungen aus SQL und Algorithmen sind gelöst", html);
         Assert.Contains("unbekannte Aufgaben auf Papier", html);
         Assert.DoesNotContain("Weiter ermitteln →", html);
     }
@@ -120,8 +120,8 @@ public sealed class LearningExperienceTests : IDisposable
         foreach (var lesson in new FiaeTrainer.Core.Algorithms.Content.AlgorithmCatalog().Lessons)
             await store.SaveAlgorithmAsync(lesson.Id, new AlgorithmProgress { Draft = "Entwurf" });
         string html = await RenderPlanAsync();
-        Assert.Contains("Du hast alle Aufgaben bereits begonnen", html);
-        Assert.DoesNotContain("Alle 70 Übungen sind gelöst", html);
+        Assert.Contains("Du hast alle Aufgaben aus SQL und Algorithmen bereits begonnen", html);
+        Assert.DoesNotContain("Alle 70 Übungen aus SQL und Algorithmen sind gelöst", html);
         Assert.Contains("href=\"/sql/1\"", html);
         Assert.Contains("href=\"/sql-werkstatt/10\"", html);
     }
@@ -170,7 +170,7 @@ public sealed class LearningExperienceTests : IDisposable
 
     private async Task<string> RenderPlanAsync()
     {
-        using ServiceProvider services = new ServiceCollection().AddLogging().AddSingleton(CreateStore()).AddSingleton<LessonCatalog>().AddSingleton<WorkshopCatalog>().AddSingleton<FiaeTrainer.Core.Algorithms.Content.AlgorithmCatalog>().BuildServiceProvider();
+        using ServiceProvider services = new ServiceCollection().AddLogging().AddSingleton(CreateStore()).AddSingleton<LessonCatalog>().AddSingleton<WorkshopCatalog>().AddSingleton<FiaeTrainer.Core.Algorithms.Content.AlgorithmCatalog>().AddSingleton<FiaeTrainer.Core.BusinessStudies.Content.BusinessCatalog>().BuildServiceProvider();
         return await RenderAsync<LearningPlan>([], services);
     }
 

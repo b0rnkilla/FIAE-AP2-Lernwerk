@@ -1,0 +1,462 @@
+[
+  {
+    "id": "bbig1",
+    "title": "BBiG § 1 – Ausbildung, Fortbildung und Umschulung",
+    "url": "https://www.gesetze-im-internet.de/bbig_2005/__1.html"
+  },
+  {
+    "id": "bbig5",
+    "title": "BBiG § 5 – Ausbildungsordnung",
+    "url": "https://www.gesetze-im-internet.de/bbig_2005/__5.html"
+  },
+  {
+    "id": "bbig11",
+    "title": "BBiG § 11 – Vertragsabfassung",
+    "url": "https://www.gesetze-im-internet.de/bbig_2005/__11.html"
+  },
+  {
+    "id": "bbig13",
+    "title": "BBiG § 13 – Verhalten während der Berufsausbildung",
+    "url": "https://www.gesetze-im-internet.de/bbig_2005/__13.html"
+  },
+  {
+    "id": "bbig14",
+    "title": "BBiG § 14 – Pflichten des Ausbildungsbetriebs",
+    "url": "https://www.gesetze-im-internet.de/bbig_2005/__14.html"
+  },
+  {
+    "id": "bbig15",
+    "title": "BBiG § 15 – Freistellung und Anrechnung",
+    "url": "https://www.gesetze-im-internet.de/bbig_2005/__15.html"
+  },
+  {
+    "id": "bbig16",
+    "title": "BBiG § 16 – Ausbildungszeugnis",
+    "url": "https://www.gesetze-im-internet.de/bbig_2005/__16.html"
+  },
+  {
+    "id": "bbig20",
+    "title": "BBiG § 20 – Probezeit",
+    "url": "https://www.gesetze-im-internet.de/bbig_2005/__20.html"
+  },
+  {
+    "id": "bbig21",
+    "title": "BBiG § 21 – Beendigung der Ausbildung",
+    "url": "https://www.gesetze-im-internet.de/bbig_2005/__21.html"
+  },
+  {
+    "id": "bbig22",
+    "title": "BBiG § 22 – Kündigung der Ausbildung",
+    "url": "https://www.gesetze-im-internet.de/bbig_2005/__22.html"
+  },
+  {
+    "id": "bbig24",
+    "title": "BBiG § 24 – Weiterarbeit",
+    "url": "https://www.gesetze-im-internet.de/bbig_2005/__24.html"
+  },
+  {
+    "id": "bbig28",
+    "title": "BBiG § 28 – Eignung der Ausbilder",
+    "url": "https://www.gesetze-im-internet.de/bbig_2005/__28.html"
+  },
+  {
+    "id": "bbig71",
+    "title": "BBiG § 71 – Zuständige Stellen",
+    "url": "https://www.gesetze-im-internet.de/bbig_2005/__71.html"
+  },
+  {
+    "id": "europass",
+    "title": "Europäische Union – Europass",
+    "url": "https://europass.europa.eu/de"
+  },
+  {
+    "id": "bgb622",
+    "title": "BGB § 622 – Kündigungsfristen",
+    "url": "https://www.gesetze-im-internet.de/bgb/__622.html"
+  },
+  {
+    "id": "bgb623",
+    "title": "BGB § 623 – Schriftform der Kündigung",
+    "url": "https://www.gesetze-im-internet.de/bgb/__623.html"
+  },
+  {
+    "id": "kschg1",
+    "title": "KSchG § 1 – Kündigungsgründe",
+    "url": "https://www.gesetze-im-internet.de/kschg/__1.html"
+  },
+  {
+    "id": "kschg4",
+    "title": "KSchG § 4 – Kündigungsschutzklage",
+    "url": "https://www.gesetze-im-internet.de/kschg/__4.html"
+  },
+  {
+    "id": "gewo109",
+    "title": "GewO § 109 – Arbeitszeugnis",
+    "url": "https://www.gesetze-im-internet.de/gewo/__109.html"
+  },
+  {
+    "id": "tzbfg15",
+    "title": "TzBfG § 15 – Ende befristeter Verträge",
+    "url": "https://www.gesetze-im-internet.de/tzbfg/__15.html"
+  },
+  {
+    "id": "arbzg4",
+    "title": "ArbZG § 4 – Ruhepausen",
+    "url": "https://www.gesetze-im-internet.de/arbzg/__4.html"
+  },
+  {
+    "id": "arbzg5",
+    "title": "ArbZG § 5 – Ruhezeit",
+    "url": "https://www.gesetze-im-internet.de/arbzg/__5.html"
+  },
+  {
+    "id": "youth11",
+    "title": "JArbSchG § 11 – Pausen für Jugendliche",
+    "url": "https://www.gesetze-im-internet.de/jarbschg/__11.html"
+  },
+  {
+    "id": "youth13",
+    "title": "JArbSchG § 13 – Tägliche Freizeit",
+    "url": "https://www.gesetze-im-internet.de/jarbschg/__13.html"
+  },
+  {
+    "id": "youth19",
+    "title": "JArbSchG § 19 – Jugendurlaub",
+    "url": "https://www.gesetze-im-internet.de/jarbschg/__19.html"
+  },
+  {
+    "id": "burlg3",
+    "title": "BUrlG § 3 – Gesetzlicher Mindesturlaub",
+    "url": "https://www.gesetze-im-internet.de/burlg/__3.html"
+  },
+  {
+    "id": "muschg3",
+    "title": "MuSchG § 3 – Schutzfristen",
+    "url": "https://www.gesetze-im-internet.de/muschg_2018/__3.html"
+  },
+  {
+    "id": "agg1",
+    "title": "AGG § 1 – Geschützte Merkmale",
+    "url": "https://www.gesetze-im-internet.de/agg/__1.html"
+  },
+  {
+    "id": "agg11",
+    "title": "AGG § 11 – Stellenausschreibung",
+    "url": "https://www.gesetze-im-internet.de/agg/__11.html"
+  },
+  {
+    "id": "tvg4",
+    "title": "TVG § 4 – Wirkung des Tarifvertrags",
+    "url": "https://www.gesetze-im-internet.de/tvg/__4.html"
+  },
+  {
+    "id": "br5",
+    "title": "BetrVG § 5 – Arbeitnehmerbegriff",
+    "url": "https://www.gesetze-im-internet.de/betrvg/__5.html"
+  },
+  {
+    "id": "br7",
+    "title": "BetrVG § 7 – Wahlberechtigung",
+    "url": "https://www.gesetze-im-internet.de/betrvg/__7.html"
+  },
+  {
+    "id": "br8",
+    "title": "BetrVG § 8 – Wählbarkeit",
+    "url": "https://www.gesetze-im-internet.de/betrvg/__8.html"
+  },
+  {
+    "id": "br9",
+    "title": "BetrVG § 9 – Zahl der Mitglieder",
+    "url": "https://www.gesetze-im-internet.de/betrvg/__9.html"
+  },
+  {
+    "id": "br13",
+    "title": "BetrVG § 13 – Regelmäßige Wahlen",
+    "url": "https://www.gesetze-im-internet.de/betrvg/__13.html"
+  },
+  {
+    "id": "br44",
+    "title": "BetrVG § 44 – Betriebsversammlung",
+    "url": "https://www.gesetze-im-internet.de/betrvg/__44.html"
+  },
+  {
+    "id": "br60",
+    "title": "BetrVG § 60 – JAV – Vertretungsbereich",
+    "url": "https://www.gesetze-im-internet.de/betrvg/__60.html"
+  },
+  {
+    "id": "br61",
+    "title": "BetrVG § 61 – JAV – Wahlrecht",
+    "url": "https://www.gesetze-im-internet.de/betrvg/__61.html"
+  },
+  {
+    "id": "br64",
+    "title": "BetrVG § 64 – JAV – Amtszeit",
+    "url": "https://www.gesetze-im-internet.de/betrvg/__64.html"
+  },
+  {
+    "id": "br70",
+    "title": "BetrVG § 70 – JAV – Aufgaben",
+    "url": "https://www.gesetze-im-internet.de/betrvg/__70.html"
+  },
+  {
+    "id": "br77",
+    "title": "BetrVG § 77 – Betriebsvereinbarungen",
+    "url": "https://www.gesetze-im-internet.de/betrvg/__77.html"
+  },
+  {
+    "id": "br87",
+    "title": "BetrVG § 87 – Mitbestimmungsrechte",
+    "url": "https://www.gesetze-im-internet.de/betrvg/__87.html"
+  },
+  {
+    "id": "br102",
+    "title": "BetrVG § 102 – Anhörung bei Kündigungen",
+    "url": "https://www.gesetze-im-internet.de/betrvg/__102.html"
+  },
+  {
+    "id": "tvg2",
+    "title": "TVG § 2 – Tarifvertragsparteien",
+    "url": "https://www.gesetze-im-internet.de/tvg/__2.html"
+  },
+  {
+    "id": "gg9",
+    "title": "Grundgesetz Art. 9 – Vereinigungsfreiheit",
+    "url": "https://www.gesetze-im-internet.de/gg/art_9.html"
+  },
+  {
+    "id": "tariff",
+    "title": "BMAS – Tarifverträge und Tarifautonomie",
+    "url": "https://www.bmas.de/DE/Arbeit/Arbeitsrecht/Tarifvertraege/tarifvertraege.html"
+  },
+  {
+    "id": "sgb4-1",
+    "title": "SGB IV § 1 – Sozialversicherungszweige",
+    "url": "https://www.gesetze-im-internet.de/sgb_4/__1.html"
+  },
+  {
+    "id": "sgb4-14",
+    "title": "SGB IV § 14 – Arbeitsentgelt",
+    "url": "https://www.gesetze-im-internet.de/sgb_4/__14.html"
+  },
+  {
+    "id": "sgb7-8",
+    "title": "SGB VII § 8 – Arbeits- und Wegeunfälle",
+    "url": "https://www.gesetze-im-internet.de/sgb_7/__8.html"
+  },
+  {
+    "id": "sgb7-114",
+    "title": "SGB VII § 114 – Unfallversicherungsträger",
+    "url": "https://www.gesetze-im-internet.de/sgb_7/__114.html"
+  },
+  {
+    "id": "sgb7-150",
+    "title": "SGB VII § 150 – Beitragspflichtige",
+    "url": "https://www.gesetze-im-internet.de/sgb_7/__150.html"
+  },
+  {
+    "id": "sgb6-168",
+    "title": "SGB VI § 168 – Rentenbeiträge",
+    "url": "https://www.gesetze-im-internet.de/sgb_6/__168.html"
+  },
+  {
+    "id": "sgb6-153",
+    "title": "SGB VI § 153 – Umlageverfahren",
+    "url": "https://www.gesetze-im-internet.de/sgb_6/__153.html"
+  },
+  {
+    "id": "sgb5-249",
+    "title": "SGB V § 249 – Krankenbeiträge",
+    "url": "https://www.gesetze-im-internet.de/sgb_5/__249.html"
+  },
+  {
+    "id": "sgb5-44",
+    "title": "SGB V § 44 – Krankengeld",
+    "url": "https://www.gesetze-im-internet.de/sgb_5/__44.html"
+  },
+  {
+    "id": "sgb3-346",
+    "title": "SGB III § 346 – Beitragstragung",
+    "url": "https://www.gesetze-im-internet.de/sgb_3/__346.html"
+  },
+  {
+    "id": "sgg51",
+    "title": "SGG § 51 – Zuständigkeit Sozialgerichtsbarkeit",
+    "url": "https://www.gesetze-im-internet.de/sgg/__51.html"
+  },
+  {
+    "id": "estg38b",
+    "title": "EStG § 38b – Steuerklassen",
+    "url": "https://www.gesetze-im-internet.de/estg/__38b.html"
+  },
+  {
+    "id": "bmg",
+    "title": "BMG – Beiträge zur gesetzlichen Krankenversicherung",
+    "url": "https://www.bundesgesundheitsministerium.de/beitraege"
+  },
+  {
+    "id": "bbg",
+    "title": "BMAS – Rechengrößen der Rentenversicherung",
+    "url": "https://www.bmas.de/DE/Soziales/Rente-und-Altersvorsorge/Gesetzliche-Rentenversicherung/Rentenberechnung/rechengroessen-der-rentenversicherung.html"
+  },
+  {
+    "id": "gmbh1",
+    "title": "GmbHG § 1 – Gründung",
+    "url": "https://www.gesetze-im-internet.de/gmbhg/__1.html"
+  },
+  {
+    "id": "gmbh5",
+    "title": "GmbHG § 5 – Stammkapital",
+    "url": "https://www.gesetze-im-internet.de/gmbhg/__5.html"
+  },
+  {
+    "id": "gmbh6",
+    "title": "GmbHG § 6 – Geschäftsführer",
+    "url": "https://www.gesetze-im-internet.de/gmbhg/__6.html"
+  },
+  {
+    "id": "gmbh13",
+    "title": "GmbHG § 13 – Haftung",
+    "url": "https://www.gesetze-im-internet.de/gmbhg/__13.html"
+  },
+  {
+    "id": "gmbh29",
+    "title": "GmbHG § 29 – Ergebnisverwendung",
+    "url": "https://www.gesetze-im-internet.de/gmbhg/__29.html"
+  },
+  {
+    "id": "gmbh35",
+    "title": "GmbHG § 35 – Vertretung",
+    "url": "https://www.gesetze-im-internet.de/gmbhg/__35.html"
+  },
+  {
+    "id": "hgb126",
+    "title": "HGB § 126 – Persönliche Haftung OHG",
+    "url": "https://www.gesetze-im-internet.de/hgb/__126.html"
+  },
+  {
+    "id": "hgb161",
+    "title": "HGB § 161 – Kommanditgesellschaft",
+    "url": "https://www.gesetze-im-internet.de/hgb/__161.html"
+  },
+  {
+    "id": "hgb171",
+    "title": "HGB § 171 – Haftung Kommanditist",
+    "url": "https://www.gesetze-im-internet.de/hgb/__171.html"
+  },
+  {
+    "id": "aktg7",
+    "title": "AktG § 7 – Grundkapital",
+    "url": "https://www.gesetze-im-internet.de/aktg/__7.html"
+  },
+  {
+    "id": "geng1",
+    "title": "GenG § 1 – Zweck einer Genossenschaft",
+    "url": "https://www.gesetze-im-internet.de/geng/__1.html"
+  },
+  {
+    "id": "register",
+    "title": "Justizportal – Gemeinsames Registerportal",
+    "url": "https://www.handelsregister.de/"
+  },
+  {
+    "id": "businessplan",
+    "title": "Bundeswirtschaftsministerium – Businessplan",
+    "url": "https://www.existenzgruendungsportal.de/Navigation/DE/So-gehts/Businessplan/businessplan"
+  },
+  {
+    "id": "organization",
+    "title": "Landesbildungsserver Baden-Württemberg – Organisationsformen",
+    "url": "https://www.schule-bw.de/faecher-und-schularten/berufliche-schularten/berufsschule/lernfelder/wirtschaft-und-verwaltung/automobil/lf01/wka-lf01-ls03-organisationsform-betrieb-l.pdf/@@download/file/WKA-LF01-LS03-Organisationsform%20Betrieb%20L.pdf"
+  },
+  {
+    "id": "economics",
+    "title": "bpb – Lexikon der Wirtschaft",
+    "url": "https://www.bpb.de/kurz-knapp/lexika/lexikon-der-wirtschaft/"
+  },
+  {
+    "id": "market",
+    "title": "Landeshauptstadt München – Marktformen und Preisbildung",
+    "url": "https://bos-sozial.musin.de/Service/Intranet/bos_intern/Intranet_Wirtschaft/12-Klasse/Lerninhalte/Markt_Preisbildung_1_Teil.html"
+  },
+  {
+    "id": "cycle",
+    "title": "Bundeswirtschaftsministerium – Konjunktur",
+    "url": "https://www.bundeswirtschaftsministerium.de/Redaktion/DE/Artikel/Wirtschaft/definitionen-01-konjunktur.html"
+  },
+  {
+    "id": "inflation",
+    "title": "Deutsche Bundesbank – Der Wert stabilen Geldes",
+    "url": "https://publikationen.bundesbank.de/publikationen-de/schule-bildung/geld-und-geldpolitik-921580?article=5-der-wert-stabilen-geldes-922608"
+  },
+  {
+    "id": "gwb1",
+    "title": "GWB § 1 – Verbot wettbewerbsbeschränkender Vereinbarungen",
+    "url": "https://www.gesetze-im-internet.de/gwb/__1.html"
+  },
+  {
+    "id": "efficiency",
+    "title": "bpb – Wirtschaftlichkeit",
+    "url": "https://www.bpb.de/kurz-knapp/lexika/lexikon-der-wirtschaft/21157/wirtschaftlichkeit/"
+  },
+  {
+    "id": "return",
+    "title": "bpb – Rentabilität",
+    "url": "https://www.bpb.de/kurz-knapp/lexika/lexikon-der-wirtschaft/20483/rentabilitaet/"
+  },
+  {
+    "id": "safety3",
+    "title": "ArbSchG § 3 – Grundpflichten Arbeitgeber",
+    "url": "https://www.gesetze-im-internet.de/arbschg/__3.html"
+  },
+  {
+    "id": "safety5",
+    "title": "ArbSchG § 5 – Gefährdungsbeurteilung",
+    "url": "https://www.gesetze-im-internet.de/arbschg/__5.html"
+  },
+  {
+    "id": "safety12",
+    "title": "ArbSchG § 12 – Unterweisung",
+    "url": "https://www.gesetze-im-internet.de/arbschg/__12.html"
+  },
+  {
+    "id": "waste6",
+    "title": "KrWG § 6 – Abfallhierarchie",
+    "url": "https://www.gesetze-im-internet.de/krwg/__6.html"
+  },
+  {
+    "id": "emissions3",
+    "title": "BImSchG § 3 – Emissionen und Immissionen",
+    "url": "https://www.gesetze-im-internet.de/bimschg/__3.html"
+  },
+  {
+    "id": "signs",
+    "title": "BAuA – ASR A1.3 Sicherheitskennzeichnung",
+    "url": "https://www.baua.de/DE/Angebote/Regelwerk/ASR/pdf/ASR-A1-3.pdf?__blob=publicationFile"
+  },
+  {
+    "id": "stress",
+    "title": "BAuA – Psychische Belastung und Arbeitsgestaltung",
+    "url": "https://www.baua.de/DE/Themen/Arbeitsgestaltung/Gefaehrdungsbeurteilung/Handbuch-Gefaehrdungsbeurteilung/Expertenwissen/Psychische-Faktoren/Arbeitsaufgabe/Arbeitsaufgabe_dossier?view=pdfViewExt"
+  },
+  {
+    "id": "recycling",
+    "title": "Umweltbundesamt – Abfall- und Kreislaufwirtschaft",
+    "url": "https://www.umweltbundesamt.de/themen/abfall-ressourcen/abfall-kreislaufwirtschaft"
+  },
+  {
+    "id": "polluter",
+    "title": "Umweltbundesamt – Verursacherprinzip",
+    "url": "https://www.umweltbundesamt.de/tags/verursacherprinzip"
+  },
+  {
+    "id": "angel",
+    "title": "Bundesumweltministerium – Umweltzeichen Blauer Engel",
+    "url": "https://www.bundesumweltministerium.de/themen/nachhaltigkeit/konsum-und-produkte/blauer-engel"
+  },
+  {
+    "id": "fire",
+    "title": "DGUV – Unterweisung in Erster Hilfe und Notfallorganisation",
+    "url": "https://www.dguv.de/fb-erstehilfe/themenfelder/unterweisung/index.jsp"
+  }
+]

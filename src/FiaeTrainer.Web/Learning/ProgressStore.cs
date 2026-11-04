@@ -3,7 +3,7 @@ using System.Text.Json;
 namespace FiaeTrainer.Web.Learning;
 
 /// <summary> Speichert den lokalen Einzelbenutzer-Lernstand atomar in einer JSON-Datei. </summary>
-public sealed class ProgressStore(IWebHostEnvironment environment, IConfiguration? configuration = null)
+public sealed partial class ProgressStore(IWebHostEnvironment environment, IConfiguration? configuration = null)
 {
     /// <summary> Serialisiert Schreibzugriffe aus mehreren Browserfenstern. </summary>
     private readonly SemaphoreSlim _gate = new(1, 1);
@@ -119,6 +119,7 @@ public sealed class ProgressStore(IWebHostEnvironment environment, IConfiguratio
         foreach (var entry in progress.AlgorithmLessons)
             if (entry.Key < 1 || entry.Value == null || entry.Value.HintLevel is < 0 or > 3 || entry.Value.Attempts < 0 || entry.Value.Independent && !entry.Value.Completed)
                 throw new InvalidDataException("Ein Algorithmus-Eintrag ist beschädigt und wird nicht überschrieben.");
+        ValidateBusinessProgress(progress);
         return progress;
     }
 
