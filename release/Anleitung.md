@@ -12,11 +12,13 @@ Die Anwendung benötigt Windows auf einem 64-Bit-Rechner und einen aktuellen Bro
 
 ## SQL Server einrichten
 
-Microsoft SQL Server muss separat installiert sein, beispielsweise Express oder LocalDB. **SSMS allein ist kein Datenbankserver.** Bei Bedarf hilft der [offizielle Microsoft-Download](https://www.microsoft.com/de-de/sql-server/sql-server-downloads).
+Für die SQL-Lernwege muss Microsoft SQL Server separat installiert sein, beispielsweise Express oder LocalDB. **SSMS allein ist kein Datenbankserver.** Bei Bedarf hilft der [offizielle Microsoft-Download](https://www.microsoft.com/de-de/sql-server/sql-server-downloads). Die Pseudocode-Aufgaben lassen sich auch ohne SQL Server bearbeiten.
 
 Im Fußbereich **Updates & SQL-Einrichtung** öffnen, die eigene Instanz auswählen oder deren Namen eintragen und **Verbindung prüfen & speichern** wählen. Die Anwendung verwendet deine Windows-Anmeldung und legt ausschließlich ihre eigene Datenbank **FIAE_AP2_Training** an. Dafür benötigt die Anmeldung passende SQL-Rechte. Eine gleichnamige fremde Datenbank wird nicht übernommen. Eine fehlgeschlagene Verbindung bedeutet nicht automatisch, dass SQL Server fehlt.
 
 ## Lernstand und Updates
+
+Über die Übersicht zwischen SQL und Pseudocode & Algorithmen wählen. Die Kopfnavigation beginnt immer mit Übersicht und Lernplan; die folgenden Links passen zum gewählten Lernbereich. Neue Aufgaben starten im Modus **Ohne Hilfe lösen**. **Geführt lernen** ergänzt Erklärungen, Hinweise, Spickzettel und Musterlösung; bei Pseudocode zusätzlich eine schrittweise Ablaufansicht. Pseudocode-Beispiele verwenden **=** für Zuweisungen und **==** für Gleichheitsvergleiche.
 
 Lernstände und persönliche Einstellungen liegen unter **%LOCALAPPDATA%\AP2-Lernwerk**, außerhalb des Programmordners. Die App verwendet ein lokales Profil für deine Browser. Unter **Lernplan** lässt sich dieses Profil zurücksetzen; die Datenbank bleibt dabei erhalten.
 

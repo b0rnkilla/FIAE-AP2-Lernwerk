@@ -20,6 +20,8 @@ public partial class Workshop : IAsyncDisposable
     private string _sql = "";
     /// <summary> Blendet Unterstützung und Probeausführung aus. </summary>
     private bool _examMode = true;
+    /// <summary> Klappt die Lösung unabhängig von der bereits gespeicherten Hilfenutzung auf und zu. </summary>
+    private bool _showSolution;
     /// <summary> Verhindert eine irreführende Fehlermeldung, während die Aufgabe noch geladen wird. </summary>
     private bool _loading = true;
     /// <summary> Verhindert überlappende Bedienaktionen innerhalb derselben Aufgabe. </summary>
@@ -75,6 +77,7 @@ public partial class Workshop : IAsyncDisposable
         _progress = loaded;
         _lesson = Catalog.Lessons.FirstOrDefault(x => x.Id == (requestedId == 0 ? loaded.LastWorkshopLessonId : requestedId));
         _current = _lesson != null && loaded.WorkshopLessons.TryGetValue(_lesson.Id, out LessonProgress? saved) ? saved : new LessonProgress();
+        _showSolution = _current.SolutionViewed;
         _examMode = _current.ExamMode;
         _current.AttemptAssisted = _current.UsedAssistance || !_examMode;
         _sql = _current.Sql;
@@ -110,6 +113,7 @@ public partial class Workshop : IAsyncDisposable
         }
         else
             _current.AttemptAssisted = true;
+        _showSolution = _current.SolutionViewed;
         _run = null;
         _evaluation = null;
         await SaveAsync();
@@ -162,10 +166,13 @@ public partial class Workshop : IAsyncDisposable
         await SaveAsync();
     }
 
-    private async Task ShowSolutionAsync()
+    /// <summary> Ändert nur die Sichtbarkeit; eine aufgedeckte Musterlösung bleibt als Unterstützung im Versuch vermerkt. </summary>
+    private async Task ToggleSolutionAsync()
     {
-        if (!_examMode)
-            _current.SolutionViewed = true;
+        if (_examMode || _busy)
+            return;
+        _showSolution = !_showSolution;
+        _current.SolutionViewed |= _showSolution;
         await SaveAsync();
     }
 

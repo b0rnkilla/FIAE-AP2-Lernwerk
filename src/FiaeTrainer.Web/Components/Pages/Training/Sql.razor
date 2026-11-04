@@ -1,7 +1,7 @@
 @page "/sql"
 @page "/sql/{LessonId:int}"
 <PageTitle>@(_lesson?.Title ?? "SQL-Ermittlung") · AP2 Lernwerk</PageTitle>
-@if (_loading)
+@if (_loading && _lesson == null)
 {
     <main class="page loading-state" role="status"><span class="eyebrow">GLEICH GEHT’S WEITER</span><h1>Deine Aufgabe wird geladen …</h1><p>Dein Entwurf und dein Fortschritt werden vorbereitet.</p></main>
 }
@@ -28,40 +28,56 @@ else
             </nav>
         </TaskRail>
         <div class="mission-main">
-            <div class="mission-topline"><span class="eyebrow">AUFGABE @_lesson.Id.ToString("D2") / 30</span><span class="badge">@_lesson.Topic</span></div>
-            <h1>@_lesson.Title</h1>
-            <LearningModePicker @key="_lesson.Id" ExamMode="_examMode" Busy="_busy" HasDraft="@(!string.IsNullOrWhiteSpace(_sql))" AssistedAttempt="_current.UsedAssistance" ModeChanged="SetModeAsync" />
-            <InvestigationStory Lesson="_lesson" PreviousLesson="@(Catalog.Lessons.FirstOrDefault(x => x.Id == _lesson.Id - 1))" PreviousCompleted="@(_progress.Lessons.TryGetValue(_lesson.Id - 1, out LessonProgress? previous) && previous.Completed)" />
-            @if (_examMode)
+            @* Die Aufgabenliste bleibt beim asynchronen Wechsel im DOM und behält dadurch ihre Scrollposition. *@
+            @if (_loading)
             {
-                <SelfTestHelp Hidden="_progress.SelfTestHelpDismissed" Busy="_busy" HiddenChanged="SetSelfTestHelpHiddenAsync"><strong>So funktioniert dein Selbsttest:</strong> Lies den Auftrag, schreibe deine Abfrage und klicke auf „Lösung prüfen“. Danach siehst du die Bewertung und dein Ergebnis. Die Tabellenübersicht hilft dir beim Nachschlagen.</SelfTestHelp>
+                <div class="loading-state" role="status"><span class="eyebrow">GLEICH GEHT’S WEITER</span><h1>Deine Aufgabe wird geladen …</h1><p>Dein Entwurf und dein Fortschritt werden vorbereitet.</p></div>
             }
-            <section class="task-card"><div class="eyebrow">01 · AUFGABE VERSTEHEN</div><p>@_lesson.Task</p>@if (_lesson.Ordered) { <small>Hier gehört die Reihenfolge der Ergebniszeilen zur Aufgabe.</small> }</section>
-            @if (!Database.Ready)
+            else
             {
-                <div class="notice warning" role="alert">@Database.Error <a href="/einrichtung#sql">SQL-Verbindung einrichten</a></div>
-            }
-            <section class="editor-card" aria-label="SQL-Arbeitsbereich">
-                <div class="editor-toolbar"><label for="sql-editor">02 · Deine SQL-Abfrage</label><span>T-SQL · Microsoft SQL Server</span></div>
-                <textarea id="sql-editor" class="sql-editor" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Schreibe hier deine Abfrage …" @bind="_sql" @bind:event="oninput" @onblur="SaveAsync" readonly="@_busy" aria-busy="@(_busy ? "true" : "false")"></textarea>
-                <div class="editor-actions"><div>@if (!_examMode) { <button class="button secondary" @onclick="PreviewAsync" disabled="@(_busy || !Database.Ready)">Abfrage ausführen</button> }<button class="button primary" @onclick="EvaluateAsync" disabled="@(_busy || !Database.Ready || string.IsNullOrWhiteSpace(_sql))">@(_busy ? "Wird geprüft …" : "Lösung prüfen") <span aria-hidden="true">→</span></button></div></div>
-            </section>
-            @if (_storageError != null) { <p class="notice warning" role="alert">@_storageError</p> }
-            @if (_evaluation != null)
-            {
-                <section class="feedback @(_evaluation.Correct ? "correct" : "retry")" role="status"><strong>@(_evaluation.TechnicalFailure ? "Technische Unterbrechung" : _evaluation.Correct ? "Diese Spur stimmt." : "Schau noch einmal genau hin.")</strong><p>@_evaluation.Message</p>@if (_evaluation.Correct) { <p class="discovery">@_lesson.Discovery</p><AttemptOutcomeNote ExamMode="_examMode" AssistedAttempt="_current.UsedAssistance" /> }</section>
-            }
-            @if (_result != null && (_evaluation == null || _result.Error != _evaluation.Message)) { <section class="result-card"><ResultTable Result="_result" /></section> }
-            @if (!_examMode)
-            {
-                <section class="briefing"><h2>Das brauchst du für diese Spur</h2><p>@_lesson.Briefing</p></section>
-                <section class="help-card"><div><h2>Ein kleiner Denkanstoß?</h2><p>Du entscheidest, wie viel Unterstützung du brauchst.</p></div><button class="button secondary" @onclick="ShowHintAsync" disabled="@(_busy || _current.HintLevel == 3)">@(_current.HintLevel == 3 ? "Alle Hinweise geöffnet" : $"Hinweis {_current.HintLevel + 1} von 3 öffnen")</button>
-                    @for (int i = 0; i < _current.HintLevel; i++) { <div class="hint"><span>@(i + 1)</span><p>@_lesson.Hints[i]</p></div> }
-                    <div class="solution-control"><button class="text-button" disabled="@_busy" @onclick="ShowSolutionAsync">@(_current.SolutionViewed ? "Musterlösung ist geöffnet" : "Musterlösung mit Erklärung ansehen")</button><small>Eine aufgedeckte Lösung zählt nicht als selbstständiger Versuch.</small></div>
-                    @if (_current.SolutionViewed) { <div class="solution"><pre><code>@_lesson.ReferenceSql</code></pre><p>@_lesson.Explanation</p></div> }
+                <div class="mission-topline"><span class="eyebrow">AUFGABE @_lesson.Id.ToString("D2") / 30</span><span class="badge">@_lesson.Topic</span></div>
+                <h1>@_lesson.Title</h1>
+                <LearningModePicker @key="_lesson.Id" ExamMode="_examMode" Busy="_busy" HasDraft="@(!string.IsNullOrWhiteSpace(_sql))" AssistedAttempt="_current.UsedAssistance" ModeChanged="SetModeAsync" />
+                <InvestigationStory Lesson="_lesson" PreviousLesson="@(Catalog.Lessons.FirstOrDefault(x => x.Id == _lesson.Id - 1))" PreviousCompleted="@(_progress.Lessons.TryGetValue(_lesson.Id - 1, out LessonProgress? previous) && previous.Completed)" />
+                @if (_examMode)
+                {
+                    <SelfTestHelp Hidden="_progress.SelfTestHelpDismissed" Busy="_busy" HiddenChanged="SetSelfTestHelpHiddenAsync"><strong>So funktioniert dein Selbsttest:</strong> Lies den Auftrag, schreibe deine Abfrage und klicke auf „Lösung prüfen“. Danach siehst du die Bewertung und dein Ergebnis. Die Tabellenübersicht hilft dir beim Nachschlagen.</SelfTestHelp>
+                }
+                <section class="task-card"><div class="eyebrow">01 · AUFGABE VERSTEHEN</div><p>@_lesson.Task</p>@if (_lesson.Ordered) { <small>Hier gehört die Reihenfolge der Ergebniszeilen zur Aufgabe.</small> }</section>
+                @if (!Database.Ready)
+                {
+                    <div class="notice warning" role="alert">@Database.Error <a href="/einrichtung#sql">SQL-Verbindung einrichten</a></div>
+                }
+                <section class="editor-card" aria-label="SQL-Arbeitsbereich">
+                    <div class="editor-toolbar"><label for="sql-editor">02 · Deine SQL-Abfrage</label><span>T-SQL · Microsoft SQL Server</span></div>
+                    <textarea id="sql-editor" class="sql-editor" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Schreibe hier deine Abfrage …" @bind="_sql" @bind:event="oninput" @onblur="SaveAsync" readonly="@_busy" aria-busy="@(_busy ? "true" : "false")"></textarea>
+                    <div class="editor-actions"><div>@if (!_examMode) { <button class="button secondary" @onclick="PreviewAsync" disabled="@(_busy || !Database.Ready)">Abfrage ausführen</button> }<button class="button primary" @onclick="EvaluateAsync" disabled="@(_busy || !Database.Ready || string.IsNullOrWhiteSpace(_sql))">@(_busy ? "Wird geprüft …" : "Lösung prüfen") <span aria-hidden="true">→</span></button></div></div>
                 </section>
+                @if (_storageError != null) { <p class="notice warning" role="alert">@_storageError</p> }
+                @if (_evaluation != null)
+                {
+                    <section class="feedback @(_evaluation.Correct ? "correct" : "retry")" role="status"><strong>@(_evaluation.TechnicalFailure ? "Technische Unterbrechung" : _evaluation.Correct ? "Diese Spur stimmt." : "Schau noch einmal genau hin.")</strong><p>@_evaluation.Message</p>@if (_evaluation.Correct) { <p class="discovery">@_lesson.Discovery</p><AttemptOutcomeNote ExamMode="_examMode" AssistedAttempt="_current.UsedAssistance" /> }</section>
+                }
+                @if (_result != null && (_evaluation == null || _result.Error != _evaluation.Message)) { <section class="result-card"><ResultTable Result="_result" /></section> }
+                @if (!_examMode)
+                {
+                    <section class="briefing"><h2>Das brauchst du für diese Spur</h2><p>@_lesson.Briefing</p></section>
+                    <section class="help-card">
+                        <div class="help-row"><div><h2>Ein kleiner Denkanstoß?</h2><p>Du entscheidest, wie viel Unterstützung du brauchst.</p></div><button class="button secondary" @onclick="ShowHintAsync" disabled="@(_busy || _current.HintLevel == 3)">@(_current.HintLevel == 3 ? "Alle Hinweise geöffnet" : $"Hinweis {_current.HintLevel + 1} von 3 öffnen")</button></div>
+                        @for (int i = 0; i < _current.HintLevel; i++) { <div class="hint"><span>@(i + 1)</span><p>@_lesson.Hints[i]</p></div> }
+                        <div class="help-row">
+                            <div><h2>Syntax gerade nicht im Kopf?</h2><p>Im SQL-Spickzettel findest du Regeln und Beispiele.</p></div>
+                            <a href="/nachschlagen" class="button secondary">SQL-Spickzettel öffnen</a>
+                        </div>
+                        <div class="help-row">
+                            <div><h2>Musterlösung</h2><p>Eine aufgedeckte Lösung zählt nicht als selbstständiger Versuch.</p></div>
+                            <button class="button secondary" disabled="@_busy" aria-label="@(_showSolution ? "Musterlösung ausblenden" : "Musterlösung ansehen")" aria-expanded="@(_showSolution ? "true" : "false")" aria-controls="@(_showSolution ? "sql-solution" : null)" @onclick="ToggleSolutionAsync">@(_showSolution ? "Ausblenden" : "Ansehen")</button>
+                        </div>
+                        @if (_showSolution) { <div id="sql-solution" class="solution"><pre><code>@_lesson.ReferenceSql</code></pre><p>@_lesson.Explanation</p></div> }
+                    </section>
+                }
+                <div class="mission-bottom">@if (_lesson.Id > 1) { <a class="button secondary" href="@($"/sql/{_lesson.Id - 1}")">← Vorherige Aufgabe</a> }<span></span>@if (_lesson.Id < 30) { <a class="button @(_evaluation?.Correct == true ? "primary" : "secondary")" href="@($"/sql/{_lesson.Id + 1}")">Nächste Aufgabe →</a> } else { <a class="button primary" href="/lernplan">Deine Wiederholung planen →</a> }</div>
             }
-            <div class="mission-bottom">@if (_lesson.Id > 1) { <a class="button secondary" href="@($"/sql/{_lesson.Id - 1}")">← Vorherige Aufgabe</a> }<span></span>@if (_lesson.Id < 30) { <a class="button @(_evaluation?.Correct == true ? "primary" : "secondary")" href="@($"/sql/{_lesson.Id + 1}")">Nächste Aufgabe →</a> } else { <a class="button primary" href="/lernplan">Deine Wiederholung planen →</a> }</div>
         </div>
         <aside class="inspector" id="datenbasis" aria-label="Tabellen und Erkenntnisse"><div class="inspector-tabs"><button class="@(!_showFindings ? "chosen" : "")" aria-pressed="@(!_showFindings ? "true" : "false")" @onclick="() => _showFindings = false">Tabellen &amp; Spalten</button><button class="@(_showFindings ? "chosen" : "")" aria-pressed="@(_showFindings ? "true" : "false")" @onclick="() => _showFindings = true">Fallnotizen</button></div>
             @if (!_showFindings) { <SchemaPanel /> } else { <CaseNotes Lessons="Catalog.Lessons" Progress="_progress.Lessons" /> }

@@ -1,0 +1,37 @@
+@page "/algorithmen/spickzettel"
+<PageTitle>Pseudocode-Spickzettel · AP2 Lernwerk</PageTitle>
+<main class="page reading-page">
+    <div class="eyebrow">ABLAUF VERSTEHEN · SCHRITT FÜR SCHRITT</div><h1>Dein Pseudocode-Spickzettel.</h1>
+    <p class="lead">Die Schreibweise unseres Trainers: deutsch, überschaubar und ausführbar. Pseudocode hat keine universell verbindliche Syntax. Die folgenden Konventionen ermöglichen die automatische Prüfung deiner Lösungen.</p>
+    <a class="button secondary" href="/algorithmen">Zurück zu deiner Aufgabe →</a>
+    <section class="reference-section"><h2>Eingaben, Variablen und Ausgaben</h2><p>Die im Auftrag genannten Eingabevariablen sind bereits vorhanden. Schreibe keine Eingabeaufforderung und ersetze sie nicht durch feste Beispielwerte. Jede Anweisung steht in einer eigenen Zeile. Ein Semikolon kann ebenfalls Anweisungen trennen, ist hier aber nicht erforderlich. Einrückungen helfen beim Lesen; Groß- und Kleinschreibung ist bei Befehlen und Variablennamen egal.</p>
+        <pre><code>rest = kapazitaet - beladen
+AUSGABE rest</code></pre>
+        <p>Für Zuweisungen verwenden wir <code>=</code>, zum Beispiel <code>anzahl = anzahl + 1</code>. Rechts wird zuerst der bisherige Wert verwendet, danach wird das Ergebnis links gespeichert. Zahlen stehen ohne Anführungszeichen, Nachkommastellen mit Punkt: <code>2.5</code>. Texte stehen in einfachen oder doppelten Anführungszeichen. Wahrheitswerte heißen <code>WAHR</code> und <code>FALSCH</code>. Kommentare beginnen mit <code>//</code>.</p>
+    </section>
+    <section class="reference-section"><h2>Entscheidungen und Vergleiche</h2><pre><code>WENN gewicht &lt;= frei DANN
+    AUSGABE "passt"
+SONST
+    AUSGABE "zu schwer"
+ENDE WENN</code></pre><p>SONST ist optional. Verschachtelte WENN-Blöcke brauchen jeweils ihr eigenes ENDE WENN. Für einen Gleichheitsvergleich verwenden wir <code>==</code>, zum Beispiel <code>WENN anzahl == 0 DANN</code>. Damit ist der Vergleich von der Zuweisung mit <code>=</code> gut zu unterscheiden. Weitere Vergleiche sind <code>!=</code> oder <code>&lt;&gt;</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code> und <code>&gt;=</code>. Ein einzelnes <code>=</code> in einer Bedingung wird ebenfalls als Vergleich akzeptiert.</p><p><code>NICHT</code> kehrt eine Bedingung um. <code>UND</code> verlangt beide Bedingungen, <code>ODER</code> mindestens eine. Vergleiche werden vor UND und UND vor ODER ausgewertet. Setze Klammern, um den Zusammenhang deutlich zu machen. Beispiel: <code>NICHT erledigt UND (express ODER minuten &lt;= 30)</code>. UND und ODER prüfen den rechten Teil nur, wenn er für das Ergebnis noch benötigt wird.</p></section>
+    <section class="reference-section"><h2>Rechnen</h2><p><code>+</code>, <code>-</code>, <code>*</code> und <code>/</code> rechnen mit Zahlen. Punktrechnung geht vor Strichrechnung. <code>DIV</code> liefert den zur 0 hin abgeschnittenen Quotienten, <code>MOD</code> beziehungsweise <code>%</code> den Divisionsrest. Beispiel: <code>7 DIV 2</code> ergibt 3, <code>7 MOD 2</code> ergibt 1. Teilen durch 0 wird mit einem Hinweis abgebrochen.</p></section>
+    <section class="reference-section"><h2>Zählschleife</h2><pre><code>gesamt = 0
+FÜR i VON 1 BIS anzahl
+    gesamt = gesamt + einzelgewicht
+ENDE FÜR
+AUSGABE gesamt</code></pre><p>Start und Ende sind ganze Zahlen und werden beim Eintritt einmal ausgewertet. Beide Grenzen sind eingeschlossen; die Schleife zählt aufwärts um 1. Bei Start &gt; Ende gibt es keinen Durchlauf. Die Steuerung verwendet ihren eigenen Zähler; verändere i im Rumpf nicht. FUER kann statt FÜR geschrieben werden. TUE vor dem Zeilenende ist optional.</p></section>
+    <section class="reference-section"><h2>Bedingte Schleife</h2><pre><code>rest = 90
+SOLANGE rest &gt;= 30
+    rest = rest - 30
+ENDE SOLANGE
+AUSGABE rest</code></pre><p>Die Bedingung wird vor jedem Durchlauf geprüft. Ändere im Rumpf etwas, das die Bedingung später falsch werden lässt. Auch 0 Durchläufe sind möglich. Die App hält Abläufe nach höchstens 10.000 Rechenschritten an; ein Rechenschritt ist nicht dasselbe wie eine sichtbare Codezeile.</p></section>
+    <section class="reference-section"><h2>Listen durchlaufen</h2><pre><code>anzahl = 0
+FÜR JEDES gewicht IN gewichte
+    WENN gewicht &gt; 50 DANN
+        anzahl = anzahl + 1
+    ENDE WENN
+ENDE FÜR
+AUSGABE anzahl</code></pre><p>Eine Liste kann auch direkt geschrieben werden: <code>werte = [10, 20, 30]</code>. Der erste Index ist 0, also liefert <code>werte[0]</code> die Zahl 10. <code>LÄNGE(werte)</code> beziehungsweise <code>LAENGE(werte)</code> ergibt 3. Der letzte gültige Index ist LÄNGE(werte) - 1. Eine Indexschleife kann daher von 0 bis LÄNGE(werte) - 1 laufen. Im ersten Ausbau können Listeneinträge gelesen, aber nicht einzeln zugewiesen werden.</p></section>
+    <section class="reference-section"><h2>Schreibtischtest und Testfälle</h2><p>Beim Schreibtischtest trägst du die tatsächlichen Ausgaben des gegebenen Codes ein, eine pro Zeile. Keine Anführungszeichen oder zusätzlichen Beschreibungen. Für Testfallaufgaben gilt das im Auftrag genannte Format, zum Beispiel <code>50 =&gt; zulässig</code>. Die App unterscheidet falsche Sollausgaben von fehlenden Eingabegruppen.</p><p>Im geführten Lernen startet „Ablauf untersuchen“ eine Vorschau mit den angezeigten Beispieleingaben. Die erste angezeigte Zeile ist bereits ausgeführt. „Nächster Schritt“ zeigt weitere Zustände, Variablen und Ausgaben. Beim Schreibtischtest ist die Vorschau eine Hilfe und zählt entsprechend nicht als selbstständiger Versuch.</p></section>
+    <section class="reference-section"><h2>Was die Prüfung aussagt</h2><p>Codeaufgaben werden mit mehreren festgelegten Eingaben und erwarteten Ausgaben ausgeführt. Unterschiedliche korrekte Lösungswege sind erlaubt. Eine endliche Testmenge beweist keine allgemeine Korrektheit und ist keine offizielle IHK-Benotung. Allgemeine Beschreibungen in Alltagssprache, Funktionen, Rekursion und frei gewählte Programmiersprachen werden im ersten Ausbau noch nicht ausgeführt.</p></section>
+</main>

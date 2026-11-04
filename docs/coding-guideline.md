@@ -64,6 +64,10 @@ Neue Inhalts- oder Bewertungsänderungen werden mit geeigneten Tests geprüft. E
 
 Keine echten Firmen-, Kunden- oder Personendaten übernehmen. Keine Zugangsdaten versionieren. Keine kostenpflichtige KI-Anbindung ohne gesonderte Entscheidung des Nutzers einbauen.
 
+Algorithmus-Aufgaben liegen getrennt von SQL unter `Core/Algorithms`. Jede benötigt einen eindeutigen Auftrag, drei Hinweise, eine geprüfte Referenz und unabhängig festgelegte Sollausgaben. Freie Lösungen anhand ihrer Ausführung beurteilen, nicht anhand der Übereinstimmung des Codewortlauts. Unterstützte Pseudocode-Syntax und Ausführungsgrenzen in `docs/pseudocode.md` und im App-Spickzettel gemeinsam pflegen. Im Profil eigene Entwürfe und Erfolge führen; keine Pseudocode-Eingaben in SQL-Feldern speichern.
+
+Pseudocode-Beispiele, Hinweise, Reparaturvorgaben und Musterlösungen verwenden bevorzugt `=` für Zuweisungen und `==` für Gleichheitsvergleiche. Die zusätzlich akzeptierten Zuweisungszeichen bleiben für vorhandene Entwürfe erhalten. Das vorgelegte alte Prüfungsbeispiel dient als Orientierung für diese Schreibweise; dessen Aufgabe wird nicht übernommen und seine gesamte Syntax ist damit nicht automatisch Bestandteil des Interpreters.
+
 ## Ordner und Namespaces
 
 Fachlogik wird nach Lernmodul gruppiert, derzeit unter Core/Sql. Ermittlung, Werkstatt, Validierung, Ergebnisse, Datenbankzugriff und Inhalte erhalten dort eigene Ordner. Allgemeine Webdienste liegen unter Configuration, Learning, Networking und Updates; SQL-spezifische Webdienste unter Sql. Namespaces folgen dem Ordnerpfad. Öffentliche Typen erhalten eigene Dateien; zusammengehörige Teile einer partial class bleiben im selben Ordner. Program.cs bleibt als Einstieg im Web-Projektroot. Neue Lernmodule nicht in den SQL-Bereich einordnen. Die konkrete Struktur steht in entwicklung.md.

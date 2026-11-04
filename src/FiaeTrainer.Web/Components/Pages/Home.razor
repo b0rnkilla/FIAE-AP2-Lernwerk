@@ -1,6 +1,7 @@
 @page "/"
 @inject LessonCatalog Catalog
 @inject WorkshopCatalog WorkshopCatalog
+@inject AlgorithmCatalog AlgorithmCatalog
 @inject ProgressStore Store
 @inject DatabaseState Database
 <PageTitle>Dein Lernraum · AP2 Lernwerk</PageTitle>
@@ -45,7 +46,7 @@
 
     <div class="section-heading" id="themen">
         <div><div class="eyebrow">DEIN THEMENKOMPASS</div><h2>Was möchtest du heute üben?</h2></div>
-        <span>1 Themenbereich bereit · weitere im Aufbau</span>
+        <span>2 Themenbereiche bereit · weitere im Aufbau</span>
     </div>
 
     <section class="module-grid learning-modules" aria-label="Lernbereiche der FIAE-AP2">
@@ -53,12 +54,19 @@
             <span class="module-number">01</span><span class="badge">Bereit zum Lernen</span>
             <h3>SQL &amp; Datenbanken</h3>
             <p>Eine geführte Ermittlung und eine Werkstatt für eigene SQL-Skripte. Von SELECT bis zu Tabellenregeln und Transaktionen.</p>
-            <div class="module-progress">@_sqlCompleted / @TotalExercises Übungen gelöst</div>
+            <div class="module-progress">@_sqlCompleted / @(Catalog.Lessons.Count + WorkshopCatalog.Lessons.Count) Übungen gelöst</div>
             <div class="module-actions">
                 <a class="button primary" href="@($"/sql/{_progress.LastLessonId}")">@(InvestigationStarted ? "Weiter ermitteln" : "Ermittlung starten") →</a>
                 <a class="button secondary" href="@($"/sql-werkstatt/{_progress.LastWorkshopLessonId}")">Daten ändern →</a>
             </div>
             <small>Fallakte Nachtzug · @Catalog.Lessons.Count Aufgaben · @WorkshopCatalog.Lessons.Count Werkstattaufgaben</small>
+        </article>
+        <article class="module-card ready">
+            <span class="module-number">02</span><span class="badge">Bereit zum Lernen</span>
+            <h3>Pseudocode &amp; Algorithmen</h3><p>Bring die Leitstelle wieder in den Plan. Eigene Abläufe schreiben, Fehler finden und Entscheidungen Schritt für Schritt nachvollziehen.</p>
+            <div class="module-progress">@_progress.AlgorithmLessons.Values.Count(x => x.Completed) / @AlgorithmCatalog.Lessons.Count Übungen gelöst</div>
+            <div class="module-actions"><a class="button primary" href="@($"/algorithmen/{_progress.LastAlgorithmLessonId}")">@(_progress.AlgorithmLessons.Values.Any(x => x.Completed || x.Attempts > 0 || !string.IsNullOrWhiteSpace(x.Draft)) ? "Weiter lernen" : "Leitstelle übernehmen") →</a></div>
+            <small>Leitstelle im Ausnahmezustand · @AlgorithmCatalog.Lessons.Count Aufgaben</small>
         </article>
         @foreach (var module in _modules)
         {
@@ -83,7 +91,7 @@
     private TrainingProgress _progress = new();
     /// <summary> Abschlüsse aller aktuell verfügbaren Lernwege. </summary>
     private int _completed;
-    /// <summary> Ohne Hilfen gelöste Übungen über beide SQL-Lernwege. </summary>
+    /// <summary> Ohne Hilfen gelöste Übungen über alle verfügbaren Lernwege. </summary>
     private int _independent;
     /// <summary> Ein leerer, nur beim Seitenaufruf angelegter Eintrag zählt noch nicht als begonnene Ermittlung. </summary>
     private bool InvestigationStarted => _progress.LastLessonId > 1 || _progress.Lessons.Values.Any(x => x.Completed || x.Attempts > 0 || x.HintLevel > 0 || x.SolutionViewed || !string.IsNullOrWhiteSpace(x.Sql));
@@ -95,7 +103,6 @@
     private string? _storageError;
     /// <summary> Geplante Themenbereiche der allgemeinen FIAE-AP2-App. </summary>
     private readonly (string Number, string Title, string Description)[] _modules = [
-        ("02", "Pseudocode & Algorithmen", "Abläufe verstehen, Fehler aufspüren und eigene Lösungen formulieren."),
         ("03", "UML & Modellierung", "Diagramme lesen, Fehler finden und eigene Modelle entwerfen."),
         ("04", "Datenbankentwurf", "Schlüssel, Kardinalitäten und Normalisierung an greifbaren Beispielen."),
         ("05", "Softwareplanung & OOP", "Anforderungen in verständliche Klassen, Schnittstellen und Entwürfe übersetzen."),
@@ -104,7 +111,7 @@
         ("08", "Wirtschafts- & Sozialkunde", "Prüfungsnahe Fragen beantworten und Zusammenhänge verstehen.")];
 
     /// <summary> Anzahl der tatsächlich implementierten Übungen. </summary>
-    private int TotalExercises => Catalog.Lessons.Count + WorkshopCatalog.Lessons.Count;
+    private int TotalExercises => Catalog.Lessons.Count + WorkshopCatalog.Lessons.Count + AlgorithmCatalog.Lessons.Count;
 
     protected override async Task OnInitializedAsync()
     {
@@ -112,8 +119,8 @@
         {
             _progress = await Store.LoadAsync();
             _sqlCompleted = _progress.Lessons.Values.Count(x => x.Completed) + _progress.WorkshopLessons.Values.Count(x => x.Completed);
-            _completed = _sqlCompleted;
-            _independent = _progress.Lessons.Values.Count(x => x.Independent) + _progress.WorkshopLessons.Values.Count(x => x.Independent);
+            _completed = _sqlCompleted + _progress.AlgorithmLessons.Values.Count(x => x.Completed);
+            _independent = _progress.Lessons.Values.Count(x => x.Independent) + _progress.WorkshopLessons.Values.Count(x => x.Independent) + _progress.AlgorithmLessons.Values.Count(x => x.Independent);
         }
         catch (Exception exception) when (exception is IOException or System.Text.Json.JsonException or UnauthorizedAccessException)
         {

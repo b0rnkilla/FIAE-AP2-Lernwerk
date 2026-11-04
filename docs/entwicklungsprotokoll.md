@@ -231,6 +231,22 @@
 * Dokumentation und Projektvorgaben nachgeführt. Normalen Lernstand und normale App nicht für Tests verwendet; QA beendet. Kein Commit, Push, GitHub-Release oder Sichtbarkeitswechsel ausgeführt. Eine Live-Updateprüfung benötigt anschließend eine öffentlich verfügbare höhere Version als die laufende Alpha.
 
 ---
+## 03.11.2026 – Aufgabenliste stehen lassen und geführte Hilfen verbessern
+
+* Entwicklungsfassung 0.1.1-alpha.4: Bei weiteren Aufgabenwechseln nur noch den Hauptinhalt als Ladezustand austauschen. TaskRail und sein scrollender Navigationsknoten bleiben in Ermittlung und Werkstatt bestehen; die Liste springt dadurch nicht an den Anfang.
+* Im geführten Hilfebereich beider SQL-Lernwege eine Spickzettel-Karte mit direktem Link in einen neuen Tab ergänzt. Der aktuelle Entwurf bleibt erhalten. Musterlösung als abgerundete Schaltfläche mit Symbol und Zustand gestaltet; Auf-/Zuklappen verändert nicht die gespeicherte Hilfenutzung. Anzeige und Unterstützung getrennt gehalten, ohne das Profilformat zu erweitern.
+* Build ohne Warnungen oder Fehler, 230 .NET-Fälle einschließlich echter SQL-Integration und 13 JavaScript-Fälle erfolgreich. Tatsächliche Klicks auf gescrollte Listen in beiden Lernwegen, neuen Spickzettel-Tab, erhaltenen Testentwurf, Klappfunktion und Hilfenkennzeichnung geprüft. Helle/dunkle und schmale Ansicht ohne horizontalen Überlauf erprobt; Details im Testprotokoll.
+* README, Projektsteckbrief, Lernkonzept, Entwickleranleitung, Verbesserungsplan und Release-Anleitung nachgeführt. Eigene QA-Profile verwendet und Testserver/-tabs beendet. Kein neues Paket, Commit oder Push; Windows-ZIP 0.1.1-alpha.3 bleibt unverändert.
+
+---
+## 03.11.2026 – Hilfen als einheitliche Zeilen und Spickzettel im selben Tab
+
+* Nutzerkorrektur innerhalb der noch laufenden Entwicklungsfassung 0.1.1-alpha.4 umgesetzt: Denkanstoß, Spickzettel und Musterlösung verwenden in beiden SQL-Lernwegen dieselbe Anordnung mit Titel/Beschreibung links und Aktion rechts. Gesonderte Karten und Symbole samt ungenutzten CSS-Regeln entfernt.
+* Spickzettel öffnet auf Wunsch im selben Tab statt in einem neuen. Entwürfe bleiben durch die vorhandene Speicherung bei Rückkehr erhalten. Die Musterlösung zeigt links „Musterlösung“ und rechts „Ansehen“ beziehungsweise „Ausblenden“. Hilfenkennzeichnung unverändert.
+* Release-Build erfolgreich. Eigene Browserprofile: Navigation und Rückkehr mit erhaltenen Entwürfen in beiden Lernwegen, drei nacheinander geöffnete Hinweise, Ansehen/Ausblenden sowie helle/dunkle und schmale Darstellung geprüft. Keine erneute Ausführung der unveränderten Fachtests; deren vorheriger vollständiger Stand bleibt im Testprotokoll erhalten.
+* README und aktuelle Fachdokumente angepasst. Vorherige neue-Tab-Ausführung bleibt im Protokoll als überholter Zwischenschritt dokumentiert. Kein neues Paket, Commit oder Push.
+
+---
 ## Geplant
 
 
@@ -258,3 +274,26 @@
 * Zwei Prüfdatenbestände verbessern die Bewertung, beweisen aber nicht die Gleichwertigkeit beliebiger SQL-Abfragen.
 * Lernstand ist ein lokales Einzelbenutzerprofil. Die Erfolgsanzeige ist keine Bestehensprognose.
 * Vollständige Visual-Studio-Unterstützung für .NET 10 setzt Visual Studio 2026 voraus.
+
+### 03.11.2026 – Erster Pseudocode-Lernweg und kontextbezogene Navigation
+
+* Den freigegebenen ersten Ausbau „Leitstelle im Ausnahmezustand“ mit acht Aufgaben umgesetzt: drei freie Codeaufgaben, zwei Reparaturen, zwei Schreibtischtests und eine Aufgabe zum Entwerfen eigener Testfälle. Eigene deutsche Story, eindeutige Aufträge, je drei Hinweise, Referenzen, Erklärungen und chronologischer Einsatzbericht mit offenen Zwischenstücken.
+* Core/Algorithms in Content, Syntax, Execution und Evaluation gegliedert. Eine begrenzte deutsche Pseudocode-Grammatik wird lokal in C# geparst und interpretiert; weder KI-Dienst noch SQL-Verbindung erforderlich. Mehrere Eingaben und unabhängig hinterlegte Sollausgaben prüfen das Verhalten. Alternative Listenschleifen und Indexschleifen sind möglich; keine textuelle Gleichheit mit der Musterlösung erforderlich.
+* Geführtes Lernen um eine schrittweise Ablaufansicht mit markierter Zeile, Variablen und bisherigen Ausgaben ergänzt. Eingabeänderungen verwerfen alte Bewertungen und Spuren. Ausführungs-, Ausdrucks-, Listen-, Ausgabe- und Spurgrenzen fangen übergroße Abläufe und Endlosschleifen kontrolliert ab.
+* Eigene AlgorithmProgress-Einträge und LastAlgorithmLessonId ergänzt. Ältere SQL-Profile behalten ihre Entwürfe und Erfolge. Neue Aufgaben beginnen ohne Hilfe, Modi werden je Aufgabe gespeichert. Ein unveränderter Reparaturcode benötigt beim Wechsel zurück keine Löschbestätigung; ein geänderter Entwurf bleibt geschützt.
+* Kopfnavigation auf Übersicht, Lernplan, fachliche Links umgestellt. Der fachliche Kontext wechselt bei SQL-/Algorithmus-Seiten und bleibt innerhalb der Browsersitzung auf allgemeinen Seiten erhalten. Auf Algorithmus-Seiten stehen Training und Pseudocode-Spickzettel, auf SQL-Seiten Ermittlung, Werkstatt und SQL-Spickzettel.
+* Übersicht und Lernplan auf insgesamt 48 Übungen erweitert. Neue, begonnene und mit Unterstützung gelöste Aufgaben beider Themen werden gemeinsam korrekt zugeordnet. Der Pseudocode-Spickzettel öffnet im selben Tab und erhält den gespeicherten Entwurf bei Rückkehr.
+* README, Projektsteckbrief, Lernkonzept, Entwickleranleitung, Coding Guideline, Verbesserungsliste, lokale Releasehinweise und AGENTS aktualisiert; docs/pseudocode.md beschreibt Syntax, Grenzen und spätere Ausbauschritte. Funktionen, weitere Listenaufgaben, Suche und Sortierung bleiben geplant.
+* Release-Build ohne Warnungen/Fehler; abschließend 274 .NET-Prüfungen einschließlich echter SQL-Integration erfolgreich, keine übersprungen. 13 Node-Prüfungen ebenfalls erfolgreich. Alle acht Aufgaben im eigenen Browserprofil gelöst, Hilfen/Ablaufansicht/Moduswechsel und Modultausch erprobt. Zusätzlicher eigener Server mit unerreichbarer SQL-Verbindung bestätigt die unabhängige Pseudocode-Nutzung. Details im Testprotokoll.
+* Quellversion bleibt 0.1.1-alpha.4. Kein neues EXE-/ZIP-Paket erzeugt; SHA256 des bestehenden Alpha-3-ZIP unverändert. Keine Veröffentlichung, kein Commit oder Push.
+
+Nachtrag zum Pseudocode-Ausbau: Die Rückmeldung bei fehlendem Zeilenumbruch nennt jetzt direkt die notwendige eigene Zeile beziehungsweise ein trennendes Semikolon. Parser und Ausführungszustand sind zusätzlich mit Regions und Zustandskommentaren gegliedert. Anschließender Build und alle 44 gezielten Algorithmusprüfungen erfolgreich; die eigenen Browser-Prüfserver sind beendet.
+
+### 04.11.2026 – Zuweisungen mit Gleichheitszeichen und Vorbereitung Alpha 4
+
+* Den Zusatz „ohne SQL-Verbindung nutzbar“ von der Pseudocode-Themenkarte entfernt; dort stehen nur Geschichte und Aufgabenzahl.
+* Pseudocode-Beispiele, Reparaturvorgaben, Hinweise, Musterlösungen und den Syntaxfehlerhinweis auf = als bevorzugte Zuweisung umgestellt. Der Spickzettel erklärt == als bevorzugten Gleichheitsvergleich. Bisherige Entwürfe mit ←, <- oder := bleiben gültig und werden nicht umgeschrieben. Das bereitgestellte IHK-Beispiel dient nur der Schreibweisenorientierung; keine neue Funktionalität aus der fremden Prüfungsaufgabe übernommen.
+* README, Projektsteckbrief, Lernkonzept, Pseudocode-Dokumentation, Coding Guideline und Verbesserungsplan angepasst. Anleitung und Versionshinweise für Alpha 4 liegen zur gemeinsamen Versionierung bereit. Das neue Windows-ZIP ist auf Nutzerwunsch erst nach dessen Commit und Push zu erstellen.
+* Release-Build am 03.11.2026 ohne Warnungen/Fehler abgeschlossen. Die anschließenden Tests und der Browserprüfserver konnten wegen des erreichten Nutzungslimits zunächst nicht automatisch freigegeben werden; dabei wurden keine Prüfungen ausgeführt. Nach Nutzerfreigabe zur Wiederholung am 04.11.2026 alle 45 gezielten Algorithmus-/Profil-/Lernplanprüfungen erfolgreich, keine übersprungen. Sie prüfen auch die acht umgestellten Referenzen und die Trennung von Zuweisung und Gleichheitsvergleich.
+* Browserprüfung auf Port 5085 mit eigenem Profil und absichtlich unerreichbarer SQL-Verbindung: Themenkarte ohne Zusatz, Spickzettel mit =, erste Aufgabe mit = korrekt gelöst. Normalen SQL-Dienst und Nutzerlernstand nicht verändert. Eigener Prüfserver und Prüf-Tab anschließend geschlossen.
+* Version bleibt 0.1.1-alpha.4. Kein neues ZIP/EXE-Paket, kein Commit oder Push ausgeführt. Vorhandenes Alpha-3-Paket bleibt unverändert.

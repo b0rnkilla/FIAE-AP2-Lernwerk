@@ -1,17 +1,19 @@
 # AP2 Lernwerk
 
-Eine deutschsprachige Lernapp für die FIAE-Abschlussprüfung Teil 2. Du schreibst eigene Lösungen und erhältst direkte Rückmeldung. Der erste verfügbare Themenbereich ist **SQL & Datenbanken**; weitere AP2-Themen folgen.
+Eine deutschsprachige Lernapp für die FIAE-Abschlussprüfung Teil 2. Du schreibst eigene Lösungen und erhältst direkte Rückmeldung. Neben **SQL & Datenbanken** entsteht der zweite Lernbereich **Pseudocode & Algorithmen**.
 
-**Alpha-Version: 0.1.1-alpha.3.** Die Anwendung läuft lokal und wird im Browser bedient. Das Windows-Paket wird über die GitHub-Releases bereitgestellt.
+**Windows-Alpha: 0.1.1-alpha.3 · in Entwicklung: 0.1.1-alpha.4.** Die Anwendung läuft lokal und wird im Browser bedient. Das Windows-Paket wird über die GitHub-Releases bereitgestellt.
 
 ## Das kannst du bereits lernen
 
 - **Fallakte Nachtzug:** 30 aufeinander aufbauende SQL-Aufgaben mit einer eigenen Ermittlungsgeschichte – von SELECT und Filtern über JOINs und GROUP BY bis zu Unterabfragen.
 - **SQL-Werkstatt:** zehn Aufgaben zu Datenänderungen, Tabellen, einfachen Constraints und Transaktionen.
-- **Zwei Lernmodi:** selbstständig lösen oder mit Erklärungen, freiwilligen Tipps und Musterlösungen lernen.
+- **Zwei Lernmodi:** selbstständig lösen oder mit Erklärungen, freiwilligen Tipps und Musterlösungen lernen. Im geführten Hilfebereich kannst du auch direkt im SQL-Spickzettel nachschlagen.
 - **Lernplan und Spickzettel:** offene Aufgaben fortsetzen und bereits gelöste Aufgaben wiederholen.
 
-Lösungen werden auf Microsoft SQL Server ausgeführt und mit zwei Datenbeständen geprüft. Die App ist noch keine vollständige AP2-Vorbereitung und enthält keine Originalprüfungsaufgaben. Pseudocode, UML und weitere Bereiche sind bisher Platzhalter.
+SQL-Lösungen werden auf Microsoft SQL Server ausgeführt und mit zwei Datenbeständen geprüft. Die App ist noch keine vollständige AP2-Vorbereitung und enthält keine Originalprüfungsaufgaben.
+
+Die Entwicklungsfassung **0.1.1-alpha.4** ergänzt **acht Pseudocode-Aufgaben** in der Geschichte „Leitstelle im Ausnahmezustand“: eigene Abläufe, Fehlersuche, Schreibtischtests und Testfälle. Ein lokaler Interpreter bewertet Lösungen und zeigt im geführten Modus die Ausführung Schritt für Schritt. Beispiele verwenden `=` für Zuweisungen. Dafür ist keine SQL-Verbindung nötig. Übersicht und Lernplan fassen beide Themen zusammen; die weiteren Navigationspunkte wechseln mit dem Lernbereich. **Diese Ergänzungen sind noch nicht im Windows-Paket 0.1.1-alpha.3 enthalten.** UML und weitere Bereiche bleiben in Vorbereitung.
 
 ## Voraussetzungen
 
@@ -42,6 +44,7 @@ Das GitHub-Repository ist derzeit privat. Die vorbereitete Updateprüfung kann e
 
 - [Entwicklung und Projektstruktur](docs/entwicklung.md) – Orientierung im Code, Debuggen und Tests.
 - [Lernkonzept](docs/lernkonzept.md) – Lernmodi, Bewertung und technische Grenzen.
+- [Pseudocode und Algorithmen](docs/pseudocode.md) – erster Lernweg und unterstützte Schreibweise.
 - [Lokale Windows-Pakete](docs/lokale-releases.md) – Voraussetzungen, Profil und Versionswechsel.
 - [Projektsteckbrief](docs/projektsteckbrief.md) und [weitere Entwicklung](docs/verbesserungsplan.md).
 - [Entwicklungsprotokoll](docs/entwicklungsprotokoll.md) und [Testprotokoll](docs/testprotokoll.md).

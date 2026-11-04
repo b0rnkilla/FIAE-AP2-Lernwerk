@@ -1,0 +1,145 @@
+[
+  {
+    "id": 1, "chapter": "01 · Wieder handlungsfähig", "title": "Was passt noch hinein?", "kind": "Write",
+    "story": "Es ist 05:40 Uhr in der Leitstelle. Nach einem fehlerhaften Softwareupdate sind die Berechnungen der Einsatzplanung unzuverlässig. Gemeinsam mit Entwicklerin Nora Seidel stellst du die Abläufe Schritt für Schritt wieder her. Zuerst braucht die Disposition eine verlässliche Restkapazität für jedes Fahrzeug.",
+    "previousContext": "",
+    "task": "Die Zahlen kapazitaet und beladen sind bereits als Eingaben vorhanden. Berechne die verbleibende Kapazität und gib ausschließlich diese Zahl mit AUSGABE aus. Du darfst annehmen: 0 ≤ beladen ≤ kapazitaet. Beispiel: kapazitaet = 1000, beladen = 350 ergibt 650. Schreibe einen eigenen Ablauf; Eingaben nicht durch feste Zahlen ersetzen.",
+    "exampleInputs": { "kapazitaet": 1000, "beladen": 350 },
+    "briefing": "Eingabevariablen enthalten schon die Werte des jeweiligen Testfalls. Mit = weist du einer neuen Variablen einen berechneten Wert zu. AUSGABE macht das Ergebnis sichtbar. Du kannst die Berechnung auch direkt ausgeben.",
+    "hints": ["Welche Rechenoperation bestimmt, wie viel nach dem Beladen noch frei ist?", "Ziehe beladen von kapazitaet ab. Die Reihenfolge ist entscheidend.", "Du kannst mit rest = kapazitaet - beladen beginnen und danach rest ausgeben."],
+    "referenceCode": "rest = kapazitaet - beladen\nAUSGABE rest", "referenceAnswer": "",
+    "explanation": "Die Restkapazität ist Gesamtkapazität minus vorhandene Ladung. Die Namen beziehen sich auf wechselnde Eingaben. Deshalb funktioniert der Ablauf auch bei einem ganz leeren oder vollständig beladenen Fahrzeug.",
+    "discovery": "Der erste Baustein der Einsatzplanung liefert die freie Kapazität wieder korrekt, auch bei leeren und vollen Fahrzeugen.",
+    "tests": [
+      { "name": "Teilweise beladen", "inputs": { "kapazitaet": 1000, "beladen": 350 }, "output": ["650"] },
+      { "name": "Noch leer", "inputs": { "kapazitaet": 800, "beladen": 0 }, "output": ["800"] },
+      { "name": "Ganz voll", "inputs": { "kapazitaet": 500, "beladen": 500 }, "output": ["0"] },
+      { "name": "Andere Kapazität", "inputs": { "kapazitaet": 1240, "beladen": 1239 }, "output": ["1"] }
+    ]
+  },
+  {
+    "id": 2, "chapter": "01 · Wieder handlungsfähig", "title": "Ein Wert verändert sich", "kind": "Trace",
+    "story": "Im nächsten Baustein wird ein Auftrag nach dem anderen eingeplant. Nora hat einen kurzen Ablauf aus dem Update isoliert. Bevor ihr ihn weiterverwendet, möchtest du nachvollziehen, wann sich die freie Kapazität verändert und welcher Wert tatsächlich ausgegeben wird.",
+    "previousContext": "Deine Restkapazitätsberechnung aus Aufgabe 1 ist geprüft. Jetzt untersuchst du, wie die Planung diese freie Kapazität schrittweise vermindert.",
+    "task": "Führe den vorgegebenen Ablauf gedanklich aus. Welche drei Ausgaben entstehen in welcher Reihenfolge? Trage ausschließlich die drei Zahlen ein, je eine Zahl pro Zeile. Eine Zuweisung wie frei = frei - 250 verwendet rechts den bisherigen Wert und ersetzt ihn danach links.",
+    "givenCode": "frei = 900\nfrei = frei - 250\nAUSGABE frei\nfrei = frei - 300\nAUSGABE frei\nfrei = frei + 50\nAUSGABE frei",
+    "exampleInputs": {},
+    "briefing": "Bei einem Schreibtischtest verfolgst du die Werte Zeile für Zeile. Eine AUSGABE verändert die Variable nicht. Im geführten Modus kannst du den Ablauf starten und mit „Nächster Schritt“ jeden Zustand betrachten.",
+    "hints": ["Schreibe den aktuellen Wert von frei nach jeder Zuweisung auf.", "Nach der ersten Subtraktion ist frei gleich 650. Danach wird mit diesem neuen Wert weitergerechnet.", "Die zweite Ausgabe ist 350. Anschließend kommen 50 hinzu."],
+    "referenceCode": "frei = 900\nfrei = frei - 250\nAUSGABE frei\nfrei = frei - 300\nAUSGABE frei\nfrei = frei + 50\nAUSGABE frei", "referenceAnswer": "650\n350\n400",
+    "explanation": "900 - 250 ergibt 650. Von diesen 650 werden 300 abgezogen: 350. Durch die anschließende Korrektur um +50 entstehen 400. AUSGABE zeigt immer den zu diesem Zeitpunkt aktuellen Wert.",
+    "discovery": "Die Reihenfolge der Zuweisungen ist nachvollzogen: Spätere Berechnungen arbeiten mit dem zuletzt gespeicherten Wert.",
+    "tests": [{ "name": "Drei Ausgaben", "inputs": {}, "output": ["650", "350", "400"] }]
+  },
+  {
+    "id": 3, "chapter": "02 · Entscheidungen absichern", "title": "Die letzte freie Einheit", "kind": "Repair",
+    "story": "Die Werte sind nachvollziehbar, doch die Disposition meldet einen merkwürdigen Fehler: Ein Auftrag wird abgelehnt, obwohl er genau in die freie Kapazität passen würde. Du bekommst den betroffenen Entscheidungsschritt zur Reparatur.",
+    "previousContext": "Du hast in Aufgabe 2 die Veränderungen der freien Kapazität verfolgt. Nun prüfst du, wie diese Zahl über die Annahme eines Auftrags entscheidet.",
+    "task": "Repariere den vorgegebenen Ablauf. Die Eingaben frei und gewicht sind nichtnegative Zahlen. Wenn der Auftrag vollständig hineinpasst, auch bei exakt gleicher Kapazität, gib passt aus. Andernfalls gib zu schwer aus. Bearbeite den Code im Editor; die Texte müssen genau so geschrieben sein.",
+    "givenCode": "WENN gewicht < frei DANN\n    AUSGABE \"passt\"\nSONST\n    AUSGABE \"zu schwer\"\nENDE WENN",
+    "exampleInputs": { "frei": 500, "gewicht": 500 },
+    "briefing": "Ein Vergleich ergibt WAHR oder FALSCH. WENN wählt genau einen Zweig. < schließt Gleichheit aus; ≤ wird im Editor als <= geschrieben. Solche Grenzfälle sind besonders geeignet, um einen fast richtigen Ablauf zu prüfen.",
+    "hints": ["Untersuche den Fall gewicht == frei.", "Der Auftrag passt auch dann, wenn danach genau 0 Kapazität übrig bleibt.", "Ersetze den strengen Vergleich < durch <=."],
+    "referenceCode": "WENN gewicht <= frei DANN\n    AUSGABE \"passt\"\nSONST\n    AUSGABE \"zu schwer\"\nENDE WENN", "referenceAnswer": "",
+    "explanation": "Die erlaubten Gewichte reichen bis einschließlich frei. <= berücksichtigt die Gleichheit. Ein Gewicht oberhalb der Grenze landet im SONST-Zweig.",
+    "discovery": "Die Annahmeprüfung berücksichtigt jetzt auch Aufträge, die die freie Kapazität exakt ausnutzen.",
+    "tests": [
+      { "name": "Exakt passend", "inputs": { "frei": 500, "gewicht": 500 }, "output": ["passt"] },
+      { "name": "Etwas leichter", "inputs": { "frei": 500, "gewicht": 499 }, "output": ["passt"] },
+      { "name": "Zu schwer", "inputs": { "frei": 500, "gewicht": 501 }, "output": ["zu schwer"] },
+      { "name": "Keine Kapazität, kein Gewicht", "inputs": { "frei": 0, "gewicht": 0 }, "output": ["passt"] }
+    ]
+  },
+  {
+    "id": 4, "chapter": "02 · Entscheidungen absichern", "title": "Wer muss zuerst los?", "kind": "Write",
+    "story": "Als Nächstes braucht die Leitstelle eine eindeutige Priorität für jeden Auftrag. Ein Expressauftrag ist dringend. Das gilt auch für Aufträge mit höchstens 30 Minuten Restzeit. Ein bereits erledigter Auftrag darf unabhängig davon nicht erneut eingeplant werden.",
+    "previousContext": "Die Kapazitätsentscheidung aus Aufgabe 3 ist abgesichert. Jetzt ergänzt du davor die Entscheidung, welche noch offenen Aufträge Vorrang bekommen.",
+    "task": "Die Eingaben erledigt und express sind Wahrheitswerte, minuten ist eine nichtnegative ganze Zahl. Gib erledigt aus, wenn erledigt == WAHR ist. Sonst gib dringend aus, wenn express == WAHR ODER minuten <= 30 gilt. Für alle übrigen Fälle gib normal aus. Pro Auftrag darf genau eine Ausgabe entstehen.",
+    "exampleInputs": { "erledigt": false, "express": false, "minuten": 30 },
+    "briefing": "Prüfe zuerst den Ausschlussfall erledigt. Im SONST-Zweig kannst du mit einer weiteren WENN-Anweisung zwischen dringend und normal unterscheiden. UND verlangt beide Bedingungen, ODER mindestens eine. NICHT kehrt einen Wahrheitswert um.",
+    "hints": ["Ein erledigter Expressauftrag muss erledigt bleiben. Welche Prüfung hat daher Vorrang?", "Verwende außen WENN erledigt DANN … SONST … ENDE WENN.", "Im SONST-Zweig lautet die Dringlichkeitsbedingung express ODER minuten <= 30."],
+    "referenceCode": "WENN erledigt DANN\n    AUSGABE \"erledigt\"\nSONST\n    WENN express ODER minuten <= 30 DANN\n        AUSGABE \"dringend\"\n    SONST\n        AUSGABE \"normal\"\n    ENDE WENN\nENDE WENN", "referenceAnswer": "",
+    "explanation": "Der äußere Zweig verhindert eine erneute Planung erledigter Aufträge. Erst bei offenen Aufträgen entscheidet ODER über die Dringlichkeit. Genau 30 Minuten gehören ausdrücklich zum dringenden Bereich.",
+    "discovery": "Die Priorisierung trennt erledigte, dringende und normale Aufträge. Express und kurze Restzeit sind alternative Gründe für Dringlichkeit.",
+    "tests": [
+      { "name": "Erledigt trotz Express", "inputs": { "erledigt": true, "express": true, "minuten": 0 }, "output": ["erledigt"] },
+      { "name": "Erledigt ohne Express", "inputs": { "erledigt": true, "express": false, "minuten": 90 }, "output": ["erledigt"] },
+      { "name": "Grenze 30 Minuten", "inputs": { "erledigt": false, "express": false, "minuten": 30 }, "output": ["dringend"] },
+      { "name": "Express mit viel Zeit", "inputs": { "erledigt": false, "express": true, "minuten": 120 }, "output": ["dringend"] },
+      { "name": "Normaler Auftrag", "inputs": { "erledigt": false, "express": false, "minuten": 31 }, "output": ["normal"] },
+      { "name": "Keine Restzeit", "inputs": { "erledigt": false, "express": false, "minuten": 0 }, "output": ["dringend"] }
+    ]
+  },
+  {
+    "id": 5, "chapter": "03 · Mehrere Schritte verarbeiten", "title": "Ein Paket fehlt", "kind": "Repair",
+    "story": "Die nächste Störung steckt im Ladeprotokoll. Beim wiederholten Verarbeiten gleich schwerer Pakete erscheint die Gesamtladung zu klein. Nora vermutet, dass die Wiederholung einen Auftrag überspringt. Du untersuchst den Zähler.",
+    "previousContext": "Du hast in Aufgabe 4 die Prioritäten einzelner Aufträge formuliert. Jetzt geht es darum, einen Verarbeitungsschritt für mehrere Pakete vollständig zu wiederholen.",
+    "task": "Repariere den Ablauf so, dass genau anzahl Pakete mit jeweils einzelgewicht addiert werden. anzahl ist eine nichtnegative ganze Zahl, einzelgewicht ist nichtnegativ. Gib am Ende genau einmal das Gesamtgewicht aus. Auch anzahl = 0 muss funktionieren. FÜR i VON a BIS b schließt beide Grenzen ein und zählt jeweils um 1 hoch; bei a > b läuft der Schleifenrumpf nicht.",
+    "givenCode": "gesamt = 0\nFÜR i VON 1 BIS anzahl - 1\n    gesamt = gesamt + einzelgewicht\nENDE FÜR\nAUSGABE gesamt",
+    "exampleInputs": { "anzahl": 3, "einzelgewicht": 20 },
+    "briefing": "Eine Zählschleife wiederholt ihren Rumpf für jeden Wert zwischen Anfang und Ende einschließlich. Der Akkumulator gesamt beginnt bei 0. Er wird im Rumpf erhöht und erst nach der Schleife ausgegeben.",
+    "hints": ["Wie viele Durchläufe entstehen bei anzahl = 1?", "Die Werte 1 bis anzahl umfassen genau anzahl Zahlen.", "Die Endgrenze sollte anzahl heißen. Der Zusatz - 1 verkürzt die Schleife um ein Paket."],
+    "referenceCode": "gesamt = 0\nFÜR i VON 1 BIS anzahl\n    gesamt = gesamt + einzelgewicht\nENDE FÜR\nAUSGABE gesamt", "referenceAnswer": "",
+    "explanation": "Die inklusive Grenze BIS anzahl sorgt für genau anzahl Durchläufe. Bei 0 ist der Startwert 1 bereits größer als die Endgrenze 0; gesamt bleibt 0. Eine direkte Multiplikation ist für diesen Auftrag ebenfalls eine korrekte Alternative.",
+    "discovery": "Die Gesamtladung berücksichtigt alle Pakete. Der Grenzfall ohne Pakete liefert korrekt 0 statt eines fehlerhaften Schleifendurchlaufs.",
+    "tests": [
+      { "name": "Drei Pakete", "inputs": { "anzahl": 3, "einzelgewicht": 20 }, "output": ["60"] },
+      { "name": "Ein Paket", "inputs": { "anzahl": 1, "einzelgewicht": 15 }, "output": ["15"] },
+      { "name": "Keine Pakete", "inputs": { "anzahl": 0, "einzelgewicht": 40 }, "output": ["0"] },
+      { "name": "Gewicht mit Nachkommastelle", "inputs": { "anzahl": 4, "einzelgewicht": 2.5 }, "output": ["10"] }
+    ]
+  },
+  {
+    "id": 6, "chapter": "03 · Mehrere Schritte verarbeiten", "title": "Wann endet der Ladevorgang?", "kind": "Trace",
+    "story": "Im Ladeprotokoll taucht neben der festen Paketanzahl ein anderer Ablauf auf: Solange Platz vorhanden ist, sollen Pakete eingeladen werden. Der neue Baustein prüft aber eine andere Bedingung. Bevor jemand den Ablauf einsetzt, bestimmst du seine tatsächlichen Ausgaben.",
+    "previousContext": "Die feste Anzahl der Wiederholungen aus Aufgabe 5 ist geklärt. Jetzt vergleichst du damit eine SOLANGE-Schleife, deren Bedingung vor jedem Durchlauf erneut geprüft wird.",
+    "task": "Welche vier Ausgaben erzeugt der vorgegebene Ablauf? Trage je eine Zahl pro Zeile ein. Die letzte AUSGABE steht außerhalb der Schleife. Bewerte hier den tatsächlich geschriebenen Ablauf, auch wenn er für die Ladeplanung ungeeignet ist.",
+    "givenCode": "rest = 70\ngeladen = 0\nSOLANGE rest > 0\n    rest = rest - 30\n    geladen = geladen + 1\n    AUSGABE rest\nENDE SOLANGE\nAUSGABE geladen",
+    "exampleInputs": {},
+    "briefing": "SOLANGE prüft die Bedingung vor dem Schleifenrumpf. Wenn rest noch positiv ist, kann der nächste Abzug trotzdem zu einem negativen Wert führen. Unterscheide sorgfältig zwischen dem Verhalten des Codes und dem gewünschten Fachverhalten.",
+    "hints": ["Beginne mit rest = 70. Nach jedem Durchlauf werden 30 abgezogen.", "Nach zwei Durchläufen ist rest = 10. Die Bedingung rest > 0 ist weiterhin WAHR.", "Ein dritter Durchlauf macht rest negativ. Danach wird geladen außerhalb der Schleife ausgegeben."],
+    "referenceCode": "rest = 70\ngeladen = 0\nSOLANGE rest > 0\n    rest = rest - 30\n    geladen = geladen + 1\n    AUSGABE rest\nENDE SOLANGE\nAUSGABE geladen", "referenceAnswer": "40\n10\n-20\n3",
+    "explanation": "Die Ausgaben lauten 40, 10 und -20. Erst danach wird rest > 0 falsch; geladen ist dann 3. Für eine echte Kapazitätsprüfung müsste bereits vor dem Einladen geprüft werden, ob das nächste Paket vollständig hineinpasst, etwa rest >= 30.",
+    "discovery": "Die Bedingung rest > 0 verhindert keine Überladung. Entscheidend ist, ob das nächste Paket noch vollständig in die verbleibende Kapazität passt.",
+    "tests": [{ "name": "Drei Restwerte und ein Zähler", "inputs": {}, "output": ["40", "10", "-20", "3"] }]
+  },
+  {
+    "id": 7, "chapter": "04 · Prüfen und zusammenführen", "title": "Die Grenze gezielt testen", "kind": "TestCases",
+    "story": "Bevor weitere Ladeentscheidungen freigegeben werden, möchte Nora die Gewichtsprüfung gezielt absichern. Zufällig gewählte Normalwerte reichen nicht aus: Der vorherige Schleifenfehler zeigte, wie wichtig die genaue Grenze ist. Du entwirfst einen kleinen Satz aussagekräftiger Tests.",
+    "previousContext": "Der Schreibtischtest aus Aufgabe 6 hat eine übersehene Kapazitätsgrenze sichtbar gemacht. Jetzt wählst du bewusst Testdaten, die solche Fehler aufdecken können.",
+    "task": "Entwirf mindestens vier Testfälle für folgende Regel: Ein ganzzahliges gewicht < 0 ergibt ungültig, von 0 bis einschließlich 100 ergibt zulässig, oberhalb von 100 ergibt zu schwer. Decke diese vier Gruppen ab: negatives Gewicht, genau 0, genau 100 und ein Gewicht über 100. Schreibe pro Zeile: Zahl => erwartete Ausgabe. Beispiel für das Format: 50 => zulässig. Dieser Normalfall allein deckt noch keine der vier geforderten Gruppen ab.",
+    "exampleInputs": { "gewicht": 50 },
+    "briefing": "Grenzwerttests prüfen die Stellen, an denen sich die Entscheidung ändert. Neben den Grenzen 0 und 100 brauchst du ungültige negative Eingaben und einen Wert oberhalb der Kapazität. Die App prüft jede Sollausgabe und danach die Abdeckung der geforderten Gruppen.",
+    "hints": ["Jede der vier Gruppen braucht mindestens eine passende Eingabe mit korrekter Sollausgabe.", "Die Werte 0 und 100 sind beide zulässig. Negative Werte sind ungültig.", "Ein möglicher Satz verwendet -1, 0, 100 und 101. Ergänze für jeden Wert die Ausgabe."],
+    "referenceCode": "WENN gewicht < 0 DANN\n    AUSGABE \"ungültig\"\nSONST\n    WENN gewicht <= 100 DANN\n        AUSGABE \"zulässig\"\n    SONST\n        AUSGABE \"zu schwer\"\n    ENDE WENN\nENDE WENN", "referenceAnswer": "-1 => ungültig\n0 => zulässig\n100 => zulässig\n101 => zu schwer",
+    "explanation": "Die gewählten Werte prüfen ungültige Eingaben, die untere Grenze, die obere Grenze und den Bereich darüber. Auch andere negative Zahlen oder Gewichte über 100 sind möglich. Für die beiden ausdrücklich geforderten Grenzwerte müssen 0 und 100 vorkommen.",
+    "discovery": "Ein gezielter Testsatz sichert nun ungültige Eingaben und beide Kapazitätsgrenzen ab. Die Abnahme verlässt sich nicht mehr nur auf einen normalen Beispielauftrag.",
+    "coverage": [{ "name": "Negatives Gewicht", "minimum": null, "maximum": -1 }, { "name": "Untere Grenze 0", "minimum": 0, "maximum": 0 }, { "name": "Obere Grenze 100", "minimum": 100, "maximum": 100 }, { "name": "Über der Grenze", "minimum": 101, "maximum": null }],
+    "tests": [
+      { "name": "Ungültig", "inputs": { "gewicht": -1 }, "output": ["ungültig"] },
+      { "name": "Untere Grenze", "inputs": { "gewicht": 0 }, "output": ["zulässig"] },
+      { "name": "Obere Grenze", "inputs": { "gewicht": 100 }, "output": ["zulässig"] },
+      { "name": "Überladen", "inputs": { "gewicht": 101 }, "output": ["zu schwer"] }
+    ]
+  },
+  {
+    "id": 8, "chapter": "04 · Prüfen und zusammenführen", "title": "Die nächste Ladung im Überblick", "kind": "Write",
+    "story": "Für den ersten wieder nutzbaren Planungsstand fehlt eine Übersicht über die wartenden Pakete. Einige überschreiten das erlaubte Einzelgewicht. Die Disposition braucht deshalb eine Auswertung, die nur zulässige Pakete zählt und deren Gesamtgewicht bestimmt. Hier führst du Berechnung, Entscheidung und Wiederholung zusammen.",
+    "previousContext": "Die Testgruppen aus Aufgabe 7 sichern die Einzelgewichtsprüfung ab. Jetzt wendest du genau diese Regel auf eine ganze Liste wartender Pakete an.",
+    "task": "Die Eingabeliste gewichte enthält ganze Zahlen. Berücksichtige nur Werte von 0 bis einschließlich 100; negative Werte und Werte über 100 werden ignoriert. Gib zuerst die Anzahl zulässiger Pakete aus und danach deren Gesamtgewicht, jeweils mit AUSGABE in einer eigenen Zeile. Bei einer leeren Liste lauten beide Ausgaben 0. Beispiel: [20, 110, 0, -5, 100] ergibt zuerst 3 und danach 120. Mit FÜR JEDES gewicht IN gewichte durchläufst du jeden Eintrag; abgeschlossen wird der Block mit ENDE FÜR.",
+    "exampleInputs": { "gewichte": [20, 110, 0, -5, 100] },
+    "briefing": "Initialisiere einen Zähler und eine Summe vor der Schleife. Prüfe jeden Listeneintrag mit UND auf beide Grenzen. Nur im gültigen Zweig veränderst du Zähler und Summe. Die beiden Ausgaben stehen nach der Schleife, damit auch eine leere Liste ein Ergebnis liefert.",
+    "hints": ["Du brauchst zwei Werte, die anfangs 0 sind: Anzahl und Gesamtgewicht.", "Die Bedingung lautet gewicht >= 0 UND gewicht <= 100.", "Im gültigen Zweig: anzahl = anzahl + 1 und gesamt = gesamt + gewicht. Gib beides erst nach ENDE FÜR aus."],
+    "referenceCode": "anzahl = 0\ngesamt = 0\nFÜR JEDES gewicht IN gewichte\n    WENN gewicht >= 0 UND gewicht <= 100 DANN\n        anzahl = anzahl + 1\n        gesamt = gesamt + gewicht\n    ENDE WENN\nENDE FÜR\nAUSGABE anzahl\nAUSGABE gesamt", "referenceAnswer": "",
+    "explanation": "Zähler und Summe werden nur für zulässige Einträge erhöht. Ein Paket mit Gewicht 0 zählt mit, verändert aber die Summe nicht. Anfangswerte außerhalb der Schleife sichern den Fall einer leeren Liste ab. Auch eine korrekt begrenzte Indexschleife ist zulässig.",
+    "discovery": "Der erste Planungsstand ist wieder nutzbar: Die Leitstelle kann Restkapazität, Prioritäten und eine geprüfte Übersicht zulässiger Pakete bestimmen. Funktionen, weitere Listenaufgaben sowie Suche und Sortierung folgen in einem späteren Ausbau.",
+    "tests": [
+      { "name": "Gemischte Ladung", "inputs": { "gewichte": [20, 110, 0, -5, 100] }, "output": ["3", "120"] },
+      { "name": "Leere Liste", "inputs": { "gewichte": [] }, "output": ["0", "0"] },
+      { "name": "Nur unzulässige Pakete", "inputs": { "gewichte": [-1, 101, 200] }, "output": ["0", "0"] },
+      { "name": "Beide Grenzen", "inputs": { "gewichte": [0, 100] }, "output": ["2", "100"] },
+      { "name": "Gleiche Gewichte mehrfach", "inputs": { "gewichte": [25, 25, 25] }, "output": ["3", "75"] },
+      { "name": "Ein einzelnes Paket", "inputs": { "gewichte": [1] }, "output": ["1", "1"] }
+    ]
+  }
+]

@@ -772,18 +772,8 @@ progress::-moz-progress-bar {
     border-top:1px solid var(--line)
 }
 
-.help-card>div>p {
-    font-size:11px;
-    color:var(--muted);
-    margin:0
-}
-
 .help-card h2 {
     margin-bottom:6px
-}
-
-.help-card>.button {
-    font-size:11px
 }
 
 .hint {
@@ -806,17 +796,35 @@ progress::-moz-progress-bar {
     margin:0
 }
 
-.solution-control {
-    width:100%;
+/* Alle Hilfen folgen demselben Muster: Erklärung links, Aktion rechts. */
+.help-row {
     display:flex;
-    flex-direction:column;
-    gap:5px;
-    align-items:start
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:16px;
+    width:100%;
+    padding:8px 0
 }
 
-.solution-control small {
-    font-size:10px;
-    color:var(--muted)
+.help-row>div {
+    flex:1 1 240px
+}
+
+.help-row p {
+    margin:0;
+    color:var(--muted);
+    font-size:12px
+}
+
+.help-row>.button {
+    flex-shrink:0;
+    min-width:180px;
+    font-size:13px
+}
+
+@media(max-width:620px) {
+    .help-row>.button { width:100%; }
 }
 
 .solution {
@@ -1574,9 +1582,6 @@ h1:focus {
         width:100%;
         margin-right:0
     }
-    .help-card>.button {
-        width:100%
-    }
     .results-heading {
         padding:14px
     }
@@ -2112,3 +2117,37 @@ h1:focus {
 @media(max-width: 620px) { .update-notice { padding: 14px 20px; } .setup-actions .button { width: 100%; } }
 
 .setup-section h2 .badge { font-size: 14px; font-weight: 700; padding: 8px 12px; }
+
+/* Algorithmus-Lernweg: Prüffälle, Ausführung und Einsatzbericht. */
+.algorithm-inputs { border-top: 1px solid var(--line); margin-top: 20px; padding-top: 16px; }
+.algorithm-inputs strong { font-size: 12px; }
+.algorithm-inputs dl, .trace-values { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-bottom: 0; }
+.algorithm-inputs dt, .trace-values dt { font-size: 12px; color: var(--muted); }
+.algorithm-inputs dd, .trace-values dd { margin-left: 0; overflow-wrap: anywhere; }
+.algorithm-workspace pre { max-width: 100%; overflow-x: auto; }
+.given-algorithm { margin-top: 20px; }
+.algorithm-checks details { border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; margin: 12px 0; background: var(--white); }
+.algorithm-checks summary { cursor: pointer; font-weight: 700; }
+.algorithm-checks dl { margin-bottom: 0; }
+.algorithm-checks dt { color: var(--muted); font-size: 12px; margin-top: 12px; }
+.algorithm-checks dd { margin: 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+.check-state { display: inline-block; margin-right: 6px; color: var(--accent); }
+.algorithm-trace { border: 1px solid var(--line); background: var(--white); border-radius: 24px; padding: 24px; margin: 28px 0; }
+.algorithm-trace h2 { font-size: 24px; }
+.algorithm-trace h3 { margin: 20px 0 12px; }
+.trace-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 20px; }
+.trace-controls .button { padding: 12px 16px; min-height: 44px; }
+.trace-controls > span { color: var(--muted); font-size: 12px; }
+.trace-code > span { display: block; border-radius: 6px; padding-right: 10px; min-height: 1.6em; }
+.trace-code .current-line { background: var(--accent-light); color: var(--ink); font-weight: 700; box-shadow: inset 3px 0 var(--accent); }
+.line-number { display: inline-block; color: var(--muted); width: 3em; padding-left: 10px; user-select: none; font-weight: 400; }
+.algorithm-notes > h2 { font-size: 25px; }
+.algorithm-notes > p { color: var(--muted); }
+.algorithm-notes article { border-top: 1px solid var(--line); margin-top: 20px; padding-top: 20px; }
+.algorithm-notes article h3 { margin: 10px 0; }
+.algorithm-notes article p { font-size: 12px; overflow-wrap: anywhere; }
+@media (max-width: 620px) {
+    .algorithm-trace { padding: 18px; }
+    .trace-controls .button { flex: 1; }
+    .trace-controls > span { order: -1; flex-basis: 100%; }
+}

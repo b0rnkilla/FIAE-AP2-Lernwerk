@@ -1,5 +1,7 @@
 @inherits LayoutComponentBase
+@implements IDisposable
 @inject NavigationManager Navigation
+@inject LearningNavigation LearningNavigation
 @inject NetworkAccessPolicy NetworkAccess
 @inject AppVersionInfo Version
 <a class="skip-link" href="@(Navigation.Uri.Split('#')[0] + "#inhalt")">Zum Inhalt</a>
@@ -7,10 +9,18 @@
     <a class="brand" href="/" aria-label="AP2 Lernwerk – zur Übersicht"><span class="brand-symbol">a<span>2</span></span><span>AP2 <strong>Lernwerk</strong><small>FACHINFORMATIK · ANWENDUNGSENTWICKLUNG</small></span></a>
     <nav aria-label="Hauptnavigation">
         <NavLink href="/" Match="NavLinkMatch.All">Übersicht</NavLink>
-        <NavLink href="sql">SQL-Ermittlung</NavLink>
-        <NavLink href="sql-werkstatt">SQL-Werkstatt</NavLink>
         <NavLink href="lernplan">Lernplan</NavLink>
-        <NavLink href="nachschlagen">SQL-Spickzettel</NavLink>
+        @if (LearningNavigation.Algorithms)
+        {
+            <a href="/algorithmen" class="@(AlgorithmTrainingActive ? "active" : null)" aria-current="@(AlgorithmTrainingActive ? "page" : null)">Algorithmen-Training</a>
+            <NavLink href="algorithmen/spickzettel">Pseudocode-Spickzettel</NavLink>
+        }
+        else
+        {
+            <NavLink href="sql">SQL-Ermittlung</NavLink>
+            <NavLink href="sql-werkstatt">SQL-Werkstatt</NavLink>
+            <NavLink href="nachschlagen">SQL-Spickzettel</NavLink>
+        }
     </nav>
     <label class="theme-choice"><span>Darstellung</span><select aria-label="Darstellung" data-theme-selector><option value="system">System</option><option value="light">Hell</option><option value="dark">Dunkel</option></select></label>
 </header>
@@ -21,3 +31,23 @@
 <UpdateNotice />
 <div id="inhalt">@Body</div>
 <footer class="site-footer"><a href="/einrichtung">Version @Version.Display@(Version.IsPrerelease ? " · Testversion" : "")</a><span>Eigene Übungsaufgaben · keine offiziellen IHK-Prüfungsaufgaben</span><a href="/einrichtung">Updates &amp; SQL-Einrichtung</a></footer>
+
+@code {
+    /// <summary> Hält den Trainingseintrag auch auf nummerierten Aufgaben aktiv, aber nicht im Spickzettel. </summary>
+    private bool AlgorithmTrainingActive => Navigation.ToBaseRelativePath(Navigation.Uri).Split('?', '#')[0].TrimEnd('/') is var path && (path == "algorithmen" || path.StartsWith("algorithmen/", StringComparison.OrdinalIgnoreCase) && !path.Equals("algorithmen/spickzettel", StringComparison.OrdinalIgnoreCase));
+    protected override void OnInitialized()
+    {
+        LearningNavigation.Visit(Navigation.ToBaseRelativePath(Navigation.Uri));
+        Navigation.LocationChanged += OnLocationChanged;
+    }
+
+    /// <summary> Passt ausschließlich die fachlichen Navigationspunkte an das tatsächlich besuchte Modul an. </summary>
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs args)
+    {
+        LearningNavigation.Visit(Navigation.ToBaseRelativePath(args.Location));
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    /// <summary> Entfernt die Sitzungsanmeldung beim Schließen des Layouts. </summary>
+    public void Dispose() => Navigation.LocationChanged -= OnLocationChanged;
+}

@@ -2,6 +2,10 @@
 
 Stand: Windows-Alpha 0.1.1-alpha.3. Auf ausdrücklichen Nutzerwunsch ist ein neues eigenständig startbares ZIP mit aktueller privater Projektlizenz gebaut und geprüft. Die alte Testfassung 0.1.0 ist kein Verteilungspaket für die aktuelle Fassung und soll nicht verwendet werden.
 
+Die anschließende Quellprojektfassung 0.1.1-alpha.4 ergänzt die erhaltene Listenposition, den überarbeiteten geführten Hilfebereich, die modulabhängige Kopfnavigation und den ersten Pseudocode-Lernweg mit acht Aufgaben. Die Pseudocode-Aufgaben dieser Entwicklungsfassung benötigen keine SQL-Verbindung. Dafür wurde noch kein neues Windows-Paket erstellt; das bestehende ZIP 0.1.1-alpha.3 bleibt unverändert und enthält weiterhin nur die SQL-Lernwege.
+
+Für das nächste Paket sind die angepasste `release/Anleitung.md` und `release/Versionshinweise-0.1.1-alpha.4.md` vorbereitet. Die Paketierung ist ausdrücklich erst nach dem vom Nutzer durchgeführten Commit und Push beauftragt. Bis dahin bleiben dies vorbereitete Unterlagen, kein Nachweis eines gebauten oder veröffentlichten Alpha-4-Pakets.
+
 ## Voraussetzungen
 
 * Windows auf einem x64-Rechner und ein aktueller Browser.

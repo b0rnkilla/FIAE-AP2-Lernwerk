@@ -1,6 +1,6 @@
 # Stand und weitere Entwicklung
 
-Stand: **0.1.1-alpha.3 · 03.11.2026**. Detaillierte Historie: [Entwicklungsprotokoll](entwicklungsprotokoll.md). Nachweise: [Testprotokoll](testprotokoll.md).
+Entwicklungsstand: **0.1.1-alpha.4 · 03.11.2026**. Zuletzt gebautes Windows-Paket: 0.1.1-alpha.3. Detaillierte Historie: [Entwicklungsprotokoll](entwicklungsprotokoll.md). Nachweise: [Testprotokoll](testprotokoll.md).
 
 ## Umgesetzte Rückmeldungen
 
@@ -10,6 +10,11 @@ Stand: **0.1.1-alpha.3 · 03.11.2026**. Detaillierte Historie: [Entwicklungsprot
 | Lernmodus | Ohne Hilfe als Standard, Auswahl je Aufgabe gespeichert, Rückfrage nur bei vorhandenem Entwurf |
 | Übersichtlichkeit | Weniger Erklärungstext, einklappbare Aufgabenliste, ausblendbarer Bedienhinweis |
 | Navigation | Einheitlich Aufgabe statt Mission, unnötige Sprunglinks entfernt |
+| Modulnavigation | Übersicht und Lernplan zuerst; anschließend SQL- oder Algorithmus-Links passend zum besuchten Bereich |
+| Pseudocode-Einstieg | Acht Aufgaben mit eigener Story, vier Aufgabenarten, lokalem Interpreter, Prüffällen und Ablaufspur |
+| Pseudocode-Feinschliff | Technischen Zusatz auf der Themenkarte entfernt; Zuweisungen in Beispielen, Hinweisen und Lösungen mit `=`, Gleichheitsvergleiche bevorzugt mit `==` |
+| Scrollposition | Liste bleibt bei asynchronen Aufgabenwechseln innerhalb beider SQL-Lernwege stehen |
+| Geführte Hilfen | Einheitliche Zeilen mit Beschreibung links und Aktion rechts; Spickzettel im selben Tab, Musterlösung mit Ansehen/Ausblenden |
 | Lernplan | Profilbezogene nächste Schritte statt fester Wochen |
 | Geschichte | Verbundene Storyschritte und chronologische Fallnotizen mit offenen Lücken |
 | SQL-Beispiele | Kurze Tabellennamen und Datum/Uhrzeit als YYYY-MM-DD HH:mm:ss |
@@ -24,12 +29,14 @@ Die elf ursprünglichen SQL-Anpassungen sind abgeschlossen. Die nachfolgenden W�
 ## Weitere Lerninhalte
 
 1. Zusätzliche SQL-Transferaufgaben und weitere Datenbankthemen nach Bedarf.
-2. Pseudocode und Algorithmen: Fehlersuche, Schreibtischtests und freie Aufgaben mit festgelegten deutschen Konventionen.
+2. Pseudocode und Algorithmen: erster Lernweg mit acht Aufgaben umgesetzt. Nach Nutzererprobung um weitere Listenaufgaben, Funktionen, Suche und Sortierung erweitern; ungefähr 24 Aufgaben als Zielumfang, keine vollständige Katalogabdeckung zugesagt.
 3. UML: Diagramme verstehen und Fehler finden, anschließend begrenzte Modellierungsaufgaben.
 4. Weitere AP2-Bereiche sowie systematische Zuordnung zum aktuellen Prüfungskatalog.
 
 ## Spätere Veröffentlichung
 
+Für Alpha 4 sind Benutzeranleitung und Versionshinweise vorbereitet. Der Nutzer möchte zuerst selbst committen und pushen; anschließend ist ein neues Windows-ZIP samt Prüfsumme und Releaseangaben zu erstellen und aus dem Paket zu prüfen. Das Alpha-4-Paket wurde noch nicht gebaut.
+
 Auf ausdrücklichen Wunsch ist Windows-Alpha 0.1.1-alpha.3 mit aktueller privater Projektlizenz gebaut und aus dem ZIP geprüft. Die README führt Anwender zu Releases → Windows-ZIP → Entpacken → EXE; eine kurze eigene Anleitung liegt dem Paket bei. Paketumfang, Prüfsumme, SQL-Abgaben und Profilerhalt nach einem Programmordnerwechsel sind geprüft. Das alte 0.1.0-Paket wird nicht zur Verteilung empfohlen. Ein Test auf einem weiteren frisch eingerichteten Windows-Rechner und die tatsächliche öffentliche GitHub-Veröffentlichung stehen noch aus. Es gibt keinen automatischen Upload. Weitere Pakete bleiben ausdrücklich zu beauftragen beziehungsweise dem vereinbarten Abschluss vorbehalten.
 
-Login, Registrierung, Benutzertabellen und öffentlicher Homeserver-/nginx-Betrieb sind gestrichen. KI-Bewertung ist nicht implementiert; sie setzt eine gesonderte Entscheidung zu Kosten, Datenübertragung und fachlicher Verlässlichkeit voraus.
+Login, Registrierung, Benutzertabellen und öffentlicher Homeserver-/nginx-Betrieb sind gestrichen. Die Algorithmus-Bewertung benötigt keine KI-Anbindung. Weitere KI-Funktionen würden eine gesonderte Entscheidung voraussetzen.

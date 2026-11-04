@@ -1,0 +1,110 @@
+@page "/algorithmen"
+@page "/algorithmen/{LessonId:int}"
+<PageTitle>@(_lesson?.Title ?? "Pseudocode & Algorithmen") · AP2 Lernwerk</PageTitle>
+@if (_loading && _lesson == null)
+{
+    <main class="page loading-state" role="status"><h1>Deine Aufgabe wird vorbereitet …</h1></main>
+}
+else if (_lesson == null)
+{
+    <main class="page"><h1>Aufgabe nicht gefunden</h1><a class="button secondary" href="/algorithmen/1">Zur ersten Aufgabe</a></main>
+}
+else
+{
+    <main class="workspace algorithm-workspace @(_progress.TaskListCollapsed ? "rail-collapsed" : "")">
+        <TaskRail Id="algorithm-tasks" Collapsed="_progress.TaskListCollapsed" CollapsedChanged="SetCollapsedAsync">
+            <div class="eyebrow">LEITSTELLE IM AUSNAHMEZUSTAND</div><h2>Schritt für Schritt.<br />Wieder im Plan.</h2>
+            <div class="rail-progress"><span>@_progress.AlgorithmLessons.Values.Count(x => x.Completed) / @Catalog.Lessons.Count gelöst</span><progress value="@_progress.AlgorithmLessons.Values.Count(x => x.Completed)" max="@Catalog.Lessons.Count" aria-label="Fortschritt im Algorithmus-Training"></progress></div>
+            <nav aria-label="Aufgabenauswahl" class="@(_busy ? "busy-nav" : "")">
+                @foreach (var chapter in Catalog.Lessons.GroupBy(x => x.Chapter))
+                {
+                    <div class="chapter-label">@chapter.Key</div>
+                    @foreach (AlgorithmLesson lesson in chapter)
+                    {
+                        bool complete = _progress.AlgorithmLessons.TryGetValue(lesson.Id, out AlgorithmProgress? saved) && saved.Completed;
+                        <a class="mission-link @(lesson.Id == _lesson.Id ? "selected" : "")" href="@($"/algorithmen/{lesson.Id}")" aria-current="@(lesson.Id == _lesson.Id ? "step" : null)"><span class="mission-index @(complete ? "done" : "")">@(complete ? "✓" : lesson.Id.ToString("D2"))</span><span>@lesson.Title</span></a>
+                    }
+                }
+            </nav>
+        </TaskRail>
+        <div class="mission-main">
+            @if (_loading) { <p role="status">Deine Aufgabe wird geladen …</p> }
+            else
+            {
+                <div class="mission-topline"><span class="eyebrow">AUFGABE @_lesson.Id.ToString("D2") / @Catalog.Lessons.Count</span><span class="badge">@KindLabel</span></div>
+                <h1>@_lesson.Title</h1>
+                <LearningModePicker @key="_lesson.Id" ExamMode="_current.ExamMode" Busy="_busy" HasDraft="@HasOwnDraft" AssistedAttempt="_current.AttemptAssisted" ModeChanged="SetModeAsync" />
+                <section class="story-note" aria-label="Aktueller Stand in der Leitstelle"><div class="avatar" aria-hidden="true">NS</div><div><span>Entwicklerin Nora Seidel · Leitstelle</span>
+                    @if (_lesson.Id > 1)
+                    {
+                        @if (_progress.AlgorithmLessons.TryGetValue(_lesson.Id - 1, out AlgorithmProgress? previous) && previous.Completed) { <p class="story-context">@_lesson.PreviousContext</p> }
+                        else { <p class="story-context">Vorheriger Schritt noch offen: <a href="@($"/algorithmen/{_lesson.Id - 1}")">Aufgabe @(_lesson.Id - 1)</a>. Du kannst diese Aufgabe trotzdem unabhängig bearbeiten.</p> }
+                    }
+                    <p>@_lesson.Story</p></div></section>
+                @if (_current.ExamMode)
+                {
+                    <SelfTestHelp Hidden="_progress.SelfTestHelpDismissed" HiddenChanged="SetHelpHiddenAsync" Busy="_busy"><strong>So funktioniert dein Selbsttest:</strong> Lies den Auftrag und trage deine Lösung ein. „Lösung prüfen“ zeigt dir passende Testfälle und Abweichungen. Im geführten Lernen kannst du zusätzlich den Ablauf schrittweise untersuchen.</SelfTestHelp>
+                }
+                <section class="task-card"><div class="eyebrow">01 · AUFGABE VERSTEHEN</div><p>@_lesson.Task</p>
+                    @if (_lesson.ExampleInputs.Count > 0) { <div class="algorithm-inputs"><strong>Beispieleingaben für die Vorschau</strong><dl>@foreach (var input in _lesson.ExampleInputs) { <div><dt>@input.Key</dt><dd><code>@AlgorithmDisplay.Input(input.Value)</code></dd></div> }</dl></div> }
+                    @if (_lesson.Kind == AlgorithmTaskKind.Trace) { <pre class="given-algorithm"><code>@_lesson.GivenCode</code></pre> }
+                </section>
+                <section class="editor-card" aria-label="Pseudocode-Arbeitsbereich">
+                    <div class="editor-toolbar"><label for="algorithm-editor">02 · @EditorLabel</label><span>@(_lesson.Kind is AlgorithmTaskKind.Trace or AlgorithmTaskKind.TestCases ? "Eine Antwort pro Zeile" : "Deutscher Pseudocode")</span></div>
+                    <textarea id="algorithm-editor" class="sql-editor" spellcheck="false" autocapitalize="off" autocomplete="off" maxlength="12000" placeholder="@EditorPlaceholder" @bind="_draft" @bind:event="oninput" @bind:after="ClearFeedback" @onblur="SaveAsync" readonly="@_busy"></textarea>
+                    <div class="editor-actions"><div>@if (!_current.ExamMode) { <button class="button secondary" disabled="@_busy" @onclick="PreviewAsync">Ablauf untersuchen</button> }<button class="button primary" disabled="@(_busy || string.IsNullOrWhiteSpace(_draft))" @onclick="EvaluateAsync">@(_busy ? "Wird geprüft …" : "Lösung prüfen") →</button></div></div>
+                </section>
+                @if (_storageError != null) { <p class="notice warning" role="alert">@_storageError</p> }
+                @if (_evaluation != null)
+                {
+                    <section class="feedback @(_evaluation.Correct ? "correct" : "retry")" role="status"><strong>@(_evaluation.Correct ? "Dieser Schritt funktioniert." : "Schau dir diesen Fall an.")</strong><p>@_evaluation.Message</p>
+                        @if (_evaluation.Correct) { <p class="discovery">@_lesson.Discovery</p><AttemptOutcomeNote ExamMode="_current.ExamMode" AssistedAttempt="_current.AttemptAssisted" /> }
+                    </section>
+                    <section class="algorithm-checks" aria-label="Prüfergebnisse">
+                        @foreach (AlgorithmCheck check in _evaluation.Checks)
+                        {
+                            <details open="@(!check.Passed)"><summary><span class="check-state" aria-hidden="true">@(check.Passed ? "✓" : "!")</span> @check.Name · @(check.Passed ? "erfüllt" : "abweichend")</summary><dl><dt>Eingaben</dt><dd><code>@check.Inputs</code></dd><dt>Erwartet</dt><dd>@check.Expected</dd><dt>Deine Lösung</dt><dd>@check.Actual</dd></dl></details>
+                        }
+                    </section>
+                }
+                @if (!_current.ExamMode)
+                {
+                    @if (_run != null)
+                    {
+                        <section class="algorithm-trace" aria-label="Schrittweise Ausführung">
+                            <h2>Den Ablauf verstehen</h2>
+                            @if (_run.Error != null) { <p class="notice warning" role="alert">@_run.Error</p> }
+                            @if (_run.Steps.Count > 0)
+                            {
+                                AlgorithmStep step = _run.Steps[_step];
+                                <div class="trace-controls"><button class="button secondary" disabled="@(_step == 0)" @onclick="() => _step--">← Zurück</button><span>Schritt @(_step + 1) / @_run.Steps.Count</span><button class="button secondary" disabled="@(_step == _run.Steps.Count - 1)" @onclick="() => _step++">Nächster Schritt →</button></div>
+                                <p role="status">Zeile @step.Line · @step.Action</p>
+                                <pre class="trace-code">@for (int i = 0; i < _previewLines.Length; i++) { <span class="@(i + 1 == step.Line ? "current-line" : "")"><span class="line-number">@(i + 1)</span>@_previewLines[i]</span> }</pre>
+                                <h3>Variablen nach diesem Schritt</h3><dl class="trace-values">@foreach (var variable in step.Variables) { <div><dt>@variable.Key</dt><dd><code>@variable.Value</code></dd></div> }</dl>
+                                <h3>Bisherige Ausgaben</h3><pre><code>@(step.Output.Count == 0 ? "Noch keine Ausgabe" : string.Join("\n", step.Output))</code></pre>
+                                @if (_run.TraceTruncated) { <p>Die Ablaufanzeige wurde nach @_run.Steps.Count Schritten begrenzt. Kürze für eine vollständige Vorschau die Schleife oder die verarbeiteten Daten.</p> }
+                            }
+                        </section>
+                    }
+                    <section class="briefing"><h2>Das brauchst du für diesen Schritt</h2><p>@_lesson.Briefing</p></section>
+                    <section class="help-card">
+                        <div class="help-row"><div><h2>Ein kleiner Denkanstoß?</h2><p>Du entscheidest, wie viel Unterstützung du brauchst.</p></div><button class="button secondary" disabled="@(_busy || _current.HintLevel == 3)" @onclick="ShowHintAsync">@(_current.HintLevel == 3 ? "Alle Hinweise geöffnet" : $"Hinweis {_current.HintLevel + 1} von 3 öffnen")</button></div>
+                        @for (int i = 0; i < _current.HintLevel; i++) { <div class="hint"><span>@(i + 1)</span><p>@_lesson.Hints[i]</p></div> }
+                        <div class="help-row"><div><h2>Syntax gerade nicht im Kopf?</h2><p>Im Pseudocode-Spickzettel findest du Regeln und Beispiele.</p></div><a class="button secondary" href="/algorithmen/spickzettel">Spickzettel öffnen</a></div>
+                        <div class="help-row"><div><h2>Musterlösung</h2><p>Eine aufgedeckte Lösung zählt nicht als selbstständiger Versuch.</p></div><button class="button secondary" aria-label="@(_showSolution ? "Musterlösung ausblenden" : "Musterlösung ansehen")" aria-expanded="@_showSolution.ToString().ToLowerInvariant()" aria-controls="@(_showSolution ? "algorithm-solution" : null)" disabled="@_busy" @onclick="ToggleSolutionAsync">@(_showSolution ? "Ausblenden" : "Ansehen")</button></div>
+                        @if (_showSolution) { <div class="solution" id="algorithm-solution"><pre><code>@(_lesson.Kind is AlgorithmTaskKind.Trace or AlgorithmTaskKind.TestCases ? _lesson.ReferenceAnswer : _lesson.ReferenceCode)</code></pre><p>@_lesson.Explanation</p></div> }
+                    </section>
+                }
+                <div class="mission-bottom">@if (_lesson.Id > 1) { <a class="button secondary" href="@($"/algorithmen/{_lesson.Id - 1}")">← Vorherige Aufgabe</a> }<span></span>@if (_lesson.Id < Catalog.Lessons.Count) { <a class="button @(_evaluation?.Correct == true ? "primary" : "secondary")" href="@($"/algorithmen/{_lesson.Id + 1}")">Nächste Aufgabe →</a> } else { <a class="button primary" href="/lernplan">Deine Wiederholung planen →</a> }</div>
+            }
+        </div>
+        <aside class="inspector algorithm-notes" aria-label="Einsatzbericht"><h2>Einsatzbericht</h2><p>Deine bestätigten Schritte in der Leitstelle.</p>
+            @if (!_progress.AlgorithmLessons.Values.Any(x => x.Completed)) { <p>Noch kein Schritt bestätigt. Deine erste gelöste Aufgabe eröffnet den Bericht.</p> }
+            @foreach (AlgorithmLesson lesson in Catalog.Lessons.Where(x => x.Id <= _lesson.Id))
+            {
+                @if (_progress.AlgorithmLessons.TryGetValue(lesson.Id, out AlgorithmProgress? saved) && saved.Completed) { <article><span class="eyebrow">AUFGABE @lesson.Id.ToString("D2")</span><h3>@lesson.Title</h3><p>@lesson.Discovery</p></article> }
+                else if (Catalog.Lessons.Any(x => x.Id > lesson.Id && x.Id <= _lesson.Id && _progress.AlgorithmLessons.TryGetValue(x.Id, out AlgorithmProgress? later) && later.Completed)) { <p>Aufgabe @lesson.Id ist noch offen.</p> }
+            }
+        </aside>
+    </main>
+}

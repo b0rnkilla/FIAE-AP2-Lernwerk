@@ -28,6 +28,8 @@ public partial class Sql : IAsyncDisposable
     private bool _busy;
     /// <summary> Wählt die Erkenntnisliste statt der Tabellenübersicht. </summary>
     private bool _showFindings;
+    /// <summary> Sichtbarkeit der Musterlösung; das Schließen nimmt eine bereits protokollierte Hilfenutzung nicht zurück. </summary>
+    private bool _showSolution;
     /// <summary> Zuletzt ausgeführte Ergebnistabelle. </summary>
     private QueryResult? _result;
     /// <summary> Zuletzt abgegebene fachliche Bewertung. </summary>
@@ -79,6 +81,7 @@ public partial class Sql : IAsyncDisposable
         _result = null;
         _evaluation = null;
         _current = _lesson != null && _progress.Lessons.TryGetValue(_lesson.Id, out LessonProgress? saved) ? saved : new LessonProgress();
+        _showSolution = _current.SolutionViewed;
         _examMode = _current.ExamMode;
         _current.AttemptAssisted = _current.UsedAssistance || !_examMode;
         _sql = _current.Sql;
@@ -99,6 +102,7 @@ public partial class Sql : IAsyncDisposable
         }
         else
             _current.AttemptAssisted = true;
+        _showSolution = _current.SolutionViewed;
         _result = null;
         _evaluation = null;
         await SaveAsync();
@@ -164,10 +168,13 @@ public partial class Sql : IAsyncDisposable
         await SaveAsync();
     }
 
-    private async Task ShowSolutionAsync()
+    /// <summary> Klappt die Lösung auf oder zu und merkt eine einmal erfolgte Anzeige dauerhaft für diesen Versuch. </summary>
+    private async Task ToggleSolutionAsync()
     {
-        if (!_examMode)
-            _current.SolutionViewed = true;
+        if (_examMode || _busy)
+            return;
+        _showSolution = !_showSolution;
+        _current.SolutionViewed |= _showSolution;
         await SaveAsync();
     }
 

@@ -8,6 +8,8 @@ Lernschritte kennzeichnen Auftrag und Editor. **Lösung prüfen** lädt zur Rüc
 
 ## Didaktischer Ablauf
 
+Bei Aufgabenwechseln innerhalb eines SQL-Lernwegs bleibt die linke Liste mit ihrer Scrollposition erhalten. Der Ladehinweis ersetzt nur den Aufgabeninhalt. Im geführten Hilfebereich besitzen Denkanstoß, Spickzettel und Musterlösung denselben Aufbau: links Überschrift mit kurzer Beschreibung, rechts die Aktion. Hinweise öffnen weiterhin einzeln von 1 bis 3. Der Spickzettel öffnet im selben Tab; der gespeicherte Entwurf bleibt beim Zurückkehren erhalten. Bei der Musterlösung wechseln die Aktionen zwischen „Ansehen“ und „Ausblenden“. Das Schließen entfernt keine bereits protokollierte Unterstützung und macht einen Versuch nicht nachträglich selbstständig.
+
 Ein Kapitel erweitert den vorhandenen Wortschatz um wenige SQL-Bausteine. Jede Aufgabe besteht aus Geschichte, kurzer Erklärung, eindeutigem Auftrag, freiem Editor und überprüfbarem Ergebnis. Hilfen werden einzeln auf Wunsch geöffnet. Eine aufgedeckte Musterlösung wird als Unterstützung gespeichert.
 
 Die Geschichte ist ein Anlass zum Abfragen; fachliche Lernziele und präzise Ausgabespalten stehen ausdrücklich im Auftrag. Der Name „Nachtzug“ ist der Deckname des Falls, kein Hinweis auf eine vorhandene Eisenbahntabelle.
@@ -79,9 +81,13 @@ Eine allgemeine semantische Gleichwertigkeitsprüfung sämtlicher denkbarer CHEC
 
 Vorhandene Fortschrittsdateien werden um einen getrennten Werkstattbereich ergänzt. Das Standardprofil bleibt am bisherigen Ort; ein konfigurierbarer `Training:ProgressDirectory` erlaubt ein vollständig eigenes QA-Profil. Lesende und schreibende Aufgaben überschreiben gegenseitig weder Entwürfe noch Erfolge.
 
-## Zukünftiger Pseudocode
+## Pseudocode und Algorithmen
 
-Deutsche Formulierungen wie WENN, SONST und ENDE WENN sind sinnvoll und vertraut, aber nicht in einer einzigen allgemein verbindlichen Grammatik festgelegt. Eine prüfbare Teilmenge kann ausdrücklich beschrieben werden; freie Formulierungen sollten alternativ anhand transparenter Kriterien bewertet oder mit einer nachvollziehbaren Musterlösung verglichen werden. Lückentexte sind nicht als Hauptlernform vorgesehen.
+Deutsche Formulierungen wie WENN, SONST und ENDE WENN sind sinnvoll und vertraut, aber nicht in einer einzigen allgemein verbindlichen Grammatik festgelegt. Der erste Ausbau enthält acht Aufgaben mit einer ausdrücklich beschriebenen ausführbaren Teilmenge. Freie Codeantworten werden mit mehreren Eingaben und unabhängig hinterlegten Sollausgaben ausgeführt; andere korrekte Lösungswege bleiben möglich. Schreibtischtests prüfen die Reihenfolge tatsächlicher Ausgaben. Eine Testfallaufgabe prüft eigene Eingaben und Sollausgaben sowie die verlangten Grenzfallgruppen. Lückentexte sind nicht vorgesehen.
+
+„Leitstelle im Ausnahmezustand“ ist eine eigenständige Geschichte mit Bezug zum vorherigen Schritt und einem chronologischen Einsatzbericht. Beim Überspringen einer Aufgabe wird deren Ergebnis nicht als bestätigt vorausgesetzt. Ohne Hilfe ist je Aufgabe der Standard. Geführtes Lernen ergänzt Einführung, drei Hinweise, Spickzettel, Musterlösung und eine begrenzte Schrittansicht mit Variablen und Ausgaben. Ein unterstützter Versuch wird erst nach einem ausdrücklichen Neustart wieder unabhängig; beim unveränderten Reparaturcode oder leerem Editor ist keine Löschbestätigung nötig. SQL-Stände bleiben getrennt erhalten. Einzelheiten: [Pseudocode](pseudocode.md).
+
+Auf Nutzerwunsch verwenden alle sichtbaren Pseudocode-Zuweisungen bevorzugt `=`. Der Spickzettel unterscheidet davon Gleichheitsvergleiche mit `==`. Bereits gespeicherte Lösungen mit `←`, `<-` oder `:=` bleiben ausführbar; sie werden nicht automatisch umgeschrieben. Die Themenkarte enthält keinen technischen Hinweis zur SQL-Unabhängigkeit mehr.
 
 ## Ruhiger Arbeitsbereich (03.11.2026)
 

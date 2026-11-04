@@ -2,6 +2,7 @@
 @inject ProgressStore Store
 @inject LessonCatalog Catalog
 @inject WorkshopCatalog WorkshopCatalog
+@inject AlgorithmCatalog AlgorithmCatalog
 <PageTitle>Dein Lernplan · AP2 Lernwerk</PageTitle>
 <main class="page reading-page">
     <div class="eyebrow">DEIN TEMPO · DEIN NÄCHSTER SCHRITT</div>
@@ -19,29 +20,36 @@
         var workshopReview = WorkshopCatalog.Lessons.Where(x => _progress.WorkshopLessons.TryGetValue(x.Id, out LessonProgress? state) && state.Completed && !state.Independent).ToList();
         var open = Catalog.Lessons.Where(x => _progress.Lessons.TryGetValue(x.Id, out LessonProgress? state) && !state.Completed && (state.Attempts > 0 || !string.IsNullOrWhiteSpace(state.Sql))).ToList();
         var workshopOpen = WorkshopCatalog.Lessons.Where(x => _progress.WorkshopLessons.TryGetValue(x.Id, out LessonProgress? state) && !state.Completed && (state.Attempts > 0 || !string.IsNullOrWhiteSpace(state.Sql))).ToList();
+        var nextAlgorithm = AlgorithmCatalog.Lessons.FirstOrDefault(x => !_progress.AlgorithmLessons.TryGetValue(x.Id, out AlgorithmProgress? state) || !state.Completed && state.Attempts == 0 && string.IsNullOrWhiteSpace(state.Draft));
+        var algorithmOpen = AlgorithmCatalog.Lessons.Where(x => _progress.AlgorithmLessons.TryGetValue(x.Id, out AlgorithmProgress? state) && !state.Completed && (state.Attempts > 0 || !string.IsNullOrWhiteSpace(state.Draft))).ToList();
+        var algorithmReview = AlgorithmCatalog.Lessons.Where(x => _progress.AlgorithmLessons.TryGetValue(x.Id, out AlgorithmProgress? state) && state.Completed && !state.Independent).ToList();
         <section class="plan-progress" aria-label="Dein Lernstand">
             <article><h2>SQL-Ermittlung</h2><strong>@_progress.Lessons.Values.Count(x => x.Completed) / @Catalog.Lessons.Count gelöst</strong><p>@_progress.Lessons.Values.Count(x => x.Independent) davon auch ohne Hilfe</p></article>
             <article><h2>SQL-Werkstatt</h2><strong>@_progress.WorkshopLessons.Values.Count(x => x.Completed) / @WorkshopCatalog.Lessons.Count gelöst</strong><p>@_progress.WorkshopLessons.Values.Count(x => x.Independent) davon auch ohne Hilfe</p></article>
+            <article><h2>Pseudocode &amp; Algorithmen</h2><strong>@_progress.AlgorithmLessons.Values.Count(x => x.Completed) / @AlgorithmCatalog.Lessons.Count gelöst</strong><p>@_progress.AlgorithmLessons.Values.Count(x => x.Independent) davon auch ohne Hilfe</p></article>
         </section>
         <section class="plan-step"><span class="eyebrow">ENTDECKEN</span><h2>Deine nächste neue Aufgabe</h2>
-            @if (nextInvestigation == null && nextWorkshop == null) { @if (open.Count + workshopOpen.Count == 0) { <p>Alle @(Catalog.Lessons.Count + WorkshopCatalog.Lessons.Count) SQL-Aufgaben sind gelöst. Wiederhole jetzt mit Abstand und ergänze unbekannte Aufgaben auf Papier.</p> } else { <p>Du hast alle Aufgaben bereits begonnen. Greife eine deiner offenen Aufgaben im nächsten Abschnitt wieder auf.</p> } }
+            @if (nextInvestigation == null && nextWorkshop == null && nextAlgorithm == null) { @if (open.Count + workshopOpen.Count + algorithmOpen.Count == 0) { <p>Alle @(Catalog.Lessons.Count + WorkshopCatalog.Lessons.Count + AlgorithmCatalog.Lessons.Count) Übungen sind gelöst. Wiederhole jetzt mit Abstand und ergänze unbekannte Aufgaben auf Papier.</p> } else { <p>Du hast alle Aufgaben bereits begonnen. Greife eine deiner offenen Aufgaben im nächsten Abschnitt wieder auf.</p> } }
             @if (nextInvestigation != null) { <a class="review-link" href="@($"/sql/{nextInvestigation.Id}")"><span>Ermittlung @nextInvestigation.Id.ToString("D2") · @nextInvestigation.Title</span><span>Weiter ermitteln →</span></a> }
             @if (nextWorkshop != null) { <a class="review-link" href="@($"/sql-werkstatt/{nextWorkshop.Id}")"><span>Werkstatt @nextWorkshop.Id.ToString("D2") · @nextWorkshop.Title</span><span>Weiter üben →</span></a> }
+            @if (nextAlgorithm != null) { <a class="review-link" href="@($"/algorithmen/{nextAlgorithm.Id}")"><span>Algorithmen @nextAlgorithm.Id.ToString("D2") · @nextAlgorithm.Title</span><span>Weiter lernen →</span></a> }
         </section>
         <section class="plan-step"><span class="eyebrow">NOCH EINMAL ANSETZEN</span><h2>Begonnen, noch nicht gelöst</h2>
-            @if (open.Count + workshopOpen.Count == 0) { <p>Aktuell gibt es keine begonnenen, noch ungelösten Aufgaben.</p> }
+            @if (open.Count + workshopOpen.Count + algorithmOpen.Count == 0) { <p>Aktuell gibt es keine begonnenen, noch ungelösten Aufgaben.</p> }
             @foreach (Lesson lesson in open) { <a class="review-link" href="@($"/sql/{lesson.Id}")"><span>Ermittlung @lesson.Id.ToString("D2") · @lesson.Title</span><span>Erneut versuchen →</span></a> }
             @foreach (WorkshopLesson lesson in workshopOpen) { <a class="review-link" href="@($"/sql-werkstatt/{lesson.Id}")"><span>Werkstatt @lesson.Id.ToString("D2") · @lesson.Title</span><span>Erneut versuchen →</span></a> }
+            @foreach (AlgorithmLesson lesson in algorithmOpen) { <a class="review-link" href="@($"/algorithmen/{lesson.Id}")"><span>Algorithmen @lesson.Id.ToString("D2") · @lesson.Title</span><span>Erneut versuchen →</span></a> }
         </section>
         <section class="plan-step"><span class="eyebrow">SELBSTSTÄNDIG FESTIGEN</span><h2>Gelöst – jetzt ohne Hilfe wiederholen</h2>
-            @if (review.Count + workshopReview.Count == 0) { <p>Keine gelöste Aufgabe wartet auf ihren ersten Erfolg ohne Hilfe. Bereits selbstständig gelöste Aufgaben kannst du jederzeit über die Aufgabenliste wiederholen.</p> }
+            @if (review.Count + workshopReview.Count + algorithmReview.Count == 0) { <p>Keine gelöste Aufgabe wartet auf ihren ersten Erfolg ohne Hilfe. Bereits selbstständig gelöste Aufgaben kannst du jederzeit über die Aufgabenliste wiederholen.</p> }
             @foreach (Lesson lesson in review) { <a class="review-link" href="@($"/sql/{lesson.Id}")"><span>Ermittlung @lesson.Id.ToString("D2") · @lesson.Title</span><span>Ohne Hilfe wiederholen →</span></a> }
             @foreach (WorkshopLesson lesson in workshopReview) { <a class="review-link" href="@($"/sql-werkstatt/{lesson.Id}")"><span>Werkstatt @lesson.Id.ToString("D2") · @lesson.Title</span><span>Ohne Hilfe wiederholen →</span></a> }
+            @foreach (AlgorithmLesson lesson in algorithmReview) { <a class="review-link" href="@($"/algorithmen/{lesson.Id}")"><span>Algorithmen @lesson.Id.ToString("D2") · @lesson.Title</span><span>Ohne Hilfe wiederholen →</span></a> }
             <p class="plan-tip">Wähle in der Aufgabe „Ohne Hilfe lösen“. Bei einem übernommenen Entwurf startest du über „Neu ohne Hilfe starten“ einen frischen Versuch.</p>
         </section>
     }
     <section class="plan-step"><span class="eyebrow">DEINE LERNROUTINE</span><h2>Eine Aufgabe. Eine Erkenntnis. Später noch einmal.</h2><p>Löse eine Aufgabe selbst. Kläre danach gezielt die Stelle, an der du unsicher warst. Wiederhole sie später ohne Hilfe und formuliere die Lösung auch einmal auf Papier.</p><p>Halte in einer kurzen Fehlerliste fest: Was habe ich verwechselt? Woran erkenne ich es beim nächsten Mal? Plane zusätzlich eigene Zeit für Pseudocode und die übrigen AP2-Themen ein.</p><p>Die Fortschrittszahlen zeigen bearbeitete Aufgaben; sie sind keine Prüfungsnote oder Bestehensprognose.</p></section>
-    <section class="reference-section"><h2>Bedienhinweise</h2><p>Den allgemeinen Hinweis „So funktioniert dein Selbsttest“ kannst du direkt an der Aufgabe ausblenden. Hier lässt er sich für alle Ermittlungs- und Werkstattaufgaben wieder einschalten.</p><button class="button secondary" disabled="@(!_progress.SelfTestHelpDismissed || _error != null)" @onclick="RestoreSelfTestHelpAsync">@(_progress.SelfTestHelpDismissed ? "Selbsttest-Hinweise wieder anzeigen" : "Selbsttest-Hinweise sind eingeblendet")</button></section>
+    <section class="reference-section"><h2>Bedienhinweise</h2><p>Den allgemeinen Hinweis „So funktioniert dein Selbsttest“ kannst du direkt an der Aufgabe ausblenden. Hier lässt er sich für alle SQL- und Algorithmus-Aufgaben wieder einschalten.</p><button class="button secondary" disabled="@(!_progress.SelfTestHelpDismissed || _error != null)" @onclick="RestoreSelfTestHelpAsync">@(_progress.SelfTestHelpDismissed ? "Selbsttest-Hinweise wieder anzeigen" : "Selbsttest-Hinweise sind eingeblendet")</button></section>
     <section class="reset-section"><h2>Ein frischer Start</h2><p>Der Lernstand gilt für dieses lokale Profil in allen Browsern. Ein Zurücksetzen entfernt Entwürfe, Hinweise und gelöste Aufgaben.</p>@if (!_confirmReset) { <button class="button secondary" @onclick="() => _confirmReset = true">Lernstand zurücksetzen …</button> } else { <div class="notice warning"><p>Alle gespeicherten Fortschritte dieses lokalen Profils wirklich löschen?</p><button class="button secondary" @onclick="() => _confirmReset = false">Abbrechen</button> <button class="button danger" @onclick="ResetAsync">Lernstand jetzt löschen</button></div> }</section>
 </main>
 @code {

@@ -29,11 +29,33 @@ public sealed class LearningExperienceTests : IDisposable
         string html = await RenderPlanAsync();
         Assert.Contains("href=\"/sql/1\"", html);
         Assert.Contains("href=\"/sql-werkstatt/1\"", html);
+        Assert.Contains("href=\"/algorithmen/1\"", html);
         Assert.Contains("0 / 30 gelöst", html);
         Assert.DoesNotContain("WOCHE", html);
         Assert.DoesNotContain("drei Wochen", html);
         Assert.Contains("Keine gelöste Aufgabe wartet", html);
     }
+
+    [Fact]
+    public async Task AlgorithmWorkUsesTheSameOpenAndReviewSectionsWithoutContradictoryMessages()
+    {
+        ProgressStore store = CreateStore();
+        await store.SaveAlgorithmAsync(1, new AlgorithmProgress { Completed = true, Independent = true });
+        await store.SaveAlgorithmAsync(2, new AlgorithmProgress { Completed = true });
+        await store.SaveAlgorithmAsync(3, new AlgorithmProgress { Draft = "Entwurf" });
+        string html = await RenderPlanAsync();
+        Assert.Contains("2 / 8 gelöst", html);
+        string review = html.Split("Gelöst – jetzt ohne Hilfe wiederholen")[1].Split("DEINE LERNROUTINE")[0];
+        Assert.Contains("href=\"/algorithmen/2\"", review);
+        Assert.DoesNotContain("href=\"/algorithmen/1\"", review);
+        Assert.DoesNotContain("Keine gelöste Aufgabe wartet", review);
+        string open = html.Split("Begonnen, noch nicht gelöst")[1].Split("SELBSTSTÄNDIG FESTIGEN")[0];
+        Assert.Contains("href=\"/algorithmen/3\"", open);
+        Assert.DoesNotContain("Aktuell gibt es keine begonnenen", open);
+        Assert.Contains("href=\"/algorithmen/4\"", html);
+    }
+
+
 
     [Fact]
     public async Task PlanDistinguishesOpenTasksAssistedAchievementsAndIndependentAchievements()
@@ -64,8 +86,10 @@ public sealed class LearningExperienceTests : IDisposable
             await store.SaveLessonAsync(lesson.Id, new LessonProgress { Completed = true, Independent = true });
         foreach (WorkshopLesson lesson in new WorkshopCatalog().Lessons)
             await store.SaveLessonAsync(lesson.Id, new LessonProgress { Completed = true, Independent = true }, LearningArea.Workshop);
+        foreach (var lesson in new FiaeTrainer.Core.Algorithms.Content.AlgorithmCatalog().Lessons)
+            await store.SaveAlgorithmAsync(lesson.Id, new AlgorithmProgress { Completed = true, Independent = true });
         string html = await RenderPlanAsync();
-        Assert.Contains("Alle 40 SQL-Aufgaben sind gelöst", html);
+        Assert.Contains("Alle 48 Übungen sind gelöst", html);
         Assert.Contains("unbekannte Aufgaben auf Papier", html);
         Assert.DoesNotContain("Weiter ermitteln →", html);
     }
@@ -78,9 +102,11 @@ public sealed class LearningExperienceTests : IDisposable
             await store.SaveLessonAsync(lesson.Id, new LessonProgress { Sql = "Entwurf" });
         foreach (WorkshopLesson lesson in new WorkshopCatalog().Lessons)
             await store.SaveLessonAsync(lesson.Id, new LessonProgress { Sql = "Entwurf" }, LearningArea.Workshop);
+        foreach (var lesson in new FiaeTrainer.Core.Algorithms.Content.AlgorithmCatalog().Lessons)
+            await store.SaveAlgorithmAsync(lesson.Id, new AlgorithmProgress { Draft = "Entwurf" });
         string html = await RenderPlanAsync();
         Assert.Contains("Du hast alle Aufgaben bereits begonnen", html);
-        Assert.DoesNotContain("Alle 40 SQL-Aufgaben sind gelöst", html);
+        Assert.DoesNotContain("Alle 48 Übungen sind gelöst", html);
         Assert.Contains("href=\"/sql/1\"", html);
         Assert.Contains("href=\"/sql-werkstatt/10\"", html);
     }
@@ -129,7 +155,7 @@ public sealed class LearningExperienceTests : IDisposable
 
     private async Task<string> RenderPlanAsync()
     {
-        using ServiceProvider services = new ServiceCollection().AddLogging().AddSingleton(CreateStore()).AddSingleton<LessonCatalog>().AddSingleton<WorkshopCatalog>().BuildServiceProvider();
+        using ServiceProvider services = new ServiceCollection().AddLogging().AddSingleton(CreateStore()).AddSingleton<LessonCatalog>().AddSingleton<WorkshopCatalog>().AddSingleton<FiaeTrainer.Core.Algorithms.Content.AlgorithmCatalog>().BuildServiceProvider();
         return await RenderAsync<LearningPlan>([], services);
     }
 

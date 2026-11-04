@@ -1,12 +1,17 @@
 # Entwicklung und Projektstruktur
 
-Stand: 0.1.1-alpha.3. Diese Anleitung dient dem Projektinhaber zur Pflege und Erweiterung. Das Repository ist derzeit privat. Auch ein späterer Zugriff auf die Dateien räumt keine Open-Source-Lizenz ein; es gelten die [Nutzungsbedingungen](../LICENSE).
+Quellstand: 0.1.1-alpha.4; zuletzt gebautes Windows-Paket: 0.1.1-alpha.3. Diese Anleitung dient dem Projektinhaber zur Pflege und Erweiterung. Auch ein Zugriff auf die Dateien räumt keine Open-Source-Lizenz ein; es gelten die [Nutzungsbedingungen](../LICENSE).
 
 ## Orientierung
 
 ```text
 src/
   FiaeTrainer.Core/
+    Algorithms/
+      Content/          Acht JSON-Aufgaben, Modelle und Katalog
+      Syntax/           Tokenisierung und begrenzte deutsche Grammatik
+      Execution/        Isolierter Interpreter und Ablaufspur
+      Evaluation/       Code-, Ausgabe- und Testfallprüfung
     Sql/
       Content/          JSON-Aufgaben, SQL-Startdaten, Ressourcenloader
       Database/         Datenbankanlage und SQL-Ausführung
@@ -19,7 +24,7 @@ src/
     Components/
       Layout/           Kopfbereich und Seitenrahmen
       Learning/         Gemeinsame Lernbedienung
-      Pages/Training/   SQL-Aufgabenseiten samt Code-behind
+      Pages/Training/   SQL- und Algorithmus-Aufgabenseiten samt Code-behind
       Sql/              SQL-Ergebnisse, Fallnotizen und Tabellenübersicht
       Updates/          Updatehinweis
     Configuration/      Persönliche Einstellungen und Release-Profil
@@ -42,6 +47,8 @@ Die Projektmappe `FIAE_AP2_Trainer.sln` in Visual Studio 2026 öffnen und `FiaeT
 | Aufgabe | Einstieg |
 | --- | --- |
 | SQL-Abgabe verfolgen | `Components/Pages/Training/Sql.razor.cs` → `QueryEvaluator.EvaluateAsync` |
+| Pseudocode-Abgabe verfolgen | `Components/Pages/Training/Algorithms.razor.cs` → `AlgorithmEvaluator.Evaluate` |
+| Pseudocode schrittweise ausführen | `Algorithms/Execution/AlgorithmInterpreter.cs` im Core-Projekt |
 | SQL-Zulässigkeit prüfen | `Sql/Validation/SqlQueryValidator.cs` im Core-Projekt |
 | Schreibskript bewerten | `Sql/Workshop/WorkshopEvaluator.cs` im Core-Projekt |
 | Verbindung einrichten | `Sql/DatabaseState.cs` und `Configuration/LocalSettingsStore.cs` im Webprojekt |
@@ -54,9 +61,21 @@ Die Projektmappe `FIAE_AP2_Trainer.sln` in Visual Studio 2026 öffnen und `FiaeT
 
 ## Inhalte und spätere Module
 
+### Aufgabenwechsel und Hilfebereich
+
+Die SQL-Seiten zeigen den ersten Ladezustand weiterhin als eigene Seite. Bei späteren asynchronen Aufgabenwechseln bleiben Workspace und TaskRail jedoch im DOM; nur der Hauptinhalt zeigt vorübergehend den Ladehinweis. Dadurch bleibt derselbe scrollende Navigationsknoten mit seiner Position erhalten. Es gibt dafür keinen zusätzlichen JavaScript-Speicher und keine neue Profileigenschaft. Ein vollständiges Neuladen oder der Wechsel zu einem anderen Lernbereich erzeugt weiterhin eine neue Ansicht.
+
+Hinweise, Spickzettel und Musterlösung erscheinen ausschließlich im geführten Hilfebereich beider SQL-Lernwege als gleich aufgebaute `.help-row`: links Überschrift und Beschreibung, rechts die Aktion. Der Spickzettel verwendet einen normalen internen Link ohne `target` und öffnet im selben Tab. Die vorhandene Entwurfsspeicherung erhält den Text bei Navigation und Rückkehr. `_showSolution` hält die momentane Anzeige getrennt von `LessonProgress.SolutionViewed`; die Aktionen „Ansehen“ und „Ausblenden“ setzen die gespeicherte Hilfenutzung nicht zurück. Die bisherigen JSON-Eigenschaften und Bewertungsregeln bleiben unverändert.
+
+### Lerninhalte
+
 Die SQL-Aufgaben liegen unter `Core/Sql/Content` in `lessons.json` und `workshop.json`. SQL-Dateien enthalten nur synthetische Startdaten. Alle vier Inhaltsdateien werden eingebettet; `SqlContent` lädt sie aus der Assembly. Nach Änderungen neu bauen. Eine bestehende Trainingsdatenbank wird beim Neustart absichtlich nicht neu befüllt; Änderungen am Datenbestand brauchen eine ausdrücklich geplante Versionierung.
 
-Neue Themen erhalten eigene Bereiche neben `Sql`, beispielsweise `Algorithms` oder `Uml`. SQL-Parser und SQL-Datenbankzugriff bleiben im SQL-Modul. Gemeinsame Lernbedienung wird unter `Components/Learning` gepflegt. Neue gemeinsame Abstraktionen erst ergänzen, wenn ein weiteres Modul sie tatsächlich benötigt.
+`Algorithms` ist als zweites Modul neben `Sql` umgesetzt. SQL-Parser und SQL-Datenbankzugriff bleiben im SQL-Modul. Die Algorithmus-Inhalte liegen eingebettet unter `Core/Algorithms/Content/lessons.json`; fachliche Referenzen und unabhängig festgelegte Sollausgaben werden automatisiert geprüft. `AlgorithmProgress` verwendet einen eigenen Entwurf statt der SQL-Eigenschaft `Sql`. Ältere JSON-Profile erhalten den fehlenden Bereich `AlgorithmLessons` mit leeren Vorgaben; `LastAlgorithmLessonId` startet bei 1. Speichern hält alle drei Bereiche und Einstellungen unter derselben Dateisperre zusammen. Details und Grenzen: [Pseudocode](pseudocode.md).
+
+Sichtbare Pseudocode-Zuweisungen verwenden bevorzugt `=`, Gleichheitsvergleiche `==`. Die alten Zuweisungsvarianten bleiben im Parser zulässig; gespeicherte Nutzerentwürfe werden bei der Inhaltsänderung nicht automatisch ersetzt. Jede Änderung eingebetteter Aufgaben benötigt einen Neubau.
+
+Gemeinsame Lernbedienung wird unter `Components/Learning` gepflegt. `MainLayout` hört auf interne Navigation und setzt den sitzungsbezogenen `LearningNavigation`-Kontext anhand fachlicher Zielpfade. Übersicht und Lernplan ändern diesen Kontext nicht. Bei einem vollständigen Neuladen einer allgemeinen Seite ist SQL wieder der Standard; direkte Algorithmus-Adressen stellen den passenden Kontext her. Es werden keine Browsercookies oder neuen Profilfelder für den Navigationskontext eingeführt. Neue gemeinsame Abstraktionen erst ergänzen, wenn ein weiteres Modul sie tatsächlich benötigt.
 
 Die bisherigen JSON-Eigenschaften und Dateipfade für Lernstände bleiben trotz neuer Namespaces unverändert. Es werden keine .NET-Typnamen in diesen Dateien gespeichert; eine Profilmigration ist für die Umordnung nicht nötig.
 

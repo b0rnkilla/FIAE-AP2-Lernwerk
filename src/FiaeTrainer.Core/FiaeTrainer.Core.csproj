@@ -2,6 +2,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Sql/Content/*.json" />
     <EmbeddedResource Include="Sql/Content/*.sql" />
+    <EmbeddedResource Include="Algorithms/Content/*.json" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.1.1" />

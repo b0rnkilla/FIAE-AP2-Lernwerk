@@ -8,7 +8,7 @@
     {
         <div class="mode-confirmation" role="status">
             <strong>Bereit für einen neuen Selbsttest?</strong>
-            <p>Dein aktueller Entwurf und die geöffneten Hilfen werden geleert. Deine gelösten Aufgaben bleiben erhalten.</p>
+            <p>Dein aktueller Entwurf und die geöffneten Hilfen werden zurückgesetzt. Deine gelösten Aufgaben bleiben erhalten.</p>
             <div><button class="button primary" disabled="@Busy" @onclick="StartIndependentAsync">Neuen Versuch starten</button><button class="button secondary" disabled="@Busy" @onclick="() => _confirmRestart = false">Entwurf behalten</button></div>
         </div>
     }
@@ -21,7 +21,7 @@
 @code {
     /// <summary> Zeigt den Modus ohne Unterstützung an. </summary>
     [Parameter] public bool ExamMode { get; set; }
-    /// <summary> Sperrt den Wechsel während laufender Datenbankabfragen. </summary>
+    /// <summary> Sperrt den Wechsel während laufender Ausführungen und Bewertungen. </summary>
     [Parameter] public bool Busy { get; set; }
     /// <summary> Verhindert einen unbemerkten Verlust eines vorhandenen Entwurfs. </summary>
     [Parameter] public bool HasDraft { get; set; }
