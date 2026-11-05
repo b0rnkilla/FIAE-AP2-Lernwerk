@@ -1,6 +1,6 @@
 # Entwicklung und Projektstruktur
 
-Quellstand: **0.1.1-alpha.8 mit WiSo**, insgesamt 220 Übungen. Zuletzt gebautes Windows-Paket: **0.1.1-alpha.7 ohne WiSo**, 70 Übungen. Es wurde für den WiSo-Ausbau kein neues Paket erstellt. Diese Anleitung dient dem Projektinhaber zur Pflege und Erweiterung. Auch ein Zugriff auf die Dateien räumt keine Open-Source-Lizenz ein; es gelten die [Nutzungsbedingungen](../LICENSE). Die Entstehung und Zuordnung älterer Pakete stehen unter [lokale Releases](lokale-releases.md).
+Quellstand: **0.1.1-alpha.9 mit SQL-/Pseudocode-Prüfungen, WiSo-Feinschliff und Urheberlogo**, 220 Lernübungen plus 25 getrennte Prüfungsaufgaben. Zuletzt gebautes Windows-Paket: **0.1.1-alpha.8 mit 220 Übungen**, am 05.11.2026 aus dem sauberen, inzwischen gepushten Commit `b4e953f` gebaut und aus dem ZIP geprüft. Diese Anleitung dient dem Projektinhaber zur Pflege und Erweiterung. Auch ein Zugriff auf die Dateien räumt keine Open-Source-Lizenz ein; es gelten die [Nutzungsbedingungen](../LICENSE). Die Entstehung und Zuordnung älterer Pakete stehen unter [lokale Releases](lokale-releases.md).
 
 ## Orientierung
 
@@ -12,10 +12,12 @@ src/
       Syntax/           Tokenisierung und begrenzte deutsche Grammatik
       Execution/        Isolierter Interpreter und Ablaufspur
       Evaluation/       Code-, Ausgabe- und Testfallprüfung
+      Exams/            Zehn eigene Prüfungsaufgaben, Auswahl und Teilpunkte
     BusinessStudies/
       Content/          150 eigene Fragen, acht Themen, Quellen und Katalog
       Evaluation/       Strukturierte Antworten und deterministische Teilprüfung
       Practice/         Runde, Prüfungsuhr und Aufgabenauswahl
+    Exams/              Gemeinsame Prüfungsrunden, Frist und Ergebnisse
     Sql/
       Content/          JSON-Aufgaben, SQL-Startdaten, Ressourcenloader
       Database/         Datenbankanlage und SQL-Ausführung
@@ -23,6 +25,7 @@ src/
       Results/          Ergebnistabellen und Wertevergleich
       Validation/       Syntax, Schreibregeln und Zugriffsgrenzen
       Workshop/         Schreibübungen, Modelle und Bewertung
+      Exams/            Drei Prüfungsfälle, Validator und Bewertung
       Lesson.cs         Gemeinsames Aufgabenmodell der SQL-Lernwege
   FiaeTrainer.Web/
     Components/
@@ -30,9 +33,11 @@ src/
       Learning/         Gemeinsame Lernbedienung
       Project/          Dezente Unterstützungskarte und Projektverweise
       BusinessStudies/  WiSo-Eingaben, Auflösung und eigene Abbildungen
+      Exams/            Nachbereitung und Prüfungsrückweg
       Pages/Training/   SQL-, Algorithmus- und WiSo-Seiten samt Code-behind
       Sql/              SQL-Ergebnisse, Fallnotizen und Tabellenübersicht
       Updates/          Updatehinweis
+    Exams/              Koordination der zwei fachlichen Prüfungen
     Configuration/      Persönliche Einstellungen und Release-Profil
     Learning/           Profilmodelle und Fortschrittsspeicherung
     Networking/         Zugriffskontrolle der optionalen Vorführung
@@ -149,6 +154,12 @@ dotnet test FIAE_AP2_Trainer.sln
 
 Die Version steht zentral in `Directory.Build.props`. Die Updateprüfung kann nur öffentlich erreichbare Releases auswerten. Konfigurierte Quelle: `b0rnkilla/FIAE-AP2-Lernwerk`; benötigt werden ein SemVer-Tag und ein fertig hochgeladener Anhang `*-win-x64.zip`. Reine Tags und automatisch erzeugte Quellcodearchive zählen nicht. Details: [Lokale Releases](lokale-releases.md).
 
-`Release-erstellen.ps1` hat auf ausdrücklichen Nutzerwunsch die Alpha 0.1.1-alpha.7 aus der damaligen Arbeitsfassung ohne WiSo erzeugt und lädt nichts hoch. Die Release-Zuordnung muss nach Commit und Push auf den neuen Anwendungsstand zeigen, nicht auf den älteren Basiscommit. Es legt `release/Anleitung.md` als kurze ANLEITUNG.md und passende Versionshinweise bei; die technische Entwickleranleitung ist nicht die Benutzeranleitung im ZIP. Die README beschreibt für Anwender ausschließlich den Release-Download. Weitere Pakete nur ausdrücklich oder am vereinbarten Entwicklungsende erstellen. Die aktuelle private Projektlizenz und unabhängige Drittanbieterlizenzen müssen mitgeliefert werden. Ein früherer MIT-Entwurf des Projekts gehört nicht in neue Pakete. Die aktuelle Paketprüfung steht im [Testprotokoll](testprotokoll.md).
+`Release-erstellen.ps1` hat auf ausdrücklichen Nutzerwunsch die Alpha 0.1.1-alpha.8 aus dem sauberen Commit `b4e953f` erzeugt und lädt nichts hoch. Der Tag `v0.1.1-alpha.8` gehört auf diesen inzwischen gepushten Anwendungscommit. Die nachträglich ergänzten Prüfdokumente verändern das geprüfte ZIP nicht. Es legt `release/Anleitung.md` als kurze ANLEITUNG.md und passende Versionshinweise bei; die technische Entwickleranleitung ist nicht die Benutzeranleitung im ZIP. Die README beschreibt für Anwender ausschließlich den Release-Download. Weitere Pakete nur ausdrücklich oder am vereinbarten Entwicklungsende erstellen. Die aktuelle private Projektlizenz und unabhängige Drittanbieterlizenzen müssen mitgeliefert werden. Ein früherer MIT-Entwurf des Projekts gehört nicht in neue Pakete. Die aktuelle Paketprüfung steht im [Testprotokoll](testprotokoll.md).
 
 Weitere Vorgaben: [Coding Guideline](coding-guideline.md), [Lernkonzept](lernkonzept.md), [Testprotokoll](testprotokoll.md).
+
+## Neue Prüfungsrunden und Aufgabenwechsel
+
+SQL und Pseudocode besitzen separate 45-Minuten-Prüfungen. Inhalt, Teilpunkte, Routen, Profilfelder und Bewertungsgrenzen stehen unter [Prüfungsmodus](pruefungsmodus.md). Die vorhandenen 220 Lernaufgaben bleiben unverändert; die zusätzlichen 25 Prüfungsaufgaben zählen in eigenen Ergebnissen.
+
+Bei Listenklicks innerhalb von SQL, Werkstatt und Algorithmen merkt `task-navigation.js` ausschließlich die Gesamtseiten- und Listenposition dieses Wechsels. `TaskNavigationPosition` stellt sie nach dem fertig geladenen Zielrender wieder her. Andere Navigation, Prüfungsseiten, Browser-Zurück und WiSo-Abgaben bleiben davon getrennt. Während asynchroner Aufgabenwechsel bleibt der bisherige Inhalt für die Höhe im DOM und ist inert; `FocusOnNavigate` fokussiert auf diesen drei Lernseiten nicht mehr die Überschrift.

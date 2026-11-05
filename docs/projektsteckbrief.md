@@ -4,12 +4,12 @@
 | --- | --- |
 | Anwendung | AP2 Lernwerk |
 | Projektmappe | FIAE_AP2_Trainer.sln |
-| Entwicklungsfassung | 0.1.1-alpha.8 · 04.11.2026 |
-| Zuletzt gebautes Windows-Paket | 0.1.1-alpha.7, aus dem ZIP geprüft |
+| Entwicklungsfassung | 0.1.1-alpha.9 · 05.11.2026 |
+| Zuletzt gebautes Windows-Paket | 0.1.1-alpha.8, aus dem ZIP geprüft am 05.11.2026 |
 | Plattform | Windows, lokale Browseroberfläche |
 | Technik | C#, .NET 10, ASP.NET Core, Blazor, Microsoft SQL Server |
-| Verfügbar im Quellstand | 30 SQL-Ermittlungsaufgaben, zehn SQL-Werkstattaufgaben, 30 Algorithmus-Aufgaben und 150 WiSo-Aufgaben; insgesamt 220 |
-| Inhalt Windows-Paket Alpha 7 | Beide SQL-Lernwege und alle 30 Algorithmus-Aufgaben, insgesamt 70 Übungen |
+| Verfügbar im Quellstand | 30 SQL-Ermittlungsaufgaben, zehn SQL-Werkstattaufgaben, 30 Algorithmus-Aufgaben und 150 WiSo-Aufgaben; 220 Lernübungen plus zehn Pseudocode- und 15 SQL-Prüfungsaufgaben |
+| Inhalt Windows-Paket Alpha 8 | 40 SQL-, 30 Algorithmus- und 150 WiSo-Aufgaben, insgesamt 220 Übungen; Projektbereich |
 | Nutzungsmodell | Private, nichtkommerzielle lokale Nutzung gemäß LICENSE |
 
 ## Ziel
@@ -47,9 +47,9 @@ Die Anwendung verwendet ausschließlich die gekennzeichnete Datenbank `FIAE_AP2_
 
 ## Veröffentlichung und Lizenz
 
-Die öffentliche README beschreibt auf ausdrücklichen Nutzerwunsch bereits die aktuelle App-Fassung. Der technische Paketstand bleibt unverändert bei Alpha 7; die README ist freigegeben. Versionshinweise für Alpha 8 sind vorbereitet; jetzt folgen Committext und Nutzer-Commit, danach das neue ZIP samt Release-Angaben.
+**Windows-Paket 0.1.1-alpha.8: gebaut und aus dem entpackten ZIP geprüft am 05.11.2026**, aus dem sauberen Commit `b4e953fbb628b9c39ce695538db2bf1343f13bcf`. Der Nutzer hat den Commit gepusht; der Remote-Stand wurde bestätigt. Enthalten sind 220 Übungen: 40 SQL-, 30 Algorithmus- und 150 WiSo-Aufgaben sowie der neue Projektbereich. Veröffentlichung und Upload erfolgen durch den Nutzer.
 
-Verteilt werden lokale Windows-x64-Pakete über den Bereich Releases des [offiziellen Repositorys](https://github.com/b0rnkilla/FIAE-AP2-Lernwerk/releases). Die Alpha 0.1.1-alpha.7 ist auf ausdrücklichen Wunsch aus der damaligen Arbeitsfassung ohne WiSo gebaut und aus dem ZIP geprüft. Die Änderungen waren beim Bau noch nicht committed; für den Release-Tag müssen sie zuvor versioniert und gepusht werden. Es wurde nichts automatisch veröffentlicht. Die README beschreibt ausschließlich den ZIP-/EXE-Einstieg für Anwender; SQL Server bleibt für die SQL-Lernwege eine separate Voraussetzung. Weitere Pakete entstehen auf ausdrücklichen Wunsch beziehungsweise zum vereinbarten Abschluss. Das alte Paket 0.1.0 ist kein aktuelles Verteilungspaket.
+Die freigegebene öffentliche README führt Anwender ausschließlich über Releases zum Windows-ZIP und zur entpackten EXE. SQL Server bleibt für die SQL-Lernwege separat erforderlich. Ältere Pakete bleiben unverändert. Weitere Pakete nur auf ausdrücklichen Auftrag beziehungsweise zum vereinbarten Abschluss.
 
 Für die neue Fassung gelten eigene Bedingungen zur privaten Nutzung. Kommerzielle Nutzung, Programmänderungen und Weiterverbreitung werden nicht eingeräumt. Eine pauschale MIT-Freigabe wird nicht eingeräumt. Zwingende gesetzliche Rechte und Lizenzen der Abhängigkeiten bleiben unberührt. Einzelheiten: [LICENSE](../LICENSE) und [Lizenzwechsel](lizenz.md).
 
@@ -72,3 +72,13 @@ Für die Entwicklung in Visual Studio ist wegen .NET 10 Visual Studio 2026 erfor
 - [SQL Murder Mystery](https://github.com/NUKnightLab/sql-mysteries) als konzeptionelle Inspiration.
 
 Eine vollständige Zuordnung des aktuellen Prüfungskatalogs zu allen geplanten Modulen steht noch aus.
+
+## Oberflächenpflege in Alpha 9
+
+WiSo gewichtet den Sachverhalt stärker als den Arbeitsauftrag. Der Falltext besitzt eine größere Schrift und eine eigene Abschnittsüberschrift; Aufgabentitel und Arbeitsauftrag sind kompakter. Eingabeeinheiten brechen bei Platzmangel um. Das nachgereichte b0rnkilla-Gaming-Logo ist auf der Projektseite eingebunden. Keine neue Aufgabenbewertung oder Lernstandmigration. Die Siegelabbildung Blauer Engel wurde auf Nutzerwunsch gestrichen. Das veröffentlichte Alpha-8-Paket bleibt unverändert; Alpha 9 ist nur die neue Entwicklungsfassung.
+
+Mehrfachauswahl in WiSo zeigt die erforderliche Anzahl nun ausgeschrieben und fett hervorgehoben auf einer dezenten Akzentfläche. Bewertung und Profilformat bleiben unverändert.
+
+## Prüfungsrunden in Alpha 9
+
+SQL und Pseudocode bieten zusätzlich eigene 45-Minuten-Prüfungen mit 50 Trainingspunkten, gespeicherten Entwürfen, Pause, Kontrollmarkierung, Nachschlagen und Auswertung nach Abgabe. Pseudocode wählt drei Aufgaben aus einem neuen Zehnerpool, SQL fünf Aufgaben aus einem von drei neuen Fällen. Historie und Prüfungsstände bleiben von den Lernaufgaben getrennt. Die Ausgabe ist keine amtliche IHK-Note; bei technischen SQL-Störungen bleibt die Abgabe unbenotet gespeichert. Der Aufgabenwechsel über die linke Liste erhält nun auch die Gesamtseitenposition. Einzelheiten und Grenzen: [Prüfungsmodus](pruefungsmodus.md).

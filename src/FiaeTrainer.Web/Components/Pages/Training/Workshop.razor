@@ -13,14 +13,15 @@ else
 {
     <main class="workspace workshop-workspace @(_progress.TaskListCollapsed ? "rail-collapsed" : "")">
         <TaskRail Id="task-list" Collapsed="_progress.TaskListCollapsed" CollapsedChanged="SetTaskListCollapsedAsync"><div class="eyebrow">SQL-WERKSTATT</div><h2>Daten ändern.<br />Regeln verstehen.</h2><div class="rail-progress"><span>@_progress.WorkshopLessons.Values.Count(x => x.Completed) / @Catalog.Lessons.Count gelöst</span><progress value="@_progress.WorkshopLessons.Values.Count(x => x.Completed)" max="@Catalog.Lessons.Count" aria-label="Fortschritt der SQL-Werkstatt"></progress></div><nav aria-label="Werkstattaufgaben auswählen">@foreach (var chapter in Catalog.Lessons.GroupBy(x => x.Chapter)) { <div class="chapter-label">@chapter.Key</div>@foreach (WorkshopLesson lesson in chapter) { bool completed = _progress.WorkshopLessons.TryGetValue(lesson.Id, out LessonProgress? saved) && saved.Completed;<a class="mission-link @(lesson.Id == _lesson.Id ? "selected" : "")" href="@($"/sql-werkstatt/{lesson.Id}")" aria-current="@(lesson.Id == _lesson.Id ? "step" : null)"><span class="mission-index @(completed ? "done" : "")">@(completed ? "✓" : lesson.Id.ToString("D2"))</span><span>@lesson.Title</span></a> } }</nav></TaskRail>
-        <div class="mission-main">
+        <div class="mission-main" aria-busy="@(_loading ? "true" : "false")" inert="@(_loading ? "" : null)">
             @* Während des Ladens bleibt dieselbe Aufgabenliste mit ihrer aktuellen Scrollposition erhalten. *@
             @if (_loading)
             {
-                <div class="loading-state" role="status"><span class="eyebrow">GLEICH GEHT’S WEITER</span><h1>Deine Aufgabe wird geladen …</h1><p>Dein Entwurf und dein Fortschritt werden vorbereitet.</p></div>
+                <p class="task-loading-note" role="status">Deine Aufgabe wird geladen …</p>
             }
-            else
+            @if (_lesson != null)
             {
+                <TaskNavigationPosition Path="@($"/sql-werkstatt/{_lesson.Id}")" />
                 <div class="mission-topline"><span class="eyebrow">WERKSTATT @_lesson.Id.ToString("D2") / @Catalog.Lessons.Count</span><span class="badge">@_lesson.Topic</span></div><h1>@_lesson.Title</h1>
                 <LearningModePicker @key="_lesson.Id" ExamMode="_examMode" Busy="_busy" HasDraft="@(!string.IsNullOrWhiteSpace(_sql))" AssistedAttempt="_current.UsedAssistance" ModeChanged="SetModeAsync" />
                 <p class="workshop-safety"><strong>Deine Arbeitskopie startet jedes Mal neu.</strong> Schreibe Tabellennamen ohne Präfix, zum Beispiel <code>Artikel</code>. Mehrere Befehle gehören gemeinsam in ein Skript. Änderungen betreffen nur diesen Versuch.</p>

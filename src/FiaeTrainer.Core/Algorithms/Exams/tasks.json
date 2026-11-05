@@ -1,0 +1,985 @@
+[
+  {
+    "id": 1,
+    "title": "Eine Sammelrechnung berechnen",
+    "kind": "Write",
+    "story": "Die Betriebssoftware eines Verleihbetriebs wird vor einer Erweiterung geprüft.",
+    "task": "Implementiere berechneRechnung(positionen). Jede Zeile der Liste positionen enthält [menge, einzelpreis, aktiv]. Menge ist ganzzahlig, aktiv ist 0 oder 1. Berücksichtige nur aktive Positionen mit menge > 0 und einzelpreis >= 0. Addiere menge * einzelpreis und zähle die berücksichtigten Positionen. Ab einer Summe von einschließlich 200 EUR werden auf die gesamte Summe 10 % Rabatt gewährt. Gib [anzahl, zahlbetrag] zurück; keine Rundung. Eine leere Liste ergibt [0, 0].",
+    "referenceCode": "FUNKTION berechneRechnung(positionen)\n    summe = 0\n    anzahl = 0\n    FÜR JEDES p IN positionen\n        WENN p[2] == 1 UND p[0] > 0 UND p[1] >= 0 DANN\n            summe = summe + p[0] * p[1]\n            anzahl = anzahl + 1\n        ENDE WENN\n    ENDE FÜR\n    WENN summe >= 200 DANN\n        summe = summe * 0.9\n    ENDE WENN\n    RÜCKGABE [anzahl, summe]\nENDE FUNKTION",
+    "givenCode": "",
+    "functionName": "berechneRechnung",
+    "functionInputs": [
+      "positionen"
+    ],
+    "exampleInputs": {
+      "positionen": [
+        [
+          2,
+          30,
+          1
+        ],
+        [
+          1,
+          20,
+          1
+        ],
+        [
+          3,
+          90,
+          0
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "name": "Mehrere aktive Positionen",
+        "inputs": {
+          "positionen": [
+            [
+              2,
+              30,
+              1
+            ],
+            [
+              1,
+              20,
+              1
+            ],
+            [
+              3,
+              90,
+              0
+            ]
+          ]
+        },
+        "output": [
+          "[2, 80]"
+        ]
+      },
+      {
+        "name": "Rabattgrenze",
+        "inputs": {
+          "positionen": [
+            [
+              2,
+              100,
+              1
+            ]
+          ]
+        },
+        "output": [
+          "[1, 180]"
+        ]
+      },
+      {
+        "name": "Unter der Grenze",
+        "inputs": {
+          "positionen": [
+            [
+              1,
+              199,
+              1
+            ]
+          ]
+        },
+        "output": [
+          "[1, 199]"
+        ]
+      },
+      {
+        "name": "Ungültige Positionen",
+        "inputs": {
+          "positionen": [
+            [
+              -1,
+              10,
+              1
+            ],
+            [
+              2,
+              -5,
+              1
+            ],
+            [
+              0,
+              100,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ]
+        },
+        "output": [
+          "[1, 0]"
+        ]
+      },
+      {
+        "name": "Leere Rechnung",
+        "inputs": {
+          "positionen": []
+        },
+        "output": [
+          "[0, 0]"
+        ]
+      }
+    ],
+    "explanation": "Die Musterlösung setzt den beschriebenen Vertrag um. Vergleiche insbesondere die Prüfungen für leere Eingaben, Grenzen und Gleichstände. Andere funktional richtige Lösungen werden ebenfalls akzeptiert."
+  },
+  {
+    "id": 2,
+    "title": "Gestaffelte Nutzungskosten",
+    "kind": "Write",
+    "story": "Die Betriebssoftware eines Verleihbetriebs wird vor einer Erweiterung geprüft.",
+    "task": "Implementiere nutzungspreis(minuten, express). minuten ist eine ganze Zahl, express ein Wahrheitswert. Negative Minuten ergeben -1; null Minuten ergeben 0, auch bei express. Sonst kostet jeder angefangene 15-Minuten-Block 3 EUR, zusätzlich einmalig 5 EUR Grundpreis. Bei express wird der gesamte Preis um 20 % erhöht. Keine Rundung. Gib nur den Zahlenwert zurück.",
+    "referenceCode": "FUNKTION nutzungspreis(minuten, express)\n    WENN minuten < 0 DANN\n        RÜCKGABE -1\n    ENDE WENN\n    WENN minuten == 0 DANN\n        RÜCKGABE 0\n    ENDE WENN\n    bloecke = (minuten + 14) DIV 15\n    preis = 5 + bloecke * 3\n    WENN express DANN\n        preis = preis * 1.2\n    ENDE WENN\n    RÜCKGABE preis\nENDE FUNKTION",
+    "givenCode": "",
+    "functionName": "nutzungspreis",
+    "functionInputs": [
+      "minuten",
+      "express"
+    ],
+    "exampleInputs": {
+      "minuten": 16,
+      "express": false
+    },
+    "tests": [
+      {
+        "name": "Angefangener Block",
+        "inputs": {
+          "minuten": 16,
+          "express": false
+        },
+        "output": [
+          "11"
+        ]
+      },
+      {
+        "name": "Blockgrenze",
+        "inputs": {
+          "minuten": 15,
+          "express": false
+        },
+        "output": [
+          "8"
+        ]
+      },
+      {
+        "name": "Express",
+        "inputs": {
+          "minuten": 30,
+          "express": true
+        },
+        "output": [
+          "13.2"
+        ]
+      },
+      {
+        "name": "Keine Nutzung",
+        "inputs": {
+          "minuten": 0,
+          "express": true
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Ungültig",
+        "inputs": {
+          "minuten": -1,
+          "express": false
+        },
+        "output": [
+          "-1"
+        ]
+      },
+      {
+        "name": "Eine Minute",
+        "inputs": {
+          "minuten": 1,
+          "express": true
+        },
+        "output": [
+          "9.6"
+        ]
+      }
+    ],
+    "explanation": "Die Musterlösung setzt den beschriebenen Vertrag um. Vergleiche insbesondere die Prüfungen für leere Eingaben, Grenzen und Gleichstände. Andere funktional richtige Lösungen werden ebenfalls akzeptiert."
+  },
+  {
+    "id": 3,
+    "title": "Zusammenhängende Arbeitsplätze",
+    "kind": "Write",
+    "story": "Die Betriebssoftware eines Verleihbetriebs wird vor einer Erweiterung geprüft.",
+    "task": "Implementiere findeBlock(belegung, anzahl). belegung ist eine gegebenenfalls leere Liste unterschiedlich langer Reihen; 0 bedeutet frei und 1 belegt. anzahl ist ganzzahlig. Gesucht sind anzahl unmittelbar nebeneinanderliegende freie Plätze innerhalb einer Reihe. Gib [reihenindex, startindex] des ersten passenden Blocks zurück: zuerst die kleinste Reihe, darin den kleinsten Startindex. Bei anzahl <= 0 oder ohne passenden Block gib [-1, -1] zurück. Indizes beginnen bei 0. Belegung nicht verändern.",
+    "referenceCode": "FUNKTION findeBlock(belegung, anzahl)\n    WENN anzahl <= 0 DANN\n        RÜCKGABE [-1, -1]\n    ENDE WENN\n    FÜR r VON 0 BIS LÄNGE(belegung) - 1\n        frei = 0\n        FÜR s VON 0 BIS LÄNGE(belegung[r]) - 1\n            WENN belegung[r][s] == 0 DANN\n                frei = frei + 1\n                WENN frei == anzahl DANN\n                    RÜCKGABE [r, s - anzahl + 1]\n                ENDE WENN\n            SONST\n                frei = 0\n            ENDE WENN\n        ENDE FÜR\n    ENDE FÜR\n    RÜCKGABE [-1, -1]\nENDE FUNKTION",
+    "givenCode": "",
+    "functionName": "findeBlock",
+    "functionInputs": [
+      "belegung",
+      "anzahl"
+    ],
+    "exampleInputs": {
+      "belegung": [
+        [
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "anzahl": 2
+    },
+    "tests": [
+      {
+        "name": "Erster zusammenhängender Block",
+        "inputs": {
+          "belegung": [
+            [
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "anzahl": 2
+        },
+        "output": [
+          "[0, 2]"
+        ]
+      },
+      {
+        "name": "Zeilen nicht verbinden",
+        "inputs": {
+          "belegung": [
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ],
+          "anzahl": 2
+        },
+        "output": [
+          "[-1, -1]"
+        ]
+      },
+      {
+        "name": "Leere Reihen überspringen",
+        "inputs": {
+          "belegung": [
+            [],
+            [
+              1,
+              0
+            ]
+          ],
+          "anzahl": 1
+        },
+        "output": [
+          "[1, 1]"
+        ]
+      },
+      {
+        "name": "Keine Reihen",
+        "inputs": {
+          "belegung": [],
+          "anzahl": 2
+        },
+        "output": [
+          "[-1, -1]"
+        ]
+      },
+      {
+        "name": "Ungültige Anzahl",
+        "inputs": {
+          "belegung": [
+            [
+              0,
+              0
+            ]
+          ],
+          "anzahl": 0
+        },
+        "output": [
+          "[-1, -1]"
+        ]
+      },
+      {
+        "name": "Ganze Reihe frei",
+        "inputs": {
+          "belegung": [
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "anzahl": 3
+        },
+        "output": [
+          "[0, 0]"
+        ]
+      }
+    ],
+    "explanation": "Die Musterlösung setzt den beschriebenen Vertrag um. Vergleiche insbesondere die Prüfungen für leere Eingaben, Grenzen und Gleichstände. Andere funktional richtige Lösungen werden ebenfalls akzeptiert."
+  },
+  {
+    "id": 4,
+    "title": "Das günstigste passende Angebot",
+    "kind": "Write",
+    "story": "Die Betriebssoftware eines Verleihbetriebs wird vor einer Erweiterung geprüft.",
+    "task": "Implementiere waehleAngebot(angebote, bedarf). Jede Zeile enthält [id, bestand, preis, aktiv]; IDs sind positive eindeutige ganze Zahlen, Bestand und Preis nichtnegativ, aktiv ist 0 oder 1. bedarf ist eine positive ganze Zahl. Berücksichtige nur aktive Angebote mit bestand >= bedarf. Wähle den niedrigsten Preis, bei gleichem Preis die kleinste ID. Gib die ID oder -1 ohne Treffer zurück. Angebote stehen in beliebiger Reihenfolge.",
+    "referenceCode": "FUNKTION waehleAngebot(angebote, bedarf)\n    besteId = -1\n    besterPreis = 0\n    FÜR JEDES a IN angebote\n        WENN a[3] == 1 UND a[1] >= bedarf DANN\n            WENN besteId == -1 ODER a[2] < besterPreis ODER (a[2] == besterPreis UND a[0] < besteId) DANN\n                besteId = a[0]\n                besterPreis = a[2]\n            ENDE WENN\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE besteId\nENDE FUNKTION",
+    "givenCode": "",
+    "functionName": "waehleAngebot",
+    "functionInputs": [
+      "angebote",
+      "bedarf"
+    ],
+    "exampleInputs": {
+      "angebote": [
+        [
+          8,
+          2,
+          1,
+          1
+        ],
+        [
+          6,
+          9,
+          20,
+          1
+        ],
+        [
+          4,
+          5,
+          15,
+          1
+        ]
+      ],
+      "bedarf": 5
+    },
+    "tests": [
+      {
+        "name": "Günstigstes passendes Angebot",
+        "inputs": {
+          "angebote": [
+            [
+              8,
+              2,
+              1,
+              1
+            ],
+            [
+              6,
+              9,
+              20,
+              1
+            ],
+            [
+              4,
+              5,
+              15,
+              1
+            ]
+          ],
+          "bedarf": 5
+        },
+        "output": [
+          "4"
+        ]
+      },
+      {
+        "name": "Gleichstand",
+        "inputs": {
+          "angebote": [
+            [
+              9,
+              4,
+              10,
+              1
+            ],
+            [
+              2,
+              4,
+              10,
+              1
+            ]
+          ],
+          "bedarf": 4
+        },
+        "output": [
+          "2"
+        ]
+      },
+      {
+        "name": "Inaktiv",
+        "inputs": {
+          "angebote": [
+            [
+              1,
+              10,
+              0,
+              0
+            ],
+            [
+              3,
+              10,
+              8,
+              1
+            ]
+          ],
+          "bedarf": 1
+        },
+        "output": [
+          "3"
+        ]
+      },
+      {
+        "name": "Ohne Treffer",
+        "inputs": {
+          "angebote": [
+            [
+              1,
+              2,
+              3,
+              1
+            ]
+          ],
+          "bedarf": 3
+        },
+        "output": [
+          "-1"
+        ]
+      },
+      {
+        "name": "Leere Liste",
+        "inputs": {
+          "angebote": [],
+          "bedarf": 1
+        },
+        "output": [
+          "-1"
+        ]
+      }
+    ],
+    "explanation": "Die Musterlösung setzt den beschriebenen Vertrag um. Vergleiche insbesondere die Prüfungen für leere Eingaben, Grenzen und Gleichstände. Andere funktional richtige Lösungen werden ebenfalls akzeptiert."
+  },
+  {
+    "id": 5,
+    "title": "Aufträge nach zwei Kriterien ordnen",
+    "kind": "Write",
+    "story": "Die Betriebssoftware eines Verleihbetriebs wird vor einer Erweiterung geprüft.",
+    "task": "Implementiere ordneAuftraege(auftraege). Jede Zeile enthält [prioritaet, id]; beide Werte sind ganze Zahlen, IDs sind eindeutig. Sortiere aufsteigend nach prioritaet und bei gleicher Priorität aufsteigend nach id. Gib die sortierte vollständige Liste zurück. Auch leere Listen und einzelne Aufträge sind möglich. Die Eingabeliste darf innerhalb der Funktion verändert werden. Ein Sortierverfahren darf frei gewählt werden; eine eingebaute Sortierfunktion steht nicht zur Verfügung.",
+    "referenceCode": "FUNKTION ordneAuftraege(auftraege)\n    FÜR i VON 0 BIS LÄNGE(auftraege) - 2\n        FÜR j VON 0 BIS LÄNGE(auftraege) - 2 - i\n            a = auftraege[j]\n            b = auftraege[j + 1]\n            WENN a[0] > b[0] ODER (a[0] == b[0] UND a[1] > b[1]) DANN\n                auftraege[j] = b\n                auftraege[j + 1] = a\n            ENDE WENN\n        ENDE FÜR\n    ENDE FÜR\n    RÜCKGABE auftraege\nENDE FUNKTION",
+    "givenCode": "",
+    "functionName": "ordneAuftraege",
+    "functionInputs": [
+      "auftraege"
+    ],
+    "exampleInputs": {
+      "auftraege": [
+        [
+          2,
+          8
+        ],
+        [
+          1,
+          9
+        ],
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "name": "Zwei Sortierkriterien",
+        "inputs": {
+          "auftraege": [
+            [
+              2,
+              8
+            ],
+            [
+              1,
+              9
+            ],
+            [
+              1,
+              3
+            ]
+          ]
+        },
+        "output": [
+          "[[1, 3], [1, 9], [2, 8]]"
+        ]
+      },
+      {
+        "name": "Umgekehrt",
+        "inputs": {
+          "auftraege": [
+            [
+              3,
+              1
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ]
+        },
+        "output": [
+          "[[1, 3], [2, 2], [3, 1]]"
+        ]
+      },
+      {
+        "name": "Schon sortiert",
+        "inputs": {
+          "auftraege": [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              2,
+              1
+            ]
+          ]
+        },
+        "output": [
+          "[[1, 2], [1, 4], [2, 1]]"
+        ]
+      },
+      {
+        "name": "Leer",
+        "inputs": {
+          "auftraege": []
+        },
+        "output": [
+          "[]"
+        ]
+      },
+      {
+        "name": "Ein Auftrag",
+        "inputs": {
+          "auftraege": [
+            [
+              0,
+              4
+            ]
+          ]
+        },
+        "output": [
+          "[[0, 4]]"
+        ]
+      }
+    ],
+    "explanation": "Die Musterlösung setzt den beschriebenen Vertrag um. Vergleiche insbesondere die Prüfungen für leere Eingaben, Grenzen und Gleichstände. Andere funktional richtige Lösungen werden ebenfalls akzeptiert."
+  },
+  {
+    "id": 6,
+    "title": "Messreihen bereinigt auswerten",
+    "kind": "Write",
+    "story": "Die Betriebssoftware eines Verleihbetriebs wird vor einer Erweiterung geprüft.",
+    "task": "Implementiere messbericht(reihen). reihen ist eine Liste unterschiedlich langer Listen mit ganzzahligen Messwerten. Nur Werte im Bereich 0 bis einschließlich 100 sind gültig. Gib [anzahlGueltig, summeGueltig, besteReihe] zurück. besteReihe ist der Index der Reihe mit der größten Summe gültiger Werte; bei Gleichstand gewinnt der kleinere Index. Eine leere Reihe hat Summe 0. Ohne Reihen ist besteReihe -1. Ungültige Werte ignorieren.",
+    "referenceCode": "FUNKTION messbericht(reihen)\n    anzahl = 0\n    summe = 0\n    beste = -1\n    maximum = -1\n    FÜR i VON 0 BIS LÄNGE(reihen) - 1\n        teilsumme = 0\n        FÜR JEDES wert IN reihen[i]\n            WENN wert >= 0 UND wert <= 100 DANN\n                teilsumme = teilsumme + wert\n                anzahl = anzahl + 1\n            ENDE WENN\n        ENDE FÜR\n        summe = summe + teilsumme\n        WENN teilsumme > maximum DANN\n            maximum = teilsumme\n            beste = i\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE [anzahl, summe, beste]\nENDE FUNKTION",
+    "givenCode": "",
+    "functionName": "messbericht",
+    "functionInputs": [
+      "reihen"
+    ],
+    "exampleInputs": {
+      "reihen": [
+        [
+          10,
+          -1,
+          40
+        ],
+        [
+          100,
+          101,
+          0
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "name": "Gültige Werte zählen",
+        "inputs": {
+          "reihen": [
+            [
+              10,
+              -1,
+              40
+            ],
+            [
+              100,
+              101,
+              0
+            ]
+          ]
+        },
+        "output": [
+          "[4, 150, 1]"
+        ]
+      },
+      {
+        "name": "Gleichstand",
+        "inputs": {
+          "reihen": [
+            [
+              10,
+              20
+            ],
+            [
+              30
+            ]
+          ]
+        },
+        "output": [
+          "[3, 60, 0]"
+        ]
+      },
+      {
+        "name": "Keine Reihen",
+        "inputs": {
+          "reihen": []
+        },
+        "output": [
+          "[0, 0, -1]"
+        ]
+      },
+      {
+        "name": "Nur ungültige Werte",
+        "inputs": {
+          "reihen": [
+            [
+              101,
+              -5
+            ],
+            []
+          ]
+        },
+        "output": [
+          "[0, 0, 0]"
+        ]
+      },
+      {
+        "name": "Grenzwerte",
+        "inputs": {
+          "reihen": [
+            [
+              0,
+              100
+            ]
+          ]
+        },
+        "output": [
+          "[2, 100, 0]"
+        ]
+      }
+    ],
+    "explanation": "Die Musterlösung setzt den beschriebenen Vertrag um. Vergleiche insbesondere die Prüfungen für leere Eingaben, Grenzen und Gleichstände. Andere funktional richtige Lösungen werden ebenfalls akzeptiert."
+  },
+  {
+    "id": 7,
+    "title": "Eine Qualitätskontrolle reparieren",
+    "kind": "Repair",
+    "story": "Die Betriebssoftware eines Verleihbetriebs wird vor einer Erweiterung geprüft.",
+    "task": "Die Funktion zaehleAbweichungen(werte, minimum, maximum) soll die Anzahl der Werte außerhalb des einschließlich gültigen Bereichs [minimum, maximum] zurückgeben. minimum <= maximum gilt. Der gegebene Ablauf enthält mehrere Fehler. Schreibe die vollständige korrigierte Funktion. Leere Listen ergeben 0; Grenzen selbst sind gültig.",
+    "referenceCode": "FUNKTION zaehleAbweichungen(werte, minimum, maximum)\n    anzahl = 0\n    FÜR i VON 0 BIS LÄNGE(werte) - 1\n        WENN werte[i] < minimum ODER werte[i] > maximum DANN\n            anzahl = anzahl + 1\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE anzahl\nENDE FUNKTION",
+    "givenCode": "FUNKTION zaehleAbweichungen(werte, minimum, maximum)\n    anzahl = 1\n    FÜR i VON 0 BIS LÄNGE(werte) - 2\n        WENN werte[i] < minimum UND werte[i] > maximum DANN\n            anzahl = anzahl + 1\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE anzahl\nENDE FUNKTION",
+    "functionName": "zaehleAbweichungen",
+    "functionInputs": [
+      "werte",
+      "minimum",
+      "maximum"
+    ],
+    "exampleInputs": {
+      "werte": [
+        1,
+        5,
+        9,
+        12
+      ],
+      "minimum": 5,
+      "maximum": 9
+    },
+    "tests": [
+      {
+        "name": "Beide Abweichungsrichtungen",
+        "inputs": {
+          "werte": [
+            1,
+            5,
+            9,
+            12
+          ],
+          "minimum": 5,
+          "maximum": 9
+        },
+        "output": [
+          "2"
+        ]
+      },
+      {
+        "name": "Grenzen gültig",
+        "inputs": {
+          "werte": [
+            5,
+            9
+          ],
+          "minimum": 5,
+          "maximum": 9
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Letzten Wert prüfen",
+        "inputs": {
+          "werte": [
+            7,
+            15
+          ],
+          "minimum": 5,
+          "maximum": 9
+        },
+        "output": [
+          "1"
+        ]
+      },
+      {
+        "name": "Leer",
+        "inputs": {
+          "werte": [],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Gleiche Grenzen",
+        "inputs": {
+          "werte": [
+            3,
+            4,
+            5
+          ],
+          "minimum": 4,
+          "maximum": 4
+        },
+        "output": [
+          "2"
+        ]
+      }
+    ],
+    "explanation": "Die Musterlösung setzt den beschriebenen Vertrag um. Vergleiche insbesondere die Prüfungen für leere Eingaben, Grenzen und Gleichstände. Andere funktional richtige Lösungen werden ebenfalls akzeptiert."
+  },
+  {
+    "id": 8,
+    "title": "Rückgabe in jedem Entscheidungszweig",
+    "kind": "Repair",
+    "story": "Die Betriebssoftware eines Verleihbetriebs wird vor einer Erweiterung geprüft.",
+    "task": "Korrigiere die Funktion gutschrift(tage, betrag) vollständig. tage ist ganzzahlig, betrag ein Zahlenwert. Bei negativen Tagen oder negativem Betrag ist -1 zurückzugeben. Sonst gilt: bis einschließlich Tag 7 voller Betrag, danach bis einschließlich Tag 30 die Hälfte, danach 0. Kein AUSGABE verwenden; jeder Pfad muss einen Wert zurückgeben.",
+    "referenceCode": "FUNKTION gutschrift(tage, betrag)\n    WENN tage < 0 ODER betrag < 0 DANN\n        RÜCKGABE -1\n    ENDE WENN\n    WENN tage <= 7 DANN\n        RÜCKGABE betrag\n    SONST\n        WENN tage <= 30 DANN\n            RÜCKGABE betrag * 0.5\n        SONST\n            RÜCKGABE 0\n        ENDE WENN\n    ENDE WENN\nENDE FUNKTION",
+    "givenCode": "FUNKTION gutschrift(tage, betrag)\n    WENN tage < 0 UND betrag < 0 DANN\n        RÜCKGABE -1\n    ENDE WENN\n    WENN tage < 7 DANN\n        RÜCKGABE betrag\n    SONST\n        WENN tage <= 30 DANN\n            RÜCKGABE betrag * 0.5\n        SONST\n            AUSGABE 0\n        ENDE WENN\n    ENDE WENN\nENDE FUNKTION",
+    "functionName": "gutschrift",
+    "functionInputs": [
+      "tage",
+      "betrag"
+    ],
+    "exampleInputs": {
+      "tage": 2,
+      "betrag": 80
+    },
+    "tests": [
+      {
+        "name": "Frühe Rückgabe",
+        "inputs": {
+          "tage": 2,
+          "betrag": 80
+        },
+        "output": [
+          "80"
+        ]
+      },
+      {
+        "name": "Tag sieben",
+        "inputs": {
+          "tage": 7,
+          "betrag": 30
+        },
+        "output": [
+          "30"
+        ]
+      },
+      {
+        "name": "Tag acht",
+        "inputs": {
+          "tage": 8,
+          "betrag": 30
+        },
+        "output": [
+          "15"
+        ]
+      },
+      {
+        "name": "Tag dreißig",
+        "inputs": {
+          "tage": 30,
+          "betrag": 20
+        },
+        "output": [
+          "10"
+        ]
+      },
+      {
+        "name": "Später",
+        "inputs": {
+          "tage": 31,
+          "betrag": 40
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Ungültiger Betrag",
+        "inputs": {
+          "tage": 2,
+          "betrag": -1
+        },
+        "output": [
+          "-1"
+        ]
+      },
+      {
+        "name": "Ungültige Tage",
+        "inputs": {
+          "tage": -1,
+          "betrag": 10
+        },
+        "output": [
+          "-1"
+        ]
+      }
+    ],
+    "explanation": "Die Musterlösung setzt den beschriebenen Vertrag um. Vergleiche insbesondere die Prüfungen für leere Eingaben, Grenzen und Gleichstände. Andere funktional richtige Lösungen werden ebenfalls akzeptiert."
+  },
+  {
+    "id": 9,
+    "title": "Lokale Änderungen nachvollziehen",
+    "kind": "Trace",
+    "story": "Die Betriebssoftware eines Verleihbetriebs wird vor einer Erweiterung geprüft.",
+    "task": "Der Ablauf erzeugt genau fünf Ausgaben. Trage sie der Reihe nach ein, jeweils in einer eigenen Zeile. Listen werden wie [1, 2] geschrieben. Beachte die Wertkopien von Listenparametern: Änderungen innerhalb eines Aufrufs verändern die ursprüngliche Liste nicht.",
+    "referenceCode": "FUNKTION pruefe(werte, grenze)\n    anzahl = 0\n    FÜR i VON 0 BIS LÄNGE(werte) - 1\n        WENN werte[i] >= grenze DANN\n            werte[i] = werte[i] + 1\n            anzahl = anzahl + 1\n        ENDE WENN\n    ENDE FÜR\n    AUSGABE werte\n    RÜCKGABE anzahl\nENDE FUNKTION\ndaten = [2, 5, 5]\nAUSGABE pruefe(daten, 5)\nAUSGABE daten\nAUSGABE pruefe([0, 1], 0)",
+    "givenCode": "FUNKTION pruefe(werte, grenze)\n    anzahl = 0\n    FÜR i VON 0 BIS LÄNGE(werte) - 1\n        WENN werte[i] >= grenze DANN\n            werte[i] = werte[i] + 1\n            anzahl = anzahl + 1\n        ENDE WENN\n    ENDE FÜR\n    AUSGABE werte\n    RÜCKGABE anzahl\nENDE FUNKTION\ndaten = [2, 5, 5]\nAUSGABE pruefe(daten, 5)\nAUSGABE daten\nAUSGABE pruefe([0, 1], 0)",
+    "functionName": "",
+    "functionInputs": [],
+    "exampleInputs": {},
+    "tests": [
+      {
+        "name": "Fünf Ausgaben",
+        "inputs": {},
+        "output": [
+          "[2, 6, 6]",
+          "2",
+          "[2, 5, 5]",
+          "[1, 2]",
+          "2"
+        ]
+      }
+    ],
+    "explanation": "Die Musterlösung setzt den beschriebenen Vertrag um. Vergleiche insbesondere die Prüfungen für leere Eingaben, Grenzen und Gleichstände. Andere funktional richtige Lösungen werden ebenfalls akzeptiert.",
+    "referenceAnswer": "[2, 6, 6]\n2\n[2, 5, 5]\n[1, 2]\n2"
+  },
+  {
+    "id": 10,
+    "title": "Grenzen einer Wartezeitregel prüfen",
+    "kind": "TestCases",
+    "story": "Die Betriebssoftware eines Verleihbetriebs wird vor einer Erweiterung geprüft.",
+    "task": "Entwirf Testfälle für die ganzzahlige Eingabe minuten. Die fachliche Regel lautet: negativ → ungueltig; 0 bis einschließlich 15 → kurz; 16 bis einschließlich 60 → mittel; größer als 60 → lang. Decke einen negativen Wert sowie genau 0, 15, 16, 60 und 61 ab. Schreibe pro Zeile minuten => erwarteteAusgabe, ohne Anführungszeichen. Höchstens 24 Zeilen. Zusätzliche korrekte Fälle erhöhen die Punkte nicht.",
+    "referenceCode": "WENN minuten < 0 DANN\n    AUSGABE \"ungueltig\"\nSONST\n    WENN minuten <= 15 DANN\n        AUSGABE \"kurz\"\n    SONST\n        WENN minuten <= 60 DANN\n            AUSGABE \"mittel\"\n        SONST\n            AUSGABE \"lang\"\n        ENDE WENN\n    ENDE WENN\nENDE WENN",
+    "givenCode": "",
+    "functionName": "",
+    "functionInputs": [],
+    "exampleInputs": {
+      "minuten": 5
+    },
+    "tests": [
+      {
+        "name": "Kurzer Fall",
+        "inputs": {
+          "minuten": 5
+        },
+        "output": [
+          "kurz"
+        ]
+      }
+    ],
+    "explanation": "Die Musterlösung setzt den beschriebenen Vertrag um. Vergleiche insbesondere die Prüfungen für leere Eingaben, Grenzen und Gleichstände. Andere funktional richtige Lösungen werden ebenfalls akzeptiert.",
+    "caseInputName": "minuten",
+    "coverage": [
+      {
+        "name": "Negativ",
+        "minimum": null,
+        "maximum": -1
+      },
+      {
+        "name": "Null",
+        "minimum": 0,
+        "maximum": 0
+      },
+      {
+        "name": "Erste Obergrenze",
+        "minimum": 15,
+        "maximum": 15
+      },
+      {
+        "name": "Nächster Bereich",
+        "minimum": 16,
+        "maximum": 16
+      },
+      {
+        "name": "Zweite Obergrenze",
+        "minimum": 60,
+        "maximum": 60
+      },
+      {
+        "name": "Danach",
+        "minimum": 61,
+        "maximum": 61
+      }
+    ],
+    "referenceAnswer": "-1 => ungueltig\n0 => kurz\n15 => kurz\n16 => mittel\n60 => mittel\n61 => lang"
+  }
+]

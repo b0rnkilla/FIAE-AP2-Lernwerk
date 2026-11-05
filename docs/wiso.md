@@ -1,6 +1,12 @@
 # Wirtschafts- und Sozialkunde
 
-Stand: **0.1.1-alpha.8 · 04.11.2026**, nur im Quellstand. Das unveränderte Windows-ZIP Alpha 7 enthält diesen Lernbereich noch nicht.
+Fachlicher Inhalt: **04.11.2026**, Oberflächenstand **0.1.1-alpha.9 · 05.11.2026**. WiSo ist auch im Windows-ZIP Alpha 8 enthalten; die entpackte EXE wurde am 05.11.2026 ohne SQL-Verbindung einschließlich Antwortprüfung, Auswertung und Erhalt nach Neustart geprüft. Das ältere Alpha-7-ZIP bleibt unverändert ohne WiSo.
+
+## Leseführung seit Alpha 9
+
+Der Aufgabentitel ist auf 26–34 Pixel begrenzt. Der Fall besitzt einen eigenen beschrifteten Abschnitt: Überschrift 18 Pixel, Sachverhalt 19–22 Pixel mit großzügigem Zeilenabstand. Der Arbeitsauftrag darunter ist mit 18 Pixeln zurückgenommen. Die Gestaltung gilt ausschließlich für WiSo; Antwortverträge und Inhaltsversion bleiben unverändert. Lange Einheiten bei Eingabefeldern können auch auf kleinen Bildschirmen umbrechen.
+
+Die Abbildung des Blauen Engels wurde nach Prüfung der offiziellen Nutzungsvorgaben auf ausdrücklichen Nutzerwunsch gestrichen. Weder Siegeldatei noch zusätzlicher Bildverweis sind eingebaut. Bestehende fachliche Quellen zur Aufgabe bleiben erhalten.
 
 ## Umfang und Inhalt
 
@@ -70,3 +76,7 @@ Inhalte liegen eingebettet unter `Core/BusinessStudies/Content`: `questions.json
 ## Prüfnachweise
 
 Die automatisierten Tests decken alle 150 vollständigen Lösungen, leere Antworten und gezielt veränderte Lösungsteile ab. Für alle Zahlen-, Datums- und Uhrzeitaufgaben sind Sollwerte zusätzlich unabhängig festgehalten. Rundenwahl, Auswahlmengen, Teilpunkte, Profile, Zeitablauf, Sperren und Komponenten besitzen eigene Fehlerfälle. Browserprüfungen umfassen alle sieben Eingabeformen, Neuladen, Teilpunkte, Spickzettel-Rückweg, Prüfungsmodus, Pause und schmale Darstellung. Der genaue Gesamtstand und Einschränkungen der Quellen-Erreichbarkeitsprüfung stehen im [Testprotokoll](testprotokoll.md).
+
+### Mehrfachauswahl
+
+Seit Alpha 9 steht die benötigte Anzahl vor den Optionen deutlich auf einer Akzentfläche: „Es sind **zwei** Antworten erforderlich.“ Die Zahl wird aus dem Antwortvertrag ausgeschrieben und semantisch fett hervorgehoben. Der Hinweis bleibt die zugängliche Gruppenbeschriftung; der separate Auswahlzähler zählt weiterhin die ausgewählten Optionen. Einfachauswahl behält ihre bisherige Anweisung.

@@ -1,6 +1,6 @@
 # Pseudocode und Algorithmen
 
-Fachlicher Stand: 04.11.2026, seit 0.1.1-alpha.7 mit 30 Aufgaben. In der aktuellen Quellfassung 0.1.1-alpha.8 bleibt dieser Lernweg unverändert. Das zuletzt gebaute und aus dem ZIP geprüfte Alpha-7-Paket enthält ebenfalls alle 30 Aufgaben mit Zeilennummern, Tab-Einrückung und großen Schlüsselwörtern. Das ältere Alpha-4-ZIP mit acht Algorithmus-Aufgaben und Alpha 3 mit ausschließlich SQL bleiben unverändert.
+Fachlicher Stand: 04.11.2026, seit 0.1.1-alpha.7 mit 30 Aufgaben. In der aktuellen Quellfassung 0.1.1-alpha.9 bleibt dieser Lernweg unverändert. Das zuletzt gebaute und am 05.11.2026 aus dem ZIP geprüfte Alpha-8-Paket enthält ebenfalls alle 30 Aufgaben mit Zeilennummern, Tab-Einrückung und großen Schlüsselwörtern. Das ältere Alpha-4-ZIP mit acht Algorithmus-Aufgaben und Alpha 3 mit ausschließlich SQL bleiben unverändert.
 
 ## Lernweg und Aufgaben
 
@@ -112,3 +112,7 @@ Die IDs der bisherigen Aufgaben bleiben gleich. Der Ausbau benötigt keine Profi
 Die Auswahl trainiert Codeverständnis, eigene Programmlogik und Testdaten als Teil der Anforderungen an „Entwicklung und Umsetzung von Algorithmen“. Sie ist keine vollständige Zuordnung zum aktuellen Prüfungskatalog. [IHK Regensburg: Prüfungsinformationen](https://www.ihk.de/regensburg/aus-und-weiterbildung/ausbildung/pruefungstermine-a-bis-z/fachinformatiker-in-pruefung--5882230). Struktogramm und PAP werden hier nicht neu umgesetzt; die IHK beschreibt deren Streichung im überarbeiteten Katalog. [IHK Hannover](https://www.ihk.de/hannover/hauptnavigation/ausbildung-und-weiterbildung/ausbildung/ausbildung-a-z/neuordnungen/pruefungskataloge-it-berufe-6438900).
 
 Zur Abgrenzung: Der Prüfungsbereich umfasst neben Codeverständnis, eigener Programmierlogik und Testdaten auch grafische Darstellung und Datenabfragen. Diese App verteilt solche Themen auf getrennte Lernbereiche; 30 Pseudocode-Aufgaben sind keine vollständige AP2-Zusage. [Ausbildungsordnung: Prüfungsbereich Entwicklung und Umsetzung von Algorithmen](https://www.gesetze-im-internet.de/fiausbv/__14.html).
+
+## Zusätzlicher Prüfungsbereich seit Alpha 9
+
+Neben den unveränderten 30 Lernaufgaben existiert ein eigener Zehnerpool ausschließlich für Prüfungen. Eine 45-Minuten-Runde wählt zwei Funktions-/Korrekturaufgaben und eine Analyseaufgabe für insgesamt 50 Trainingspunkte. Kein neuer Interpreterdialekt; bestehende Schreibregeln, Wertsemantik und Budgets gelten weiter. Bewertung, Teilpunkte, Speicherung und Grenzen stehen unter [Prüfungsmodus](pruefungsmodus.md).

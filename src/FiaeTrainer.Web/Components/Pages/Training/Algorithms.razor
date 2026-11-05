@@ -27,10 +27,11 @@ else
                 }
             </nav>
         </TaskRail>
-        <div class="mission-main">
-            @if (_loading) { <p role="status">Deine Aufgabe wird geladen …</p> }
-            else
+        <div class="mission-main" aria-busy="@(_loading ? "true" : "false")" inert="@(_loading ? "" : null)">
+            @if (_loading) { <p class="task-loading-note" role="status">Deine Aufgabe wird geladen …</p> }
+            @if (_lesson != null)
             {
+                <TaskNavigationPosition Path="@($"/algorithmen/{_lesson.Id}")" />
                 <div class="mission-topline"><span class="eyebrow">AUFGABE @_lesson.Id.ToString("D2") / @Catalog.Lessons.Count</span><span class="badge">@KindLabel</span></div>
                 <h1>@_lesson.Title</h1>
                 <LearningModePicker @key="_lesson.Id" ExamMode="_current.ExamMode" Busy="_busy" HasDraft="@HasOwnDraft" AssistedAttempt="_current.AttemptAssisted" ModeChanged="SetModeAsync" />
@@ -102,10 +103,10 @@ else
         </div>
         <aside class="inspector algorithm-notes" aria-label="Einsatzbericht"><h2>Einsatzbericht</h2><p>Deine bestätigten Schritte in der Leitstelle.</p>
             @if (!_progress.AlgorithmLessons.Values.Any(x => x.Completed)) { <p>Noch kein Schritt bestätigt. Deine erste gelöste Aufgabe eröffnet den Bericht.</p> }
-            @foreach (AlgorithmLesson lesson in Catalog.Lessons.Where(x => x.Id <= _lesson.Id))
+            @foreach (AlgorithmLesson lesson in Catalog.Lessons.Where(x => x.Id <= (_lesson?.Id ?? 0)))
             {
                 @if (_progress.AlgorithmLessons.TryGetValue(lesson.Id, out AlgorithmProgress? saved) && saved.Completed) { <article><span class="eyebrow">AUFGABE @lesson.Id.ToString("D2")</span><h3>@lesson.Title</h3><p>@lesson.Discovery</p></article> }
-                else if (Catalog.Lessons.Any(x => x.Id > lesson.Id && x.Id <= _lesson.Id && _progress.AlgorithmLessons.TryGetValue(x.Id, out AlgorithmProgress? later) && later.Completed)) { <p>Aufgabe @lesson.Id ist noch offen.</p> }
+                else if (Catalog.Lessons.Any(x => x.Id > lesson.Id && x.Id <= (_lesson?.Id ?? 0) && _progress.AlgorithmLessons.TryGetValue(x.Id, out AlgorithmProgress? later) && later.Completed)) { <p>Aufgabe @lesson.Id ist noch offen.</p> }
             }
         </aside>
     </main>

@@ -13,7 +13,8 @@
         @if (LearningNavigation.Algorithms)
         {
             <a href="/algorithmen" class="@(AlgorithmTrainingActive ? "active" : null)" aria-current="@(AlgorithmTrainingActive ? "page" : null)">Algorithmen-Training</a>
-            <NavLink href="algorithmen/spickzettel">Pseudocode-Spickzettel</NavLink>
+            <NavLink href="algorithmen/pruefung">Prüfung üben</NavLink>
+            <NavLink href="@(InExam ? "/algorithmen/spickzettel?pruefung=true" : "/algorithmen/spickzettel")">Pseudocode-Spickzettel</NavLink>
         }
         else if (LearningNavigation.Module == LearningModule.BusinessStudies)
         {
@@ -23,9 +24,10 @@
         }
         else
         {
-            <NavLink href="sql">SQL-Ermittlung</NavLink>
+            <a href="/sql" class="@(SqlTrainingActive ? "active" : null)" aria-current="@(SqlTrainingActive ? "page" : null)">SQL-Ermittlung</a>
             <NavLink href="sql-werkstatt">SQL-Werkstatt</NavLink>
-            <NavLink href="@LearningNavigation.SqlReferenceHref">SQL-Spickzettel</NavLink>
+            <NavLink href="sql/pruefung">Prüfung üben</NavLink>
+            <NavLink href="@(InExam ? "/nachschlagen?pruefung=true" : LearningNavigation.SqlReferenceHref)">SQL-Spickzettel</NavLink>
         }
     </nav>
     <label class="theme-choice"><span>Darstellung</span><select aria-label="Darstellung" data-theme-selector><option value="system">System</option><option value="light">Hell</option><option value="dark">Dunkel</option></select></label>
@@ -51,7 +53,11 @@
 
 @code {
     /// <summary> Hält den Trainingseintrag auch auf nummerierten Aufgaben aktiv, aber nicht im Spickzettel. </summary>
-    private bool AlgorithmTrainingActive => Navigation.ToBaseRelativePath(Navigation.Uri).Split('?', '#')[0].TrimEnd('/') is var path && (path == "algorithmen" || path.StartsWith("algorithmen/", StringComparison.OrdinalIgnoreCase) && !path.Equals("algorithmen/spickzettel", StringComparison.OrdinalIgnoreCase));
+    private bool AlgorithmTrainingActive => Navigation.ToBaseRelativePath(Navigation.Uri).Split('?', '#')[0].TrimEnd('/') is var path && (path == "algorithmen" || path.StartsWith("algorithmen/", StringComparison.OrdinalIgnoreCase) && int.TryParse(path.Split('/').Last(), out _));
+    /// <summary> Prüfungsseiten sind eigene Navigationsziele und aktivieren nicht die Ermittlungsakte. </summary>
+    private bool SqlTrainingActive => Navigation.ToBaseRelativePath(Navigation.Uri).Split('?', '#')[0].TrimEnd('/') is var path && (path == "sql" || path.StartsWith("sql/", StringComparison.OrdinalIgnoreCase) && int.TryParse(path.Split('/').Last(), out _));
+    /// <summary> Nachschlagen aus einer Prüfungsrunde verwendet den festen Prüfungsrückweg. </summary>
+    private bool InExam => Navigation.ToBaseRelativePath(Navigation.Uri).Split('?', '#')[0].EndsWith("/pruefung/runde", StringComparison.Ordinal);
     protected override void OnInitialized()
     {
         LearningNavigation.Visit(Navigation.ToBaseRelativePath(Navigation.Uri));

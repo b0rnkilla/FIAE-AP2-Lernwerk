@@ -12,8 +12,8 @@ Ermittle mit SQL, entwickle eigene Algorithmen, festige dein WiSo-Wissen und vie
 
 | SQL & Datenbanken | Pseudocode & Algorithmen | Wirtschafts- & Sozialkunde |
 | --- | --- | --- |
-| Löse einen Fall mit eigenen Abfragen. Übe JOINs, Gruppierungen und Datenänderungen. | Schreibe Abläufe, finde Fehler und untersuche deine Lösung Schritt für Schritt. | Lerne nach Themen, wiederhole Unsicherheiten oder starte eine Prüfungsrunde. |
-| 30 Ermittlungs- und zehn Werkstattaufgaben | 30 Aufgaben bis zu Funktionen und Rekursion | 150 Aufgaben · acht Themen · 30 Fragen / 60 Minuten |
+| Löse einen Fall mit eigenen Abfragen. Übe JOINs, Gruppierungen und Datenänderungen oder starte eine 45-Minuten-Prüfung. | Schreibe Abläufe, finde Fehler und untersuche deine Lösung Schritt für Schritt. Prüfe dein Wissen in 45 Minuten. | Lerne nach Themen, wiederhole Unsicherheiten oder starte eine Prüfungsrunde. |
+| 40 Lern- und 15 Prüfungsaufgaben | 30 Lern- und zehn Prüfungsaufgaben | 150 Aufgaben · acht Themen · 30 Fragen / 60 Minuten |
 | [![SQL-Ermittlung mit eigener Abfrage](docs/images/sql.png)](docs/images/sql.png) | [![Pseudocode mit nummeriertem Editor](docs/images/algorithmen.png)](docs/images/algorithmen.png) | [![WiSo-Aufgabe mit Organigramm](docs/images/wiso.png)](docs/images/wiso.png) |
 
 *Für eine große Ansicht auf das jeweilige Bild klicken.* Eigene Übungsaufgaben, kein offizielles IHK-Angebot. Weitere AP2-Lernbereiche sind im Aufbau.

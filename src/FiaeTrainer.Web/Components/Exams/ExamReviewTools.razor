@@ -1,0 +1,63 @@
+@using FiaeTrainer.Core.Exams
+@using FiaeTrainer.Core.Sql.Exams
+@inject FiaeTrainer.Web.Exams.ExamService Exams
+@inject AlgorithmInterpreter Interpreter
+@inject DatabaseState Database
+@if (Round.EvaluatedUtc != null)
+{
+    <section class="exam-review-tools">
+        <button class="button secondary" disabled="@_busy" @onclick="InspectAsync">@(Round.Module == ExamModule.Sql ? "Abgegebenes SQL untersuchen" : "Abgegebenen Ablauf untersuchen")</button>
+        @if (_error != null) { <p class="notice warning">@_error</p> }
+        @if (_run != null)
+        {
+            @if (_run.Error != null) { <p class="notice warning">@_run.Error</p> }
+            else { <p><strong>Ergebnis des Beispielaufrufs:</strong> @string.Join(" → ", _run.Output)</p> }
+            @if (_run.Steps.Count > 0)
+            {
+                <div class="trace-controls"><button class="button secondary" disabled="@(_step == 0)" @onclick="() => _step--">← Zurück</button><span>Schritt @(_step + 1) / @_run.Steps.Count</span><button class="button secondary" disabled="@(_step + 1 == _run.Steps.Count)" @onclick="() => _step++">Nächster Schritt →</button></div>
+                <p>Zeile @_run.Steps[_step].Line · @_run.Steps[_step].Action</p><dl class="trace-values">@foreach (var value in _run.Steps[_step].Variables) { <div><dt>@value.Key</dt><dd>@value.Value</dd></div> }</dl><pre>@string.Join("\n", _run.Steps[_step].Output)</pre>
+            }
+        }
+        @if (_sqlRun != null && _sqlRun.Error == null)
+        {
+            @foreach (var table in (_sqlRun.State.Count == 0 ? new Dictionary<string, FiaeTrainer.Core.Sql.Results.QueryResult> { ["Dein Abfrageergebnis"] = _sqlRun.Query } : _sqlRun.State))
+            {
+                <div class="business-table-wrap"><table><caption>@table.Key</caption><thead><tr>@foreach (string column in table.Value.Columns) { <th>@column</th> }</tr></thead><tbody>@foreach (object?[] row in table.Value.Rows) { <tr>@foreach (object? value in row) { <td>@(value == null ? "NULL" : value is bool flag ? flag ? "Ja" : "Nein" : Convert.ToString(value, CultureInfo.GetCultureInfo("de-DE")))</td> }</tr> }</tbody></table></div>
+            }
+        }
+    </section>
+}
+@code {
+    /// <summary> Werkzeuge stehen ausschließlich nach vollständiger Bewertung bereit. </summary>
+    [Parameter, EditorRequired] public ExamRound Round { get; set; } = default!;
+    /// <summary> Angezeigte Aufgabe der unveränderlichen Abgabe. </summary>
+    [Parameter] public int TaskId { get; set; }
+    private AlgorithmRun? _run;
+    private SqlExamRun? _sqlRun;
+    private string? _error;
+    private int _step;
+    private bool _busy;
+    private async Task InspectAsync()
+    {
+        if (Round.EvaluatedUtc == null) return;
+        _busy = true;
+        try
+        {
+            string answer = Round.Drafts.GetValueOrDefault(TaskId, "");
+            if (Round.Module == ExamModule.Sql)
+            {
+                var item = Exams.SqlCase(Round);
+                _sqlRun = await Database.Database.ExecuteExamAsync(item, item.Tasks.Single(task => task.Id == TaskId), answer);
+                _error = _sqlRun.Error;
+            }
+            else
+            {
+                var lesson = Exams.AlgorithmTask(TaskId).Lesson;
+                if (lesson.Kind == AlgorithmTaskKind.TestCases) { _error = "Für diese Testfallaufgabe findest du die Auflösung in den Teilprüfungen und der Musterlösung."; return; }
+                _run = lesson.Kind == AlgorithmTaskKind.Trace ? Interpreter.Run(lesson.GivenCode, lesson.ExampleInputs, true) : Interpreter.RunFunction(answer, lesson.FunctionName, lesson.FunctionInputs.Select(name => lesson.ExampleInputs[name]).ToArray(), true);
+                _step = 0;
+            }
+        }
+        finally { _busy = false; }
+    }
+}

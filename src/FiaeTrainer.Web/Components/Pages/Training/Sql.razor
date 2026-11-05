@@ -27,14 +27,12 @@ else
                 }
             </nav>
         </TaskRail>
-        <div class="mission-main">
+        <div class="mission-main" aria-busy="@(_loading ? "true" : "false")" inert="@(_loading ? "" : null)">
             @* Die Aufgabenliste bleibt beim asynchronen Wechsel im DOM und behält dadurch ihre Scrollposition. *@
-            @if (_loading)
+            @if (_loading) { <p class="task-loading-note" role="status">Deine Aufgabe wird geladen …</p> }
+            @if (_lesson != null)
             {
-                <div class="loading-state" role="status"><span class="eyebrow">GLEICH GEHT’S WEITER</span><h1>Deine Aufgabe wird geladen …</h1><p>Dein Entwurf und dein Fortschritt werden vorbereitet.</p></div>
-            }
-            else
-            {
+                <TaskNavigationPosition Path="@($"/sql/{_lesson.Id}")" />
                 <div class="mission-topline"><span class="eyebrow">AUFGABE @_lesson.Id.ToString("D2") / 30</span><span class="badge">@_lesson.Topic</span></div>
                 <h1>@_lesson.Title</h1>
                 <LearningModePicker @key="_lesson.Id" ExamMode="_examMode" Busy="_busy" HasDraft="@(!string.IsNullOrWhiteSpace(_sql))" AssistedAttempt="_current.UsedAssistance" ModeChanged="SetModeAsync" />

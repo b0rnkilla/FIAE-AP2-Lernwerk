@@ -3,6 +3,8 @@
     <EmbeddedResource Include="Sql/Content/*.json" />
     <EmbeddedResource Include="Sql/Content/*.sql" />
     <EmbeddedResource Include="Algorithms/Content/*.json" />
+    <EmbeddedResource Include="Algorithms/Exams/*.json" />
+    <EmbeddedResource Include="Sql/Exams/*.json" />
     <EmbeddedResource Include="BusinessStudies/Content/*.json" />
   </ItemGroup>
   <ItemGroup>

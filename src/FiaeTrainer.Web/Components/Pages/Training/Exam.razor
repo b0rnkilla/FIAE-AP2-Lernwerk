@@ -1,0 +1,52 @@
+@page "/algorithmen/pruefung/runde"
+@page "/sql/pruefung/runde"
+@using FiaeTrainer.Core.Exams
+@using FiaeTrainer.Core.Sql.Exams
+<PageTitle>Deine @Label-Prüfung · AP2 Lernwerk</PageTitle>
+<main class="page exam-round">
+    @if (_loading) { <h1>Deine Prüfung wird geladen …</h1> }
+    else if (_round == null) { <h1>Deine nächste Prüfung wartet.</h1>@if (_error != null) { <p class="notice warning" role="alert">@_error</p> }<a class="button primary" href="@HomePath">Prüfung auswählen →</a> }
+    else
+    {
+        <div class="business-round-toolbar"><a href="@HomePath">← @Label-Prüfung</a><div class="business-timer-actions">@if (!_round.Submitted) { <span class="business-timer" aria-label="Verbleibende Prüfungszeit">@TimeLeft</span><button class="button secondary" disabled="@(_busy || _stale)" @onclick="TogglePauseAsync">@(_round.Paused ? "Fortsetzen" : "Pause")</button><button class="button secondary" disabled="@(_busy || _stale)" @onclick="RequestSubmit">Prüfung abgeben</button> }</div></div>
+        @if (_error != null) { <section class="notice warning" role="alert"><p>@_error</p>@if (_stale) { <a class="button secondary" href="@RoundPath" data-enhance-nav="false">Prüfung neu laden</a> }</section> }
+        @if (_round.EvaluatedUtc != null)
+        {
+            <section class="business-result-hero business-round-status" @ref="_status" tabindex="-1" aria-labelledby="exam-result-heading"><div class="eyebrow">DEINE PRÜFUNGSAUSWERTUNG</div><h1 id="exam-result-heading">@_round.Earned <span>/ 50 Punkte</span></h1><p class="lead">@(_round.Earned * 2) % der Trainingspunkte@(_round.UsedReference ? " · mit Nachschlagen" : " · ohne Nachschlagen")</p><p>@(_round.Earned >= 25 ? "Dein Trainingsziel von 50 % ist erreicht. Schau dir jetzt die offenen Punkte an." : "Nutze die Auswertung, um die fehlenden Schritte gezielt zu wiederholen.")</p><p>Eigene Trainingspunkte, keine amtliche IHK-Note. Nicht ausführbarer Code kann automatisch nicht wie durch einen menschlichen Prüfer auf richtige Lösungsansätze bewertet werden.</p><a class="button secondary" href="@HomePath">Nächste Prüfung planen →</a></section>
+        }
+        else if (_round.Submitted)
+        {
+            <section class="notice" role="status"><h1>Deine Abgabe ist gespeichert.</h1><p>Die Entwürfe sind gesperrt. Bei einer technischen Störung kannst du dieselbe Abgabe später erneut auswerten lassen.</p><button class="button primary" disabled="@(_busy || _stale)" @onclick="EvaluateAsync">@(_busy ? "Wird ausgewertet …" : "Auswertung erneut versuchen")</button></section>
+        }
+        @if (_confirm && !_round.Submitted)
+        {
+            <section class="notice warning business-round-status" @ref="_status" tabindex="-1" role="alert" aria-label="Prüfung abgeben"><strong>Prüfung jetzt abgeben?</strong><p>@_round.TaskIds.Count(id => string.IsNullOrWhiteSpace(id == CurrentId ? _draft : _round.Drafts.GetValueOrDefault(id))) von @_round.TaskIds.Count Aufgaben ohne Entwurf. Danach kannst du deine Antworten nicht mehr ändern.</p><button class="button secondary" @onclick="() => _confirm = false">Weiter bearbeiten</button> <button class="button primary" disabled="@(_busy || _stale)" @onclick="SubmitAsync">Jetzt abgeben &amp; auswerten</button></section>
+        }
+        @if (_round.Paused)
+        {
+            <section class="business-pause"><h1>Eine Pause für den Kopf.</h1><p>Die Uhr steht. Aufgaben und Entwürfe sind ausgeblendet.</p><button class="button primary" disabled="@(_busy || _stale)" @onclick="TogglePauseAsync">Prüfung fortsetzen →</button></section>
+        }
+        else
+        {
+            <details class="business-overview"><summary>Aufgabenübersicht · @(_round.Index + 1) / @_round.TaskIds.Count</summary><div class="business-question-grid">@for (int i = 0; i < _round.TaskIds.Count; i++) { int index = i; int id = _round.TaskIds[i]; <button class="business-question-number @(index == _round.Index ? "current" : "")" aria-current="@(index == _round.Index ? "step" : null)" aria-label="@($"Aufgabe {index + 1}: {Exams.Title(_round, id)}")" disabled="@(_busy || _stale)" @onclick="() => GoAsync(index)">@(i + 1)@(_round.FlaggedIds.Contains(id) ? " ⚑" : string.IsNullOrWhiteSpace(_round.Drafts.GetValueOrDefault(id)) ? "" : " ●")</button> }</div></details>
+            <div class="mission-topline"><span class="eyebrow">AUFGABE @(_round.Index + 1) / @_round.TaskIds.Count</span><span class="badge">@Points Punkte</span></div><h1 class="business-question-title">@Exams.Title(_round, CurrentId)</h1>
+            @if (Module == ExamModule.Sql)
+            {
+                <section class="business-scenario"><h2>@Exams.SqlCase(_round).Title</h2><p>@Exams.SqlCase(_round).Scenario</p></section><details class="exam-schema" open><summary>Tabellen, Beziehungen &amp; Beispieldaten</summary><pre>@Exams.SqlCase(_round).Schema</pre></details><section class="task-card"><p>@SqlTask.Task</p></section>
+            }
+            else
+            {
+                <section class="business-scenario"><h2>Dein Prüfungsauftrag</h2><p>@AlgorithmTask.Story</p></section><section class="task-card"><p>@AlgorithmTask.Task</p>@if (AlgorithmTask.FunctionName.Length > 0) { <p><strong>Funktionsvertrag:</strong> <code>@(AlgorithmTask.FunctionName + "(" + string.Join(", ", AlgorithmTask.FunctionInputs) + ")")</code>. Rückgabe statt Hauptausgabe.</p> }@if (AlgorithmTask.GivenCode.Length > 0) { <pre class="given-algorithm"><code>@AlgorithmTask.GivenCode</code></pre> }</section>
+            }
+            <section class="editor-card"><div class="editor-toolbar"><label for="exam-editor">Deine @(Module == ExamModule.Sql ? "SQL-Antwort" : "Pseudocode-Antwort")</label><span>@(_round.Submitted ? "Abgegebener Entwurf" : "Deine eigene Lösung")</span></div><CodeEditor @key="CurrentId" Id="exam-editor" Value="@_draft" ValueChanged="SetDraft" Blur="SaveDraftAsync" ReadOnly="@(_busy || _stale || _round.Submitted)" CodeMode="@(Module == ExamModule.Sql || AlgorithmTask.Kind is AlgorithmTaskKind.Write or AlgorithmTaskKind.Repair)" Placeholder="Schreibe hier deine Lösung …" /></section>
+            @if (_round.EvaluatedUtc != null)
+            {
+                ExamTaskResult result = _round.Results.Single(result => result.TaskId == CurrentId);
+                <section class="exam-review"><h2>@result.Earned / @result.Maximum Punkte für diese Aufgabe</h2>@foreach (ExamCheck check in result.Checks) { <details class="exam-check"><summary>@check.Name · @check.Earned / @check.Maximum</summary><p>@check.Detail</p></details> }<details class="exam-solution"><summary>Musterlösung mit Erklärung</summary><pre><code>@(Module == ExamModule.Sql ? SqlTask.ReferenceSql : AlgorithmTask.Kind is AlgorithmTaskKind.Trace or AlgorithmTaskKind.TestCases ? AlgorithmTask.ReferenceAnswer : AlgorithmTask.ReferenceCode)</code></pre><p>@(Module == ExamModule.Sql ? SqlTask.Explanation : AlgorithmTask.Explanation)</p></details></section>
+                <ExamReviewTools @key="CurrentId" Round="_round" TaskId="CurrentId" />
+            }
+            <nav class="business-task-navigation" aria-label="Prüfungsaufgaben"><button class="button secondary" disabled="@(_busy || _stale || _round.Index == 0)" @onclick="() => GoAsync(_round.Index - 1)">← Vorherige Aufgabe</button>@if (!_round.Submitted) { <button class="business-flag" disabled="@(_busy || _stale)" @onclick="FlagAsync">@(_round.FlaggedIds.Contains(CurrentId) ? "⚑ Markierung entfernen" : "⚑ Zur Kontrolle markieren")</button> }@if (_round.Index + 1 < _round.TaskIds.Count) { <button class="button primary" disabled="@(_busy || _stale)" @onclick="() => GoAsync(_round.Index + 1)">Nächste Aufgabe →</button> } else if (!_round.Submitted) { <button class="button primary" disabled="@(_busy || _stale)" @onclick="RequestSubmit">Prüfung abgeben →</button> }</nav>
+            @if (!_round.Submitted) { <div class="help-row"><div><h3>Du möchtest nachschlagen?</h3><p>Die Uhr pausiert. Dein Ergebnis wird als „mit Nachschlagen“ gekennzeichnet.</p></div><button class="button secondary" disabled="@(_busy || _stale)" @onclick="ReferenceAsync">Spickzettel öffnen →</button></div> }
+        }
+    }
+</main>

@@ -1,0 +1,11 @@
+@using Microsoft.JSInterop
+@inject IJSRuntime JavaScript
+@code {
+    /// <summary> Erst die fertig geladene Aufgabe löst das Wiederherstellen einer durch Listenklick gemerkten Position aus. </summary>
+    [Parameter, EditorRequired] public string Path { get; set; } = "";
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        try { await JavaScript.InvokeVoidAsync("fiaeTaskNavigation.restore", Path); }
+        catch (JSDisconnectedException) { /* Die bestehende Seite bleibt bei Verbindungsabbruch unverändert. */ }
+    }
+}

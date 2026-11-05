@@ -34,7 +34,7 @@
             <div class="mission-topline"><span class="eyebrow">AUFGABE @(_round.Index + 1) / @_round.QuestionIds.Count</span><span class="badge">@Catalog.Topics.Single(topic => topic.Id == CurrentQuestion.TopicId).Title</span></div>
             <h1 class="business-question-title">@CurrentQuestion.Title</h1>
             @if (_round.Kind == BusinessRoundKind.Topic && _round.Index == 0 && _round.FinishedUtc == null) { <details class="business-topic-intro"><summary>Das hilft dir bei diesem Thema</summary><p>@Catalog.Topics.Single(topic => topic.Id == CurrentQuestion.TopicId).Introduction</p></details> }
-            <section class="story-note"><div class="avatar" aria-hidden="true">ND</div><div><span>Ein Fall aus dem Berufsleben</span><p>@CurrentQuestion.Scenario</p></div></section>
+            <section class="business-scenario" aria-labelledby="business-scenario-heading"><h2 id="business-scenario-heading">Ein Fall aus dem Berufsleben</h2><p>@CurrentQuestion.Scenario</p></section>
             <BusinessIllustration Question="CurrentQuestion" />
             @if (CurrentQuestion.TableHeaders.Length > 0) { <div class="business-table-wrap"><table><caption>Angaben zu dieser Aufgabe</caption><thead><tr>@foreach (string heading in CurrentQuestion.TableHeaders) { <th scope="col">@heading</th> }</tr></thead><tbody>@foreach (string[] row in CurrentQuestion.TableRows) { <tr>@foreach (string cell in row) { <td>@cell</td> }</tr> }</tbody></table></div> }
             <section class="business-task"><h2>@CurrentQuestion.Task</h2><BusinessAnswerInput @key="CurrentQuestion.Id" Question="CurrentQuestion" Answer="CurrentAnswer" Options="CurrentOptions" Changed="SaveAsync" Disabled="@(_busy || IsLocked)" />

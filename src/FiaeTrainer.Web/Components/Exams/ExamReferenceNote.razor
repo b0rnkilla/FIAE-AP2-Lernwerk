@@ -1,0 +1,19 @@
+@using FiaeTrainer.Core.Exams
+@inject ProgressStore Store
+@if (_error != null) { <p class="notice warning" role="alert">@_error</p> }
+else
+{
+    <aside class="notice"><p>@(_round == null ? "Aktuell ist keine Prüfung gespeichert." : _round.Submitted ? "Deine Prüfung ist bereits abgegeben. Die gespeicherten Antworten bleiben gesperrt." : "Deine Prüfung pausiert während des Nachschlagens. Das Ergebnis erhält den Zusatz „mit Nachschlagen“.")</p><a class="button secondary" href="@(Module == ExamModule.Sql ? "/sql/pruefung/runde" : "/algorithmen/pruefung/runde")">Zurück zu deiner Prüfung →</a></aside>
+}
+@code {
+    /// <summary> Die feste Seite übergibt das Modul, keine frei wählbare Rücksprungadresse. </summary>
+    [Parameter] public ExamModule Module { get; set; }
+    private string? _error;
+    /// <summary> Unterscheidet eine echte Pause von einer schon abgelaufenen Abgabe oder einem fehlenden Versuch. </summary>
+    private ExamRound? _round;
+    protected override async Task OnInitializedAsync()
+    {
+        try { _round = await Store.MarkExamReferenceAsync(Module); }
+        catch (Exception exception) when (exception is IOException or InvalidOperationException or UnauthorizedAccessException or System.Text.Json.JsonException) { _error = "Der Prüfungsstatus konnte nicht gespeichert werden. Kehre zur Prüfung zurück und lade sie neu."; }
+    }
+}

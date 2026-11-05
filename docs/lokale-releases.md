@@ -1,8 +1,14 @@
 # AP2 Lernwerk lokal starten
 
-**Aktuelle Entwicklung: 0.1.1-alpha.8 mit 150 WiSo-Aufgaben, insgesamt 220 Übungen. Dafür wurde noch kein Windows-Paket erstellt.** Die folgende Paketbeschreibung betrifft das unveränderte Alpha-7-ZIP ohne WiSo. `release/Anleitung.md` ist bereits die Vorlage für einen später ausdrücklich beauftragten neuen Paketbau; sie verändert kein vorhandenes ZIP.
+**Windows-Paket 0.1.1-alpha.8: gebaut und aus dem entpackten ZIP geprüft am 05.11.2026**, aus dem sauberen Commit `b4e953fbb628b9c39ce695538db2bf1343f13bcf`. Der Nutzer hat den Commit gepusht; der Remote-Stand wurde bestätigt. Enthalten sind 220 Übungen: 40 SQL-, 30 Algorithmus- und 150 WiSo-Aufgaben sowie der neue Projektbereich. Veröffentlichung und Upload erfolgen durch den Nutzer.
 
-Die README ist inzwischen freigegeben. `release/Versionshinweise-0.1.1-alpha.8.md` ist vor dem Nutzer-Commit vorbereitet; ZIP-Bau und Paketprüfung folgen erst nach Commit/Push. Noch kein Alpha-8-Paket erzeugt.
+Datei: `artifacts/releases/AP2-Lernwerk-0.1.1-alpha.8-win-x64.zip`, **50.839.413 Bytes (48,48 MiB)**, plus `.zip.sha256`. SHA256: `cdd77864a8dfecf5c7b535ac662d574ca8762d670e2889e7ed18745ea7cc145c`. Selbstständig startbare Windows-x64-Fassung mit Laufzeit, Anleitung, Versionshinweisen und Lizenzen; ohne private Konfiguration, Lernstände, Protokolle oder Debugsymbole.
+
+GitHub: Tag `v0.1.1-alpha.8`, Titel `AP2 Lernwerk 0.1.1-alpha.8`, Zielcommit `b4e953f`, als **Pre-release** kennzeichnen. ZIP und SHA256-Datei als Assets hochladen. Die neue öffentliche Version kann erst nach Veröffentlichung mit vollständig vorhandenem Windows-Asset als Update erkannt werden; dieser künftige Live-Schritt ist noch nicht geprüft.
+
+Der Nutzer hat die Veröffentlichung von Alpha 8 bestätigt. Der neue **Quellstand Alpha 9** verbessert WiSo-Leseführung und Urheberlogo; dafür wurde kein neues Paket erstellt.
+
+## Historisches Paket Alpha 7
 
 Stand: Windows-Alpha 0.1.1-alpha.7, gebaut und aus dem ZIP geprüft am 04.11.2026. Das Paket enthält die aktuelle private Projektlizenz. Die alte Testfassung 0.1.0 ist kein Verteilungspaket für die aktuelle Fassung und soll nicht verwendet werden.
 
@@ -23,7 +29,7 @@ GitHub-Angaben: Tag `v0.1.1-alpha.4`, Titel `Alpha 0.1.1-alpha.4`, Zielcommit `b
 ## Voraussetzungen
 
 * Windows auf einem x64-Rechner und ein aktueller Browser.
-* Für die SQL-Lernwege eine erreichbare Microsoft-SQL-Server-Instanz, beispielsweise SQL Server Express. SSMS allein enthält keinen Datenbankserver. Standard ist die lokale Instanz .\SQLEXPRESS mit Windows-Anmeldung. Pseudocode kann ohne SQL Server bearbeitet werden.
+* Für die SQL-Lernwege eine erreichbare Microsoft-SQL-Server-Instanz, beispielsweise SQL Server Express. SSMS allein enthält keinen Datenbankserver. Standard ist die lokale Instanz .\SQLEXPRESS mit Windows-Anmeldung. Pseudocode und WiSo können ohne SQL Server bearbeitet werden.
 * Beim ersten Start benötigt deine Windows-Anmeldung das Recht, die eigene Datenbank FIAE_AP2_Training anzulegen. Andere Datenbanken werden nicht befüllt oder verändert. Eine gleichnamige fremde Datenbank ohne Trainer-Kennzeichnung wird abgewiesen.
 
 Das Windows-Paket enthält die benötigte .NET- und ASP.NET-Core-Laufzeit. Ein SDK, Visual Studio oder eine separate .NET-Installation sind für dieses Paket nicht erforderlich. SQL Server ist nur für SQL separat erforderlich und wird vom Lernwerk weder installiert noch aktualisiert. Das technische Feld `RequiresSqlServer` in `release-info.json` bezieht sich auf die SQL-Funktionen; es sperrt den Algorithmus-Lernweg nicht. [Microsoft: eigenständige Single-File-Veröffentlichung](https://learn.microsoft.com/en-us/dotnet/core/deploying/single-file/), [SQL Server herunterladen](https://www.microsoft.com/sql-server/sql-server-downloads).
@@ -100,3 +106,7 @@ Das erste Paket ist nicht mit einem Code-Signing-Zertifikat signiert. Ein Test a
 ## Öffentliche Updatequelle
 
 Die konfigurierte Quelle ist https://github.com/b0rnkilla/FIAE-AP2-Lernwerk. Ist das Repository oder ein Release privat, kann die anonyme Prüfung es nicht erkennen. Die Prüfung verwendet keine Zugangsschlüssel und liest maximal 100 öffentliche Releases. Sie benötigt einen gültigen SemVer-Tag und einen fertig hochgeladenen Anhang *-win-x64.zip. Alpha-Fassungen berücksichtigen Vorabversionen; stabile Fassungen bleiben beim stabilen Kanal. Abfragen haben ein kurzes Timeout und werden bei Wiederholung innerhalb einer Minute zusammengefasst. Fehler werden von „keine neuere Version“ unterschieden. Unter Updates & SQL-Einrichtung kann die automatische Startprüfung ausgeschaltet werden.
+
+## Weitere Entwicklung in Alpha 9
+
+SQL-/Pseudocode-Prüfungen sind inzwischen im Quellprojekt umgesetzt und geprüft: 25 zusätzliche Prüfungsaufgaben, getrennt von den bisherigen 220 Lernübungen. Das veröffentlichte Alpha-8-Paket bleibt unverändert. Es wurde kein neues ZIP erstellt; für einen späteren Paketbau gelten weiterhin Nutzerauftrag, eigener Profiltest und passende Versionshinweise. [Funktionsstand und Grenzen](pruefungsmodus.md).

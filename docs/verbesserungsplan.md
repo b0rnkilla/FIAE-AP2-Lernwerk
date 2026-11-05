@@ -1,6 +1,6 @@
 # Stand und weitere Entwicklung
 
-Entwicklungsstand: **0.1.1-alpha.8 · 04.11.2026**, mit 150 WiSo-Aufgaben und insgesamt 220 Übungen. Zuletzt gebautes Windows-Paket: **0.1.1-alpha.7**, weiterhin 70 Übungen ohne WiSo. Kein neues Paket für dieses Änderungspaket erstellt. Detaillierte Historie: [Entwicklungsprotokoll](entwicklungsprotokoll.md). Nachweise: [Testprotokoll](testprotokoll.md).
+Entwicklungsstand: **0.1.1-alpha.9 · 05.11.2026**, mit 150 WiSo-Aufgaben und insgesamt 220 Übungen. Zuletzt gebautes Windows-Paket: **0.1.1-alpha.8**, mit allen 220 Übungen, am 05.11.2026 aus dem gepushten Commit `b4e953f` gebaut und aus dem ZIP geprüft. Detaillierte Historie: [Entwicklungsprotokoll](entwicklungsprotokoll.md). Nachweise: [Testprotokoll](testprotokoll.md).
 
 ## Umgesetzte Rückmeldungen
 
@@ -49,7 +49,7 @@ Nach der positiven WiSo-Rückmeldung hat der Nutzer die Vorlage und zusätzlich 
 4. **GitHub-Anerkennung:** „Auf GitHub unterstützen“ mit Erklärung des einzelnen Star-Schalters. Keine erfundene Fünf-Sterne-Bewertung und keine automatische Sternvergabe.
 5. **Fehler und Vorschläge:** eigener Link zur GitHub-Issues-Übersicht auf Übersicht, Projektseite und in der Fußzeile. Die Projektseite erklärt hilfreiche Angaben und die Öffentlichkeit der Meldungen; keine automatischen Uploads oder Meldungen.
 
-Weitere Details: [Projektauftritt](projektauftritt.md). Kein neues Windows-Paket erstellt. Weitere Release-Erstellung weiterhin nur auf ausdrücklichen Auftrag; als optionale Ergänzung fehlt lediglich das später vom Nutzer gelieferte Logo.
+Weitere Details: [Projektauftritt](projektauftritt.md). Diese Funktionen sind im geprüften Alpha-8-Paket enthalten. Weitere Release-Erstellung weiterhin nur auf ausdrücklichen Auftrag; das später nachgereichte Logo ist inzwischen in Alpha 9 eingebunden.
 
 ## Weitere Lerninhalte
 
@@ -68,6 +68,16 @@ Die früheren Alpha-3- und Alpha-4-Pakete bleiben unverändert. Die README führ
 Login, Registrierung, Benutzertabellen und öffentlicher Homeserver-/nginx-Betrieb sind gestrichen. Die Algorithmus-Bewertung benötigt keine KI-Anbindung. Weitere KI-Funktionen würden eine gesonderte Entscheidung voraussetzen.
 
 
-## Nächster Schritt nach README-Freigabe
+## Release Alpha 8 vorbereitet
 
-Die README-Korrektur wurde am 04.11.2026 vom Nutzer freigegeben. Der Committext für den vollständigen WiSo-/Projektauftritt-Stand wird jetzt geliefert. Versionshinweise für Alpha 8 liegen vor dem Commit bereit. Anschließend folgt nach dem Nutzer-Commit/Push die neue ZIP-Erstellung mit Prüfung und vollständigen Release-Angaben. Noch kein Paket gebaut oder veröffentlicht.
+**Windows-Paket 0.1.1-alpha.8: gebaut und aus dem entpackten ZIP geprüft am 05.11.2026**, aus dem sauberen Commit `b4e953fbb628b9c39ce695538db2bf1343f13bcf`. Der Nutzer hat den Commit gepusht; der Remote-Stand wurde bestätigt. Enthalten sind 220 Übungen: 40 SQL-, 30 Algorithmus- und 150 WiSo-Aufgaben sowie der neue Projektbereich. Veröffentlichung und Upload erfolgen durch den Nutzer. ZIP und SHA256-Datei liegen lokal vor; Tag, Titel und Asset-Angaben stehen unter [lokale Releases](lokale-releases.md). Nachträgliche Prüfdokumentation wird separat gepflegt; das geprüfte ZIP wird nicht überschrieben. Das nachgereichte Logo ist im Quellstand Alpha 9 auf der Projektseite eingebunden. Der Nutzer hat die Veröffentlichung von Alpha 8 bestätigt; für Alpha 9 besteht noch kein Paketauftrag.
+
+## Ergänzung Alpha 9: Mehrfachauswahl
+
+Erledigt: Hinweis direkt vor den Optionen hervorgehoben, erforderliche Anzahl ausgeschrieben und fett. Einfachauswahl und Auswahlzähler erhalten. Build, 16 WiSo-Komponentenprüfungen und Browserdarstellung in beiden Designs sowie schmaler Ansicht erfolgreich. Kein neuer Paketauftrag.
+
+## Alpha 9: Aufgabenwechsel und Prüfungsrunden
+
+Umgesetzt auf ausdrückliches GO: Gesamtseitenposition bei Listenklicks in SQL, Werkstatt und Pseudocode erhalten; WiSo-Fokus auf Abgabebestätigung/Auswertung unverändert. Zusätzlich zehn eigene Pseudocode-Prüfungsaufgaben und drei neue SQL-Fälle mit je fünf Aufgaben, getrennte 45-Minuten-Runden, Teilpunkte, Pause, Historie und technische Wiederaufnahme der Bewertung.
+
+Geprüft: 794 .NET-Tests einschließlich SQL, 26 JavaScript-Tests, Browserdurchläufe mit 50/50 Punkten in beiden Modulen, Spickzettel-Rückweg, Pause/Neuladen, Nachbereitung und Handybreite. Keine Originalprüfungen eingebettet. Offen bleibt die praktische Kalibrierung der geschätzten Bearbeitungszeit durch vollständige Endnutzerläufe. Details: [Prüfungsmodus](pruefungsmodus.md). Kein neuer ZIP-Auftrag.

@@ -1,0 +1,197 @@
+[
+  {
+    "id": "veranstaltungen",
+    "title": "Ein Bildungszentrum plant seine Veranstaltungen",
+    "scenario": "Ein Bildungszentrum vermietet Räume und verwaltet Anmeldungen. Veranstaltungen können ohne Buchungen vorliegen; Buchungen sind entweder offen oder bestätigt. Sämtliche Aufgaben verwenden unabhängig dieselben Ausgangsdaten.",
+    "tables": [
+      "Raeume",
+      "Veranstaltungen",
+      "Buchungen"
+    ],
+    "schema": "Raeume: Id int PK, Name nvarchar(60), Plaetze int\nVeranstaltungen: Id int PK, Titel nvarchar(60), RaumId int FK → Raeume.Id, Beginn datetime2, Preis decimal(10,2)\nBuchungen: Id int PK, VeranstaltungId int FK → Veranstaltungen.Id, Personen int, Status nvarchar(20)\nAlle Ausgangsspalten sind NOT NULL. Personen ist positiv; Preis ist ein Preis pro Person.\nBeispieldaten:\nRaeume: (1, Atelier, 12), (2, Forum, 30), (3, Studio, 8)\nVeranstaltungen (Id, Titel, RaumId, Beginn, Preis):\n(1, Fotografie, 1, 2026-11-10 10:00:00, 50), (2, Robotik, 2, 2026-11-12 18:00:00, 80),\n(3, Zeichnen, 1, 2026-10-31 09:00:00, 40), (4, Podcast, 3, 2026-11-20 14:00:00, 60)\nBuchungen: (1,1,3,bestaetigt), (2,1,2,offen), (3,2,5,bestaetigt), (4,2,4,bestaetigt), (5,3,1,bestaetigt)",
+    "seedSql": "CREATE TABLE #Raeume(Id int PRIMARY KEY,Name nvarchar(60) NOT NULL,Plaetze int NOT NULL); CREATE TABLE #Veranstaltungen(Id int PRIMARY KEY,Titel nvarchar(60) NOT NULL,RaumId int NOT NULL,Beginn datetime2 NOT NULL,Preis decimal(10,2) NOT NULL); CREATE TABLE #Buchungen(Id int PRIMARY KEY,VeranstaltungId int NOT NULL,Personen int NOT NULL,Status nvarchar(20) NOT NULL); INSERT #Raeume VALUES(1,N'Atelier',12),(2,N'Forum',30),(3,N'Studio',8); INSERT #Veranstaltungen VALUES(1,N'Fotografie',1,'2026-11-10 10:00:00',50),(2,N'Robotik',2,'2026-11-12 18:00:00',80),(3,N'Zeichnen',1,'2026-10-31 09:00:00',40),(4,N'Podcast',3,'2026-11-20 14:00:00',60); INSERT #Buchungen VALUES(1,1,3,N'bestaetigt'),(2,1,2,N'offen'),(3,2,5,N'bestaetigt'),(4,2,4,N'bestaetigt'),(5,3,1,N'bestaetigt');",
+    "verificationSql": "INSERT #Raeume VALUES(4,N'Labor',16); INSERT #Veranstaltungen VALUES(5,N'Elektronik',4,'2026-11-30 23:59:59',20),(6,N'Textil',4,'2026-12-01 00:00:00',200); INSERT #Buchungen VALUES(6,5,8,N'bestaetigt'),(7,4,6,N'offen'),(8,1,1,N'bestaetigt'); UPDATE #Veranstaltungen SET Preis=Preis+5 WHERE Id=2;",
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Veranstaltungen eines Monats",
+        "task": "Zeige Id, Titel und Beginn aller Veranstaltungen im November 2026 mit Preis <= 80. Sortiere nach Beginn aufsteigend, bei gleichem Beginn nach Id aufsteigend. Zeitanteile sind zu berücksichtigen.",
+        "referenceSql": "SELECT Id, Titel, Beginn FROM Veranstaltungen WHERE Beginn >= '2026-11-01 00:00:00' AND Beginn < '2026-12-01 00:00:00' AND Preis <= 80 ORDER BY Beginn, Id;",
+        "ordered": true,
+        "operation": "Query",
+        "target": "",
+        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+      },
+      {
+        "id": 2,
+        "title": "Bestätigte Buchungen zuordnen",
+        "task": "Zeige für jede bestätigte Buchung die Buchungs-Id, den Veranstaltungstitel, den Raumnamen und die Personenzahl, in dieser Reihenfolge. Statuswert: bestaetigt. Keine Sortierung erforderlich.",
+        "referenceSql": "SELECT b.Id, v.Titel, r.Name, b.Personen FROM Buchungen AS b JOIN Veranstaltungen AS v ON v.Id=b.VeranstaltungId JOIN Raeume AS r ON r.Id=v.RaumId WHERE b.Status='bestaetigt';",
+        "ordered": false,
+        "operation": "Query",
+        "target": "",
+        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+      },
+      {
+        "id": 3,
+        "title": "Gut gebuchte Veranstaltungen",
+        "task": "Zeige Veranstaltungs-Id und Summe bestätigter Personen für Veranstaltungen mit insgesamt mindestens fünf bestätigten Personen. Sortiere nach Personensumme absteigend, bei Gleichstand nach Id aufsteigend.",
+        "referenceSql": "SELECT v.Id, SUM(b.Personen) AS Personen FROM Veranstaltungen AS v JOIN Buchungen AS b ON b.VeranstaltungId=v.Id WHERE b.Status='bestaetigt' GROUP BY v.Id HAVING SUM(b.Personen)>=5 ORDER BY SUM(b.Personen) DESC, v.Id;",
+        "ordered": true,
+        "operation": "Query",
+        "target": "",
+        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+      },
+      {
+        "id": 4,
+        "title": "Ohne bestätigte Anmeldung",
+        "task": "Zeige Id und Titel aller Veranstaltungen, für die keine bestätigte Buchung existiert. Offene Buchungen sollen nicht als Bestätigung zählen. Keine Sortierung erforderlich.",
+        "referenceSql": "SELECT v.Id, v.Titel FROM Veranstaltungen AS v WHERE NOT EXISTS (SELECT 1 FROM Buchungen AS b WHERE b.VeranstaltungId=v.Id AND b.Status='bestaetigt');",
+        "ordered": false,
+        "operation": "Query",
+        "target": "",
+        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+      },
+      {
+        "id": 5,
+        "title": "Offene Buchungen bestätigen",
+        "task": "Ändere ausschließlich den Status offener Buchungen für Veranstaltungen im November 2026 auf bestaetigt. Andere Buchungen und Tabellen unverändert lassen. Verwende eine UPDATE-Anweisung.",
+        "referenceSql": "UPDATE Buchungen SET Status='bestaetigt' WHERE Status='offen' AND VeranstaltungId IN (SELECT Id FROM Veranstaltungen WHERE Beginn>='2026-11-01 00:00:00' AND Beginn<'2026-12-01 00:00:00');",
+        "ordered": false,
+        "operation": "Update",
+        "target": "Buchungen",
+        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+      }
+    ]
+  },
+  {
+    "id": "service",
+    "title": "Ein Servicebetrieb prüft seine Aufträge",
+    "scenario": "Ein Reparaturservice verwaltet Kunden, Aufträge und einzelne Arbeitsschritte. Ein Auftrag kann noch keine Arbeitsschritte besitzen. Aufträge mit Abschlussdatum NULL sind offen. Jede Aufgabe startet mit frischen Ausgangsdaten.",
+    "tables": [
+      "Kunden",
+      "Auftraege",
+      "Arbeitsschritte"
+    ],
+    "schema": "Kunden: Id int PK, Name nvarchar(60), Ort nvarchar(40)\nAuftraege: Id int PK, KundeId int FK → Kunden.Id, Eingang date, Abschluss date NULL, Status nvarchar(20)\nArbeitsschritte: Id int PK, AuftragId int FK → Auftraege.Id, Minuten int, Satz decimal(10,2)\nAußer Abschluss sind alle Spalten NOT NULL. Satz ist EUR pro Arbeitsstunde; Minuten sind nichtnegativ.\nKunden: (1,Nordlicht,Essen), (2,Pixelhaus,Bonn), (3,Klangraum,Essen)\nAuftraege: (1,1,2026-10-01,NULL,offen), (2,1,2026-10-02,2026-10-04,fertig),\n(3,2,2026-11-01,NULL,offen), (4,3,2026-10-10,NULL,offen)\nArbeitsschritte: (1,1,30,60), (2,1,90,80), (3,2,60,50), (4,3,15,80)",
+    "seedSql": "CREATE TABLE #Kunden(Id int PRIMARY KEY,Name nvarchar(60) NOT NULL,Ort nvarchar(40) NOT NULL); CREATE TABLE #Auftraege(Id int PRIMARY KEY,KundeId int NOT NULL,Eingang date NOT NULL,Abschluss date NULL,Status nvarchar(20) NOT NULL); CREATE TABLE #Arbeitsschritte(Id int PRIMARY KEY,AuftragId int NOT NULL,Minuten int NOT NULL,Satz decimal(10,2) NOT NULL); INSERT #Kunden VALUES(1,N'Nordlicht',N'Essen'),(2,N'Pixelhaus',N'Bonn'),(3,N'Klangraum',N'Essen'); INSERT #Auftraege VALUES(1,1,'2026-10-01',NULL,N'offen'),(2,1,'2026-10-02','2026-10-04',N'fertig'),(3,2,'2026-11-01',NULL,N'offen'),(4,3,'2026-10-10',NULL,N'offen'); INSERT #Arbeitsschritte VALUES(1,1,30,60),(2,1,90,80),(3,2,60,50),(4,3,15,80);",
+    "verificationSql": "INSERT #Kunden VALUES(4,N'Werkpunkt',N'Essen'); INSERT #Auftraege VALUES(5,4,'2026-09-30',NULL,N'offen'),(6,4,'2026-10-31',NULL,N'offen'); INSERT #Arbeitsschritte VALUES(5,4,0,100),(6,3,75,80),(7,6,40,90);",
+    "tasks": [
+      {
+        "id": 6,
+        "title": "Offene Oktoberaufträge",
+        "task": "Zeige Id und Eingang offener Aufträge (Abschluss IS NULL), die im Oktober 2026 eingegangen sind. Sortiere nach Eingang aufsteigend und bei gleichem Eingang nach Id aufsteigend.",
+        "referenceSql": "SELECT Id, Eingang FROM Auftraege WHERE Abschluss IS NULL AND Eingang>='2026-10-01' AND Eingang<'2026-11-01' ORDER BY Eingang, Id;",
+        "ordered": true,
+        "operation": "Query",
+        "target": "",
+        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+      },
+      {
+        "id": 7,
+        "title": "Kunden und ihre offenen Aufträge",
+        "task": "Zeige Auftrags-Id, Kundenname und Ort für alle offenen Aufträge (Abschluss IS NULL) von Kunden aus Essen. Keine Sortierung erforderlich.",
+        "referenceSql": "SELECT a.Id, k.Name, k.Ort FROM Auftraege AS a JOIN Kunden AS k ON k.Id=a.KundeId WHERE a.Abschluss IS NULL AND k.Ort='Essen';",
+        "ordered": false,
+        "operation": "Query",
+        "target": "",
+        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+      },
+      {
+        "id": 8,
+        "title": "Längere Bearbeitungen",
+        "task": "Zeige Auftrags-Id und Summe der Arbeitsminuten für Aufträge mit insgesamt mindestens 60 Arbeitsminuten. Sortiere nach Minutensumme absteigend, bei Gleichstand nach Id aufsteigend.",
+        "referenceSql": "SELECT a.Id, SUM(s.Minuten) AS Minuten FROM Auftraege AS a JOIN Arbeitsschritte AS s ON s.AuftragId=a.Id GROUP BY a.Id HAVING SUM(s.Minuten)>=60 ORDER BY SUM(s.Minuten) DESC, a.Id;",
+        "ordered": true,
+        "operation": "Query",
+        "target": "",
+        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+      },
+      {
+        "id": 9,
+        "title": "Aufträge ohne erfasste Arbeit",
+        "task": "Zeige Id und KundeId aller Aufträge, für die noch kein Arbeitsschritt existiert. Ein Arbeitsschritt mit 0 Minuten zählt als vorhandener Arbeitsschritt. Keine Sortierung erforderlich.",
+        "referenceSql": "SELECT a.Id, a.KundeId FROM Auftraege AS a WHERE NOT EXISTS(SELECT 1 FROM Arbeitsschritte AS s WHERE s.AuftragId=a.Id);",
+        "ordered": false,
+        "operation": "Query",
+        "target": "",
+        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+      },
+      {
+        "id": 10,
+        "title": "Einen Arbeitsschritt ergänzen",
+        "task": "Füge genau einen Arbeitsschritt ein: Id 99, AuftragId 1, Minuten 20, Satz 75.00 EUR/Stunde. Alle vorhandenen Zeilen und anderen Tabellen bleiben unverändert. Id 99 existiert noch nicht.",
+        "referenceSql": "INSERT INTO Arbeitsschritte (Id, AuftragId, Minuten, Satz) VALUES (99, 1, 20, 75.00);",
+        "ordered": false,
+        "operation": "Insert",
+        "target": "Arbeitsschritte",
+        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+      }
+    ]
+  },
+  {
+    "id": "lager",
+    "title": "Ein Ersatzteillager plant Nachbestellungen",
+    "scenario": "Ein Lager hält Ersatzteile verschiedener Kategorien und erfasst Lieferpositionen. Artikel können noch ohne Lieferposition sein. Die Einkaufspreise und Bestandsgrenzen werden je Artikel geführt. Aufgaben sind unabhängig voneinander.",
+    "tables": [
+      "Kategorien",
+      "Artikel",
+      "Lieferpositionen"
+    ],
+    "schema": "Kategorien: Id int PK, Name nvarchar(40)\nArtikel: Id int PK, KategorieId int FK → Kategorien.Id, Name nvarchar(60), Preis decimal(10,2), Bestand int, Mindestbestand int\nLieferpositionen: Id int PK, ArtikelId int FK → Artikel.Id, Menge int, Termin date\nAlle Ausgangsspalten sind NOT NULL. Mengen und Preise sind nichtnegativ.\nKategorien: (1,Elektronik), (2,Mechanik), (3,Zubehoer)\nArtikel: (1,1,Sensor,25,2,5), (2,1,Steuerung,120,8,3), (3,2,Halter,10,0,2), (4,3,Kabel,5,10,10)\nLieferpositionen: (1,1,8,2026-11-10), (2,2,3,2026-11-11), (3,1,4,2026-12-01)",
+    "seedSql": "CREATE TABLE #Kategorien(Id int PRIMARY KEY,Name nvarchar(40) NOT NULL); CREATE TABLE #Artikel(Id int PRIMARY KEY,KategorieId int NOT NULL,Name nvarchar(60) NOT NULL,Preis decimal(10,2) NOT NULL,Bestand int NOT NULL,Mindestbestand int NOT NULL); CREATE TABLE #Lieferpositionen(Id int PRIMARY KEY,ArtikelId int NOT NULL,Menge int NOT NULL,Termin date NOT NULL); INSERT #Kategorien VALUES(1,N'Elektronik'),(2,N'Mechanik'),(3,N'Zubehoer'); INSERT #Artikel VALUES(1,1,N'Sensor',25,2,5),(2,1,N'Steuerung',120,8,3),(3,2,N'Halter',10,0,2),(4,3,N'Kabel',5,10,10); INSERT #Lieferpositionen VALUES(1,1,8,'2026-11-10'),(2,2,3,'2026-11-11'),(3,1,4,'2026-12-01');",
+    "verificationSql": "INSERT #Kategorien VALUES(4,N'Verbrauch'),(5,N'Leer'); INSERT #Artikel VALUES(5,4,N'Filter',70,1,4),(6,2,N'Clip',3,2,2); INSERT #Lieferpositionen VALUES(4,5,0,'2026-11-20'),(5,3,4,'2026-11-30'); UPDATE #Artikel SET Preis=130 WHERE Id=2;",
+    "tasks": [
+      {
+        "id": 11,
+        "title": "Bestandsgrenzen prüfen",
+        "task": "Zeige Id, Name und die fehlende Menge (Mindestbestand minus Bestand) aller Artikel, deren Bestand echt unter dem Mindestbestand liegt. Sortiere nach fehlender Menge absteigend, bei Gleichstand nach Id aufsteigend.",
+        "referenceSql": "SELECT Id, Name, Mindestbestand-Bestand AS Fehlmenge FROM Artikel WHERE Bestand<Mindestbestand ORDER BY Mindestbestand-Bestand DESC, Id;",
+        "ordered": true,
+        "operation": "Query",
+        "target": "",
+        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+      },
+      {
+        "id": 12,
+        "title": "Geplante Lieferungen",
+        "task": "Zeige Lieferpositions-Id, Artikelname, Kategoriename und Menge für Liefertermine im November 2026. Keine Sortierung erforderlich.",
+        "referenceSql": "SELECT l.Id, a.Name, k.Name, l.Menge FROM Lieferpositionen AS l JOIN Artikel AS a ON a.Id=l.ArtikelId JOIN Kategorien AS k ON k.Id=a.KategorieId WHERE l.Termin>='2026-11-01' AND l.Termin<'2026-12-01';",
+        "ordered": false,
+        "operation": "Query",
+        "target": "",
+        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+      },
+      {
+        "id": 13,
+        "title": "Jede Kategorie berücksichtigen",
+        "task": "Zeige Kategorien-Id und Anzahl zugehöriger Artikel für jede Kategorie, auch ohne Artikel. Sortiere nach Kategorien-Id aufsteigend. Zähle Artikel, keine Lieferpositionen.",
+        "referenceSql": "SELECT k.Id, COUNT(a.Id) AS Anzahl FROM Kategorien AS k LEFT JOIN Artikel AS a ON a.KategorieId=k.Id GROUP BY k.Id ORDER BY k.Id;",
+        "ordered": true,
+        "operation": "Query",
+        "target": "",
+        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+      },
+      {
+        "id": 14,
+        "title": "Preise über dem Durchschnitt",
+        "task": "Zeige Id und Name aller Artikel mit einem Preis echt über dem Durchschnittspreis aller Artikel. Keine Sortierung erforderlich.",
+        "referenceSql": "SELECT Id, Name FROM Artikel WHERE Preis>(SELECT AVG(Preis) FROM Artikel);",
+        "ordered": false,
+        "operation": "Query",
+        "target": "",
+        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+      },
+      {
+        "id": 15,
+        "title": "Eine optionale Notiz ergänzen",
+        "task": "Ergänze Artikel um genau eine Spalte Notiz vom Typ NVARCHAR(100), die NULL erlaubt. Vorhandene Zeilen bleiben unverändert; die neue Spalte soll für alle bestehenden Zeilen NULL sein. Andere Tabellen nicht verändern.",
+        "referenceSql": "ALTER TABLE Artikel ADD Notiz NVARCHAR(100) NULL;",
+        "ordered": false,
+        "operation": "Alter",
+        "target": "Artikel",
+        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+      }
+    ]
+  }
+]

@@ -2,7 +2,8 @@
 @inject LearningNavigation LearningNavigation
 <PageTitle>SQL-Spickzettel · AP2 Lernwerk</PageTitle>
 <main class="page reading-page"><div class="eyebrow">VERSTEHEN STATT ABSCHREIBEN</div><h1>Dein SQL-Spickzettel.</h1><p class="lead">Ein kurzer Überblick für die Ermittlungsakte. Die Beispiele verwenden die Falltabellen und den SQL-Server-Dialekt T-SQL.</p>
-    <a class="button secondary" href="@LearningNavigation.SqlReturnPath(ReturnTo)">Zurück zu deiner Aufgabe →</a>
+    @if (FromExam) { <ExamReferenceNote Module="FiaeTrainer.Core.Exams.ExamModule.Sql" /> }
+    else { <a class="button secondary" href="@LearningNavigation.SqlReturnPath(ReturnTo)">Zurück zu deiner Aufgabe →</a> }
     <section class="reference-section"><h2>Schreibregeln im Trainer</h2><p>Schreibe SQL-Schlüsselwörter und Funktionen groß, zum Beispiel SELECT, FROM, WHERE und COUNT. Jede vollständige Anweisung endet mit einem Semikolon. Tabellen, Spalten, Aliase und Textwerte behalten ihre Schreibweise. Innerhalb einer Unterabfrage steht kein zusätzliches Semikolon.</p></section>
     <section class="reference-section"><h2>Die Reihenfolge beim Schreiben</h2><pre><code>SELECT Zielort, COUNT(*) AS Anzahl
 FROM Sendungen
@@ -40,4 +41,6 @@ COMMIT;</code></pre><p>COMMIT bestätigt die zusammengehörigen Änderungen, ROL
 @code {
     /// <summary> Rücksprungziel aus der Adresse; vor Verwendung auf lokale SQL-Aufgabenseiten begrenzt. </summary>
     [SupplyParameterFromQuery(Name = "zurueck")] public string? ReturnTo { get; set; }
+    /// <summary> Fester Rückweg zur SQL-Prüfung statt eines frei gewählten Ziels. </summary>
+    [SupplyParameterFromQuery(Name = "pruefung")] public bool FromExam { get; set; }
 }

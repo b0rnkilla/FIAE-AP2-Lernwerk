@@ -1,5 +1,8 @@
 <fieldset class="business-answer" disabled="@Disabled">
-    <legend>@Instruction</legend>
+    <legend class="@(Question.Kind == BusinessQuestionKind.Multiple ? "business-multiple-instruction" : null)">
+        @if (Question.Kind == BusinessQuestionKind.Multiple) { <text>Es sind <strong>@RequiredAnswerCountText</strong> Antworten erforderlich.</text> }
+        else { @Instruction }
+    </legend>
     @if (Question.Kind is BusinessQuestionKind.Single or BusinessQuestionKind.Multiple)
     {
         <div class="business-choices">
@@ -66,7 +69,9 @@
     /// <summary> Speichert Änderungen nach einer Auswahl oder dem Verlassen eines Ergebnisfeldes. </summary>
     [Parameter] public EventCallback Changed { get; set; }
     /// <summary> Kurze, formatspezifische Bedienanweisung. </summary>
-    private string Instruction => Question.Kind switch { BusinessQuestionKind.Single => "Wähle eine Antwort.", BusinessQuestionKind.Multiple => $"Wähle genau {Question.CorrectIds.Length} Antworten.", BusinessQuestionKind.Assignment => "Ordne jede Aussage zu. Eine Auswahl darf mehrfach vorkommen.", BusinessQuestionKind.Sequence => "Ordne die Schritte von oben nach unten.", _ => "Trage die gesuchten Ergebnisse ein." };
+    private string Instruction => Question.Kind switch { BusinessQuestionKind.Single => "Wähle eine Antwort.", BusinessQuestionKind.Assignment => "Ordne jede Aussage zu. Eine Auswahl darf mehrfach vorkommen.", BusinessQuestionKind.Sequence => "Ordne die Schritte von oben nach unten.", _ => "Trage die gesuchten Ergebnisse ein." };
+    /// <summary> Schreibt die erforderliche Anzahl der Mehrfachantworten im Bedienhinweis aus. </summary>
+    private string RequiredAnswerCountText => Question.CorrectIds.Length switch { 2 => "zwei", 3 => "drei", 4 => "vier", 5 => "fünf", 6 => "sechs", 7 => "sieben", 8 => "acht", 9 => "neun", 10 => "zehn", 11 => "elf", 12 => "zwölf", _ => Question.CorrectIds.Length.ToString() };
     private async Task SelectAsync(string id) { Answer.SelectedIds = [id]; await Changed.InvokeAsync(); }
     private async Task ToggleAsync(string id) { if (!Answer.SelectedIds.Remove(id)) Answer.SelectedIds.Add(id); await Changed.InvokeAsync(); }
     private async Task SetValueAsync(string id, string value) { Answer.Values[id] = value; await Changed.InvokeAsync(); }

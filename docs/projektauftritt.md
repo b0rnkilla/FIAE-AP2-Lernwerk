@@ -1,6 +1,6 @@
 # Projektauftritt und freiwillige Unterstützung
 
-Stand: **04.11.2026 · Quellfassung 0.1.1-alpha.8**. Die fünf vom Nutzer freigegebenen Punkte sind umgesetzt. Das bestehende Alpha-7-ZIP bleibt unverändert; dieses Änderungspaket erzeugt kein neues Release.
+Stand: **05.11.2026 · Quellfassung 0.1.1-alpha.9**. Die fünf vom Nutzer freigegebenen Punkte sind umgesetzt. Der Projektbereich ist inzwischen im ausdrücklich beauftragten Windows-ZIP Alpha 8 enthalten und wurde am 05.11.2026 aus dem entpackten Paket geprüft. Alpha 7 bleibt unverändert.
 
 ## Übersicht und Fußzeile
 
@@ -12,7 +12,7 @@ Ein GitHub-Stern ist eine freiwillige Anerkennung über „Star“ am Repository
 
 ## Urheberseite
 
-Die Route `/ueber-das-lernwerk` nennt **Christopher Weismantel · b0rnkilla** für Konzept und Projektentwicklung. Der Text beschreibt die Entstehung aus der eigenen Prüfungsvorbereitung. Die Wortmarke b0rnkilla wird als Text dargestellt; das vom Nutzer später gelieferte Logo kann sie ergänzen. Es werden keine unbekannten Kontakt- oder Adressangaben ergänzt und keine registrierten Markenzeichen behauptet.
+Die Route `/ueber-das-lernwerk` nennt **Christopher Weismantel · b0rnkilla** für Konzept und Projektentwicklung. Der Text beschreibt die Entstehung aus der eigenen Prüfungsvorbereitung. Seit Alpha 9 zeigt sie das vom Nutzer gelieferte b0rnkilla-Gaming-Logo. Verwendet wird die unveränderte kompakte PNG-Datei mit 400 × 175 Pixeln (61.359 Bytes) unter `wwwroot/images/project/b0rnkilla-gaming.png`. Eine dunkle Fläche hält die transparenten Konturen in beiden Farbmodi lesbar; das Bild skaliert proportional und besitzt einen Alternativtext. Die HD-Fassung mit 1600 × 900 Pixeln wird nicht zusätzlich mitgeliefert. Es werden keine unbekannten Kontakt- oder Adressangaben ergänzt und keine registrierten Markenzeichen behauptet.
 
 Ein eigener Bereich erklärt Rückmeldungen, die Unterstützungskarte bietet GitHub und PayPal an. Am Ende stehen die Einordnung als unabhängiges Lernprojekt, die privaten Nutzungsbedingungen und der Verweis auf die mit Windows-Paketen gelieferten Drittanbieterhinweise. Die Projektseite ist eine Information zur Urheberschaft; aus ihrer Gestaltung wird keine Aussage über eine rechtliche Impressumspflicht abgeleitet. Die Projektlizenz wird durch Unterstützung oder Feedback nicht geändert.
 
@@ -36,6 +36,6 @@ Der freigegebene öffentliche PayPal-Link lautet **https://www.paypal.com/paypal
 
 Die README führt mit Nutzen, direktem Release-Link, einem großen Übersichtsbild und einer kompakten Galerie durch SQL, Algorithmen und WiSo. Danach folgen drei Startschritte und die Projektaktionen. Entwicklerdetails bleiben in den Fachdokumenten. Die Nutzung wird weiterhin ausschließlich über Releases → Windows-ZIP → Entpacken → EXE beschrieben.
 
-Die Bilder liegen unter `docs/images`: `uebersicht.png`, `sql.png`, `algorithmen.png` und `wiso.png`. Es sind neue Browseraufnahmen der tatsächlichen App mit eigenem synthetischem Testprofil, keine Prüfungsabbildungen und keine Nutzerlernstände. Auf ausdrücklichen Nutzerwunsch beschreibt die README den vollständigen aktuellen Funktionsstand mit 220 Aufgaben als aktuelle App-Fassung; der frühere Vorschau-/Paketvergleich entfällt dort. Der tatsächliche Paketstand bleibt in der technischen Release-Dokumentation nachvollziehbar: Alpha 7 ist unverändert, ein neues ZIP entsteht erst nach der README-Freigabe und dem anschließenden Committext-/Commit-Schritt.
+Die Bilder liegen unter `docs/images`: `uebersicht.png`, `sql.png`, `algorithmen.png` und `wiso.png`. Es sind neue Browseraufnahmen der tatsächlichen App mit eigenem synthetischem Testprofil, keine Prüfungsabbildungen und keine Nutzerlernstände. Auf ausdrücklichen Nutzerwunsch beschreibt die README den vollständigen aktuellen Funktionsstand mit 220 Aufgaben als aktuelle App-Fassung; der frühere Vorschau-/Paketvergleich entfällt dort. Der tatsächliche Paketstand bleibt in der technischen Release-Dokumentation nachvollziehbar: Alpha 8 wurde nach der README-Freigabe und dem Nutzer-Commit aus `b4e953f` gebaut und geprüft; Alpha 7 bleibt unverändert.
 
 Die Link- und Darstellungsprüfung ist im [Testprotokoll](testprotokoll.md) festgehalten. Grundlage für die GitHub-Sternfunktion: [GitHub-Dokumentation](https://docs.github.com/en/get-started/exploring-projects-on-github/saving-repositories-with-stars).

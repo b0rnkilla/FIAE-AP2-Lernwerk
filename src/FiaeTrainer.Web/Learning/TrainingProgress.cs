@@ -1,4 +1,5 @@
 using FiaeTrainer.Core.BusinessStudies.Practice;
+using FiaeTrainer.Core.Exams;
 
 namespace FiaeTrainer.Web.Learning;
 
@@ -29,6 +30,11 @@ public sealed class TrainingProgress
     public BusinessRound? BusinessRound { get; set; }
     /// <summary> Die letzten zwanzig abgegebenen Runden mit ihren damaligen Ergebnissen. </summary>
     public List<BusinessRound> BusinessHistory { get; set; } = [];
+
+    /// <summary> Getrennte SQL- und Algorithmus-Prüfungsrunden; ältere Profile beginnen ohne Prüfungsversuche. </summary>
+    public Dictionary<ExamModule, ExamRound> ExamRounds { get; set; } = [];
+    /// <summary> Höchstens zwanzig endgültig bewertete Prüfungen je Modul. </summary>
+    public List<ExamRound> ExamHistory { get; set; } = [];
 
     /// <summary> Wählt den getrennten Fortschrittsbereich. </summary>
     public Dictionary<int, LessonProgress> GetLessons(LearningArea area) => area == LearningArea.Investigation ? Lessons : WorkshopLessons;
