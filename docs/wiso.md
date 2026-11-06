@@ -1,6 +1,12 @@
 # Wirtschafts- und Sozialkunde
 
-Fachlicher Inhalt: **04.11.2026**, Oberflächenstand **0.1.1-alpha.9 · 05.11.2026**. WiSo ist auch im Windows-ZIP Alpha 8 enthalten; die entpackte EXE wurde am 05.11.2026 ohne SQL-Verbindung einschließlich Antwortprüfung, Auswertung und Erhalt nach Neustart geprüft. Das ältere Alpha-7-ZIP bleibt unverändert ohne WiSo.
+Fachlicher Inhalt: **04.11.2026**, Oberflächenstand **0.1.1-alpha.10 · 06.11.2026**. WiSo ist auch im Windows-ZIP Alpha 8 enthalten; die entpackte EXE wurde am 05.11.2026 ohne SQL-Verbindung einschließlich Antwortprüfung, Auswertung und Erhalt nach Neustart geprüft. Das ältere Alpha-7-ZIP bleibt unverändert ohne WiSo.
+
+## Prüfungseinstieg seit Alpha 10
+
+Prüfung üben in Übersicht und Kopfnavigation führt auf /wiso/pruefung. Die Zwischenseite erläutert 30 Aufgaben, 60 Minuten, Markierungen, Pause, Nachschlagen und Auswertung. Ein Aufruf verändert keine bestehende Runde und startet keine neue Uhr. Erst Prüfung starten erzeugt eine Prüfung. Eine offene Lern- oder Prüfungsrunde besitzt einen Fortsetzungslink und wird nur nach zusätzlicher Bestätigung ersetzt; Abbrechen erhält Antworten, Markierungen und Restzeit. Eine laufende bestehende Prüfungsuhr läuft beim Besuch der Infos weiter, eine bereits pausierte Prüfung bleibt pausiert.
+
+Auf /wiso stehen weiterhin Themenlernen, gemischte Runden und Fehlerwiederholung bereit. Die frühere Karte Deine Prüfungsrunde entfällt. Die Kopfnavigation ersetzt Deine Runde durch Prüfung üben. Tatsächliche Runden und Auswertungen bleiben unter /wiso/runde; das Profilformat und die 150 Aufgaben bleiben unverändert.
 
 ## Leseführung seit Alpha 9
 
@@ -80,3 +86,7 @@ Die automatisierten Tests decken alle 150 vollständigen Lösungen, leere Antwor
 ### Mehrfachauswahl
 
 Seit Alpha 9 steht die benötigte Anzahl vor den Optionen deutlich auf einer Akzentfläche: „Es sind **zwei** Antworten erforderlich.“ Die Zahl wird aus dem Antwortvertrag ausgeschrieben und semantisch fett hervorgehoben. Der Hinweis bleibt die zugängliche Gruppenbeschriftung; der separate Auswahlzähler zählt weiterhin die ausgewählten Optionen. Einfachauswahl behält ihre bisherige Anweisung.
+
+## Kartenabstände in Alpha 10
+
+Die Beschreibungen der beiden Lernwegkarten auf /wiso besitzen 24 Pixel unteren Abstand zu ihren Buttons. Die CSS-Regel ist auf business-paths begrenzt und gilt auch bei einspaltiger Darstellung. Lernablauf, Bewertung und Speicherformat bleiben unverändert; Browserabstand für beide Karten kontrolliert.

@@ -18,6 +18,7 @@ Entwicklungsstand: **0.1.1-alpha.9 · 05.11.2026**, mit 150 WiSo-Aufgaben und in
 | Pseudocode-Feinschliff | Technischen Zusatz auf der Themenkarte entfernt; Zuweisungen in Beispielen, Hinweisen und Lösungen mit `=`, Gleichheitsvergleiche bevorzugt mit `==` |
 | Pseudocode-Editor | Nummerierte Zeilen einschließlich Leerzeilen, synchrones Scrollen, Tab-/Blockeinrückung und Ausrücken; Esc vor Tab für Tastaturnavigation |
 | Pseudocode-Schreibweise | Große Schlüsselwörter, Operatorwörter, Wahrheitswerte und Längenfunktion verpflichtend; konkrete Korrektur mit Zeilennummer, Texte/Kommentare und Variablenschreibung unberührt |
+| Heimnetz für Windows-Anwender | Alpha 12: eigene Einstellungsseite, Firewall-Diagnose und bei Bedarf UAC-Helfer, Kopieradresse/QR, interner Hostneustart; gemeinsames Profil. Kein neues Paket. Erhöhte Regelerstellung manuell zu bestätigen |
 | Android im Heimnetz | Chrome-Zugriff nach Android-Berechtigung unter „Geräte in der Nähe“ vom Nutzer bestätigt; Anleitung ergänzt, keine Einzel-IP-Freigaben nötig |
 | Scrollposition | Liste bleibt bei asynchronen Aufgabenwechseln innerhalb beider SQL-Lernwege stehen |
 | Geführte Hilfen | Einheitliche Zeilen mit Beschreibung links und Aktion rechts; Spickzettel im selben Tab, Musterlösung mit Ansehen/Ausblenden |
@@ -81,3 +82,30 @@ Erledigt: Hinweis direkt vor den Optionen hervorgehoben, erforderliche Anzahl au
 Umgesetzt auf ausdrückliches GO: Gesamtseitenposition bei Listenklicks in SQL, Werkstatt und Pseudocode erhalten; WiSo-Fokus auf Abgabebestätigung/Auswertung unverändert. Zusätzlich zehn eigene Pseudocode-Prüfungsaufgaben und drei neue SQL-Fälle mit je fünf Aufgaben, getrennte 45-Minuten-Runden, Teilpunkte, Pause, Historie und technische Wiederaufnahme der Bewertung.
 
 Geprüft: 794 .NET-Tests einschließlich SQL, 26 JavaScript-Tests, Browserdurchläufe mit 50/50 Punkten in beiden Modulen, Spickzettel-Rückweg, Pause/Neuladen, Nachbereitung und Handybreite. Keine Originalprüfungen eingebettet. Offen bleibt die praktische Kalibrierung der geschätzten Bearbeitungszeit durch vollständige Endnutzerläufe. Details: [Prüfungsmodus](pruefungsmodus.md). Kein neuer ZIP-Auftrag.
+
+## Alpha 9: Paketbau nach Commit/Push abgeschlossen
+
+Der Nutzer hat Commit und Push bestätigt; GitHub-master entspricht a6c929f. Alpha-9-ZIP auf ausdrücklichen Auftrag gebaut, entpackt und mit eigenem Profil geprüft. Pseudocode und SQL jeweils 50/50, Pause/Neuladen, Neustart, alte Profilfelder, Logo und Paketinhalt erfolgreich kontrolliert. Versionshinweise und Anleitung nach dem Anwendungscode-Commit ergänzt. ZIP und SHA256 unverändert erhalten. Offen: Nutzer-Upload als Pre-release v0.1.1-alpha.9 und praktische Zeitkalibrierung. Paket-/Prüfdetails: [lokale Releases](lokale-releases.md), [Testprotokoll](testprotokoll.md). Kein automatischer Upload; weitere Pakete nur auf Auftrag.
+
+## 06.11.2026 – Einheitliche Prüfungs-Einstiege erledigt
+
+- Übersicht: SQL-Fortsetzung heißt Weiter lernen. Prüfung üben ohne Zeitangabe steht separat darunter; bei Pseudocode unter dem Lernbutton, bei WiSo neu ergänzt. Themenreihenfolge unverändert.
+- SQL-/Pseudocode-Einleitung: angeforderte Sätze gestrichen, Zeilenumbruch nach Ausgangssituation beziehungsweise Analyseaufgabe, Nachschlagen im Spickzettel ausdrücklich benannt.
+- WiSo: eigener Info-Einstieg /wiso/pruefung, Anlage/Uhr erst mit Prüfung starten. Offene Lern- und Prüfungsrunden erfordern eine zusätzliche Ersetzungsbestätigung und bleiben bei Abbruch unverändert. Frühere Prüfungskarte entfernt, Kopfpunkt Prüfung üben statt Deine Runde.
+- Geprüft: 47 betroffene .NET-Tests ohne Fehler/Überspringen; eigener Web-Build ohne Warnungen/Fehler; Browserstart, Fortsetzen, bestätigter Wechsel, Abbruch, beide Designs und 390 × 844. README und Fachdokumente aktualisiert. Quellstand Alpha 10; Alpha-9-ZIP unverändert, kein neuer Paketauftrag.
+
+## 06.11.2026 – Zeilenumbrüche und WiSo-Kartenabstände erledigt
+
+Alle sechs Verbindungshinweise mit expliziten Zeilenumbrüchen, statischer Ausgangstext ebenfalls angepasst. Beide WiSo-Lernwegkarten trennen Beschreibung und Button durch 24 Pixel. Sieben Wiederverbindungstests und eigener Web-Build erfolgreich; tatsächliche Verbindungsunterbrechung auf eigenem Port 5211 und gemessene Kartenabstände bestätigt. Dokumentation nachgeführt, normale App/Lernstände unberührt, kein neuer Paketbau.
+
+## 06.11.2026 – Abschnitt 04 Datenbankentwurf umgesetzt
+
+Nach ausdrücklichem GO: 30 eigene Lernaufgaben in sechs Kapiteln, Modellbaukasten mit freien Beschriftungen und festen Fachattributen, PK-/FK-/UQ-Gruppen, Kardinalitäten, automatisch gezeichnetes Modell mit Vergrößerung und ausgeschriebenen Beziehungen. Individuelle Modi, drei Hinweise, Musterlösung, bestätigte Planungsschritte, Spickzettel und Lernplan-Anbindung.
+
+Drei eigene Prüfungsfälle mit neun Teilaufgaben, 45 Minuten, Teilpunkten, Kontrollmarkierung, Pause, Nachschlagen und unveränderlicher Abgabe. Keine SQL-/KI-Abhängigkeit. Alte Profilfelder und Aufgabenkennungen erhalten; Gesamtlernzähler 250, Modulposition 04 und WiSo 08 unverändert. Bewertung begrenzt auf dokumentierte Attributverträge und geprüfte Varianten; keine vollständige AP2-Katalogabdeckung behauptet.
+
+Geprüft: vollständiger Bestand 840 .NET-Tests einschließlich SQL erfolgreich; nach abschließender UI-Sicherung 53 betroffene Tests und fehlerfreier Build. Browser ohne SQL: eigene Beschriftungen, Modelle 5/21, Modus je Aufgabe, Rückweg, vollständige neue Prüfung 50/50 mit Nachschlagen, Pause/Neuladen, readonly nach Abgabe, Handybreite und Serverneustart. Offen: praktische Kalibrierung der geschätzten 45 Minuten durch Endnutzer. Kein neues ZIP; Details in [Datenbankentwurf](datenbankentwurf.md).
+
+Entwicklungsstart Alpha 12 nachgeprüft: normaler CMD-/VS-Start respektiert gespeicherte Lokal-/Heimnetzwahl; keine erzwungene URL im Standardprofil. Zwei neue Regressionen und 35 betroffene Tests erfolgreich. Optionaler LAN-Starter bleibt erhalten.
+
+Alpha 12: Heimnetz vom Nutzer als einwandfrei bestätigt. Eigene Nutzerprüfung von Abschnitt 04 noch offen. Versionshinweise vorbereitet; Windows-ZIP und Release-Informationen nach Nutzer-Commit und Push ausdrücklich beauftragt. Paketprüfung noch ausstehend.

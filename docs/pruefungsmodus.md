@@ -1,12 +1,12 @@
 # Prüfungsrunden für SQL und Pseudocode
 
-Stand: **05.11.2026 · Quellfassung 0.1.1-alpha.9**. Die Prüfungen sind zusätzlich zu den bisherigen 220 Lernübungen umgesetzt; sie verändern den bisherigen Aufgabenfortschritt nicht. Im eigenen Prüfungspool liegen zehn Algorithmus- und 15 SQL-Aufgaben. Das veröffentlichte Alpha-8-ZIP enthält diese neuen Funktionen noch nicht. Kein neuer Paketbau ohne Auftrag.
+Stand: **06.11.2026 · Quellfassung 0.1.1-alpha.10**. Die Prüfungen sind zusätzlich zu den bisherigen 220 Lernübungen umgesetzt; sie verändern den bisherigen Aufgabenfortschritt nicht. Im eigenen Prüfungspool liegen zehn Algorithmus- und 15 SQL-Aufgaben. Das veröffentlichte Alpha-8-ZIP enthält diese neuen Funktionen noch nicht. Kein neuer Paketbau ohne Auftrag.
 
 ## Einstieg und Ablauf
 
 Auf Übersicht und in der Modulnavigation führt **Prüfung üben** zum Einstieg. Algorithmen: `/algorithmen/pruefung`, SQL: `/sql/pruefung`. Die aktuelle Runde liegt jeweils unter `/runde`. Die Uhr startet erst mit **Prüfung starten**. Eine noch nicht bewertete Prüfung wird nur nach ausdrücklicher Bestätigung ersetzt; frühere Ergebnisse bleiben in der Historie.
 
-Jede Runde dauert 45 Minuten und bietet 50 Trainingspunkte. Das persönliche Trainingsziel beträgt 25 Punkte. Die Zeitansätze sind Schätzungen für gezieltes Modultraining, kein nachgewiesener Ersatz für eine vollständige AP2. Vor Abgabe gibt es keine Probeausführung, Lösungskontrolle oder Musterlösung. Aufgaben dürfen frei gewählt und zur Kontrolle markiert werden. Die Auswertung erscheint nach Bestätigung beziehungsweise Fristablauf. Abgabebestätigung und Ergebnis werden sichtbar fokussiert.
+Jede Runde dauert 45 Minuten und bietet 50 Trainingspunkte. 25 Punkte entsprechen 50 Prozent der Trainingspunkte. Dieser Zielwert steht weiterhin in der Auswertung, aber nicht mehr als Zusatztext in den Einstiegsinfos. Die Zeitansätze sind Schätzungen für gezieltes Modultraining, kein nachgewiesener Ersatz für eine vollständige AP2. Vor Abgabe gibt es keine Probeausführung, Lösungskontrolle oder Musterlösung. Aufgaben dürfen frei gewählt und zur Kontrolle markiert werden. Die Auswertung erscheint nach Bestätigung beziehungsweise Fristablauf. Abgabebestätigung und Ergebnis werden sichtbar fokussiert.
 
 **Pause** friert die Restzeit ein und blendet Aufgaben/Editoren aus. Browser schließen, zu einer anderen Seite wechseln oder die App beenden pausiert nicht. Die UTC-Frist bleibt gespeichert; nach Ablauf wird beim nächsten Öffnen/Speichern abgegeben. Offene Runden werden etwa einmal pro Sekunde auf Fristablauf geprüft. Entwürfe werden bei Änderungen ungefähr sekündlich sowie beim Verlassen des Editors, Wechseln, Pausieren und Abgeben atomar gespeichert. Bei abruptem Prozess-/Verbindungsabbruch können die letzten noch nicht gespeicherten Eingaben verloren gehen.
 
@@ -70,3 +70,17 @@ Prüfungsinhalte verwenden `ContentVersion = 2026-11-05`. Bei inkompatiblen Änd
 Die sieben privaten PDFs von Winter 2021/22, Sommer 2022, dem nicht datierten Softwareprodukt-Dokument, Winter 2023/24, Sommer 2024, Winter 2024/25 und Winter 2025/26 wurden als Form-/Umfangsorientierung ausgewertet. Wiederkehrend sind präzise Datenstrukturen/Funktionsverträge, mehrteilige Bedingungen, Listen und zweidimensionale Daten, Grenzfälle sowie relationale SQL-Aufgaben einschließlich Datenänderungen. Die neuen Aufgaben verwenden eigene Fachfälle, Verträge, Werte, Startdaten und Referenzen. Originalseiten, Aufgabenformulierungen und Lösungsschlüssel werden weder eingebettet noch verteilt. Lokale Extraktionen liegen ausschließlich unter dem ignorierten QA-Verzeichnis `artifacts/exam-source-review`.
 
 Prüfnachweise: [Testprotokoll](testprotokoll.md). Die 45-Minuten-Einteilung ist fachlich geschätzt, aber noch nicht durch einen vollständigen 45-minütigen Endnutzerlauf kalibriert.
+
+## Windows-Paket Alpha 9
+
+Am 05.11.2026 aus Anwendungscode-Commit a6c929f als selbstständig startbares Windows-ZIP gebaut und mit eigenem Profil geprüft. Die entpackte EXE liefert in vollständigen Pseudocode- und SQL-Prüfungen jeweils 50/50; Pause und alte Lernstände bleiben erhalten, beide Ergebnisse überstehen einen App-Neustart. Paketdokumente wurden nach dem Anwendungscode-Commit ergänzt. Veröffentlichung übernimmt der Nutzer; die 45-Minuten-Zeitkalibrierung bleibt offen. [Paketdetails](lokale-releases.md).
+
+## Einheitliche Einstiegsseiten seit Alpha 10
+
+In der Übersicht besitzen SQL, Pseudocode und WiSo jeweils Prüfung üben ohne Zeitangabe; Pseudocode/WiSo zeigen den Button in einer eigenen Zeile unter Weiter lernen beziehungsweise ihrem Erststartbutton. SQL benennt den begonnenen Lernweg ebenfalls Weiter lernen. Die eigentlichen Prüfungszeiten bleiben auf den Infoseiten sichtbar: SQL/Pseudocode 45 Minuten, WiSo 60 Minuten.
+
+SQL/Pseudocode verwenden eine Zeilentrennung zwischen Ausgangssituation und Arbeitskopie beziehungsweise Aufgabenarten und separatem Prüfungspool. Der Nachschlagehinweis nennt ausdrücklich den Spickzettel. Zielpunktzahl und Satz zur künftigen Zeitabstimmung entfallen ausschließlich aus der Einleitung; Bewertungsregeln und Grenzen bleiben erhalten. WiSo verwendet dieselbe gemeinsame Info-Komponente auf /wiso/pruefung und startet erst durch Prüfung starten. Seine bestehenden Runden, Historie, Zeitregeln und Speicherung bleiben getrennt von ExamRounds; siehe [WiSo-Vertrag](wiso.md).
+
+## Ergänzung Alpha 11: Datenbankentwurf
+
+Ein weiterer eigener Prüfungseinstieg liegt unter /datenbankentwurf/pruefung. Drei unbekannte Fälle enthalten jeweils drei Teilaufgaben, 45 Minuten und 50 Trainingspunkte. Zwei Modellaufträge werden auf je 20 Punkte gewichtet, eine fachliche Auswahl auf zehn. Das Profil verwendet DesignExam und DesignHistory mit strukturierten Antworten; ExamRounds für SQL/Pseudocode und BusinessRound für WiSo bleiben unberührt. Die Uhr startet erst durch die Startaktion, Abgaben sind endgültig, Nachschlagen pausiert und kennzeichnet die Runde. [Ausführlicher Fachvertrag](datenbankentwurf.md).

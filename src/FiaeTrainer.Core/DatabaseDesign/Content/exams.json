@@ -1,0 +1,839 @@
+[
+  {
+    "id": "werkstatt",
+    "title": "Eine Reparaturwerkstatt organisiert Material",
+    "scenario": "Ein neuer Betrieb möchte aus seinen bisherigen Unterlagen eine relationale Datenbank entwickeln. Bearbeite die drei unabhängigen Teilaufträge mit den jeweils genannten Fachbegriffen.",
+    "tasks": [
+      {
+        "id": 1,
+        "chapter": "Prüfung",
+        "title": "Stammdaten und Vorgänge",
+        "story": "Eine Reparaturwerkstatt organisiert Material. Die Teilaufgaben sind unabhängig und verwenden jeweils den beschriebenen Ausschnitt.",
+        "task": "Erstelle Werkstattkunde mit KundenNr (eindeutig) und Kontaktname, sowie Reparatur mit ReparaturNr (eindeutig) und Abgabetag. Jeder Reparatur-Datensatz gehört genau einem Werkstattkunde-Datensatz; umgekehrt sind viele Vorgänge möglich. Alle Attribute sind Pflicht. Elternobjekte dürfen ohne abhängige Sätze existieren. Nicht genannte Zusatzattribute oder Eindeutigkeitsregeln sind nicht erforderlich. Tabellen- und Anzeigenamen sind frei.",
+        "kind": "Model",
+        "attributes": {
+          "KundenNr": "KundenNr",
+          "Kontaktname": "Kontaktname",
+          "ReparaturNr": "ReparaturNr",
+          "Abgabetag": "Abgabetag"
+        },
+        "starter": {
+          "tables": [],
+          "relations": []
+        },
+        "solutions": [
+          {
+            "tables": [
+              {
+                "id": "Werkstattkunde",
+                "name": "Werkstattkunde",
+                "columns": [
+                  {
+                    "id": "Werkstattkunde.KundenNr",
+                    "attribute": "KundenNr",
+                    "name": "KundenNr",
+                    "primaryKey": true,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Werkstattkunde.Kontaktname",
+                    "attribute": "Kontaktname",
+                    "name": "Kontaktname",
+                    "primaryKey": false,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  }
+                ]
+              },
+              {
+                "id": "Reparatur",
+                "name": "Reparatur",
+                "columns": [
+                  {
+                    "id": "Reparatur.ReparaturNr",
+                    "attribute": "ReparaturNr",
+                    "name": "ReparaturNr",
+                    "primaryKey": true,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Reparatur.Abgabetag",
+                    "attribute": "Abgabetag",
+                    "name": "Abgabetag",
+                    "primaryKey": false,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Reparatur.KundenNr",
+                    "attribute": "KundenNr",
+                    "name": "KundenNr",
+                    "primaryKey": false,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  }
+                ]
+              }
+            ],
+            "relations": [
+              {
+                "id": "Reparatur-Werkstattkunde-0",
+                "sourceTable": "Reparatur",
+                "targetTable": "Werkstattkunde",
+                "pairs": [
+                  {
+                    "source": "Reparatur.KundenNr",
+                    "target": "Werkstattkunde.KundenNr"
+                  }
+                ],
+                "parentMinimum": 1,
+                "childMinimum": 0,
+                "childMaximum": "n"
+              }
+            ]
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "hints": [
+          "Arbeite die genannten Entitäten heraus.",
+          "Prüfe Schlüssel und Abhängigkeiten.",
+          "Prüfe die Richtung der FK-Zuordnungen."
+        ],
+        "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig."
+      },
+      {
+        "id": 2,
+        "chapter": "Prüfung",
+        "title": "Eine Zuordnung mit eigener Eigenschaft",
+        "story": "Eine Reparaturwerkstatt organisiert Material. Die Teilaufgaben sind unabhängig und verwenden jeweils den beschriebenen Ausschnitt.",
+        "task": "Betrachte unabhängig den Ausschnitt Reparatur(ReparaturNr, Abgabetag) und Ersatzteil(TeilNr, Teilname); die jeweils erste Nummer ist PK. Materialeinsatz ordnet beide zu und enthält Stueckzahl. Pro Paar darf nur ein Datensatz existieren. Modelliere den zusammengesetzten PK und beide FKs. Alle Attribute sind Pflicht. Elternobjekte dürfen ohne abhängige Sätze existieren. Nicht genannte Zusatzattribute oder Eindeutigkeitsregeln sind nicht erforderlich. Tabellen- und Anzeigenamen sind frei.",
+        "kind": "Model",
+        "attributes": {
+          "ReparaturNr": "ReparaturNr",
+          "Abgabetag": "Abgabetag",
+          "TeilNr": "TeilNr",
+          "Teilname": "Teilname",
+          "Stueckzahl": "Stueckzahl"
+        },
+        "starter": {
+          "tables": [],
+          "relations": []
+        },
+        "solutions": [
+          {
+            "tables": [
+              {
+                "id": "Reparatur",
+                "name": "Reparatur",
+                "columns": [
+                  {
+                    "id": "Reparatur.ReparaturNr",
+                    "attribute": "ReparaturNr",
+                    "name": "ReparaturNr",
+                    "primaryKey": true,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Reparatur.Abgabetag",
+                    "attribute": "Abgabetag",
+                    "name": "Abgabetag",
+                    "primaryKey": false,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  }
+                ]
+              },
+              {
+                "id": "Ersatzteil",
+                "name": "Ersatzteil",
+                "columns": [
+                  {
+                    "id": "Ersatzteil.TeilNr",
+                    "attribute": "TeilNr",
+                    "name": "TeilNr",
+                    "primaryKey": true,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Ersatzteil.Teilname",
+                    "attribute": "Teilname",
+                    "name": "Teilname",
+                    "primaryKey": false,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  }
+                ]
+              },
+              {
+                "id": "Materialeinsatz",
+                "name": "Materialeinsatz",
+                "columns": [
+                  {
+                    "id": "Materialeinsatz.ReparaturNr",
+                    "attribute": "ReparaturNr",
+                    "name": "ReparaturNr",
+                    "primaryKey": true,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Materialeinsatz.TeilNr",
+                    "attribute": "TeilNr",
+                    "name": "TeilNr",
+                    "primaryKey": true,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Materialeinsatz.Stueckzahl",
+                    "attribute": "Stueckzahl",
+                    "name": "Stueckzahl",
+                    "primaryKey": false,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  }
+                ]
+              }
+            ],
+            "relations": [
+              {
+                "id": "Materialeinsatz-Reparatur-0",
+                "sourceTable": "Materialeinsatz",
+                "targetTable": "Reparatur",
+                "pairs": [
+                  {
+                    "source": "Materialeinsatz.ReparaturNr",
+                    "target": "Reparatur.ReparaturNr"
+                  }
+                ],
+                "parentMinimum": 1,
+                "childMinimum": 0,
+                "childMaximum": "n"
+              },
+              {
+                "id": "Materialeinsatz-Ersatzteil-1",
+                "sourceTable": "Materialeinsatz",
+                "targetTable": "Ersatzteil",
+                "pairs": [
+                  {
+                    "source": "Materialeinsatz.TeilNr",
+                    "target": "Ersatzteil.TeilNr"
+                  }
+                ],
+                "parentMinimum": 1,
+                "childMinimum": 0,
+                "childMaximum": "n"
+              }
+            ]
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "hints": [
+          "Arbeite die genannten Entitäten heraus.",
+          "Prüfe Schlüssel und Abhängigkeiten.",
+          "Prüfe die Richtung der FK-Zuordnungen."
+        ],
+        "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig."
+      },
+      {
+        "id": 3,
+        "title": "Die Grenzen des Modells erkennen",
+        "chapter": "Prüfung",
+        "story": "Eine Reparaturwerkstatt organisiert Material",
+        "task": "Wähle die zwei richtigen Aussagen zu den ausdrücklich vorgegebenen Regeln.",
+        "kind": "Multiple",
+        "attributes": {},
+        "starter": {
+          "tables": [],
+          "relations": []
+        },
+        "solutions": [],
+        "options": {
+          "a": "Eine zusätzliche künstliche ID ersetzt nicht automatisch die Eindeutigkeit des fachlichen Zuordnungspaars.",
+          "b": "Ein Fremdschlüssel erzwingt allein mindestens zwei abhängige Datensätze je Elternsatz.",
+          "c": "Aus wenigen Beispieldaten darf jede scheinbare Abhängigkeit als verbindliche Geschäftsregel angenommen werden.",
+          "d": "Bei optionalem Kundenbezug muss das Modell fehlende Zuordnungen ausdrücklich erlauben."
+        },
+        "correctIds": [
+          "a",
+          "d"
+        ],
+        "hints": [
+          "Prüfe die Bedeutung von Eindeutigkeit.",
+          "Trenne FK und Mindestanzahl.",
+          "Das Paar und optionale Werte haben eigene Verträge."
+        ],
+        "explanation": "Eine künstliche ID beseitigt weder doppelte fachliche Paare noch andere Abhängigkeiten. FK sichern vorhandene Referenzen, keine Mindestanzahl von Kindern. Optionale Zuordnungen benötigen passende NULL-Regeln."
+      }
+    ],
+    "points": [
+      20,
+      20,
+      10
+    ]
+  },
+  {
+    "id": "bibliothek",
+    "title": "Ein Medienhaus plant Veranstaltungsbuchungen",
+    "scenario": "Ein neuer Betrieb möchte aus seinen bisherigen Unterlagen eine relationale Datenbank entwickeln. Bearbeite die drei unabhängigen Teilaufträge mit den jeweils genannten Fachbegriffen.",
+    "tasks": [
+      {
+        "id": 1,
+        "chapter": "Prüfung",
+        "title": "Stammdaten und Vorgänge",
+        "story": "Ein Medienhaus plant Veranstaltungsbuchungen. Die Teilaufgaben sind unabhängig und verwenden jeweils den beschriebenen Ausschnitt.",
+        "task": "Erstelle Besucher mit BesucherNr (eindeutig) und Besuchername, sowie Buchung mit BuchungsNr (eindeutig) und Buchungstag. Jeder Buchung-Datensatz gehört genau einem Besucher-Datensatz; umgekehrt sind viele Vorgänge möglich. Alle Attribute sind Pflicht. Elternobjekte dürfen ohne abhängige Sätze existieren. Nicht genannte Zusatzattribute oder Eindeutigkeitsregeln sind nicht erforderlich. Tabellen- und Anzeigenamen sind frei.",
+        "kind": "Model",
+        "attributes": {
+          "BesucherNr": "BesucherNr",
+          "Besuchername": "Besuchername",
+          "BuchungsNr": "BuchungsNr",
+          "Buchungstag": "Buchungstag"
+        },
+        "starter": {
+          "tables": [],
+          "relations": []
+        },
+        "solutions": [
+          {
+            "tables": [
+              {
+                "id": "Besucher",
+                "name": "Besucher",
+                "columns": [
+                  {
+                    "id": "Besucher.BesucherNr",
+                    "attribute": "BesucherNr",
+                    "name": "BesucherNr",
+                    "primaryKey": true,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Besucher.Besuchername",
+                    "attribute": "Besuchername",
+                    "name": "Besuchername",
+                    "primaryKey": false,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  }
+                ]
+              },
+              {
+                "id": "Buchung",
+                "name": "Buchung",
+                "columns": [
+                  {
+                    "id": "Buchung.BuchungsNr",
+                    "attribute": "BuchungsNr",
+                    "name": "BuchungsNr",
+                    "primaryKey": true,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Buchung.Buchungstag",
+                    "attribute": "Buchungstag",
+                    "name": "Buchungstag",
+                    "primaryKey": false,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Buchung.BesucherNr",
+                    "attribute": "BesucherNr",
+                    "name": "BesucherNr",
+                    "primaryKey": false,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  }
+                ]
+              }
+            ],
+            "relations": [
+              {
+                "id": "Buchung-Besucher-0",
+                "sourceTable": "Buchung",
+                "targetTable": "Besucher",
+                "pairs": [
+                  {
+                    "source": "Buchung.BesucherNr",
+                    "target": "Besucher.BesucherNr"
+                  }
+                ],
+                "parentMinimum": 1,
+                "childMinimum": 0,
+                "childMaximum": "n"
+              }
+            ]
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "hints": [
+          "Arbeite die genannten Entitäten heraus.",
+          "Prüfe Schlüssel und Abhängigkeiten.",
+          "Prüfe die Richtung der FK-Zuordnungen."
+        ],
+        "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig."
+      },
+      {
+        "id": 2,
+        "chapter": "Prüfung",
+        "title": "Eine Zuordnung mit eigener Eigenschaft",
+        "story": "Ein Medienhaus plant Veranstaltungsbuchungen. Die Teilaufgaben sind unabhängig und verwenden jeweils den beschriebenen Ausschnitt.",
+        "task": "Betrachte unabhängig den Ausschnitt Buchung(BuchungsNr, Buchungstag) und Workshop(WorkshopNr, Workshopname); die jeweils erste Nummer ist PK. Buchungsposition ordnet beide zu und enthält Plaetze. Pro Paar darf nur ein Datensatz existieren. Modelliere den zusammengesetzten PK und beide FKs. Alle Attribute sind Pflicht. Elternobjekte dürfen ohne abhängige Sätze existieren. Nicht genannte Zusatzattribute oder Eindeutigkeitsregeln sind nicht erforderlich. Tabellen- und Anzeigenamen sind frei.",
+        "kind": "Model",
+        "attributes": {
+          "BuchungsNr": "BuchungsNr",
+          "Buchungstag": "Buchungstag",
+          "WorkshopNr": "WorkshopNr",
+          "Workshopname": "Workshopname",
+          "Plaetze": "Plaetze"
+        },
+        "starter": {
+          "tables": [],
+          "relations": []
+        },
+        "solutions": [
+          {
+            "tables": [
+              {
+                "id": "Buchung",
+                "name": "Buchung",
+                "columns": [
+                  {
+                    "id": "Buchung.BuchungsNr",
+                    "attribute": "BuchungsNr",
+                    "name": "BuchungsNr",
+                    "primaryKey": true,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Buchung.Buchungstag",
+                    "attribute": "Buchungstag",
+                    "name": "Buchungstag",
+                    "primaryKey": false,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  }
+                ]
+              },
+              {
+                "id": "Workshop",
+                "name": "Workshop",
+                "columns": [
+                  {
+                    "id": "Workshop.WorkshopNr",
+                    "attribute": "WorkshopNr",
+                    "name": "WorkshopNr",
+                    "primaryKey": true,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Workshop.Workshopname",
+                    "attribute": "Workshopname",
+                    "name": "Workshopname",
+                    "primaryKey": false,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  }
+                ]
+              },
+              {
+                "id": "Buchungsposition",
+                "name": "Buchungsposition",
+                "columns": [
+                  {
+                    "id": "Buchungsposition.BuchungsNr",
+                    "attribute": "BuchungsNr",
+                    "name": "BuchungsNr",
+                    "primaryKey": true,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Buchungsposition.WorkshopNr",
+                    "attribute": "WorkshopNr",
+                    "name": "WorkshopNr",
+                    "primaryKey": true,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Buchungsposition.Plaetze",
+                    "attribute": "Plaetze",
+                    "name": "Plaetze",
+                    "primaryKey": false,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  }
+                ]
+              }
+            ],
+            "relations": [
+              {
+                "id": "Buchungsposition-Buchung-0",
+                "sourceTable": "Buchungsposition",
+                "targetTable": "Buchung",
+                "pairs": [
+                  {
+                    "source": "Buchungsposition.BuchungsNr",
+                    "target": "Buchung.BuchungsNr"
+                  }
+                ],
+                "parentMinimum": 1,
+                "childMinimum": 0,
+                "childMaximum": "n"
+              },
+              {
+                "id": "Buchungsposition-Workshop-1",
+                "sourceTable": "Buchungsposition",
+                "targetTable": "Workshop",
+                "pairs": [
+                  {
+                    "source": "Buchungsposition.WorkshopNr",
+                    "target": "Workshop.WorkshopNr"
+                  }
+                ],
+                "parentMinimum": 1,
+                "childMinimum": 0,
+                "childMaximum": "n"
+              }
+            ]
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "hints": [
+          "Arbeite die genannten Entitäten heraus.",
+          "Prüfe Schlüssel und Abhängigkeiten.",
+          "Prüfe die Richtung der FK-Zuordnungen."
+        ],
+        "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig."
+      },
+      {
+        "id": 3,
+        "title": "Die Grenzen des Modells erkennen",
+        "chapter": "Prüfung",
+        "story": "Ein Medienhaus plant Veranstaltungsbuchungen",
+        "task": "Eine Buchungsposition enthält die Anzahl reservierter Plätze. Workshopnamen dürfen sich wiederholen und ändern. Welche zwei Aussagen sind richtig?",
+        "kind": "Multiple",
+        "attributes": {},
+        "starter": {
+          "tables": [],
+          "relations": []
+        },
+        "solutions": [],
+        "options": {
+          "a": "Ein Workshopname identifiziert einen Workshop zwangsläufig eindeutig.",
+          "b": "Die reservierte Platzzahl gehört zur Zuordnung von Buchung und Workshop.",
+          "c": "Ein FK allein verhindert jede Überbuchung der Workshopkapazität.",
+          "d": "Eine vergebene WorkshopNr kann auch bei einer Namensänderung stabil bleiben."
+        },
+        "correctIds": [
+          "b",
+          "d"
+        ],
+        "hints": [
+          "Prüfe die Bedeutung von Eindeutigkeit.",
+          "Trenne FK und Mindestanzahl.",
+          "Das Paar und optionale Werte haben eigene Verträge."
+        ],
+        "explanation": "Plätze gehören zur konkreten Buchungsposition. Nummer und Name sind getrennte Eigenschaften. Eine Kapazitätsprüfung benötigt zusätzliche Regeln; eine Referenz allein genügt nicht."
+      }
+    ],
+    "points": [
+      20,
+      20,
+      10
+    ]
+  },
+  {
+    "id": "fertigung",
+    "title": "Eine Manufaktur dokumentiert Produktionsaufträge",
+    "scenario": "Ein neuer Betrieb möchte aus seinen bisherigen Unterlagen eine relationale Datenbank entwickeln. Bearbeite die drei unabhängigen Teilaufträge mit den jeweils genannten Fachbegriffen.",
+    "tasks": [
+      {
+        "id": 1,
+        "chapter": "Prüfung",
+        "title": "Stammdaten und Vorgänge",
+        "story": "Eine Manufaktur dokumentiert Produktionsaufträge. Die Teilaufgaben sind unabhängig und verwenden jeweils den beschriebenen Ausschnitt.",
+        "task": "Erstelle Besteller mit BestellerNr (eindeutig) und Bestellername, sowie Fertigungsauftrag mit FertigungsNr (eindeutig) und Starttag. Jeder Fertigungsauftrag-Datensatz gehört genau einem Besteller-Datensatz; umgekehrt sind viele Vorgänge möglich. Alle Attribute sind Pflicht. Elternobjekte dürfen ohne abhängige Sätze existieren. Nicht genannte Zusatzattribute oder Eindeutigkeitsregeln sind nicht erforderlich. Tabellen- und Anzeigenamen sind frei.",
+        "kind": "Model",
+        "attributes": {
+          "BestellerNr": "BestellerNr",
+          "Bestellername": "Bestellername",
+          "FertigungsNr": "FertigungsNr",
+          "Starttag": "Starttag"
+        },
+        "starter": {
+          "tables": [],
+          "relations": []
+        },
+        "solutions": [
+          {
+            "tables": [
+              {
+                "id": "Besteller",
+                "name": "Besteller",
+                "columns": [
+                  {
+                    "id": "Besteller.BestellerNr",
+                    "attribute": "BestellerNr",
+                    "name": "BestellerNr",
+                    "primaryKey": true,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Besteller.Bestellername",
+                    "attribute": "Bestellername",
+                    "name": "Bestellername",
+                    "primaryKey": false,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  }
+                ]
+              },
+              {
+                "id": "Fertigungsauftrag",
+                "name": "Fertigungsauftrag",
+                "columns": [
+                  {
+                    "id": "Fertigungsauftrag.FertigungsNr",
+                    "attribute": "FertigungsNr",
+                    "name": "FertigungsNr",
+                    "primaryKey": true,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Fertigungsauftrag.Starttag",
+                    "attribute": "Starttag",
+                    "name": "Starttag",
+                    "primaryKey": false,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Fertigungsauftrag.BestellerNr",
+                    "attribute": "BestellerNr",
+                    "name": "BestellerNr",
+                    "primaryKey": false,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  }
+                ]
+              }
+            ],
+            "relations": [
+              {
+                "id": "Fertigungsauftrag-Besteller-0",
+                "sourceTable": "Fertigungsauftrag",
+                "targetTable": "Besteller",
+                "pairs": [
+                  {
+                    "source": "Fertigungsauftrag.BestellerNr",
+                    "target": "Besteller.BestellerNr"
+                  }
+                ],
+                "parentMinimum": 1,
+                "childMinimum": 0,
+                "childMaximum": "n"
+              }
+            ]
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "hints": [
+          "Arbeite die genannten Entitäten heraus.",
+          "Prüfe Schlüssel und Abhängigkeiten.",
+          "Prüfe die Richtung der FK-Zuordnungen."
+        ],
+        "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig."
+      },
+      {
+        "id": 2,
+        "chapter": "Prüfung",
+        "title": "Eine Zuordnung mit eigener Eigenschaft",
+        "story": "Eine Manufaktur dokumentiert Produktionsaufträge. Die Teilaufgaben sind unabhängig und verwenden jeweils den beschriebenen Ausschnitt.",
+        "task": "Betrachte unabhängig den Ausschnitt Fertigungsauftrag(FertigungsNr, Starttag) und Werkstoff(WerkstoffNr, Werkstoffname); die jeweils erste Nummer ist PK. Bedarf ordnet beide zu und enthält Bedarfsmenge. Pro Paar darf nur ein Datensatz existieren. Modelliere den zusammengesetzten PK und beide FKs. Alle Attribute sind Pflicht. Elternobjekte dürfen ohne abhängige Sätze existieren. Nicht genannte Zusatzattribute oder Eindeutigkeitsregeln sind nicht erforderlich. Tabellen- und Anzeigenamen sind frei.",
+        "kind": "Model",
+        "attributes": {
+          "FertigungsNr": "FertigungsNr",
+          "Starttag": "Starttag",
+          "WerkstoffNr": "WerkstoffNr",
+          "Werkstoffname": "Werkstoffname",
+          "Bedarfsmenge": "Bedarfsmenge"
+        },
+        "starter": {
+          "tables": [],
+          "relations": []
+        },
+        "solutions": [
+          {
+            "tables": [
+              {
+                "id": "Fertigungsauftrag",
+                "name": "Fertigungsauftrag",
+                "columns": [
+                  {
+                    "id": "Fertigungsauftrag.FertigungsNr",
+                    "attribute": "FertigungsNr",
+                    "name": "FertigungsNr",
+                    "primaryKey": true,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Fertigungsauftrag.Starttag",
+                    "attribute": "Starttag",
+                    "name": "Starttag",
+                    "primaryKey": false,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  }
+                ]
+              },
+              {
+                "id": "Werkstoff",
+                "name": "Werkstoff",
+                "columns": [
+                  {
+                    "id": "Werkstoff.WerkstoffNr",
+                    "attribute": "WerkstoffNr",
+                    "name": "WerkstoffNr",
+                    "primaryKey": true,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Werkstoff.Werkstoffname",
+                    "attribute": "Werkstoffname",
+                    "name": "Werkstoffname",
+                    "primaryKey": false,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  }
+                ]
+              },
+              {
+                "id": "Bedarf",
+                "name": "Bedarf",
+                "columns": [
+                  {
+                    "id": "Bedarf.FertigungsNr",
+                    "attribute": "FertigungsNr",
+                    "name": "FertigungsNr",
+                    "primaryKey": true,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Bedarf.WerkstoffNr",
+                    "attribute": "WerkstoffNr",
+                    "name": "WerkstoffNr",
+                    "primaryKey": true,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  },
+                  {
+                    "id": "Bedarf.Bedarfsmenge",
+                    "attribute": "Bedarfsmenge",
+                    "name": "Bedarfsmenge",
+                    "primaryKey": false,
+                    "nullable": false,
+                    "uniqueGroup": ""
+                  }
+                ]
+              }
+            ],
+            "relations": [
+              {
+                "id": "Bedarf-Fertigungsauftrag-0",
+                "sourceTable": "Bedarf",
+                "targetTable": "Fertigungsauftrag",
+                "pairs": [
+                  {
+                    "source": "Bedarf.FertigungsNr",
+                    "target": "Fertigungsauftrag.FertigungsNr"
+                  }
+                ],
+                "parentMinimum": 1,
+                "childMinimum": 0,
+                "childMaximum": "n"
+              },
+              {
+                "id": "Bedarf-Werkstoff-1",
+                "sourceTable": "Bedarf",
+                "targetTable": "Werkstoff",
+                "pairs": [
+                  {
+                    "source": "Bedarf.WerkstoffNr",
+                    "target": "Werkstoff.WerkstoffNr"
+                  }
+                ],
+                "parentMinimum": 1,
+                "childMinimum": 0,
+                "childMaximum": "n"
+              }
+            ]
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "hints": [
+          "Arbeite die genannten Entitäten heraus.",
+          "Prüfe Schlüssel und Abhängigkeiten.",
+          "Prüfe die Richtung der FK-Zuordnungen."
+        ],
+        "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig."
+      },
+      {
+        "id": 3,
+        "title": "Die Grenzen des Modells erkennen",
+        "chapter": "Prüfung",
+        "story": "Eine Manufaktur dokumentiert Produktionsaufträge",
+        "task": "Ein Werkstoff kann in vielen Fertigungsaufträgen benötigt werden. Sein Name ist nicht garantiert eindeutig. Welche zwei Aussagen sind richtig?",
+        "kind": "Multiple",
+        "attributes": {},
+        "starter": {
+          "tables": [],
+          "relations": []
+        },
+        "solutions": [],
+        "options": {
+          "a": "Der Werkstoffname ist ohne weitere Zusage ein sicherer PK.",
+          "b": "Die Bedarfsmenge hängt von der Kombination aus Fertigungsauftrag und Werkstoff ab.",
+          "c": "BestellerNr identifiziert automatisch jeden Fertigungsauftrag eindeutig.",
+          "d": "Ein später geänderter aktueller Preis kann einen gesondert vereinbarten historischen Preis nicht zuverlässig ersetzen."
+        },
+        "correctIds": [
+          "b",
+          "d"
+        ],
+        "hints": [
+          "Prüfe die Bedeutung von Eindeutigkeit.",
+          "Trenne FK und Mindestanzahl.",
+          "Das Paar und optionale Werte haben eigene Verträge."
+        ],
+        "explanation": "Die Menge beschreibt die konkrete Zuordnung. Weder Name noch Besteller identifizieren hier den Vorgang beziehungsweise Werkstoff. Aktuelle und historische Preise haben verschiedene Bedeutungen."
+      }
+    ],
+    "points": [
+      20,
+      20,
+      10
+    ]
+  }
+]

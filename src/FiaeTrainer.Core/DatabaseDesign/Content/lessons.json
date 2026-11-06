@@ -1,0 +1,3461 @@
+[
+  {
+    "id": 1,
+    "chapter": "01 · Daten verstehen",
+    "title": "Dinge und Eigenschaften unterscheiden",
+    "story": "Lichtblick gewinnt größere Veranstaltungen als bisher. Bevor eine Datenbank entsteht, muss klar sein, welche Dinge die Agentur überhaupt verwaltet.",
+    "task": "Welche beiden Begriffe sind in einer Verwaltung von Kunden und ihren Aufträgen selbstständige Entitätstypen? Wähle zwei Aussagen.",
+    "kind": "Multiple",
+    "attributes": {},
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [],
+    "options": {
+      "a": "Kunde",
+      "b": "Auftrag",
+      "c": "Auftragsdatum",
+      "d": "Kundenname"
+    },
+    "correctIds": [
+      "a",
+      "b"
+    ],
+    "hints": [
+      "Lies die ausdrücklich genannten Geschäftsregeln, nicht nur die Beispieldaten.",
+      "Unterscheide einen einzelnen gespeicherten Wert von einem selbstständigen Objekt.",
+      "Kunden und Aufträge besitzen eine eigene Identität. Datum und Name beschreiben diese Objekte."
+    ],
+    "explanation": "Kunden und Aufträge besitzen eine eigene Identität. Datum und Name beschreiben diese Objekte."
+  },
+  {
+    "id": 2,
+    "chapter": "01 · Daten verstehen",
+    "title": "Ein Datensatz ist ein konkreter Fall",
+    "story": "Die Bürokoordination zeigt dir ihre Kundenliste. Für den nächsten Planungsschritt klärst du, was eine Tabellenzeile über einen einzelnen Kunden aussagt.",
+    "task": "Was stellt eine einzelne Zeile der Tabelle Kunde dar?",
+    "kind": "Choice",
+    "attributes": {},
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [],
+    "options": {
+      "a": "Einen bestimmten Kunden mit seinen Attributwerten.",
+      "b": "Alle Kunden gleichzeitig.",
+      "c": "Eine Beziehung zwischen sämtlichen Tabellen.",
+      "d": "Den Datentyp einer Spalte."
+    },
+    "correctIds": [
+      "a"
+    ],
+    "hints": [
+      "Lies die ausdrücklich genannten Geschäftsregeln, nicht nur die Beispieldaten.",
+      "Unterscheide einen einzelnen gespeicherten Wert von einem selbstständigen Objekt.",
+      "Ein Datensatz beschreibt ein konkretes Exemplar, die Tabelle den Entitätstyp."
+    ],
+    "explanation": "Ein Datensatz beschreibt ein konkretes Exemplar, die Tabelle den Entitätstyp."
+  },
+  {
+    "id": 3,
+    "chapter": "01 · Daten verstehen",
+    "title": "Ein Vertrag statt einer Momentaufnahme",
+    "story": "Der Vertrieb legt drei kleine Beispielaufträge vor. Die Leitung warnt: Im nächsten Monat können dieselben Kunden weitere Aufträge erteilen.",
+    "task": "In Beispieldaten haben alle Kunden genau einen Auftrag. Fachlich darf ein Kunde beliebig viele Aufträge haben. Welche Schlussfolgerung ist zulässig?",
+    "kind": "Choice",
+    "attributes": {},
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [],
+    "options": {
+      "a": "Es gilt zwingend 1:1.",
+      "b": "Die Geschäftsregel ist maßgeblich; die Beispiele beweisen keine 1:1-Beziehung.",
+      "c": "Für jeden Auftrag wird eine eigene Kundentabelle angelegt.",
+      "d": "Ein FK ist deshalb unmöglich."
+    },
+    "correctIds": [
+      "b"
+    ],
+    "hints": [
+      "Lies die ausdrücklich genannten Geschäftsregeln, nicht nur die Beispieldaten.",
+      "Unterscheide einen einzelnen gespeicherten Wert von einem selbstständigen Objekt.",
+      "Kardinalitäten folgen den Geschäftsregeln. Beispieldaten können sie veranschaulichen, aber nicht vollständig beweisen."
+    ],
+    "explanation": "Kardinalitäten folgen den Geschäftsregeln. Beispieldaten können sie veranschaulichen, aber nicht vollständig beweisen."
+  },
+  {
+    "id": 4,
+    "chapter": "01 · Daten verstehen",
+    "title": "Einzelwerte statt Kontaktlisten",
+    "story": "Kunden haben immer öfter mehrere Ansprechpartner und Telefonnummern. Die bisherige Kontaktzelle wird dadurch schwer durchsuchbar.",
+    "task": "Welche Speicherung passt zur geforderten einzeln durchsuchbaren Kontakttelefon-Verwaltung?",
+    "kind": "Choice",
+    "attributes": {},
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [],
+    "options": {
+      "a": "Alle Nummern als durch Kommas getrennte Liste in einem Feld.",
+      "b": "Telefon1 bis Telefon20 als feste Spalten.",
+      "c": "Je Telefonnummer ein eigener Kontaktdatensatz mit Kundenbezug.",
+      "d": "Die erste Telefonnummer genügt immer."
+    },
+    "correctIds": [
+      "c"
+    ],
+    "hints": [
+      "Lies die ausdrücklich genannten Geschäftsregeln, nicht nur die Beispieldaten.",
+      "Unterscheide einen einzelnen gespeicherten Wert von einem selbstständigen Objekt.",
+      "Eine variable Menge selbstständig zu verarbeitender Telefonnummern gehört in abhängige Datensätze; keine Liste und keine feste Wiederholungsgruppe."
+    ],
+    "explanation": "Eine variable Menge selbstständig zu verarbeitender Telefonnummern gehört in abhängige Datensätze; keine Liste und keine feste Wiederholungsgruppe."
+  },
+  {
+    "id": 5,
+    "chapter": "01 · Daten verstehen",
+    "title": "Die erste Tabellenkarte",
+    "story": "Die ersten Begriffe sind geklärt. Nun entsteht die erste Tabellenkarte, auf der spätere Aufträge ihre Kunden wiederfinden sollen.",
+    "task": "Lege Kunde mit KundeId, Name und Mail an. KundeId ist eine vergebene eindeutige Nummer; Mail darf bei mehreren Kunden gleich sein. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "KundeId": "KundeId",
+      "Name": "Name",
+      "Mail": "Mail"
+    },
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Kunde",
+            "name": "Kunde",
+            "columns": [
+              {
+                "id": "Kunde.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Name",
+                "attribute": "Name",
+                "name": "Name",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Mail",
+                "attribute": "Mail",
+                "name": "Mail",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: KundeId, Name, Mail."
+    ],
+    "explanation": "KundeId identifiziert einen Kunden. Eine eindeutige Mailadresse ist ausdrücklich nicht vorausgesetzt."
+  },
+  {
+    "id": 6,
+    "chapter": "02 · Schlüssel finden",
+    "title": "Ein belastbarer Schlüssel",
+    "story": "Zwei Firmen benutzen dieselbe Sammeladresse, und mehrere Kontakte heißen gleich. Die Kundenverwaltung braucht deshalb eine verlässliche Identität.",
+    "task": "Mehrere Kunden dürfen denselben Namen und dieselbe Mail haben. Welche Vorgabe ist als PK geeignet?",
+    "kind": "Choice",
+    "attributes": {},
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [],
+    "options": {
+      "a": "Name",
+      "b": "Mail",
+      "c": "Die eindeutig vergebene unveränderliche KundeId.",
+      "d": "Die Anzahl der Aufträge."
+    },
+    "correctIds": [
+      "c"
+    ],
+    "hints": [
+      "Lies die ausdrücklich genannten Geschäftsregeln, nicht nur die Beispieldaten.",
+      "Unterscheide einen einzelnen gespeicherten Wert von einem selbstständigen Objekt.",
+      "Ein Name ist nicht automatisch eindeutig. Die vorgegebene Identifikationsnummer ist hier der sichere Schlüssel."
+    ],
+    "explanation": "Ein Name ist nicht automatisch eindeutig. Die vorgegebene Identifikationsnummer ist hier der sichere Schlüssel."
+  },
+  {
+    "id": 7,
+    "chapter": "02 · Schlüssel finden",
+    "title": "Einen Primärschlüssel markieren",
+    "story": "Eine Kollegin hat die Kundenattribute vorbereitet, aber den Schlüssel noch nicht markiert. Du vervollständigst genau diesen Teil des Entwurfs.",
+    "task": "Vervollständige den PK der vorbereiteten Kundentabelle. Nur KundeId ist garantiert eindeutig. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "KundeId": "KundeId",
+      "Name": "Name",
+      "Mail": "Mail"
+    },
+    "starter": {
+      "tables": [
+        {
+          "id": "Kunde",
+          "name": "Kunde",
+          "columns": [
+            {
+              "id": "Kunde.KundeId",
+              "attribute": "KundeId",
+              "name": "KundeId",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Kunde.Name",
+              "attribute": "Name",
+              "name": "Name",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Kunde.Mail",
+              "attribute": "Mail",
+              "name": "Mail",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            }
+          ]
+        }
+      ],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Kunde",
+            "name": "Kunde",
+            "columns": [
+              {
+                "id": "Kunde.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Name",
+                "attribute": "Name",
+                "name": "Name",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Mail",
+                "attribute": "Mail",
+                "name": "Mail",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: KundeId, Name, Mail."
+    ],
+    "explanation": "Alle PK-Attribute sind zwingend vorhanden; Name und Mail sind keine Schlüssel."
+  },
+  {
+    "id": 8,
+    "chapter": "02 · Schlüssel finden",
+    "title": "Ein Auftrag braucht seinen Kunden",
+    "story": "Aus dem Kundenstamm soll eine Auftragsverwaltung werden. Das Team möchte jeden Auftrag eindeutig zuordnen, ohne Namen und Mailadressen jedes Mal abzuschreiben.",
+    "task": "Modelliere Kunde(KundeId, Name, Mail) und Auftrag(AuftragId, Datum, KundeId). Jede AuftragId ist eindeutig. Jeder Auftrag gehört genau einem Kunden; ein Kunde darf beliebig viele Aufträge haben. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "KundeId": "KundeId",
+      "Name": "Name",
+      "Mail": "Mail",
+      "AuftragId": "AuftragId",
+      "Datum": "Datum"
+    },
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Kunde",
+            "name": "Kunde",
+            "columns": [
+              {
+                "id": "Kunde.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Name",
+                "attribute": "Name",
+                "name": "Name",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Mail",
+                "attribute": "Mail",
+                "name": "Mail",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Auftrag",
+            "name": "Auftrag",
+            "columns": [
+              {
+                "id": "Auftrag.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.Datum",
+                "attribute": "Datum",
+                "name": "Datum",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Auftrag-Kunde-0",
+            "sourceTable": "Auftrag",
+            "targetTable": "Kunde",
+            "pairs": [
+              {
+                "source": "Auftrag.KundeId",
+                "target": "Kunde.KundeId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: KundeId, Name, Mail; AuftragId, Datum, KundeId."
+    ],
+    "explanation": "KundeId liegt zusätzlich als FK in Auftrag, also auf der n-Seite. Ein neuer Kunde muss noch keinen Auftrag besitzen."
+  },
+  {
+    "id": 9,
+    "chapter": "02 · Schlüssel finden",
+    "title": "Warum zwei Attribute zusammengehören",
+    "story": "Die Materialdisposition ergänzt die Aufträge um Artikelpositionen. Ein Artikel darf in vielen Aufträgen auftauchen; jede einzelne Position muss trotzdem eindeutig bleiben.",
+    "task": "Eine Position enthält AuftragId, ArtikelId und Menge. Derselbe Artikel darf innerhalb eines Auftrags nur einmal vorkommen, in anderen Aufträgen aber erneut. Welche Attributmenge identifiziert eine Position?",
+    "kind": "Choice",
+    "attributes": {},
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [],
+    "options": {
+      "a": "Nur AuftragId",
+      "b": "Nur ArtikelId",
+      "c": "AuftragId und ArtikelId gemeinsam",
+      "d": "Menge"
+    },
+    "correctIds": [
+      "c"
+    ],
+    "hints": [
+      "Lies die ausdrücklich genannten Geschäftsregeln, nicht nur die Beispieldaten.",
+      "Unterscheide einen einzelnen gespeicherten Wert von einem selbstständigen Objekt.",
+      "Erst das Paar identifiziert eine Position. Jeder einzelne Bestandteil darf sich wiederholen."
+    ],
+    "explanation": "Erst das Paar identifiziert eine Position. Jeder einzelne Bestandteil darf sich wiederholen."
+  },
+  {
+    "id": 10,
+    "chapter": "02 · Schlüssel finden",
+    "title": "Ein zusammengesetzter Schlüssel",
+    "story": "Jetzt erhält die Materialdisposition ihr erstes eigenes Teilmodell. Der Ausschnitt enthält Aufträge, Artikel und die bestellten Mengen.",
+    "task": "Modelliere Aufträge mit AuftragId und Datum sowie Artikel mit ArtikelId und Bezeichnung. In einer Position werden AuftragId, ArtikelId und Menge gespeichert. Pro Auftrag gibt es höchstens eine Position je Artikel. Auftrag und Artikel dürfen ohne Position existieren. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "AuftragId": "AuftragId",
+      "Datum": "Datum",
+      "ArtikelId": "ArtikelId",
+      "Bezeichnung": "Bezeichnung",
+      "Menge": "Menge"
+    },
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Auftrag",
+            "name": "Auftrag",
+            "columns": [
+              {
+                "id": "Auftrag.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.Datum",
+                "attribute": "Datum",
+                "name": "Datum",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Artikel",
+            "name": "Artikel",
+            "columns": [
+              {
+                "id": "Artikel.ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Artikel.Bezeichnung",
+                "attribute": "Bezeichnung",
+                "name": "Bezeichnung",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Position",
+            "name": "Position",
+            "columns": [
+              {
+                "id": "Position.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Position.ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Position.Menge",
+                "attribute": "Menge",
+                "name": "Menge",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Position-Auftrag-0",
+            "sourceTable": "Position",
+            "targetTable": "Auftrag",
+            "pairs": [
+              {
+                "source": "Position.AuftragId",
+                "target": "Auftrag.AuftragId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          },
+          {
+            "id": "Position-Artikel-1",
+            "sourceTable": "Position",
+            "targetTable": "Artikel",
+            "pairs": [
+              {
+                "source": "Position.ArtikelId",
+                "target": "Artikel.ArtikelId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: AuftragId, Datum; ArtikelId, Bezeichnung; AuftragId, ArtikelId, Menge."
+    ],
+    "explanation": "Position hat den zusammengesetzten PK aus AuftragId und ArtikelId. Beide Bestandteile sind gleichzeitig FKs."
+  },
+  {
+    "id": 11,
+    "chapter": "03 · Beziehungen modellieren",
+    "title": "Pflicht und Möglichkeit",
+    "story": "Beim Anlegen neuer Kunden besteht häufig noch kein Auftrag. Du prüfst beide Richtungen der Kunden-Auftrags-Beziehung getrennt.",
+    "task": "Erstelle das bekannte Kunde-/Auftrag-Teilmodell. Ein Kunde kann noch keinen Auftrag haben; jeder Auftrag muss genau einen vorhandenen Kunden referenzieren. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "KundeId": "KundeId",
+      "Name": "Name",
+      "Mail": "Mail",
+      "AuftragId": "AuftragId",
+      "Datum": "Datum"
+    },
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Kunde",
+            "name": "Kunde",
+            "columns": [
+              {
+                "id": "Kunde.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Name",
+                "attribute": "Name",
+                "name": "Name",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Mail",
+                "attribute": "Mail",
+                "name": "Mail",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Auftrag",
+            "name": "Auftrag",
+            "columns": [
+              {
+                "id": "Auftrag.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.Datum",
+                "attribute": "Datum",
+                "name": "Datum",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Auftrag-Kunde-0",
+            "sourceTable": "Auftrag",
+            "targetTable": "Kunde",
+            "pairs": [
+              {
+                "source": "Auftrag.KundeId",
+                "target": "Kunde.KundeId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: KundeId, Name, Mail; AuftragId, Datum, KundeId."
+    ],
+    "explanation": "0..n Aufträge je Kunde und genau 1 Kunde je Auftrag sind zwei getrennte Aussagen."
+  },
+  {
+    "id": 12,
+    "chapter": "03 · Beziehungen modellieren",
+    "title": "Ein Auftrag ohne festen Kunden",
+    "story": "Für öffentliche Aktionen gibt es kurzfristige Gastaufträge. Der Vertrieb möchte sie erfassen, bevor ein fester Kundenkontakt bekannt ist.",
+    "task": "Im Gastbetrieb darf Auftrag.KundeId fehlen. Vorhandene Werte müssen einen Kunden referenzieren. KundeId, Name und Mail beschreiben Kunde, AuftragId und Datum den Auftrag. Die IDs sind PKs. Ein Kunde darf viele Aufträge haben. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "KundeId": "KundeId",
+      "Name": "Name",
+      "Mail": "Mail",
+      "AuftragId": "AuftragId",
+      "Datum": "Datum"
+    },
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Kunde",
+            "name": "Kunde",
+            "columns": [
+              {
+                "id": "Kunde.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Name",
+                "attribute": "Name",
+                "name": "Name",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Mail",
+                "attribute": "Mail",
+                "name": "Mail",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Auftrag",
+            "name": "Auftrag",
+            "columns": [
+              {
+                "id": "Auftrag.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.Datum",
+                "attribute": "Datum",
+                "name": "Datum",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": false,
+                "nullable": true,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Auftrag-Kunde-0",
+            "sourceTable": "Auftrag",
+            "targetTable": "Kunde",
+            "pairs": [
+              {
+                "source": "Auftrag.KundeId",
+                "target": "Kunde.KundeId"
+              }
+            ],
+            "parentMinimum": 0,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: KundeId, Name, Mail; AuftragId, Datum, KundeId."
+    ],
+    "explanation": "Die optionale Zuordnung bedeutet 0..1 Kunde je Auftrag. Dazu muss der FK NULL erlauben."
+  },
+  {
+    "id": 13,
+    "chapter": "03 · Beziehungen modellieren",
+    "title": "Eine echte 1:1-Ergänzung",
+    "story": "Einige Kunden wünschen eine zusätzliche interne Profilnotiz. Pro Kunde soll es genau ein solches Zusatzprofil geben können.",
+    "task": "Ein Kunde(KundeId, Name, Mail) darf höchstens ein Kundenprofil mit einer Notiz haben. Ein Profil gehört zwingend zu genau einem Kunden. Verwende KundeId auch als Identifikation des Profils. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "KundeId": "KundeId",
+      "Name": "Name",
+      "Mail": "Mail",
+      "Notiz": "Notiz"
+    },
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Kunde",
+            "name": "Kunde",
+            "columns": [
+              {
+                "id": "Kunde.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Name",
+                "attribute": "Name",
+                "name": "Name",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Mail",
+                "attribute": "Mail",
+                "name": "Mail",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Kundenprofil",
+            "name": "Kundenprofil",
+            "columns": [
+              {
+                "id": "Kundenprofil.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kundenprofil.Notiz",
+                "attribute": "Notiz",
+                "name": "Notiz",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Kundenprofil-Kunde-0",
+            "sourceTable": "Kundenprofil",
+            "targetTable": "Kunde",
+            "pairs": [
+              {
+                "source": "Kundenprofil.KundeId",
+                "target": "Kunde.KundeId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "1"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: KundeId, Name, Mail; KundeId, Notiz."
+    ],
+    "explanation": "Der PK im Profil ist zugleich FK. Seine Eindeutigkeit begrenzt die Beziehung auf höchstens ein Profil pro Kunde."
+  },
+  {
+    "id": 14,
+    "chapter": "03 · Beziehungen modellieren",
+    "title": "Artikel in vielen Aufträgen",
+    "story": "Die Aufträge enthalten inzwischen viele unterschiedliche Artikel. Die Disposition braucht eine Zuordnung, in der auch die jeweilige Menge Platz findet.",
+    "task": "Bilde die n:m-Beziehung zwischen Auftrag(AuftragId, Datum) und Artikel(ArtikelId, Bezeichnung) ab. Jede Zuordnung hat Menge; je Auftrag und Artikel nur eine Zuordnung. Beide Seiten dürfen ohne Zuordnung existieren. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "AuftragId": "AuftragId",
+      "Datum": "Datum",
+      "ArtikelId": "ArtikelId",
+      "Bezeichnung": "Bezeichnung",
+      "Menge": "Menge"
+    },
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Auftrag",
+            "name": "Auftrag",
+            "columns": [
+              {
+                "id": "Auftrag.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.Datum",
+                "attribute": "Datum",
+                "name": "Datum",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Artikel",
+            "name": "Artikel",
+            "columns": [
+              {
+                "id": "Artikel.ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Artikel.Bezeichnung",
+                "attribute": "Bezeichnung",
+                "name": "Bezeichnung",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Position",
+            "name": "Position",
+            "columns": [
+              {
+                "id": "Position.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Position.ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Position.Menge",
+                "attribute": "Menge",
+                "name": "Menge",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Position-Auftrag-0",
+            "sourceTable": "Position",
+            "targetTable": "Auftrag",
+            "pairs": [
+              {
+                "source": "Position.AuftragId",
+                "target": "Auftrag.AuftragId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          },
+          {
+            "id": "Position-Artikel-1",
+            "sourceTable": "Position",
+            "targetTable": "Artikel",
+            "pairs": [
+              {
+                "source": "Position.ArtikelId",
+                "target": "Artikel.ArtikelId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: AuftragId, Datum; ArtikelId, Bezeichnung; AuftragId, ArtikelId, Menge."
+    ],
+    "explanation": "Die Zuordnungstabelle Position speichert beide FKs und die Menge. Eine direkte n:m-Linie ersetzt diese Tabelle im relationalen Modell nicht."
+  },
+  {
+    "id": 15,
+    "chapter": "03 · Beziehungen modellieren",
+    "title": "Eine Beziehung zur eigenen Tabelle",
+    "story": "Nun plant Lichtblick die Personalübersicht. Teamleitungen sind selbst Mitarbeitende; die oberste Leitung hat keine übergeordnete Person.",
+    "task": "Mitarbeiter haben MitarbeiterId, Mitarbeitername und optional LeitungId. Eine Leitung ist ebenfalls Mitarbeiter und darf mehrere Personen führen. Jeder Mitarbeiter hat höchstens eine direkte Leitung. Zusätzliche Hierarchieregeln wie Kreisfreiheit sind hier nicht Teil des Auftrags. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "MitarbeiterId": "MitarbeiterId",
+      "Mitarbeitername": "Mitarbeitername",
+      "LeitungId": "LeitungId"
+    },
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Mitarbeiter",
+            "name": "Mitarbeiter",
+            "columns": [
+              {
+                "id": "Mitarbeiter.MitarbeiterId",
+                "attribute": "MitarbeiterId",
+                "name": "MitarbeiterId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Mitarbeiter.Mitarbeitername",
+                "attribute": "Mitarbeitername",
+                "name": "Mitarbeitername",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Mitarbeiter.LeitungId",
+                "attribute": "LeitungId",
+                "name": "LeitungId",
+                "primaryKey": false,
+                "nullable": true,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Mitarbeiter-Mitarbeiter-0",
+            "sourceTable": "Mitarbeiter",
+            "targetTable": "Mitarbeiter",
+            "pairs": [
+              {
+                "source": "Mitarbeiter.LeitungId",
+                "target": "Mitarbeiter.MitarbeiterId"
+              }
+            ],
+            "parentMinimum": 0,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: MitarbeiterId, Mitarbeitername, LeitungId."
+    ],
+    "explanation": "Die Selbstreferenz zeigt auf MitarbeiterId derselben Tabelle. LeitungId bleibt optional; die Diagrammposition ändert daran nichts."
+  },
+  {
+    "id": 16,
+    "chapter": "04 · Tabellen normalisieren",
+    "title": "Kontaktlisten in einzelne Werte zerlegen",
+    "story": "Bei der Datenübernahme fallen die alten Telefonlisten wieder auf. Du ersetzt sie durch einzeln zuordenbare Kontakte, die später zuverlässig gesucht werden können.",
+    "task": "Ein Kunde hat KundeId, Name und Mail sowie beliebig viele Telefonnummern. Dieselbe Telefonnummer darf bei verschiedenen Kunden auftreten, pro Kunde nur einmal. Erzeuge aus der Kontaktliste einzelne Kontaktdatensätze. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "KundeId": "KundeId",
+      "Name": "Name",
+      "Mail": "Mail",
+      "Telefonnummer": "Telefonnummer"
+    },
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Kunde",
+            "name": "Kunde",
+            "columns": [
+              {
+                "id": "Kunde.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Name",
+                "attribute": "Name",
+                "name": "Name",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Mail",
+                "attribute": "Mail",
+                "name": "Mail",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Telefon",
+            "name": "Telefon",
+            "columns": [
+              {
+                "id": "Telefon.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Telefon.Telefonnummer",
+                "attribute": "Telefonnummer",
+                "name": "Telefonnummer",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Telefon-Kunde-0",
+            "sourceTable": "Telefon",
+            "targetTable": "Kunde",
+            "pairs": [
+              {
+                "source": "Telefon.KundeId",
+                "target": "Kunde.KundeId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: KundeId, Name, Mail; KundeId, Telefonnummer."
+    ],
+    "explanation": "Telefon ist eine eigene abhängige Tabelle. Das Paar KundeId und Telefonnummer identifiziert einen Kontakt; es gibt keine Spalten Telefon1, Telefon2 usw."
+  },
+  {
+    "id": 17,
+    "chapter": "04 · Tabellen normalisieren",
+    "title": "Partielle Abhängigkeit beseitigen",
+    "story": "Im Positionsblatt steht die Artikelbezeichnung neben jeder bestellten Menge. Eine Umbenennung müsste dadurch an vielen Stellen nachgetragen werden.",
+    "task": "Ausgangsliste: AuftragId, ArtikelId, Menge und Bezeichnung, Schlüssel (AuftragId, ArtikelId). Es gilt ArtikelId → Bezeichnung; Menge hängt vom ganzen Paar ab. Auftragsdatum ist nicht vorhanden und soll nicht ergänzt werden. Zerlege in Tabellen der 2. NF und verbinde sie. Eine Auftrag-Stammtabelle wird in diesem Ausschnitt nicht verlangt. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "ArtikelId": "ArtikelId",
+      "Bezeichnung": "Bezeichnung",
+      "AuftragId": "AuftragId",
+      "Menge": "Menge"
+    },
+    "starter": {
+      "tables": [
+        {
+          "id": "Position",
+          "name": "Position",
+          "columns": [
+            {
+              "id": "Position.AuftragId",
+              "attribute": "AuftragId",
+              "name": "AuftragId",
+              "primaryKey": true,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Position.ArtikelId",
+              "attribute": "ArtikelId",
+              "name": "ArtikelId",
+              "primaryKey": true,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Position.Menge",
+              "attribute": "Menge",
+              "name": "Menge",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Position.Bezeichnung",
+              "attribute": "Bezeichnung",
+              "name": "Bezeichnung",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            }
+          ]
+        }
+      ],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Artikel",
+            "name": "Artikel",
+            "columns": [
+              {
+                "id": "Artikel.ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Artikel.Bezeichnung",
+                "attribute": "Bezeichnung",
+                "name": "Bezeichnung",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Position",
+            "name": "Position",
+            "columns": [
+              {
+                "id": "Position.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Position.ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Position.Menge",
+                "attribute": "Menge",
+                "name": "Menge",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Position-Artikel-0",
+            "sourceTable": "Position",
+            "targetTable": "Artikel",
+            "pairs": [
+              {
+                "source": "Position.ArtikelId",
+                "target": "Artikel.ArtikelId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: ArtikelId, Bezeichnung; AuftragId, ArtikelId, Menge."
+    ],
+    "explanation": "Bezeichnung hängt nur von ArtikelId ab. Sie gehört in Artikel. Das zusammengesetzte Positionsschlüssel-Paar bleibt bestehen."
+  },
+  {
+    "id": 18,
+    "chapter": "04 · Tabellen normalisieren",
+    "title": "Transitive Abhängigkeit beseitigen",
+    "story": "Auch Kategorienamen wiederholen sich inzwischen in der Artikelliste. Du trennst die vorgegebenen Abhängigkeiten in nachvollziehbare Stammdaten.",
+    "task": "Ein Artikel hat ArtikelId, Bezeichnung, KategorieId und Kategoriename. Es gelten ArtikelId → Bezeichnung, KategorieId und KategorieId → Kategoriename. Jede Kategorie darf viele Artikel und noch keinen Artikel haben. Bilde die 3. NF. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "KategorieId": "KategorieId",
+      "Kategoriename": "Kategoriename",
+      "ArtikelId": "ArtikelId",
+      "Bezeichnung": "Bezeichnung"
+    },
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Kategorie",
+            "name": "Kategorie",
+            "columns": [
+              {
+                "id": "Kategorie.KategorieId",
+                "attribute": "KategorieId",
+                "name": "KategorieId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kategorie.Kategoriename",
+                "attribute": "Kategoriename",
+                "name": "Kategoriename",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Artikel",
+            "name": "Artikel",
+            "columns": [
+              {
+                "id": "Artikel.ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Artikel.Bezeichnung",
+                "attribute": "Bezeichnung",
+                "name": "Bezeichnung",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Artikel.KategorieId",
+                "attribute": "KategorieId",
+                "name": "KategorieId",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Artikel-Kategorie-0",
+            "sourceTable": "Artikel",
+            "targetTable": "Kategorie",
+            "pairs": [
+              {
+                "source": "Artikel.KategorieId",
+                "target": "Kategorie.KategorieId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: KategorieId, Kategoriename; ArtikelId, Bezeichnung, KategorieId."
+    ],
+    "explanation": "Kategoriename wird durch KategorieId bestimmt und gehört in Kategorie. Eine neue ArtikelId allein beseitigt die transitive Abhängigkeit nicht."
+  },
+  {
+    "id": 19,
+    "chapter": "04 · Tabellen normalisieren",
+    "title": "Eine neue ID ist keine Normalisierung",
+    "story": "Ein Kollege schlägt vor, nur eine zusätzliche Positionsnummer einzubauen. Du prüfst, ob das die fachlichen Datenprobleme tatsächlich löst.",
+    "task": "Eine Tabelle enthält PositionId als PK sowie AuftragId, ArtikelId und Artikelbezeichnung. ArtikelId bestimmt weiterhin Artikelbezeichnung. Ist die Tabelle allein durch PositionId automatisch in 3. NF?",
+    "kind": "Choice",
+    "attributes": {},
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [],
+    "options": {
+      "a": "Ja, jede einzelne ID garantiert 3. NF.",
+      "b": "Nein, die Abhängigkeit ArtikelId → Artikelbezeichnung bleibt bestehen.",
+      "c": "Ja, wenn die Tabelle wenige Zeilen hat.",
+      "d": "Nein, weil zusammengesetzte Schlüssel immer verboten sind."
+    },
+    "correctIds": [
+      "b"
+    ],
+    "hints": [
+      "Lies die ausdrücklich genannten Geschäftsregeln, nicht nur die Beispieldaten.",
+      "Unterscheide einen einzelnen gespeicherten Wert von einem selbstständigen Objekt.",
+      "Eine künstliche ID beseitigt fachliche Abhängigkeiten zwischen anderen Attributen nicht."
+    ],
+    "explanation": "Eine künstliche ID beseitigt fachliche Abhängigkeiten zwischen anderen Attributen nicht."
+  },
+  {
+    "id": 20,
+    "chapter": "04 · Tabellen normalisieren",
+    "title": "Adressen ohne erfundene Abhängigkeit",
+    "story": "Die Verwaltung möchte Postleitzahlen auslagern, weil im kleinen Beispieldatensatz jede PLZ nur einmal vorkommt. Du hinterfragst zuerst diese Annahme.",
+    "task": "Kunde besitzt KundeId, Name, Strasse, Hausnummer, Postleitzahl und Ort. Nur KundeId ist als Determinante garantiert. Insbesondere ist Postleitzahl → Ort NICHT vorgegeben. Speichere die Attribute in einem passenden Modell ohne zusätzliche PLZ-Tabelle. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "KundeId": "KundeId",
+      "Name": "Name",
+      "Strasse": "Strasse",
+      "Hausnummer": "Hausnummer",
+      "Postleitzahl": "Postleitzahl",
+      "Ort": "Ort"
+    },
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Kunde",
+            "name": "Kunde",
+            "columns": [
+              {
+                "id": "Kunde.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Name",
+                "attribute": "Name",
+                "name": "Name",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Strasse",
+                "attribute": "Strasse",
+                "name": "Strasse",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Hausnummer",
+                "attribute": "Hausnummer",
+                "name": "Hausnummer",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Postleitzahl",
+                "attribute": "Postleitzahl",
+                "name": "Postleitzahl",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Ort",
+                "attribute": "Ort",
+                "name": "Ort",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: KundeId, Name, Strasse, Hausnummer, Postleitzahl, Ort."
+    ],
+    "explanation": "Aus einer Beispieltabelle darf keine funktionale Abhängigkeit erfunden werden. Die Aufgabe gibt keine eindeutige Ortszuordnung je Postleitzahl vor."
+  },
+  {
+    "id": 21,
+    "chapter": "05 · Modelle untersuchen",
+    "title": "Eine fehlende Referenz finden",
+    "story": "Vor der nächsten Veranstaltung prüfst du einen vorbereiteten Entwurf. Seine Tabellen sind vorhanden, aber eine Kundenreferenz fehlt noch.",
+    "task": "Im vorbereiteten Kunde-/Auftrag-Modell fehlt die Pflichtzuordnung jedes Auftrags zu seinem Kunden. Ein Kunde darf beliebig viele Aufträge und auch noch keinen haben. Ergänze ausschließlich die passende Beziehung. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "KundeId": "KundeId",
+      "Name": "Name",
+      "Mail": "Mail",
+      "AuftragId": "AuftragId",
+      "Datum": "Datum"
+    },
+    "starter": {
+      "tables": [
+        {
+          "id": "Kunde",
+          "name": "Kunde",
+          "columns": [
+            {
+              "id": "Kunde.KundeId",
+              "attribute": "KundeId",
+              "name": "KundeId",
+              "primaryKey": true,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Kunde.Name",
+              "attribute": "Name",
+              "name": "Name",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Kunde.Mail",
+              "attribute": "Mail",
+              "name": "Mail",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            }
+          ]
+        },
+        {
+          "id": "Auftrag",
+          "name": "Auftrag",
+          "columns": [
+            {
+              "id": "Auftrag.AuftragId",
+              "attribute": "AuftragId",
+              "name": "AuftragId",
+              "primaryKey": true,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Auftrag.Datum",
+              "attribute": "Datum",
+              "name": "Datum",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Auftrag.KundeId",
+              "attribute": "KundeId",
+              "name": "KundeId",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            }
+          ]
+        }
+      ],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Kunde",
+            "name": "Kunde",
+            "columns": [
+              {
+                "id": "Kunde.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Name",
+                "attribute": "Name",
+                "name": "Name",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Mail",
+                "attribute": "Mail",
+                "name": "Mail",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Auftrag",
+            "name": "Auftrag",
+            "columns": [
+              {
+                "id": "Auftrag.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.Datum",
+                "attribute": "Datum",
+                "name": "Datum",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Auftrag-Kunde-0",
+            "sourceTable": "Auftrag",
+            "targetTable": "Kunde",
+            "pairs": [
+              {
+                "source": "Auftrag.KundeId",
+                "target": "Kunde.KundeId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: KundeId, Name, Mail; AuftragId, Datum, KundeId."
+    ],
+    "explanation": "Der FK ist Auftrag.KundeId → Kunde.KundeId, nicht die umgekehrte Richtung."
+  },
+  {
+    "id": 22,
+    "chapter": "05 · Modelle untersuchen",
+    "title": "Eine falsche Eindeutigkeit reparieren",
+    "story": "Die Materialdisposition meldet, dass ihr Modell nur einen Artikel je Auftrag zulässt. Du suchst die Ursache in der Positionsidentifikation.",
+    "task": "Die vorbereitete Position soll mehrere Artikel pro Auftrag und denselben Artikel in verschiedenen Aufträgen erlauben. Innerhalb eines Auftrags darf ein Artikel einmal vorkommen. Korrigiere den fehlerhaften PK. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "AuftragId": "AuftragId",
+      "Datum": "Datum",
+      "ArtikelId": "ArtikelId",
+      "Bezeichnung": "Bezeichnung",
+      "Menge": "Menge"
+    },
+    "starter": {
+      "tables": [
+        {
+          "id": "Auftrag",
+          "name": "Auftrag",
+          "columns": [
+            {
+              "id": "Auftrag.AuftragId",
+              "attribute": "AuftragId",
+              "name": "AuftragId",
+              "primaryKey": true,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Auftrag.Datum",
+              "attribute": "Datum",
+              "name": "Datum",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            }
+          ]
+        },
+        {
+          "id": "Artikel",
+          "name": "Artikel",
+          "columns": [
+            {
+              "id": "Artikel.ArtikelId",
+              "attribute": "ArtikelId",
+              "name": "ArtikelId",
+              "primaryKey": true,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Artikel.Bezeichnung",
+              "attribute": "Bezeichnung",
+              "name": "Bezeichnung",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            }
+          ]
+        },
+        {
+          "id": "Position",
+          "name": "Position",
+          "columns": [
+            {
+              "id": "Position.AuftragId",
+              "attribute": "AuftragId",
+              "name": "AuftragId",
+              "primaryKey": true,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Position.ArtikelId",
+              "attribute": "ArtikelId",
+              "name": "ArtikelId",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Position.Menge",
+              "attribute": "Menge",
+              "name": "Menge",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            }
+          ]
+        }
+      ],
+      "relations": [
+        {
+          "id": "Position-Auftrag-0",
+          "sourceTable": "Position",
+          "targetTable": "Auftrag",
+          "pairs": [
+            {
+              "source": "Position.AuftragId",
+              "target": "Auftrag.AuftragId"
+            }
+          ],
+          "parentMinimum": 1,
+          "childMinimum": 0,
+          "childMaximum": "n"
+        },
+        {
+          "id": "Position-Artikel-1",
+          "sourceTable": "Position",
+          "targetTable": "Artikel",
+          "pairs": [
+            {
+              "source": "Position.ArtikelId",
+              "target": "Artikel.ArtikelId"
+            }
+          ],
+          "parentMinimum": 1,
+          "childMinimum": 0,
+          "childMaximum": "n"
+        }
+      ]
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Auftrag",
+            "name": "Auftrag",
+            "columns": [
+              {
+                "id": "Auftrag.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.Datum",
+                "attribute": "Datum",
+                "name": "Datum",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Artikel",
+            "name": "Artikel",
+            "columns": [
+              {
+                "id": "Artikel.ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Artikel.Bezeichnung",
+                "attribute": "Bezeichnung",
+                "name": "Bezeichnung",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Position",
+            "name": "Position",
+            "columns": [
+              {
+                "id": "Position.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Position.ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Position.Menge",
+                "attribute": "Menge",
+                "name": "Menge",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Position-Auftrag-0",
+            "sourceTable": "Position",
+            "targetTable": "Auftrag",
+            "pairs": [
+              {
+                "source": "Position.AuftragId",
+                "target": "Auftrag.AuftragId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          },
+          {
+            "id": "Position-Artikel-1",
+            "sourceTable": "Position",
+            "targetTable": "Artikel",
+            "pairs": [
+              {
+                "source": "Position.ArtikelId",
+                "target": "Artikel.ArtikelId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: AuftragId, Datum; ArtikelId, Bezeichnung; AuftragId, ArtikelId, Menge."
+    ],
+    "explanation": "AuftragId allein begrenzt den Auftrag auf eine Position. Ergänze ArtikelId zum PK."
+  },
+  {
+    "id": 23,
+    "chapter": "05 · Modelle untersuchen",
+    "title": "Eine 1:1-Beziehung absichern",
+    "story": "Das Kundenprofil bekam nachträglich eine eigene Nummer. Nun muss der Entwurf weiterhin verhindern, dass derselbe Kunde mehrere Profile erhält.",
+    "task": "Kunde besitzt KundeId, Name, Mail. Kundenprofil hat ProfilId als eigenen PK, KundeId als Pflicht-FK und Notiz. Pro Kunde ist höchstens ein Profil erlaubt. Behalte ProfilId und ergänze die fehlende Eindeutigkeit. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "KundeId": "KundeId",
+      "Name": "Name",
+      "Mail": "Mail",
+      "Notiz": "Notiz",
+      "ProfilId": "ProfilId"
+    },
+    "starter": {
+      "tables": [
+        {
+          "id": "Kunde",
+          "name": "Kunde",
+          "columns": [
+            {
+              "id": "Kunde.KundeId",
+              "attribute": "KundeId",
+              "name": "KundeId",
+              "primaryKey": true,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Kunde.Name",
+              "attribute": "Name",
+              "name": "Name",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Kunde.Mail",
+              "attribute": "Mail",
+              "name": "Mail",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            }
+          ]
+        },
+        {
+          "id": "Kundenprofil",
+          "name": "Kundenprofil",
+          "columns": [
+            {
+              "id": "Kundenprofil.KundeId",
+              "attribute": "KundeId",
+              "name": "KundeId",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Kundenprofil.Notiz",
+              "attribute": "Notiz",
+              "name": "Notiz",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Kundenprofil.ProfilId",
+              "attribute": "ProfilId",
+              "name": "ProfilId",
+              "primaryKey": true,
+              "nullable": false,
+              "uniqueGroup": ""
+            }
+          ]
+        }
+      ],
+      "relations": [
+        {
+          "id": "Kundenprofil-Kunde-0",
+          "sourceTable": "Kundenprofil",
+          "targetTable": "Kunde",
+          "pairs": [
+            {
+              "source": "Kundenprofil.KundeId",
+              "target": "Kunde.KundeId"
+            }
+          ],
+          "parentMinimum": 1,
+          "childMinimum": 0,
+          "childMaximum": "1"
+        }
+      ]
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Kunde",
+            "name": "Kunde",
+            "columns": [
+              {
+                "id": "Kunde.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Name",
+                "attribute": "Name",
+                "name": "Name",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Mail",
+                "attribute": "Mail",
+                "name": "Mail",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Kundenprofil",
+            "name": "Kundenprofil",
+            "columns": [
+              {
+                "id": "Kundenprofil.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": "A"
+              },
+              {
+                "id": "Kundenprofil.Notiz",
+                "attribute": "Notiz",
+                "name": "Notiz",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kundenprofil.ProfilId",
+                "attribute": "ProfilId",
+                "name": "ProfilId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Kundenprofil-Kunde-0",
+            "sourceTable": "Kundenprofil",
+            "targetTable": "Kunde",
+            "pairs": [
+              {
+                "source": "Kundenprofil.KundeId",
+                "target": "Kunde.KundeId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "1"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: KundeId, Name, Mail; KundeId, Notiz, ProfilId."
+    ],
+    "explanation": "Mit zusätzlicher ProfilId muss KundeId im Profil weiterhin eindeutig sein. Die 1:1-Beschriftung allein erzwingt das nicht."
+  },
+  {
+    "id": 24,
+    "chapter": "05 · Modelle untersuchen",
+    "title": "Eine zu strenge Mindestzahl",
+    "story": "Der Vertrieb möchte Interessenten bereits vor dem ersten Auftrag anlegen. Ein zu streng beschrifteter Entwurf steht diesem Ablauf entgegen.",
+    "task": "Ein Kunde darf bereits vor seinem ersten Auftrag erfasst werden. Jeder Auftrag benötigt einen Kunden. Korrigiere die vorbereitete, zu strenge Kardinalität. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "KundeId": "KundeId",
+      "Name": "Name",
+      "Mail": "Mail",
+      "AuftragId": "AuftragId",
+      "Datum": "Datum"
+    },
+    "starter": {
+      "tables": [
+        {
+          "id": "Kunde",
+          "name": "Kunde",
+          "columns": [
+            {
+              "id": "Kunde.KundeId",
+              "attribute": "KundeId",
+              "name": "KundeId",
+              "primaryKey": true,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Kunde.Name",
+              "attribute": "Name",
+              "name": "Name",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Kunde.Mail",
+              "attribute": "Mail",
+              "name": "Mail",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            }
+          ]
+        },
+        {
+          "id": "Auftrag",
+          "name": "Auftrag",
+          "columns": [
+            {
+              "id": "Auftrag.AuftragId",
+              "attribute": "AuftragId",
+              "name": "AuftragId",
+              "primaryKey": true,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Auftrag.Datum",
+              "attribute": "Datum",
+              "name": "Datum",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "Auftrag.KundeId",
+              "attribute": "KundeId",
+              "name": "KundeId",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            }
+          ]
+        }
+      ],
+      "relations": [
+        {
+          "id": "Auftrag-Kunde-0",
+          "sourceTable": "Auftrag",
+          "targetTable": "Kunde",
+          "pairs": [
+            {
+              "source": "Auftrag.KundeId",
+              "target": "Kunde.KundeId"
+            }
+          ],
+          "parentMinimum": 1,
+          "childMinimum": 1,
+          "childMaximum": "n"
+        }
+      ]
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Kunde",
+            "name": "Kunde",
+            "columns": [
+              {
+                "id": "Kunde.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Name",
+                "attribute": "Name",
+                "name": "Name",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Mail",
+                "attribute": "Mail",
+                "name": "Mail",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Auftrag",
+            "name": "Auftrag",
+            "columns": [
+              {
+                "id": "Auftrag.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.Datum",
+                "attribute": "Datum",
+                "name": "Datum",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Auftrag-Kunde-0",
+            "sourceTable": "Auftrag",
+            "targetTable": "Kunde",
+            "pairs": [
+              {
+                "source": "Auftrag.KundeId",
+                "target": "Kunde.KundeId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: KundeId, Name, Mail; AuftragId, Datum, KundeId."
+    ],
+    "explanation": "Die Mindestzahl der Aufträge je Kunde ist 0. Das bedeutet nicht, dass der FK im Auftrag fehlen darf."
+  },
+  {
+    "id": 25,
+    "chapter": "05 · Modelle untersuchen",
+    "title": "Historische Preise erhalten",
+    "story": "Die Preise ändern sich mit der neuen Saison. Alte Aufträge müssen trotzdem den damals vereinbarten Preis behalten.",
+    "task": "Ein Artikel besitzt ArtikelId, Bezeichnung und den aktuellen Listenpreis. Auftrag besitzt AuftragId und Datum. Position speichert AuftragId, ArtikelId, Menge und den bei Auftragserteilung vereinbarten Preis. Der Listenpreis kann sich später ändern; der vereinbarte Preis hängt vom Positionspaar ab. Jede Artikelart kommt je Auftrag höchstens einmal vor. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "AuftragId": "AuftragId",
+      "Datum": "Datum",
+      "ArtikelId": "ArtikelId",
+      "Bezeichnung": "Bezeichnung",
+      "Listenpreis": "Listenpreis",
+      "Menge": "Menge",
+      "VereinbarterPreis": "VereinbarterPreis"
+    },
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Auftrag",
+            "name": "Auftrag",
+            "columns": [
+              {
+                "id": "Auftrag.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.Datum",
+                "attribute": "Datum",
+                "name": "Datum",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Artikel",
+            "name": "Artikel",
+            "columns": [
+              {
+                "id": "Artikel.ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Artikel.Bezeichnung",
+                "attribute": "Bezeichnung",
+                "name": "Bezeichnung",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Artikel.Listenpreis",
+                "attribute": "Listenpreis",
+                "name": "Listenpreis",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Position",
+            "name": "Position",
+            "columns": [
+              {
+                "id": "Position.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Position.ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Position.Menge",
+                "attribute": "Menge",
+                "name": "Menge",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Position.VereinbarterPreis",
+                "attribute": "VereinbarterPreis",
+                "name": "VereinbarterPreis",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Position-Auftrag-0",
+            "sourceTable": "Position",
+            "targetTable": "Auftrag",
+            "pairs": [
+              {
+                "source": "Position.AuftragId",
+                "target": "Auftrag.AuftragId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          },
+          {
+            "id": "Position-Artikel-1",
+            "sourceTable": "Position",
+            "targetTable": "Artikel",
+            "pairs": [
+              {
+                "source": "Position.ArtikelId",
+                "target": "Artikel.ArtikelId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: AuftragId, Datum; ArtikelId, Bezeichnung, Listenpreis; AuftragId, ArtikelId, Menge, VereinbarterPreis."
+    ],
+    "explanation": "Listenpreis und VereinbarterPreis haben unterschiedliche Bedeutungen. Das Speichern des vereinbarten Positionspreises ist hier keine unzulässige Wiederholung des aktuellen Listenpreises."
+  },
+  {
+    "id": 26,
+    "chapter": "06 · Selbstständig entwerfen",
+    "title": "Den Kundenauftrag vollständig modellieren",
+    "story": "Die Leitung möchte Kundenstamm und Materialpositionen gemeinsam sehen. Du setzt die beschriebenen Bausteine zu einem vollständigen Ausschnitt zusammen.",
+    "task": "Erstelle Kunde(KundeId, Name, Mail), Auftrag(AuftragId, Datum), Artikel(ArtikelId, Bezeichnung) und Position mit Menge. Jeder Auftrag gehört genau einem Kunden. Position ordnet Auftrag und Artikel zu, pro Paar höchstens einmal. Kein Elternobjekt benötigt bereits abhängige Sätze. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "KundeId": "KundeId",
+      "Name": "Name",
+      "Mail": "Mail",
+      "AuftragId": "AuftragId",
+      "Datum": "Datum",
+      "ArtikelId": "ArtikelId",
+      "Bezeichnung": "Bezeichnung",
+      "Menge": "Menge"
+    },
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Kunde",
+            "name": "Kunde",
+            "columns": [
+              {
+                "id": "Kunde.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Name",
+                "attribute": "Name",
+                "name": "Name",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Mail",
+                "attribute": "Mail",
+                "name": "Mail",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Auftrag",
+            "name": "Auftrag",
+            "columns": [
+              {
+                "id": "Auftrag.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.Datum",
+                "attribute": "Datum",
+                "name": "Datum",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Artikel",
+            "name": "Artikel",
+            "columns": [
+              {
+                "id": "Artikel.ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Artikel.Bezeichnung",
+                "attribute": "Bezeichnung",
+                "name": "Bezeichnung",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Position",
+            "name": "Position",
+            "columns": [
+              {
+                "id": "Position.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Position.ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Position.Menge",
+                "attribute": "Menge",
+                "name": "Menge",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Auftrag-Kunde-0",
+            "sourceTable": "Auftrag",
+            "targetTable": "Kunde",
+            "pairs": [
+              {
+                "source": "Auftrag.KundeId",
+                "target": "Kunde.KundeId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          },
+          {
+            "id": "Position-Auftrag-1",
+            "sourceTable": "Position",
+            "targetTable": "Auftrag",
+            "pairs": [
+              {
+                "source": "Position.AuftragId",
+                "target": "Auftrag.AuftragId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          },
+          {
+            "id": "Position-Artikel-2",
+            "sourceTable": "Position",
+            "targetTable": "Artikel",
+            "pairs": [
+              {
+                "source": "Position.ArtikelId",
+                "target": "Artikel.ArtikelId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: KundeId, Name, Mail; AuftragId, Datum, KundeId; ArtikelId, Bezeichnung; AuftragId, ArtikelId, Menge."
+    ],
+    "explanation": "Der vollständige Ausschnitt besteht aus vier Attributgruppen. Position löst n:m auf, Auftrag trägt den Kunden-FK."
+  },
+  {
+    "id": 27,
+    "chapter": "06 · Selbstständig entwerfen",
+    "title": "Mitarbeitereinsätze planen",
+    "story": "Als Nächstes kommt die Personalplanung dazu. Entscheidend ist nicht nur, wer arbeitet, sondern wie viele Stunden für welchen Auftrag eingeplant sind.",
+    "task": "Auftrag besitzt AuftragId und Datum. Mitarbeiter besitzt MitarbeiterId und Mitarbeitername. Ein Einsatz ordnet genau einen Mitarbeiter einem Auftrag zu und speichert Stunden. Jeder Mitarbeiter darf je Auftrag genau einmal zugeordnet werden. Aufträge und Mitarbeiter dürfen noch ohne Einsatz existieren. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "AuftragId": "AuftragId",
+      "Datum": "Datum",
+      "MitarbeiterId": "MitarbeiterId",
+      "Mitarbeitername": "Mitarbeitername",
+      "Stunden": "Stunden"
+    },
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Auftrag",
+            "name": "Auftrag",
+            "columns": [
+              {
+                "id": "Auftrag.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.Datum",
+                "attribute": "Datum",
+                "name": "Datum",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Mitarbeiter",
+            "name": "Mitarbeiter",
+            "columns": [
+              {
+                "id": "Mitarbeiter.MitarbeiterId",
+                "attribute": "MitarbeiterId",
+                "name": "MitarbeiterId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Mitarbeiter.Mitarbeitername",
+                "attribute": "Mitarbeitername",
+                "name": "Mitarbeitername",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Einsatz",
+            "name": "Einsatz",
+            "columns": [
+              {
+                "id": "Einsatz.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Einsatz.MitarbeiterId",
+                "attribute": "MitarbeiterId",
+                "name": "MitarbeiterId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Einsatz.Stunden",
+                "attribute": "Stunden",
+                "name": "Stunden",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Einsatz-Auftrag-0",
+            "sourceTable": "Einsatz",
+            "targetTable": "Auftrag",
+            "pairs": [
+              {
+                "source": "Einsatz.AuftragId",
+                "target": "Auftrag.AuftragId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          },
+          {
+            "id": "Einsatz-Mitarbeiter-1",
+            "sourceTable": "Einsatz",
+            "targetTable": "Mitarbeiter",
+            "pairs": [
+              {
+                "source": "Einsatz.MitarbeiterId",
+                "target": "Mitarbeiter.MitarbeiterId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: AuftragId, Datum; MitarbeiterId, Mitarbeitername; AuftragId, MitarbeiterId, Stunden."
+    ],
+    "explanation": "Die Stunden hängen von der Zuordnung ab und gehören in Einsatz. Dessen zusammengesetzter PK ist zugleich aus zwei FKs aufgebaut."
+  },
+  {
+    "id": 28,
+    "chapter": "06 · Selbstständig entwerfen",
+    "title": "Zwei zulässige Schlüssellösungen",
+    "story": "Zwei Teams schlagen verschiedene Positionsschlüssel vor. Du entwickelst eine zulässige Variante und beachtest dabei die fachliche Eindeutigkeit.",
+    "task": "Modelliere Auftrag(AuftragId, Datum), Artikel(ArtikelId, Bezeichnung) und ihre Position mit Menge. Pro Paar nur eine Position. Erlaubt sind entweder der zusammengesetzte Positions-PK oder PositionId als PK mit zusätzlichem eindeutigem Paar (AuftragId, ArtikelId). Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "AuftragId": "AuftragId",
+      "Datum": "Datum",
+      "ArtikelId": "ArtikelId",
+      "Bezeichnung": "Bezeichnung",
+      "Menge": "Menge",
+      "PositionId": "PositionId"
+    },
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Auftrag",
+            "name": "Auftrag",
+            "columns": [
+              {
+                "id": "Auftrag.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.Datum",
+                "attribute": "Datum",
+                "name": "Datum",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Artikel",
+            "name": "Artikel",
+            "columns": [
+              {
+                "id": "Artikel.ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Artikel.Bezeichnung",
+                "attribute": "Bezeichnung",
+                "name": "Bezeichnung",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Position",
+            "name": "Position",
+            "columns": [
+              {
+                "id": "Position.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Position.ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Position.Menge",
+                "attribute": "Menge",
+                "name": "Menge",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Position-Auftrag-0",
+            "sourceTable": "Position",
+            "targetTable": "Auftrag",
+            "pairs": [
+              {
+                "source": "Position.AuftragId",
+                "target": "Auftrag.AuftragId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          },
+          {
+            "id": "Position-Artikel-1",
+            "sourceTable": "Position",
+            "targetTable": "Artikel",
+            "pairs": [
+              {
+                "source": "Position.ArtikelId",
+                "target": "Artikel.ArtikelId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      },
+      {
+        "tables": [
+          {
+            "id": "Auftrag",
+            "name": "Auftrag",
+            "columns": [
+              {
+                "id": "Auftrag.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.Datum",
+                "attribute": "Datum",
+                "name": "Datum",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Artikel",
+            "name": "Artikel",
+            "columns": [
+              {
+                "id": "Artikel.ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Artikel.Bezeichnung",
+                "attribute": "Bezeichnung",
+                "name": "Bezeichnung",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Position",
+            "name": "Position",
+            "columns": [
+              {
+                "id": "Position.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": "A"
+              },
+              {
+                "id": "Position.ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": "A"
+              },
+              {
+                "id": "Position.Menge",
+                "attribute": "Menge",
+                "name": "Menge",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Position.PositionId",
+                "attribute": "PositionId",
+                "name": "PositionId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Position-Auftrag-0",
+            "sourceTable": "Position",
+            "targetTable": "Auftrag",
+            "pairs": [
+              {
+                "source": "Position.AuftragId",
+                "target": "Auftrag.AuftragId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          },
+          {
+            "id": "Position-Artikel-1",
+            "sourceTable": "Position",
+            "targetTable": "Artikel",
+            "pairs": [
+              {
+                "source": "Position.ArtikelId",
+                "target": "Artikel.ArtikelId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: AuftragId, Datum; ArtikelId, Bezeichnung; AuftragId, ArtikelId, Menge."
+    ],
+    "explanation": "Beide Varianten erfüllen denselben Vertrag. Bei PositionId muss das fachlich eindeutige Paar als gemeinsamer alternativer Schlüssel erhalten bleiben."
+  },
+  {
+    "id": 29,
+    "chapter": "06 · Selbstständig entwerfen",
+    "title": "Mindestens zwei Personen einplanen",
+    "story": "Für sicherheitsrelevante Veranstaltungen benötigt jeder Auftrag mindestens zwei Mitarbeitende. Du trennst diese Geschäftsregel von der bloßen Fremdschlüsselreferenz.",
+    "task": "Modelliere Auftrag(AuftragId, Datum), Mitarbeiter(MitarbeiterId, Mitarbeitername) und Einsatz(AuftragId, MitarbeiterId, Stunden). Pro Paar genau ein Einsatz. Jeder Auftrag benötigt mindestens zwei unterschiedliche Mitarbeiter, je Mitarbeiter sind null bis viele Einsätze erlaubt. Die Mindestzahl ist als fachliche Kardinalität zu kennzeichnen, nicht als Behauptung eines allein ausreichenden FK. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "AuftragId": "AuftragId",
+      "Datum": "Datum",
+      "MitarbeiterId": "MitarbeiterId",
+      "Mitarbeitername": "Mitarbeitername",
+      "Stunden": "Stunden"
+    },
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Auftrag",
+            "name": "Auftrag",
+            "columns": [
+              {
+                "id": "Auftrag.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.Datum",
+                "attribute": "Datum",
+                "name": "Datum",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Mitarbeiter",
+            "name": "Mitarbeiter",
+            "columns": [
+              {
+                "id": "Mitarbeiter.MitarbeiterId",
+                "attribute": "MitarbeiterId",
+                "name": "MitarbeiterId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Mitarbeiter.Mitarbeitername",
+                "attribute": "Mitarbeitername",
+                "name": "Mitarbeitername",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Einsatz",
+            "name": "Einsatz",
+            "columns": [
+              {
+                "id": "Einsatz.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Einsatz.MitarbeiterId",
+                "attribute": "MitarbeiterId",
+                "name": "MitarbeiterId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Einsatz.Stunden",
+                "attribute": "Stunden",
+                "name": "Stunden",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Einsatz-Auftrag-0",
+            "sourceTable": "Einsatz",
+            "targetTable": "Auftrag",
+            "pairs": [
+              {
+                "source": "Einsatz.AuftragId",
+                "target": "Auftrag.AuftragId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 2,
+            "childMaximum": "n"
+          },
+          {
+            "id": "Einsatz-Mitarbeiter-1",
+            "sourceTable": "Einsatz",
+            "targetTable": "Mitarbeiter",
+            "pairs": [
+              {
+                "source": "Einsatz.MitarbeiterId",
+                "target": "Mitarbeiter.MitarbeiterId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: AuftragId, Datum; MitarbeiterId, Mitarbeitername; AuftragId, MitarbeiterId, Stunden."
+    ],
+    "explanation": "Ein FK sichert die Referenz, nicht mindestens zwei Einsätze je Auftrag. Die Kardinalität 2..n erfordert zusätzlich eine geeignete Geschäftsregel beziehungsweise kontrollierte Transaktion."
+  },
+  {
+    "id": 30,
+    "chapter": "06 · Selbstständig entwerfen",
+    "title": "Vom Auftragsblatt zum Gesamtmodell",
+    "story": "Zum Abschluss legt die Leitung ein zusammenhängendes Auftragsblatt vor. Dein Ziel ist nun ein Gesamtmodell, dessen Tabellen, Schlüssel und Beziehungen die genannten Regeln verständlich abbilden.",
+    "task": "Die Agentur benötigt Kunden(KundeId, Name, Mail), ihre Aufträge(AuftragId, Datum), Artikel(ArtikelId, Bezeichnung) und Kategorien(KategorieId, Kategoriename). Jeder Auftrag gehört genau einem Kunden, jeder Artikel genau einer Kategorie. Eine Position ordnet Artikel und Auftrag mit Menge zu, pro Paar nur einmal. Die Artikeldaten hängen von ArtikelId ab, der Kategoriename von KategorieId. Alle Elternobjekte dürfen ohne abhängige Sätze existieren. Verwende die angegebenen Fachattribute; Tabellen- und Anzeigenamen darfst du frei wählen. Alle Attribute sind Pflicht, sofern der Auftrag keine Ausnahme nennt. Nicht genannte zusätzliche eindeutige Schlüssel sind nicht vorgesehen. Bei 1:n-Beziehungen darf ein Elternsatz ohne abhängige Sätze existieren, sofern keine Mindestzahl genannt ist.",
+    "kind": "Model",
+    "attributes": {
+      "KundeId": "KundeId",
+      "Name": "Name",
+      "Mail": "Mail",
+      "AuftragId": "AuftragId",
+      "Datum": "Datum",
+      "ArtikelId": "ArtikelId",
+      "Bezeichnung": "Bezeichnung",
+      "KategorieId": "KategorieId",
+      "Menge": "Menge",
+      "Kategoriename": "Kategoriename"
+    },
+    "starter": {
+      "tables": [],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "Kunde",
+            "name": "Kunde",
+            "columns": [
+              {
+                "id": "Kunde.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Name",
+                "attribute": "Name",
+                "name": "Name",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kunde.Mail",
+                "attribute": "Mail",
+                "name": "Mail",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Auftrag",
+            "name": "Auftrag",
+            "columns": [
+              {
+                "id": "Auftrag.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.Datum",
+                "attribute": "Datum",
+                "name": "Datum",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Auftrag.KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Artikel",
+            "name": "Artikel",
+            "columns": [
+              {
+                "id": "Artikel.ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Artikel.Bezeichnung",
+                "attribute": "Bezeichnung",
+                "name": "Bezeichnung",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Artikel.KategorieId",
+                "attribute": "KategorieId",
+                "name": "KategorieId",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Position",
+            "name": "Position",
+            "columns": [
+              {
+                "id": "Position.AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Position.ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Position.Menge",
+                "attribute": "Menge",
+                "name": "Menge",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "Kategorie",
+            "name": "Kategorie",
+            "columns": [
+              {
+                "id": "Kategorie.KategorieId",
+                "attribute": "KategorieId",
+                "name": "KategorieId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "Kategorie.Kategoriename",
+                "attribute": "Kategoriename",
+                "name": "Kategoriename",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "Auftrag-Kunde-0",
+            "sourceTable": "Auftrag",
+            "targetTable": "Kunde",
+            "pairs": [
+              {
+                "source": "Auftrag.KundeId",
+                "target": "Kunde.KundeId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          },
+          {
+            "id": "Position-Auftrag-1",
+            "sourceTable": "Position",
+            "targetTable": "Auftrag",
+            "pairs": [
+              {
+                "source": "Position.AuftragId",
+                "target": "Auftrag.AuftragId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          },
+          {
+            "id": "Position-Artikel-2",
+            "sourceTable": "Position",
+            "targetTable": "Artikel",
+            "pairs": [
+              {
+                "source": "Position.ArtikelId",
+                "target": "Artikel.ArtikelId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          },
+          {
+            "id": "Artikel-Kategorie-3",
+            "sourceTable": "Artikel",
+            "targetTable": "Kategorie",
+            "pairs": [
+              {
+                "source": "Artikel.KategorieId",
+                "target": "Kategorie.KategorieId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "hints": [
+      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
+      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
+      "Benötigte Attributgruppen: KundeId, Name, Mail; AuftragId, Datum, KundeId; ArtikelId, Bezeichnung, KategorieId; AuftragId, ArtikelId, Menge; KategorieId, Kategoriename."
+    ],
+    "explanation": "Kunde, Auftrag, Artikel, Kategorie und Position trennen die vorgegebenen Abhängigkeiten. Es gibt drei Pflicht-FK-Verbindungen zur Elternseite plus den zweiten Positions-FK. Die Fallakte führt von unübersichtlichen Listen zu einem nachvollziehbaren Modell."
+  }
+]

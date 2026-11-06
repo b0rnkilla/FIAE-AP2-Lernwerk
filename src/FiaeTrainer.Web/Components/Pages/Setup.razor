@@ -8,6 +8,7 @@
 <PageTitle>Updates &amp; SQL-Einrichtung · AP2 Lernwerk</PageTitle>
 <main class="page reading-page setup-page">
     <span class="eyebrow">DEIN LOKALES LERNWERK</span><h1>Updates &amp;<br /><em>SQL-Einrichtung.</em></h1>
+    <nav class="setup-actions" aria-label="Einstellungen"><strong aria-current="page">Updates &amp; SQL-Einrichtung</strong><a href="/heimnetz" data-enhance-nav="false">Heimnetz</a></nav>
     <section class="setup-section" id="updates">
         <h2>Deine Version <span class="badge">@Version.Display</span></h2>
         @if (Version.IsPrerelease) { <p>Du verwendest eine frühe Testversion. Für diesen Versionskanal werden auch neuere veröffentlichte Vorabversionen berücksichtigt.</p> }
@@ -24,7 +25,7 @@
         <h2>SQL Server verbinden</h2>
         @if (!Settings.CanEdit)
         {
-            <p class="notice">Während der Heimnetz-Vorführung ist die persönliche Einrichtung gesperrt. Beende die Vorführung und starte den Trainer über Trainer-starten.cmd im lokalen Modus, um die Verbindung zu ändern.</p>
+            <p class="notice">Während der Heimnetz-Freigabe ist die persönliche SQL-Einrichtung gesperrt. Beende die Freigabe auf dem Gastgeber unter <a href="/heimnetz" data-enhance-nav="false">Heimnetz</a>, um die Verbindung zu ändern.</p>
         }
         else
         {

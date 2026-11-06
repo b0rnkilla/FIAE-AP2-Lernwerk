@@ -59,7 +59,7 @@ Bekannte Falltabellen dürfen mit oder ohne Schemapräfix angegeben werden. Der 
 
 ## Allgemeine Oberfläche und Darstellung
 
-Die Startseite zeigt den allgemeinen AP2-Themenkompass. Der SQL-Bereich ist eine Karte unter den vorgesehenen Themen, keine dominierende Einstiegsgeschichte mehr. Der Gesamtfortschritt umfasst die 40 SQL-, 30 Algorithmus- und 150 WiSo-Aufgaben, insgesamt 220. Die Kopfnavigation beginnt immer mit Übersicht und Lernplan; danach folgen die Links des besuchten Moduls.
+Die Startseite zeigt den allgemeinen AP2-Themenkompass. Der SQL-Bereich ist eine Karte unter den vorgesehenen Themen, keine dominierende Einstiegsgeschichte mehr. Der Gesamtfortschritt umfasst die 40 SQL-, 30 Algorithmus-, 30 Datenbankentwurfs- und 150 WiSo-Aufgaben, insgesamt 250. Prüfungsaufgaben bleiben von diesem Lernzähler getrennt. Die Kopfnavigation beginnt immer mit Übersicht und Lernplan; danach folgen die Links des besuchten Moduls.
 
 Die Auswahl System/Hell/Dunkel wird rein im Browser angewendet. Ein früh im Dokument geladenes kleines Skript wertet die Systempräferenz und ein validiertes Präferenzcookie aus, bevor die Styles geladen werden. Explizite Auswahl überschreibt die Systempräferenz; die Option System aktiviert deren automatische Nachführung wieder. Ein neu von Blazor eingesetzter Auswahlschalter wird mit der aktuellen Auswahl synchronisiert. Das Cookie enthält ausschließlich einen der drei festgelegten Auswahlwerte.
 
@@ -146,3 +146,9 @@ Der SQL-Spickzettel bietet wie der Pseudocode-Spickzettel einen Button „Zurüc
 ## Zeitlich begrenztes Anwenden
 
 Die neuen SQL-/Pseudocode-Prüfungen ergänzen den geführten Lernweg mit eigenen Aufgaben, fester UTC-Frist und Auswertung nach der Abgabe. Prüfungsleistungen bleiben von den bisherigen Lernabschlüssen getrennt. Nachschlagen ist möglich, pausiert und kennzeichnet den Versuch; Musterlösungen und Ausführungswerkzeuge öffnen erst in der Nachbereitung. Endliche Prüfmengen und feste Trainingspunkte ersetzen keine menschliche IHK-Korrektur. Details: [Prüfungsmodus](pruefungsmodus.md).
+
+## Datenbankentwurf
+
+Die Eventagentur Lichtblick gibt dem neuen Lernweg ein gemeinsames Ziel: einen nachvollziehbaren relationalen Entwurf aus verstreuten Unterlagen entwickeln. Dreißig Aufgaben verbinden Begriffsverständnis, eigene Modellierung, Reparatur und fachliche Entscheidungen. Die konkrete Ausgangssituation wird jeweils genannt, ungelöste Vorgänger werden nicht als bewiesene Ergebnisse vorausgesetzt. Bestätigte Planungsschritte enthalten nur bereits gelöste Aufgaben bis zum aktuellen Stand.
+
+Der Baukasten trennt die fachliche Wahl von der Zeichenarbeit. Attribute aus dem Auftrag werden eigenen Tabellen zugeordnet, Schlüssel und Referenzen markiert, Kardinalitäten in beide Richtungen beschrieben. Namen und Reihenfolge sind frei. Die Bewertung folgt getesteten Modellvarianten und ausdrücklich genannten Abhängigkeiten, keinem allgemeinen Normalformbeweiser. Drei unabhängige 45-Minuten-Prüfungsfälle ergänzen den Lernweg. [Bewertungsvertrag](datenbankentwurf.md).

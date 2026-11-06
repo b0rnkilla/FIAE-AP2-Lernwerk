@@ -8,12 +8,12 @@
     const retryButton = document.getElementById("reconnect-retry");
     const reloadButton = document.getElementById("reconnect-reload");
     const STATES = {
-        show: ["Verbindung unterbrochen", "Die Verbindung wird wiederhergestellt. Einen Moment bitte."],
-        retrying: ["Verbindung wird gesucht", "Die Anwendung ist noch nicht erreichbar. Wir versuchen es erneut."],
-        failed: ["Verbindung nicht möglich", "Prüfe, ob das Lernwerk noch läuft. Versuche dann erneut, dich zu verbinden."],
-        rejected: ["Sitzung nicht mehr verfügbar", "Das Lernwerk wurde möglicherweise neu gestartet. Lade die Seite neu, um weiterzulernen."],
-        paused: ["Deine Sitzung pausiert", "Setze deine Sitzung fort, um weiterzulernen."],
-        "resume-failed": ["Fortsetzen nicht möglich", "Die Sitzung konnte nicht fortgesetzt werden. Versuche es erneut oder lade die Seite neu."]
+        show: ["Verbindung unterbrochen", "Die Verbindung wird wiederhergestellt.\nEinen Moment bitte."],
+        retrying: ["Verbindung wird gesucht", "Die Anwendung ist noch nicht erreichbar.\nWir versuchen es erneut."],
+        failed: ["Verbindung nicht möglich", "Prüfe, ob das Lernwerk noch läuft.\nVersuche dann erneut, dich zu verbinden."],
+        rejected: ["Sitzung nicht mehr verfügbar", "Das Lernwerk wurde möglicherweise neu gestartet.\nLade die Seite neu, um weiterzulernen."],
+        paused: ["Deine Sitzung pausiert", "Setze deine Sitzung fort,\num weiterzulernen."],
+        "resume-failed": ["Fortsetzen nicht möglich", "Die Sitzung konnte nicht fortgesetzt werden.\nVersuche es erneut oder lade die Seite neu."]
     };
     let state = "hide";
     let busy = false;

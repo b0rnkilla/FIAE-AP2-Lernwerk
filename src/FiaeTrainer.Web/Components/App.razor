@@ -8,15 +8,21 @@
     <script src="theme.js"></script>
     <link rel="stylesheet" href="app.css" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <HeadOutlet @rendermode="InteractiveServer" />
+    <HeadOutlet @rendermode="PageRenderMode" />
 </head>
 <body>
-    <Routes @rendermode="InteractiveServer" />
+    <Routes @rendermode="PageRenderMode" />
     <ReconnectModal />
     <div id="blazor-error-ui" role="alert">Die Anwendung konnte diese Aktion nicht abschließen. <a href="">Seite neu laden</a></div>
     <script src="reconnect.js"></script>
     <script src="code-editor.js"></script>
     <script src="task-navigation.js"></script>
+    <script src="home-network.js"></script>
     <script src="_framework/blazor.web.js"></script>
 </body>
 </html>
+@code {
+    /// <summary> Die Heimnetz-Verwaltung benötigt die echte HTTP-Verbindung und statische, tokengeprüfte Formulare. </summary>
+    [CascadingParameter] public HttpContext HttpContext { get; set; } = default!;
+    private IComponentRenderMode? PageRenderMode => HttpContext.Request.Path.StartsWithSegments("/heimnetz") ? null : InteractiveServer;
+}

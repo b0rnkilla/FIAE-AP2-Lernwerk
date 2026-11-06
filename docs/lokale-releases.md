@@ -1,5 +1,13 @@
 # AP2 Lernwerk lokal starten
 
+**Windows-Paket 0.1.1-alpha.9: gebaut und aus dem entpackten ZIP geprüft am 05.11.2026.** Anwendungscode aus dem sauberen, gepushten Commit `a6c929f846cf3d0957e15db4a74ace47ac947991`. Die Paketdokumente ANLEITUNG und VERSIONSHINWEISE wurden nach dem Commit ergänzt; am Anwendungscode wurde für den Paketbau nichts geändert. Enthalten sind 220 Lernübungen und 25 zusätzliche Prüfungsaufgaben, neue SQL-/Pseudocode-Prüfungsrunden und der WiSo-Feinschliff. Veröffentlichung führt der Nutzer selbst aus.
+
+Datei: `artifacts/releases/AP2-Lernwerk-0.1.1-alpha.9-win-x64.zip`, **50.946.094 Bytes (48,59 MiB)**, 50 Dateien, plus `.zip.sha256`. SHA256: `2056930755bf556418fbd227f2fe664185ac7b54c8a95e365d29be3cf058be4f`. Keine privaten Einstellungen, Lernstände, QA-Dateien, Originalprüfungen oder Debugsymbole. Eigene Projektlizenz und Drittanbieterhinweise enthalten. ZIP nach Prüfung unverändert erhalten.
+
+GitHub: Tag `v0.1.1-alpha.9`, Titel `AP2 Lernwerk 0.1.1-alpha.9`, Zielcommit `a6c929f`, **Pre-release**. ZIP und SHA256-Datei als Assets hochladen. Der Upload und die Live-Erkennung dieses neuen Releases sind noch nicht erfolgt; der Nutzer hat die Update-Erkennung früherer Veröffentlichungen bereits bestätigt.
+
+## Historisches Paket Alpha 8
+
 **Windows-Paket 0.1.1-alpha.8: gebaut und aus dem entpackten ZIP geprüft am 05.11.2026**, aus dem sauberen Commit `b4e953fbb628b9c39ce695538db2bf1343f13bcf`. Der Nutzer hat den Commit gepusht; der Remote-Stand wurde bestätigt. Enthalten sind 220 Übungen: 40 SQL-, 30 Algorithmus- und 150 WiSo-Aufgaben sowie der neue Projektbereich. Veröffentlichung und Upload erfolgen durch den Nutzer.
 
 Datei: `artifacts/releases/AP2-Lernwerk-0.1.1-alpha.8-win-x64.zip`, **50.839.413 Bytes (48,48 MiB)**, plus `.zip.sha256`. SHA256: `cdd77864a8dfecf5c7b535ac662d574ca8762d670e2889e7ed18745ea7cc145c`. Selbstständig startbare Windows-x64-Fassung mit Laufzeit, Anleitung, Versionshinweisen und Lizenzen; ohne private Konfiguration, Lernstände, Protokolle oder Debugsymbole.
@@ -107,6 +115,24 @@ Das erste Paket ist nicht mit einem Code-Signing-Zertifikat signiert. Ein Test a
 
 Die konfigurierte Quelle ist https://github.com/b0rnkilla/FIAE-AP2-Lernwerk. Ist das Repository oder ein Release privat, kann die anonyme Prüfung es nicht erkennen. Die Prüfung verwendet keine Zugangsschlüssel und liest maximal 100 öffentliche Releases. Sie benötigt einen gültigen SemVer-Tag und einen fertig hochgeladenen Anhang *-win-x64.zip. Alpha-Fassungen berücksichtigen Vorabversionen; stabile Fassungen bleiben beim stabilen Kanal. Abfragen haben ein kurzes Timeout und werden bei Wiederholung innerhalb einer Minute zusammengefasst. Fehler werden von „keine neuere Version“ unterschieden. Unter Updates & SQL-Einrichtung kann die automatische Startprüfung ausgeschaltet werden.
 
-## Weitere Entwicklung in Alpha 9
+## Prüfungsumfang in Alpha 9
 
-SQL-/Pseudocode-Prüfungen sind inzwischen im Quellprojekt umgesetzt und geprüft: 25 zusätzliche Prüfungsaufgaben, getrennt von den bisherigen 220 Lernübungen. Das veröffentlichte Alpha-8-Paket bleibt unverändert. Es wurde kein neues ZIP erstellt; für einen späteren Paketbau gelten weiterhin Nutzerauftrag, eigener Profiltest und passende Versionshinweise. [Funktionsstand und Grenzen](pruefungsmodus.md).
+SQL-/Pseudocode-Prüfungen sind im neuen Alpha-9-Paket enthalten und aus dem ZIP geprüft: 25 zusätzliche Prüfungsaufgaben, getrennt von den bisherigen 220 Lernübungen. Das veröffentlichte Alpha-8-Paket bleibt unverändert. Für weitere Pakete gelten weiterhin Nutzerauftrag, eigener Profiltest und passende Versionshinweise. [Funktionsstand und Grenzen](pruefungsmodus.md).
+
+## Quellstand Alpha 10, noch kein Paket
+
+Seit 06.11.2026 vereinheitlicht 0.1.1-alpha.10 die Übersichtsbuttons und Prüfungsinfos. WiSo besitzt einen eigenen Einstieg /wiso/pruefung und startet erst durch Prüfung starten. Quellbuild und isolierte Browserprüfung erfolgreich, kein neues ZIP beauftragt oder erstellt. Das geprüfte Alpha-9-Paket und dessen SHA256 bleiben unverändert; dessen Veröffentlichung wurde in diesem Änderungspaket nicht überprüft.
+
+## Quellstand Alpha 11, kein neues Paket
+
+Datenbankentwurf ist mit 30 Lernaufgaben, Baukasten und drei Prüfungsfällen hinzugekommen. Die aktuelle Quellfassung enthält 250 Lernübungen; das bisherige geprüfte Alpha-9-Paket bleibt bei seinem damaligen Umfang. Ein neuer Paketbau wurde nicht beauftragt und nicht durchgeführt. Die bisherige Alpha-9-ZIP-Prüfsumme wurde unverändert bestätigt. README und Quellanleitung beschreiben auf Nutzerwunsch die aktuelle App-Fassung; Paketstand und Prüfung bleiben hier getrennt nachvollziehbar.
+
+## Quellstand Alpha 12: Heimnetz-Freigabe in derselben EXE
+
+Die neue Seite /heimnetz richtet die optionale Freigabe ein und beendet sie mit einem internen Hostneustart. Kein zweites Programm und keine Entwicklungswerkzeuge nötig. Der mitveröffentlichte Helfer Networking/Heimnetz-Firewall.ps1 benötigt nur für das Ändern seiner eigenen Windows-Regel UAC. Programmpfad und Port sind Teil der Regel; neue Updateordner können eine ausdrücklich angebotene Reparatur benötigen. Der QR-Code entsteht lokal mit QRCoder 1.8.1. Abhängigkeits- und Lizenzhinweise werden wie bisher aus dem NuGet-Bestand erstellt.
+
+Dieses Änderungspaket ist ausschließlich gebaut und geprüft; **kein neues ZIP**, kein Commit/Push/Upload. Alpha-9-Archiv und SHA256 bleiben unverändert. Es enthält weiterhin 220 Lernübungen; die aktuelle Quellfassung besitzt 250. Weitere Details: [Heimnetz](heimnetz-und-serverbetrieb.md).
+
+## Beauftragt: Windows-ZIP Alpha 12 nach Nutzer-Push
+
+Der Nutzer hat Paketbau und Release-Informationen für **0.1.1-alpha.12** ausdrücklich nach seinem nächsten Commit und Push beauftragt. Versionshinweise unter release/Versionshinweise-0.1.1-alpha.12.md vorbereitet. Enthalten sein sollen 250 Lernübungen, die bisherigen SQL-/Pseudocode-Prüfungen, drei Entwurfsprüfungen und die Heimnetz-Einstellung. Heimnetz vom Nutzer bestätigt, Abschnitt 04 noch nicht selbst erprobt. Zielcommit, ZIP/SHA256 und Paketprüfung werden erst nach dem Push bestimmt. Bisherige Archive bleiben unverändert; Upload/Veröffentlichung übernimmt der Nutzer.

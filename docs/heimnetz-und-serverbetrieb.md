@@ -1,6 +1,39 @@
-# Optionale Vorführung im Heimnetz
+# Optionaler Heimnetz-Betrieb
 
-Netzwerkfunktion seit 0.1.1-alpha.4, geprüft am 04.11.2026; im Quellstand 0.1.1-alpha.8 unverändert. Aktuelle Nutzerentscheidung: lokale Windows-Releases über GitHub. Login, Registrierung, Benutzertabellen, Homeserver und nginx sind nicht mehr geplant. Die folgenden Netzwerkangaben gelten für eine private Vorführung ohne Weitergabe. Sie erweitern die [Nutzungsbedingungen](../LICENSE) nicht.
+Quellstand **0.1.1-alpha.12 · 06.11.2026**. Die gleiche Windows-EXE unterstützt lokale Nutzung und private Heimnetz-Freigabe. Login, Registrierung, Benutzertabellen, Homeserver und nginx bleiben gestrichen. Die Nutzung richtet sich weiterhin nach den [Nutzungsbedingungen](../LICENSE). Das vorhandene Alpha-9-ZIP wurde nicht verändert; diese Erweiterung gehört erst in ein künftig ausdrücklich beauftragtes Paket.
+
+## Für Anwender: Freigabe in der App
+
+1. Die EXE normal starten und **Heimnetz** in der Fußzeile öffnen.
+2. Die Seite prüft das private Windows-Netzwerk und die eigene Firewall-Regel. Bei öffentlichem Profil gibt es eine Erklärung und einen Link in die Windows-Einstellungen; das Profil wird nicht automatisch geändert.
+3. **Im Heimnetz freigeben** wählen. Fehlt eine passende Regel, fragt Windows nach Administratorrechten ausschließlich für den Helfer. Abbruch, fehlende Rechte oder fehlgeschlagene Prüfung speichern keine neue Betriebsart.
+4. Der Webhost startet innerhalb derselben EXE kurz neu. Der Browser kehrt automatisch zurück. Bereits gespeicherte Entwürfe und Erfolge bleiben erhalten. Vorher offene Eingaben verlassen; Prüfungsuhren werden nicht automatisch pausiert.
+5. Auf dem anderen Gerät die angezeigte Adresse öffnen oder den lokal erzeugten QR-Code scannen. Der Gastgeber bleibt eingeschaltet und die EXE geöffnet. Auf den anderen Geräten sind weder Installation noch SQL Server nötig.
+6. **Freigabe beenden** auf dem Gastgeber schaltet nach kurzem Neustart wieder auf localhost. Dafür sind keine Administratorrechte nötig.
+
+Verwaltung ist ausschließlich über die lokale Adresse `http://localhost:5080/heimnetz` beziehungsweise den tatsächlich verwendeten Port möglich. Beim Zugriff über die Heimnetz-IP zeigt die Seite nur den Modus und erklärt den Verwaltungsweg. Adresse/Kopierknopf/QR werden nur dem lokal zugreifenden Gastgeber angezeigt. Es gibt keine zweite EXE und keine erforderlichen Anwenderskripte.
+
+### Speicherung und Firewall
+
+Network:AllowLan, Urls und AllowedHosts werden unter derselben atomaren Dateisperre wie SQL-Verbindung/Updatewahl in der persönlichen Einstellungsdatei gespeichert. Windows-Releases verwenden dafür `%LOCALAPPDATA%/AP2-Lernwerk/appsettings.Local.json`. Die Wahl bleibt bei Programmstarts und Updates erhalten; bestehende Konfiguration und Lernstände werden nicht ersetzt. Explizite externe Startparameter haben beim nächsten regulären Start weiterhin Vorrang. Interne Wechsel überschreiben alte Startparameter ausdrücklich.
+
+Die neue Regel **AP2-Lernwerk-Heimnetz-TCP-<Port>** erlaubt eingehend TCP nur für den tatsächlichen Port und den ausgeführten Programmpfad, ausschließlich im privaten Windows-Profil, RemoteAddress LocalSubnet, EdgeTraversal Block. Keine Einzel-IP-Regeln, Routerweiterleitungen oder Freigaben des SQL-Server-Ports. Die App selbst akzeptiert im Heimnetz private Quelladressen und verwirft öffentliche; der Listener verwendet IPv4. Die Adressanzeige berücksichtigt private IPv4-Adapter mit Standardgateway.
+
+Eine passende eigene Regel wird wiederverwendet. Nach einem Update in einen neuen Programmordner kann **Freigabe reparieren** mit erneuter Windows-Bestätigung nötig sein, weil die Regel bewusst an die EXE gebunden ist. Beim Abschalten bleibt diese eingeschränkte Regel bestehen; die App lauscht dann nur lokal. Fremde und ältere Vorführungsregeln werden nicht geändert. Der Helfer unterstützt bei Bedarf das Entfernen ausschließlich seiner eigenen benannten Regel über Action Remove, Port und ProgramPath; das ist kein notwendiger Anwenderschritt.
+
+Die Verwaltungs-POSTs verlangen Antiforgery-Token, echte Loopback-Verbindung und einen lokalen Host-Header. Parallelaktionen erhalten 409; Bereitschaft während des Neustarts liefert 503. Externe Besucher können weder Firewall noch Betriebsart ändern. Die Windows-Firewall allein kann Gast-WLAN-Isolation, VPNs, Drittanbieterfilter und Unternehmensrichtlinien nicht aufheben.
+
+### Gemeinsames Profil
+
+**Alle verbundenen Geräte teilen denselben Lernstand** einschließlich Entwürfen, Modulmodi, Abschlüssen, Prüfungsrunden, Kontrollmarkierungen und Zurücksetzen. Diese Freigabe eignet sich zum Gerätewechsel und zur gemeinsamen Vorführung. Mehrere Personen lernen damit nicht unabhängig voneinander. Es werden keine Konten ergänzt.
+
+## Entwicklungstest ohne ZIP
+
+Trainer-starten.cmd baut und startet die aktuelle Quellfassung. Im Browser unter Heimnetz freigeben und anschließend mit einem anderen Gerät die angezeigte Adresse öffnen. Der normale Starter übernimmt die gespeicherte Betriebsart; das Profil FiaeTrainer besitzt dafür keine erzwungene applicationUrl mehr. FiaeTrainerLan beziehungsweise Trainer-im-Netzwerk-starten.cmd bleibt ein optionaler expliziter LAN-Start und wird für den normalen Einstellungsablauf nicht benötigt. Visual Studio kann den normalen Starter ersetzen. Eine Build-EXE unter bin/Release ist kein portables Windows-Paket.
+
+## Historie: Quellprojektstarter seit Alpha 4
+
+Die folgenden Angaben dokumentieren den weiterhin vorhandenen Entwicklungsstarter. Anwender künftiger Pakete verwenden stattdessen die Einstellungsseite oben.
 
 ## Jetzt: Vorführung im Heimnetz
 
@@ -57,7 +90,7 @@ Quellen: [Android: Lokale Netzwerkberechtigung](https://developer.android.com/pr
 
 Die frühere Planung für Homeserver, Subdomain und Onlinekonten ist auf Nutzerwunsch entfallen. Stattdessen lädt jeder ein Windows-Paket von GitHub herunter und startet es lokal. Lernstand und Verbindung liegen pro Windows-Benutzer außerhalb des Programmordners. Die technische Einrichtung eines öffentlichen Dienstes und einer Benutzerverwaltung ist daher nicht erforderlich.
 
-Anleitung, Voraussetzungen und Update-Verhalten stehen in [Lokale Releases](lokale-releases.md). Die bestehende Vorführung wurde nicht entfernt und ihre Firewallregel nicht verändert. Die normale EXE aktiviert diese Netzwerkfreigabe nicht.
+Anleitung, Voraussetzungen und Update-Verhalten stehen in [Lokale Releases](lokale-releases.md). Die bestehende Vorführung wurde nicht entfernt und ihre Firewallregel nicht verändert. Seit Alpha 12 kann die EXE die Netzwerkfreigabe ausdrücklich über die Einstellungsseite aktivieren; der erstmalige Standard bleibt lokal.
 
 ## Grundlagen
 
@@ -67,8 +100,8 @@ Anleitung, Voraussetzungen und Update-Verhalten stehen in [Lokale Releases](loka
 
 ## Anzeigeeinstellungen im gemeinsamen Profil
 
-Die eingeklappte Aufgabenliste wird ebenso wie Aufgabenmodi und die ausgeblendete Selbsttest-Hilfe im lokalen Profil gespeichert. Diese Einstellungen teilen derzeit alle Besucher der Heimnetzinstanz. Der Hinweis lässt sich ausschließlich unter Lernplan → Bedienhinweise wieder aktivieren. Die separate lokale EXE verwendet stattdessen das Profil des jeweiligen Windows-Benutzers.
+Die eingeklappte Aufgabenliste wird ebenso wie Aufgabenmodi und die ausgeblendete Selbsttest-Hilfe im lokalen Profil gespeichert. Diese Einstellungen teilen derzeit alle Besucher der Heimnetzinstanz. Der Hinweis lässt sich ausschließlich unter Lernplan → Bedienhinweise wieder aktivieren. Die EXE verwendet in beiden Betriebsarten das Profil des jeweiligen Windows-Benutzers des Gastgebers.
 
 ## Persönliche Einrichtung
 
-Die neue Seite Updates & SQL-Einrichtung zeigt die Buildversion und den Updatezustand. SQL-Verbindung und persönliche Updatewahl lassen sich während der gemeinsam genutzten Heimnetz-Vorführung nicht ändern; die Sperre wird auch im Service geprüft. Zum Einrichten die Vorführung beenden und Trainer-starten.cmd im lokalen Profil starten. Öffentliche Updatehinweise bleiben in der Vorführung sichtbar, ohne lokale Daten an GitHub zu senden.
+Die neue Seite Updates & SQL-Einrichtung zeigt die Buildversion und den Updatezustand. SQL-Verbindung und persönliche Updatewahl lassen sich während der gemeinsam genutzten Heimnetz-Vorführung nicht ändern; die Sperre wird auch im Service geprüft. Seit Alpha 12 zum Einrichten auf dem Gastgeber unter Heimnetz die Freigabe beenden; die SQL-Einrichtung bleibt während aktiver Freigabe auch lokal gesperrt. Öffentliche Updatehinweise bleiben in der Vorführung sichtbar, ohne lokale Daten an GitHub zu senden.

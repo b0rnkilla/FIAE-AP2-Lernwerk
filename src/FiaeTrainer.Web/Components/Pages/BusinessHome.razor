@@ -19,7 +19,6 @@
     }
     <section class="module-grid business-paths" aria-label="Lernweg wählen">
         <article class="module-card ready"><span class="eyebrow">KURZ &amp; GEMISCHT</span><h2>Zehn Fragen für heute.</h2><p>Verschiedene Themen, neue Fälle und gezielte Wiederholung. Nach jeder Antwort verstehst du den Lösungsweg.</p><button class="button primary" disabled="@(_busy || _error != null)" @onclick="() => StartAsync(BusinessRoundKind.Mixed)">Gemischt trainieren →</button></article>
-        <article class="module-card"><span class="eyebrow">MIT RUHE PRÜFUNGSNAH ÜBEN</span><h2>Deine Prüfungsrunde.</h2><p>30 Aufgaben · 60 Minuten · Auswertung nach der Abgabe. Alle acht Themen und unterschiedliche Antwortformate kommen vor.</p><button class="button secondary" disabled="@(_busy || _error != null)" @onclick="() => StartAsync(BusinessRoundKind.Exam)">Prüfung üben →</button></article>
         <article class="module-card"><span class="eyebrow">AUS FEHLERN LERNEN</span><h2>Noch einmal klarziehen.</h2><p>Bis zu 20 zuletzt falsch oder unsicher beantwortete Aufgaben. Jede Runde gibt dir erneut eine eigene Chance.</p><button class="button secondary" disabled="@(_busy || _error != null || !ReviewIds.Any())" @onclick="() => StartAsync(BusinessRoundKind.Review)">Fehler &amp; Unsicheres wiederholen →</button>@if (!ReviewIds.Any()) { <small>Aktuell wartet keine Antwort auf Wiederholung.</small> }</article>
     </section>
     <div class="section-heading"><div><div class="eyebrow">GEZIELT FESTIGEN</div><h2>Welches Thema ist heute dran?</h2></div><a href="/wiso/spickzettel">Zum WiSo-Spickzettel →</a></div>
@@ -55,7 +54,7 @@
         try { _progress = await Store.LoadAsync(); }
         catch (Exception exception) when (exception is IOException or System.Text.Json.JsonException or UnauthorizedAccessException) { _error = "Dein Lernstand konnte nicht gelesen werden. Er wird nicht überschrieben. Prüfe die Hinweise in der Anleitung."; }
     }
-    /// <summary> Die Prüfungsuhr beginnt erst nach einer eventuell erforderlichen Neustartbestätigung. </summary>
+    /// <summary> Neue Lernrunden ersetzen offene Antworten erst nach einer ausdrücklichen Neustartbestätigung. </summary>
     private async Task StartAsync(BusinessRoundKind kind, string topicId = "")
     {
         _pendingKind = kind;

@@ -3,6 +3,7 @@
 @inject WorkshopCatalog WorkshopCatalog
 @inject AlgorithmCatalog AlgorithmCatalog
 @inject BusinessCatalog BusinessCatalog
+@inject DesignCatalog DesignCatalog
 @inject ProgressStore Store
 @inject DatabaseState Database
 <PageTitle>Dein Lernraum · AP2 Lernwerk</PageTitle>
@@ -47,7 +48,7 @@
 
     <div class="section-heading" id="themen">
         <div><div class="eyebrow">DEIN THEMENKOMPASS</div><h2>Was möchtest du heute üben?</h2></div>
-        <span>3 Themenbereiche bereit · weitere im Aufbau</span>
+        <span>4 Themenbereiche bereit · weitere im Aufbau</span>
     </div>
 
     <section class="module-grid learning-modules" aria-label="Lernbereiche der FIAE-AP2">
@@ -57,9 +58,9 @@
             <p>Eine geführte Ermittlung und eine Werkstatt für eigene SQL-Skripte. Von SELECT bis zu Tabellenregeln und Transaktionen.</p>
             <div class="module-progress">@_sqlCompleted / @(Catalog.Lessons.Count + WorkshopCatalog.Lessons.Count) Übungen gelöst</div>
             <div class="module-actions">
-                <a class="button primary" href="@($"/sql/{_progress.LastLessonId}")">@(InvestigationStarted ? "Weiter ermitteln" : "Ermittlung starten") →</a>
+                <a class="button primary" href="@($"/sql/{_progress.LastLessonId}")">@(InvestigationStarted ? "Weiter lernen" : "Ermittlung starten") →</a>
                 <a class="button secondary" href="@($"/sql-werkstatt/{_progress.LastWorkshopLessonId}")">Daten ändern →</a>
-                <a class="button secondary" href="/sql/pruefung">Prüfung üben · 45 Minuten →</a>
+                <a class="button secondary module-exam-action" href="/sql/pruefung">Prüfung üben →</a>
             </div>
             <small>Fallakte Nachtzug · @Catalog.Lessons.Count Aufgaben · @WorkshopCatalog.Lessons.Count Werkstattaufgaben</small>
         </article>
@@ -67,21 +68,28 @@
             <span class="module-number">02</span><span class="badge">Bereit zum Lernen</span>
             <h3>Pseudocode &amp; Algorithmen</h3><p>Bring die Leitstelle wieder in den Plan. Von Bedingungen und Schleifen bis zu Listen, Suche, Sortierung und eigenen Funktionen.</p>
             <div class="module-progress">@_progress.AlgorithmLessons.Values.Count(x => x.Completed) / @AlgorithmCatalog.Lessons.Count Übungen gelöst</div>
-            <div class="module-actions"><a class="button primary" href="@($"/algorithmen/{_progress.LastAlgorithmLessonId}")">@(_progress.AlgorithmLessons.Values.Any(x => x.Completed || x.Attempts > 0 || !string.IsNullOrWhiteSpace(x.Draft)) ? "Weiter lernen" : "Leitstelle übernehmen") →</a><a class="button secondary" href="/algorithmen/pruefung">Prüfung üben · 45 Minuten →</a></div>
+            <div class="module-actions"><a class="button primary" href="@($"/algorithmen/{_progress.LastAlgorithmLessonId}")">@(_progress.AlgorithmLessons.Values.Any(x => x.Completed || x.Attempts > 0 || !string.IsNullOrWhiteSpace(x.Draft)) ? "Weiter lernen" : "Leitstelle übernehmen") →</a><a class="button secondary module-exam-action" href="/algorithmen/pruefung">Prüfung üben →</a></div>
             <small>Leitstelle im Ausnahmezustand · @AlgorithmCatalog.Lessons.Count Aufgaben</small>
         </article>
         @foreach (var module in _modules)
         {
+            @if (module.Number == "04")
+            {
+                <article class="module-card ready"><span class="module-number">04</span><span class="badge">Bereit zum Lernen</span><h3>Datenbankentwurf</h3><p>Baue aus Geschäftsregeln ein verständliches Datenmodell. Tabellen, Schlüssel, Beziehungen und Normalisierung Schritt für Schritt.</p><div class="module-progress">@_progress.DesignLessons.Values.Count(item => item.Completed) / @DesignCatalog.Lessons.Count Übungen gelöst</div><div class="module-actions"><a class="button primary" href="@($"/datenbankentwurf/{_progress.LastDesignLessonId}")">Weiter lernen →</a><a class="button secondary module-exam-action" href="/datenbankentwurf/pruefung">Prüfung üben →</a></div><small>Eventagentur Lichtblick · 30 Aufgaben · Modellbaukasten</small></article>
+            }
+            else
+            {
             <article class="module-card">
                 <span class="module-number">@module.Number</span><span class="badge muted">In Vorbereitung</span>
                 <h3>@module.Title</h3><p>@module.Description</p>
             </article>
+            }
         }
         <article class="module-card ready">
             <span class="module-number">08</span><span class="badge">Bereit zum Lernen</span>
             <h3>Wirtschafts- &amp; Sozialkunde</h3><p>Berufliche Situationen einordnen, Zusammenhänge verstehen und sicher rechnen. Mit Themenrunden, Fehlerwiederholung und Prüfungsübung.</p>
             <div class="module-progress">@_progress.BusinessQuestions.Values.Count(x => x.Completed) / @BusinessCatalog.Questions.Count Aufgaben richtig gelöst</div>
-            <div class="module-actions"><a class="button primary" href="/wiso">@(_progress.BusinessQuestions.Count > 0 || _progress.BusinessRound != null ? "Weiter lernen" : "WiSo entdecken") →</a></div>
+            <div class="module-actions"><a class="button primary" href="/wiso">@(_progress.BusinessQuestions.Count > 0 || _progress.BusinessRound != null ? "Weiter lernen" : "WiSo entdecken") →</a><a class="button secondary module-exam-action" href="/wiso/pruefung">Prüfung üben →</a></div>
             <small>@BusinessCatalog.Topics.Count Themen · @BusinessCatalog.Questions.Count eigene Aufgaben</small>
         </article>
     </section>
@@ -120,7 +128,7 @@
         ("07", "Projekte & Wirtschaftlichkeit", "Vorgehen planen, Alternativen vergleichen und Kosten berechnen.")];
 
     /// <summary> Anzahl der tatsächlich implementierten Übungen. </summary>
-    private int TotalExercises => Catalog.Lessons.Count + WorkshopCatalog.Lessons.Count + AlgorithmCatalog.Lessons.Count + BusinessCatalog.Questions.Count;
+    private int TotalExercises => Catalog.Lessons.Count + WorkshopCatalog.Lessons.Count + AlgorithmCatalog.Lessons.Count + BusinessCatalog.Questions.Count + DesignCatalog.Lessons.Count;
 
     protected override async Task OnInitializedAsync()
     {
@@ -129,7 +137,9 @@
             _progress = await Store.LoadAsync();
             _sqlCompleted = _progress.Lessons.Values.Count(x => x.Completed) + _progress.WorkshopLessons.Values.Count(x => x.Completed);
             _completed = _sqlCompleted + _progress.AlgorithmLessons.Values.Count(x => x.Completed) + _progress.BusinessQuestions.Values.Count(x => x.Completed);
+            _completed += _progress.DesignLessons.Values.Count(item => item.Completed);
             _independent = _progress.Lessons.Values.Count(x => x.Independent) + _progress.WorkshopLessons.Values.Count(x => x.Independent) + _progress.AlgorithmLessons.Values.Count(x => x.Independent) + _progress.BusinessQuestions.Values.Count(x => x.Independent);
+            _independent += _progress.DesignLessons.Values.Count(item => item.Independent);
         }
         catch (Exception exception) when (exception is IOException or System.Text.Json.JsonException or UnauthorizedAccessException)
         {

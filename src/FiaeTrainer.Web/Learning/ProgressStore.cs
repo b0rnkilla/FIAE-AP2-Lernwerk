@@ -121,6 +121,7 @@ public sealed partial class ProgressStore(IWebHostEnvironment environment, IConf
                 throw new InvalidDataException("Ein Algorithmus-Eintrag ist beschädigt und wird nicht überschrieben.");
         ValidateBusinessProgress(progress);
         ValidateExamProgress(progress);
+        ValidateDesignProgress(progress);
         return progress;
     }
 

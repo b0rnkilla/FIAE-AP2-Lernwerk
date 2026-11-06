@@ -1,0 +1,33 @@
+<section class="exam-introduction">
+    <h2>@(Module == LearningModule.BusinessStudies ? "Berufliche Situationen. Deine Entscheidungen." : "Ein unbekannter Fall. Deine eigene Lösung.")</h2>
+    <p>
+        @if (Module == LearningModule.Sql)
+        {
+            <text>Eine zusammenhängende Ausgangssituation mit Tabellen, Beziehungen und Beispieldaten.</text><br />
+            <text>Jede Aufgabe verwendet eine frische Arbeitskopie; Lösungen bauen nicht auf vorherigen Änderungen auf.</text>
+        }
+        else if (Module == LearningModule.Algorithms)
+        {
+            <text>Zwei Programmier- oder Korrekturaufgaben und eine Analyseaufgabe.</text><br />
+            <text>Der eigene Prüfungspool bleibt vom geführten Lernweg getrennt.</text>
+        }
+        else
+        {
+            <text>30 Aufgaben aus allen acht WiSo-Themenbereichen mit unterschiedlichen Antwortformaten.</text><br />
+            <text>Wähle Antworten, ordne Begriffe zu und trage berechnete Ergebnisse ein.</text>
+        }
+    </p>
+    <ul>
+        <li>Du kannst zwischen Aufgaben wechseln und sie zur Kontrolle markieren.</li>
+        <li>@(Module == LearningModule.BusinessStudies ? "Lösungen und Erklärungen erscheinen erst nach der Abgabe." : "Vor der Abgabe gibt es keine Hinweise, Musterlösungen oder Probeausführung.")</li>
+        <li>Pause blendet die Aufgaben aus. Browser schließen oder App neu starten hält die Uhr nicht an.</li>
+        <li>Nachschlagen im Spickzettel pausiert die Prüfung und kennzeichnet das Ergebnis dauerhaft als „mit Nachschlagen“.</li>
+        <li>Die eigene Punktevergabe ist keine amtliche IHK-Note.</li>
+    </ul>
+    <p>Die Zeit beginnt erst mit „Prüfung starten“.</p>
+</section>
+
+@code {
+    /// <summary> Fachlicher Kontext für die einheitlichen Prüfungsinformationen. </summary>
+    [Parameter] public LearningModule Module { get; set; }
+}

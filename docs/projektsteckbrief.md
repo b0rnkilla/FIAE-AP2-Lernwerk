@@ -4,17 +4,17 @@
 | --- | --- |
 | Anwendung | AP2 Lernwerk |
 | Projektmappe | FIAE_AP2_Trainer.sln |
-| Entwicklungsfassung | 0.1.1-alpha.9 · 05.11.2026 |
-| Zuletzt gebautes Windows-Paket | 0.1.1-alpha.8, aus dem ZIP geprüft am 05.11.2026 |
+| Entwicklungsfassung | 0.1.1-alpha.12 · 06.11.2026 |
+| Zuletzt gebautes Windows-Paket | 0.1.1-alpha.9, Anwendungscode aus a6c929f, aus dem ZIP geprüft am 05.11.2026; noch nicht veröffentlicht |
 | Plattform | Windows, lokale Browseroberfläche |
 | Technik | C#, .NET 10, ASP.NET Core, Blazor, Microsoft SQL Server |
-| Verfügbar im Quellstand | 30 SQL-Ermittlungsaufgaben, zehn SQL-Werkstattaufgaben, 30 Algorithmus-Aufgaben und 150 WiSo-Aufgaben; 220 Lernübungen plus zehn Pseudocode- und 15 SQL-Prüfungsaufgaben |
-| Inhalt Windows-Paket Alpha 8 | 40 SQL-, 30 Algorithmus- und 150 WiSo-Aufgaben, insgesamt 220 Übungen; Projektbereich |
+| Verfügbar im Quellstand | 40 SQL-, 30 Algorithmus-, 30 Datenbankentwurfs- und 150 WiSo-Lernaufgaben: 250 Lernübungen; zusätzlich 15 SQL-, zehn Pseudocode-Prüfungsaufgaben und drei Entwurfsprüfungen mit neun Teilaufgaben |
+| Inhalt Windows-Paket Alpha 9 | 220 Lernübungen plus 25 getrennte SQL-/Pseudocode-Prüfungsaufgaben; WiSo-Feinschliff und Projektlogo |
 | Nutzungsmodell | Private, nichtkommerzielle lokale Nutzung gemäß LICENSE |
 
 ## Ziel
 
-Die App unterstützt die Vorbereitung auf die FIAE-Abschlussprüfung Teil 2 durch eigene Lösungen, nachvollziehbare Rückmeldungen und freiwillige Hilfen. SQL, Algorithmen und Wirtschafts- und Sozialkunde sind die drei verfügbaren Module. Der Code soll verständlich bleiben und vom Projektinhaber weiterentwickelt werden können.
+Die App unterstützt die Vorbereitung auf die FIAE-Abschlussprüfung Teil 2 durch eigene Lösungen, nachvollziehbare Rückmeldungen und freiwillige Hilfen. SQL, Algorithmen, Datenbankentwurf und Wirtschafts- und Sozialkunde sind die vier verfügbaren Module. Der Code soll verständlich bleiben und vom Projektinhaber weiterentwickelt werden können.
 
 Die Aufgaben, Geschichte und Daten sind eigens für die App erstellt. SQL Murder Mystery dient als konzeptionelle Inspiration; dessen Inhalte wurden nicht übernommen. Das Lernwerk ist kein offizielles IHK-Angebot, keine vollständige Abdeckung des Prüfungskatalogs und keine Zusage eines Prüfungserfolgs.
 
@@ -55,11 +55,11 @@ Für die neue Fassung gelten eigene Bedingungen zur privaten Nutzung. Kommerziel
 
 ## Weitere Lernmodule
 
-Der Pseudocode-Basisumfang ist mit 30 Aufgaben abgeschlossen. Die sechs Ergänzungen zur ursprünglichen 24er-Planung trainieren Prüfziffern, Aufwand, Grenztests, Rekursion und paarweise Vergleiche. Weitere Aufgaben sind aus dieser Planung nicht offen; der Lernweg behauptet keine vollständige Abdeckung aller Algorithmusthemen. WiSo ist im Quellstand mit 150 Aufgaben umgesetzt. Für UML sind zunächst Diagrammverständnis und begrenzte Modellierungsaufgaben vorgesehen. Datenbankentwurf, Softwareplanung/OOP, Tests, Sicherheit und Projektmanagement sind weitere mögliche Module. Sie sind noch nicht als eigene Lernbereiche implementiert. Details: [Pseudocode](pseudocode.md), [WiSo](wiso.md).
+Der Pseudocode-Basisumfang ist mit 30 Aufgaben abgeschlossen. Die sechs Ergänzungen zur ursprünglichen 24er-Planung trainieren Prüfziffern, Aufwand, Grenztests, Rekursion und paarweise Vergleiche. Weitere Aufgaben sind aus dieser Planung nicht offen; der Lernweg behauptet keine vollständige Abdeckung aller Algorithmusthemen. WiSo ist im Quellstand mit 150 Aufgaben umgesetzt. Für UML sind zunächst Diagrammverständnis und begrenzte Modellierungsaufgaben vorgesehen. Datenbankentwurf ist seit Alpha 11 mit 30 Aufgaben und eigenen Prüfungsfällen umgesetzt. Softwareplanung/OOP, Tests, Sicherheit und Projektmanagement sind weitere mögliche Module und noch nicht als eigene Lernbereiche implementiert. Details: [Pseudocode](pseudocode.md), [WiSo](wiso.md).
 
 ## Abgrenzung
 
-Onlinekonten, Registrierung und öffentlicher Serverbetrieb sind nicht geplant. Eine bestehende private Heimnetz-Vorführung ist optional und teilt einen Lernstand. Es gibt keine KI-Anbindung. Eine ausführbare Fremdschlüsselübung und weitere SQL-Themen fehlen noch.
+Onlinekonten, Registrierung und öffentlicher Serverbetrieb sind nicht geplant. Seit Alpha 12 lässt sich die optionale Heimnetz-Freigabe in derselben EXE unter **Heimnetz** einschalten und beenden. Windows-Diagnose, bei Bedarf erhöhte Einrichtung der appbezogenen Firewall-Regel, Kopieradresse und lokal erzeugter QR-Code ersetzen für Anwender die Quellprojektstarter. Alle verbundenen Geräte teilen einen Lernstand. Es gibt keine KI-Anbindung. Eine ausführbare Fremdschlüsselübung und weitere SQL-Themen fehlen noch.
 
 Der Heimnetzzugriff wurde vom Nutzer auch mit einem Samsung-Handy bestätigt. Chrome benötigte dafür seine Android-Berechtigung für lokale Netzwerkzugriffe unter „Geräte in der Nähe“. Die einmalige Windows-Subnetzfreigabe blieb unverändert; Einzelheiten stehen in der [Heimnetz-Anleitung](heimnetz-und-serverbetrieb.md).
 
@@ -75,10 +75,32 @@ Eine vollständige Zuordnung des aktuellen Prüfungskatalogs zu allen geplanten 
 
 ## Oberflächenpflege in Alpha 9
 
-WiSo gewichtet den Sachverhalt stärker als den Arbeitsauftrag. Der Falltext besitzt eine größere Schrift und eine eigene Abschnittsüberschrift; Aufgabentitel und Arbeitsauftrag sind kompakter. Eingabeeinheiten brechen bei Platzmangel um. Das nachgereichte b0rnkilla-Gaming-Logo ist auf der Projektseite eingebunden. Keine neue Aufgabenbewertung oder Lernstandmigration. Die Siegelabbildung Blauer Engel wurde auf Nutzerwunsch gestrichen. Das veröffentlichte Alpha-8-Paket bleibt unverändert; Alpha 9 ist nur die neue Entwicklungsfassung.
+WiSo gewichtet den Sachverhalt stärker als den Arbeitsauftrag. Der Falltext besitzt eine größere Schrift und eine eigene Abschnittsüberschrift; Aufgabentitel und Arbeitsauftrag sind kompakter. Eingabeeinheiten brechen bei Platzmangel um. Das nachgereichte b0rnkilla-Gaming-Logo ist auf der Projektseite eingebunden. Keine neue Aufgabenbewertung oder Lernstandmigration. Die Siegelabbildung Blauer Engel wurde auf Nutzerwunsch gestrichen. Das veröffentlichte Alpha-8-Paket bleibt unverändert; Alpha 9 wurde inzwischen auf Auftrag aus dem ZIP geprüft.
 
 Mehrfachauswahl in WiSo zeigt die erforderliche Anzahl nun ausgeschrieben und fett hervorgehoben auf einer dezenten Akzentfläche. Bewertung und Profilformat bleiben unverändert.
 
 ## Prüfungsrunden in Alpha 9
 
 SQL und Pseudocode bieten zusätzlich eigene 45-Minuten-Prüfungen mit 50 Trainingspunkten, gespeicherten Entwürfen, Pause, Kontrollmarkierung, Nachschlagen und Auswertung nach Abgabe. Pseudocode wählt drei Aufgaben aus einem neuen Zehnerpool, SQL fünf Aufgaben aus einem von drei neuen Fällen. Historie und Prüfungsstände bleiben von den Lernaufgaben getrennt. Die Ausgabe ist keine amtliche IHK-Note; bei technischen SQL-Störungen bleibt die Abgabe unbenotet gespeichert. Der Aufgabenwechsel über die linke Liste erhält nun auch die Gesamtseitenposition. Einzelheiten und Grenzen: [Prüfungsmodus](pruefungsmodus.md).
+
+## Einheitlicher Prüfungseinstieg in Alpha 10
+
+Alle drei aktiven Themenkarten führen über einen eigenen Button ohne Zeitangabe zu Prüfungsinfos. Bei SQL heißt der Fortsetzungsbutton Weiter lernen; Pseudocode und WiSo ordnen Prüfung üben unter dem Lernbutton an. WiSo verwendet /wiso/pruefung als eigenen Einstieg mit 30 Aufgaben und 60 Minuten; erst Prüfung starten legt eine Runde samt laufender Uhr an. Offene Lern- und Prüfungsrunden bleiben bis zur bestätigten Ersetzung erhalten. Der zusätzliche Prüfungskasten auf der WiSo-Lernseite entfällt; in der Kopfnavigation steht Prüfung üben. SQL/Pseudocode-Infos sind gekürzt, mit ausdrücklichem Spickzettelhinweis und den gewünschten Zeilenumbrüchen. Kein Inhalts-/Profilwechsel und kein neues ZIP; Alpha-9-Paket bleibt unverändert.
+
+## Weiterer Feinschliff in Alpha 10
+
+Verbindungshinweise trennen Meldung und nächste Handlung durch ausdrückliche Zeilenumbrüche, auch bei fehlgeschlagenem Fortsetzen und im statischen Ausgangstext. WiSo-Lernwegkarten lassen 24 Pixel Abstand zwischen Beschreibung und Button. Wiederverbindungsfunktionen, Bewertung und Lernstände unverändert; sieben bestehende Wiederverbindungstests, Quellbuild und isolierter Browserbetrieb erfolgreich. Kein neues Windows-Paket.
+
+## Datenbankentwurf seit Alpha 11
+
+Abschnitt 04 bietet 30 Aufgaben in sechs Kapiteln: Daten verstehen, Schlüssel, Beziehungen, Normalisierung, Fehlersuche und vollständige Modelle. Der Baukasten erfasst frei benannte Tabellen und Attribute mit festen Fachkennungen, PK/FK, gemeinsame UQ-Gruppen und Kardinalitäten. Das SVG-Modell entsteht automatisch und lässt sich vergrößern; eine ausgeschriebene Beziehungsliste unterstützt die Lesbarkeit. Kein SQL Server erforderlich.
+
+Drei eigene Prüfungsfälle mit jeweils zwei Modellaufträgen und einer Verständnisaufgabe, 45 Minuten und 50 Trainingspunkten. Lokale Bewertung ausdrücklich definierter Modellvarianten, getrennte Entwürfe/Modi und Historie, Pause und Spickzettel-Rückweg. Vorhandene Modulstände bleiben erhalten. Modellprüfung und Zeitansätze haben dokumentierte Grenzen. Quellstand geprüft, kein neues Windows-Paket. [Fachvertrag](datenbankentwurf.md).
+
+### Entwicklung ohne neues Release testen
+
+Trainer-starten.cmd beziehungsweise Visual Studio mit Profil FiaeTrainer startet die neueste Quellfassung und übernimmt die gespeicherte Heimnetzwahl. Der separate LAN-Starter ist optional und erzwingt den Netzwerkmodus. Eine vorhandene Build-EXE unter bin/Release ist kein portables Release-Paket.
+
+### Nächster Paketstand
+
+Windows-ZIP 0.1.1-alpha.12 samt Release-Informationen ausdrücklich beauftragt, Bau erst nach Nutzer-Commit/Push. Versionshinweise vorbereitet; derzeit noch kein Alpha-12-Paket. Heimnetz vom Nutzer bestätigt, eigene Nutzerprüfung des Datenbankentwurfs noch offen.

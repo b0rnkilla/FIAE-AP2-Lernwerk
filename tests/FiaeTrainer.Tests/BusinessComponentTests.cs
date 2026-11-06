@@ -23,6 +23,49 @@ public sealed class BusinessComponentTests : IDisposable
     private readonly BusinessCatalog _catalog = new();
     private readonly string _directory = Path.Combine(Path.GetTempPath(), "FiaeTrainer-Wiso-Components", Guid.NewGuid().ToString("N"));
 
+    [Fact]
+    public async Task ExamIntroductionDoesNotCreateRoundOrStartClockOnVisit()
+    {
+        using ServiceProvider services = Services();
+        string html = await RenderAsync<BusinessExamHome>([], services);
+        Assert.Contains("60 Minuten · 30 Aufgaben", html);
+        Assert.Contains("Prüfung starten →", html);
+        Assert.Null((await Store().LoadAsync()).BusinessRound);
+        Assert.False(File.Exists(Path.Combine(_directory, "progress.json")));
+    }
+
+    [Fact]
+    public async Task ExamIntroductionLeavesRunningExamAndAnswersUntouched()
+    {
+        BusinessRound round = new() { Kind = BusinessRoundKind.Exam, QuestionIds = [2], RunningSinceUtc = DateTimeOffset.UtcNow.AddMinutes(-4) };
+        round.Answers[2] = new() { SelectedIds = ["a"] };
+        await Store().StartBusinessRoundAsync(round);
+        string before = await File.ReadAllTextAsync(Path.Combine(_directory, "progress.json"));
+        using ServiceProvider services = Services();
+        string html = await RenderAsync<BusinessExamHome>([], services);
+        Assert.Contains("Prüfung fortsetzen →", html);
+        Assert.Contains("href=\"/wiso/runde\"", html);
+        Assert.Equal(before, await File.ReadAllTextAsync(Path.Combine(_directory, "progress.json")));
+        Assert.Equal(round.RunningSinceUtc, (await Store().LoadAsync()).BusinessRound!.RunningSinceUtc);
+    }
+
+    [Fact]
+    public async Task ExamIntroductionPreservesOpenLearningRoundInsteadOfReplacingIt()
+    {
+        BusinessRound round = new() { Kind = BusinessRoundKind.Mixed, QuestionIds = [2] };
+        round.Answers[2] = new() { SelectedIds = ["b"] };
+        await Store().StartBusinessRoundAsync(round);
+        using ServiceProvider services = Services();
+        string html = await RenderAsync<BusinessExamHome>([], services);
+        Assert.Contains("Lernrunde fortsetzen →", html);
+        Assert.Contains("bestätige ausdrücklich den Wechsel", html);
+        BusinessRound saved = (await Store().LoadAsync()).BusinessRound!;
+        Assert.Equal(round.Id, saved.Id);
+        Assert.Equal(BusinessRoundKind.Mixed, saved.Kind);
+        Assert.Equal(["b"], saved.Answers[2].SelectedIds);
+        Assert.Null(saved.RunningSinceUtc);
+    }
+
     [Theory]
     [InlineData(2, "radio")]
     [InlineData(3, "checkbox")]
@@ -130,7 +173,7 @@ public sealed class BusinessComponentTests : IDisposable
     }
 
     private ProgressStore Store() => new(new TestEnvironment(), new ConfigurationBuilder().AddInMemoryCollection(new Dictionary<string, string?> { ["Training:ProgressDirectory"] = _directory }).Build());
-    private ServiceProvider Services() => new ServiceCollection().AddLogging().AddSingleton(Store()).AddSingleton(_catalog).BuildServiceProvider();
+    private ServiceProvider Services() => new ServiceCollection().AddLogging().AddSingleton(Store()).AddSingleton(_catalog).AddSingleton<NavigationManager>(new TestNavigation()).BuildServiceProvider();
     private static async Task<string> RenderAsync<T>(Dictionary<string, object?> parameters, IServiceProvider? services = null) where T : IComponent
     {
         using ServiceProvider defaults = new ServiceCollection().AddLogging().BuildServiceProvider();
@@ -139,6 +182,11 @@ public sealed class BusinessComponentTests : IDisposable
         return await renderer.Dispatcher.InvokeAsync(async () => WebUtility.HtmlDecode((await renderer.RenderComponentAsync<T>(ParameterView.FromDictionary(parameters))).ToHtmlString()));
     }
     public void Dispose() { if (Directory.Exists(_directory)) Directory.Delete(_directory, true); }
+    private sealed class TestNavigation : NavigationManager
+    {
+        public TestNavigation() => Initialize("http://localhost/", "http://localhost/wiso/pruefung");
+        protected override void NavigateToCore(string uri, bool forceLoad) => throw new NotSupportedException();
+    }
     private sealed class TestEnvironment : IWebHostEnvironment
     {
         public string ApplicationName { get; set; } = "Tests";

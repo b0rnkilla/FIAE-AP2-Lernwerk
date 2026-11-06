@@ -16,10 +16,16 @@
             <NavLink href="algorithmen/pruefung">Prüfung üben</NavLink>
             <NavLink href="@(InExam ? "/algorithmen/spickzettel?pruefung=true" : "/algorithmen/spickzettel")">Pseudocode-Spickzettel</NavLink>
         }
+        else if (LearningNavigation.Module == LearningModule.DatabaseDesign)
+        {
+            <NavLink href="datenbankentwurf" Match="NavLinkMatch.All">Entwurf lernen</NavLink>
+            <NavLink href="datenbankentwurf/pruefung">Prüfung üben</NavLink>
+            <NavLink href="@(InExam ? "/datenbankentwurf/spickzettel?pruefung=true" : "/datenbankentwurf/spickzettel")">Entwurf-Spickzettel</NavLink>
+        }
         else if (LearningNavigation.Module == LearningModule.BusinessStudies)
         {
             <NavLink href="wiso" Match="NavLinkMatch.All">WiSo-Training</NavLink>
-            <NavLink href="wiso/runde">Deine Runde</NavLink>
+            <NavLink href="wiso/pruefung">Prüfung üben</NavLink>
             <NavLink href="wiso/spickzettel">WiSo-Spickzettel</NavLink>
         }
         else
@@ -34,7 +40,7 @@
 </header>
 @if (NetworkAccess.AllowLan)
 {
-    <aside class="network-notice" aria-label="Heimnetz-Modus"><strong>Heimnetz-Vorführung</strong> Alle Besucher teilen sich den Lernstand dieser Vorführung.</aside>
+    <aside class="network-notice" aria-label="Heimnetz-Modus"><strong>Heimnetz aktiv</strong> Alle verbundenen Geräte teilen sich diesen Lernstand. <a href="/heimnetz" data-enhance-nav="false">Heimnetz-Einstellung</a></aside>
 }
 <UpdateNotice />
 <div id="inhalt">@Body</div>
@@ -48,6 +54,7 @@
             <a href="@ProjectInformation.PAYPAL_URL" target="_blank" rel="noopener noreferrer" title="Freiwillige Unterstützung über PayPal"><span aria-hidden="true">☕</span> Unterstützen <span aria-hidden="true">↗</span></a>
         }
         <a href="/einrichtung">Updates &amp; SQL-Einrichtung</a>
+        <a href="/heimnetz" data-enhance-nav="false">Heimnetz</a>
     </nav>
 </footer>
 

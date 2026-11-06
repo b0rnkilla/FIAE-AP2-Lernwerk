@@ -78,6 +78,28 @@ public sealed class LocalReleaseConfigurationTests : IDisposable
     public void BrowserUsesTheActualPortAndAUsableHost(string binding, string expected)
         => Assert.Equal(expected, LocalReleaseConfiguration.BrowserAddress([binding]));
 
+    [Theory]
+    [InlineData(false, "http://localhost:5080")]
+    [InlineData(true, "http://0.0.0.0:5080")]
+    public void DeveloperStartUsesSavedModeInsteadOfForcingTheLocalBinding(bool lan, string expected)
+    {
+        string root = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../"));
+        string web = Path.Combine(root, "src", "FiaeTrainer.Web");
+        using var profiles = System.Text.Json.JsonDocument.Parse(File.ReadAllText(Path.Combine(web, "Properties", "launchSettings.json")));
+        var profile = profiles.RootElement.GetProperty("profiles").GetProperty("FiaeTrainer");
+        Assert.False(profile.TryGetProperty("applicationUrl", out _));
+        Assert.False(profile.GetProperty("environmentVariables").TryGetProperty("Network__AllowLan", out _));
+        Assert.Equal("1", profile.GetProperty("environmentVariables").GetProperty("FIAE_OPEN_BROWSER").GetString());
+        Directory.CreateDirectory(_directory);
+        File.WriteAllText(Path.Combine(_directory, "appsettings.Local.json"), System.Text.Json.JsonSerializer.Serialize(new { Urls = expected, Network = new { AllowLan = lan } }));
+        using ConfigurationManager config = new();
+        config.AddJsonFile(Path.Combine(web, "appsettings.json"));
+        Assert.Equal("http://localhost:5080", config["Urls"]);
+        LocalReleaseConfiguration.Apply(config, _directory, []);
+        Assert.Equal(expected, config["Urls"]);
+        Assert.Equal(lan, config.GetValue<bool>("Network:AllowLan"));
+    }
+
     /// <summary> Entfernt nur das vom jeweiligen Test erzeugte Verzeichnis. </summary>
     public void Dispose()
     {

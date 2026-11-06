@@ -1,0 +1,76 @@
+@if (Task.Kind != "Model")
+{
+    @if (Task.Starter.Tables.Count > 0) { <DesignDiagram Model="Task.Starter" /> }
+    <fieldset class="design-options" disabled="@ReadOnly"><legend>@if (Task.Kind == "Multiple") { <text>Es sind <strong>@(Task.CorrectIds.Count == 2 ? "zwei" : Task.CorrectIds.Count.ToString())</strong> Antworten erforderlich.</text> } else { <text>Wähle eine Aussage.</text> }</legend>
+        @foreach (var option in Task.Options)
+        {
+            <label><input type="@(Task.Kind == "Multiple" ? "checkbox" : "radio")" name="@_group" checked="@Answer.SelectedIds.Contains(option.Key)" @onchange="() => SelectAsync(option.Key)" /> @option.Value</label>
+        }
+    </fieldset>
+}
+else
+{
+    <div class="design-builder">
+        <div class="design-builder-toolbar"><h2>Dein Datenmodell</h2><button class="button secondary" disabled="@(ReadOnly || Answer.Model.Tables.Count >= 8)" @onclick="AddTableAsync">+ Tabelle hinzufügen</button></div>
+        <p class="design-caption">Wähle die Fachattribute aus dem Auftrag. Tabellen- und Anzeigenamen sind frei. Alle PK-Häkchen einer Tabelle bilden gemeinsam ihren Primärschlüssel. Gleiche UQ-Gruppen bilden gemeinsam einen zusätzlichen eindeutigen Schlüssel.</p>
+        @foreach (var table in Answer.Model.Tables)
+        {
+            <fieldset class="design-table-editor" disabled="@ReadOnly" @key="table.Id">
+                <legend>Tabelle @(Answer.Model.Tables.IndexOf(table) + 1)</legend>
+                <div class="design-table-heading"><label>Tabellenname<input maxlength="80" @bind="table.Name" @bind:event="oninput" @bind:after="ChangedAsync" /></label><button class="design-remove" @onclick="() => RemoveTableAsync(table)">Tabelle entfernen</button></div>
+                @foreach (var column in table.Columns)
+                {
+                    <div class="design-column-editor" @key="column.Id">
+                        <label>Fachattribut<select value="@column.Attribute" @onchange="args => AttributeAsync(column, args.Value?.ToString() ?? string.Empty)"><option value="">Bitte wählen</option>@foreach (var field in Task.Attributes) { <option value="@field.Key">@field.Value</option> }</select></label>
+                        <label>Anzeigename<input maxlength="80" @bind="column.Name" @bind:event="oninput" @bind:after="ChangedAsync" /></label>
+                        <label class="design-checkbox"><input type="checkbox" @bind="column.PrimaryKey" @bind:after="ChangedAsync" /> PK</label>
+                        <label class="design-checkbox"><input type="checkbox" @bind="column.Nullable" @bind:after="ChangedAsync" /> NULL erlaubt</label>
+                        <label>Eindeutige Gruppe<select @bind="column.UniqueGroup" @bind:after="ChangedAsync"><option value="">Keine</option><option value="A">UQ A</option><option value="B">UQ B</option><option value="C">UQ C</option></select></label>
+                        <button class="design-remove" aria-label="@($"Attribut {column.Name} aus {table.Name} entfernen")" @onclick="() => RemoveColumnAsync(table, column)">Entfernen</button>
+                    </div>
+                }
+                <button class="button secondary" disabled="@(table.Columns.Count >= 20)" @onclick="() => AddColumnAsync(table)">+ Attribut</button>
+            </fieldset>
+        }
+        <div class="design-builder-toolbar"><h3>Beziehungen</h3><button class="button secondary" disabled="@(ReadOnly || Answer.Model.Tables.Count == 0 || Answer.Model.Relations.Count >= 16)" @onclick="AddRelationAsync">+ Beziehung hinzufügen</button></div>
+        @foreach (var relation in Answer.Model.Relations)
+        {
+            <fieldset class="design-relation-editor" disabled="@ReadOnly" @key="relation.Id"><legend>Beziehung @(Answer.Model.Relations.IndexOf(relation) + 1)</legend>
+                <div class="design-pair"><label>Abhängige Tabelle (FK)<select value="@relation.SourceTable" @onchange="args => TableAsync(relation, true, args.Value?.ToString() ?? string.Empty)"><option value="">Bitte wählen</option>@foreach (var table in Answer.Model.Tables) { <option value="@table.Id">@table.Name</option> }</select></label><label>Referenzierte Tabelle (Schlüssel)<select value="@relation.TargetTable" @onchange="args => TableAsync(relation, false, args.Value?.ToString() ?? string.Empty)"><option value="">Bitte wählen</option>@foreach (var table in Answer.Model.Tables) { <option value="@table.Id">@table.Name</option> }</select></label></div>
+                @foreach (var pair in relation.Pairs)
+                {
+                    <div class="design-pair" @key="pair"><label>FK-Attribut<select @bind="pair.Source" @bind:after="ChangedAsync"><option value="">Bitte wählen</option>@foreach (var column in Columns(relation.SourceTable)) { <option value="@column.Id">@column.Name</option> }</select></label><label>Referenziertes Attribut<select @bind="pair.Target" @bind:after="ChangedAsync"><option value="">Bitte wählen</option>@foreach (var column in Columns(relation.TargetTable)) { <option value="@column.Id">@column.Name</option> }</select></label><button class="design-remove" disabled="@(relation.Pairs.Count == 1)" @onclick="() => RemovePairAsync(relation, pair)">Paar entfernen</button></div>
+                }
+                <button class="button secondary" disabled="@(relation.Pairs.Count >= 8)" @onclick="() => AddPairAsync(relation)">+ Weiteres FK-Attributpaar</button>
+                <div class="design-cardinalities"><label>Elternsatz je abhängigem Satz<select @bind="relation.ParentMinimum" @bind:after="ChangedAsync"><option value="1">Genau einer (1..1)</option><option value="0">Optional (0..1)</option></select></label><label>Abhängige Sätze je Elternsatz: mindestens<select @bind="relation.ChildMinimum" @bind:after="ChangedAsync"><option value="0">0</option><option value="1">1</option><option value="2">2</option></select></label><label>Höchstens<select @bind="relation.ChildMaximum" @bind:after="ChangedAsync"><option value="n">Viele (n)</option><option value="1">Einer (1)</option></select></label></div>
+                <button class="design-remove" @onclick="() => RemoveRelationAsync(relation)">Beziehung entfernen</button>
+            </fieldset>
+        }
+        <details class="design-preview" open><summary>Diagrammansicht · PK = Primärschlüssel, FK = Fremdschlüssel, UQ = eindeutig</summary><DesignDiagram Model="Answer.Model" /></details>
+    </div>
+}
+
+@code {
+    /// <summary> Fachliches Vokabular und Aufgabenart. </summary>
+    [Parameter, EditorRequired] public DesignAssignment Task { get; set; } = new();
+    /// <summary> Bearbeitbare eigene Antwort; Änderungen werden an die Seite zurückgemeldet. </summary>
+    [Parameter, EditorRequired] public DesignAnswer Answer { get; set; } = new();
+    /// <summary> Speichert Änderungen ohne automatische Lösungsprüfung. </summary>
+    [Parameter] public EventCallback Changed { get; set; }
+    /// <summary> Gesperrte Abgaben und Musterlösungen sind nicht bearbeitbar. </summary>
+    [Parameter] public bool ReadOnly { get; set; }
+    private readonly string _group = "design-choice-" + Guid.NewGuid().ToString("N");
+    private System.Threading.Tasks.Task ChangedAsync() => ReadOnly ? System.Threading.Tasks.Task.CompletedTask : Changed.InvokeAsync();
+    private IEnumerable<DesignColumn> Columns(string id) => Answer.Model.Tables.FirstOrDefault(table => table.Id == id)?.Columns ?? [];
+    private async System.Threading.Tasks.Task SelectAsync(string id) { if (ReadOnly) return; if (Task.Kind == "Choice") Answer.SelectedIds = [id]; else if (!Answer.SelectedIds.Remove(id)) Answer.SelectedIds.Add(id); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task AddTableAsync() { if (ReadOnly) return; Answer.Model.Tables.Add(new() { Name = "Tabelle" + (Answer.Model.Tables.Count + 1) }); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task RemoveTableAsync(DesignTable table) { Answer.Model.Tables.Remove(table); Answer.Model.Relations.RemoveAll(relation => relation.SourceTable == table.Id || relation.TargetTable == table.Id); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task AddColumnAsync(DesignTable table) { table.Columns.Add(new()); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task RemoveColumnAsync(DesignTable table, DesignColumn column) { table.Columns.Remove(column); Answer.Model.Relations.RemoveAll(relation => relation.Pairs.Any(pair => pair.Source == column.Id || pair.Target == column.Id)); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task AttributeAsync(DesignColumn column, string value) { column.Attribute = value; column.Name = Task.Attributes.GetValueOrDefault(value) ?? ""; await ChangedAsync(); }
+    private async System.Threading.Tasks.Task AddRelationAsync() { Answer.Model.Relations.Add(new()); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task RemoveRelationAsync(DesignRelation relation) { Answer.Model.Relations.Remove(relation); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task TableAsync(DesignRelation relation, bool source, string value) { if (source) relation.SourceTable = value; else relation.TargetTable = value; relation.Pairs = [new()]; await ChangedAsync(); }
+    private async System.Threading.Tasks.Task AddPairAsync(DesignRelation relation) { relation.Pairs.Add(new()); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task RemovePairAsync(DesignRelation relation, DesignColumnPair pair) { relation.Pairs.Remove(pair); await ChangedAsync(); }
+}

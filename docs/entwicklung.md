@@ -1,12 +1,17 @@
 # Entwicklung und Projektstruktur
 
-Quellstand: **0.1.1-alpha.9 mit SQL-/Pseudocode-Prüfungen, WiSo-Feinschliff und Urheberlogo**, 220 Lernübungen plus 25 getrennte Prüfungsaufgaben. Zuletzt gebautes Windows-Paket: **0.1.1-alpha.8 mit 220 Übungen**, am 05.11.2026 aus dem sauberen, inzwischen gepushten Commit `b4e953f` gebaut und aus dem ZIP geprüft. Diese Anleitung dient dem Projektinhaber zur Pflege und Erweiterung. Auch ein Zugriff auf die Dateien räumt keine Open-Source-Lizenz ein; es gelten die [Nutzungsbedingungen](../LICENSE). Die Entstehung und Zuordnung älterer Pakete stehen unter [lokale Releases](lokale-releases.md).
+Quellstand: **0.1.1-alpha.12 mit Heimnetz-Einstellung in derselben EXE**, 250 Lernübungen plus 25 SQL-/Pseudocode-Prüfungsaufgaben und drei Entwurfsprüfungen mit neun Teilaufgaben. Zuletzt gebautes Windows-Paket: **0.1.1-alpha.9 mit 220 Lernübungen und 25 Prüfungsaufgaben**, am 05.11.2026 gebaut und aus dem ZIP geprüft. Anwendungscode aus dem sauberen, gepushten Commit `a6c929f`; Paketdokumente anschließend ergänzt. Noch nicht veröffentlicht. Diese Anleitung dient dem Projektinhaber zur Pflege und Erweiterung. Auch ein Zugriff auf die Dateien räumt keine Open-Source-Lizenz ein; es gelten die [Nutzungsbedingungen](../LICENSE). Die Entstehung und Zuordnung älterer Pakete stehen unter [lokale Releases](lokale-releases.md).
 
 ## Orientierung
 
 ```text
 src/
   FiaeTrainer.Core/
+    DatabaseDesign/
+      Models/           Tabellen, Attribute, FK-Paare und strukturierte Antworten
+      Content/          30 Lernaufgaben, drei eigene Prüfungsfälle und Katalog
+      Evaluation/       Relationale Integrität und explizite Modellvarianten
+      Practice/         Individuelle Versuche und 45-Minuten-Prüfungen
     Algorithms/
       Content/          30 JSON-Aufgaben, Modelle und Katalog
       Syntax/           Tokenisierung und begrenzte deutsche Grammatik
@@ -40,7 +45,7 @@ src/
     Exams/              Koordination der zwei fachlichen Prüfungen
     Configuration/      Persönliche Einstellungen und Release-Profil
     Learning/           Profilmodelle und Fortschrittsspeicherung
-    Networking/         Zugriffskontrolle der optionalen Vorführung
+    Networking/         Heimnetz-Einstellung, Firewall, Zugriff und interner Hostneustart
     Project/            Gemeinsame öffentliche Urheberangaben und Links
     Sql/                Verbindungsstatus und lokale Instanzerkennung
     Updates/            Version, GitHub-Quelle und Releaseprüfung
@@ -53,6 +58,10 @@ tests/
 Namespaces folgen den Ordnern. Fachliche SQL-Typen liegen unter `FiaeTrainer.Core.Sql.*`, allgemeine Webdienste beispielsweise unter `FiaeTrainer.Web.Learning`. Öffentliche Typen haben eigene Dateien. Die beiden Teile von `TrainingDatabase` liegen gemeinsam in `Sql/Database`.
 
 ## Einstieg ins Debuggen
+
+Für den normalen Entwicklungstest **Trainer-starten.cmd** verwenden. Der Starter baut die aktuelle Quellfassung und öffnet deren tatsächliche Browseradresse. Alternativ das Startprojekt FiaeTrainer.Web mit Profil FiaeTrainer in Visual Studio starten. Das Standardprofil erzwingt keine applicationUrl und keinen Netzwerkmodus; die Grundadresse localhost:5080 steht in appsettings.json und wird von der persönlichen Heimnetzwahl überschrieben. Der Browser wird über FIAE_OPEN_BROWSER geöffnet, nicht zusätzlich durch launchBrowser.
+
+Trainer-im-Netzwerk-starten.cmd bleibt ausschließlich ein optionaler Entwicklerkurzweg: FiaeTrainerLan erzwingt die LAN-Bindung. Zum Testen der gespeicherten Wahl den normalen Starter nehmen. Beide CMDs sind Komfortstarter und für Visual Studio nicht erforderlich; künftige Anwender starten die veröffentlichte EXE. Die Builddatei src/FiaeTrainer.Web/bin/Release/net10.0/FiaeTrainer.Web.exe ist kein selbstständig verteilbares Release. Kein neues ZIP wurde erzeugt.
 
 Die Projektmappe `FIAE_AP2_Trainer.sln` in Visual Studio 2026 öffnen und `FiaeTrainer.Web` als Startprojekt wählen. Das .NET-10-SDK ist erforderlich. [Microsoft: SDK-/Visual-Studio-Kompatibilität](https://learn.microsoft.com/en-us/dotnet/core/porting/versioning-sdk-msbuild-vs).
 
@@ -97,7 +106,7 @@ Der Parser liefert Hauptanweisungen und Funktionsdefinitionen getrennt. Die Mach
 
 Funktionsaufgaben definieren `FunctionName` und die Eingabereihenfolge `FunctionInputs`. Der Katalog prüft deren Zuordnung zu Beispielen und Tests. Bewertung und Vorschau verwenden `RunFunction`; Hauptanweisungen sind in diesem Weg unzulässig. Der Prüfaufruf macht den Rückgabewert als Ergebnis vergleichbar, ohne einen erfundenen AUSGABE-Schritt in die Spur einzufügen. `AlgorithmStep.Scope` nennt Hauptablauf oder aktive Funktion. Das UI zeigt den Beispiel-Rückgabewert separat. Andere Parameternamen und eigene Hilfsfunktionen bleiben erlaubt.
 
-Die bisherigen IDs und das JSON-Profilformat bleiben stabil. Neue Aufgaben benötigen keine Migration; Lernplan und Themenkarte verwenden Katalogzahlen: SQL und Algorithmen umfassen 70, zusammen mit WiSo 220 Aufgaben. Die Endphase der Algorithmusgeschichte ist an Aufgabe 30 gebunden. Prüffälle enthalten ausdrücklich unabhängige Sollausgaben; generierte Such-/Sortierfälle vergleichen zusätzlich mit Bibliotheksergebnissen. Laufzeitklassen und konkrete Algorithmusidentität beliebiger Lösungen werden nicht benotet; Aufgabe 26 zählt eine konkrete innere Anweisung bei zwei Eingabegrößen.
+Die bisherigen IDs und das JSON-Profilformat bleiben stabil. Neue Aufgaben benötigen keine Migration; Lernplan und Themenkarte verwenden Katalogzahlen: SQL und Algorithmen umfassen 70, zusammen mit WiSo 220 und seit Alpha 11 mit Datenbankentwurf 250 Lernaufgaben. Die Endphase der Algorithmusgeschichte ist an Aufgabe 30 gebunden. Prüffälle enthalten ausdrücklich unabhängige Sollausgaben; generierte Such-/Sortierfälle vergleichen zusätzlich mit Bibliotheksergebnissen. Laufzeitklassen und konkrete Algorithmusidentität beliebiger Lösungen werden nicht benotet; Aufgabe 26 zählt eine konkrete innere Anweisung bei zwei Eingabegrößen.
 
 Rekursion ist einschließlich indirekter Aufrufe bis zur gemeinsamen Grenze von 16 gleichzeitig aktiven Aufrufen zugelassen. `AlgorithmStep.CallDepth` ergänzt den Namen des aktiven Bereichs, damit gleiche Funktionsnamen auf verschiedenen Ebenen unterscheidbar bleiben. Das Rechenbudget wird auch bei verzweigter Rekursion nicht zurückgesetzt. Testfallaufgaben verwenden `CaseInputName` (standardmäßig gewicht); dadurch kann die Mengenstaffel anzahl prüfen, ohne das skalare Antwortformat zu verändern. Katalogprüfung und Spickzettel bleiben dazu synchron.
 
@@ -160,6 +169,32 @@ Weitere Vorgaben: [Coding Guideline](coding-guideline.md), [Lernkonzept](lernkon
 
 ## Neue Prüfungsrunden und Aufgabenwechsel
 
-SQL und Pseudocode besitzen separate 45-Minuten-Prüfungen. Inhalt, Teilpunkte, Routen, Profilfelder und Bewertungsgrenzen stehen unter [Prüfungsmodus](pruefungsmodus.md). Die vorhandenen 220 Lernaufgaben bleiben unverändert; die zusätzlichen 25 Prüfungsaufgaben zählen in eigenen Ergebnissen.
+SQL und Pseudocode besitzen separate 45-Minuten-Prüfungen. Inhalt, Teilpunkte, Routen, Profilfelder und Bewertungsgrenzen stehen unter [Prüfungsmodus](pruefungsmodus.md). Die vorhandenen 220 Lernaufgaben bleiben unverändert und werden seit Alpha 11 durch 30 Datenbankentwurfsaufgaben ergänzt; die zusätzlichen 25 SQL-/Pseudocode-Prüfungsaufgaben zählen in eigenen Ergebnissen.
 
 Bei Listenklicks innerhalb von SQL, Werkstatt und Algorithmen merkt `task-navigation.js` ausschließlich die Gesamtseiten- und Listenposition dieses Wechsels. `TaskNavigationPosition` stellt sie nach dem fertig geladenen Zielrender wieder her. Andere Navigation, Prüfungsseiten, Browser-Zurück und WiSo-Abgaben bleiben davon getrennt. Während asynchroner Aufgabenwechsel bleibt der bisherige Inhalt für die Höhe im DOM und ist inert; `FocusOnNavigate` fokussiert auf diesen drei Lernseiten nicht mehr die Überschrift.
+
+## Einheitliche Prüfungsinfos seit Alpha 10
+
+Components/Exams/ExamIntroduction.razor bündelt die gemeinsam formulierten Bedienhinweise für SQL, Algorithmen und WiSo; LearningModule steuert ausschließlich die fachlichen Einleitungssätze. BusinessExamHome.razor unter /wiso/pruefung verwendet weiterhin BusinessRoundBuilder und die bestehenden BusinessRound-/BusinessHistory-Felder. Beim Aufruf wird nur gelesen. Erst die Startaktion erzeugt die 60-Minuten-Runde; bei einer offenen Lern- oder Prüfungsrunde wird deren ID erst nach Bestätigung an StartBusinessRoundAsync übergeben. Ein konkurrierend neu angelegter offener Versuch bleibt dadurch geschützt. Inhaltsrevision und Profilformat ändern sich nicht.
+
+Die Übersicht setzt module-exam-action jeweils auf eine eigene volle Buttonzeile; die WiSo-Lernseite verwendet zwei Karten. Navigation: Übersicht, Lernplan, Modultraining, Prüfung üben und Spickzettel. Das zuletzt gebaute Windows-Paket bleibt Alpha 9. Für Alpha 10 wurden nur Quellprojekt und isolierter Browserbetrieb geprüft; kein ZIP beauftragt oder erstellt.
+
+## Textumbrüche im Verbindungsdialog
+
+reconnect.js setzt weiterhin ausschließlich textContent. Die sechs Zustandstexte enthalten Newlines, die CSS über #reconnect-message mit white-space: pre-line sichtbar macht; kein innerHTML erforderlich. ReconnectModal besitzt im statischen Ausgangstext ebenfalls einen Zeilenumbruch. Der Dialog bleibt unabhängig vom Blazor-Circuit bedienbar. Wiederverbindungslogik nicht für Layoutänderungen anfassen; bestehende tests/reconnect.test.cjs decken deren Verhalten ab.
+
+## Datenbankentwurf: separater Fachbereich
+
+Core/DatabaseDesign und Web/Components/DatabaseDesign kapseln das neue Modul. Die Seiten DatabaseDesign, DesignExamHome, DesignExam und DesignReference verbinden den Baukasten mit dem eigenen ProgressStore.Design.cs. Namen sind Darstellung; feste Attributkennungen und Spalten-/Tabellen-IDs tragen Fachbedeutung beziehungsweise Verbindungen. Keine neue NuGet-/JavaScript-Bibliothek und keine Abhängigkeit von SQL oder einer KI-Schnittstelle.
+
+Ein gespeicherter Modellversuch besitzt Inhaltsversion und Revision. Beim Aufgabenwechsel bleiben Speichervorgänge an die zuvor erfasste Aufgabenkennung gebunden. Die atomare Profilsperre bewahrt fremde Modulfelder. Die Entwurfsprüfung speichert strukturierte Antworten und bewertet erst bei bestätigter oder erzwungener Abgabe. Details, Grenzen und Erweiterungspunkte: [Datenbankentwurf](datenbankentwurf.md).
+
+## Heimnetz-Einstellung seit Alpha 12
+
+`/heimnetz` wird einschließlich Routes/HeadOutlet statisch gerendert und von interaktiver Navigation ausgeschlossen. Native Formulare verwenden AntiforgeryToken; HomeNetworkEndpoints prüft zusätzlich die echte Loopback-Gegenstelle und einen lokalen Hostnamen. Weder private LAN-Adressen noch Forwarded-Header berechtigen zur Verwaltung. Externe Besucher sehen keine Verwaltungsformulare.
+
+HomeNetworkService koordiniert die lesende Windows-Diagnose, nötigenfalls den festen erhöhten PowerShell-Helfer und SaveNetworkPreferenceAsync. Alle persönlichen Einstellungen teilen sich dieselbe atomare Dateisperre. NetworkRestart serialisiert Änderungen und beendet nach Übertragung der Antwort nur den Webhost. Program baut diesen innerhalb desselben Prozesses neu auf; Profilpfad und Port bleiben erhalten. Der Browser wartet mit home-network.js auf die bestätigte neue Betriebsart. Während des Wechsels liefert der Bereitschaftsendpunkt 503. Nur der erste Programmstart öffnet einen Browser.
+
+Der Helfer wird als separate Inhaltsdatei neben der EXE veröffentlicht; UTF-8 **mit BOM** ist für Windows PowerShell 5.1 erforderlich. Er verändert weder Netzwerkprofile noch fremde Firewall-Regeln. Eine vorhandene passende eigene Regel vermeidet erneutes UAC; das Beenden der Freigabe benötigt keine erhöhten Rechte und lässt die eng begrenzte Regel für spätere Nutzung bestehen. Ein neuer Programmordner benötigt gegebenenfalls eine Reparatur der pfadgebundenen Regel. QRCoder 1.8.1 erzeugt PNGs vollständig lokal; seine MIT-Lizenz und Urheberhinweise werden über die vorhandene Abhängigkeitsdokumentation berücksichtigt.
+
+Grenzen, Diagnose und Prüfnachweise: [Heimnetz](heimnetz-und-serverbetrieb.md). Kein neues Release-Paket erstellt.

@@ -1,0 +1,109 @@
+@page "/wiso/pruefung"
+@inject BusinessCatalog Catalog
+@inject ProgressStore Store
+@inject NavigationManager Navigation
+<PageTitle>WiSo-Prüfung · AP2 Lernwerk</PageTitle>
+
+<main class="page exam-home">
+    <div class="eyebrow">DEIN WISSEN SELBSTSTÄNDIG ANWENDEN</div>
+    <h1>WiSo unter Prüfungsbedingungen.</h1>
+    <p class="lead">60 Minuten · 30 Aufgaben · alle acht Themenbereiche</p>
+    <ExamIntroduction Module="LearningModule.BusinessStudies" />
+    @if (_error != null)
+    {
+        <p class="notice warning" role="alert">@_error</p>
+    }
+    @if (_existing is { FinishedUtc: null })
+    {
+        <section class="business-resume">
+            <div>
+                <h2>@(_existing.Kind == BusinessRoundKind.Exam ? "Deine Prüfung wartet auf dich." : "Du hast eine offene Lernrunde.")</h2>
+                <p>@(_existing.Kind == BusinessRoundKind.Exam ? "Antworten und Restzeit sind gespeichert." : "Setze deine Lernrunde fort oder bestätige ausdrücklich den Wechsel zur Prüfung.")</p>
+            </div>
+            <a class="button primary" href="/wiso/runde">@(_existing.Kind == BusinessRoundKind.Exam ? "Prüfung fortsetzen →" : "Lernrunde fortsetzen →")</a>
+        </section>
+    }
+    else if (_existing is { Kind: BusinessRoundKind.Exam })
+    {
+        <section class="business-resume">
+            <div><h2>Deine letzte Abgabe</h2><p>@_existing.Earned von @_existing.Maximum Trainingspunkten</p></div>
+            <a class="button primary" href="/wiso/runde">Zur Auswertung →</a>
+        </section>
+    }
+    @if (_confirm)
+    {
+        <section class="notice warning" role="alert">
+            <strong>@(_existing?.Kind == BusinessRoundKind.Exam ? "Offene Prüfung ersetzen?" : "Offene Lernrunde ersetzen?")</strong>
+            <p>Noch ungeprüfte Antworten der offenen Runde werden verworfen. Bereits geprüfte Antworten und frühere Erfolge bleiben erhalten.</p>
+            <button class="button secondary" disabled="@_busy" @onclick="() => _confirm = false">Abbrechen</button>
+            <button class="button primary" disabled="@(_busy || _error != null)" @onclick="StartAsync">Prüfung starten →</button>
+        </section>
+    }
+    else
+    {
+        <button class="button primary" disabled="@(_loading || _busy || _error != null)" @onclick="RequestStartAsync">Prüfung starten →</button>
+    }
+    @if (_history.Count > 0)
+    {
+        <section class="exam-history">
+            <h2>Deine letzten Prüfungen</h2>
+            @foreach (BusinessRound item in _history)
+            {
+                <div><span>@item.FinishedUtc?.ToLocalTime().ToString("dd.MM.yyyy HH:mm")@(item.UsedReference ? " · mit Nachschlagen" : "")</span><strong>@item.Earned / @item.Maximum Punkte</strong></div>
+            }
+        </section>
+    }
+</main>
+
+@code {
+    /// <summary> Vorhandene WiSo-Runde wird beim bloßen Seitenaufruf nur gelesen. </summary>
+    private BusinessRound? _existing;
+    /// <summary> Bewertete WiSo-Prüfungen ohne gemischte Lern- und Themenrunden. </summary>
+    private List<BusinessRound> _history = [];
+    /// <summary> Bestätigung schützt offene Prüfungs- und Lernentwürfe vor einem Neustart. </summary>
+    private bool _confirm;
+    /// <summary> Verhindert einen Start während des Ladens oder eines laufenden Speichervorgangs. </summary>
+    private bool _loading = true, _busy;
+    /// <summary> Lesefehler oder konkurrierende Änderungen dürfen keinen Profilverlust verursachen. </summary>
+    private string? _error;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            TrainingProgress state = await Store.LoadAsync();
+            _existing = state.BusinessRound;
+            _history = state.BusinessHistory.Where(round => round.Kind == BusinessRoundKind.Exam).OrderByDescending(round => round.FinishedUtc).Take(5).ToList();
+        }
+        catch (Exception exception) when (exception is IOException or System.Text.Json.JsonException or UnauthorizedAccessException)
+        {
+            _error = "Dein WiSo-Lernstand konnte nicht geladen werden. Die Datei wird nicht überschrieben.";
+        }
+        finally { _loading = false; }
+    }
+
+    /// <summary> Eine bestehende offene Runde wird erst nach zusätzlicher Bestätigung ersetzt. </summary>
+    private async Task RequestStartAsync()
+    {
+        if (_existing is { FinishedUtc: null }) _confirm = true;
+        else await StartAsync();
+    }
+
+    /// <summary> Erst die ausdrückliche Startaktion erzeugt Aufgaben und eine laufende 60-Minuten-Uhr. </summary>
+    private async Task StartAsync()
+    {
+        if (_loading || _busy || _error != null) return;
+        _busy = true;
+        try
+        {
+            BusinessRound round = BusinessRoundBuilder.Create(Catalog, BusinessRoundKind.Exam);
+            await Store.StartBusinessRoundAsync(round, _confirm ? _existing?.Id : null);
+            Navigation.NavigateTo("/wiso/runde");
+        }
+        catch (Exception exception) when (exception is IOException or System.Text.Json.JsonException or UnauthorizedAccessException or InvalidOperationException)
+        {
+            _error = exception is InvalidOperationException ? exception.Message : "Die Prüfung konnte nicht gespeichert werden. Dein bisheriger Lernstand bleibt erhalten.";
+        }
+        finally { _busy = false; }
+    }
+}

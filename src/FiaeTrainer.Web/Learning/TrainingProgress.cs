@@ -36,6 +36,15 @@ public sealed class TrainingProgress
     /// <summary> Höchstens zwanzig endgültig bewertete Prüfungen je Modul. </summary>
     public List<ExamRound> ExamHistory { get; set; } = [];
 
+    /// <summary> Zuletzt gespeicherte Aufgabe im Datenbankentwurf. </summary>
+    public int LastDesignLessonId { get; set; } = 1;
+    /// <summary> Individuelle Modellversuche neben SQL, Algorithmen und WiSo. </summary>
+    public Dictionary<int, FiaeTrainer.Core.DatabaseDesign.Practice.DesignProgress> DesignLessons { get; set; } = [];
+    /// <summary> Eigene aktuelle Modellprüfung mit strukturierten Entwürfen. </summary>
+    public FiaeTrainer.Core.DatabaseDesign.Practice.DesignExamRound? DesignExam { get; set; }
+    /// <summary> Letzte zwanzig abgegebene Modellprüfungen. </summary>
+    public List<FiaeTrainer.Core.DatabaseDesign.Practice.DesignExamRound> DesignHistory { get; set; } = [];
+
     /// <summary> Wählt den getrennten Fortschrittsbereich. </summary>
     public Dictionary<int, LessonProgress> GetLessons(LearningArea area) => area == LearningArea.Investigation ? Lessons : WorkshopLessons;
 }

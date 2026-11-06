@@ -1,0 +1,59 @@
+<button class="button secondary design-zoom" type="button" aria-pressed="@(_zoom ? "true" : "false")" @onclick="() => _zoom = !_zoom">@(_zoom ? "Diagramm verkleinern" : "Diagramm vergrößern")</button>
+<div class="design-diagram-wrap" tabindex="0" role="region" aria-label="Relationales Modell – bei Bedarf seitlich scrollen">
+    @if (Model.Tables.Count == 0) { <p>Noch keine Tabellen. Dein Diagramm wächst mit deinem Entwurf.</p> }
+    else
+    {
+        <svg class="design-diagram" viewBox="0 0 1060 @Height" style="@(_zoom ? "min-width:1060px;width:160%" : "min-width:760px")" role="img" aria-labelledby="@(_marker + "-title") @(_marker + "-desc")">
+            <title id="@(_marker + "-title")">Relationales Datenbankmodell</title>
+            <desc id="@(_marker + "-desc")">@Description</desc>
+            <defs><marker id="@_marker" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" class="design-arrow" /></marker></defs>
+            @foreach (DesignRelation relation in Model.Relations)
+            {
+                int source = Model.Tables.FindIndex(table => table.Id == relation.SourceTable), target = Model.Tables.FindIndex(table => table.Id == relation.TargetTable);
+                @if (source >= 0 && target >= 0)
+                {
+                    <path d="@Edge(source, target)" class="design-edge" marker-end="url(#@_marker)"><title>@RelationText(relation)</title></path>
+                }
+            }
+            @for (int i = 0; i < Model.Tables.Count; i++)
+            {
+                var table = Model.Tables[i]; int x = X(i), y = Y(i);
+                <g>
+                    <rect x="@x" y="@y" width="290" height="@(74 + table.Columns.Count * 24)" rx="14" class="design-node" />
+                    <text x="@(x + 16)" y="@(y + 30)" class="design-node-title">@Short(table.Name)</text>
+                    @for (int c = 0; c < table.Columns.Count; c++)
+                    {
+                        var column = table.Columns[c];
+                        <g><text x="@(x + 16)" y="@(y + 61 + c * 24)" class="design-node-column">@Flags(column) @Short(column.Name)<title>@column.Name</title></text></g>
+                    }
+                </g>
+            }
+        </svg>
+        <ul class="design-relations-text">@foreach (var relation in Model.Relations) { <li>@RelationText(relation)</li> }</ul>
+    }
+</div>
+@code {
+    /// <summary> Nur Darstellung; Änderungen erfolgen im Baukasten. </summary>
+    [Parameter, EditorRequired] public DesignModel Model { get; set; } = new();
+    /// <summary> Lokale Markerkennung verhindert Kollisionen zwischen Entwurf und Musterlösung. </summary>
+    private readonly string _marker = "fk-" + Guid.NewGuid().ToString("N");
+    private bool _zoom;
+    private int Height => Model.Tables.Count == 0 ? 140 : Y(Model.Tables.Count - 1) + Model.Tables.Skip((Model.Tables.Count - 1) / 3 * 3).Max(table => 74 + table.Columns.Count * 24) + 30;
+    private string Description => string.Join("; ", Model.Tables.Select(table => table.Name + ": " + string.Join(", ", table.Columns.Select(column => Flags(column) + " " + column.Name))));
+    private static int X(int index) => 25 + index % 3 * 350;
+    private int Y(int index) => 40 + Enumerable.Range(0, index / 3).Sum(row => Model.Tables.Skip(row * 3).Take(3).Max(table => 74 + table.Columns.Count * 24) + 90);
+    private static string Short(string value) => value.Length > 26 ? value[..25] + "…" : value;
+    private string Flags(DesignColumn column) => (column.PrimaryKey ? "PK " : "") + (Model.Relations.Any(relation => relation.Pairs.Any(pair => pair.Source == column.Id)) ? "FK " : "") + (column.UniqueGroup.Length > 0 ? "UQ " : "");
+    /// <summary> Automatischer Linienverlauf; die Textliste nennt die vollständige Zuordnung auch bei überkreuzten Linien. </summary>
+    private string Edge(int source, int target)
+    {
+        int x1 = X(source) + 290, y1 = Y(source) + 30, x2 = X(target), y2 = Y(target) + 30;
+        return source == target ? $"M {x1} {y1} h 28 v -52 h -100 v 22" : $"M {x1} {y1} C {x1 + 50} {y1 - 45}, {x2 - 50} {y2 - 45}, {x2} {y2}";
+    }
+    /// <summary> Eltern- und Kindrichtung werden ausgeschrieben und enthalten die Attributpaare. </summary>
+    private string RelationText(DesignRelation relation)
+    {
+        var from = Model.Tables.FirstOrDefault(table => table.Id == relation.SourceTable); var to = Model.Tables.FirstOrDefault(table => table.Id == relation.TargetTable);
+        return $"{from?.Name ?? "?"} ({string.Join(", ", relation.Pairs.Select(pair => from?.Columns.FirstOrDefault(column => column.Id == pair.Source)?.Name ?? "?"))}) → {to?.Name ?? "?"} ({string.Join(", ", relation.Pairs.Select(pair => to?.Columns.FirstOrDefault(column => column.Id == pair.Target)?.Name ?? "?"))}): je abhängigem Satz {relation.ParentMinimum}..1 Elternsatz; je Elternsatz {relation.ChildMinimum}..{relation.ChildMaximum} abhängige Sätze.";
+    }
+}

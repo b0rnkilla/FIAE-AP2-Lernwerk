@@ -43,6 +43,26 @@ public sealed class LocalSettingsStore(IConfiguration configuration, IWebHostEnv
     /// <summary> Merkt die persönliche Wahl zur automatischen Updateprüfung. </summary>
     public Task SaveUpdatePreferenceAsync(bool enabled) => SaveValueAsync("Updates", "Enabled", JsonValue.Create(enabled));
 
+    /// <summary> Nur der HTTP-Verwaltungsendpunkt nach Loopback-/Host- und Antiforgery-Prüfung darf diesen Wechsel anfordern. </summary>
+    public async Task SaveNetworkPreferenceAsync(bool enabled, int port)
+    {
+        await _gate.WaitAsync();
+        try
+        {
+            JsonObject root = File.Exists(FilePath) ? JsonNode.Parse(await File.ReadAllTextAsync(FilePath)) as JsonObject ?? throw new InvalidDataException("Die persönliche Einstellungsdatei ist beschädigt.") : new JsonObject();
+            if (root["Network"] != null && root["Network"] is not JsonObject) throw new InvalidDataException("Die Netzwerkeinstellung ist beschädigt.");
+            JsonObject network = root["Network"] as JsonObject ?? new();
+            network["AllowLan"] = enabled; root["Network"] = network;
+            root["Urls"] = HomeNetworkBinding.Url(port, enabled);
+            root["AllowedHosts"] = enabled ? "*" : "localhost;127.0.0.1;[::1]";
+            Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(FilePath))!);
+            string temporary = FilePath + ".tmp";
+            await File.WriteAllTextAsync(temporary, root.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
+            File.Move(temporary, FilePath, true);
+        }
+        finally { _gate.Release(); }
+    }
+
     /// <summary> Erhält übrige JSON-Einstellungen und ersetzt die persönliche Datei atomar; im Heimnetz sind Schreibzugriffe gesperrt. </summary>
     private async Task SaveValueAsync(string section, string key, JsonNode? value)
     {

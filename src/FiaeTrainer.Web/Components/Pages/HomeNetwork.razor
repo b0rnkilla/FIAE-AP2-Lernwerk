@@ -1,0 +1,68 @@
+@page "/heimnetz"
+@attribute [ExcludeFromInteractiveRouting]
+@using FiaeTrainer.Web.Networking
+@using Microsoft.AspNetCore.Components.Forms
+@inject HomeNetworkService Network
+@inject IHttpContextAccessor ContextAccessor
+<PageTitle>Heimnetz · AP2 Lernwerk</PageTitle>
+<main class="page reading-page home-network-page">
+    <span class="eyebrow">DEINE EINSTELLUNGEN</span>
+    <h1>Auf deinen Geräten.<br /><em>In deinem Heimnetz.</em></h1>
+    <p>Nutze das Lernwerk auch auf dem Handy, Tablet oder einem anderen Rechner. Auf diesen Geräten genügt der Browser.</p>
+    <nav class="setup-actions" aria-label="Einstellungen"><a href="/einrichtung">Updates &amp; SQL-Einrichtung</a><strong aria-current="page">Heimnetz</strong></nav>
+    <section class="setup-section">
+        <h2>@(Network.Enabled ? "Heimnetz-Freigabe aktiv" : "Nur auf diesem Rechner erreichbar")</h2>
+        @if (!_host)
+        {
+            <p class="notice">Die Freigabe lässt sich ausschließlich auf dem Gastgeber verwalten. Öffne dort <code>http://localhost:@Network.Port/heimnetz</code>.</p>
+        }
+        else
+        {
+            @if (_status?.Error != null) { <p class="notice warning" role="status">@_status.Error</p> }
+            else if (_status != null)
+            {
+                <dl class="network-status"><div><dt>Windows-Netzwerk</dt><dd>@(_status.PrivateNetworks.Length > 0 ? "Privates Heimnetz erkannt" : "Kein privates Heimnetz erkannt")</dd></div><div><dt>Firewall-Freigabe</dt><dd>@(_status.RuleReady ? "Für dieses Lernwerk eingerichtet" : "Wird beim Freigeben eingerichtet")</dd></div></dl>
+                @if (_status.PrivateNetworks.Length == 0)
+                {
+                    <p class="notice">Kennzeichne dein vertrautes Heimnetz in Windows als <strong>privat</strong>. Die App ändert dein Netzwerkprofil nicht.</p>
+                    <a class="button secondary" href="ms-settings:network-status">Windows-Netzwerkeinstellungen öffnen</a>
+                }
+            }
+            @if (Network.Enabled && _status != null)
+            {
+                @foreach (HomeNetworkAddress address in _status.PrivateNetworks)
+                {
+                    string url = $"http://{address.Address}:{Network.Port}/";
+                    <article class="network-address"><div><h3>@address.Name</h3><p>Öffne diese Adresse auf deinem anderen Gerät:</p><a class="network-url" href="@url">@url</a><div class="setup-actions"><button type="button" class="button secondary" data-network-copy="@url">Adresse kopieren</button></div><p class="muted" data-network-copy-status role="status"></p></div><figure><img width="186" height="186" src="@HomeNetworkService.QrImage(url)" alt="QR-Code für @url" /><figcaption>Mit der Handykamera scannen</figcaption></figure></article>
+                }
+                <p>Der Gastgeber muss das Lernwerk geöffnet lassen. SQL Server wird nur auf dem Gastgeber benötigt.</p>
+                @if (!_status.RuleReady) { <p class="notice warning">Die Firewall-Regel fehlt oder passt nicht mehr zum Programmordner. Mit „Freigabe reparieren“ richtest du sie erneut ein.</p> }
+            }
+            <form method="post" action="/heimnetz/umschalten" data-enhance="false" data-network-form>
+                <AntiforgeryToken />
+                <p hidden data-network-progress role="status">Die Einstellung wird übernommen. Einen Moment bitte.</p>
+                <p>Beim Wechsel startet das Lernwerk kurz neu. Verlasse zuvor offene Eingabefelder, damit deine Entwürfe gespeichert sind. Laufende Prüfungsuhren werden dadurch nicht pausiert.</p>
+                @if (!Network.Enabled || _status is { RuleReady: false })
+                {
+                    <button type="submit" name="mode" value="enable" class="button primary" disabled="@(_status?.Error != null || _status?.PrivateNetworks.Length is not > 0)">@(Network.Enabled ? "Freigabe reparieren" : "Im Heimnetz freigeben")</button>
+                    <p class="muted">Falls nötig, bittet Windows einmal um Administratorrechte für die Firewall-Einrichtung.</p>
+                }
+                @if (Network.Enabled) { <button type="submit" name="mode" value="disable" class="button secondary">Freigabe beenden</button> }
+            </form>
+            <div class="setup-actions"><a class="text-button" href="/heimnetz" data-enhance-nav="false">Status erneut prüfen</a></div>
+        }
+    </section>
+    <aside class="notice"><strong>Ein gemeinsamer Lernstand</strong><p>Alle verbundenen Geräte teilen Entwürfe, Erfolge und Prüfungsrunden. Du kannst damit bequem zwischen deinen Geräten wechseln. Mehrere Personen lernen damit nicht unabhängig voneinander.</p></aside>
+    <details class="setup-details"><summary>Ein anderes Gerät erreicht das Lernwerk nicht?</summary><p>Beide Geräte müssen sich im selben privaten Heimnetz befinden. Gast-WLAN, eine Geräteisolierung im Router oder zusätzliche Sicherheitssoftware können Verbindungen verhindern. Es ist keine Freigabe einzelner Geräte-IP-Adressen nötig.</p><p>Bei mehreren Verbindungen probiere die Adresse des Heimnetz-Adapters. Nach einem WLAN-Wechsel kann sich diese Adresse ändern; öffne dann die Heimnetz-Einstellung erneut.</p></details>
+</main>
+@code {
+    /// <summary> Stammt aus der aktuellen HTTP-Verbindung; diese Seite wird bewusst statisch gerendert. </summary>
+    private bool _host;
+    /// <summary> Eine reine Diagnose ändert weder Firewall noch Lernstand. </summary>
+    private HomeFirewallStatus? _status;
+    protected override async Task OnInitializedAsync()
+    {
+        _host = ContextAccessor.HttpContext is { } context && HomeNetworkBinding.CanManage(context);
+        if (_host) _status = await Network.StatusAsync();
+    }
+}

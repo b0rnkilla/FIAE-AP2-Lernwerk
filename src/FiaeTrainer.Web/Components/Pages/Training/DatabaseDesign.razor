@@ -1,0 +1,104 @@
+@page "/datenbankentwurf"
+@page "/datenbankentwurf/{Id:int}"
+@inject DesignCatalog Catalog
+@inject ProgressStore Store
+@inject NavigationManager Navigation
+<PageTitle>Datenbankentwurf · AP2 Lernwerk</PageTitle>
+<main class="design-learning page">
+    <details class="design-task-list" open="@(!_collapsed)"><summary @onclick="ToggleListAsync" @onclick:preventDefault>Aufgaben @(_collapsed ? "anzeigen" : "ausblenden") · @_state.DesignLessons.Values.Count(item => item.Completed) / 30</summary>
+        <nav aria-label="Aufgaben im Datenbankentwurf">@foreach (var chapter in Catalog.Lessons.GroupBy(task => task.Chapter)) { <h2>@chapter.Key</h2>@foreach (var item in chapter) { <a href="@($"/datenbankentwurf/{item.Id}")" aria-current="@(Id == item.Id ? "page" : null)"><span>@(_state.DesignLessons.GetValueOrDefault(item.Id)?.Completed == true ? "✓" : item.Id.ToString("D2"))</span> @item.Title</a> } }</nav>
+    </details>
+    @if (_error != null) { <section class="notice warning" role="alert"><p>@_error</p><a href="@($"/datenbankentwurf/{Id}")" data-enhance-nav="false">Aufgabe neu laden</a></section> }
+    @if (_task != null && _progress != null)
+    {
+        <div class="eyebrow">LICHTBLICK · @Id / 30 · @_task.Chapter</div><h1 class="business-question-title">@_task.Title</h1>
+        <div class="mode-switch" role="group" aria-label="Dein Lernmodus"><button class="button @(_progress.IndependentMode ? "primary" : "secondary")" aria-pressed="@(_progress.IndependentMode ? "true" : "false")" disabled="@(_busy || _error != null)" @onclick="IndependentAsync">Ohne Hilfe lösen</button><button class="button @(!_progress.IndependentMode ? "primary" : "secondary")" aria-pressed="@(!_progress.IndependentMode ? "true" : "false")" disabled="@(_busy || _error != null)" @onclick="GuidedAsync">Geführt lernen</button></div>
+        @if (_confirmRestart) { <section class="notice warning" role="alert"><h2>Neuen Versuch ohne Hilfe starten?</h2><p>Dein aktueller Entwurf wird durch die Ausgangsaufgabe ersetzt. Frühere Erfolge bleiben erhalten.</p><button class="button secondary" @onclick="() => _confirmRestart = false">Entwurf behalten</button> <button class="button primary" @onclick="RestartAsync">Neuen Versuch starten</button></section> }
+        <section class="business-scenario"><h2>Stand der Planung</h2><p>@_task.Story</p></section>
+        <section class="task-card"><h2>Dein Auftrag</h2><p>@_task.Task</p></section>
+        <DesignAnswerEditor @key="Id" Task="_task" Answer="_progress.Answer" Changed="EditorChangedAsync" ReadOnly="@(_busy || _error != null)" />
+        <div class="design-submit"><button class="button primary" disabled="@(_busy || _error != null)" @onclick="CheckAsync">Lösung prüfen →</button></div>
+        @if (_result != null) { <div @ref="_feedback" tabindex="-1"><DesignFeedback Result="_result" /></div>@if (_result.Correct) { <p class="design-discovery">@_task.Explanation</p>@if (!_progress.IndependentMode || _progress.Assisted) { <p>Dieser Versuch wurde mit Unterstützung gelöst.</p><button class="button secondary" @onclick="IndependentAsync">Neu ohne Hilfe starten</button> } }
+        }
+        @if (!_progress.IndependentMode)
+        {
+            <section class="design-help"><div class="help-row"><div><h3>Ein kleiner Denkanstoß?</h3><p>Du entscheidest, wie viel Unterstützung du brauchst.</p></div><button class="button secondary" disabled="@(_progress.HintLevel == 3 || _error != null)" @onclick="HintAsync">@(_progress.HintLevel == 3 ? "Alle Hinweise geöffnet" : $"Hinweis {_progress.HintLevel + 1} von 3 öffnen")</button></div>
+            @foreach (string hint in _task.Hints.Take(_progress.HintLevel)) { <p class="notice">@hint</p> }
+            <div class="help-row"><div><h3>Beziehungen und Schlüssel nachschlagen?</h3><p>Der Spickzettel erklärt Begriffe und Modellierungsregeln.</p></div><a class="button secondary" href="@($"/datenbankentwurf/spickzettel?aufgabe={Id}")">Spickzettel öffnen →</a></div>
+            <div class="help-row"><div><h3>Musterlösung</h3><p>Eine aufgedeckte Lösung zählt als Unterstützung.</p></div><button class="button secondary" @onclick="SolutionAsync">@(_showSolution ? "Ausblenden" : "Ansehen")</button></div>
+            @if (_showSolution) { <p>@_task.Explanation</p>@if (_task.Kind == "Model") { <DesignDiagram Model="_task.Solutions[0]" /> } else { <ul>@foreach (string id in _task.CorrectIds) { <li>@_task.Options[id]</li> }</ul> } }
+            </section>
+        }
+        <nav class="business-task-navigation" aria-label="Vorherige und nächste Entwurfsaufgabe">@if (Id > 1) { <a class="button secondary" href="@($"/datenbankentwurf/{Id - 1}")">← Vorherige Aufgabe</a> }@if (Id < 30) { <a class="button primary" href="@($"/datenbankentwurf/{Id + 1}")">Nächste Aufgabe →</a> }</nav>
+        <details class="design-notes"><summary>Deine bestätigten Planungsschritte</summary>@foreach (var item in Catalog.Lessons.Where(task => task.Id <= Id && _state.DesignLessons.GetValueOrDefault(task.Id)?.Completed == true)) { <p><strong>@item.Title:</strong> @item.Explanation</p> }</details>
+    }
+</main>
+
+@code {
+    /// <summary> Stabile Lernaufgabe, unabhängig von Prüfungsfällen. </summary>
+    [Parameter] public int Id { get; set; } = 1;
+    private TrainingProgress _state = new();
+    private DesignAssignment? _task;
+    private DesignProgress? _progress;
+    private DesignEvaluation? _result;
+    private string? _error;
+    private bool _busy, _confirmRestart, _showSolution, _collapsed, _focusFeedback;
+    private ElementReference _feedback;
+    private readonly SemaphoreSlim _actions = new(1, 1);
+    private int _loaded;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id == _loaded) return;
+        await _actions.WaitAsync();
+        try
+        {
+            _busy = true; _loaded = Id; _task = Catalog.Lessons.SingleOrDefault(task => task.Id == Id); _result = null; _error = null; _confirmRestart = _showSolution = false;
+            if (_task == null) { _progress = null; _error = "Diese Entwurfsaufgabe existiert nicht."; return; }
+            _state = await Store.LoadAsync(); _collapsed = _state.TaskListCollapsed;
+            _progress = _state.DesignLessons.GetValueOrDefault(Id) ?? new() { Answer = _task.InitialAnswer() };
+            if (_progress.ContentVersion != DesignCatalog.CONTENT_VERSION) _error = "Der gespeicherte Entwurf gehört zu einem älteren Inhaltsvertrag und wird nicht überschrieben.";
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or System.Text.Json.JsonException) { _error = "Dein Entwurf konnte nicht geladen werden. Die Datei wird nicht überschrieben."; }
+        finally { _actions.Release(); _busy = false; }
+    }
+    /// <summary> Speichert ohne Prüfung und ohne das Codefeld bei jedem Tastendruck zu sperren. </summary>
+    private async Task SaveAsync()
+    {
+        if (_error != null || _progress == null) return;
+        int id = _loaded; DesignProgress progress = _progress;
+        await _actions.WaitAsync();
+        try { await Store.SaveDesignAsync(id, progress, Catalog); _state.DesignLessons[id] = progress; }
+        catch (Exception exception) when (exception is IOException or InvalidOperationException or UnauthorizedAccessException or System.Text.Json.JsonException) { _error = exception.Message; }
+        finally { _actions.Release(); }
+    }
+    private async Task CheckAsync()
+    {
+        int id = _loaded; DesignProgress progress = _progress!;
+        _busy = true; await _actions.WaitAsync();
+        try { var result = await Store.SaveDesignAsync(id, progress, Catalog, check: true); _state.DesignLessons[id] = progress; if (Id == id) { _result = result; _focusFeedback = true; } }
+        catch (Exception exception) when (exception is IOException or InvalidOperationException or UnauthorizedAccessException or System.Text.Json.JsonException) { _error = exception.Message; }
+        finally { _actions.Release(); _busy = false; }
+    }
+    private async Task EditorChangedAsync() { _result = null; await SaveAsync(); }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_focusFeedback) { _focusFeedback = false; try { await _feedback.FocusAsync(); } catch (Microsoft.JSInterop.JSDisconnectedException) { } }
+    }
+    private async Task GuidedAsync() { _progress!.IndependentMode = false; _progress.Assisted = true; await SaveAsync(); }
+    private async Task IndependentAsync()
+    {
+        if (_progress!.IndependentMode && !_progress.Assisted) return;
+        bool unchanged = System.Text.Json.JsonSerializer.Serialize(_progress.Answer) == System.Text.Json.JsonSerializer.Serialize(_task!.InitialAnswer());
+        if (unchanged) await RestartAsync(); else _confirmRestart = true;
+    }
+    private async Task RestartAsync() { _progress!.Answer = _task!.InitialAnswer(); _progress.IndependentMode = true; _progress.Assisted = false; _progress.HintLevel = 0; _progress.SolutionViewed = false; _confirmRestart = _showSolution = false; _result = null; await SaveAsync(); }
+    private async Task HintAsync() { _progress!.HintLevel = Math.Min(3, _progress.HintLevel + 1); _progress.Assisted = true; await SaveAsync(); }
+    private async Task SolutionAsync() { _showSolution = !_showSolution; if (_showSolution) { _progress!.SolutionViewed = true; _progress.Assisted = true; await SaveAsync(); } }
+    private async Task ToggleListAsync()
+    {
+        _collapsed = !_collapsed;
+        try { await Store.SetTaskListCollapsedAsync(_collapsed); }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or System.Text.Json.JsonException) { _error = exception.Message; }
+    }
+}
