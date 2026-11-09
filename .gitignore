@@ -26,3 +26,4 @@ artifacts/
 *.ldf
 *.ndf
 *.bak
+/docs/alte prüfungen/*

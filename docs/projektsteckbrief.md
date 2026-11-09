@@ -4,17 +4,18 @@
 | --- | --- |
 | Anwendung | AP2 Lernwerk |
 | Projektmappe | FIAE_AP2_Trainer.sln |
-| Entwicklungsfassung | 0.1.1-alpha.12 · 06.11.2026 |
-| Zuletzt gebautes Windows-Paket | 0.1.1-alpha.9, Anwendungscode aus a6c929f, aus dem ZIP geprüft am 05.11.2026; noch nicht veröffentlicht |
+| Entwicklungsfassung | 0.1.1-alpha.13 · 09.11.2026 mit UML und Modellierung |
+| Zuletzt gebautes Windows-Paket | 0.1.1-alpha.12, sauberer gepushter Commit e3af6aa, aus dem ZIP geprüft am 06.11.2026; Pre-release auf GitHub am 07.11.2026 bestätigt |
 | Plattform | Windows, lokale Browseroberfläche |
 | Technik | C#, .NET 10, ASP.NET Core, Blazor, Microsoft SQL Server |
-| Verfügbar im Quellstand | 40 SQL-, 30 Algorithmus-, 30 Datenbankentwurfs- und 150 WiSo-Lernaufgaben: 250 Lernübungen; zusätzlich 15 SQL-, zehn Pseudocode-Prüfungsaufgaben und drei Entwurfsprüfungen mit neun Teilaufgaben |
-| Inhalt Windows-Paket Alpha 9 | 220 Lernübungen plus 25 getrennte SQL-/Pseudocode-Prüfungsaufgaben; WiSo-Feinschliff und Projektlogo |
+| Verfügbar im Quellstand | 40 SQL-, 30 Algorithmus-, 36 UML-, 42 Datenbankentwurfs- und 150 WiSo-Lernaufgaben: 298 Lernübungen; zusätzlich 15 SQL-, zehn Pseudocode-Prüfungsaufgaben sowie je drei Entwurfs- und UML-Prüfungen mit je neun Teilaufgaben |
+| Inhalt Windows-Paket Alpha 12 | 250 Lernübungen plus 25 SQL-/Pseudocode-Prüfungsaufgaben und drei Entwurfsfälle; Heimnetz in derselben EXE |
+| Historischer Inhalt Windows-Paket Alpha 9 | 220 Lernübungen plus 25 getrennte SQL-/Pseudocode-Prüfungsaufgaben; WiSo-Feinschliff und Projektlogo |
 | Nutzungsmodell | Private, nichtkommerzielle lokale Nutzung gemäß LICENSE |
 
 ## Ziel
 
-Die App unterstützt die Vorbereitung auf die FIAE-Abschlussprüfung Teil 2 durch eigene Lösungen, nachvollziehbare Rückmeldungen und freiwillige Hilfen. SQL, Algorithmen, Datenbankentwurf und Wirtschafts- und Sozialkunde sind die vier verfügbaren Module. Der Code soll verständlich bleiben und vom Projektinhaber weiterentwickelt werden können.
+Die App unterstützt die Vorbereitung auf die FIAE-Abschlussprüfung Teil 2 durch eigene Lösungen, nachvollziehbare Rückmeldungen und freiwillige Hilfen. SQL, Algorithmen, UML und Modellierung, Datenbankentwurf sowie Wirtschafts- und Sozialkunde sind die fünf verfügbaren Module. Der Code soll verständlich bleiben und vom Projektinhaber weiterentwickelt werden können.
 
 Die Aufgaben, Geschichte und Daten sind eigens für die App erstellt. SQL Murder Mystery dient als konzeptionelle Inspiration; dessen Inhalte wurden nicht übernommen. Das Lernwerk ist kein offizielles IHK-Angebot, keine vollständige Abdeckung des Prüfungskatalogs und keine Zusage eines Prüfungserfolgs.
 
@@ -24,6 +25,7 @@ Die Aufgaben, Geschichte und Daten sind eigens für die App erstellt. SQL Murder
 - **Werkstatt:** UPDATE/INSERT/DELETE, CREATE TABLE, ALTER TABLE ADD, PRIMARY KEY/NOT NULL/CHECK und einfache Transaktionen.
 - **Algorithmen:** eigener Lernweg „Leitstelle im Ausnahmezustand“ mit 30 Aufgaben: freie Lösungen, Reparaturen, Schreibtischtests und Testfälle; Variablen, Bedingungen, Schleifen, Kennzahlen, lineare/binäre Suche, Sortierung, verschachtelte Listen, Funktionen, Prüfziffern, Grenztests und Rekursion. Lokale Ausführung mit Prüffällen und freiwilliger Ablaufspur, unabhängig von SQL Server. Funktionsaufgaben prüfen den benannten Einstieg mit Parametern und Rückgabewerten; die Vorschau zeigt den lokalen Bereich.
 - **Pseudocode-Schreibweise:** sichtbare Zuweisungen mit `=`, Gleichheitsvergleiche bevorzugt mit `==`; bisherige alternative Zuweisungen bleiben kompatibel. Die Themenkarte zeigt nur Geschichte und Aufgabenzahl.
+- **UML und Modellierung (03):** 36 eigene Aufgaben zur Geschichte Kulturzentrum Nordhafen mit Mira König. Fünf Diagrammarten lesen, reparieren und selbst mit einem automatisch angeordneten Baukasten erstellen. Spickzettel, drei 45-Minuten-Prüfungsfälle, eigenes Profil; keine Lernpunkte. Details: [UML](uml.md).
 - **Lernablauf:** Moduswahl je Aufgabe, gestufte Hilfen, Musterlösungen, zusammenhängende Fallnotizen und Wiederholungsvorschläge.
 - **WiSo:** 150 eigene Aufgaben in acht Themenbereichen mit sieben Antwortformen, eigenen Abbildungen, Erklärungen, Merksätzen und fachlichen Quellen. Themenlernen, gemischte Zehnerrunden, Fehlerwiederholung und 30er-Prüfungsrunden mit 60 Minuten. Eigene transparente Punktevergabe, keine amtliche IHK-Note. Antworten, Markierungen, Pausen und die letzte Runde bleiben erhalten; der Spickzettel führt zurück zur Aufgabe. Fachlicher Prüfstand 04.11.2026; Rechenannahmen stehen ausdrücklich im Fall. Details: [WiSo](wiso.md).
 - **Bedienung:** vollständig deutsch, helles und dunkles Design, einklappbare Aufgabenliste und ausblendbare Bedienhinweise.
@@ -55,7 +57,7 @@ Für die neue Fassung gelten eigene Bedingungen zur privaten Nutzung. Kommerziel
 
 ## Weitere Lernmodule
 
-Der Pseudocode-Basisumfang ist mit 30 Aufgaben abgeschlossen. Die sechs Ergänzungen zur ursprünglichen 24er-Planung trainieren Prüfziffern, Aufwand, Grenztests, Rekursion und paarweise Vergleiche. Weitere Aufgaben sind aus dieser Planung nicht offen; der Lernweg behauptet keine vollständige Abdeckung aller Algorithmusthemen. WiSo ist im Quellstand mit 150 Aufgaben umgesetzt. Für UML sind zunächst Diagrammverständnis und begrenzte Modellierungsaufgaben vorgesehen. Datenbankentwurf ist seit Alpha 11 mit 30 Aufgaben und eigenen Prüfungsfällen umgesetzt. Softwareplanung/OOP, Tests, Sicherheit und Projektmanagement sind weitere mögliche Module und noch nicht als eigene Lernbereiche implementiert. Details: [Pseudocode](pseudocode.md), [WiSo](wiso.md).
+Der Pseudocode-Basisumfang ist mit 30 Aufgaben abgeschlossen. Die sechs Ergänzungen zur ursprünglichen 24er-Planung trainieren Prüfziffern, Aufwand, Grenztests, Rekursion und paarweise Vergleiche. Weitere Aufgaben sind aus dieser Planung nicht offen; der Lernweg behauptet keine vollständige Abdeckung aller Algorithmusthemen. WiSo ist im Quellstand mit 150 Aufgaben umgesetzt. UML ist seit Alpha 13 mit 36 Aufgaben und eigenen Diagrammen in fünf Notationen umgesetzt. Datenbankentwurf ist seit Alpha 11 umgesetzt und besitzt in der aktuellen Quellfassung 42 Aufgaben einschließlich ER-Diagrammen, Unterlagen und eigenen Prüfungsfällen. Softwareplanung/OOP, Tests, Sicherheit und Projektmanagement sind weitere mögliche Module und noch nicht als eigene Lernbereiche implementiert. Details: [Pseudocode](pseudocode.md), [WiSo](wiso.md).
 
 ## Abgrenzung
 
@@ -104,3 +106,23 @@ Trainer-starten.cmd beziehungsweise Visual Studio mit Profil FiaeTrainer startet
 ### Nächster Paketstand
 
 Windows-ZIP 0.1.1-alpha.12 samt Release-Informationen ausdrücklich beauftragt, Bau erst nach Nutzer-Commit/Push. Versionshinweise vorbereitet; derzeit noch kein Alpha-12-Paket. Heimnetz vom Nutzer bestätigt, eigene Nutzerprüfung des Datenbankentwurfs noch offen.
+
+### Paketprüfung Alpha 12 abgeschlossen
+
+Das ausdrücklich beauftragte Windows-ZIP wurde nach Nutzer-Commit und bestätigtem Push aus e3af6aa gebaut und isoliert geprüft. 59 Dateien, 51.363.008 Bytes, keine privaten Inhalte. Aufgabenbewertung mit/ohne SQL, neue Entwurfsrunde, native Heimnetz-Diagnose/QR, Moduswechsel und Profilerhalt geprüft. Weitere Daten unter lokale-releases.md; Upload und Release-Tag übernimmt der Nutzer. Die nachträgliche Prüfdokumentation ändert das Paket nicht.
+
+## 07.11.2026 – Datenbankentwurf an bestehende Lernansichten angeglichen
+
+Linke einklappbare Aufgabenleiste, gemeinsame Lernmoduswahl und vertraute Geschichte-/Auftrag-/Arbeitsbereich-/Hilfendarstellung. Bestätigte Planungsschritte stehen wie der Algorithmusbericht rechts, mobil darunter. Auswahl- und Modellantworten sowie Erfolge bleiben erhalten; keine Inhalts- oder Profilmigration. 53 betroffene Tests und separater Browserbetrieb erfolgreich. Die Änderung gehört nur zur Quellfassung, das veröffentlichte Alpha-12-ZIP bleibt unverändert.
+
+## 07.11.2026 – Storyüberarbeitung für Abschnitt 04
+
+30 neue zusammenhängende Geschichten um Projektkoordinatorin Lea Berger und das Herbstforum. Fortschrittsabhängige Vorgängerbezüge und erzählerische Planungsergebnisse erklären die Verbindung der Aufgaben; offene Schritte erhalten Rücklinks und bleiben im Bericht erkennbar. Fachinhalte, Bewertung, Prüfungen und Profilvertrag unverändert. 56 betroffene Tests und isolierte Browserprüfung erfolgreich. Nur Quellprojekt, kein neues Paket.
+
+## 07.11.2026 – Vertiefte Prüfung und Korrektur von Abschnitt 04
+
+Einheitliche einzelne Lernrückmeldung ohne Trainingspunkte; gewichtete Punkte ausschließlich in der Prüfung. Falsche Auswahlen verraten keine komplette Erklärung, leere Antworten werden nicht versehentlich geprüft. Schnelle Navigation, Doppelabgaben, Moduswechsel, Fortsetzung und schreibgeschützte Baukastenaktionen abgesichert; neue Tabellennamen nach Entfernen bleiben eindeutig. Gesamtlauf 903 .NET-Tests einschließlich SQL und 31 JavaScript-Prüfungen erfolgreich, Build ohne Warnungen/Fehler. Browser mit eigenem Profil: richtige/falsche Auswahl, Modellreparatur, Pause/Neustart, Abgabe mit 10/50 beziehungsweise 50/50 und mobile Ansicht. Nur Quellfassung; Alpha-12-ZIP unverändert.
+
+## 07.11.2026 – Abschnitt 04 um Diagramm- und Unterlagenaufgaben erweitert
+
+42 statt 30 Entwurfsaufgaben: vier ER-Ergänzungen, zwei ER-zu-Tabellen-Aufträge, drei relationale Modellerweiterungen, zwei Entwürfe aus Unterlagen und eine konkrete Anomaliebeurteilung ergänzen den bisherigen Bestand. Insgesamt 262 Lernübungen in denselben vier aktiven Modulen. Lernstände und Prüfungsfälle bleiben erhalten; neue Ergänzungen werden je Aufgabe gespeichert. SQL/Pseudocode und weitere Abschnitte bleiben in dieser Alpha unberührt. Das veröffentlichte Alpha-12-Paket bleibt bei 250 Übungen; kein neues Paket.

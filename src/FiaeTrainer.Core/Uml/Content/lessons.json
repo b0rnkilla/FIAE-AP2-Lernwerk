@@ -1,0 +1,4955 @@
+[
+  {
+    "id": 1,
+    "title": "Welcher Blick auf das neue System?",
+    "diagramType": "UseCase",
+    "chapter": "01 · Diagrammsprache verstehen",
+    "format": "Read",
+    "story": "Das Kulturzentrum Nordhafen plant eine Anwendung für Räume und mobile Ausstattung. Entwicklerin Mira König beginnt mit den Zielen der Besucher. Ihre erste Skizze soll zeigen, wer die Anwendung benutzt und was diese Person damit erreichen möchte. Technische Aufrufe sind noch nicht Gegenstand des Gesprächs.",
+    "task": "Was beschreibt die gezeigte Skizze?",
+    "discovery": "Die erste Skizze beschreibt Rollen und nutzbare Funktionen des geplanten Systems.",
+    "hints": [
+      "Achte auf die Person außerhalb des Rechtecks.",
+      "Das Oval nennt eine nutzbare Funktion.",
+      "Die Darstellung zeigt einen Akteur mit einem Anwendungsfall."
+    ],
+    "explanation": "Der Besucher ist eine externe Rolle. Raum anfragen ist eine angebotene Funktion innerhalb der Systemgrenze. Die Skizze beschreibt keine Tabellen oder zeitliche Methodenfolge.",
+    "previousContext": "",
+    "nodeVocabulary": {
+      "guest": "Besucher",
+      "request": "Raum anfragen"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {
+      "usecase": "Ein Anwendungsfalldiagramm: Besucher nutzt Raum anfragen.",
+      "class": "Ein Klassendiagramm: Besucher ist eine Tabelle mit Primärschlüssel.",
+      "sequence": "Ein Sequenzdiagramm: Die Linie zeigt einen Rückgabezeitpunkt."
+    },
+    "correctIds": [
+      "usecase"
+    ],
+    "solutions": [],
+    "starter": {
+      "nodes": [
+        {
+          "id": "guest",
+          "key": "guest",
+          "name": "Besucher",
+          "kind": "Actor",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "request",
+          "key": "request",
+          "name": "Raum anfragen",
+          "kind": "UseCase",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        }
+      ],
+      "links": [
+        {
+          "id": "edge1",
+          "source": "guest",
+          "target": "request",
+          "kind": "Association",
+          "meaning": "",
+          "name": "",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        }
+      ],
+      "systemName": "Raumanfragen",
+      "fragments": []
+    }
+  },
+  {
+    "id": 2,
+    "title": "Eine Klasse und viele konkrete Buchungen",
+    "diagramType": "Class",
+    "chapter": "01 · Diagrammsprache verstehen",
+    "format": "Read",
+    "story": "Mira nennt mehrere konkrete Reservierungen. Alle besitzen eine Nummer und können bestätigt werden. Auf ihrem Blatt steht trotzdem nur ein Kasten mit der Überschrift Reservierung. Du ordnest ein, was dieser Kasten und seine Einträge bedeuten.",
+    "task": "Welche zwei Aussagen zur abgebildeten Klasse sind richtig?",
+    "discovery": "Klasse, konkretes Objekt, Attribut und Methode sind voneinander unterschieden.",
+    "hints": [
+      "Der Kasten beschreibt keine einzelne Buchung.",
+      "Minus und Plus kennzeichnen Sichtbarkeit.",
+      "nummer ist privat; bestaetigen ist eine öffentliche Methode."
+    ],
+    "explanation": "Reservierung beschreibt den Bauplan für konkrete Objekte. nummer: Integer ist ein privates Attribut; bestaetigen(): Boolean eine öffentliche Methode.",
+    "previousContext": "Der Planungsschritt „Welcher Blick auf das neue System?“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "booking": "Reservierung"
+    },
+    "memberVocabulary": {
+      "number": "nummer",
+      "confirm": "bestaetigen"
+    },
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {
+      "blueprint": "Reservierung ist ein Bauplan für konkrete Reservierungsobjekte.",
+      "method": "bestaetigen ist eine öffentliche Methode mit booleschem Rückgabewert.",
+      "object": "Der Kasten ist bereits genau die Reservierung mit Nummer 42.",
+      "field": "Das Plus bezeichnet einen Fremdschlüssel."
+    },
+    "correctIds": [
+      "blueprint",
+      "method"
+    ],
+    "solutions": [],
+    "starter": {
+      "nodes": [
+        {
+          "id": "booking",
+          "key": "booking",
+          "name": "Reservierung",
+          "kind": "Class",
+          "members": [
+            {
+              "id": "booking_number",
+              "key": "number",
+              "name": "nummer",
+              "kind": "Attribute",
+              "type": "Integer",
+              "visibility": "-",
+              "parameters": "",
+              "abstract": false,
+              "static": false
+            },
+            {
+              "id": "booking_confirm",
+              "key": "confirm",
+              "name": "bestaetigen",
+              "kind": "Method",
+              "type": "Boolean",
+              "visibility": "+",
+              "parameters": "",
+              "abstract": false,
+              "static": false
+            }
+          ],
+          "abstract": false,
+          "lane": ""
+        }
+      ],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 3,
+    "title": "Was die Symbole über den Ablauf sagen",
+    "diagramType": "Activity",
+    "chapter": "01 · Diagrammsprache verstehen",
+    "format": "Read",
+    "story": "Neue Mitarbeitende der Anmeldung sollen den einfachsten Bearbeitungsweg verstehen. Mira zeichnet Start, Prüfung und Ende. Noch gibt es weder Alternativen noch parallele Arbeit. Du prüfst die Lesart, bevor der Ablauf erweitert wird.",
+    "task": "Welche Aussage beschreibt den dargestellten Ablauf richtig?",
+    "discovery": "Ein Kontrollfluss beschreibt die gerichtete Folge von Arbeitsschritten.",
+    "hints": [
+      "Folge der Richtung der Pfeile.",
+      "Der Endknoten beendet die Aktivität.",
+      "Start, Anfrage prüfen und Ende werden in dieser Reihenfolge durchlaufen."
+    ],
+    "explanation": "Der Start aktiviert die Aktion Anfrage prüfen. Ihr ausgehender Kontrollfluss führt zum Aktivitätsende. Die Pfeile stellen keine Klassenvererbung dar.",
+    "previousContext": "Der Planungsschritt „Eine Klasse und viele konkrete Buchungen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "start": "Start",
+      "check": "Anfrage prüfen",
+      "end": "Ende"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {
+      "flow": "Nach dem Start wird die Anfrage geprüft; danach endet die Aktivität.",
+      "parallel": "Alle drei Elemente laufen gleichzeitig.",
+      "inherit": "Anfrage prüfen erbt von Start."
+    },
+    "correctIds": [
+      "flow"
+    ],
+    "solutions": [],
+    "starter": {
+      "nodes": [
+        {
+          "id": "start",
+          "key": "start",
+          "name": "Start",
+          "kind": "Initial",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "check",
+          "key": "check",
+          "name": "Anfrage prüfen",
+          "kind": "Action",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "end",
+          "key": "end",
+          "name": "Ende",
+          "kind": "Final",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        }
+      ],
+      "links": [
+        {
+          "id": "edge1",
+          "source": "start",
+          "target": "check",
+          "kind": "Flow",
+          "meaning": "",
+          "name": "",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        },
+        {
+          "id": "edge2",
+          "source": "check",
+          "target": "end",
+          "kind": "Flow",
+          "meaning": "",
+          "name": "",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        }
+      ],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 4,
+    "title": "Ein Ereignis verändert den Zustand",
+    "diagramType": "State",
+    "chapter": "01 · Diagrammsprache verstehen",
+    "format": "Read",
+    "story": "Eine Besucherin speichert zunächst einen Buchungsentwurf und sendet ihn später ab. Mira hält den Lebenszyklus auf einem eigenen Blatt fest. Angefragt bedeutet dabei noch keine Zusage. Du liest den Unterschied zwischen Zustand und Ereignis.",
+    "task": "Welche Aussage ist richtig?",
+    "discovery": "Absenden ist als Ereignis und Angefragt als Folgezustand erkannt.",
+    "hints": [
+      "Die Kästen bezeichnen Zustände.",
+      "Am Pfeil steht der Auslöser des Wechsels.",
+      "absenden löst den Übergang von Entwurf nach Angefragt aus."
+    ],
+    "explanation": "Entwurf und Angefragt sind Zustände. absenden ist das Ereignis am Übergang; dadurch entsteht noch keine bestätigte Reservierung.",
+    "previousContext": "Der Planungsschritt „Was die Symbole über den Ablauf sagen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "start": "Start",
+      "draft": "Entwurf",
+      "requested": "Angefragt"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {
+      "send": "absenden"
+    },
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {
+      "event": "absenden löst den Übergang von Entwurf nach Angefragt aus.",
+      "same": "Entwurf und absenden sind zwei Zustände.",
+      "confirm": "Angefragt bedeutet bereits bestätigt."
+    },
+    "correctIds": [
+      "event"
+    ],
+    "solutions": [],
+    "starter": {
+      "nodes": [
+        {
+          "id": "start",
+          "key": "start",
+          "name": "Start",
+          "kind": "Initial",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "draft",
+          "key": "draft",
+          "name": "Entwurf",
+          "kind": "State",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "requested",
+          "key": "requested",
+          "name": "Angefragt",
+          "kind": "State",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        }
+      ],
+      "links": [
+        {
+          "id": "edge1",
+          "source": "start",
+          "target": "draft",
+          "kind": "Transition",
+          "meaning": "",
+          "name": "",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        },
+        {
+          "id": "edge2",
+          "source": "draft",
+          "target": "requested",
+          "kind": "Transition",
+          "meaning": "send",
+          "name": "absenden",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        }
+      ],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 5,
+    "title": "Den ersten Anwendungsfall selbst aufbauen",
+    "diagramType": "UseCase",
+    "chapter": "02 · Anwendungsfälle modellieren",
+    "format": "Build",
+    "story": "Mira übergibt dir eine leere Arbeitsfläche. Für den nächsten Termin soll zunächst nur eine Möglichkeit der Besucher sichtbar sein: einen Raum anzufragen. Du baust die erste Skizze selbst auf, damit das Team anschließend gezielt weitere Funktionen ergänzen kann.",
+    "task": "Erstelle eine beschriftete Systemgrenze. Lege Besucher als Akteur und Raum anfragen als Anwendungsfall an. Verbinde beide durch eine Assoziation. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Die erste eigene Skizze verbindet eine Besucherrolle mit ihrem Ziel.",
+    "hints": [
+      "Der Akteur bezeichnet eine externe Rolle.",
+      "Der Anwendungsfall liegt innerhalb der Systemgrenze.",
+      "Ein Akteur, ein Anwendungsfall und eine Assoziation werden benötigt."
+    ],
+    "explanation": "Besucher ist ein Akteur, Raum anfragen ein Anwendungsfall. Die Assoziation verbindet beide; die beschriftete Systemgrenze umfasst die Funktion.",
+    "previousContext": "Der Planungsschritt „Ein Ereignis verändert den Zustand“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "guest": "Besucher",
+      "request": "Raum anfragen",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "guest",
+            "key": "guest",
+            "name": "Besucher",
+            "kind": "Actor",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "request",
+            "key": "request",
+            "name": "Raum anfragen",
+            "kind": "UseCase",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "guest",
+            "target": "request",
+            "kind": "Association",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "Reservierungssystem",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 6,
+    "title": "Zwei Rollen mit verschiedenen Zielen",
+    "diagramType": "UseCase",
+    "chapter": "02 · Anwendungsfälle modellieren",
+    "format": "Build",
+    "story": "Besucher übermitteln ihre Wünsche, während Mitarbeitende der Anmeldung darüber entscheiden. Mira möchte diese Zuständigkeiten im Überblick trennen. Anmeldung bezeichnet hier die menschliche Personalrolle, nicht einen internen Programmteil.",
+    "task": "Erstelle eine beschriftete Systemgrenze. Besucher nutzt Raum anfragen, Anmeldung nutzt Anfrage entscheiden. Stelle beide Rollen als Akteure und beide Funktionen als Anwendungsfälle mit den jeweiligen Assoziationen dar. Weitere Beziehungen zwischen Funktionen werden hier nicht verlangt. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Besucher und Anmeldung haben unterschiedliche Ziele an derselben Anwendung.",
+    "hints": [
+      "Auch Personal kann externer Akteur des betrachteten Softwaresystems sein.",
+      "Trenne zwei Rollen und ihre Ziele.",
+      "Zwei Akteure und zwei Anwendungsfälle erhalten je eine Assoziation."
+    ],
+    "explanation": "Die Rollen stehen außerhalb, die Funktionen innerhalb der Systemgrenze. Der geschäftliche Zusammenhang allein begründet hier kein include.",
+    "previousContext": "Der Planungsschritt „Den ersten Anwendungsfall selbst aufbauen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "guest": "Besucher",
+      "team": "Anmeldung",
+      "request": "Raum anfragen",
+      "decide": "Anfrage entscheiden",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "guest",
+            "key": "guest",
+            "name": "Besucher",
+            "kind": "Actor",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "team",
+            "key": "team",
+            "name": "Anmeldung",
+            "kind": "Actor",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "request",
+            "key": "request",
+            "name": "Raum anfragen",
+            "kind": "UseCase",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "decide",
+            "key": "decide",
+            "name": "Anfrage entscheiden",
+            "kind": "UseCase",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "guest",
+            "target": "request",
+            "kind": "Association",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "team",
+            "target": "decide",
+            "kind": "Association",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "Nordhafen-Buchung",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 7,
+    "title": "Eine verpflichtende Teilfunktion einbinden",
+    "diagramType": "UseCase",
+    "chapter": "02 · Anwendungsfälle modellieren",
+    "format": "Repair",
+    "story": "Jede abgesendete Reservierung braucht geprüfte Kontaktdaten. Ein Kollege hat die wiederverwendbare Prüfung schon eingezeichnet, aber die Richtung der gestrichelten Beziehung wurde vertauscht. Du reparierst den begonnenen Entwurf.",
+    "task": "Korrigiere die include-Richtung: Reservierung absenden bindet Kontaktdaten prüfen verpflichtend ein. Besucher bleibt mit Reservierung absenden assoziiert. Die vorhandenen Elemente und die beschriftete Grenze bleiben erhalten. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Die verpflichtende Kontaktprüfung wird vom absendenden Anwendungsfall aus eingebunden.",
+    "hints": [
+      "include bezeichnet eine eingebundene Teilfunktion.",
+      "Der Pfeil zeigt auf die eingebundene Funktion.",
+      "Quelle ist Reservierung absenden, Ziel Kontaktdaten prüfen."
+    ],
+    "explanation": "Die include-Abhängigkeit beginnt beim einbindenden und endet beim eingebundenen Anwendungsfall.",
+    "previousContext": "Der Planungsschritt „Zwei Rollen mit verschiedenen Zielen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "guest": "Besucher",
+      "reserve": "Reservierung absenden",
+      "check": "Kontaktdaten prüfen",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "guest",
+            "key": "guest",
+            "name": "Besucher",
+            "kind": "Actor",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "reserve",
+            "key": "reserve",
+            "name": "Reservierung absenden",
+            "kind": "UseCase",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "check",
+            "key": "check",
+            "name": "Kontaktdaten prüfen",
+            "kind": "UseCase",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "guest",
+            "target": "reserve",
+            "kind": "Association",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "reserve",
+            "target": "check",
+            "kind": "Include",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "Buchung",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [
+        {
+          "id": "guest",
+          "key": "guest",
+          "name": "Besucher",
+          "kind": "Actor",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "reserve",
+          "key": "reserve",
+          "name": "Reservierung absenden",
+          "kind": "UseCase",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "check",
+          "key": "check",
+          "name": "Kontaktdaten prüfen",
+          "kind": "UseCase",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        }
+      ],
+      "links": [
+        {
+          "id": "edge1",
+          "source": "guest",
+          "target": "reserve",
+          "kind": "Association",
+          "meaning": "",
+          "name": "",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        },
+        {
+          "id": "edge2",
+          "source": "check",
+          "target": "reserve",
+          "kind": "Include",
+          "meaning": "",
+          "name": "",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        }
+      ],
+      "systemName": "Buchung",
+      "fragments": []
+    }
+  },
+  {
+    "id": 8,
+    "title": "Einen optionalen Technikbedarf ergänzen",
+    "diagramType": "UseCase",
+    "chapter": "02 · Anwendungsfälle modellieren",
+    "format": "Build",
+    "story": "Manche Besucher benötigen zusätzlich mobile Technik. Eine Raumanfrage bleibt aber auch ohne diese Angabe vollständig möglich. Mira möchte diese optionale Erweiterung zeigen, ohne daraus eine Pflicht für jede Anfrage zu machen.",
+    "task": "Besucher nutzt Raum anfragen. Technikbedarf angeben erweitert Raum anfragen optional über extend. Erstelle die zwei Anwendungsfälle innerhalb einer beschrifteten Systemgrenze und die passende Assoziation zur Besucherrolle. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Die Technikangabe ist als optionale Erweiterung der Raumanfrage dargestellt.",
+    "hints": [
+      "Welche Funktion ist bereits ohne Ergänzung vollständig?",
+      "extend beginnt bei der Erweiterung.",
+      "Technikbedarf angeben → Raum anfragen ist extend."
+    ],
+    "explanation": "Die Erweiterung zeigt per extend auf die Basis Raum anfragen. Die Basis ist ohne die Erweiterung sinnvoll nutzbar.",
+    "previousContext": "Der Planungsschritt „Eine verpflichtende Teilfunktion einbinden“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "guest": "Besucher",
+      "reserve": "Raum anfragen",
+      "extras": "Technikbedarf angeben",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "guest",
+            "key": "guest",
+            "name": "Besucher",
+            "kind": "Actor",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "reserve",
+            "key": "reserve",
+            "name": "Raum anfragen",
+            "kind": "UseCase",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "extras",
+            "key": "extras",
+            "name": "Technikbedarf angeben",
+            "kind": "UseCase",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "guest",
+            "target": "reserve",
+            "kind": "Association",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "extras",
+            "target": "reserve",
+            "kind": "Extend",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "Raumanfrage",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 9,
+    "title": "Eine besondere Besucherrolle darstellen",
+    "diagramType": "UseCase",
+    "chapter": "02 · Anwendungsfälle modellieren",
+    "format": "Build",
+    "story": "Vereine stellen häufig mehrere Anfragen auf einmal. Ihr Vereinskontakt darf alles nutzen, was ein Besucher nutzen darf, und erhält zusätzlich die Sammelanfrage. Mira möchte diese Spezialisierung ohne doppelte Nutzungsbeziehungen ausdrücken.",
+    "task": "Modelliere Vereinskontakt als Spezialisierung des Akteurs Besucher. Besucher nutzt Raum anfragen. Vereinskontakt nutzt zusätzlich Sammelanfrage stellen. Beide Funktionen liegen in einer beschrifteten Systemgrenze. Zeichne keine zusätzliche geerbte Assoziation ein. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Die Vereinsrolle übernimmt allgemeine Möglichkeiten und ergänzt eine eigene Funktion.",
+    "hints": [
+      "Die besondere Rolle ist Ausgangspunkt der Generalisierung.",
+      "Das leere Dreieck zeigt zur allgemeinen Rolle.",
+      "Vereinskontakt → Besucher ist Generalisierung."
+    ],
+    "explanation": "Vereinskontakt spezialisiert Besucher und übernimmt dessen Nutzungsmöglichkeiten. Die Generalisierung zeigt auf den allgemeineren Akteur.",
+    "previousContext": "Der Planungsschritt „Einen optionalen Technikbedarf ergänzen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "guest": "Besucher",
+      "club": "Vereinskontakt",
+      "reserve": "Raum anfragen",
+      "monthly": "Sammelanfrage stellen",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "guest",
+            "key": "guest",
+            "name": "Besucher",
+            "kind": "Actor",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "club",
+            "key": "club",
+            "name": "Vereinskontakt",
+            "kind": "Actor",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "reserve",
+            "key": "reserve",
+            "name": "Raum anfragen",
+            "kind": "UseCase",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "monthly",
+            "key": "monthly",
+            "name": "Sammelanfrage stellen",
+            "kind": "UseCase",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "guest",
+            "target": "reserve",
+            "kind": "Association",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "club",
+            "target": "guest",
+            "kind": "Generalization",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge3",
+            "source": "club",
+            "target": "monthly",
+            "kind": "Association",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "Buchungsportal",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 10,
+    "title": "Den Funktionsüberblick zusammenführen",
+    "diagramType": "UseCase",
+    "chapter": "02 · Anwendungsfälle modellieren",
+    "format": "Build",
+    "story": "Vor der Freigabe legt Mira die bisherigen Anforderungen zusammen. Der Überblick soll Besuchereingaben, Pflichtprüfung und Personalentscheidung enthalten. Du erstellst den gemeinsamen Ausschnitt für die Besprechung.",
+    "task": "Erstelle eine beschriftete Grenze. Besucher nutzt Reservierung absenden. Dieser Fall bindet Kontaktdaten prüfen verpflichtend ein und wird optional durch Technikbedarf angeben erweitert. Anmeldung nutzt Anfrage entscheiden. Weitere Funktionen oder Verbindungen werden hier nicht verlangt. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Rollen, verpflichtende Prüfung und optionale Erweiterung sind gemeinsam modelliert.",
+    "hints": [
+      "Beginne bei Rollen und ihren Zielen.",
+      "Ordne dann Pflichtprüfung und optionale Erweiterung zu.",
+      "include beginnt beim Absenden, extend bei der Technikangabe."
+    ],
+    "explanation": "Zwei Assoziationen, eine include- und eine extend-Abhängigkeit erfüllen verschiedene Aufgaben. Ihre jeweiligen Richtungen tragen fachliche Bedeutung.",
+    "previousContext": "Der Planungsschritt „Eine besondere Besucherrolle darstellen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "guest": "Besucher",
+      "team": "Anmeldung",
+      "reserve": "Reservierung absenden",
+      "contact": "Kontaktdaten prüfen",
+      "extras": "Technikbedarf angeben",
+      "decide": "Anfrage entscheiden",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "guest",
+            "key": "guest",
+            "name": "Besucher",
+            "kind": "Actor",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "team",
+            "key": "team",
+            "name": "Anmeldung",
+            "kind": "Actor",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "reserve",
+            "key": "reserve",
+            "name": "Reservierung absenden",
+            "kind": "UseCase",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "contact",
+            "key": "contact",
+            "name": "Kontaktdaten prüfen",
+            "kind": "UseCase",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "extras",
+            "key": "extras",
+            "name": "Technikbedarf angeben",
+            "kind": "UseCase",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "decide",
+            "key": "decide",
+            "name": "Anfrage entscheiden",
+            "kind": "UseCase",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "guest",
+            "target": "reserve",
+            "kind": "Association",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "team",
+            "target": "decide",
+            "kind": "Association",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge3",
+            "source": "reserve",
+            "target": "contact",
+            "kind": "Include",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge4",
+            "source": "extras",
+            "target": "reserve",
+            "kind": "Extend",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "Nordhafen-Reservierung",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 11,
+    "title": "Die erste eigene Klasse",
+    "diagramType": "Class",
+    "chapter": "03 · Klassen und Beziehungen",
+    "format": "Build",
+    "story": "Nach den Nutzerzielen nimmt Mira die Informationen einzelner Objekte in den Blick. Jede Reservierung benötigt eine intern verwaltete ganzzahlige Nummer. Du erstellst den ersten Klassenkasten selbst, bevor Verhalten und Beziehungen hinzukommen.",
+    "task": "Erstelle die konkrete Klasse Reservierung mit dem privaten Attribut nummer: Integer. Methoden und Beziehungen sind in diesem Ausschnitt nicht erforderlich. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Die Reservierung besitzt einen eigenen Klassenentwurf mit internem Nummernattribut.",
+    "hints": [
+      "Ein Attribut beschreibt gespeicherte Information.",
+      "Privat wird mit Minus gekennzeichnet.",
+      "nummer ist ein Attribut mit Typ Integer und Sichtbarkeit -."
+    ],
+    "explanation": "Die konkrete Klasse Reservierung enthält - nummer: Integer. Die Fachrolle bestimmt das gemeinte Merkmal; sein Anzeigename darf selbst gewählt werden.",
+    "previousContext": "Der Planungsschritt „Den Funktionsüberblick zusammenführen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "booking": "Reservierung",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {
+      "number": "nummer"
+    },
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "booking",
+            "key": "booking",
+            "name": "Reservierung",
+            "kind": "Class",
+            "members": [
+              {
+                "id": "booking_number",
+                "key": "number",
+                "name": "nummer",
+                "kind": "Attribute",
+                "type": "Integer",
+                "visibility": "-",
+                "parameters": "",
+                "abstract": false,
+                "static": false
+              }
+            ],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 12,
+    "title": "Zugriff und Verhalten auseinanderhalten",
+    "diagramType": "Class",
+    "chapter": "03 · Klassen und Beziehungen",
+    "format": "Repair",
+    "story": "Der Reservierungsstatus soll nicht beliebig von außen überschrieben werden. Eine öffentliche Bestätigungsmethode kontrolliert die Änderung und meldet ihren Erfolg. Im übergebenen Kasten wurden die Sichtbarkeiten vertauscht. Du korrigierst sie.",
+    "task": "Reservierung ist konkret. status: String muss privat, bestaetigen(): Boolean öffentlich sein. Korrigiere die Sichtbarkeiten und behalte die zwei vorhandenen Merkmale. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Interner Status und öffentlich erreichbare Bestätigung sind korrekt getrennt.",
+    "hints": [
+      "Daten bleiben geschützt, angebotenes Verhalten ist erreichbar.",
+      "Minus bedeutet privat, Plus öffentlich.",
+      "status erhält -, bestaetigen erhält +."
+    ],
+    "explanation": "status ist ein privates Attribut; bestaetigen eine öffentliche Methode mit Boolean als Rückgabetyp.",
+    "previousContext": "Der Planungsschritt „Die erste eigene Klasse“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "booking": "Reservierung",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {
+      "status": "status",
+      "confirm": "bestaetigen"
+    },
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "booking",
+            "key": "booking",
+            "name": "Reservierung",
+            "kind": "Class",
+            "members": [
+              {
+                "id": "booking_status",
+                "key": "status",
+                "name": "status",
+                "kind": "Attribute",
+                "type": "String",
+                "visibility": "-",
+                "parameters": "",
+                "abstract": false,
+                "static": false
+              },
+              {
+                "id": "booking_confirm",
+                "key": "confirm",
+                "name": "bestaetigen",
+                "kind": "Method",
+                "type": "Boolean",
+                "visibility": "+",
+                "parameters": "",
+                "abstract": false,
+                "static": false
+              }
+            ],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [
+        {
+          "id": "booking",
+          "key": "booking",
+          "name": "Reservierung",
+          "kind": "Class",
+          "members": [
+            {
+              "id": "booking_status",
+              "key": "status",
+              "name": "status",
+              "kind": "Attribute",
+              "type": "String",
+              "visibility": "+",
+              "parameters": "",
+              "abstract": false,
+              "static": false
+            },
+            {
+              "id": "booking_confirm",
+              "key": "confirm",
+              "name": "bestaetigen",
+              "kind": "Method",
+              "type": "Boolean",
+              "visibility": "-",
+              "parameters": "",
+              "abstract": false,
+              "static": false
+            }
+          ],
+          "abstract": false,
+          "lane": ""
+        }
+      ],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 13,
+    "title": "Parameter und Rückgabe festhalten",
+    "diagramType": "Class",
+    "chapter": "03 · Klassen und Beziehungen",
+    "format": "Build",
+    "story": "Für die Raumauswahl muss ein Raum prüfen können, ob eine gewünschte Personenzahl hineinpasst. Mira möchte die Schnittstelle vor dem Programmieren abstimmen. Du modellierst die Kapazität und die nach außen angebotene Prüfung.",
+    "task": "Erstelle Raum als konkrete Klasse mit privater kapazitaet: Integer und öffentlicher Methode passt(anzahl: Integer): Boolean. Eigene Parameternamen sind erlaubt; Anzahl und Typ müssen stimmen. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Die Raumprüfung besitzt einen eindeutigen Eingabe- und Rückgabevertrag.",
+    "hints": [
+      "Die Personenzahl ist Eingabe der Methode.",
+      "Boolean ist der Rückgabetyp.",
+      "passt benötigt einen Integer-Parameter, Rückgabe Boolean und Sichtbarkeit +."
+    ],
+    "explanation": "kapazitaet wird intern gespeichert. passt erhält genau einen ganzzahligen Parameter und liefert einen Wahrheitswert zurück.",
+    "previousContext": "Der Planungsschritt „Zugriff und Verhalten auseinanderhalten“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "room": "Raum",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {
+      "capacity": "kapazitaet",
+      "fits": "passt"
+    },
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "room",
+            "key": "room",
+            "name": "Raum",
+            "kind": "Class",
+            "members": [
+              {
+                "id": "room_capacity",
+                "key": "capacity",
+                "name": "kapazitaet",
+                "kind": "Attribute",
+                "type": "Integer",
+                "visibility": "-",
+                "parameters": "",
+                "abstract": false,
+                "static": false
+              },
+              {
+                "id": "room_fits",
+                "key": "fits",
+                "name": "passt",
+                "kind": "Method",
+                "type": "Boolean",
+                "visibility": "+",
+                "parameters": "anzahl: Integer",
+                "abstract": false,
+                "static": false
+              }
+            ],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 14,
+    "title": "Mengenangaben an Klassenbeziehungen",
+    "diagramType": "Class",
+    "chapter": "03 · Klassen und Beziehungen",
+    "format": "Build",
+    "story": "Ein Kunde kann bereits angelegt sein, bevor er etwas gebucht hat. Jede vorhandene Reservierung benötigt dagegen genau einen Kunden. Mira betrachtet nur diese Beziehung, ohne Attribute und Methoden. Du hältst ihre beiden Richtungen fest.",
+    "task": "Erstelle die konkreten Klassen Kunde und Reservierung ohne Merkmale. Verbinde sie durch eine Assoziation: genau ein Kunde je Reservierung, null bis viele Reservierungen je Kunde. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Die Mengenangaben drücken beide Richtungen derselben Beziehung aus.",
+    "hints": [
+      "Die Zahl am Ende zählt Objekte dieser Klasse je Objekt der Gegenseite.",
+      "Ein Kunde ohne Reservierung ist zulässig.",
+      "Am Kundenende steht 1, am Reservierungsende 0..*."
+    ],
+    "explanation": "1 beim Kunden und 0..* bei der Reservierung beschreiben die geforderte Regel. Die Assoziation darf mit vertauschten Enden angelegt werden, wenn ihre Mengen mitgetauscht werden.",
+    "previousContext": "Der Planungsschritt „Parameter und Rückgabe festhalten“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "guest": "Kunde",
+      "booking": "Reservierung",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "guest",
+            "key": "guest",
+            "name": "Kunde",
+            "kind": "Class",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "booking",
+            "key": "booking",
+            "name": "Reservierung",
+            "kind": "Class",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "guest",
+            "target": "booking",
+            "kind": "Association",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "1",
+            "targetMultiplicity": "0..*",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 15,
+    "title": "Leere und gefüllte Raute verstehen",
+    "diagramType": "Class",
+    "chapter": "03 · Klassen und Beziehungen",
+    "format": "Read",
+    "story": "Ein Gerät besteht weiter, wenn seine Inventarliste ersetzt wird. Eine Leihposition beschreibt hingegen ausschließlich einen Bestandteil ihrer Ausleihe. Mira stellt die Beziehungen nebeneinander. Du liest die fachliche Bedeutung der beiden Rauten.",
+    "task": "Welche zwei Aussagen passen zu den dargestellten Beziehungen?",
+    "discovery": "Aggregation und Komposition sind anhand der fachlichen Zugehörigkeit unterschieden.",
+    "hints": [
+      "Die Raute liegt jeweils am Ganzen.",
+      "Eine gefüllte Raute bezeichnet Komposition.",
+      "Gerät besteht unabhängig; Leihposition ist an ihre Ausleihe gebunden."
+    ],
+    "explanation": "Die leere Raute bei Inventarliste ist Aggregation. Die gefüllte Raute bei Ausleihe ist Komposition. Entscheidend ist die ausdrücklich beschriebene fachliche Zugehörigkeit.",
+    "previousContext": "Der Planungsschritt „Mengenangaben an Klassenbeziehungen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "stock": "Inventarliste",
+      "device": "Geraet",
+      "loan": "Ausleihe",
+      "position": "Leihposition"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {
+      "aggregate": "Geräte können unabhängig von der aggregierenden Inventarliste weiterbestehen.",
+      "compose": "Leihposition ist Bestandteil genau einer Ausleihe; dort liegt die gefüllte Raute.",
+      "wrong": "Die gefüllte Raute liegt am unabhängigen Teil.",
+      "same": "Die Rauten sind nur beliebige Farbvarianten derselben Aussage."
+    },
+    "correctIds": [
+      "aggregate",
+      "compose"
+    ],
+    "solutions": [],
+    "starter": {
+      "nodes": [
+        {
+          "id": "stock",
+          "key": "stock",
+          "name": "Inventarliste",
+          "kind": "Class",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "device",
+          "key": "device",
+          "name": "Geraet",
+          "kind": "Class",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "loan",
+          "key": "loan",
+          "name": "Ausleihe",
+          "kind": "Class",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "position",
+          "key": "position",
+          "name": "Leihposition",
+          "kind": "Class",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        }
+      ],
+      "links": [
+        {
+          "id": "edge1",
+          "source": "device",
+          "target": "stock",
+          "kind": "Aggregation",
+          "meaning": "",
+          "name": "",
+          "sourceMultiplicity": "0..*",
+          "targetMultiplicity": "1",
+          "guard": "",
+          "fragment": ""
+        },
+        {
+          "id": "edge2",
+          "source": "position",
+          "target": "loan",
+          "kind": "Composition",
+          "meaning": "",
+          "name": "",
+          "sourceMultiplicity": "1..*",
+          "targetMultiplicity": "1",
+          "guard": "",
+          "fragment": ""
+        }
+      ],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 16,
+    "title": "Eine abstrakte Basisklasse nutzen",
+    "diagramType": "Class",
+    "chapter": "03 · Klassen und Beziehungen",
+    "format": "Build",
+    "story": "Für Nutzerarten soll derselbe Rabattvertrag gelten. Ein allgemeiner Nutzer wird in diesem Ausschnitt nicht direkt erzeugt. Vereinsnutzer liefert seine eigene konkrete Umsetzung. Mira bittet dich um den Klassenentwurf dieser Spezialisierung.",
+    "task": "Nutzer ist abstrakt und besitzt private kennung: String sowie öffentliche abstrakte rabatt(): Double. Vereinsnutzer ist konkret, erbt von Nutzer und überschreibt rabatt(): Double öffentlich und konkret. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Abstrakter Vertrag und konkrete Überschreibung sind im Entwurf erkennbar.",
+    "hints": [
+      "Die Generalisierung zeigt zur allgemeineren Klasse.",
+      "Hier sind Basisklasse und ihre Methode abstrakt.",
+      "Vereinsnutzer → Nutzer ist Vererbung; Vereinsnutzer bleibt konkret."
+    ],
+    "explanation": "Die abstrakte Basisklasse definiert den Vertrag. Vereinsnutzer spezialisiert sie und implementiert die Rabattmethode konkret.",
+    "previousContext": "Der Planungsschritt „Leere und gefüllte Raute verstehen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "user": "Nutzer",
+      "club": "Vereinsnutzer",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {
+      "identify": "kennung",
+      "discount": "rabatt"
+    },
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "user",
+            "key": "user",
+            "name": "Nutzer",
+            "kind": "Class",
+            "members": [
+              {
+                "id": "user_identify",
+                "key": "identify",
+                "name": "kennung",
+                "kind": "Attribute",
+                "type": "String",
+                "visibility": "-",
+                "parameters": "",
+                "abstract": false,
+                "static": false
+              },
+              {
+                "id": "user_discount",
+                "key": "discount",
+                "name": "rabatt",
+                "kind": "Method",
+                "type": "Double",
+                "visibility": "+",
+                "parameters": "",
+                "abstract": true,
+                "static": false
+              }
+            ],
+            "abstract": true,
+            "lane": ""
+          },
+          {
+            "id": "club",
+            "key": "club",
+            "name": "Vereinsnutzer",
+            "kind": "Class",
+            "members": [
+              {
+                "id": "club_discount",
+                "key": "discount",
+                "name": "rabatt",
+                "kind": "Method",
+                "type": "Double",
+                "visibility": "+",
+                "parameters": "",
+                "abstract": false,
+                "static": false
+              }
+            ],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "club",
+            "target": "user",
+            "kind": "Generalization",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 17,
+    "title": "Ein Interface richtig anbinden",
+    "diagramType": "Class",
+    "chapter": "03 · Klassen und Beziehungen",
+    "format": "Repair",
+    "story": "Benachrichtigungen sollen später über unterschiedliche Wege versendet werden können. Benachrichtigung ist deshalb ein Interface, Mailversand erfüllt seinen Vertrag. In der Vorlage wurde die falsche Beziehung gewählt. Du korrigierst den Zusammenhang.",
+    "task": "Die konkrete Klasse Mailversand realisiert das Interface Benachrichtigung. Beide zeigen öffentliche senden(text: String): Void. Korrigiere die Beziehung; eine zusätzliche abstrakt-Markierung am Interface-Methodenfeld ist hier nicht verlangt. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Versandschnittstelle und konkrete Realisierung sind fachlich getrennt.",
+    "hints": [
+      "Realisierung beginnt bei der implementierenden Klasse.",
+      "Das Interface ist das Ziel des leeren Dreiecks.",
+      "Mailversand → Benachrichtigung benötigt Realisierung."
+    ],
+    "explanation": "Interface-Realisierung ist eine gestrichelte Verbindung mit leerem Dreieck zum Interface. Eine Generalisierung zwischen Klasse und Interface ist hier falsch.",
+    "previousContext": "Der Planungsschritt „Eine abstrakte Basisklasse nutzen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "notify": "Benachrichtigung",
+      "mail": "Mailversand",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {
+      "send": "senden"
+    },
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "notify",
+            "key": "notify",
+            "name": "Benachrichtigung",
+            "kind": "Interface",
+            "members": [
+              {
+                "id": "notify_send",
+                "key": "send",
+                "name": "senden",
+                "kind": "Method",
+                "type": "Void",
+                "visibility": "+",
+                "parameters": "text: String",
+                "abstract": false,
+                "static": false
+              }
+            ],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "mail",
+            "key": "mail",
+            "name": "Mailversand",
+            "kind": "Class",
+            "members": [
+              {
+                "id": "mail_send",
+                "key": "send",
+                "name": "senden",
+                "kind": "Method",
+                "type": "Void",
+                "visibility": "+",
+                "parameters": "text: String",
+                "abstract": false,
+                "static": false
+              }
+            ],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "mail",
+            "target": "notify",
+            "kind": "Realization",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [
+        {
+          "id": "notify",
+          "key": "notify",
+          "name": "Benachrichtigung",
+          "kind": "Interface",
+          "members": [
+            {
+              "id": "notify_send",
+              "key": "send",
+              "name": "senden",
+              "kind": "Method",
+              "type": "Void",
+              "visibility": "+",
+              "parameters": "text: String",
+              "abstract": false,
+              "static": false
+            }
+          ],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "mail",
+          "key": "mail",
+          "name": "Mailversand",
+          "kind": "Class",
+          "members": [
+            {
+              "id": "mail_send",
+              "key": "send",
+              "name": "senden",
+              "kind": "Method",
+              "type": "Void",
+              "visibility": "+",
+              "parameters": "text: String",
+              "abstract": false,
+              "static": false
+            }
+          ],
+          "abstract": false,
+          "lane": ""
+        }
+      ],
+      "links": [
+        {
+          "id": "edge1",
+          "source": "mail",
+          "target": "notify",
+          "kind": "Generalization",
+          "meaning": "",
+          "name": "",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        }
+      ],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 18,
+    "title": "Den Klassenausschnitt selbst entwerfen",
+    "diagramType": "Class",
+    "chapter": "03 · Klassen und Beziehungen",
+    "format": "Build",
+    "story": "Mira führt Raumzuordnung und Technikpositionen zusammen. Räume sollen unabhängig bleiben; Positionen gehören dagegen ihrem Reservierungsvorgang. Du baust den gemeinsamen Entwurf aus den vereinbarten Anforderungen selbst auf.",
+    "task": "Erstelle konkrete Klassen: Raum mit privater kapazitaet: Integer; Reservierung mit privater nummer: Integer und öffentlicher bestaetigen(): Boolean; Technikposition mit privater menge: Integer. Assoziation: genau ein Raum je Reservierung, 0..* Reservierungen je Raum. Komposition: genau eine besitzende Reservierung je Technikposition, 0..* Positionen je Reservierung. Die gefüllte Raute liegt bei Reservierung. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Raumzuordnung und besitzende Reservierung sind konsistent zusammengeführt.",
+    "hints": [
+      "Unabhängiger Raum und besitzende Reservierung verlangen verschiedene Beziehungen.",
+      "Die Position ist Teil, die Reservierung das Ganze.",
+      "Reservierung–Raum ist Assoziation; Technikposition → Reservierung Komposition."
+    ],
+    "explanation": "Der Entwurf verwendet eine Assoziation für den Raum und eine Komposition für die Technikpositionen. Ihre Mengen gelten jeweils an den richtigen Enden.",
+    "previousContext": "Der Planungsschritt „Ein Interface richtig anbinden“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "room": "Raum",
+      "booking": "Reservierung",
+      "position": "Technikposition",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {
+      "capacity": "kapazitaet",
+      "number": "nummer",
+      "confirm": "bestaetigen",
+      "quantity": "menge"
+    },
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "room",
+            "key": "room",
+            "name": "Raum",
+            "kind": "Class",
+            "members": [
+              {
+                "id": "room_capacity",
+                "key": "capacity",
+                "name": "kapazitaet",
+                "kind": "Attribute",
+                "type": "Integer",
+                "visibility": "-",
+                "parameters": "",
+                "abstract": false,
+                "static": false
+              }
+            ],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "booking",
+            "key": "booking",
+            "name": "Reservierung",
+            "kind": "Class",
+            "members": [
+              {
+                "id": "booking_number",
+                "key": "number",
+                "name": "nummer",
+                "kind": "Attribute",
+                "type": "Integer",
+                "visibility": "-",
+                "parameters": "",
+                "abstract": false,
+                "static": false
+              },
+              {
+                "id": "booking_confirm",
+                "key": "confirm",
+                "name": "bestaetigen",
+                "kind": "Method",
+                "type": "Boolean",
+                "visibility": "+",
+                "parameters": "",
+                "abstract": false,
+                "static": false
+              }
+            ],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "position",
+            "key": "position",
+            "name": "Technikposition",
+            "kind": "Class",
+            "members": [
+              {
+                "id": "position_quantity",
+                "key": "quantity",
+                "name": "menge",
+                "kind": "Attribute",
+                "type": "Integer",
+                "visibility": "-",
+                "parameters": "",
+                "abstract": false,
+                "static": false
+              }
+            ],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "booking",
+            "target": "room",
+            "kind": "Association",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "0..*",
+            "targetMultiplicity": "1",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "position",
+            "target": "booking",
+            "kind": "Composition",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "0..*",
+            "targetMultiplicity": "1",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 19,
+    "title": "Einen Bearbeitungsablauf aufbauen",
+    "diagramType": "Activity",
+    "chapter": "04 · Aktivitäten und Verantwortungen",
+    "format": "Build",
+    "story": "Mira dokumentiert für neue Mitarbeitende den ersten Bearbeitungsweg. Der betrachtete Ausschnitt beginnt mit dem Öffnen und endet nach der Prüfung. Du überträgst die Reihenfolge in ein eigenes Aktivitätsdiagramm.",
+    "task": "Erstelle Start → Anfrage öffnen → Angaben prüfen → Ende. Start ist Initial, Ende ein Aktivitätsendknoten; dazwischen stehen zwei Aktionen und gerichtete Kontrollflüsse. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Ein eigener gerichteter Ablauf beschreibt Öffnen und Prüfen der Anfrage.",
+    "hints": [
+      "Unterscheide Aktionen von Start und Ende.",
+      "Ein Pfeil zeigt auf den nächsten Schritt.",
+      "Vier Elemente benötigen drei Kontrollflüsse."
+    ],
+    "explanation": "Die Verbindungen bestimmen den Ablauf. Die Erstellreihenfolge der Karten bestimmt weder Zeitfolge noch Fachbedeutung.",
+    "previousContext": "Der Planungsschritt „Den Klassenausschnitt selbst entwerfen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "start": "Start",
+      "read": "Anfrage öffnen",
+      "check": "Angaben prüfen",
+      "end": "Ende",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "start",
+            "key": "start",
+            "name": "Start",
+            "kind": "Initial",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "read",
+            "key": "read",
+            "name": "Anfrage öffnen",
+            "kind": "Action",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "check",
+            "key": "check",
+            "name": "Angaben prüfen",
+            "kind": "Action",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "end",
+            "key": "end",
+            "name": "Ende",
+            "kind": "Final",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "start",
+            "target": "read",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "read",
+            "target": "check",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge3",
+            "source": "check",
+            "target": "end",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 20,
+    "title": "Die vertauschten Entscheidungszweige",
+    "diagramType": "Activity",
+    "chapter": "04 · Aktivitäten und Verantwortungen",
+    "format": "Repair",
+    "story": "Ein freier Raum soll zur Zusage, ein belegter zur Absage führen. In der übergebenen Skizze stehen die Beschriftungen jedoch an den falschen Zweigen. Du korrigierst diese konkrete Stelle.",
+    "task": "Start führt zur Entscheidung Verfügbarkeit?. Raum frei führt zu Zusage senden, Raum belegt zu Absage senden. Beide Aktionen führen zum Ende. Korrigiere nur die Bedingungen der vorbereiteten Flüsse. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei. Als gleichwertige Variante dürfen die beiden Benachrichtigungen vor dem Ende in einem zusätzlichen Merge Wege bündeln zusammenlaufen.",
+    "discovery": "Die Verfügbarkeitsentscheidung führt zu den passenden Benachrichtigungen.",
+    "hints": [
+      "Lies jeden Zweig als Wenn-dann-Aussage.",
+      "Die Bedingungen gehören an die ausgehenden Flüsse.",
+      "Raum frei zur Zusage, Raum belegt zur Absage."
+    ],
+    "explanation": "Vertauschte Bedingungen ändern das fachliche Verhalten, obwohl alle Elemente vorhanden sind. Die ausdrücklich zugelassene Variante ergänzt einen gemeinsamen Merge vor dem Endknoten.",
+    "previousContext": "Der Planungsschritt „Einen Bearbeitungsablauf aufbauen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "start": "Start",
+      "check": "Verfügbarkeit?",
+      "accept": "Zusage senden",
+      "reject": "Absage senden",
+      "end": "Ende",
+      "archive": "Archiv (nur falls benötigt)",
+      "merge": "Wege bündeln"
+    },
+    "memberVocabulary": {},
+    "conditions": {
+      "free": "Raum frei",
+      "full": "Raum belegt"
+    },
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "start",
+            "key": "start",
+            "name": "Start",
+            "kind": "Initial",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "check",
+            "key": "check",
+            "name": "Verfügbarkeit?",
+            "kind": "Decision",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "accept",
+            "key": "accept",
+            "name": "Zusage senden",
+            "kind": "Action",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "reject",
+            "key": "reject",
+            "name": "Absage senden",
+            "kind": "Action",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "end",
+            "key": "end",
+            "name": "Ende",
+            "kind": "Final",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "start",
+            "target": "check",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "check",
+            "target": "accept",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "free",
+            "fragment": ""
+          },
+          {
+            "id": "edge3",
+            "source": "check",
+            "target": "reject",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "full",
+            "fragment": ""
+          },
+          {
+            "id": "edge4",
+            "source": "accept",
+            "target": "end",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge5",
+            "source": "reject",
+            "target": "end",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "",
+        "fragments": []
+      },
+      {
+        "nodes": [
+          {
+            "id": "start",
+            "key": "start",
+            "name": "Start",
+            "kind": "Initial",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "check",
+            "key": "check",
+            "name": "Verfügbarkeit?",
+            "kind": "Decision",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "accept",
+            "key": "accept",
+            "name": "Zusage senden",
+            "kind": "Action",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "reject",
+            "key": "reject",
+            "name": "Absage senden",
+            "kind": "Action",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "end",
+            "key": "end",
+            "name": "Ende",
+            "kind": "Final",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "merge",
+            "key": "merge",
+            "name": "Wege bündeln",
+            "kind": "Merge",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "start",
+            "target": "check",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "check",
+            "target": "accept",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "free",
+            "fragment": ""
+          },
+          {
+            "id": "edge3",
+            "source": "check",
+            "target": "reject",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "full",
+            "fragment": ""
+          },
+          {
+            "id": "edge4",
+            "source": "accept",
+            "target": "merge",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge5",
+            "source": "reject",
+            "target": "merge",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge6",
+            "source": "merge",
+            "target": "end",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [
+        {
+          "id": "start",
+          "key": "start",
+          "name": "Start",
+          "kind": "Initial",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "check",
+          "key": "check",
+          "name": "Verfügbarkeit?",
+          "kind": "Decision",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "accept",
+          "key": "accept",
+          "name": "Zusage senden",
+          "kind": "Action",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "reject",
+          "key": "reject",
+          "name": "Absage senden",
+          "kind": "Action",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "end",
+          "key": "end",
+          "name": "Ende",
+          "kind": "Final",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        }
+      ],
+      "links": [
+        {
+          "id": "edge1",
+          "source": "start",
+          "target": "check",
+          "kind": "Flow",
+          "meaning": "",
+          "name": "",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        },
+        {
+          "id": "edge2",
+          "source": "check",
+          "target": "accept",
+          "kind": "Flow",
+          "meaning": "",
+          "name": "",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "full",
+          "fragment": ""
+        },
+        {
+          "id": "edge3",
+          "source": "check",
+          "target": "reject",
+          "kind": "Flow",
+          "meaning": "",
+          "name": "",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "free",
+          "fragment": ""
+        },
+        {
+          "id": "edge4",
+          "source": "accept",
+          "target": "end",
+          "kind": "Flow",
+          "meaning": "",
+          "name": "",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        },
+        {
+          "id": "edge5",
+          "source": "reject",
+          "target": "end",
+          "kind": "Flow",
+          "meaning": "",
+          "name": "",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        }
+      ],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 21,
+    "title": "Alternative Wege wieder zusammenführen",
+    "diagramType": "Activity",
+    "chapter": "04 · Aktivitäten und Verantwortungen",
+    "format": "Build",
+    "story": "Je nach Vollständigkeit der Kontaktdaten fordert die Anmeldung Angaben nach oder übernimmt sie. Anschließend wird in beiden Fällen der Bearbeitungsstand gespeichert. Mira möchte den gemeinsamen Folgeweg ausdrücklich sichtbar machen.",
+    "task": "Start führt zur Entscheidung Kontakt vollständig?. Daten fehlen führt zu Daten nachfordern; Daten vollständig zu Angaben übernehmen. Beide Wege führen zum Merge Wege zusammenführen, danach zu Bearbeitung speichern und Ende. Verwende den ausdrücklich verlangten Merge. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Die Alternativen haben einen gemeinsamen Folgeweg ohne gegenseitiges Warten.",
+    "hints": [
+      "Ein Merge führt Alternativen zusammen.",
+      "Ein Join würde auf parallele Zweige warten.",
+      "Beide alternativen Aktionen zeigen auf denselben Merge."
+    ],
+    "explanation": "Die Entscheidung erzeugt alternative Wege. Ein Merge führt sie ohne gemeinsame Wartebedingung zusammen.",
+    "previousContext": "Der Planungsschritt „Die vertauschten Entscheidungszweige“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "start": "Start",
+      "decision": "Kontakt vollständig?",
+      "request": "Daten nachfordern",
+      "keep": "Angaben übernehmen",
+      "merge": "Wege zusammenführen",
+      "save": "Bearbeitung speichern",
+      "end": "Ende",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {
+      "missing": "Daten fehlen",
+      "complete": "Daten vollständig"
+    },
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "start",
+            "key": "start",
+            "name": "Start",
+            "kind": "Initial",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "decision",
+            "key": "decision",
+            "name": "Kontakt vollständig?",
+            "kind": "Decision",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "request",
+            "key": "request",
+            "name": "Daten nachfordern",
+            "kind": "Action",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "keep",
+            "key": "keep",
+            "name": "Angaben übernehmen",
+            "kind": "Action",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "merge",
+            "key": "merge",
+            "name": "Wege zusammenführen",
+            "kind": "Merge",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "save",
+            "key": "save",
+            "name": "Bearbeitung speichern",
+            "kind": "Action",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "end",
+            "key": "end",
+            "name": "Ende",
+            "kind": "Final",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "start",
+            "target": "decision",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "decision",
+            "target": "request",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "missing",
+            "fragment": ""
+          },
+          {
+            "id": "edge3",
+            "source": "decision",
+            "target": "keep",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "complete",
+            "fragment": ""
+          },
+          {
+            "id": "edge4",
+            "source": "request",
+            "target": "merge",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge5",
+            "source": "keep",
+            "target": "merge",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge6",
+            "source": "merge",
+            "target": "save",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge7",
+            "source": "save",
+            "target": "end",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 22,
+    "title": "Zwei Arbeiten parallel ausführen",
+    "diagramType": "Activity",
+    "chapter": "04 · Aktivitäten und Verantwortungen",
+    "format": "Build",
+    "story": "Nach einer Zusage können Bestätigung und Technikvorbereitung unabhängig beginnen. Abgeschlossen wird aber erst, wenn beides erledigt ist. Mira benötigt dafür eine andere Struktur als bei alternativen Wegen.",
+    "task": "Start führt zum Fork Arbeit aufteilen. Danach laufen Bestätigung senden und Technik vorbereiten parallel. Beide führen zum Join Auf beide warten, danach zu Vorgang abschließen und Ende. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Parallelisierung und Synchronisation bilden die Wartebedingung des Abschlusses ab.",
+    "hints": [
+      "Fork und Join sind Balken.",
+      "Der Abschluss benötigt beide Ergebnisse.",
+      "Fork teilt auf, Join synchronisiert vor dem Abschluss."
+    ],
+    "explanation": "Fork eröffnet die parallelen Zweige. Der Join wartet auf ihre eingehenden Kontrollflüsse; erst danach wird abgeschlossen.",
+    "previousContext": "Der Planungsschritt „Alternative Wege wieder zusammenführen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "start": "Start",
+      "fork": "Arbeit aufteilen",
+      "mail": "Bestätigung senden",
+      "prepare": "Technik vorbereiten",
+      "join": "Auf beide warten",
+      "finish": "Vorgang abschließen",
+      "end": "Ende",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "start",
+            "key": "start",
+            "name": "Start",
+            "kind": "Initial",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "fork",
+            "key": "fork",
+            "name": "Arbeit aufteilen",
+            "kind": "Fork",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "mail",
+            "key": "mail",
+            "name": "Bestätigung senden",
+            "kind": "Action",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "prepare",
+            "key": "prepare",
+            "name": "Technik vorbereiten",
+            "kind": "Action",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "join",
+            "key": "join",
+            "name": "Auf beide warten",
+            "kind": "Join",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "finish",
+            "key": "finish",
+            "name": "Vorgang abschließen",
+            "kind": "Action",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "end",
+            "key": "end",
+            "name": "Ende",
+            "kind": "Final",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "start",
+            "target": "fork",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "fork",
+            "target": "mail",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge3",
+            "source": "fork",
+            "target": "prepare",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge4",
+            "source": "mail",
+            "target": "join",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge5",
+            "source": "prepare",
+            "target": "join",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge6",
+            "source": "join",
+            "target": "finish",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge7",
+            "source": "finish",
+            "target": "end",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 23,
+    "title": "Verantwortung im Ablauf zuordnen",
+    "diagramType": "Activity",
+    "chapter": "04 · Aktivitäten und Verantwortungen",
+    "format": "Build",
+    "story": "Besucher, Anwendung und Anmeldung übernehmen verschiedene Schritte. Für die Übergabe möchte Mira die Verantwortung direkt am Ablauf erkennen. Du ordnest die Aktionen den passenden Bereichen zu.",
+    "task": "Erstelle Start → Wünsche eingeben → Angaben prüfen → Anfrage entscheiden → Ende. Start und Wünsche eingeben gehören zu Besucher, Angaben prüfen zu System, Anfrage entscheiden und Ende zu Anmeldung. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Die Übergaben zwischen Besucher, Anwendung und Anmeldung sind sichtbar.",
+    "hints": [
+      "Bereiche ersetzen keine Ablaufpfeile.",
+      "Jeder Schritt erhält die genannte Verantwortung.",
+      "Besucher beginnt, System prüft, Anmeldung entscheidet und beendet."
+    ],
+    "explanation": "Die Verantwortungsbereiche gliedern denselben gerichteten Ablauf. Ihre grafische Reihenfolge ist unerheblich; die Zuordnung der Schritte zählt.",
+    "previousContext": "Der Planungsschritt „Zwei Arbeiten parallel ausführen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "start": "Start",
+      "enter": "Wünsche eingeben",
+      "check": "Angaben prüfen",
+      "decide": "Anfrage entscheiden",
+      "end": "Ende",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {},
+    "messages": {},
+    "lanes": {
+      "guest": "Besucher",
+      "system": "System",
+      "team": "Anmeldung"
+    },
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "start",
+            "key": "start",
+            "name": "Start",
+            "kind": "Initial",
+            "members": [],
+            "abstract": false,
+            "lane": "guest"
+          },
+          {
+            "id": "enter",
+            "key": "enter",
+            "name": "Wünsche eingeben",
+            "kind": "Action",
+            "members": [],
+            "abstract": false,
+            "lane": "guest"
+          },
+          {
+            "id": "check",
+            "key": "check",
+            "name": "Angaben prüfen",
+            "kind": "Action",
+            "members": [],
+            "abstract": false,
+            "lane": "system"
+          },
+          {
+            "id": "decide",
+            "key": "decide",
+            "name": "Anfrage entscheiden",
+            "kind": "Action",
+            "members": [],
+            "abstract": false,
+            "lane": "team"
+          },
+          {
+            "id": "end",
+            "key": "end",
+            "name": "Ende",
+            "kind": "Final",
+            "members": [],
+            "abstract": false,
+            "lane": "team"
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "start",
+            "target": "enter",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "enter",
+            "target": "check",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge3",
+            "source": "check",
+            "target": "decide",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge4",
+            "source": "decide",
+            "target": "end",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 24,
+    "title": "Entscheidung und parallele Arbeit verbinden",
+    "diagramType": "Activity",
+    "chapter": "04 · Aktivitäten und Verantwortungen",
+    "format": "Build",
+    "story": "Bei fehlender Verfügbarkeit genügt eine Absage. Ist ein Raum frei, müssen Bestätigung und Technikreservierung erledigt werden. Mira möchte die bisher getrennt geübten Muster im gemeinsamen Ablauf prüfen.",
+    "task": "Erstelle Start → Entscheidung Raum frei?. Raum belegt führt zu Absage senden und Ende. Raum frei führt zum Fork Zusage vorbereiten, danach parallel zu Bestätigung senden und Technik reservieren. Beide Zweige werden im Join Zusage vollständig synchronisiert und führen zum selben Ende. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Der vollständige Ausschnitt verbindet Alternative und synchronisierte Zusage.",
+    "hints": [
+      "Die Entscheidung bestimmt zunächst Absage oder Zusage.",
+      "Nur im Zusagezweig wird parallel gearbeitet.",
+      "Die Absage geht direkt zum Ende; die Zusage erst nach ihrem Join."
+    ],
+    "explanation": "Die Synchronisation betrifft nur den Zusageweg. Der Endknoten beendet den jeweils erreichten Bearbeitungsdurchlauf.",
+    "previousContext": "Der Planungsschritt „Verantwortung im Ablauf zuordnen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "start": "Start",
+      "check": "Raum frei?",
+      "reject": "Absage senden",
+      "fork": "Zusage vorbereiten",
+      "confirm": "Bestätigung senden",
+      "reserve": "Technik reservieren",
+      "join": "Zusage vollständig",
+      "end": "Ende",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {
+      "free": "Raum frei",
+      "full": "Raum belegt"
+    },
+    "events": {},
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "start",
+            "key": "start",
+            "name": "Start",
+            "kind": "Initial",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "check",
+            "key": "check",
+            "name": "Raum frei?",
+            "kind": "Decision",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "reject",
+            "key": "reject",
+            "name": "Absage senden",
+            "kind": "Action",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "fork",
+            "key": "fork",
+            "name": "Zusage vorbereiten",
+            "kind": "Fork",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "confirm",
+            "key": "confirm",
+            "name": "Bestätigung senden",
+            "kind": "Action",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "reserve",
+            "key": "reserve",
+            "name": "Technik reservieren",
+            "kind": "Action",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "join",
+            "key": "join",
+            "name": "Zusage vollständig",
+            "kind": "Join",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "end",
+            "key": "end",
+            "name": "Ende",
+            "kind": "Final",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "start",
+            "target": "check",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "check",
+            "target": "reject",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "full",
+            "fragment": ""
+          },
+          {
+            "id": "edge3",
+            "source": "reject",
+            "target": "end",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge4",
+            "source": "check",
+            "target": "fork",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "free",
+            "fragment": ""
+          },
+          {
+            "id": "edge5",
+            "source": "fork",
+            "target": "confirm",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge6",
+            "source": "fork",
+            "target": "reserve",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge7",
+            "source": "confirm",
+            "target": "join",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge8",
+            "source": "reserve",
+            "target": "join",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge9",
+            "source": "join",
+            "target": "end",
+            "kind": "Flow",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 25,
+    "title": "Wer ruft wen auf?",
+    "diagramType": "Sequence",
+    "chapter": "05 · Nachrichten und Zusammenarbeit",
+    "format": "Read",
+    "story": "Mira betrachtet eine einzelne Anfrage zwischen Buchungsseite und Reservierungsdienst. Auf diesem Blatt verläuft die Zeit von oben nach unten. Du liest zuerst Aufruf und Rückgabe, bevor du eigene Nachrichtenfolgen aufbaust.",
+    "task": "Welche Aussage beschreibt die Interaktion richtig?",
+    "discovery": "Aufruf, Empfänger und anschließende Rückgabe sind aus der Sequenz gelesen.",
+    "hints": [
+      "Folge den Nachrichten von oben nach unten.",
+      "Die durchgezogene Aufruflinie zeigt zum Empfänger.",
+      "Die Buchungsseite ruft den Dienst auf; anschließend antwortet er."
+    ],
+    "explanation": "Die erste Nachricht läuft synchron zum Dienst. Die gestrichelte Rückgabe läuft danach in Gegenrichtung. Die Lebenslinien stehen für beteiligte Instanzen oder Rollen.",
+    "previousContext": "Der Planungsschritt „Entscheidung und parallele Arbeit verbinden“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "ui": "Buchungsseite",
+      "service": "Reservierungsdienst"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {},
+    "messages": {
+      "check": "pruefen()",
+      "result": "Ergebnis"
+    },
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {
+      "call": "Die Buchungsseite ruft pruefen() am Dienst auf und erhält danach ein Ergebnis.",
+      "reverse": "Der Dienst ruft zuerst die Buchungsseite auf.",
+      "parallel": "Die Nachrichten sind ohne Reihenfolge gleichzeitig dargestellt."
+    },
+    "correctIds": [
+      "call"
+    ],
+    "solutions": [],
+    "starter": {
+      "nodes": [
+        {
+          "id": "ui",
+          "key": "ui",
+          "name": "Buchungsseite",
+          "kind": "Lifeline",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "service",
+          "key": "service",
+          "name": "Reservierungsdienst",
+          "kind": "Lifeline",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        }
+      ],
+      "links": [
+        {
+          "id": "edge1",
+          "source": "ui",
+          "target": "service",
+          "kind": "Message",
+          "meaning": "check",
+          "name": "pruefen()",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        },
+        {
+          "id": "edge2",
+          "source": "service",
+          "target": "ui",
+          "kind": "Return",
+          "meaning": "result",
+          "name": "Ergebnis",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        }
+      ],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 26,
+    "title": "Eine Aufrufkette selbst darstellen",
+    "diagramType": "Sequence",
+    "chapter": "05 · Nachrichten und Zusammenarbeit",
+    "format": "Build",
+    "story": "Die Buchungsseite kennt den Bestand nicht direkt. Sie fragt den Reservierungsdienst, der seinerseits den Bestand prüft. Mira möchte den Aufruf und seinen Rückweg in einer eigenen Sequenz dokumentieren.",
+    "task": "Erstelle drei Lebenslinien. Reihenfolge: Buchungsseite → Reservierungsdienst: pruefen(); Reservierungsdienst → Bestand: frei(); Bestand → Reservierungsdienst: Rückgabe Verfügbarkeit; Reservierungsdienst → Buchungsseite: Rückgabe Ergebnis. Beide Aufrufe sind synchron. Es gibt keine Gruppen. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Die Anfrage und ihr Rückweg sind über die zuständigen Objekte dargestellt.",
+    "hints": [
+      "Eine Antwort entsteht nach ihrem Aufruf.",
+      "Die innerste Abfrage antwortet zuerst.",
+      "Die ersten zwei Verbindungen sind Aufrufe, die letzten zwei Rückgaben."
+    ],
+    "explanation": "Die vier Nachrichten stehen in der beschriebenen Reihenfolge. Aktivierungsbalken werden aus Aufrufen und Rückgaben dargestellt; Zeichenkoordinaten werden nicht bewertet.",
+    "previousContext": "Der Planungsschritt „Wer ruft wen auf?“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "ui": "Buchungsseite",
+      "service": "Reservierungsdienst",
+      "stock": "Bestand",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {},
+    "messages": {
+      "check": "pruefen()",
+      "lookup": "frei()",
+      "available": "Verfügbarkeit",
+      "result": "Ergebnis"
+    },
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "ui",
+            "key": "ui",
+            "name": "Buchungsseite",
+            "kind": "Lifeline",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "service",
+            "key": "service",
+            "name": "Reservierungsdienst",
+            "kind": "Lifeline",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "stock",
+            "key": "stock",
+            "name": "Bestand",
+            "kind": "Lifeline",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "ui",
+            "target": "service",
+            "kind": "Message",
+            "meaning": "check",
+            "name": "pruefen()",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "service",
+            "target": "stock",
+            "kind": "Message",
+            "meaning": "lookup",
+            "name": "frei()",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge3",
+            "source": "stock",
+            "target": "service",
+            "kind": "Return",
+            "meaning": "available",
+            "name": "Verfügbarkeit",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge4",
+            "source": "service",
+            "target": "ui",
+            "kind": "Return",
+            "meaning": "result",
+            "name": "Ergebnis",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 27,
+    "title": "Die Antwort steht zu früh",
+    "diagramType": "Sequence",
+    "chapter": "05 · Nachrichten und Zusammenarbeit",
+    "format": "Repair",
+    "story": "In einer vorbereiteten Sequenz steht die Bestandsantwort vor ihrer Abfrage. Lebenslinien und Nachrichtentypen passen bereits. Mira bittet dich, nur die Reihenfolge zu reparieren.",
+    "task": "Ordne die Vorlage: zuerst pruefen() von Buchungsseite an Reservierungsdienst, dann frei() an Bestand, dann Rückgabe Verfügbarkeit an den Dienst, zuletzt Rückgabe Ergebnis an die Buchungsseite. Endpunkte und Nachrichtentypen bleiben erhalten. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Die Bestandsantwort folgt ihrer Abfrage, die äußere Antwort erst danach.",
+    "hints": [
+      "Lies die vertikale Nachrichtenfolge.",
+      "Verfügbarkeit braucht zuvor den Aufruf frei().",
+      "Verschiebe frei() vor seine Rückgabe."
+    ],
+    "explanation": "Die vertikale Nachrichtenfolge zählt. Die waagerechte Lebenslinienanordnung darf variieren, solange Absender und Empfänger dieselben Fachrollen tragen.",
+    "previousContext": "Der Planungsschritt „Eine Aufrufkette selbst darstellen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "ui": "Buchungsseite",
+      "service": "Reservierungsdienst",
+      "stock": "Bestand",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {},
+    "messages": {
+      "check": "pruefen()",
+      "lookup": "frei()",
+      "available": "Verfügbarkeit",
+      "result": "Ergebnis"
+    },
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "ui",
+            "key": "ui",
+            "name": "Buchungsseite",
+            "kind": "Lifeline",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "service",
+            "key": "service",
+            "name": "Reservierungsdienst",
+            "kind": "Lifeline",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "stock",
+            "key": "stock",
+            "name": "Bestand",
+            "kind": "Lifeline",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "ui",
+            "target": "service",
+            "kind": "Message",
+            "meaning": "check",
+            "name": "pruefen()",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "service",
+            "target": "stock",
+            "kind": "Message",
+            "meaning": "lookup",
+            "name": "frei()",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge3",
+            "source": "stock",
+            "target": "service",
+            "kind": "Return",
+            "meaning": "available",
+            "name": "Verfügbarkeit",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge4",
+            "source": "service",
+            "target": "ui",
+            "kind": "Return",
+            "meaning": "result",
+            "name": "Ergebnis",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [
+        {
+          "id": "ui",
+          "key": "ui",
+          "name": "Buchungsseite",
+          "kind": "Lifeline",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "service",
+          "key": "service",
+          "name": "Reservierungsdienst",
+          "kind": "Lifeline",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "stock",
+          "key": "stock",
+          "name": "Bestand",
+          "kind": "Lifeline",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        }
+      ],
+      "links": [
+        {
+          "id": "edge1",
+          "source": "ui",
+          "target": "service",
+          "kind": "Message",
+          "meaning": "check",
+          "name": "pruefen()",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        },
+        {
+          "id": "edge3",
+          "source": "stock",
+          "target": "service",
+          "kind": "Return",
+          "meaning": "available",
+          "name": "Verfügbarkeit",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        },
+        {
+          "id": "edge2",
+          "source": "service",
+          "target": "stock",
+          "kind": "Message",
+          "meaning": "lookup",
+          "name": "frei()",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        },
+        {
+          "id": "edge4",
+          "source": "service",
+          "target": "ui",
+          "kind": "Return",
+          "meaning": "result",
+          "name": "Ergebnis",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        }
+      ],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 28,
+    "title": "Zwei Antworten als Alternativen",
+    "diagramType": "Sequence",
+    "chapter": "05 · Nachrichten und Zusammenarbeit",
+    "format": "Build",
+    "story": "Je nach Verfügbarkeit sendet der Dienst entweder eine Bestätigung oder eine Absage. Es sollen nicht beide Antworten im selben Durchlauf erfolgen. Mira benötigt eine Darstellung dieser Alternative.",
+    "task": "Erstelle die Lebenslinien Buchungsseite und Reservierungsdienst. Zuerst ruft die Buchungsseite reservieren() auf. Im alt-Fragment Antwortwahl sendet der Dienst bei Raum frei die Rückgabe Bestätigung und bei Raum belegt die Rückgabe Absage. Beide Rückgaben gehören zur Gruppe und ihrem jeweiligen Zweig. Notiere die zwei Alternativen in dieser Reihenfolge. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Die beiden Antwortmöglichkeiten sind als bedingte Alternativen modelliert.",
+    "hints": [
+      "Ein alt-Fragment trennt alternative Abläufe.",
+      "Der erste Aufruf liegt vor der Alternative.",
+      "Beide Rückgaben gehören zu Antwortwahl und haben unterschiedliche Bedingungen."
+    ],
+    "explanation": "Die bedingten Rückgaben liegen in den beiden alt-Zweigen. Sie sind Alternativen und nicht zwei aufeinanderfolgende Antworten desselben Durchlaufs.",
+    "previousContext": "Der Planungsschritt „Die Antwort steht zu früh“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "ui": "Buchungsseite",
+      "service": "Reservierungsdienst",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {
+      "free": "Raum frei",
+      "full": "Raum belegt"
+    },
+    "events": {},
+    "messages": {
+      "reserve": "reservieren()",
+      "confirm": "Bestätigung",
+      "reject": "Absage"
+    },
+    "lanes": {},
+    "fragmentVocabulary": {
+      "decision": "Antwortwahl"
+    },
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "ui",
+            "key": "ui",
+            "name": "Buchungsseite",
+            "kind": "Lifeline",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "service",
+            "key": "service",
+            "name": "Reservierungsdienst",
+            "kind": "Lifeline",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "ui",
+            "target": "service",
+            "kind": "Message",
+            "meaning": "reserve",
+            "name": "reservieren()",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "service",
+            "target": "ui",
+            "kind": "Return",
+            "meaning": "confirm",
+            "name": "Bestätigung",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "free",
+            "fragment": "decision"
+          },
+          {
+            "id": "edge3",
+            "source": "service",
+            "target": "ui",
+            "kind": "Return",
+            "meaning": "reject",
+            "name": "Absage",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "full",
+            "fragment": "decision"
+          }
+        ],
+        "systemName": "",
+        "fragments": [
+          {
+            "id": "decision",
+            "key": "decision",
+            "kind": "alt",
+            "guard": ""
+          }
+        ]
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 29,
+    "title": "Eine Prüfung wiederholen",
+    "diagramType": "Sequence",
+    "chapter": "05 · Nachrichten und Zusammenarbeit",
+    "format": "Build",
+    "story": "Für die Reservierung werden mehrere Geräte geprüft. Mira zeigt stellvertretend die Lebenslinie des gerade betrachteten Geräts. Abfrage und Antwort sollen sich für jedes weitere Gerät wiederholen. Du modellierst diesen Abschnitt.",
+    "task": "Erstelle Reservierungsdienst und Geraet als Lebenslinien. Ein loop-Fragment Geräteprüfung mit Bedingung weiteres Gerät vorhanden umfasst genau den synchronen Aufruf verfuegbar() vom Dienst zum Gerät und die anschließende Rückgabe Ergebnis zum Dienst. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Aufruf und Rückgabe bilden gemeinsam einen wiederholbaren Geräteprüfschritt.",
+    "hints": [
+      "Die Wiederholung umschließt Aufruf und Antwort.",
+      "Die Schleifenbedingung gehört an die Gruppe.",
+      "Beide Nachrichten gehören zu Geräteprüfung; die loop-Gruppe trägt weiteres Gerät vorhanden."
+    ],
+    "explanation": "Der loop-Rahmen beschreibt eine wiederholte Interaktion. Seine Bedingung gehört zur Gruppe; die einzelnen Nachrichten benötigen keine zusätzliche Bedingung.",
+    "previousContext": "Der Planungsschritt „Zwei Antworten als Alternativen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "service": "Reservierungsdienst",
+      "device": "Geraet",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {
+      "more": "weiteres Gerät vorhanden"
+    },
+    "events": {},
+    "messages": {
+      "check": "verfuegbar()",
+      "answer": "Ergebnis"
+    },
+    "lanes": {},
+    "fragmentVocabulary": {
+      "repeat": "Geräteprüfung"
+    },
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "service",
+            "key": "service",
+            "name": "Reservierungsdienst",
+            "kind": "Lifeline",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "device",
+            "key": "device",
+            "name": "Geraet",
+            "kind": "Lifeline",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "service",
+            "target": "device",
+            "kind": "Message",
+            "meaning": "check",
+            "name": "verfuegbar()",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": "repeat"
+          },
+          {
+            "id": "edge2",
+            "source": "device",
+            "target": "service",
+            "kind": "Return",
+            "meaning": "answer",
+            "name": "Ergebnis",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": "repeat"
+          }
+        ],
+        "systemName": "",
+        "fragments": [
+          {
+            "id": "repeat",
+            "key": "repeat",
+            "kind": "loop",
+            "guard": "more"
+          }
+        ]
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 30,
+    "title": "Eine optionale Benachrichtigung einordnen",
+    "diagramType": "Sequence",
+    "chapter": "05 · Nachrichten und Zusammenarbeit",
+    "format": "Build",
+    "story": "Auf Wunsch wird eine Bestätigung zusätzlich per E-Mail versendet. Die Buchungsseite erhält ihr Ergebnis auch ohne diesen Versand. Mira möchte den optionalen Teil innerhalb der vollständigen Sequenz erkennen können.",
+    "task": "Erstelle Buchungsseite, Reservierungsdienst und Versand als Lebenslinien. Zuerst ruft die Seite bestaetigen() am Dienst auf. Im opt-Fragment Benachrichtigung bei E-Mail gewünscht ruft der Dienst senden() am Versand auf und erhält Versandergebnis zurück. Beide Nachrichten tragen dieselbe Bedingung und gehören zur Gruppe. Abschließend liefert der Dienst außerhalb der Gruppe Bestätigung an die Seite zurück. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Der optionale Versand ist in den Bestätigungsablauf eingeordnet.",
+    "hints": [
+      "Die optionale Gruppe liegt zwischen äußerem Aufruf und Rückgabe.",
+      "opt besitzt genau einen bedingten Ablauf.",
+      "Nur senden() und Versandergebnis gehören zur Gruppe Benachrichtigung."
+    ],
+    "explanation": "Die abschließende Bestätigung liegt außerhalb des opt-Fragments und wird unabhängig von der Versandbedingung geliefert.",
+    "previousContext": "Der Planungsschritt „Eine Prüfung wiederholen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "ui": "Buchungsseite",
+      "service": "Reservierungsdienst",
+      "mail": "Versand",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {
+      "mail": "E-Mail gewünscht"
+    },
+    "events": {},
+    "messages": {
+      "confirm": "bestaetigen()",
+      "send": "senden()",
+      "sent": "Versandergebnis",
+      "done": "Bestätigung"
+    },
+    "lanes": {},
+    "fragmentVocabulary": {
+      "notify": "Benachrichtigung"
+    },
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "ui",
+            "key": "ui",
+            "name": "Buchungsseite",
+            "kind": "Lifeline",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "service",
+            "key": "service",
+            "name": "Reservierungsdienst",
+            "kind": "Lifeline",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "mail",
+            "key": "mail",
+            "name": "Versand",
+            "kind": "Lifeline",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "ui",
+            "target": "service",
+            "kind": "Message",
+            "meaning": "confirm",
+            "name": "bestaetigen()",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "service",
+            "target": "mail",
+            "kind": "Message",
+            "meaning": "send",
+            "name": "senden()",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "mail",
+            "fragment": "notify"
+          },
+          {
+            "id": "edge3",
+            "source": "mail",
+            "target": "service",
+            "kind": "Return",
+            "meaning": "sent",
+            "name": "Versandergebnis",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "mail",
+            "fragment": "notify"
+          },
+          {
+            "id": "edge4",
+            "source": "service",
+            "target": "ui",
+            "kind": "Return",
+            "meaning": "done",
+            "name": "Bestätigung",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "",
+        "fragments": [
+          {
+            "id": "notify",
+            "key": "notify",
+            "kind": "opt",
+            "guard": "mail"
+          }
+        ]
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 31,
+    "title": "Eine Reservierung hat einen Lebenszyklus",
+    "diagramType": "State",
+    "chapter": "06 · Zustände und Ereignisse",
+    "format": "Read",
+    "story": "Mira verfolgt nun einzelne Reservierungen über mehrere Ereignisse. Eine Stornierung soll sowohl vor als auch nach einer Bestätigung möglich sein. Du liest die erlaubten Wege aus ihrer Skizze.",
+    "task": "Welche zwei Aussagen stimmen mit dem Zustandsdiagramm überein?",
+    "discovery": "Die erlaubten Stornierungen sind aus zwei unterschiedlichen Zuständen erkannt.",
+    "hints": [
+      "Suche alle Übergänge mit stornieren.",
+      "Bestätigt ist ein Zustand, freigeben ein Ereignis.",
+      "Stornieren ist aus Angefragt und aus Bestätigt möglich."
+    ],
+    "explanation": "Ein normaler Zustand ohne ausgehenden Pfeil ist nicht automatisch ein Finalknoten. Die beiden gezeichneten Stornoübergänge haben unterschiedliche Quellen.",
+    "previousContext": "Der Planungsschritt „Eine optionale Benachrichtigung einordnen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "start": "Start",
+      "requested": "Angefragt",
+      "confirmed": "Bestätigt",
+      "cancelled": "Storniert"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {
+      "approve": "freigeben",
+      "cancel": "stornieren"
+    },
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {
+      "before": "Eine angefragte Reservierung kann storniert werden.",
+      "after": "Eine bestätigte Reservierung kann storniert werden.",
+      "direct": "freigeben führt unmittelbar nach Storniert.",
+      "end": "Jeder Zustandskasten ohne Ausgang ist automatisch ein Finalknoten."
+    },
+    "correctIds": [
+      "before",
+      "after"
+    ],
+    "solutions": [],
+    "starter": {
+      "nodes": [
+        {
+          "id": "start",
+          "key": "start",
+          "name": "Start",
+          "kind": "Initial",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "requested",
+          "key": "requested",
+          "name": "Angefragt",
+          "kind": "State",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "confirmed",
+          "key": "confirmed",
+          "name": "Bestätigt",
+          "kind": "State",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "cancelled",
+          "key": "cancelled",
+          "name": "Storniert",
+          "kind": "State",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        }
+      ],
+      "links": [
+        {
+          "id": "edge1",
+          "source": "start",
+          "target": "requested",
+          "kind": "Transition",
+          "meaning": "",
+          "name": "",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        },
+        {
+          "id": "edge2",
+          "source": "requested",
+          "target": "confirmed",
+          "kind": "Transition",
+          "meaning": "approve",
+          "name": "freigeben",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        },
+        {
+          "id": "edge3",
+          "source": "requested",
+          "target": "cancelled",
+          "kind": "Transition",
+          "meaning": "cancel",
+          "name": "stornieren",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        },
+        {
+          "id": "edge4",
+          "source": "confirmed",
+          "target": "cancelled",
+          "kind": "Transition",
+          "meaning": "cancel",
+          "name": "stornieren",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        }
+      ],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 32,
+    "title": "Den ersten Zustandsweg selbst aufbauen",
+    "diagramType": "State",
+    "chapter": "06 · Zustände und Ereignisse",
+    "format": "Build",
+    "story": "Eine neue Reservierung beginnt als Entwurf, wird abgesendet und später freigegeben. Mira möchte zunächst diesen positiven Weg dokumentieren. Du setzt ihn ohne weitere Sonderfälle selbst um.",
+    "task": "Erstelle den Initialknoten Start und die normalen Zustände Entwurf, Angefragt und Bestätigt. Start führt ohne Ereignis nach Entwurf. absenden führt nach Angefragt, freigeben von dort nach Bestätigt. Bestätigt ist kein Finalknoten. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Der positive Lebenszyklus ist mit seinen Ereignissen modelliert.",
+    "hints": [
+      "Der Startübergang braucht kein Ereignis.",
+      "Ein normaler Zustand darf im Ausschnitt ohne Ausgang bleiben.",
+      "Drei normale Zustände und ein Initialknoten werden benötigt."
+    ],
+    "explanation": "Die Ereignisse gehören an Übergänge. Bestätigt bleibt ein aktiver Zustand der Reservierung und ist nicht das Ende ihres gesamten Lebenszyklus.",
+    "previousContext": "Der Planungsschritt „Eine Reservierung hat einen Lebenszyklus“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "start": "Start",
+      "draft": "Entwurf",
+      "requested": "Angefragt",
+      "confirmed": "Bestätigt",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {
+      "send": "absenden",
+      "approve": "freigeben"
+    },
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "start",
+            "key": "start",
+            "name": "Start",
+            "kind": "Initial",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "draft",
+            "key": "draft",
+            "name": "Entwurf",
+            "kind": "State",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "requested",
+            "key": "requested",
+            "name": "Angefragt",
+            "kind": "State",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "confirmed",
+            "key": "confirmed",
+            "name": "Bestätigt",
+            "kind": "State",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "start",
+            "target": "draft",
+            "kind": "Transition",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "draft",
+            "target": "requested",
+            "kind": "Transition",
+            "meaning": "send",
+            "name": "absenden",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge3",
+            "source": "requested",
+            "target": "confirmed",
+            "kind": "Transition",
+            "meaning": "approve",
+            "name": "freigeben",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 33,
+    "title": "Ein Ereignis mit zwei Bedingungen",
+    "diagramType": "State",
+    "chapter": "06 · Zustände und Ereignisse",
+    "format": "Repair",
+    "story": "Das Ereignis prüfen hat abhängig vom Raum zwei mögliche Folgen. In Miras Vorlage sind die Bedingungen vertauscht. Du ordnest sie den richtigen Folgezuständen zu.",
+    "task": "Start führt ohne Ereignis nach Angefragt. Beim Ereignis prüfen führt Raum frei nach Bestätigt und Raum belegt nach Abgelehnt. Korrigiere die Bedingungen; die drei Geschäftsstände bleiben normale Zustände. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Dasselbe Ereignis führt abhängig von seiner Bedingung zum richtigen Folgezustand.",
+    "hints": [
+      "Ereignis und Bedingung sind verschiedene Angaben.",
+      "Die beiden Prüfübergänge starten bei Angefragt.",
+      "Raum frei gehört nach Bestätigt, Raum belegt nach Abgelehnt."
+    ],
+    "explanation": "Eine Bedingung begrenzt den durch prüfen ausgelösten Übergang. Ihre Vertauschung ändert das fachliche Verhalten.",
+    "previousContext": "Der Planungsschritt „Den ersten Zustandsweg selbst aufbauen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "start": "Start",
+      "requested": "Angefragt",
+      "confirmed": "Bestätigt",
+      "rejected": "Abgelehnt",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {
+      "free": "Raum frei",
+      "full": "Raum belegt"
+    },
+    "events": {
+      "check": "prüfen"
+    },
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "start",
+            "key": "start",
+            "name": "Start",
+            "kind": "Initial",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "requested",
+            "key": "requested",
+            "name": "Angefragt",
+            "kind": "State",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "confirmed",
+            "key": "confirmed",
+            "name": "Bestätigt",
+            "kind": "State",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "rejected",
+            "key": "rejected",
+            "name": "Abgelehnt",
+            "kind": "State",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "start",
+            "target": "requested",
+            "kind": "Transition",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "requested",
+            "target": "confirmed",
+            "kind": "Transition",
+            "meaning": "check",
+            "name": "prüfen",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "free",
+            "fragment": ""
+          },
+          {
+            "id": "edge3",
+            "source": "requested",
+            "target": "rejected",
+            "kind": "Transition",
+            "meaning": "check",
+            "name": "prüfen",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "full",
+            "fragment": ""
+          }
+        ],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [
+        {
+          "id": "start",
+          "key": "start",
+          "name": "Start",
+          "kind": "Initial",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "requested",
+          "key": "requested",
+          "name": "Angefragt",
+          "kind": "State",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "confirmed",
+          "key": "confirmed",
+          "name": "Bestätigt",
+          "kind": "State",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        },
+        {
+          "id": "rejected",
+          "key": "rejected",
+          "name": "Abgelehnt",
+          "kind": "State",
+          "members": [],
+          "abstract": false,
+          "lane": ""
+        }
+      ],
+      "links": [
+        {
+          "id": "edge1",
+          "source": "start",
+          "target": "requested",
+          "kind": "Transition",
+          "meaning": "",
+          "name": "",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "",
+          "fragment": ""
+        },
+        {
+          "id": "edge2",
+          "source": "requested",
+          "target": "confirmed",
+          "kind": "Transition",
+          "meaning": "check",
+          "name": "prüfen",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "full",
+          "fragment": ""
+        },
+        {
+          "id": "edge3",
+          "source": "requested",
+          "target": "rejected",
+          "kind": "Transition",
+          "meaning": "check",
+          "name": "prüfen",
+          "sourceMultiplicity": "",
+          "targetMultiplicity": "",
+          "guard": "free",
+          "fragment": ""
+        }
+      ],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 34,
+    "title": "Was beim Eintritt und Verlassen geschieht",
+    "diagramType": "State",
+    "chapter": "06 · Zustände und Ereignisse",
+    "format": "Build",
+    "story": "Ein bereitgestelltes Leihgerät meldet seine Bereitschaft einmalig durch ein Signal. Während es wartet, wird die Abholung überwacht. Beim Verlassen der Bereitschaft wird die Anzeige gelöscht. Mira möchte diese Verhaltensarten klar unterscheiden.",
+    "task": "Erstelle Start → Bereit ohne Ereignis und Bereit → Abgeholt mit abholen. Bereit besitzt entry Signal abspielen, do Abholung überwachen und exit Anzeige löschen. Abgeholt ist ein normaler Zustand ohne Aktionen. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Eintritt, laufende Aktivität und Austritt sind am Bereitschaftszustand getrennt.",
+    "hints": [
+      "entry erfolgt beim Eintritt, exit beim Verlassen.",
+      "do beschreibt die Aktivität während des Zustands.",
+      "Lege drei Merkmale am Zustand Bereit mit den Arten Entry, Do und Exit an."
+    ],
+    "explanation": "Zustandsaktionen ersetzen weder den Zustand noch sein auslösendes Ereignis. Jede Aktion ist der passenden Ausführungsart zugeordnet.",
+    "previousContext": "Der Planungsschritt „Ein Ereignis mit zwei Bedingungen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "start": "Start",
+      "ready": "Bereit",
+      "taken": "Abgeholt",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {
+      "signal": "Signal abspielen",
+      "wait": "Abholung überwachen",
+      "clear": "Anzeige löschen"
+    },
+    "conditions": {},
+    "events": {
+      "pickup": "abholen"
+    },
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "start",
+            "key": "start",
+            "name": "Start",
+            "kind": "Initial",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "ready",
+            "key": "ready",
+            "name": "Bereit",
+            "kind": "State",
+            "members": [
+              {
+                "id": "ready_signal",
+                "key": "signal",
+                "name": "Signal abspielen",
+                "kind": "Entry",
+                "type": "",
+                "visibility": "-",
+                "parameters": "",
+                "abstract": false,
+                "static": false
+              },
+              {
+                "id": "ready_wait",
+                "key": "wait",
+                "name": "Abholung überwachen",
+                "kind": "Do",
+                "type": "",
+                "visibility": "-",
+                "parameters": "",
+                "abstract": false,
+                "static": false
+              },
+              {
+                "id": "ready_clear",
+                "key": "clear",
+                "name": "Anzeige löschen",
+                "kind": "Exit",
+                "type": "",
+                "visibility": "-",
+                "parameters": "",
+                "abstract": false,
+                "static": false
+              }
+            ],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "taken",
+            "key": "taken",
+            "name": "Abgeholt",
+            "kind": "State",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "start",
+            "target": "ready",
+            "kind": "Transition",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "ready",
+            "target": "taken",
+            "kind": "Transition",
+            "meaning": "pickup",
+            "name": "abholen",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 35,
+    "title": "Stornierung aus mehreren Zuständen",
+    "diagramType": "State",
+    "chapter": "06 · Zustände und Ereignisse",
+    "format": "Build",
+    "story": "Stornieren ist vor und nach einer Zusage möglich. Erst das Archivieren beendet den betrachteten Lebenszyklus. Mira möchte verhindern, dass eine Bestätigung versehentlich schon als Ende gezeichnet wird.",
+    "task": "Erstelle Start → Angefragt ohne Ereignis. freigeben führt nach Bestätigt. stornieren führt von Angefragt und von Bestätigt nach Storniert. Erst archivieren führt von Storniert zum Finalknoten Ende. Alle drei Geschäftsstände bleiben normale Zustände. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Stornierung bleibt vor und nach Bestätigung möglich; Archivieren beendet den Lebenszyklus.",
+    "hints": [
+      "Dasselbe Ereignis kann verschiedene Quellen besitzen.",
+      "Bestätigt und Storniert sind noch keine Finalknoten.",
+      "Nur Ende erhält die Art Final."
+    ],
+    "explanation": "Zwei Übergänge beschreiben die Stornierung aus unterschiedlichen Zuständen. Der Finalknoten wird erst beim Archivieren erreicht.",
+    "previousContext": "Der Planungsschritt „Was beim Eintritt und Verlassen geschieht“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "start": "Start",
+      "requested": "Angefragt",
+      "confirmed": "Bestätigt",
+      "cancelled": "Storniert",
+      "end": "Ende",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {},
+    "conditions": {},
+    "events": {
+      "approve": "freigeben",
+      "cancel": "stornieren",
+      "archive": "archivieren"
+    },
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "start",
+            "key": "start",
+            "name": "Start",
+            "kind": "Initial",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "requested",
+            "key": "requested",
+            "name": "Angefragt",
+            "kind": "State",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "confirmed",
+            "key": "confirmed",
+            "name": "Bestätigt",
+            "kind": "State",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "cancelled",
+            "key": "cancelled",
+            "name": "Storniert",
+            "kind": "State",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "end",
+            "key": "end",
+            "name": "Ende",
+            "kind": "Final",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "start",
+            "target": "requested",
+            "kind": "Transition",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "requested",
+            "target": "confirmed",
+            "kind": "Transition",
+            "meaning": "approve",
+            "name": "freigeben",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge3",
+            "source": "requested",
+            "target": "cancelled",
+            "kind": "Transition",
+            "meaning": "cancel",
+            "name": "stornieren",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge4",
+            "source": "confirmed",
+            "target": "cancelled",
+            "kind": "Transition",
+            "meaning": "cancel",
+            "name": "stornieren",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge5",
+            "source": "cancelled",
+            "target": "end",
+            "kind": "Transition",
+            "meaning": "archive",
+            "name": "archivieren",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  },
+  {
+    "id": 36,
+    "title": "Den Lebenszyklus zur Übergabe fertigstellen",
+    "diagramType": "State",
+    "chapter": "06 · Zustände und Ereignisse",
+    "format": "Build",
+    "story": "Für die Übergabe verbindet Mira Entscheidung, Rückmeldung und Stornierung. Abgelehnte oder stornierte Vorgänge können archiviert werden. Eine bestätigte Reservierung bleibt vorerst aktiv. Du erstellst das Modell aus den vereinbarten Regeln.",
+    "task": "Erstelle Start → Angefragt ohne Ereignis. prüfen führt bei Raum frei nach Bestätigt und bei Raum belegt nach Abgelehnt. Bestätigt besitzt die Eintrittsaktion Zusage anzeigen. stornieren führt von Angefragt und Bestätigt nach Storniert. archivieren führt von Abgelehnt und Storniert zum Finalknoten Ende. Weitere Übergänge werden nicht verlangt. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "discovery": "Die Nordhafen-Unterlagen verbinden Nutzerziele, Struktur, Zusammenarbeit und Lebenszyklus in nachvollziehbaren Modellen.",
+    "hints": [
+      "Trenne Ereignis, Bedingung und Eintrittsaktion.",
+      "Stornieren hat zwei Quellen, Archivieren ebenfalls.",
+      "Zusage anzeigen gehört als Entry zu Bestätigt; nur Ende ist Final."
+    ],
+    "explanation": "Der Ausschnitt enthält zwei bedingte Prüfungen, zwei Stornierungen, zwei Archivierungen und eine Eintrittsaktion.",
+    "previousContext": "Der Planungsschritt „Stornierung aus mehreren Zuständen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
+    "nodeVocabulary": {
+      "start": "Start",
+      "requested": "Angefragt",
+      "confirmed": "Bestätigt",
+      "rejected": "Abgelehnt",
+      "cancelled": "Storniert",
+      "end": "Ende",
+      "archive": "Archiv (nur falls benötigt)"
+    },
+    "memberVocabulary": {
+      "notice": "Zusage anzeigen"
+    },
+    "conditions": {
+      "free": "Raum frei",
+      "full": "Raum belegt"
+    },
+    "events": {
+      "check": "prüfen",
+      "cancel": "stornieren",
+      "archive": "archivieren"
+    },
+    "messages": {},
+    "lanes": {},
+    "fragmentVocabulary": {},
+    "options": {},
+    "correctIds": [],
+    "solutions": [
+      {
+        "nodes": [
+          {
+            "id": "start",
+            "key": "start",
+            "name": "Start",
+            "kind": "Initial",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "requested",
+            "key": "requested",
+            "name": "Angefragt",
+            "kind": "State",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "confirmed",
+            "key": "confirmed",
+            "name": "Bestätigt",
+            "kind": "State",
+            "members": [
+              {
+                "id": "confirmed_notice",
+                "key": "notice",
+                "name": "Zusage anzeigen",
+                "kind": "Entry",
+                "type": "",
+                "visibility": "-",
+                "parameters": "",
+                "abstract": false,
+                "static": false
+              }
+            ],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "rejected",
+            "key": "rejected",
+            "name": "Abgelehnt",
+            "kind": "State",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "cancelled",
+            "key": "cancelled",
+            "name": "Storniert",
+            "kind": "State",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          },
+          {
+            "id": "end",
+            "key": "end",
+            "name": "Ende",
+            "kind": "Final",
+            "members": [],
+            "abstract": false,
+            "lane": ""
+          }
+        ],
+        "links": [
+          {
+            "id": "edge1",
+            "source": "start",
+            "target": "requested",
+            "kind": "Transition",
+            "meaning": "",
+            "name": "",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge2",
+            "source": "requested",
+            "target": "confirmed",
+            "kind": "Transition",
+            "meaning": "check",
+            "name": "prüfen",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "free",
+            "fragment": ""
+          },
+          {
+            "id": "edge3",
+            "source": "requested",
+            "target": "rejected",
+            "kind": "Transition",
+            "meaning": "check",
+            "name": "prüfen",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "full",
+            "fragment": ""
+          },
+          {
+            "id": "edge4",
+            "source": "requested",
+            "target": "cancelled",
+            "kind": "Transition",
+            "meaning": "cancel",
+            "name": "stornieren",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge5",
+            "source": "confirmed",
+            "target": "cancelled",
+            "kind": "Transition",
+            "meaning": "cancel",
+            "name": "stornieren",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge6",
+            "source": "rejected",
+            "target": "end",
+            "kind": "Transition",
+            "meaning": "archive",
+            "name": "archivieren",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          },
+          {
+            "id": "edge7",
+            "source": "cancelled",
+            "target": "end",
+            "kind": "Transition",
+            "meaning": "archive",
+            "name": "archivieren",
+            "sourceMultiplicity": "",
+            "targetMultiplicity": "",
+            "guard": "",
+            "fragment": ""
+          }
+        ],
+        "systemName": "",
+        "fragments": []
+      }
+    ],
+    "starter": {
+      "nodes": [],
+      "links": [],
+      "systemName": "",
+      "fragments": []
+    }
+  }
+]

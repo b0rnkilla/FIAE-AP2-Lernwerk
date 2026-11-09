@@ -2383,8 +2383,8 @@ h1:focus {
 .algorithm-inputs dd, .trace-values dd { margin-left: 0; overflow-wrap: anywhere; }
 .algorithm-workspace pre { max-width: 100%; overflow-x: auto; }
 .given-algorithm { margin-top: 20px; }
-.algorithm-checks details { border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; margin: 12px 0; background: var(--white); }
-.algorithm-checks summary { cursor: pointer; font-weight: 700; }
+.algorithm-checks details, .design-checks details { border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; margin: 12px 0; background: var(--white); }
+.algorithm-checks summary, .design-checks summary { cursor: pointer; font-weight: 700; }
 .algorithm-checks dl { margin-bottom: 0; }
 .algorithm-checks dt { color: var(--muted); font-size: 12px; margin-top: 12px; }
 .algorithm-checks dd { margin: 0; overflow-wrap: anywhere; white-space: pre-wrap; }
@@ -2422,13 +2422,16 @@ h1:focus {
 }
 
 /* Datenbankentwurf: bedienbare Tabellenkarten und automatisch lesbares Modell. */
-.design-task-list { margin-bottom:28px; padding:18px; border:1px solid var(--line); border-radius:20px; background:var(--white); }
-.design-task-list summary,.design-preview summary { cursor:pointer; font-weight:700; }
-.design-task-list nav { max-height:240px; overflow:auto; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:16px; }
-.design-task-list h2 { grid-column:1/-1; font-size:14px; margin:20px 0 8px; }
-.design-task-list a { padding:8px 12px; border-radius:10px; text-decoration:none; }
-.design-task-list a[aria-current=page] { color:var(--ink); background:var(--accent-light); font-weight:750; }
-.design-learning .mode-switch { display:flex; gap:12px; flex-wrap:wrap; margin:24px 0; }
+/* Datenbankentwurf verwendet den gemeinsamen Lernrahmen und einen schmal bedienbaren Baukasten. */
+.design-answer-content { padding: 0 20px; min-width: 0; }
+.design-answer .design-options { border: 0; padding: 0; border-radius: 0; background: transparent; }
+.design-answer .design-column-editor { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.design-notes > h2 { font-size: 25px; }
+.design-notes > p { color: var(--muted); }
+.design-notes article { border-top: 1px solid var(--line); margin-top: 20px; padding-top: 20px; }
+.design-notes article h3 { margin: 10px 0; }
+.design-notes article p { font-size: 12px; overflow-wrap: anywhere; }
+.design-preview summary { cursor: pointer; font-weight: 700; }
 .design-builder { margin:30px 0; min-width:0; }
 .design-builder-toolbar,.design-table-heading,.design-submit,.design-exam-overview { display:flex; gap:16px; flex-wrap:wrap; justify-content:space-between; align-items:center; margin:24px 0; }
 .design-builder-toolbar h2,.design-builder-toolbar h3 { margin:0; font-size:24px; }
@@ -2455,10 +2458,67 @@ h1:focus {
 .design-relations-text { font-size:13px; line-height:1.8; padding-left:20px; overflow-wrap:anywhere; }
 .design-options label { display:flex; gap:12px; padding:16px; margin:12px 0; border:1px solid var(--line); border-radius:14px; align-items:flex-start; }
 .design-options input { flex-shrink:0; }
-.design-help,.design-notes { border-top:1px solid var(--line); margin-top:32px; padding-top:24px; }
-.design-discovery { font-size:18px; padding:24px; background:var(--accent-light); border-radius:18px; }
+
+/* Arbeitsunterlagen und ER-Ergänzungen bleiben im gemeinsamen Lernrahmen. */
+.design-material { min-width: 0; margin: 28px 0; padding: 26px; border: 1px solid var(--line); border-radius: 24px; background: var(--white); }
+.design-material h2, .design-answer-content > h2 { font-size: 24px; margin-top: 22px; }
+.design-material h2 { margin-top: 0; }
+.design-evidence-scroll { overflow-x: auto; max-width: 100%; border: 1px solid var(--line); border-radius: 14px; }
+.design-evidence { border-collapse: collapse; width: 100%; font-size: 14px; line-height: 1.6; }
+.design-evidence caption { text-align: left; font-weight: 750; padding: 16px; background: var(--accent-light); }
+.design-evidence th, .design-evidence td { padding: 12px 16px; text-align: left; vertical-align: top; border-top: 1px solid var(--line); min-width: 110px; }
+.design-evidence th { background: var(--paper); }
+.design-er-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; min-width: 0; margin: 24px 0; padding: 22px; border: 1px solid var(--line); border-radius: 20px; }
+.design-er-fields legend { padding: 0 8px; font-weight: 750; }
+.design-er-fields label { display: grid; align-content: start; gap: 10px; min-width: 0; font-size: 14px; font-weight: 650; }
+.design-er-fields select { width: 100%; min-height: 44px; min-width: 0; padding: 10px; border: 1px solid var(--line); border-radius: 10px; font: inherit; color: var(--ink); background: var(--paper); }
+.design-er-svg .design-node-title { font-size: 17px; }
+@media (max-width: 620px) {
+    .design-material { padding: 18px; }
+    .design-er-fields { grid-template-columns: minmax(0, 1fr); padding: 16px; }
+}
+
+
 @media(max-width:1000px) { .design-column-editor { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-@media(max-width:600px) { .design-task-list nav { grid-template-columns:1fr; } .design-column-editor { grid-template-columns:1fr; align-items:start; } .design-table-editor,.design-relation-editor,.design-preview { padding:16px; } .design-table-heading { align-items:stretch; } .design-table-heading label { width:100%; } .design-builder-toolbar .button { width:100%; } }
+@media(max-width:600px) { .design-answer .design-column-editor { grid-template-columns:1fr; } .design-answer-content { padding:0 12px; } .design-column-editor { grid-template-columns:1fr; align-items:start; } .design-table-editor,.design-relation-editor,.design-preview { padding:16px; } .design-table-heading { align-items:stretch; } .design-table-heading label { width:100%; } .design-builder-toolbar .button { width:100%; } }
+/* UML: fachliche Eingaben und automatische Diagrammanordnung im gemeinsamen Lernrahmen. */
+.uml-diagram-tools { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin: 24px 0 12px; }
+.uml-canvas { border: 1px solid var(--line); border-radius: 18px; padding: 12px; background: var(--paper); }
+.uml-empty { padding: 32px 18px; margin: 0; color: var(--muted); text-align: center; }
+.uml-svg { min-height: 150px; }
+.uml-edge, .uml-open-arrow { stroke: var(--accent); stroke-width: 2; fill: none; }
+.uml-call-arrow { stroke: var(--accent); fill: var(--accent); }
+.uml-svg[data-diagram-type=Sequence] .design-node-title { font-size: 15px; }
+.uml-hollow { fill: var(--paper); stroke: var(--accent); stroke-width: 1.7; }
+.uml-filled { fill: var(--ink); stroke: var(--ink); stroke-width: 1.5; }
+.uml-boundary { fill: none; stroke: var(--line); stroke-width: 2; }
+.uml-dashed, .uml-lifeline, .uml-fragment-divider { stroke-dasharray: 7 5; }
+.uml-lifeline, .uml-fragment-divider, .uml-divider { stroke: var(--muted); stroke-width: 1.4; }
+.uml-fragment { fill: var(--accent-light); fill-opacity: .24; stroke: var(--muted); stroke-width: 1.5; }
+.uml-activation { fill: var(--accent-light); stroke: var(--accent); stroke-width: 1.5; }
+.uml-abstract { font-style: italic; }
+.uml-static { text-decoration: underline; }
+.uml-wrong .design-node, .uml-wrong .uml-edge, .uml-wrong .uml-hollow, .uml-wrong .uml-filled { stroke: #d16e48; stroke-width: 3; }
+.uml-wrong .design-node { stroke-dasharray: 5 3; }
+.uml-text-model { margin: 18px 0 24px; line-height: 1.8; overflow-wrap: anywhere; }
+.uml-text-model summary { cursor: pointer; font-weight: 700; }
+.uml-node-editor, .uml-link-editor, .uml-fragment-editor { min-width: 0; border: 1px solid var(--line); border-radius: 20px; background: var(--white); padding: 22px; margin: 24px 0; }
+.uml-node-editor legend, .uml-link-editor legend, .uml-fragment-editor legend { padding: 0 8px; font-weight: 750; }
+.uml-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.uml-fields label, .uml-system { display: grid; gap: 8px; min-width: 0; font-size: 14px; font-weight: 650; }
+.uml-fields input:not([type=checkbox]), .uml-fields select, .uml-system input { width: 100%; min-width: 0; min-height: 44px; padding: 10px; border: 1px solid var(--line); border-radius: 10px; font: inherit; color: var(--ink); background: var(--paper); }
+.uml-system { margin: 24px 0; }
+.uml-fields .uml-checkbox { display: flex; align-items: center; gap: 10px; min-height: 44px; }
+.uml-checkbox input { width: 20px; height: 20px; accent-color: var(--accent); }
+.uml-member { margin: 20px 0; padding: 20px 0; border-top: 1px solid var(--line); }
+.uml-order { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.uml-link-editor > .design-remove, .uml-node-editor > .design-remove { display: block; margin-top: 18px; }
+@media (max-width: 620px) {
+    .uml-fields { grid-template-columns: minmax(0, 1fr); }
+    .uml-node-editor, .uml-link-editor, .uml-fragment-editor { padding: 16px; }
+    .uml-diagram-tools .button { width: 100%; }
+}
+
 /* Heimnetz-Einstellung: native Formulare, lesbare Geräteadressen und isolierter QR-Code. */
 .home-network-page h1 { font-size: clamp(2rem, 4.2vw, 3.8rem); }
 .network-status { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 1.5rem 0; }

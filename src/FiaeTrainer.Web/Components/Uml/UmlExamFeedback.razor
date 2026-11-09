@@ -1,0 +1,7 @@
+<section class="design-checks" aria-label="Auswertung der Teilaufgabe"><h2>@(Result.Earned * Maximum / 50) / @Maximum Trainingspunkte</h2><p>Eigene Trainingsbewertung, keine amtliche IHK-Note.</p>@foreach (var check in Result.Checks) { <details open="@(check.Earned != check.Maximum)"><summary>@check.Name · @check.Earned / @check.Maximum Kriterienanteile</summary><p>@check.Detail</p></details> }</section>
+@code {
+    /// <summary> Gesperrtes fachliches Ergebnis nach Prüfungsabgabe. </summary>
+    [Parameter, EditorRequired] public UmlEvaluation Result { get; set; } = new();
+    /// <summary> Gewichtung der Teilaufgabe in der 50-Punkte-Runde. </summary>
+    [Parameter] public int Maximum { get; set; } = 20;
+}

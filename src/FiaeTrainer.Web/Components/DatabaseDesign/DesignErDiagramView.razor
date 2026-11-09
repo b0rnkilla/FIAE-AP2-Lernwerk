@@ -1,0 +1,72 @@
+<div class="design-er">
+    <p class="design-caption">Rechteck = Entitätstyp · Raute = Beziehung · Oval = Attribut. Die Zahl an einer Seite nennt die Anzahl dieser Objekte je Objekt der Gegenseite.</p>
+    <button type="button" class="button secondary design-zoom" aria-pressed="@(_zoom ? "true" : "false")" @onclick="() => _zoom = !_zoom">@(_zoom ? "Diagramm verkleinern" : "Diagramm vergrößern")</button>
+    <div class="design-diagram-wrap" tabindex="0" role="region" aria-label="ER-Diagramm – bei Bedarf seitlich scrollen">
+        <svg class="design-diagram design-er-svg" viewBox="0 0 760 @(Diagram.Relationships.Count * 300)" style="@(_zoom ? "min-width:760px;width:160%" : "min-width:560px")" role="img" aria-labelledby="@(_id + "-title") @(_id + "-desc")">
+            <title id="@(_id + "-title")">@Diagram.Title</title>
+            <desc id="@(_id + "-desc")">@string.Join("; ", Diagram.Relationships.Select(Describe))</desc>
+            @for (int i = 0; i < Diagram.Relationships.Count; i++)
+            {
+                var relation = Diagram.Relationships[i];
+                var left = Diagram.Entities.Single(entity => entity.Id == relation.Left);
+                var right = Diagram.Entities.Single(entity => entity.Id == relation.Right);
+                int y = 150 + i * 300;
+                <g>
+                    <line x1="220" y1="@y" x2="280" y2="@y" class="design-edge" />
+                    <line x1="480" y1="@y" x2="540" y2="@y" class="design-edge" />
+                    <rect x="30" y="@(y - 30)" width="190" height="60" class="design-node" />
+                    <rect x="540" y="@(y - 30)" width="190" height="60" class="design-node" />
+                    <polygon points="@($"280,{y} 380,{y-50} 480,{y} 380,{y+50}")" class="design-node" />
+                    <text x="125" y="@(y + 5)" class="design-node-title" text-anchor="middle">@Label(left.Name)</text>
+                    <text x="635" y="@(y + 5)" class="design-node-title" text-anchor="middle">@Label(right.Name)</text>
+                    <text x="380" y="@(y + 5)" class="design-node-column" text-anchor="middle">@Label(relation.Name)</text>
+                    <text x="250" y="@(y - 16)" class="design-node-title" text-anchor="middle">@Label(relation.LeftCardinality)</text>
+                    <text x="510" y="@(y - 16)" class="design-node-title" text-anchor="middle">@Label(relation.RightCardinality)</text>
+                    @foreach (var side in new[] { (Entity: left, X: 125), (Entity: right, X: 635) })
+                    {
+                        @for (int a = 0; a < side.Entity.Attributes.Count; a++)
+                        {
+                            int ay = y + (a == 0 ? -100 : 100);
+                            <g><line x1="@side.X" y1="@(y + (a == 0 ? -30 : 30))" x2="@side.X" y2="@(ay + (a == 0 ? 24 : -24))" class="design-edge" />
+                            <ellipse cx="@side.X" cy="@ay" rx="95" ry="24" class="design-node" /><text x="@side.X" y="@(ay + 5)" class="design-node-column" text-anchor="middle">@Label(side.Entity.Attributes[a])</text></g>
+                        }
+                    }
+                    @foreach (string attribute in relation.Attributes)
+                    {
+                        <g><line x1="380" y1="@(y - 50)" x2="380" y2="@(y - 76)" class="design-edge" />
+                        <ellipse cx="380" cy="@(y - 100)" rx="95" ry="24" class="design-node" /><text x="380" y="@(y - 95)" class="design-node-column" text-anchor="middle">@Label(attribute)</text></g>
+                    }
+                </g>
+            }
+        </svg>
+    </div>
+    @if (Diagram.Relationships.Count > 1) { <p class="design-caption">Die Abbildung zeigt Beziehungsausschnitte desselben Modells. Ein wiederholter Entitätstyp bezeichnet dieselbe Art von Objekten.</p> }
+    <ul class="design-relations-text">@foreach (var relation in Diagram.Relationships) { <li>@Describe(relation)</li> }</ul>
+</div>
+
+@code {
+    /// <summary> Eigene ER-Vorlage des Auftrags. </summary>
+    [Parameter, EditorRequired] public DesignErDiagram Diagram { get; set; } = new();
+    /// <summary> Fachliche Optionen zum Auflösen der Platzhalter. </summary>
+    [Parameter] public IReadOnlyList<DesignDiagramSlot> Slots { get; set; } = [];
+    /// <summary> Aktueller Entwurf; bei einer reinen Vorlage leer. </summary>
+    [Parameter] public IReadOnlyDictionary<string, string> Values { get; set; } = new Dictionary<string, string>();
+    /// <summary> Eindeutige Beschriftungskennung auch bei gleichzeitig geöffneter Musterlösung. </summary>
+    private readonly string _id = "er-" + Guid.NewGuid().ToString("N");
+    /// <summary> Vergrößerung verändert ausschließlich die Abbildung. </summary>
+    private bool _zoom;
+    /// <summary> Unausgefüllte Lücken bleiben sichtbar, ohne die richtige Antwort vorwegzunehmen. </summary>
+    private string Label(string value)
+    {
+        if (!value.StartsWith('$')) return value;
+        string id = value[1..];
+        var slot = Slots.SingleOrDefault(item => item.Id == id);
+        return slot != null && Values.TryGetValue(id, out string? selected) && slot.Options.TryGetValue(selected, out string? label) ? label : "[" + id + "]";
+    }
+    /// <summary> Derselbe Zusammenhang bleibt ohne Bild und ohne Kenntnis der Linienposition lesbar. </summary>
+    private string Describe(DesignErRelationship relation)
+    {
+        string left = Label(Diagram.Entities.Single(entity => entity.Id == relation.Left).Name), right = Label(Diagram.Entities.Single(entity => entity.Id == relation.Right).Name);
+        return $"{left} – {Label(relation.Name)} – {right}: {left} je {right}: {Label(relation.LeftCardinality)}; {right} je {left}: {Label(relation.RightCardinality)}." + (relation.Attributes.Count > 0 ? " Beziehungsattribut: " + string.Join(", ", relation.Attributes.Select(Label)) + "." : "");
+    }
+}

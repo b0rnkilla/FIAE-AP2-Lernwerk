@@ -84,3 +84,7 @@ SQL/Pseudocode verwenden eine Zeilentrennung zwischen Ausgangssituation und Arbe
 ## Ergänzung Alpha 11: Datenbankentwurf
 
 Ein weiterer eigener Prüfungseinstieg liegt unter /datenbankentwurf/pruefung. Drei unbekannte Fälle enthalten jeweils drei Teilaufgaben, 45 Minuten und 50 Trainingspunkte. Zwei Modellaufträge werden auf je 20 Punkte gewichtet, eine fachliche Auswahl auf zehn. Das Profil verwendet DesignExam und DesignHistory mit strukturierten Antworten; ExamRounds für SQL/Pseudocode und BusinessRound für WiSo bleiben unberührt. Die Uhr startet erst durch die Startaktion, Abgaben sind endgültig, Nachschlagen pausiert und kennzeichnet die Runde. [Ausführlicher Fachvertrag](datenbankentwurf.md).
+
+## Ergänzung Alpha 13: UML und Modellierung
+
+/uml/pruefung bietet drei neue eigene Fälle mit je drei unabhängig modellierbaren Aufträgen, 45 Minuten und 50 Trainingspunkten (20/20/10). Fünf UML-Diagrammarten werden fallabhängig kombiniert; alle Prüfungsaufträge beginnen leer. Eigene Felder UmlExam/UmlHistory neben den bisherigen Prüfungsformaten. Start, Ersetzungsbestätigung, Pause, UTC-Frist, Nachschlagen, Kontrollmarkierung und endgültige Abgabe folgen dem vorhandenen Bedienprinzip. Keine Punkte im UML-Lernen. Bewertung anhand klarer Fachrollen und geprüfter Varianten, keine allgemeine UML-Beweisführung. [UML-Fachvertrag](uml.md).

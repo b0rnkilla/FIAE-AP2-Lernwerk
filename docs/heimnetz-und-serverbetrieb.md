@@ -1,6 +1,6 @@
 # Optionaler Heimnetz-Betrieb
 
-Quellstand **0.1.1-alpha.12 · 06.11.2026**. Die gleiche Windows-EXE unterstützt lokale Nutzung und private Heimnetz-Freigabe. Login, Registrierung, Benutzertabellen, Homeserver und nginx bleiben gestrichen. Die Nutzung richtet sich weiterhin nach den [Nutzungsbedingungen](../LICENSE). Das vorhandene Alpha-9-ZIP wurde nicht verändert; diese Erweiterung gehört erst in ein künftig ausdrücklich beauftragtes Paket.
+Quellstand **0.1.1-alpha.12 · 06.11.2026**. Die gleiche Windows-EXE unterstützt lokale Nutzung und private Heimnetz-Freigabe. Login, Registrierung, Benutzertabellen, Homeserver und nginx bleiben gestrichen. Die Nutzung richtet sich weiterhin nach den [Nutzungsbedingungen](../LICENSE). Das Windows-ZIP Alpha 12 wurde nach bestätigtem Nutzer-Push am 06.11.2026 aus Commit e3af6aa gebaut und isoliert geprüft; das vorhandene Alpha-9-ZIP bleibt unverändert.
 
 ## Für Anwender: Freigabe in der App
 
@@ -105,3 +105,7 @@ Die eingeklappte Aufgabenliste wird ebenso wie Aufgabenmodi und die ausgeblendet
 ## Persönliche Einrichtung
 
 Die neue Seite Updates & SQL-Einrichtung zeigt die Buildversion und den Updatezustand. SQL-Verbindung und persönliche Updatewahl lassen sich während der gemeinsam genutzten Heimnetz-Vorführung nicht ändern; die Sperre wird auch im Service geprüft. Seit Alpha 12 zum Einrichten auf dem Gastgeber unter Heimnetz die Freigabe beenden; die SQL-Einrichtung bleibt während aktiver Freigabe auch lokal gesperrt. Öffentliche Updatehinweise bleiben in der Vorführung sichtbar, ohne lokale Daten an GitHub zu senden.
+
+## Paketprüfung Alpha 12
+
+Die entpackte native EXE auf Testport 5214 erkennt das private WLAN über den mitgelieferten Windows-PowerShell-Helfer und erzeugt den QR-Code ohne externe Dienste. Über die echte LAN-Adresse wird nur die Remoteansicht ohne Verwaltungsformular ausgeliefert. Freigabe beenden über localhost speichert die lokale Wahl und startet den Webhost innerhalb derselben EXE neu; der Browser kehrt automatisch zurück. Die vorher pausierte Entwurfsprüfung samt 44:54 Restzeit/Kontrollmarkierung sowie das komplette Testprofil blieben beim Wechsel erhalten. Keine neue QA-Firewallregel und keine Änderung von Nutzer-Netzwerkprofilen. Echte erhöhte Regelerstellung sowie ein zweites physisches Gerät wurden in diesem Paketlauf nicht geprüft; der Nutzer bestätigte Heimnetz zuvor in der Entwicklungsfassung.

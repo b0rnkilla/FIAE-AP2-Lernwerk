@@ -1,0 +1,50 @@
+@page "/uml/spickzettel"
+@inject ProgressStore Store
+@inject UmlCatalog Catalog
+<PageTitle>UML-Spickzettel · AP2 Lernwerk</PageTitle>
+<main class="page reading-page"><div class="eyebrow">FÜNF SICHTEN AUF DEIN SYSTEM</div><h1>Dein UML-Spickzettel.</h1><a class="button secondary" href="@ReturnPath">Zurück zu deiner Aufgabe →</a>
+@if (_notice != null) { <p class="notice" role="status">@_notice</p> }
+<section class="reference-section"><h2>Die passende Sicht wählen</h2><p>Anwendungsfalldiagramme beschreiben externe Rollen und ihre Ziele am System. Klassendiagramme beschreiben Struktur, Merkmale und Beziehungen. Aktivitäten zeigen Kontrollflüsse und Verantwortungen. Sequenzen zeigen zeitlich geordnete Nachrichten zwischen Instanzen. Zustandsdiagramme beschreiben den Lebenszyklus eines Objekts.</p></section>
+<section class="reference-section"><h2>Anwendungsfälle: Rollen, Grenze und Abhängigkeiten</h2><p>Akteure stehen außerhalb der beschrifteten Systemgrenze, angebotene Anwendungsfälle darin. Eine Assoziation verbindet die nutzende Rolle mit ihrem Ziel. include zeigt vom einbindenden Anwendungsfall auf die verpflichtend eingebundene Funktion. extend zeigt von der optionalen Erweiterung auf den Basisanwendungsfall. Generalisierung zeigt von der speziellen zur allgemeinen Rolle beziehungsweise zum allgemeineren Anwendungsfall.</p></section>
+<section class="reference-section"><h2>Klassen sind Baupläne für Objekte</h2><p>Eine Klasse beschreibt Attribute und Methoden. − ist privat, + öffentlich, # geschützt und ~ paketintern. Eine Methode besitzt Parameter und einen Rückgabetyp; Void bedeutet keine Rückgabe. Beispiel: + passt(anzahl: Integer): Boolean. Statische Merkmale werden unterstrichen, abstrakte Klassen und Methoden kursiv dargestellt. Ein Interface wird mit «interface» gekennzeichnet.</p><p>Bei Assoziationen zählt die Multiplizität am jeweiligen Ende Objekte dieser Klasse je Objekt der Gegenseite. 1..1 und 1 sind hier gleichbedeutend, n und * bezeichnen viele. Die Aggregation hat eine leere, die Komposition eine gefüllte Raute am Ganzen. Im Baukasten wählst du bei diesen beiden Beziehungen den Teil als Ausgang und das Ganze als Ziel. Vererbung: durchgezogene Linie mit leerem Dreieck zur allgemeineren Klasse. Realisierung: gestrichelte Linie mit leerem Dreieck zum Interface.</p></section>
+<section class="reference-section"><h2>Aktivitäten: Alternative und Parallelität</h2><p>Der ausgefüllte Kreis ist Start, der Kreis mit innerem ausgefülltem Kreis Aktivitätsende. Aktionen sind abgerundete Rechtecke. Entscheidungen und Merges sind Rauten: Eine Entscheidung verteilt auf bedingte Alternativen; ein Merge führt alternative Wege ohne Warten auf beide zusammen. Fork und Join sind Balken: Fork eröffnet parallele Zweige, Join synchronisiert die eingehenden Kontrollflüsse. Verantwortungsbereiche ordnen Aktionen Rollen oder Systemteilen zu.</p></section>
+<section class="reference-section"><h2>Sequenzen: Zeit läuft von oben nach unten</h2><p>Lebenslinien stehen für beteiligte Instanzen oder Rollen. Ein synchroner Aufruf wartet auf die Antwort; die Rückgabe ist gestrichelt. Aktivierungsbalken zeigen die aus Aufrufen und Rückgaben abgeleiteten Ausführungsabschnitte. Im Baukasten verschieben Früher/Später-Buttons die tatsächliche Nachrichtenfolge.</p><p>alt gruppiert alternative Zweige; die Nachrichten jedes Zweigs erhalten dieselbe Bedingung. opt beschreibt einen optionalen Ablauf, loop eine Wiederholung. Bei opt und loop gehört die Gruppenbedingung an den Rahmen. Die Aufgaben benennen ausdrücklich, ob Nachrichten zusätzlich eine Zweigbedingung tragen. Die unterstützten Gruppen sind einfach und nicht ineinander verschachtelt.</p></section>
+<section class="reference-section"><h2>Zustände, Ereignisse und Aktionen</h2><p>Zustände beschreiben Situationen eines Objekts. Übergänge haben ein Ereignis und gegebenenfalls eine Bedingung in eckigen Klammern. Ein Startübergang braucht in den Aufgaben kein Ereignis. Ein normaler Zustand ohne Ausgang ist nicht automatisch ein Finalknoten. entry beschreibt die Aktion beim Eintritt, do die Aktivität während des Zustands, exit die Aktion beim Verlassen. Der Finalknoten hat keinen Ausgang.</p></section>
+<section class="reference-section"><h2>So arbeitest du mit eigenen Entwürfen</h2><p>Lege Elemente an, ordne ihre Fachrollen zu und wähle die UML-Art. Eigene Anzeigenamen sind frei; die gewählte Fachrolle legt ihre Bedeutung fest. Ergänze Merkmale und Verbindungen. Die App ordnet automatisch an; der Textmodus beschreibt denselben Entwurf. Die Prüfung bewertet Fachrollen, Elementarten, Merkmale, Richtung, Mengen, Bedingungen und Sequenzreihenfolge anhand expliziter Varianten. Ein beliebiger freier Text wird nicht durch KI interpretiert. Nach Änderungen verschwinden alte Rückmeldungen.</p><p>36 Lernaufgaben und drei eigene 45-Minuten-Prüfungsfälle mit je 50 Trainingspunkten ergänzen sich. Im Lernen erscheinen keine Punkte. Die Rundenuhr beginnt erst mit Start, läuft nach Browserende weiter und hält bei Pause an. Eine Abgabe bleibt unveränderlich. Endliche Aufgaben und Muster decken nicht die gesamte UML-Spezifikation oder den vollständigen AP2-Katalog ab.</p></section>
+<section class="reference-section"><h2>Fachliche Grundlage</h2><p><a href="https://www.omg.org/spec/UML/2.5.1" target="_blank" rel="noopener noreferrer">Object Management Group: UML 2.5.1</a> · <a href="https://www.ihk.de/hannover/hauptnavigation/ausbildung-und-weiterbildung/ausbildung/ausbildung-a-z/neuordnungen/pruefungskataloge-it-berufe-6438900" target="_blank" rel="noopener noreferrer">IHK Hannover: Prüfungskataloge IT-Berufe</a>. Eigene Diagramme und eigene Aufgaben; keine eingebetteten Originalprüfungen.</p></section>
+</main>
+@code {
+    /// <summary> Nur eine lokale Aufgabennummer oder der feste Prüfungsrückweg ist erlaubt. </summary>
+    [SupplyParameterFromQuery(Name = "aufgabe")] public int? LessonId { get; set; }
+    [SupplyParameterFromQuery(Name = "pruefung")] public bool Exam { get; set; }
+    private string ReturnPath = "/uml/1";
+    private string? _notice;
+    protected override async Task OnInitializedAsync()
+    {
+        if (Exam) ReturnPath = "/uml/pruefung/runde";
+        else if (LessonId is { } requested && Catalog.Lessons.Any(task => task.Id == requested)) ReturnPath = "/uml/" + LessonId.Value;
+        try
+        {
+            var state = await Store.LoadAsync();
+            if (Exam)
+            {
+                ReturnPath = "/uml/pruefung/runde";
+                if (state.UmlExam is { FinishedUtc: null } round)
+                {
+                    if (round.SecondsLeft(DateTimeOffset.UtcNow) > 0) { round.Pause(DateTimeOffset.UtcNow); round.UsedReference = true; }
+                    var saved = await Store.SaveUmlExamAsync(round, Catalog);
+                    _notice = saved.FinishedUtc != null ? "Die Prüfungszeit ist abgelaufen. Deine letzte gespeicherte Abgabe wurde ausgewertet." : "Die Prüfung pausiert und wird als mit Nachschlagen gekennzeichnet.";
+                }
+            }
+            else
+            {
+                int id = LessonId is { } selected && Catalog.Lessons.Any(task => task.Id == selected) ? selected : state.LastUmlLessonId;
+                var task = Catalog.Lessons.SingleOrDefault(task => task.Id == id) ?? Catalog.Lessons[0];
+                ReturnPath = "/uml/" + task.Id;
+                var progress = state.UmlLessons.GetValueOrDefault(task.Id) ?? new() { Answer = task.InitialAnswer() }; progress.Assisted = true;
+                await Store.SaveUmlAsync(task.Id, progress, Catalog);
+            }
+        }
+        catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException or System.Text.Json.JsonException) { _notice = "Der Unterstützungsstatus konnte nicht gespeichert werden. Dein Entwurf wird nicht überschrieben."; }
+    }
+}

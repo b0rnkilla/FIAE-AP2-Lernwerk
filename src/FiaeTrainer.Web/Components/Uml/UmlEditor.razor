@@ -1,0 +1,103 @@
+@if (Task.Format == "Read")
+{
+    <UmlDiagram Task="Task" Model="Task.Starter" />
+    <fieldset class="design-options" disabled="@ReadOnly"><legend>@(Task.CorrectIds.Count == 1 ? "Wähle eine Aussage." : $"Wähle {Task.CorrectIds.Count} Aussagen.")</legend>
+        @foreach (var option in Task.Options) { <label><input type="@(Task.CorrectIds.Count == 1 ? "radio" : "checkbox")" name="@_group" checked="@Answer.SelectedIds.Contains(option.Key)" @onchange="() => SelectAsync(option.Key)" /> @option.Value</label> }
+    </fieldset>
+}
+else
+{
+    <UmlDiagram Task="Task" Model="Answer.Model" Evaluation="Evaluation" />
+    <p class="design-caption">Baue deinen Entwurf selbst auf. Die Fachrolle legt die Bedeutung eines Elements fest; eigene Anzeigenamen sind frei. Die App ordnet automatisch an. Zum Verbinden wählst du Ausgang und Ziel. Alle Schritte funktionieren ohne Ziehen.</p>
+    @if (Task.DiagramType == "UseCase") { <label class="uml-system">Beschriftung der Systemgrenze<input maxlength="80" disabled="@ReadOnly" @bind="Answer.Model.SystemName" @bind:event="oninput" @bind:after="ChangedAsync" /></label> }
+    <div class="design-builder-toolbar"><h2>Deine Elemente</h2><button class="button secondary" disabled="@(ReadOnly || Answer.Model.Nodes.Count >= 16)" @onclick="AddNodeAsync">+ Element hinzufügen</button></div>
+    @foreach (var node in Answer.Model.Nodes)
+    {
+        <fieldset class="uml-node-editor" disabled="@ReadOnly" @key="node.Id"><legend>Element @(Answer.Model.Nodes.IndexOf(node) + 1)</legend>
+            <div class="uml-fields"><label>Fachrolle<select value="@node.Key" @onchange="args => NodeMeaningAsync(node, args.Value?.ToString() ?? string.Empty)"><option value="">Bitte wählen</option>@foreach (var item in Task.NodeVocabulary) { <option value="@item.Key">@item.Value</option> }</select></label>
+            <label>Elementart<select @bind="node.Kind" @bind:after="ChangedAsync">@foreach (string kind in UmlKinds.NodeTypes(Task.DiagramType)) { <option value="@kind">@UmlKinds.Nodes[kind]</option> }</select></label>
+            <label>Anzeigename<input maxlength="80" @bind="node.Name" @bind:event="oninput" @bind:after="ChangedAsync" /></label>
+            @if (Task.DiagramType == "Class" && node.Kind == "Class") { <label class="uml-checkbox"><input type="checkbox" @bind="node.Abstract" @bind:after="ChangedAsync" /> Abstrakte Klasse</label> }
+            @if (Task.Lanes.Count > 0) { <label>Verantwortungsbereich<select @bind="node.Lane" @bind:after="ChangedAsync"><option value="">Bitte wählen</option>@foreach (var lane in Task.Lanes) { <option value="@lane.Key">@lane.Value</option> }</select></label> }
+            </div>
+            @if (Task.DiagramType == "Class" || Task.DiagramType == "State" && node.Kind == "State")
+            {
+                @foreach (var member in node.Members)
+                {
+                    <div class="uml-member" @key="member.Id"><div class="uml-fields">
+                        <label>Merkmal-Fachrolle<select value="@member.Key" @onchange="args => MemberMeaningAsync(member, args.Value?.ToString() ?? string.Empty)"><option value="">Bitte wählen</option>@foreach (var item in Task.MemberVocabulary) { <option value="@item.Key">@item.Value</option> }</select></label>
+                        <label>Merkmalart<select @bind="member.Kind" @bind:after="ChangedAsync">@if (Task.DiagramType == "Class") { <option value="Attribute">Attribut</option><option value="Method">Methode</option> } else { <option value="Entry">entry · beim Eintritt</option><option value="Do">do · während des Zustands</option><option value="Exit">exit · beim Verlassen</option> }</select></label>
+                        <label>Merkmalname<input maxlength="80" @bind="member.Name" @bind:event="oninput" @bind:after="ChangedAsync" /></label>
+                        @if (Task.DiagramType == "Class")
+                        {
+                            <label>@(member.Kind == "Method" ? "Rückgabetyp" : "Datentyp")<input maxlength="80" @bind="member.Type" @bind:event="oninput" @bind:after="ChangedAsync" placeholder="z. B. Integer, String, Boolean, Void" /></label>
+                            <label>Sichtbarkeit<select @bind="member.Visibility" @bind:after="ChangedAsync"><option value="-">− privat</option><option value="+">+ öffentlich</option><option value="#"># geschützt</option><option value="~">~ paketintern</option></select></label>
+                            <label class="uml-checkbox"><input type="checkbox" @bind="member.Static" @bind:after="ChangedAsync" /> Statisch</label>
+                            @if (member.Kind == "Method") { <label>Parameter (name: Typ, …)<input maxlength="250" @bind="member.Parameters" @bind:event="oninput" @bind:after="ChangedAsync" placeholder="Leer lassen, wenn keine Parameter nötig sind" /></label><label class="uml-checkbox"><input type="checkbox" @bind="member.Abstract" @bind:after="ChangedAsync" /> Abstrakte Methode</label> }
+                        }
+                    </div><button class="design-remove" @onclick="() => RemoveMemberAsync(node, member)">Merkmal entfernen</button></div>
+                }
+                <button class="button secondary" disabled="@(node.Members.Count >= 16 || Task.MemberVocabulary.Count == 0)" @onclick="() => AddMemberAsync(node)">+ @(Task.DiagramType == "State" ? "Zustandsaktion" : "Attribut / Methode")</button>
+            }
+            <button class="design-remove" @onclick="() => RemoveNodeAsync(node)">Element entfernen</button>
+        </fieldset>
+    }
+    @if (Task.DiagramType == "Sequence")
+    {
+        <div class="design-builder-toolbar"><h3>Gruppen und Bedingungen</h3><button class="button secondary" disabled="@(ReadOnly || Answer.Model.Fragments.Count >= 4 || Task.FragmentVocabulary.Count == 0)" @onclick="AddFragmentAsync">+ Gruppe hinzufügen</button></div>
+        @foreach (var fragment in Answer.Model.Fragments)
+        {
+            <fieldset class="uml-fragment-editor" disabled="@ReadOnly" @key="fragment.Id"><legend>Sequenzgruppe @(Answer.Model.Fragments.IndexOf(fragment) + 1)</legend><div class="uml-fields">
+                <label>Gruppen-Fachrolle<select @bind="fragment.Key" @bind:after="ChangedAsync"><option value="">Bitte wählen</option>@foreach (var item in Task.FragmentVocabulary) { <option value="@item.Key">@item.Value</option> }</select></label>
+                <label>Gruppenart<select @bind="fragment.Kind" @bind:after="ChangedAsync"><option value="alt">alt · Alternativen</option><option value="opt">opt · optional</option><option value="loop">loop · Wiederholung</option></select></label>
+                <label>Gruppenbedingung<select @bind="fragment.Guard" @bind:after="ChangedAsync"><option value="">Keine</option>@foreach (var item in Task.Conditions) { <option value="@item.Key">@item.Value</option> }</select></label>
+            </div><button class="design-remove" @onclick="() => RemoveFragmentAsync(fragment)">Gruppe entfernen</button></fieldset>
+        }
+    }
+    <div class="design-builder-toolbar"><h3>@(Task.DiagramType == "Sequence" ? "Nachrichten in zeitlicher Reihenfolge" : "Deine Verbindungen")</h3><button class="button secondary" disabled="@(ReadOnly || Answer.Model.Nodes.Count == 0 || Answer.Model.Links.Count >= 32)" @onclick="AddLinkAsync">+ @(Task.DiagramType == "Sequence" ? "Nachricht" : "Verbindung") hinzufügen</button></div>
+    @foreach (var link in Answer.Model.Links)
+    {
+        <fieldset class="uml-link-editor" disabled="@ReadOnly" @key="link.Id"><legend>@(Task.DiagramType == "Sequence" ? "Nachricht" : "Verbindung") @(Answer.Model.Links.IndexOf(link) + 1)</legend><div class="uml-fields">
+            <label>Ausgang / Absender<select @bind="link.Source" @bind:after="ChangedAsync"><option value="">Bitte wählen</option>@foreach (var node in Answer.Model.Nodes) { <option value="@node.Id">@node.Name</option> }</select></label>
+            <label>Ziel / Empfänger<select @bind="link.Target" @bind:after="ChangedAsync"><option value="">Bitte wählen</option>@foreach (var node in Answer.Model.Nodes) { <option value="@node.Id">@node.Name</option> }</select></label>
+            <label>Verbindungsart<select @bind="link.Kind" @bind:after="ChangedAsync">@foreach (string kind in UmlKinds.LinkTypes(Task.DiagramType)) { <option value="@kind">@UmlKinds.Links[kind]</option> }</select></label>
+            @if (Task.DiagramType == "Class" && link.Kind is "Association" or "Aggregation" or "Composition") { <label>Multiplizität am Ausgang<input maxlength="12" @bind="link.SourceMultiplicity" @bind:event="oninput" @bind:after="ChangedAsync" placeholder="z. B. 1 oder 0..*" /></label><label>Multiplizität am Ziel<input maxlength="12" @bind="link.TargetMultiplicity" @bind:event="oninput" @bind:after="ChangedAsync" placeholder="z. B. 1 oder 0..*" /></label> }
+            @if (Task.DiagramType is "Sequence" or "State")
+            {
+                <label>@(Task.DiagramType == "Sequence" ? "Nachrichten-Fachrolle" : "Ereignis-Fachrolle")<select value="@link.Meaning" @onchange="args => LinkMeaningAsync(link, args.Value?.ToString() ?? string.Empty)"><option value="">@(Task.DiagramType == "State" ? "Kein Ereignis" : "Bitte wählen")</option>@foreach (var item in Task.DiagramType == "State" ? Task.Events : Task.Messages) { <option value="@item.Key">@item.Value</option> }</select></label>
+                <label>Beschriftung<input maxlength="80" @bind="link.Name" @bind:event="oninput" @bind:after="ChangedAsync" /></label>
+            }
+            @if (Task.Conditions.Count > 0) { <label>Bedingung am Übergang / Zweig<select @bind="link.Guard" @bind:after="ChangedAsync"><option value="">Keine</option>@foreach (var item in Task.Conditions) { <option value="@item.Key">@item.Value</option> }</select></label> }
+            @if (Task.DiagramType == "Sequence") { <label>Sequenzgruppe<select @bind="link.Fragment" @bind:after="ChangedAsync"><option value="">Außerhalb einer Gruppe</option>@foreach (var fragment in Answer.Model.Fragments) { <option value="@fragment.Id">@Task.FragmentVocabulary.GetValueOrDefault(fragment.Key, "Unbenannte Gruppe") · @fragment.Kind</option> }</select></label> }
+        </div>
+        @if (Task.DiagramType == "Sequence") { <div class="uml-order"><button class="button secondary" disabled="@(Answer.Model.Links.IndexOf(link) == 0)" @onclick="() => MoveAsync(link, -1)">↑ Früher</button><button class="button secondary" disabled="@(Answer.Model.Links.IndexOf(link) == Answer.Model.Links.Count - 1)" @onclick="() => MoveAsync(link, 1)">↓ Später</button></div> }
+        <button class="design-remove" @onclick="() => RemoveLinkAsync(link)">@(Task.DiagramType == "Sequence" ? "Nachricht" : "Verbindung") entfernen</button></fieldset>
+    }
+}
+@code {
+    /// <summary> Fachvokabular und erlaubte Diagrammart. </summary>
+    [Parameter, EditorRequired] public UmlAssignment Task { get; set; } = new();
+    /// <summary> Eigener, vollständig strukturierter Entwurf. </summary>
+    [Parameter, EditorRequired] public UmlAnswer Answer { get; set; } = new();
+    /// <summary> Übernimmt jede Eingabe in den getrennten Lernstand. </summary>
+    [Parameter] public EventCallback Changed { get; set; }
+    /// <summary> Gesperrte Abgaben können auch über die Handler nicht verändert werden. </summary>
+    [Parameter] public bool ReadOnly { get; set; }
+    /// <summary> Aktuelle Fehlermarkierungen verschwinden nach einer Änderung. </summary>
+    [Parameter] public UmlEvaluation? Evaluation { get; set; }
+    private readonly string _group = "uml-choice-" + Guid.NewGuid().ToString("N");
+    private System.Threading.Tasks.Task ChangedAsync() => ReadOnly ? System.Threading.Tasks.Task.CompletedTask : Changed.InvokeAsync();
+    private async System.Threading.Tasks.Task SelectAsync(string id) { if (ReadOnly || !Task.Options.ContainsKey(id)) return; if (Task.CorrectIds.Count == 1) Answer.SelectedIds = [id]; else if (!Answer.SelectedIds.Remove(id)) Answer.SelectedIds.Add(id); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task AddNodeAsync() { if (ReadOnly || Answer.Model.Nodes.Count >= 16) return; Answer.Model.Nodes.Add(new() { Kind = UmlKinds.NodeTypes(Task.DiagramType)[0], Name = "Neues Element" }); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task RemoveNodeAsync(UmlNode node) { if (ReadOnly) return; Answer.Model.Nodes.Remove(node); Answer.Model.Links.RemoveAll(link => link.Source == node.Id || link.Target == node.Id); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task NodeMeaningAsync(UmlNode node, string key) { if (ReadOnly || key.Length > 0 && !Task.NodeVocabulary.ContainsKey(key)) return; node.Key = key; node.Name = Task.NodeVocabulary.GetValueOrDefault(key, ""); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task AddMemberAsync(UmlNode node) { if (ReadOnly || node.Members.Count >= 16) return; node.Members.Add(new() { Kind = Task.DiagramType == "State" ? "Entry" : "Attribute" }); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task RemoveMemberAsync(UmlNode node, UmlMember member) { if (ReadOnly) return; node.Members.Remove(member); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task MemberMeaningAsync(UmlMember member, string key) { if (ReadOnly || key.Length > 0 && !Task.MemberVocabulary.ContainsKey(key)) return; member.Key = key; member.Name = Task.MemberVocabulary.GetValueOrDefault(key, ""); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task AddLinkAsync() { if (ReadOnly || Answer.Model.Nodes.Count == 0 || Answer.Model.Links.Count >= 32) return; Answer.Model.Links.Add(new() { Kind = UmlKinds.LinkTypes(Task.DiagramType)[0] }); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task RemoveLinkAsync(UmlLink link) { if (ReadOnly) return; Answer.Model.Links.Remove(link); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task LinkMeaningAsync(UmlLink link, string key) { var vocabulary = Task.DiagramType == "State" ? Task.Events : Task.Messages; if (ReadOnly || key.Length > 0 && !vocabulary.ContainsKey(key)) return; link.Meaning = key; link.Name = vocabulary.GetValueOrDefault(key, ""); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task AddFragmentAsync() { if (ReadOnly || Answer.Model.Fragments.Count >= 4 || Task.FragmentVocabulary.Count == 0) return; Answer.Model.Fragments.Add(new()); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task RemoveFragmentAsync(UmlFragment fragment) { if (ReadOnly) return; Answer.Model.Fragments.Remove(fragment); foreach (var link in Answer.Model.Links.Where(link => link.Fragment == fragment.Id)) link.Fragment = ""; await ChangedAsync(); }
+    private async System.Threading.Tasks.Task MoveAsync(UmlLink link, int direction) { if (ReadOnly || direction is not (-1 or 1)) return; int index = Answer.Model.Links.IndexOf(link), next = index + direction; if (index < 0 || next < 0 || next >= Answer.Model.Links.Count) return; (Answer.Model.Links[index], Answer.Model.Links[next]) = (Answer.Model.Links[next], Answer.Model.Links[index]); await ChangedAsync(); }
+}

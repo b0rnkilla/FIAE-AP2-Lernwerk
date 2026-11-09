@@ -10,10 +10,20 @@ public static class DesignEvaluator
     public static DesignEvaluation Evaluate(DesignAssignment task, DesignAnswer answer)
     {
         if (!DesignModelRules.Storable(answer)) return Failure("Der Entwurf ist beschädigt oder überschreitet die Grenzen des Baukastens.");
+        if (task.Kind == "ErCompletion")
+        {
+            if (answer.DiagramValues.Any(pair => !task.DiagramSlots.Any(slot => slot.Id == pair.Key && (pair.Value.Length == 0 || slot.Options.ContainsKey(pair.Value))))) return Failure("Eine Ergänzung gehört nicht zu diesem ER-Diagramm. Wähle die angebotenen Beschriftungen.");
+            return new() { Checks = task.DiagramSlots.Select((slot, index) =>
+            {
+                bool correct = answer.DiagramValues.GetValueOrDefault(slot.Id) == slot.CorrectId;
+                int maximum = 50 / task.DiagramSlots.Count + (index < 50 % task.DiagramSlots.Count ? 1 : 0);
+                return new DesignCheck(slot.Prompt, correct ? maximum : 0, maximum, correct ? "Diese Ergänzung passt zum Auftrag." : "Diese Ergänzung ist noch offen oder passt nicht zur Geschäftsregel. Lies die Beziehung in der genannten Richtung.");
+            }).ToList() };
+        }
         if (task.Kind != "Model")
         {
             bool correct = answer.SelectedIds.Count == answer.SelectedIds.Distinct().Count() && answer.SelectedIds.Order().SequenceEqual(task.CorrectIds.Order());
-            return new() { Checks = [new("Fachliche Entscheidung", correct ? 50 : 0, 50, correct ? task.Explanation : "Prüfe alle Bedingungen des Auftrags. " + task.Explanation)] };
+            return new() { Checks = [new("Fachliche Entscheidung", correct ? 50 : 0, 50, correct ? task.Explanation : "Deine Auswahl passt noch nicht zu allen Bedingungen des Auftrags. Prüfe die Aussagen erneut; im geführten Lernen kannst du schrittweise Hinweise öffnen.")] };
         }
         if (answer.Model.Tables.SelectMany(table => table.Columns).Any(column => column.Attribute.Length > 0 && !task.Attributes.ContainsKey(column.Attribute))) return Failure("Ein Fachattribut gehört nicht zum Vokabular dieses Auftrags. Wähle seine Bedeutung aus der vorgegebenen Liste.");
         List<string> errors = DesignModelRules.Errors(answer.Model);

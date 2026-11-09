@@ -4,6 +4,7 @@
 @inject AlgorithmCatalog AlgorithmCatalog
 @inject BusinessCatalog BusinessCatalog
 @inject DesignCatalog DesignCatalog
+@inject UmlCatalog UmlCatalog
 @inject ProgressStore Store
 @inject DatabaseState Database
 <PageTitle>Dein Lernraum · AP2 Lernwerk</PageTitle>
@@ -48,7 +49,7 @@
 
     <div class="section-heading" id="themen">
         <div><div class="eyebrow">DEIN THEMENKOMPASS</div><h2>Was möchtest du heute üben?</h2></div>
-        <span>4 Themenbereiche bereit · weitere im Aufbau</span>
+        <span>5 Themenbereiche bereit · weitere im Aufbau</span>
     </div>
 
     <section class="module-grid learning-modules" aria-label="Lernbereiche der FIAE-AP2">
@@ -73,9 +74,13 @@
         </article>
         @foreach (var module in _modules)
         {
-            @if (module.Number == "04")
+            @if (module.Number == "03")
             {
-                <article class="module-card ready"><span class="module-number">04</span><span class="badge">Bereit zum Lernen</span><h3>Datenbankentwurf</h3><p>Baue aus Geschäftsregeln ein verständliches Datenmodell. Tabellen, Schlüssel, Beziehungen und Normalisierung Schritt für Schritt.</p><div class="module-progress">@_progress.DesignLessons.Values.Count(item => item.Completed) / @DesignCatalog.Lessons.Count Übungen gelöst</div><div class="module-actions"><a class="button primary" href="@($"/datenbankentwurf/{_progress.LastDesignLessonId}")">Weiter lernen →</a><a class="button secondary module-exam-action" href="/datenbankentwurf/pruefung">Prüfung üben →</a></div><small>Eventagentur Lichtblick · 30 Aufgaben · Modellbaukasten</small></article>
+                <article class="module-card ready"><span class="module-number">03</span><span class="badge">Bereit zum Lernen</span><h3>UML &amp; Modellierung</h3><p>Lies, repariere und erstelle eigene UML-Diagramme. Plane Rollen, Klassen, Abläufe, Nachrichten und Zustände.</p><div class="module-progress">@_progress.UmlLessons.Values.Count(item => item.Completed) / @UmlCatalog.Lessons.Count Übungen gelöst</div><div class="module-actions"><a class="button primary" href="@($"/uml/{_progress.LastUmlLessonId}")">Weiter lernen →</a><a class="button secondary module-exam-action" href="/uml/pruefung">Prüfung üben →</a></div><small>Kulturzentrum Nordhafen · @UmlCatalog.Lessons.Count Aufgaben · Eigene Diagramme</small></article>
+            }
+            else if (module.Number == "04")
+            {
+                <article class="module-card ready"><span class="module-number">04</span><span class="badge">Bereit zum Lernen</span><h3>Datenbankentwurf</h3><p>Ergänze ER-Diagramme und Tabellenmodelle. Entwickle aus Geschäftsregeln, Belegen und Beispieldaten einen verständlichen Datenentwurf.</p><div class="module-progress">@_progress.DesignLessons.Values.Count(item => item.Completed) / @DesignCatalog.Lessons.Count Übungen gelöst</div><div class="module-actions"><a class="button primary" href="@($"/datenbankentwurf/{_progress.LastDesignLessonId}")">Weiter lernen →</a><a class="button secondary module-exam-action" href="/datenbankentwurf/pruefung">Prüfung üben →</a></div><small>Eventagentur Lichtblick · @DesignCatalog.Lessons.Count Aufgaben · Diagramme &amp; Modellbaukasten</small></article>
             }
             else
             {
@@ -128,7 +133,7 @@
         ("07", "Projekte & Wirtschaftlichkeit", "Vorgehen planen, Alternativen vergleichen und Kosten berechnen.")];
 
     /// <summary> Anzahl der tatsächlich implementierten Übungen. </summary>
-    private int TotalExercises => Catalog.Lessons.Count + WorkshopCatalog.Lessons.Count + AlgorithmCatalog.Lessons.Count + BusinessCatalog.Questions.Count + DesignCatalog.Lessons.Count;
+    private int TotalExercises => Catalog.Lessons.Count + WorkshopCatalog.Lessons.Count + AlgorithmCatalog.Lessons.Count + BusinessCatalog.Questions.Count + DesignCatalog.Lessons.Count + UmlCatalog.Lessons.Count;
 
     protected override async Task OnInitializedAsync()
     {
@@ -137,9 +142,9 @@
             _progress = await Store.LoadAsync();
             _sqlCompleted = _progress.Lessons.Values.Count(x => x.Completed) + _progress.WorkshopLessons.Values.Count(x => x.Completed);
             _completed = _sqlCompleted + _progress.AlgorithmLessons.Values.Count(x => x.Completed) + _progress.BusinessQuestions.Values.Count(x => x.Completed);
-            _completed += _progress.DesignLessons.Values.Count(item => item.Completed);
+            _completed += _progress.DesignLessons.Values.Count(item => item.Completed) + _progress.UmlLessons.Values.Count(item => item.Completed);
             _independent = _progress.Lessons.Values.Count(x => x.Independent) + _progress.WorkshopLessons.Values.Count(x => x.Independent) + _progress.AlgorithmLessons.Values.Count(x => x.Independent) + _progress.BusinessQuestions.Values.Count(x => x.Independent);
-            _independent += _progress.DesignLessons.Values.Count(item => item.Independent);
+            _independent += _progress.DesignLessons.Values.Count(item => item.Independent) + _progress.UmlLessons.Values.Count(item => item.Independent);
         }
         catch (Exception exception) when (exception is IOException or System.Text.Json.JsonException or UnauthorizedAccessException)
         {

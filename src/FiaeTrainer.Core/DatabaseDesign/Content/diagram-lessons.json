@@ -1,0 +1,1659 @@
+[
+  {
+    "id": 31,
+    "title": "Die Linien auf Leas Skizze",
+    "chapter": "07 · ER-Diagramme vervollständigen",
+    "previousContext": "Der vollständige Agenturentwurf bildet die Grundlage für einen neuen Ausschnitt: das Begleitprogramm zum Herbstforum.",
+    "story": "Nach der Abschlussbesprechung zum Herbstforum plant Lea ein Begleitprogramm. Für das Gespräch mit den Veranstaltern möchte sie zuerst die fachlichen Zusammenhänge zeigen. Auf ihrer Skizze stehen bereits Kunden und Buchungen; an zwei Linien fehlen die Mengenangaben. Du ergänzt diese Angaben, bevor aus dem fachlichen Bild Tabellen werden.",
+    "task": "Ergänze A und B im ER-Diagramm: Jede Buchung gehört genau einem Kunden. Ein Kunde darf noch keine und beliebig viele Buchungen besitzen. Die Kardinalität an einer Seite zählt die Objekte dieser Seite je Objekt auf der Gegenseite.",
+    "discovery": "Die Skizze zeigt beide Richtungen eindeutig: genau ein Kunde je Buchung, null bis viele Buchungen je Kunde.",
+    "hints": [
+      "Lies jeden Zusammenhang als zwei getrennte Fragen.",
+      "Eine Buchung ohne Kunden ist nicht erlaubt; ein Kunde ohne Buchung ist dagegen möglich.",
+      "Links steht 1..1 für Kunden je Buchung, rechts 0..n für Buchungen je Kunde."
+    ],
+    "explanation": "Kunde und Buchung sind Entitätstypen. A = 1..1, B = 0..n. Die optionale Teilnahme eines Kunden ändert nicht die Pflichtzuordnung jeder vorhandenen Buchung. Im ER-Modell stehen hier noch keine Fremdschlüssel.",
+    "kind": "ErCompletion",
+    "sourceDiagram": {
+      "title": "Kunden und Buchungen",
+      "entities": [
+        {
+          "id": "kunde",
+          "name": "Kunde",
+          "attributes": [
+            "Kundennummer",
+            "Kundenname"
+          ]
+        },
+        {
+          "id": "buchung",
+          "name": "Buchung",
+          "attributes": [
+            "Buchungsnummer",
+            "Buchungsdatum"
+          ]
+        }
+      ],
+      "relationships": [
+        {
+          "left": "kunde",
+          "right": "buchung",
+          "name": "erteilt",
+          "leftCardinality": "$A",
+          "rightCardinality": "$B",
+          "attributes": []
+        }
+      ]
+    },
+    "diagramSlots": [
+      {
+        "id": "A",
+        "prompt": "Wie viele Kunden gehören zu einer Buchung?",
+        "options": {
+          "one": "1..1",
+          "optional": "0..1",
+          "many": "0..n",
+          "required-many": "1..n"
+        },
+        "correctId": "one"
+      },
+      {
+        "id": "B",
+        "prompt": "Wie viele Buchungen gehören zu einem Kunden?",
+        "options": {
+          "one": "1..1",
+          "optional": "0..1",
+          "many": "0..n",
+          "required-many": "1..n"
+        },
+        "correctId": "many"
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "title": "Ein Honorar gehört zur Zusage",
+    "chapter": "07 · ER-Diagramme vervollständigen",
+    "previousContext": "Die erste Skizze hat gezeigt, wie du eine Beziehung in beide Richtungen liest. Nun kommt eine Zuordnung mit einer eigenen Eigenschaft hinzu.",
+    "story": "Lea spricht mit Referenten über die Programmpunkte. Eine Referentin kann mehrere Beiträge betreuen, und an einem Beitrag können mehrere Referenten mitwirken. Das vereinbarte Honorar unterscheidet sich je Zusage. Auf dem zweiten Blatt soll deshalb sichtbar werden, welche Information zu einem Referenten gehört und welche erst durch seine Mitwirkung entsteht.",
+    "task": "Vervollständige A–D. Referenten und Programmpunkte dürfen zunächst ohne Mitwirkung erfasst werden; auf beiden Seiten sind mehrere Zuordnungen möglich. Die Beziehung heißt wirkt mit. Für jedes Paar wird ein vereinbartes Honorar geführt, das weder ein allgemeiner Referentenstammsatz noch eine Eigenschaft des Programmpunkts ist.",
+    "discovery": "Das Honorar hängt an der Mitwirkung eines Referenten bei einem bestimmten Programmpunkt. Die Skizze hält diese Zuordnung als n:m-Beziehung fest.",
+    "hints": [
+      "Entscheide zuerst, ob auf einer Seite höchstens ein Objekt vorkommen darf.",
+      "Das Honorar kann sich für dieselbe Person von Beitrag zu Beitrag ändern.",
+      "Beide Kardinalitäten sind 0..n; Honorar gehört an die Beziehungsraute wirkt mit."
+    ],
+    "explanation": "A und B sind 0..n. C ist wirkt mit, D ist Honorar. Die Beziehungsraute trägt ein eigenes Attribut. Bei der späteren Überführung in Tabellen wird dafür eine Zuordnungstabelle mit beiden Referenzen und dem Honorar benötigt.",
+    "kind": "ErCompletion",
+    "sourceDiagram": {
+      "title": "Zusagen für das Begleitprogramm",
+      "entities": [
+        {
+          "id": "referent",
+          "name": "Referent",
+          "attributes": [
+            "Referentennummer",
+            "Referentenname"
+          ]
+        },
+        {
+          "id": "programm",
+          "name": "Programmpunkt",
+          "attributes": [
+            "Programmnummer",
+            "Titel"
+          ]
+        }
+      ],
+      "relationships": [
+        {
+          "left": "referent",
+          "right": "programm",
+          "name": "$C",
+          "leftCardinality": "$A",
+          "rightCardinality": "$B",
+          "attributes": [
+            "$D"
+          ]
+        }
+      ]
+    },
+    "diagramSlots": [
+      {
+        "id": "A",
+        "prompt": "Wie viele Referenten sind je Programmpunkt möglich?",
+        "options": {
+          "one": "1..1",
+          "optional": "0..1",
+          "many": "0..n",
+          "required-many": "1..n"
+        },
+        "correctId": "many"
+      },
+      {
+        "id": "B",
+        "prompt": "Wie viele Programmpunkte sind je Referent möglich?",
+        "options": {
+          "one": "1..1",
+          "optional": "0..1",
+          "many": "0..n",
+          "required-many": "1..n"
+        },
+        "correctId": "many"
+      },
+      {
+        "id": "C",
+        "prompt": "Wie heißt die beschriebene Beziehung?",
+        "options": {
+          "holds": "wirkt mit",
+          "owns": "ist Eigentümer von",
+          "replaces": "ersetzt"
+        },
+        "correctId": "holds"
+      },
+      {
+        "id": "D",
+        "prompt": "Welche Eigenschaft gehört zur Mitwirkung?",
+        "options": {
+          "fee": "Honorar",
+          "person": "Referentenname",
+          "title": "Titel"
+        },
+        "correctId": "fee"
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "title": "Der fehlende Kasten im Raumplan",
+    "chapter": "07 · ER-Diagramme vervollständigen",
+    "previousContext": "Die Referentenzusagen sind fachlich beschrieben. Für die Durchführung wird jetzt die Raumzuordnung ergänzt.",
+    "story": "Für das Begleitprogramm sind mehrere Räume reserviert. Auf dem Ausdruck der Raumplanung wurde ein Entitätstyp beim Kopieren unleserlich. Seine Attribute Raumnummer und Kapazität sind noch zu erkennen. Lea braucht die vervollständigte Skizze für die Raumabstimmung; es geht hier um die Zuordnung von Programmpunkten zu Räumen, noch nicht um zeitliche Überschneidungen.",
+    "task": "Ergänze A–C. Jeder Programmpunkt findet in genau einem Raum statt. Ein Raum kann für keinen, einen oder mehrere Programmpunkte vorgesehen sein. Zeitliche Überschneidungen werden in diesem Ausschnitt nicht geprüft. Ergänze den Entitätstyp bei A und die Kardinalitäten B und C.",
+    "discovery": "Programmpunkte sind Räumen zugeordnet. Die Mengenangaben sagen nichts über eine zeitgleiche Doppelbelegung aus; diese müsste gesondert geprüft werden.",
+    "hints": [
+      "Nutze die vorhandenen Attribute als Hinweis auf den fehlenden Entitätstyp.",
+      "Die Zahl am linken Ende zählt Programmpunkte je Raum.",
+      "A ist Raum, B ist 0..n, C ist 1..1."
+    ],
+    "explanation": "Der fehlende Kasten bezeichnet Raum. Links steht 0..n für Programmpunkte je Raum, rechts 1..1 für Räume je Programmpunkt. Kardinalitäten allein verhindern keine zeitlichen Überschneidungen.",
+    "kind": "ErCompletion",
+    "sourceDiagram": {
+      "title": "Ausschnitt der Raumplanung",
+      "entities": [
+        {
+          "id": "programm",
+          "name": "Programmpunkt",
+          "attributes": [
+            "Programmnummer",
+            "Titel"
+          ]
+        },
+        {
+          "id": "raum",
+          "name": "$A",
+          "attributes": [
+            "Raumnummer",
+            "Kapazität"
+          ]
+        }
+      ],
+      "relationships": [
+        {
+          "left": "programm",
+          "right": "raum",
+          "name": "findet statt in",
+          "leftCardinality": "$B",
+          "rightCardinality": "$C",
+          "attributes": []
+        }
+      ]
+    },
+    "diagramSlots": [
+      {
+        "id": "A",
+        "prompt": "Welcher Entitätstyp besitzt Raumnummer und Kapazität?",
+        "options": {
+          "room": "Raum",
+          "seat": "Sitzplatz",
+          "date": "Termin"
+        },
+        "correctId": "room"
+      },
+      {
+        "id": "B",
+        "prompt": "Wie viele Programmpunkte sind je Raum möglich?",
+        "options": {
+          "one": "1..1",
+          "optional": "0..1",
+          "many": "0..n",
+          "required-many": "1..n"
+        },
+        "correctId": "many"
+      },
+      {
+        "id": "C",
+        "prompt": "Wie viele Räume sind je Programmpunkt vorgesehen?",
+        "options": {
+          "one": "1..1",
+          "optional": "0..1",
+          "many": "0..n",
+          "required-many": "1..n"
+        },
+        "correctId": "one"
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "title": "Die Unterlagen sind noch nicht verbunden",
+    "chapter": "07 · ER-Diagramme vervollständigen",
+    "previousContext": "Die Räume sind zugeordnet. Als Nächstes werden die Unterlagen des Begleitprogramms in die fachliche Planung eingebunden.",
+    "story": "Die Referenten stellen Handouts bereit. Diese Dateien werden schon zentral verwaltet und sollen in mehreren Programmpunkten wiederverwendbar sein. Lea hat den Dokumentkasten in die Planung aufgenommen, doch seine Verbindung zum Programm fehlt. Zusätzlich soll festgehalten werden, an welcher Position ein Dokument in der Unterlagenliste eines Programmpunkts erscheint.",
+    "task": "Vervollständige A–D. Ein Programmpunkt darf beliebig viele Dokumente und auch noch keines verwenden. Ein Dokument darf in beliebig vielen Programmpunkten und auch noch in keinem verwendet werden. Die Beziehung heißt verwendet. Die Position eines Dokuments in der Unterlagenliste ist je Paar aus Programmpunkt und Dokument festgelegt.",
+    "discovery": "Dokumente bleiben wiederverwendbar. Ihre Position ist eine Eigenschaft der Verwendung in einem Programmpunkt und keine globale Reihenfolge aller Dateien.",
+    "hints": [
+      "Ein vorhandenes Dokument muss nicht für genau einen Programmpunkt bestimmt sein.",
+      "Dasselbe Dokument kann in verschiedenen Unterlagenlisten an unterschiedlichen Stellen erscheinen.",
+      "Beide Enden erhalten 0..n; das Beziehungsattribut ist Position."
+    ],
+    "explanation": "A = 0..n, B = 0..n, C = verwendet, D = Position. Die n:m-Zuordnung trägt die Position. Eine spätere relationale Umsetzung benötigt eine Zuordnungstabelle; der Dokumentstammsatz wird nicht für jeden Programmpunkt kopiert.",
+    "kind": "ErCompletion",
+    "sourceDiagram": {
+      "title": "Wiederverwendbare Programmunterlagen",
+      "entities": [
+        {
+          "id": "programm",
+          "name": "Programmpunkt",
+          "attributes": [
+            "Programmnummer",
+            "Titel"
+          ]
+        },
+        {
+          "id": "dokument",
+          "name": "Dokument",
+          "attributes": [
+            "Dokumentnummer",
+            "Dateiname"
+          ]
+        }
+      ],
+      "relationships": [
+        {
+          "left": "programm",
+          "right": "dokument",
+          "name": "$C",
+          "leftCardinality": "$A",
+          "rightCardinality": "$B",
+          "attributes": [
+            "$D"
+          ]
+        }
+      ]
+    },
+    "diagramSlots": [
+      {
+        "id": "A",
+        "prompt": "Wie viele Programmpunkte können ein Dokument verwenden?",
+        "options": {
+          "one": "1..1",
+          "optional": "0..1",
+          "many": "0..n",
+          "required-many": "1..n"
+        },
+        "correctId": "many"
+      },
+      {
+        "id": "B",
+        "prompt": "Wie viele Dokumente sind je Programmpunkt möglich?",
+        "options": {
+          "one": "1..1",
+          "optional": "0..1",
+          "many": "0..n",
+          "required-many": "1..n"
+        },
+        "correctId": "many"
+      },
+      {
+        "id": "C",
+        "prompt": "Welche Beziehung verbindet die Kästen?",
+        "options": {
+          "uses": "verwendet",
+          "deletes": "löscht",
+          "equals": "ist identisch mit"
+        },
+        "correctId": "uses"
+      },
+      {
+        "id": "D",
+        "prompt": "Welche Information gehört zur Zuordnung?",
+        "options": {
+          "position": "Position",
+          "filename": "Dateiname",
+          "title": "Titel"
+        },
+        "correctId": "position"
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "title": "Aus der Raute wird eine Tabelle",
+    "chapter": "08 · Diagramme in Tabellen überführen",
+    "previousContext": "Die Unterlagenplanung hat eine n:m-Beziehung mit eigener Eigenschaft sichtbar gemacht. Dasselbe Prinzip wird nun auf den Materialbedarf angewendet.",
+    "story": "Für die Materialdisposition liegt Lea nun eine abgestimmte ER-Skizze vor. Programmpunkte benötigen unterschiedliche Materialien, und dieselbe Materialart wird bei mehreren Programmpunkten verwendet. Die Fachabteilung hat die benötigte Menge bewusst an die Verbindung geschrieben. Du übersetzt diese Skizze in einen relationalen Entwurf für die Umsetzung.",
+    "task": "Überführe das vorgegebene ER-Diagramm in Tabellen. Die Nummern heißen im relationalen Modell ProgrammId und MaterialId. Je Paar gibt es genau einen Materialbedarf mit Menge. Beide Stammdatentypen dürfen ohne Zuordnung existieren. Verwende einen zusammengesetzten PK für die Zuordnung; zusätzliche künstliche IDs sind in diesem Auftrag nicht vorgesehen. Verwende nur die aufgeführten Fachattribute. Alle Attribute sind Pflicht, sofern ausdrücklich anders angegeben. Ergänze keine zusätzlichen eindeutigen Schlüssel. Nicht ausdrücklich verlangte Mindestzahlen abhängiger Sätze sind 0. Tabellen- und Anzeigenamen sind frei.",
+    "discovery": "Der Materialbedarf besitzt eine eigene Tabelle. Die beiden Referenzen bilden zusammen den Schlüssel; die Menge beschreibt genau dieses Paar.",
+    "hints": [
+      "Übernimm zuerst die zwei Entitätstypen als Stammtabellen.",
+      "Eine n:m-Beziehung lässt sich nicht durch einen einzelnen FK in einer der beiden Stammtabellen ersetzen.",
+      "Materialbedarf enthält ProgrammId, MaterialId und Menge; beide IDs bilden den PK und jeweils einen FK."
+    ],
+    "explanation": "Programmpunkt(ProgrammId PK, Titel), Material(MaterialId PK, Bezeichnung) und Materialbedarf(ProgrammId PK/FK, MaterialId PK/FK, Menge). Je Bedarf genau ein Programmpunkt und ein Material; beide Stammsätze können null bis viele Bedarfe besitzen.",
+    "sourceDiagram": {
+      "title": "Materialbedarf im fachlichen ER-Modell",
+      "entities": [
+        {
+          "id": "p",
+          "name": "Programmpunkt",
+          "attributes": [
+            "ProgrammId",
+            "Titel"
+          ]
+        },
+        {
+          "id": "m",
+          "name": "Material",
+          "attributes": [
+            "MaterialId",
+            "Bezeichnung"
+          ]
+        }
+      ],
+      "relationships": [
+        {
+          "left": "p",
+          "right": "m",
+          "name": "benötigt",
+          "leftCardinality": "0..n",
+          "rightCardinality": "0..n",
+          "attributes": [
+            "Menge"
+          ]
+        }
+      ]
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "programm",
+            "name": "Programmpunkt",
+            "columns": [
+              {
+                "id": "programm_ProgrammId",
+                "attribute": "ProgrammId",
+                "name": "ProgrammId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "programm_Titel",
+                "attribute": "Titel",
+                "name": "Titel",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "material",
+            "name": "Material",
+            "columns": [
+              {
+                "id": "material_MaterialId",
+                "attribute": "MaterialId",
+                "name": "MaterialId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "material_Bezeichnung",
+                "attribute": "Bezeichnung",
+                "name": "Bezeichnung",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "bedarf",
+            "name": "Materialbedarf",
+            "columns": [
+              {
+                "id": "bedarf_ProgrammId",
+                "attribute": "ProgrammId",
+                "name": "ProgrammId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "bedarf_MaterialId",
+                "attribute": "MaterialId",
+                "name": "MaterialId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "bedarf_Menge",
+                "attribute": "Menge",
+                "name": "Menge",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "bp",
+            "sourceTable": "bedarf",
+            "targetTable": "programm",
+            "pairs": [
+              {
+                "source": "bedarf_ProgrammId",
+                "target": "programm_ProgrammId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          },
+          {
+            "id": "bm",
+            "sourceTable": "bedarf",
+            "targetTable": "material",
+            "pairs": [
+              {
+                "source": "bedarf_MaterialId",
+                "target": "material_MaterialId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "kind": "Model",
+    "attributes": {
+      "ProgrammId": "ProgrammId",
+      "Titel": "Titel",
+      "MaterialId": "MaterialId",
+      "Bezeichnung": "Bezeichnung",
+      "Menge": "Menge"
+    }
+  },
+  {
+    "id": 36,
+    "title": "Eine optionale Ergänzung übersetzen",
+    "chapter": "08 · Diagramme in Tabellen überführen",
+    "previousContext": "Die Materialraute ist in eine Zuordnungstabelle überführt. Jetzt geht es um eine optionale 1:1-Ergänzung.",
+    "story": "Einige Veranstalter möchten ihre besonderen Wünsche in einem gesonderten Briefing festhalten. Nicht jeder Auftrag braucht ein solches Blatt. Lea hat die fachliche Beziehung bereits gezeichnet. Für die Umsetzung soll jedes Briefing eine eigene Kennung bekommen, ohne dass versehentlich mehrere Briefings zu demselben Auftrag entstehen.",
+    "task": "Überführe das ER-Diagramm in zwei Tabellen: Auftrag mit AuftragId und Datum sowie Briefing mit BriefingId und Notiz. Jedes Briefing gehört genau einem Auftrag; ein Auftrag hat null oder ein Briefing. BriefingId bleibt eigener PK. Ergänze den erforderlichen FK AuftragId und sichere die Höchstzahl eins durch Eindeutigkeit dieses FK. Ein vorhandenes Briefing ohne Auftrag ist nicht erlaubt. Verwende nur die aufgeführten Fachattribute. Alle Attribute sind Pflicht, sofern ausdrücklich anders angegeben. Ergänze keine zusätzlichen eindeutigen Schlüssel. Nicht ausdrücklich verlangte Mindestzahlen abhängiger Sätze sind 0. Tabellen- und Anzeigenamen sind frei.",
+    "discovery": "Ein Auftrag kann ohne Briefing existieren. Für ein vorhandenes Briefing bleibt die Auftragszuordnung verpflichtend und zusätzlich eindeutig.",
+    "hints": [
+      "Optional ist das Vorhandensein des Briefings, nicht die Zuordnung eines bereits vorhandenen Briefings.",
+      "Der FK liegt im Briefing. Ein normaler FK allein begrenzt seine Anzahl je Auftrag noch nicht auf eins.",
+      "AuftragId ist im Briefing NOT NULL und eine eigene UQ-Gruppe; BriefingId bleibt der PK."
+    ],
+    "explanation": "Auftrag(AuftragId PK, Datum), Briefing(BriefingId PK, AuftragId FK/UQ, Notiz). AuftragId im Briefing darf nicht NULL sein. Je Briefing genau ein Auftrag, je Auftrag 0..1 Briefings. Es ist keine Pflicht zur Anlage eines Briefings nötig.",
+    "sourceDiagram": {
+      "title": "Aufträge mit optionalem Briefing",
+      "entities": [
+        {
+          "id": "a",
+          "name": "Auftrag",
+          "attributes": [
+            "AuftragId",
+            "Datum"
+          ]
+        },
+        {
+          "id": "b",
+          "name": "Briefing",
+          "attributes": [
+            "BriefingId",
+            "Notiz"
+          ]
+        }
+      ],
+      "relationships": [
+        {
+          "left": "a",
+          "right": "b",
+          "name": "hat",
+          "leftCardinality": "1..1",
+          "rightCardinality": "0..1",
+          "attributes": []
+        }
+      ]
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "auftrag",
+            "name": "Auftrag",
+            "columns": [
+              {
+                "id": "auftrag_AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "auftrag_Datum",
+                "attribute": "Datum",
+                "name": "Datum",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "briefing",
+            "name": "Briefing",
+            "columns": [
+              {
+                "id": "briefing_BriefingId",
+                "attribute": "BriefingId",
+                "name": "BriefingId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "briefing_AuftragId",
+                "attribute": "AuftragId",
+                "name": "AuftragId",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": "A"
+              },
+              {
+                "id": "briefing_Notiz",
+                "attribute": "Notiz",
+                "name": "Notiz",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "ba",
+            "sourceTable": "briefing",
+            "targetTable": "auftrag",
+            "pairs": [
+              {
+                "source": "briefing_AuftragId",
+                "target": "auftrag_AuftragId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "1"
+          }
+        ]
+      }
+    ],
+    "kind": "Model",
+    "attributes": {
+      "AuftragId": "AuftragId",
+      "Datum": "Datum",
+      "BriefingId": "BriefingId",
+      "Notiz": "Notiz"
+    }
+  },
+  {
+    "id": 37,
+    "title": "Die halbe Verbindung im Zeitplan",
+    "chapter": "09 · Vorgegebene Modelle ergänzen",
+    "previousContext": "Nach den beiden Übersetzungen prüfst du nun einen bereits begonnenen relationalen Entwurf.",
+    "story": "Die Anmeldung zum Begleitprogramm verwendet pro Tag nummerierte Zeitfenster. Ein Kollege hat den relationalen Plan schon vorbereitet. Bei der Übergabe fällt Lea auf, dass die Verbindung der Reservierung nur einen Teil der Zielkennung berücksichtigt. Du sollst die bestehende Struktur vervollständigen, damit eine Reservierung genau das gemeinte Zeitfenster bezeichnet.",
+    "task": "Im vorgegebenen Modell identifiziert erst das Paar (Tag, SlotNr) ein Zeitfenster eindeutig. Ergänze die unvollständige FK-Beziehung der Reservierung; Tabellen, Attribute und PK bleiben erhalten. Jede Reservierung gehört genau einem Zeitfenster. Ein Zeitfenster darf null bis viele Reservierungen haben. Die Kapazitätsprüfung ist eine zusätzliche Anwendungsregel und hier nicht Teil der Bewertung. Verwende nur die aufgeführten Fachattribute. Alle Attribute sind Pflicht, sofern ausdrücklich anders angegeben. Ergänze keine zusätzlichen eindeutigen Schlüssel. Nicht ausdrücklich verlangte Mindestzahlen abhängiger Sätze sind 0. Tabellen- und Anzeigenamen sind frei.",
+    "discovery": "Die Reservierung verweist mit Tag und SlotNr gemeinsam auf ein eindeutiges Zeitfenster. Die Verbindung ist vollständig, ohne daraus schon eine Kapazitätskontrolle abzuleiten.",
+    "hints": [
+      "Vergleiche die FK-Paare mit allen Bestandteilen des Zielschlüssels.",
+      "Tag allein identifiziert kein Zeitfenster, weil ein Tag mehrere Slotnummern hat.",
+      "Ergänze in derselben Beziehung das Paar Reservierung.SlotNr → Zeitfenster.SlotNr."
+    ],
+    "explanation": "Der Ziel-PK besteht aus Tag und SlotNr. Die FK-Beziehung benötigt beide Paare in einer gemeinsamen Referenz. Eine zweite getrennte Beziehung ersetzt den zusammengesetzten Fremdschlüssel nicht.",
+    "showStarter": true,
+    "starter": {
+      "tables": [
+        {
+          "id": "slot",
+          "name": "Zeitfenster",
+          "columns": [
+            {
+              "id": "slot_Tag",
+              "attribute": "Tag",
+              "name": "Tag",
+              "primaryKey": true,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "slot_SlotNr",
+              "attribute": "SlotNr",
+              "name": "SlotNr",
+              "primaryKey": true,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "slot_Kapazitaet",
+              "attribute": "Kapazitaet",
+              "name": "Kapazitaet",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            }
+          ]
+        },
+        {
+          "id": "reservierung",
+          "name": "Reservierung",
+          "columns": [
+            {
+              "id": "reservierung_ReservierungId",
+              "attribute": "ReservierungId",
+              "name": "ReservierungId",
+              "primaryKey": true,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "reservierung_Tag",
+              "attribute": "Tag",
+              "name": "Tag",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "reservierung_SlotNr",
+              "attribute": "SlotNr",
+              "name": "SlotNr",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            }
+          ]
+        }
+      ],
+      "relations": [
+        {
+          "id": "rs",
+          "sourceTable": "reservierung",
+          "targetTable": "slot",
+          "pairs": [
+            {
+              "source": "reservierung_Tag",
+              "target": "slot_Tag"
+            }
+          ],
+          "parentMinimum": 1,
+          "childMinimum": 0,
+          "childMaximum": "n"
+        }
+      ]
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "slot",
+            "name": "Zeitfenster",
+            "columns": [
+              {
+                "id": "slot_Tag",
+                "attribute": "Tag",
+                "name": "Tag",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "slot_SlotNr",
+                "attribute": "SlotNr",
+                "name": "SlotNr",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "slot_Kapazitaet",
+                "attribute": "Kapazitaet",
+                "name": "Kapazitaet",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "reservierung",
+            "name": "Reservierung",
+            "columns": [
+              {
+                "id": "reservierung_ReservierungId",
+                "attribute": "ReservierungId",
+                "name": "ReservierungId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "reservierung_Tag",
+                "attribute": "Tag",
+                "name": "Tag",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "reservierung_SlotNr",
+                "attribute": "SlotNr",
+                "name": "SlotNr",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "rs",
+            "sourceTable": "reservierung",
+            "targetTable": "slot",
+            "pairs": [
+              {
+                "source": "reservierung_Tag",
+                "target": "slot_Tag"
+              },
+              {
+                "source": "reservierung_SlotNr",
+                "target": "slot_SlotNr"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "kind": "Model",
+    "attributes": {
+      "Tag": "Tag",
+      "SlotNr": "SlotNr",
+      "Kapazitaet": "Kapazitaet",
+      "ReservierungId": "ReservierungId"
+    }
+  },
+  {
+    "id": 38,
+    "title": "Die Dokumentverknüpfung nachtragen",
+    "chapter": "09 · Vorgegebene Modelle ergänzen",
+    "previousContext": "Die Zeitfensterreferenz ist vollständig. Nun wird eine zuvor fachlich beschriebene Zuordnung in einen bestehenden Tabellenplan eingefügt.",
+    "story": "Die Dokumentverwaltung und die Programmliste sind bereits als Tabellen angelegt. Lea möchte nun den besprochenen Unterlagenplan in diesen vorhandenen Ausschnitt einbauen. Die beiden Stammtabellen sollen erhalten bleiben. Es fehlt die Struktur, die festhält, welche Datei zu welchem Programmpunkt gehört und an welcher Position sie dort erscheint.",
+    "task": "Erweitere das vorgegebene relationale Modell um die Unterlagenzuordnung. Je Paar (ProgrammId, DokumentId) gibt es genau einen Eintrag mit Position. Ein Dokument darf mehreren Programmpunkten zugeordnet sein. Beide Stammsätze dürfen ohne Zuordnung existieren. Der PK der Zuordnung ist das ID-Paar. Verschiedene Dokumente dürfen dieselbe Position besitzen; eine zusätzliche Eindeutigkeit der Position wird nicht verlangt. Verwende nur die aufgeführten Fachattribute. Alle Attribute sind Pflicht, sofern ausdrücklich anders angegeben. Ergänze keine zusätzlichen eindeutigen Schlüssel. Nicht ausdrücklich verlangte Mindestzahlen abhängiger Sätze sind 0. Tabellen- und Anzeigenamen sind frei.",
+    "discovery": "Die bestehende Dokumentverwaltung wird durch eine Zuordnung ergänzt. Weder Dateien noch Programmpunkte müssen für die Verwendung mehrfach angelegt werden.",
+    "hints": [
+      "Die Stammtabellen beschreiben noch keine konkrete Verwendung eines Dokuments.",
+      "Die neue Tabelle enthält beide IDs und die Position innerhalb dieser Zuordnung.",
+      "Unterlage erhält ProgrammId und DokumentId als gemeinsamen PK sowie zwei vollständige FK-Beziehungen."
+    ],
+    "explanation": "Unterlage(ProgrammId PK/FK, DokumentId PK/FK, Position) verbindet die bestehenden Tabellen. Je Unterlage gibt es genau einen Programmpunkt und ein Dokument; beide Stammsätze erlauben 0..n Unterlagen. Position ist hier kein zusätzlicher Schlüssel.",
+    "showStarter": true,
+    "starter": {
+      "tables": [
+        {
+          "id": "programm",
+          "name": "Programmpunkt",
+          "columns": [
+            {
+              "id": "programm_ProgrammId",
+              "attribute": "ProgrammId",
+              "name": "ProgrammId",
+              "primaryKey": true,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "programm_Titel",
+              "attribute": "Titel",
+              "name": "Titel",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            }
+          ]
+        },
+        {
+          "id": "dokument",
+          "name": "Dokument",
+          "columns": [
+            {
+              "id": "dokument_DokumentId",
+              "attribute": "DokumentId",
+              "name": "DokumentId",
+              "primaryKey": true,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "dokument_Dateiname",
+              "attribute": "Dateiname",
+              "name": "Dateiname",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            }
+          ]
+        }
+      ],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "programm",
+            "name": "Programmpunkt",
+            "columns": [
+              {
+                "id": "programm_ProgrammId",
+                "attribute": "ProgrammId",
+                "name": "ProgrammId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "programm_Titel",
+                "attribute": "Titel",
+                "name": "Titel",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "dokument",
+            "name": "Dokument",
+            "columns": [
+              {
+                "id": "dokument_DokumentId",
+                "attribute": "DokumentId",
+                "name": "DokumentId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "dokument_Dateiname",
+                "attribute": "Dateiname",
+                "name": "Dateiname",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "unterlage",
+            "name": "Unterlage",
+            "columns": [
+              {
+                "id": "unterlage_ProgrammId",
+                "attribute": "ProgrammId",
+                "name": "ProgrammId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "unterlage_DokumentId",
+                "attribute": "DokumentId",
+                "name": "DokumentId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "unterlage_Position",
+                "attribute": "Position",
+                "name": "Position",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "up",
+            "sourceTable": "unterlage",
+            "targetTable": "programm",
+            "pairs": [
+              {
+                "source": "unterlage_ProgrammId",
+                "target": "programm_ProgrammId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          },
+          {
+            "id": "ud",
+            "sourceTable": "unterlage",
+            "targetTable": "dokument",
+            "pairs": [
+              {
+                "source": "unterlage_DokumentId",
+                "target": "dokument_DokumentId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "kind": "Model",
+    "attributes": {
+      "ProgrammId": "ProgrammId",
+      "Titel": "Titel",
+      "DokumentId": "DokumentId",
+      "Dateiname": "Dateiname",
+      "Position": "Position"
+    }
+  },
+  {
+    "id": 39,
+    "title": "Rückfragen ergänzen, Stammdaten behalten",
+    "chapter": "09 · Vorgegebene Modelle ergänzen",
+    "previousContext": "Die Unterlagenzuordnung ist ergänzt. Die nächste Erweiterung führt einen eigenständigen Vorgang mit Lebenszyklus ein.",
+    "story": "Vor dem Herbstforum sammeln die Kunden organisatorische Rückfragen zu einzelnen Programmpunkten. Lea möchte sehen, wann eine Frage einging und wann sie beantwortet wurde. Zieht ein Kunde seine Frage zurück, soll sie für die Nachbereitung erhalten bleiben. Der bisherige Ausschnitt enthält nur Kunden und Programmpunkte; du ergänzt die neue Vorgangsart.",
+    "task": "Erweitere die Vorlage um Rueckfrage mit FrageId, KundeId, ProgrammId, GestelltAm, BeantwortetAm und Zurueckgezogen. Jede Rückfrage gehört genau einem Kunden und genau einem Programmpunkt. Beide dürfen noch keine und beliebig viele Rückfragen haben. BeantwortetAm darf bis zur Beantwortung fehlen; Zurueckgezogen ist ein Pflichtwert für den Wahrheitswert. Ein Kunde darf mehrere Fragen zum selben Programmpunkt stellen. Vorhandene Tabellen bleiben erhalten. Verwende nur die aufgeführten Fachattribute. Alle Attribute sind Pflicht, sofern ausdrücklich anders angegeben. Ergänze keine zusätzlichen eindeutigen Schlüssel. Nicht ausdrücklich verlangte Mindestzahlen abhängiger Sätze sind 0. Tabellen- und Anzeigenamen sind frei.",
+    "discovery": "Rückfragen sind eigenständige Vorgänge mit zwei Pflichtbezügen. Eine offene Antwort wird durch einen fehlenden Antwortzeitpunkt dargestellt; Zurückziehen löscht den Vorgang nicht.",
+    "hints": [
+      "Mehrere Fragen desselben Kunden zum selben Programmpunkt brauchen eine eigene Vorgangskennung.",
+      "Es sind zwei Beziehungen nötig. Das Kunden-/Programmpaar ist ausdrücklich nicht eindeutig.",
+      "FrageId ist PK. BeantwortetAm erlaubt NULL; KundeId und ProgrammId sind Pflicht-FK."
+    ],
+    "explanation": "Rueckfrage erhält den PK FrageId und Pflicht-FK zu Kunde und Programmpunkt. Nur BeantwortetAm erlaubt NULL. Das Paar KundeId/ProgrammId darf sich wiederholen. Das Pflichtattribut Zurueckgezogen ermöglicht die fachliche Kennzeichnung; konkrete Statuswechsel oder Löschverbote prüft dieser Strukturauftrag nicht.",
+    "showStarter": true,
+    "starter": {
+      "tables": [
+        {
+          "id": "kunde",
+          "name": "Kunde",
+          "columns": [
+            {
+              "id": "kunde_KundeId",
+              "attribute": "KundeId",
+              "name": "KundeId",
+              "primaryKey": true,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "kunde_Name",
+              "attribute": "Name",
+              "name": "Name",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            }
+          ]
+        },
+        {
+          "id": "programm",
+          "name": "Programmpunkt",
+          "columns": [
+            {
+              "id": "programm_ProgrammId",
+              "attribute": "ProgrammId",
+              "name": "ProgrammId",
+              "primaryKey": true,
+              "nullable": false,
+              "uniqueGroup": ""
+            },
+            {
+              "id": "programm_Titel",
+              "attribute": "Titel",
+              "name": "Titel",
+              "primaryKey": false,
+              "nullable": false,
+              "uniqueGroup": ""
+            }
+          ]
+        }
+      ],
+      "relations": []
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "kunde",
+            "name": "Kunde",
+            "columns": [
+              {
+                "id": "kunde_KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "kunde_Name",
+                "attribute": "Name",
+                "name": "Name",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "programm",
+            "name": "Programmpunkt",
+            "columns": [
+              {
+                "id": "programm_ProgrammId",
+                "attribute": "ProgrammId",
+                "name": "ProgrammId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "programm_Titel",
+                "attribute": "Titel",
+                "name": "Titel",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "frage",
+            "name": "Rueckfrage",
+            "columns": [
+              {
+                "id": "frage_FrageId",
+                "attribute": "FrageId",
+                "name": "FrageId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "frage_KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "frage_ProgrammId",
+                "attribute": "ProgrammId",
+                "name": "ProgrammId",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "frage_GestelltAm",
+                "attribute": "GestelltAm",
+                "name": "GestelltAm",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "frage_BeantwortetAm",
+                "attribute": "BeantwortetAm",
+                "name": "BeantwortetAm",
+                "primaryKey": false,
+                "nullable": true,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "frage_Zurueckgezogen",
+                "attribute": "Zurueckgezogen",
+                "name": "Zurueckgezogen",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "fk",
+            "sourceTable": "frage",
+            "targetTable": "kunde",
+            "pairs": [
+              {
+                "source": "frage_KundeId",
+                "target": "kunde_KundeId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          },
+          {
+            "id": "fp",
+            "sourceTable": "frage",
+            "targetTable": "programm",
+            "pairs": [
+              {
+                "source": "frage_ProgrammId",
+                "target": "programm_ProgrammId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "kind": "Model",
+    "attributes": {
+      "KundeId": "KundeId",
+      "Name": "Name",
+      "ProgrammId": "ProgrammId",
+      "Titel": "Titel",
+      "FrageId": "FrageId",
+      "GestelltAm": "GestelltAm",
+      "BeantwortetAm": "BeantwortetAm",
+      "Zurueckgezogen": "Zurueckgezogen"
+    }
+  },
+  {
+    "id": 40,
+    "title": "Aus der Standliste ein Modell gewinnen",
+    "chapter": "10 · Aus Unterlagen entwerfen",
+    "previousContext": "Der bisherige Modellausschnitt wurde gezielt erweitert. Jetzt leitest du einen neuen Ausschnitt aus einer Datentabelle her.",
+    "story": "Für die begleitende Ausstellung erhält Lea eine gemeinsam gepflegte Standliste. Dieselben Hallen- und Partnerangaben stehen darin mehrfach. Bevor weitere Stände eingetragen werden, möchte sie aus dieser Arbeitsliste eine belastbare Struktur ableiten. Die Beispieldaten helfen beim Lesen; welche Kennungen dauerhaft gelten, steht in den vereinbarten Regeln.",
+    "task": "Entwickle aus der Standliste ein relationales Modell in 3. NF. StandNr ist agenturweit eindeutig. HalleCode bestimmt Hallenname, PartnerId bestimmt Partnername und Kontaktmail. Jeder Stand gehört genau einer Halle und genau einem Partner. Hallen und Partner dürfen ohne Stand existieren. Verwende die vorhandenen Kennungen als PK; übernimm die sechs Fachattribute ohne zusätzliche IDs. Die Beispielzeilen begründen keine weiteren Eindeutigkeitsregeln. Verwende nur die aufgeführten Fachattribute. Alle Attribute sind Pflicht, sofern ausdrücklich anders angegeben. Ergänze keine zusätzlichen eindeutigen Schlüssel. Nicht ausdrücklich verlangte Mindestzahlen abhängiger Sätze sind 0. Tabellen- und Anzeigenamen sind frei.",
+    "discovery": "Hallen und Partner sind von den Ständen getrennt. Namen und Kontaktmail werden damit nicht für jeden Stand erneut als Stammdaten gespeichert.",
+    "hints": [
+      "Suche Angaben, die bei derselben fachlichen Kennung wiederholt werden.",
+      "Hallenname hängt von HalleCode ab, die Partnerangaben von PartnerId.",
+      "Halle(HalleCode, Hallenname), Partner(PartnerId, Partnername, Kontaktmail), Stand(StandNr, HalleCode, PartnerId)."
+    ],
+    "explanation": "Drei Tabellen: Halle mit PK HalleCode, Partner mit PK PartnerId und Stand mit PK StandNr. Stand referenziert beide Stammtabellen verpflichtend. Eine Halle und ein Partner können jeweils 0..n Stände besitzen. Kontaktmail wird nicht allein wegen unterschiedlicher Beispielwerte eindeutig.",
+    "evidence": {
+      "title": "Vorläufige Standliste",
+      "description": "Jede Zeile beschreibt einen Stand. Die Zeilen sind Beispiele; die Geschäftsregeln des Auftrags gelten auch für weitere Daten.",
+      "columns": [
+        "StandNr",
+        "HalleCode",
+        "Hallenname",
+        "PartnerId",
+        "Partnername",
+        "Kontaktmail"
+      ],
+      "rows": [
+        [
+          "S-11",
+          "H-A",
+          "Forumhalle",
+          "P-17",
+          "Nordlicht",
+          "team@nordlicht.example"
+        ],
+        [
+          "S-12",
+          "H-A",
+          "Forumhalle",
+          "P-24",
+          "Weitblick",
+          "kontakt@weitblick.example"
+        ],
+        [
+          "S-21",
+          "H-B",
+          "Gartenhalle",
+          "P-17",
+          "Nordlicht",
+          "team@nordlicht.example"
+        ]
+      ]
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "halle",
+            "name": "Halle",
+            "columns": [
+              {
+                "id": "halle_HalleCode",
+                "attribute": "HalleCode",
+                "name": "HalleCode",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "halle_Hallenname",
+                "attribute": "Hallenname",
+                "name": "Hallenname",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "partner",
+            "name": "Partner",
+            "columns": [
+              {
+                "id": "partner_PartnerId",
+                "attribute": "PartnerId",
+                "name": "PartnerId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "partner_Partnername",
+                "attribute": "Partnername",
+                "name": "Partnername",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "partner_Kontaktmail",
+                "attribute": "Kontaktmail",
+                "name": "Kontaktmail",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "stand",
+            "name": "Stand",
+            "columns": [
+              {
+                "id": "stand_StandNr",
+                "attribute": "StandNr",
+                "name": "StandNr",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "stand_HalleCode",
+                "attribute": "HalleCode",
+                "name": "HalleCode",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "stand_PartnerId",
+                "attribute": "PartnerId",
+                "name": "PartnerId",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "sh",
+            "sourceTable": "stand",
+            "targetTable": "halle",
+            "pairs": [
+              {
+                "source": "stand_HalleCode",
+                "target": "halle_HalleCode"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          },
+          {
+            "id": "sp",
+            "sourceTable": "stand",
+            "targetTable": "partner",
+            "pairs": [
+              {
+                "source": "stand_PartnerId",
+                "target": "partner_PartnerId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "kind": "Model",
+    "attributes": {
+      "HalleCode": "HalleCode",
+      "Hallenname": "Hallenname",
+      "PartnerId": "PartnerId",
+      "Partnername": "Partnername",
+      "Kontaktmail": "Kontaktmail",
+      "StandNr": "StandNr"
+    }
+  },
+  {
+    "id": 41,
+    "title": "Ein Leihschein als Ausgangspunkt",
+    "chapter": "10 · Aus Unterlagen entwerfen",
+    "previousContext": "Die Standliste wurde anhand ihrer fachlichen Abhängigkeiten zerlegt. Nun verwendest du einen Beleg mit Kopf- und Positionsdaten.",
+    "story": "Für Aufsteller und mobile Ausstattung schreibt das Team bisher Leihscheine. Lea legt dir einen ausgefüllten Beleg vor: Oben stehen Kunde und Ausleihdatum, darunter mehrere Artikelzeilen. Sie möchte später weitere Belege erfassen können, ohne Kundennamen oder Artikelbezeichnungen mehrfach pflegen zu müssen. Du leitest aus Kopf und Positionen die Tabellen ab.",
+    "task": "Entwirf ein relationales Modell in 3. NF für beliebig viele solche Leihscheine. AusleiheId ist global eindeutig, KundeId bestimmt Kundenname und ArtikelId bestimmt Bezeichnung. Jede Ausleihe gehört genau einem Kunden. Jeder Artikel kommt auf einem Leihschein höchstens einmal vor; Menge gehört zur Position. Kunden und Artikel dürfen ohne Ausleihe bzw. Position existieren. Eine neu angelegte Ausleihe darf zunächst ohne Position existieren. Verwende vorhandene Kennungen und für Positionen den zusammengesetzten PK; keine zusätzliche Positions-ID. Verwende nur die aufgeführten Fachattribute. Alle Attribute sind Pflicht, sofern ausdrücklich anders angegeben. Ergänze keine zusätzlichen eindeutigen Schlüssel. Nicht ausdrücklich verlangte Mindestzahlen abhängiger Sätze sind 0. Tabellen- und Anzeigenamen sind frei.",
+    "discovery": "Kunde und Artikel werden unabhängig gepflegt. Ein Leihschein hat einen eigenen Kopf; seine Positionen verbinden Ausleihe und Artikel mit der jeweiligen Menge.",
+    "hints": [
+      "Trenne die Informationen des Belegkopfs von den wiederholbaren Artikelzeilen.",
+      "Kundenname gehört zum Kunden, Bezeichnung zum Artikel; das Datum beschreibt die Ausleihe.",
+      "Vier Tabellen: Kunde, Ausleihe, Artikel und Leihposition mit PK (AusleiheId, ArtikelId)."
+    ],
+    "explanation": "Kunde(KundeId PK, Kundenname), Ausleihe(AusleiheId PK, KundeId FK, Ausleihdatum), Artikel(ArtikelId PK, Bezeichnung), Leihposition(AusleiheId PK/FK, ArtikelId PK/FK, Menge). Jede Referenz ist Pflicht; die Stammsätze und der Ausleihkopf dürfen jeweils ohne abhängige Sätze existieren.",
+    "evidence": {
+      "title": "Leihschein L-700 · 12.11.2026 · Kunde K-10: Morgenrot",
+      "description": "Der Kopf gilt für alle Positionen. Leihscheinkennung = AusleiheId, Datum = Ausleihdatum; K-10 ist die KundeId und Morgenrot der Kundenname. Die Positionstabelle zeigt die wiederholbaren Zeilen des Belegs.",
+      "columns": [
+        "ArtikelId",
+        "Bezeichnung",
+        "Menge"
+      ],
+      "rows": [
+        [
+          "A-14",
+          "Aufsteller",
+          "3"
+        ],
+        [
+          "A-22",
+          "Prospekthalter",
+          "8"
+        ]
+      ]
+    },
+    "solutions": [
+      {
+        "tables": [
+          {
+            "id": "kunde",
+            "name": "Kunde",
+            "columns": [
+              {
+                "id": "kunde_KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "kunde_Kundenname",
+                "attribute": "Kundenname",
+                "name": "Kundenname",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "leihe",
+            "name": "Ausleihe",
+            "columns": [
+              {
+                "id": "leihe_AusleiheId",
+                "attribute": "AusleiheId",
+                "name": "AusleiheId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "leihe_KundeId",
+                "attribute": "KundeId",
+                "name": "KundeId",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "leihe_Ausleihdatum",
+                "attribute": "Ausleihdatum",
+                "name": "Ausleihdatum",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "artikel",
+            "name": "Artikel",
+            "columns": [
+              {
+                "id": "artikel_ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "artikel_Bezeichnung",
+                "attribute": "Bezeichnung",
+                "name": "Bezeichnung",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          },
+          {
+            "id": "position",
+            "name": "Leihposition",
+            "columns": [
+              {
+                "id": "position_AusleiheId",
+                "attribute": "AusleiheId",
+                "name": "AusleiheId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "position_ArtikelId",
+                "attribute": "ArtikelId",
+                "name": "ArtikelId",
+                "primaryKey": true,
+                "nullable": false,
+                "uniqueGroup": ""
+              },
+              {
+                "id": "position_Menge",
+                "attribute": "Menge",
+                "name": "Menge",
+                "primaryKey": false,
+                "nullable": false,
+                "uniqueGroup": ""
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "lk",
+            "sourceTable": "leihe",
+            "targetTable": "kunde",
+            "pairs": [
+              {
+                "source": "leihe_KundeId",
+                "target": "kunde_KundeId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          },
+          {
+            "id": "pl",
+            "sourceTable": "position",
+            "targetTable": "leihe",
+            "pairs": [
+              {
+                "source": "position_AusleiheId",
+                "target": "leihe_AusleiheId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          },
+          {
+            "id": "pa",
+            "sourceTable": "position",
+            "targetTable": "artikel",
+            "pairs": [
+              {
+                "source": "position_ArtikelId",
+                "target": "artikel_ArtikelId"
+              }
+            ],
+            "parentMinimum": 1,
+            "childMinimum": 0,
+            "childMaximum": "n"
+          }
+        ]
+      }
+    ],
+    "kind": "Model",
+    "attributes": {
+      "KundeId": "KundeId",
+      "Kundenname": "Kundenname",
+      "AusleiheId": "AusleiheId",
+      "Ausleihdatum": "Ausleihdatum",
+      "ArtikelId": "ArtikelId",
+      "Bezeichnung": "Bezeichnung",
+      "Menge": "Menge"
+    }
+  },
+  {
+    "id": 42,
+    "title": "Warum die alte Liste Schwierigkeiten macht",
+    "chapter": "10 · Aus Unterlagen entwerfen",
+    "previousContext": "Aus dem Leihschein ist ein eigener Entwurf entstanden. Die abschließende Besprechung greift die frühere Standliste wieder auf und begründet ihre Aufteilung.",
+    "story": "Zum Abschluss möchte Lea dem Organisationsteam erklären, warum die alte Standliste durch getrennte Tabellen ersetzt werden soll. Die Kolleginnen brauchen dafür konkrete Folgen aus ihrem Alltag. Du prüfst die Aussagen anhand der ursprünglichen Liste und der Regeln, statt nur die Namen der Anomaliearten auswendig zuzuordnen.",
+    "task": "Wähle die zwei fachlich richtigen Aussagen über die ursprüngliche Standliste. Ein Stand muss immer eine StandNr, Halle und einen Partner besitzen. Hallen und Partner sollen unabhängig von einem Stand verwaltet werden können. Dieselbe Hallenbezeichnung und dieselben Partnerdaten werden in der alten Liste je Stand wiederholt.",
+    "discovery": "Die Nachbereitung benennt konkrete Änderungs- und Einfügeprobleme. Das Team kann damit den Zweck der getrennten Hallen-, Partner- und Standdaten nachvollziehen.",
+    "hints": [
+      "Prüfe jede Aussage gegen einen konkreten Vorgang in der Liste.",
+      "Die Forumhalle steht in mehreren Zeilen. Eine neue Halle kann noch keinen Stand besitzen.",
+      "Richtig sind die mögliche widersprüchliche Hallenumbenennung und die fehlende unabhängige Erfassung einer neuen Halle."
+    ],
+    "explanation": "Wird Hallenname nur in einer der beiden H-A-Zeilen geändert, entstehen widersprüchliche Stammdaten: Änderungsanomalie. Eine Halle ohne Stand lässt sich in der alten Standtabelle unter den Pflichtregeln nicht unabhängig erfassen: Einfügeanomalie. Redundanz erzwingt nicht automatisch einen vorhandenen Fehler. Unterschiedliche Partnerkennungen sind kein Grund, alle Partner zu einer Entität zusammenzufassen.",
+    "kind": "Multiple",
+    "evidence": {
+      "title": "Vorläufige Standliste",
+      "description": "Jede Zeile beschreibt einen Stand. Die Zeilen sind Beispiele; die Geschäftsregeln des Auftrags gelten auch für weitere Daten.",
+      "columns": [
+        "StandNr",
+        "HalleCode",
+        "Hallenname",
+        "PartnerId",
+        "Partnername",
+        "Kontaktmail"
+      ],
+      "rows": [
+        [
+          "S-11",
+          "H-A",
+          "Forumhalle",
+          "P-17",
+          "Nordlicht",
+          "team@nordlicht.example"
+        ],
+        [
+          "S-12",
+          "H-A",
+          "Forumhalle",
+          "P-24",
+          "Weitblick",
+          "kontakt@weitblick.example"
+        ],
+        [
+          "S-21",
+          "H-B",
+          "Gartenhalle",
+          "P-17",
+          "Nordlicht",
+          "team@nordlicht.example"
+        ]
+      ]
+    },
+    "options": {
+      "change": "Wird der Name der Halle H-A nur beim Stand S-11 geändert, können zwei widersprüchliche Hallennamen entstehen.",
+      "insert": "Eine neue Halle ohne Stand lässt sich unter den Pflichtregeln nicht unabhängig in dieser Standliste erfassen.",
+      "certain": "Weil der Hallenname zweimal vorkommt, sind die gespeicherten Daten bereits zwingend widersprüchlich.",
+      "merge": "Alle Partner müssen einen gemeinsamen Datensatz erhalten, damit die Standliste normalisiert ist."
+    },
+    "correctIds": [
+      "change",
+      "insert"
+    ]
+  }
+]

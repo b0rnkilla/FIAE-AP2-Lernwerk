@@ -1,6 +1,6 @@
 # Stand und weitere Entwicklung
 
-Entwicklungsstand: **0.1.1-alpha.9 · 05.11.2026**, mit 150 WiSo-Aufgaben und insgesamt 220 Übungen. Zuletzt gebautes Windows-Paket: **0.1.1-alpha.8**, mit allen 220 Übungen, am 05.11.2026 aus dem gepushten Commit `b4e953f` gebaut und aus dem ZIP geprüft. Detaillierte Historie: [Entwicklungsprotokoll](entwicklungsprotokoll.md). Nachweise: [Testprotokoll](testprotokoll.md).
+Entwicklungsstand: **0.1.1-alpha.13 · 09.11.2026**, fünf aktive Module und 298 Lernübungen einschließlich UML. Zuletzt gebautes Windows-Paket: **0.1.1-alpha.12**, mit 250 Lernübungen, am 06.11.2026 aus dem gepushten Commit `e3af6aa` gebaut und aus dem ZIP geprüft; anschließend vom Nutzer als Pre-release veröffentlicht. Detaillierte Historie: [Entwicklungsprotokoll](entwicklungsprotokoll.md). Nachweise: [Testprotokoll](testprotokoll.md).
 
 ## Umgesetzte Rückmeldungen
 
@@ -109,3 +109,29 @@ Geprüft: vollständiger Bestand 840 .NET-Tests einschließlich SQL erfolgreich;
 Entwicklungsstart Alpha 12 nachgeprüft: normaler CMD-/VS-Start respektiert gespeicherte Lokal-/Heimnetzwahl; keine erzwungene URL im Standardprofil. Zwei neue Regressionen und 35 betroffene Tests erfolgreich. Optionaler LAN-Starter bleibt erhalten.
 
 Alpha 12: Heimnetz vom Nutzer als einwandfrei bestätigt. Eigene Nutzerprüfung von Abschnitt 04 noch offen. Versionshinweise vorbereitet; Windows-ZIP und Release-Informationen nach Nutzer-Commit und Push ausdrücklich beauftragt. Paketprüfung noch ausstehend.
+
+## Alpha 12: Paketauftrag abgeschlossen
+
+Windows-ZIP nach Commit/Push e3af6aa gebaut und am 06.11.2026 aus dem ZIP geprüft. Enthalten: 250 Lernübungen, die zusätzlichen Prüfungen und Heimnetz-Einstellung. 866 .NET-/31 JavaScript-Tests erfolgreich; isolierte native EXE mit/ohne SQL, Modellbewertung, Pause/Neustart, QR und Profilerhalt geprüft. ZIP/SHA256 vorhanden, Veröffentlichung durch Nutzer ausstehend. Eigene Nutzerprüfung von Abschnitt 04 sowie praktische Zeitkalibrierung bleiben davon getrennte offene Punkte. Keine weitere Paket-/Veröffentlichungsaktion ohne Auftrag.
+
+## 07.11.2026 – Gestaltung von Abschnitt 04 vereinheitlicht
+
+Nutzerwunsch umgesetzt: Datenbankentwurf verwendet den bestehenden Lernrahmen mit linker TaskRail und gemeinsamer Lernmoduswahl. Auftrag, Arbeitsbereich, Hinweise, Musterlösung, Planungsschritte und Navigation folgen SQL/Pseudocode; Baukastenfelder passen sich der schmaleren Arbeitsfläche an. 53 betroffene Tests und Browserprüfungen mit eigenem Profil erfolgreich. Anschließende Nutzerkontrolle offen. Kein neuer ZIP-Auftrag; Alpha 12 ist inzwischen auf GitHub veröffentlicht, Tag und ZIP-Digest stimmen mit e3af6aa und dem lokalen Paket überein.
+
+## 07.11.2026 – Lichtblick-Geschichte überarbeitet
+
+Nutzerpunkt umgesetzt: Alle 30 Entwurfsaufgaben erhalten konkrete Situationen, eine durchgehende Begleitfigur und nachvollziehbare Übergänge ähnlich SQL/Pseudocode. Bestätigte Vorgänger werden nur bei vorhandenem Abschluss aufgegriffen; übersprungene Schritte bleiben offen. Planungsergebnisse sind getrennt von Fachlösungen und nur nach richtigem Abschluss sichtbar. 56 betroffene Tests, unveränderte Fachverträge und Browseransicht auf eigenem Port geprüft. Nutzerkontrolle ausstehend; weiterhin kein neues ZIP.
+
+## 07.11.2026 – Auswertung und Gesamtprüfung Abschnitt 04
+
+Nutzerkritik bestätigt: Punkte und doppelte Ergebnisblöcke passten nicht in den Lernablauf. Behoben durch eigene Lernrückmeldung im bestehenden Stil und klare Trennung von Prüfungswertung. Zusätzlich Lösungsvorwegnahme bei falscher Auswahl, doppelte automatische Tabellennamen, unsaubere schnelle Ladewechsel, mehrfache Prüfklicks, veraltetes Feedback nach Moduswechsel und fehlende Fortsetzung am Moduleinstieg korrigiert. Baukasten-Schreibschutz serverseitig abgesichert. 34 neue Auditfälle; insgesamt 903 .NET-/31 JavaScript-Tests erfolgreich. Eigene Browserprüfung einschließlich Prüfungsabgabe, Pause/Neustart und Handybreite. Erneute Nutzerkontrolle offen, kein Paketauftrag.
+
+## 07.11.2026 – Diagramme und Unterlagen in Abschnitt 04 umgesetzt
+
+Nutzerauftrag nach Sichtung alter Prüfungen: Abschnitt 04 um prüfungsnahe Aufgabenformen ergänzen; SQL/Pseudocode vorerst abgeschlossen, in dieser Alpha keinen neuen Abschnitt beginnen. Additiv umgesetzt als Aufgaben 31–42: ER-Abbildungen gezielt vervollständigen, aus ER-Vorlagen Tabellen entwerfen, vorbereitete relationale Modelle erweitern sowie Standliste und Leihschein normalisieren und Anomalien konkret beurteilen. 42 Entwurfsaufgaben, insgesamt 262 Lernübungen; bisherige Kennungen/Erfolge und Prüfungsfälle erhalten. Vertrauter Lernrahmen, Spickzettel und Rückmeldungen ohne Lernpunkte bleiben. Eigene synthetische Fälle und Bilder. Technische Prüfungen im Testprotokoll; anschließende Nutzererprobung offen. Kein neuer Abschnitt, kein Paketauftrag.
+
+## 09.11.2026 – Abschnitt 03 nach neuer ausdrücklicher Freigabe umgesetzt
+
+Nach Vergleich von Abschnitt 03/05 wurde UML und Modellierung vorgeschlagen. Die Nutzerfrage zu eigenen Diagrammen ist berücksichtigt: Der Lernweg enthält nicht nur Lesen/Korrigieren, sondern einen eigenen Baukasten und 23 Aufgaben von leerer Arbeitsfläche. 36 Aufgaben in sechs Kapiteln, fünf Diagrammarten, zusammenhängende Nordhafen-Geschichte, Spickzettel und drei eigene Prüfungsfälle. Die anschließende ausdrückliche Freigabe ersetzt für dieses Modul die frühere Beschränkung auf Abschnitt 04 in Alpha 12; neue Quellfassung deshalb Alpha 13. SQL/Pseudocode bleiben abgeschlossen, Abschnitt 05 unverändert geplant.
+
+298 Gesamtlernaufgaben, fünf aktive Module. Getrennte Lern-/Prüfungsstände, Revisionen und unveränderliche Abgabe erhalten bestehende Profile. Quellbuild und Regressionen erfolgreich, eigene Browsererprobung auf getrenntem Port; [Prüfnachweise](testprotokoll.md). Nutzererprobung und Zeitkalibrierung stehen noch aus. Kein ZIP/Commit/Push/Upload beauftragt oder durchgeführt.

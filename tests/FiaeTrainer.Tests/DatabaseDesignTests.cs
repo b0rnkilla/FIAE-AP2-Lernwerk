@@ -15,20 +15,22 @@ public sealed class DatabaseDesignTests : IDisposable
 {
     private readonly string _directory = Path.Combine(Path.GetTempPath(), "FiaeTrainer-Design", Guid.NewGuid().ToString("N"));
     private readonly DesignCatalog _catalog = new();
-    public static IEnumerable<object[]> LearningIds => Enumerable.Range(1, 30).Select(id => new object[] { id });
+    public static IEnumerable<object[]> LearningIds => new DesignCatalog().Lessons.Select(task => new object[] { task.Id });
     [Theory, MemberData(nameof(LearningIds))]
     public void EveryReferenceAndExplicitVariantPassesButEmptyAnswerFails(int id)
     {
         var task = _catalog.Lessons.Single(task => task.Id == id);
-        foreach (var answer in task.Kind == "Model" ? task.Solutions.Select(model => new DesignAnswer { Model = model.Copy() }) : [new DesignAnswer { SelectedIds = task.CorrectIds.ToList() }])
+        foreach (var answer in task.Kind == "Model" ? task.Solutions.Select(model => new DesignAnswer { Model = model.Copy() }) : [task.Kind == "ErCompletion" ? new DesignAnswer { DiagramValues = task.DiagramSlots.ToDictionary(slot => slot.Id, slot => slot.CorrectId) } : new DesignAnswer { SelectedIds = task.CorrectIds.ToList() }])
             Assert.Equal(50, DesignEvaluator.Evaluate(task, answer).Earned);
         Assert.False(DesignEvaluator.Evaluate(task, new()).Correct);
     }
     [Fact]
-    public void CatalogHasSixChaptersAndThreeSeparateOriginalCases()
+    public void OriginalSixChaptersAndThreeCasesRemainAlongsideNewDiagramChapters()
     {
-        Assert.Equal(6, _catalog.Lessons.GroupBy(task => task.Chapter).Count());
-        Assert.All(_catalog.Lessons.GroupBy(task => task.Chapter), group => Assert.Equal(5, group.Count()));
+        Assert.Equal(6, _catalog.Lessons.Where(task => task.Id <= 30).GroupBy(task => task.Chapter).Count());
+        Assert.All(_catalog.Lessons.Where(task => task.Id <= 30).GroupBy(task => task.Chapter), group => Assert.Equal(5, group.Count()));
+        Assert.Equal(42, _catalog.Lessons.Count);
+        Assert.Equal(10, _catalog.Lessons.GroupBy(task => task.Chapter).Count());
         Assert.Equal(3, _catalog.Cases.Count);
         Assert.All(_catalog.Cases, item => { Assert.Equal(50, item.Points.Sum()); Assert.Equal(3, item.Tasks.Count); });
         var category = _catalog.Lessons.Single(task => task.Id == 18).Solutions[0];

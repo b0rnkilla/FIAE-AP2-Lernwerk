@@ -496,3 +496,55 @@ Bei der Rückfrage zum Teststart einen Konflikt des Standard-Launchprofils gefun
 ## 06.11.2026 – Alpha 12 zur Veröffentlichung vorbereiten
 
 Der Nutzer bestätigt die einwandfreie Heimnetz-Funktion. Eine eigene Nutzerprüfung von Abschnitt 04 steht nach seiner Rückmeldung noch aus; die dokumentierten automatisierten und isolierten Browserprüfungen bleiben davon getrennt. Auf ausdrücklichen Auftrag Versionshinweise 0.1.1-alpha.12 für das nächste Paket vorbereitet. README und Benutzeranleitung geprüft, weiterhin aktuell. Committext für alle Änderungen seit Alpha 9 angefordert. Windows-ZIP und zugehörige Release-Informationen erst nach Nutzer-Commit und bestätigtem Push erstellen. Kein Commit/Push/Tag/Upload durch die KI.
+
+## 06.11.2026 – Alpha 12 aus dem ZIP geprüft
+
+Nutzer-Commit e3af6aa und Push bestätigt; Remote-master identisch und Arbeitsfassung beim Bau sauber. 866 .NET-/31 JavaScript-Prüfungen erfolgreich. Neues Windows-ZIP 0.1.1-alpha.12 gebaut, ohne Upload. 250 Lernübungen und separate Prüfungsrunden, nativer Heimnetz-Helfer/QR und Projekt-/Drittanbieterlizenzen enthalten.
+
+Frisch entpackte EXE auf eigenem Port 5214 mit synthetischem Profil geprüft: Datenbankentwurf ohne SQL (Auswahl und freies Tabellenmodell je 50/50), neue pausierbare Entwurfsrunde, erhaltene frühere Historie und später echte SQL-Abfrage. Heimnetz-Diagnose/QR/Remoteansicht sowie Abschalten mit internem EXE-Hostneustart und automatischer Browserrückkehr erfolgreich. Eigene Testpfadquotierung vor den Schreibtests korrigiert. Keine privaten Profile für Tests benutzt. Erhöhte Neuerstellung einer Firewallregel nicht erneut bestätigt.
+
+59 Paketdateien, ZIP und frühere Alpha-9-Datei nach Prüfung unverändert. SHA256 und Paketnachweis unter artifacts/alpha12-verification.json; aktuelle Daten unter lokale-releases.md. README/Benutzeranleitung geprüft, keine Paketänderung nach ZIP-Bau. Nachträgliche Prüfdokumentation separat ergänzt; Tag/Upload/Veröffentlichung durch Nutzer noch ausstehend.
+
+## 07.11.2026 – Abschnitt 04 im gemeinsamen Lerndesign
+
+Auf ausdrücklichen Nutzerauftrag die laufende App auf localhost:5080 über die Weiter-lernen-Einstiege für 01/02/04/08 angesehen. Abschnitt 04 besaß abweichende obere Aufgabenliste und Modusbuttons. Durch vorhandene TaskRail/ LearningModePicker und gemeinsame Lernstile ersetzt: linke Kapitel-/Fortschrittsliste, Story, nummerierter Auftrag, Arbeitsbereich mit Prüftaste, einheitliche Hinweise/Lösung und seitliche bestätigte Planungsschritte. Mobile Darstellung nutzt den bestehenden Lernrahmen, Baukastenfelder bleiben innerhalb der Arbeitsfläche. Eigene alte Listen-/Modusstile entfernt. Keine Inhalts-/Profilrevision, Fachbewertung oder Prüfungsänderung.
+
+Quellbuild im separaten QA-Ausgabeordner ohne Warnungen/Fehler; 53 betroffene .NET-Tests erfolgreich. Isolierter Browser auf localhost:5215 mit eigener ProgressDirectory/SettingsFile und absichtlich fehlendem SQL: Auswahl und eigenes Kundenmodell je 50/50, Moduswechsel mit Behalten/Bestätigen, Erfolge nach Neustart des Versuchs erhalten, Entwürfe/Modi und Listenwahl nach Neuladen, Hilfen/Musterlösung, Spickzettel-Rückweg, Hell/Dunkel und Handybreite geprüft. Bestehende Nutzerinstanz nicht beendet; Bearbeitungstests ausschließlich am eigenen Profil. README und Benutzeranleitung geprüft, weiter zutreffend; Fachdokumente nachgeführt. Kein ZIP, Commit, Push oder Upload.
+
+Beim Einlesen des Projekts öffentliches GitHub-Repository und Releases geprüft: Alpha 12 am 07.11.2026 als Pre-release veröffentlicht; master und Tag zeigen auf e3af6aa, Größe und veröffentlichter ZIP-Digest stimmen mit dem erneut berechneten lokalen SHA256 überein. Frühere Ausstehend-Vermerke dokumentieren den damaligen Stand.
+
+## 07.11.2026 – Storytexte und Aufgabenübergänge in Abschnitt 04
+
+Auf Nutzerwunsch die SQL-/Algorithmus-Geschichten mit den 30 bisherigen Entwurfstexten verglichen. Die knappen Lichtblick-Texte durch eine durchgehende Vorbereitung des Herbstforums mit Projektkoordinatorin Lea Berger ersetzt. Jede Aufgabe erhält einen konkreten Arbeitsanlass; Rückgriffe auf Kunden-/Material-/Personalausschnitte und abweichende Geschäftsregeln sind nachvollziehbar eingeordnet. Alle bestehenden Aufträge, Lösungen, Hinweise, Optionen und IDs unverändert erhalten.
+
+PreviousContext und Discovery für Lernaufgaben ergänzt. Die Storykarte beschreibt den Vorgänger nur bei dessen Abschluss als erledigt; sonst Rücklink und Hinweis auf unabhängige Bearbeitung. Bestätigte Planungsergebnisse stehen chronologisch im Bericht, offene Zwischenstücke bleiben benannt, spätere Erfolge werden nicht vorgezogen. Fachliche Explanation bleibt in Auswertung und Musterlösung erhalten. Inhaltsversion und Profilformat unverändert; keine Neubewertung alter Erfolge.
+
+56 betroffene Tests einschließlich drei neuer Komponentenprüfungen erfolgreich, Web-Build ohne Warnungen/Fehler. Eigener Browser auf localhost:5216 mit ausschließlich früherem synthetischem QA-Profil: gelöster/offener Vorgänger, Berichtslücken, spätere Aufgaben und bestehender Modellname geprüft; Handybreite ohne Überlauf, beide Designs. Nach dem letzten Textfeinschliff Tests/Build erneut erfolgreich. Testtabs und eigene Instanz beendet, normale Nutzerinstanz unverändert. README und Benutzeranleitung geprüft, weiter zutreffend; Lernkonzept/Fach-/Statusdokumente aktualisiert. Kein ZIP, Commit, Push oder Upload.
+
+## 07.11.2026 – Abschnitt 04 nach Auswertungskritik umfassend geprüft
+
+Die Nutzerscreenshots zeigen eine unpassende Prüfungs-Punkteanzeige und doppelte Erfolgsblöcke im Lernen. DesignLearningFeedback führt Ergebnis, Erkenntnis und Hilfenutzung in einer einzigen Karte zusammen. Prüfungen behalten ihre bisherige Gewichtung. Die Durchsicht fand außerdem vorweggenommene Lösungen bei falschen Auswahlantworten, kollidierende automatisch vergebene Tabellennamen nach einer Entfernung, unzureichend gebundene asynchrone Ladevorgänge, fehlende Fortsetzung am Moduleinstieg und veraltete Rückmeldungen bei Moduswechsel. Diese Fälle gezielt korrigiert; leere Antworten und Doppelklicks abgefangen. Editorhandler respektieren Schreibschutz und Grenzen zusätzlich zur sichtbaren Sperre. Seitensteuerung nach DatabaseDesign.razor.cs ausgelagert.
+
+34 neue Auditfälle ergänzen die bisherigen Tests. Vollständiger abschließender Lauf 903 .NET-Tests einschließlich SQL und 31 JavaScript-Tests erfolgreich; Web-Build ohne Warnungen/Fehler. Ein erster Gesamtlauf verwendete eine ungeeignete QA-Ausgabetiefe und scheiterte dadurch in zwei Startkonfigurationsprüfungen; korrekter separater Ausgabepfad und gesamter Nachlauf erfolgreich. Keine Produktanpassung für diesen Testpfadfehler.
+
+Browser auf localhost:5217 mit synthetischem Profil: falsche/richtige Auswahl ohne Lösungsvorwegnahme/Punkte, genau eine Erfolgskarte, Feedbackentfernung bei Bearbeitung/Moduswechsel, vorbereitete Modellreparatur durch eigene FK-Zuordnung, Fortsetzung/Rückweg und alte Entwürfe erhalten. Prüfung mit Pause, Kontrollmarkierung, Neustart und Nachschlagen; Abgaben 10/50 für nur richtige Auswahl sowie 50/50 mit korrekt vorbereiteten synthetischen Modellantworten und Browserauswahl. Gesperrte Abgaben, gewichtete 20/20/10 und zwei getrennte Historieneinträge bestätigt. Helle/dunkle Handyansicht ohne Überlauf, frischer Abschlusstab ohne Konsolenfehler. Eigene Testinstanz beendet; normale App und Lernstände nicht verwendet. README/Anleitung geprüft und weiter zutreffend, Fach-/Statusdokumente nachgeführt. Kein ZIP, Commit, Push oder Upload.
+
+## 07.11.2026 – Abschnitt 04: ER-Diagramme, Modellergänzungen und Belege
+
+Nach der lesenden Sichtung der alten Aufgabensätze hat der Nutzer den Ausbau von Abschnitt 04 freigegeben. SQL/Pseudocode bleiben vorerst abgeschlossen; in dieser Alpha beginnt kein weiterer Abschnitt. Zwölf neue eigene Aufgaben 31–42 erhalten die bisherigen Aufgaben und Datenverträge: vier ER-Ergänzungen, zwei Überführungen in Tabellen, drei vorbereitete Modellerweiterungen, zwei Unterlagenentwürfe und eine konkrete Anomalieauswahl.
+
+Neue ER-Vorlagen und beschriftete Ergänzungsfelder mit sofortiger Diagrammaktualisierung, eigene Arbeitsunterlagen, additive Antwortzuordnung und dynamische Spickzettel-Rückwege umgesetzt. SVG samt Textliste und seitlich scrollenden Diagramm-/Tabellenflächen, keine Drag-Pflicht. Nach erster Sichtprüfung kompaktere ER-Anordnung für die mittlere Desktopspalte. Bestehender Lernrahmen, keine Lernpunkte und unveränderte Prüfungsfälle. Quellfassung mit 42 Entwurfs-/262 Gesamtlernaufgaben, Inhaltsversion alter Verträge erhalten. Originalprüfungen wurden weder kopiert noch eingebettet.
+
+Build und fachliche/Komponenten-/Speicherprüfungen durchgeführt; Ergebnisse und Browsernachweise siehe Testprotokoll. Quellfassung zum anschließenden Nutzertest, vorhandenes Alpha-12-ZIP unverändert. Kein Commit/Push/Upload.
+
+## 09.11.2026 – Abschnitt 03 UML und Modellierung umgesetzt
+
+Nach Recherchevorschlag und Klärung eigener Diagramme ausdrücklich freigegeben. Neue Quellfassung 0.1.1-alpha.13: 36 eigene Nordhafen-Aufgaben mit Mira König in sechs Kapiteln, davon sieben Lese-, sechs Reparatur- und 23 Aufgaben mit leerer Arbeitsfläche. Fünf Diagrammarten, eigener Baukasten mit freien Beschriftungen und festen Fachrollen, automatische SVG-Anordnung, Textalternative und Spickzettel. Gemeinsame Lernbedienung, bestätigte Storyschritte und eine Lernrückmeldung ohne Punkte. Drei neue Prüfungsfälle mit je drei unabhängigen Aufträgen, 45 Minuten, 20/20/10 Trainingspunkten und endgültiger Abgabe.
+
+Eigene UML-Ordner, Inhaltsversion und additive Profilfelder; alte Lern-/Prüfungsstände erhalten. Übersicht und Lernplan zählen 298 Lernaufgaben in fünf Modulen. Source-README, Benutzeranleitung und Fach-/Entwicklungsdokumente nachgeführt, eigenes Diagrammbild aus synthetischem Profil ergänzt. SQL/Pseudocode und Abschnitt 05 nicht erweitert. Bewertungsgrenzen und explizite Varianten in [UML](uml.md).
+
+Geprüft: warnungsfreier Quellbuild, 1.041 erfolgreiche .NET-Tests bei 20 bewusst ausgelassenen SQL-Integrationen; darin 119 neue UML-Prüfungen. Nach Ergänzung der Profilerhalt-Assertions alle 119 UML-Prüfungen erneut erfolgreich. 31 JavaScript-Prüfungen erfolgreich. Isolierter Browser auf 5221: eigene Diagramme, Reparaturen in allen fünf Notationen, Hilfen/Neustart, Rückweg, Pause/Hostneustart und 50/50-Prüfungsabgabe, mobile Hell-/Dunkelansicht. Verdeckte Mengenangaben und lange Aktivitätspfade bei der Sichtprüfung korrigiert und abgesichert. Abschließend UML auch bei absichtlich unerreichbarem SQL-Ziel gelöst. Kein ZIP, kein Commit/Push/Upload. Nutzererprobung und praktische Zeitkalibrierung ausstehend.
+
+## 09.11.2026 – Commitformat dauerhaft festgelegt
+
+Auf Nutzerwunsch das Commitformat aus DummyDataGenerator übernommen: kurzer Titel, Leerzeile und benötigte FEAT-/FIX-/REF-/DOC-Zeilen. In AGENTS.md und Coding Guideline verankert, damit künftige Chats im Projekt dieselbe Vorgabe finden. Keine weiteren Regeln des anderen Projekts übernommen.

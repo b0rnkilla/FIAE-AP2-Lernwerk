@@ -4,7 +4,7 @@
     @foreach (var check in Result.Checks) { <details class="exam-check" open="@(check.Earned < check.Maximum || check.Maximum == 0)"><summary>@check.Name · @(Maximum == 50 ? $"{check.Earned} / {check.Maximum}" : check.Maximum == 0 ? "Zusatzhinweis" : $"{100 * check.Earned / check.Maximum} % erfüllt")</summary><p>@check.Detail</p></details> }
 </section>
 @code {
-    /// <summary> Erst nach ausdrücklichem Prüfen beziehungsweise nach Prüfungsabgabe sichtbar. </summary>
+    /// <summary> Detailauswertung ausschließlich nach Prüfungsabgabe; Lernen verwendet DesignLearningFeedback. </summary>
     [Parameter, EditorRequired] public DesignEvaluation Result { get; set; } = new();
     /// <summary> Gewichtet dieselben fachlichen Kriterien bei einer Teilaufgabe mit weniger Punkten. </summary>
     [Parameter] public int Maximum { get; set; } = 50;

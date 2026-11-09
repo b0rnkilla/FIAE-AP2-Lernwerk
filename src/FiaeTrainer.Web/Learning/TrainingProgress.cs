@@ -45,6 +45,15 @@ public sealed class TrainingProgress
     /// <summary> Letzte zwanzig abgegebene Modellprüfungen. </summary>
     public List<FiaeTrainer.Core.DatabaseDesign.Practice.DesignExamRound> DesignHistory { get; set; } = [];
 
+    /// <summary> Zuletzt besuchte UML-Aufgabe; alte Profile beginnen bei eins. </summary>
+    public int LastUmlLessonId { get; set; } = 1;
+    /// <summary> UML-Entwürfe und Lernabschlüsse unabhängig von allen bisherigen Modulen. </summary>
+    public Dictionary<int, FiaeTrainer.Core.Uml.Practice.UmlProgress> UmlLessons { get; set; } = [];
+    /// <summary> Eigene aktuelle UML-Prüfung. </summary>
+    public FiaeTrainer.Core.Uml.Practice.UmlExamRound? UmlExam { get; set; }
+    /// <summary> Höchstens zwanzig endgültige UML-Ergebnisse. </summary>
+    public List<FiaeTrainer.Core.Uml.Practice.UmlExamRound> UmlHistory { get; set; } = [];
+
     /// <summary> Wählt den getrennten Fortschrittsbereich. </summary>
     public Dictionary<int, LessonProgress> GetLessons(LearningArea area) => area == LearningArea.Investigation ? Lessons : WorkshopLessons;
 }

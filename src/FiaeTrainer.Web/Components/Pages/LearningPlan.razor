@@ -5,6 +5,7 @@
 @inject AlgorithmCatalog AlgorithmCatalog
 @inject BusinessCatalog BusinessCatalog
 @inject DesignCatalog DesignCatalog
+@inject UmlCatalog UmlCatalog
 <PageTitle>Dein Lernplan · AP2 Lernwerk</PageTitle>
 <main class="page reading-page">
     <div class="eyebrow">DEIN TEMPO · DEIN NÄCHSTER SCHRITT</div>
@@ -26,6 +27,7 @@
         var algorithmOpen = AlgorithmCatalog.Lessons.Where(x => _progress.AlgorithmLessons.TryGetValue(x.Id, out AlgorithmProgress? state) && !state.Completed && (state.Attempts > 0 || !string.IsNullOrWhiteSpace(state.Draft))).ToList();
         var algorithmReview = AlgorithmCatalog.Lessons.Where(x => _progress.AlgorithmLessons.TryGetValue(x.Id, out AlgorithmProgress? state) && state.Completed && !state.Independent).ToList();
         <section class="plan-progress" aria-label="Dein Lernstand">
+            <article><h2>UML &amp; Modellierung</h2><strong>@_progress.UmlLessons.Values.Count(item => item.Completed) / @UmlCatalog.Lessons.Count gelöst</strong><p>@_progress.UmlLessons.Values.Count(item => item.Independent) davon auch ohne Hilfe</p></article>
             <article><h2>Datenbankentwurf</h2><strong>@_progress.DesignLessons.Values.Count(item => item.Completed) / @DesignCatalog.Lessons.Count gelöst</strong><p>@_progress.DesignLessons.Values.Count(item => item.Independent) davon auch ohne Hilfe</p></article>
             <article><h2>SQL-Ermittlung</h2><strong>@_progress.Lessons.Values.Count(x => x.Completed) / @Catalog.Lessons.Count gelöst</strong><p>@_progress.Lessons.Values.Count(x => x.Independent) davon auch ohne Hilfe</p></article>
             <article><h2>SQL-Werkstatt</h2><strong>@_progress.WorkshopLessons.Values.Count(x => x.Completed) / @WorkshopCatalog.Lessons.Count gelöst</strong><p>@_progress.WorkshopLessons.Values.Count(x => x.Independent) davon auch ohne Hilfe</p></article>
@@ -54,6 +56,11 @@
     }
     @if (_error == null)
     {
+        <section class="plan-step"><span class="eyebrow">UML &amp; MODELLIERUNG</span><h2>Deine Softwaremodelle weiterentwickeln</h2>
+            @foreach (var task in UmlCatalog.Lessons.Where(task => !_progress.UmlLessons.TryGetValue(task.Id, out var saved) || !saved.Completed).Take(3)) { <a class="review-link" href="@($"/uml/{task.Id}")"><span>@task.Title</span><span>Weiter lernen →</span></a> }
+            @foreach (var task in UmlCatalog.Lessons.Where(task => _progress.UmlLessons.TryGetValue(task.Id, out var saved) && saved.Completed && !saved.Independent).Take(3)) { <a class="review-link" href="@($"/uml/{task.Id}")"><span>@task.Title</span><span>Ohne Hilfe wiederholen →</span></a> }
+            <a class="button secondary" href="/uml/pruefung">Prüfung üben →</a>
+        </section>
         <section class="plan-step"><span class="eyebrow">DATENBANKENTWURF</span><h2>Dein Modell weiterentwickeln</h2>
             @foreach (var task in DesignCatalog.Lessons.Where(task => !_progress.DesignLessons.TryGetValue(task.Id, out var saved) || !saved.Completed).Take(3)) { <a class="review-link" href="@($"/datenbankentwurf/{task.Id}")"><span>@task.Title</span><span>Weiter lernen →</span></a> }
             @foreach (var task in DesignCatalog.Lessons.Where(task => _progress.DesignLessons.TryGetValue(task.Id, out var saved) && saved.Completed && !saved.Independent).Take(3)) { <a class="review-link" href="@($"/datenbankentwurf/{task.Id}")"><span>@task.Title</span><span>Ohne Hilfe wiederholen →</span></a> }

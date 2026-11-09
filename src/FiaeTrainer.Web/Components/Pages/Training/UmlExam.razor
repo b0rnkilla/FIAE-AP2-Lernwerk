@@ -1,0 +1,92 @@
+@page "/uml/pruefung/runde"
+@implements IDisposable
+@inject UmlCatalog Catalog
+@inject ProgressStore Store
+@inject NavigationManager Navigation
+<PageTitle>Deine UML-Prüfung · AP2 Lernwerk</PageTitle>
+<main class="page design-exam">
+    @if (_error != null) { <p class="notice warning" role="alert">@_error <a href="/uml/pruefung/runde" data-enhance-nav="false">Prüfung neu laden</a></p> }
+    @if (_round == null || _case == null) { <h1>Deine nächste UML-Prüfung wartet.</h1><a class="button primary" href="/uml/pruefung">Prüfung auswählen →</a> }
+    else
+    {
+        <div class="business-round-toolbar"><a href="/uml/pruefung">← UML-Prüfung</a>@if (_round.FinishedUtc == null) { <div class="business-timer-actions"><span class="business-timer" aria-label="Verbleibende Prüfungszeit">@TimeLeft</span><button class="button secondary" disabled="@(_busy || _error != null)" @onclick="PauseAsync">@(_round.RunningSinceUtc == null ? "Fortsetzen" : "Pause")</button><button class="button secondary" disabled="@(_busy || _error != null)" @onclick="RequestFinish">Prüfung abgeben</button></div> }</div>
+        @if (_round.FinishedUtc != null) { <section class="business-result-hero" @ref="_status" tabindex="-1"><div class="eyebrow">DEINE PRÜFUNGSAUSWERTUNG</div><h1>@_round.Earned / 50 Punkte</h1><p>@(_round.Earned * 2) % der Trainingspunkte · @(_round.UsedReference ? "mit Nachschlagen" : "ohne Nachschlagen")</p><p>Eigene Trainingsbewertung, keine amtliche IHK-Note. Die Diagrammprüfung verwendet ausdrücklich beschriebene Fachrollen und geprüfte Varianten.</p></section> }
+        @if (_confirm && _round.FinishedUtc == null) { <section class="notice warning" role="alert" @ref="_status" tabindex="-1"><h2>Prüfung jetzt abgeben?</h2><p>Danach bleiben alle Antworten gesperrt.</p><button class="button secondary" @onclick="() => _confirm = false">Weiter bearbeiten</button> <button class="button primary" disabled="@_busy" @onclick="FinishAsync">Jetzt abgeben &amp; auswerten</button></section> }
+        @if (_round.FinishedUtc == null && _round.RunningSinceUtc == null) { <section class="business-pause"><h1>Eine Pause für den Kopf.</h1><p>Die Uhr steht. Aufgaben und Entwürfe sind ausgeblendet.</p><button class="button primary" disabled="@(_busy || _error != null)" @onclick="PauseAsync">Prüfung fortsetzen →</button></section> }
+        else
+        {
+            <div class="design-exam-overview" role="group" aria-label="Teilaufgaben">@for (int i = 0; i < 3; i++) { int index = i; <button class="button secondary" disabled="@(_busy || _error != null)" aria-pressed="@(_round.Index == i ? "true" : "false")" @onclick="() => GoAsync(index)">Aufgabe @(i + 1)@(_round.FlaggedIds.Contains(i + 1) ? " ⚑" : "")</button> }</div>
+            <div class="eyebrow">@_case.Title · @_case.Points[_round.Index] Punkte</div><h1 class="business-question-title">@Current.Title</h1><section class="business-scenario"><h2>Dein Prüfungsfall</h2><p>@_case.Scenario</p></section><section class="task-card"><p>@Current.Task</p></section>
+            <UmlEditor @key="Current.Id" Task="Current" Answer="Answer" Changed="SaveAsync" ReadOnly="@(_busy || _error != null || _round.FinishedUtc != null)" />
+            @if (_round.FinishedUtc != null) { <UmlExamFeedback Result="_round.Results[Current.Id]" Maximum="_case.Points[_round.Index]" /><details class="exam-solution"><summary>Musterlösung mit Erklärung</summary><p>@Current.Explanation</p>@if (Current.Format != "Read") { <UmlDiagram Task="Current" Model="Current.Solutions[0]" /> } else { <ul>@foreach (string id in Current.CorrectIds) { <li>@Current.Options[id]</li> }</ul> }</details> }
+            else { <div class="design-submit"><button class="button secondary" disabled="@(_error != null)" @onclick="FlagAsync">@(_round.FlaggedIds.Contains(Current.Id) ? "Markierung entfernen" : "Zur Kontrolle markieren")</button><button class="button primary" disabled="@(_busy || _error != null)" @onclick="RequestFinish">Prüfung abgeben →</button></div><div class="help-row"><div><h3>Du möchtest nachschlagen?</h3><p>Die Uhr pausiert. Dein Ergebnis wird als „mit Nachschlagen“ gekennzeichnet.</p></div><a class="button secondary" href="/uml/spickzettel?pruefung=true">Spickzettel öffnen →</a></div> }
+        }
+    }
+</main>
+@code {
+    private UmlExamRound? _round;
+    private UmlExamCase? _case;
+    private string? _error;
+    private bool _busy, _confirm, _disposed, _focusStatus;
+    private ElementReference _status;
+    private Timer? _timer;
+    private readonly SemaphoreSlim _actions = new(1, 1);
+    private long _changeRevision;
+    private UmlAssignment Current => _case!.Tasks[_round!.Index];
+    private UmlAnswer Answer { get { if (!_round!.Answers.TryGetValue(Current.Id, out var answer)) _round.Answers[Current.Id] = answer = Current.InitialAnswer(); return answer; } }
+    private string TimeLeft { get { int seconds = _round!.SecondsLeft(DateTimeOffset.UtcNow); return $"{seconds / 60:00}:{seconds % 60:00}"; } }
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _round = (await Store.LoadAsync()).UmlExam;
+            if (_round == null) return;
+            _case = Catalog.Cases.SingleOrDefault(item => item.Id == _round.CaseId);
+            if (_case == null || _round.ContentVersion != UmlCatalog.CONTENT_VERSION) { _error = "Der gespeicherte Prüfungsinhalt passt nicht mehr und wird nicht überschrieben."; _case = null; return; }
+            if (_round.FinishedUtc == null && _round.SecondsLeft(DateTimeOffset.UtcNow) == 0) await FinishAsync();
+            _timer = new Timer(_ => { if (!_disposed) _ = InvokeAsync(async () => { if (_round?.FinishedUtc == null && _round?.SecondsLeft(DateTimeOffset.UtcNow) == 0) await FinishAsync(); if (!_disposed) StateHasChanged(); }); }, null, 1000, 1000);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidOperationException or System.Text.Json.JsonException) { _error = ex.Message; }
+    }
+    /// <summary> Speichert jeden Editorwechsel; veraltete Fenster dürfen die Runde nicht ersetzen. </summary>
+    private async Task SaveAsync()
+    {
+        if (_error != null || _round == null || _round.FinishedUtc != null || _busy) return;
+        _changeRevision++;
+        await _actions.WaitAsync();
+        try
+        {
+            if (_round.FinishedUtc != null || _error != null) return;
+            long submittedRevision = _changeRevision;
+            var saved = await Store.SaveUmlExamAsync(_round, Catalog);
+            if (saved.FinishedUtc != null || submittedRevision == _changeRevision) _round = saved;
+            else
+            {
+                // Während des Schreibens bereits eingegebene Zeichen bleiben im Arbeitsentwurf.
+                _round.Revision = saved.Revision;
+                _round.RemainingSeconds = saved.RemainingSeconds;
+                _round.UsedReference |= saved.UsedReference;
+            }
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidOperationException or System.Text.Json.JsonException) { _error = ex.Message; }
+        finally { _actions.Release(); }
+    }
+    private async Task GoAsync(int index) { if (_busy || _error != null || _round == null || index is < 0 or > 2) return; _round.Index = index; if (_round.FinishedUtc == null) await SaveAsync(); }
+    private async Task FlagAsync() { if (_busy || _error != null || _round == null || _round.FinishedUtc != null) return; if (!_round.FlaggedIds.Remove(Current.Id)) _round.FlaggedIds.Add(Current.Id); await SaveAsync(); }
+    private async Task PauseAsync() { if (_busy || _error != null || _round == null || _round.FinishedUtc != null) return; if (_round.RunningSinceUtc == null) _round.RunningSinceUtc = DateTimeOffset.UtcNow; else _round.Pause(DateTimeOffset.UtcNow); await SaveAsync(); }
+    private async Task FinishAsync()
+    {
+        if (_error != null || _round == null || _round.FinishedUtc != null || _busy) return;
+        _busy = true; await _actions.WaitAsync();
+        try { _round = await Store.SaveUmlExamAsync(_round, Catalog, finish: true); _confirm = false; _focusStatus = true; }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidOperationException or System.Text.Json.JsonException) { _error = ex.Message; }
+        finally { _actions.Release(); _busy = false; }
+    }
+    private void RequestFinish() { if (_busy || _error != null || _round == null || _round.FinishedUtc != null) return; _confirm = true; _focusStatus = true; }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_focusStatus) { _focusStatus = false; try { await _status.FocusAsync(); } catch (Microsoft.JSInterop.JSDisconnectedException) { } }
+    }
+    public void Dispose() { _disposed = true; _timer?.Dispose(); }
+}
+

@@ -9,6 +9,8 @@ public sealed class DesignAnswer
     public DesignModel Model { get; set; } = new();
     /// <summary> Stabile Kennungen ausgewählter Aussagen. </summary>
     public List<string> SelectedIds { get; set; } = [];
+    /// <summary> Ergänzungen der ER-Abbildung; alte Profile erhalten eine leere Zuordnung. </summary>
+    public Dictionary<string, string> DiagramValues { get; set; } = [];
     /// <summary> Unabhängige Kopie für Speicherung und Vorschau. </summary>
     public DesignAnswer Copy() => JsonSerializer.Deserialize<DesignAnswer>(JsonSerializer.Serialize(this))!;
 }

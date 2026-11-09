@@ -1,0 +1,33 @@
+<section class="feedback @(Result.Correct ? "correct" : "retry")" role="status" aria-label="Rückmeldung zu deiner Lösung">
+    <strong>@(Result.Correct ? "Dieser Schritt stimmt." : "Schau noch einmal genau hin.")</strong>
+    <p>@(Result.Correct ? "Deine Lösung erfüllt alle Anforderungen dieser Aufgabe." : "Deine Lösung erfüllt den Auftrag noch nicht vollständig. Prüfe die Rückmeldungen unten und überarbeite deinen Entwurf.")</p>
+    @if (Result.Correct)
+    {
+        <p class="discovery">@Task.Discovery</p>
+        <AttemptOutcomeNote ExamMode="IndependentMode" AssistedAttempt="Assisted" />
+    }
+</section>
+@if (!Result.Correct || Task.Kind == "Model")
+{
+    <section class="design-checks" aria-label="Prüfergebnisse">
+        @foreach (var check in Result.Checks)
+        {
+            bool passed = check.Maximum > 0 && check.Earned == check.Maximum;
+            <details open="@(!passed)">
+                <summary><span class="check-state" aria-hidden="true">@(passed ? "✓" : "!")</span> @check.Name · @(passed ? "erfüllt" : "noch offen")</summary>
+                <p>@check.Detail</p>
+            </details>
+        }
+    </section>
+}
+
+@code {
+    /// <summary> Fachliches Ergebnis; Lernrückmeldungen zeigen keine Prüfungspunkte. </summary>
+    [Parameter, EditorRequired] public DesignEvaluation Result { get; set; } = new();
+    /// <summary> Liefert ausschließlich die nach richtiger Lösung freigeschaltete Erkenntnis. </summary>
+    [Parameter, EditorRequired] public DesignAssignment Task { get; set; } = new();
+    /// <summary> Modus des geprüften Versuchs. </summary>
+    [Parameter] public bool IndependentMode { get; set; }
+    /// <summary> Bereits verwendete Unterstützung des geprüften Versuchs. </summary>
+    [Parameter] public bool Assisted { get; set; }
+}

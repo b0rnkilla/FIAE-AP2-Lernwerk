@@ -1,0 +1,15 @@
+<section class="feedback @(Result.Correct ? "correct" : "retry")" role="status" aria-label="Rückmeldung zu deiner Lösung"><strong>@(Result.Correct ? "Dieser Entwurf stimmt." : "Schau noch einmal genau hin.")</strong><p>@(Result.Correct ? "Deine Lösung erfüllt alle Anforderungen dieser Aufgabe." : "Prüfe die Rückmeldungen und die markierten Elemente oder Verbindungen.")</p>@if (Result.Correct) { <p class="discovery">@Task.Discovery</p><AttemptOutcomeNote ExamMode="IndependentMode" AssistedAttempt="Assisted" /> }
+@if (!Result.Correct)
+{
+    <div class="design-checks" aria-label="Prüfergebnisse">@foreach (var check in Result.Checks) { <details open="@(check.Earned != check.Maximum)"><summary>@check.Name · @(check.Earned == check.Maximum ? "erfüllt" : "noch offen")</summary><p>@check.Detail</p></details> }</div>
+}
+</section>
+@code {
+    /// <summary> Einmalige Ergebnis- und Erkenntniskarte ohne Prüfungspunkte. </summary>
+    [Parameter, EditorRequired] public UmlEvaluation Result { get; set; } = new();
+    /// <summary> Erkenntnis bleibt bis zum Erfolg verborgen. </summary>
+    [Parameter, EditorRequired] public UmlAssignment Task { get; set; } = new();
+    /// <summary> Aktuelle Hilfenutzung des Versuchs. </summary>
+    [Parameter] public bool IndependentMode { get; set; }
+    [Parameter] public bool Assisted { get; set; }
+}

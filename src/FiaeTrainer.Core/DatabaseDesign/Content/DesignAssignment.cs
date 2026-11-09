@@ -11,12 +11,24 @@ public sealed class DesignAssignment
     public string Chapter { get; set; } = "";
     /// <summary> Kurzer Aufgabentitel. </summary>
     public string Title { get; set; } = "";
+    /// <summary> Übergang vom vorherigen Lernschritt; nur bei dessen bestätigtem Abschluss anzeigen. </summary>
+    public string PreviousContext { get; set; } = "";
     /// <summary> Nachvollziehbare Ausgangssituation ohne vorweggenommene ungelöste Ergebnisse. </summary>
     public string Story { get; set; } = "";
+    /// <summary> Ergebnis für den Planungsbericht, erst nach erfolgreicher Lösung sichtbar. </summary>
+    public string Discovery { get; set; } = "";
     /// <summary> Vollständiger Bewertungsvertrag einschließlich fachlicher Abhängigkeiten. </summary>
     public string Task { get; set; } = "";
-    /// <summary> Model, Choice oder Multiple; reine Auswahlaufgaben besitzen stabile Optionen. </summary>
+    /// <summary> Model, ErCompletion, Choice oder Multiple; Antworten besitzen stabile Fachkennungen. </summary>
     public string Kind { get; set; } = "Model";
+    /// <summary> Vorgegebene fachliche ER-Abbildung zum Ergänzen oder als Übersetzungsvorlage. </summary>
+    public DesignErDiagram? SourceDiagram { get; set; }
+    /// <summary> Gezielte Lücken in der ER-Abbildung. </summary>
+    public List<DesignDiagramSlot> DiagramSlots { get; set; } = [];
+    /// <summary> Vorgegebener relationaler Entwurf bleibt als unveränderte Arbeitsunterlage sichtbar. </summary>
+    public bool ShowStarter { get; set; }
+    /// <summary> Beleg oder Beispieldaten zur selbstständigen Herleitung des Modells. </summary>
+    public DesignEvidence? Evidence { get; set; }
     /// <summary> Bedeutung und Standardbeschriftung der verfügbaren Attribute. </summary>
     public Dictionary<string, string> Attributes { get; set; } = [];
     /// <summary> Unabhängige Ausgangskopie, bei Reparaturaufgaben absichtlich fehlerhaft. </summary>

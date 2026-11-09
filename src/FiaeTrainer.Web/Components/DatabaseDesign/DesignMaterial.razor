@@ -1,0 +1,21 @@
+@if (Task.Evidence != null || Task.ShowStarter || Task.Kind != "ErCompletion" && Task.SourceDiagram != null)
+{
+    <section class="design-material" aria-label="Vorgegebene Arbeitsunterlagen">
+        <h2>Deine Arbeitsunterlagen</h2>
+        @if (Task.Evidence is { } evidence)
+        {
+            <p>@evidence.Description</p>
+            <div class="design-evidence-scroll" tabindex="0" role="region" aria-label="@evidence.Title">
+                <table class="design-evidence"><caption>@evidence.Title</caption><thead><tr>@foreach (string column in evidence.Columns) { <th scope="col">@column</th> }</tr></thead><tbody>
+                    @foreach (var row in evidence.Rows) { <tr>@foreach (string value in row) { <td>@value</td> }</tr> }
+                </tbody></table>
+            </div>
+        }
+        @if (Task.ShowStarter) { <h3>Vorgegebenes relationales Modell</h3><p class="design-caption">Diese Vorlage bleibt unverändert sichtbar. Ergänze darunter deinen eigenen Entwurf.</p><DesignDiagram Model="Task.Starter" /> }
+        @if (Task.Kind != "ErCompletion" && Task.SourceDiagram is { } diagram) { <h3>@diagram.Title</h3><DesignErDiagramView Diagram="diagram" /> }
+    </section>
+}
+@code {
+    /// <summary> Unveränderliche Vorlagen des aktuellen Auftrags. </summary>
+    [Parameter, EditorRequired] public DesignAssignment Task { get; set; } = new();
+}

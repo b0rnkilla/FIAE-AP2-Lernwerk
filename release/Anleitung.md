@@ -12,15 +12,15 @@ Die Anwendung benötigt Windows auf einem 64-Bit-Rechner und einen aktuellen Bro
 
 ## SQL Server einrichten
 
-Für die SQL-Lernwege muss Microsoft SQL Server separat installiert sein, beispielsweise Express oder LocalDB. **SSMS allein ist kein Datenbankserver.** Bei Bedarf hilft der [offizielle Microsoft-Download](https://www.microsoft.com/de-de/sql-server/sql-server-downloads). Pseudocode, Datenbankentwurf und WiSo lassen sich auch ohne SQL Server bearbeiten.
+Für die SQL-Lernwege muss Microsoft SQL Server separat installiert sein, beispielsweise Express oder LocalDB. **SSMS allein ist kein Datenbankserver.** Bei Bedarf hilft der [offizielle Microsoft-Download](https://www.microsoft.com/de-de/sql-server/sql-server-downloads). Pseudocode, UML, Datenbankentwurf und WiSo lassen sich auch ohne SQL Server bearbeiten.
 
 Im Fußbereich **Updates & SQL-Einrichtung** öffnen, die eigene Instanz auswählen oder deren Namen eintragen und **Verbindung prüfen & speichern** wählen. Die Anwendung verwendet deine Windows-Anmeldung und legt ausschließlich ihre eigene Datenbank **FIAE_AP2_Training** an. Dafür benötigt die Anmeldung passende SQL-Rechte. Eine gleichnamige fremde Datenbank wird nicht übernommen. Eine fehlgeschlagene Verbindung bedeutet nicht automatisch, dass SQL Server fehlt.
 
 ## Lernstand und Updates
 
-Über die Übersicht zwischen SQL, Pseudocode & Algorithmen, Datenbankentwurf und Wirtschafts- & Sozialkunde wählen. Die Kopfnavigation beginnt immer mit Übersicht und Lernplan; die folgenden Links passen zum gewählten Lernbereich. Neue SQL- und Pseudocode-Aufgaben starten im Modus **Ohne Hilfe lösen**. **Geführt lernen** ergänzt Erklärungen, Hinweise, Spickzettel und Musterlösung; bei Pseudocode zusätzlich eine schrittweise Ablaufansicht. Pseudocode-Beispiele verwenden **=** für Zuweisungen und **==** für Gleichheitsvergleiche.
+Über die Übersicht zwischen SQL, Pseudocode & Algorithmen, UML & Modellierung, Datenbankentwurf und Wirtschafts- & Sozialkunde wählen. Die Kopfnavigation beginnt immer mit Übersicht und Lernplan; die folgenden Links passen zum gewählten Lernbereich. Neue SQL- und Pseudocode-Aufgaben starten im Modus **Ohne Hilfe lösen**. **Geführt lernen** ergänzt Erklärungen, Hinweise, Spickzettel und Musterlösung; bei Pseudocode zusätzlich eine schrittweise Ablaufansicht. Pseudocode-Beispiele verwenden **=** für Zuweisungen und **==** für Gleichheitsvergleiche.
 
-Es gibt 30 SQL-Ermittlungsaufgaben, zehn SQL-Werkstattaufgaben, 30 Pseudocode- und 150 WiSo-Aufgaben, zusammen mit 30 Datenbankentwurfsaufgaben insgesamt 250. Der Pseudocode-Lernweg reicht von Bedingungen und Schleifen über Listen, Suche und Sortierung bis zu Funktionen und Rekursion. Schlüsselwörter wie **WENN**, **DANN** und **AUSGABE** müssen großgeschrieben sein. Im nummerierten Codefeld rückt **Tab** ein, **Umschalt+Tab** aus. **Esc, danach Tab** verlässt das Codefeld; reine Ausgabe- und Testfallantworten behalten die normale Tab-Navigation. Alle Spickzettel besitzen einen Rückweg zum Lernen.
+Es gibt 30 SQL-Ermittlungsaufgaben, zehn SQL-Werkstattaufgaben, 30 Pseudocode- und 150 WiSo-Aufgaben, zusammen mit 42 Datenbankentwurfs- und 36 UML-Aufgaben insgesamt 298. Der Pseudocode-Lernweg reicht von Bedingungen und Schleifen über Listen, Suche und Sortierung bis zu Funktionen und Rekursion. Schlüsselwörter wie **WENN**, **DANN** und **AUSGABE** müssen großgeschrieben sein. Im nummerierten Codefeld rückt **Tab** ein, **Umschalt+Tab** aus. **Esc, danach Tab** verlässt das Codefeld; reine Ausgabe- und Testfallantworten behalten die normale Tab-Navigation. Alle Spickzettel besitzen einen Rückweg zum Lernen.
 
 WiSo bietet Themenlernen, gemischte Zehnerrunden, Fehlerwiederholung und eine Prüfungsrunde mit 30 Aufgaben und 60 Minuten. **Prüfung üben** in Übersicht oder Kopfnavigation öffnet zuerst die Infos; erst **Prüfung starten** legt eine neue Runde an. Offene Runden lassen sich fortsetzen und werden nur nach zusätzlicher Bestätigung ersetzt. Im Training zeigt **Antwort prüfen** die Erklärung und sperrt die Antwort bis zur nächsten Runde. In der Prüfung erscheinen Lösungen erst nach Abgabe. Die Uhr läuft beim Seitenwechsel und Schließen weiter; **Pause** hält sie an. Nachschlagen im Spickzettel pausiert die Prüfung und kennzeichnet die Runde entsprechend. Teilpunkte und Prozentwert folgen eigenen Trainingsregeln, keiner amtlichen IHK-Note. Antworten und Markierungen bleiben beim Fortsetzen erhalten; Ergebnisfelder speichern beim Verlassen oder bei der nächsten Aktion.
 
@@ -32,7 +32,7 @@ Die App zeigt nur **höhere** Versionsnummern als Update an. Zum Testen muss dah
 
 ## SQL- und Pseudocode-Prüfungen
 
-Über die Übersicht oder die jeweilige Modulnavigation **Prüfung** öffnen. SQL bietet drei Fälle mit je fünf Aufgaben; Pseudocode kombiniert drei Aufgaben aus einem eigenen Pool mit zehn Aufgaben. Jede Runde hat **45 Minuten und 50 Trainingspunkte**. Diese 25 Prüfungsaufgaben ergänzen die 250 Lernübungen und verändern deren Abschlusszähler nicht.
+Über die Übersicht oder die jeweilige Modulnavigation **Prüfung** öffnen. SQL bietet drei Fälle mit je fünf Aufgaben; Pseudocode kombiniert drei Aufgaben aus einem eigenen Pool mit zehn Aufgaben. Jede Runde hat **45 Minuten und 50 Trainingspunkte**. Diese 25 Prüfungsaufgaben ergänzen die 298 Lernübungen und verändern deren Abschlusszähler nicht.
 
 Die Uhr startet erst mit der Runde und läuft beim Seitenwechsel oder Schließen weiter. **Pause** hält sie an und blendet die Aufgaben aus. Der Spickzettel pausiert ebenfalls und kennzeichnet die Runde als mit Nachschlagen bearbeitet. Entwürfe und Kontrollmarkierungen werden gespeichert. Erst nach der endgültigen Abgabe erscheinen Bewertung und Lösungen; danach sind Antworten gesperrt. Bei technischen SQL-Problemen bleibt die Abgabe unbewertet erhalten und kann nach Beheben der Verbindung erneut bewertet werden. Die eigenen Trainingspunkte sind keine amtliche IHK-Note.
 
@@ -50,7 +50,7 @@ Es gelten die privaten Nutzungsbedingungen in **LICENSE**. **DRITTANBIETER.md** 
 
 ## Datenbankentwurf
 
-Abschnitt 04 enthält 30 Aufgaben zu Tabellen, Schlüsseln, Beziehungen und Normalisierung. Lege Tabellen und Attribute im Baukasten an, markiere PK und wähle vollständige FK-Referenzen. Gleiche UQ-Gruppen bezeichnen gemeinsame zusätzliche eindeutige Schlüssel. Tabellen- und Anzeigenamen sind frei; die Fachattribute aus dem Auftrag behalten ihre Bedeutung. Das automatisch gezeichnete Modell lässt sich vergrößern und bei Bedarf seitlich verschieben.
+Abschnitt 04 enthält 42 Aufgaben zu Tabellen, Schlüsseln, Beziehungen und Normalisierung. Lege Tabellen und Attribute im Baukasten an, markiere PK und wähle vollständige FK-Referenzen. Gleiche UQ-Gruppen bezeichnen gemeinsame zusätzliche eindeutige Schlüssel. Tabellen- und Anzeigenamen sind frei; die Fachattribute aus dem Auftrag behalten ihre Bedeutung. Das automatisch gezeichnete Modell lässt sich vergrößern und bei Bedarf seitlich verschieben.
 
 Ohne Hilfe lösen ist der Standard; Geführt lernen ergänzt drei Hinweise, Spickzettel und Musterlösung. Modus und Entwurf werden je Aufgabe gespeichert. Drei eigene Prüfungsfälle mit je drei Teilaufträgen verwenden 45 Minuten und 50 Trainingspunkte. Start, Pause, Nachschlagen und Abgabe funktionieren wie in den anderen Prüfungsbereichen. Die regelbasierte Bewertung folgt den ausdrücklich beschriebenen Modellannahmen und ist keine amtliche IHK-Korrektur. Vorhandene Lernstände bleiben erhalten.
 
@@ -63,3 +63,9 @@ Nach dem kurzen Neustart der App zeigt die Seite eine kopierbare Adresse und ein
 **Alle Geräte teilen deinen Lernstand und dieselben Prüfungsrunden.** Zum Beenden der Freigabe auf dem Gastgeber `http://localhost:5080/heimnetz` öffnen und **Freigabe beenden** wählen. Ein anderer Port wird entsprechend angezeigt. Vor dem Wechsel offene Eingaben verlassen; gespeicherte Daten bleiben erhalten, laufende Prüfungsuhren laufen weiter.
 
 Die Betriebsart bleibt gespeichert. Wird ein Update in einen neuen Ordner entpackt, kann die Seite wegen des geänderten Programmpfads **Freigabe reparieren** anbieten. Es ist weder eine zweite EXE noch eine SQL-Portfreigabe auf anderen Geräten nötig.
+
+## UML und Modellierung
+
+Abschnitt 03 enthält 36 eigene Aufgaben zum Kulturzentrum Nordhafen. Lies, repariere und erstelle Anwendungsfall-, Klassen-, Aktivitäts-, Sequenz- und Zustandsdiagramme. Eigene Entwürfe beginnen leer: Füge Elemente hinzu, wähle ihre Fachrollen und UML-Arten, ergänze Merkmale und verbinde die Endpunkte. Anzeigenamen sind frei; die App ordnet das Diagramm automatisch an. Früher/Später verschiebt Sequenznachrichten. Vergrößerung und Textdarstellung ergänzen die Zeichenfläche.
+
+Ohne Hilfe lösen und Geführt lernen funktionieren wie in den anderen Lernmodulen. Drei Hinweise und ein UML-Spickzettel unterstützen auf Wunsch. Im Lernen erscheinen Rückmeldungen ohne Punkte. Drei neue Prüfungsfälle mit je drei unabhängigen Modellaufträgen bieten 45 Minuten und 50 Trainingspunkte. Erst die endgültige Abgabe zeigt Bewertung und Musterlösungen. Die Prüfung vergleicht ausdrücklich beschriebene Fachrollen und geprüfte Varianten, keine beliebigen freien UML-Entwürfe. Lernfortschritte und Prüfungsstände bleiben von den anderen Modulen getrennt.

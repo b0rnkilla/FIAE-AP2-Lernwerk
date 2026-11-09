@@ -20,6 +20,8 @@ Konventionen für die Pflege und Erweiterung von AP2 Lernwerk mit C#, .NET und B
 
 ## Dokumentation
 
+Committexte bestehen aus einem kurzen deutschen Titel, einer Leerzeile und knappen Beschreibungszeilen mit `FEAT:`, `FIX:`, `REF:` beziehungsweise `DOC:`. Nicht benötigte Präfixe entfallen; keine Aufzählungszeichen davor. Das verbindliche Format steht in [AGENTS.md](../AGENTS.md).
+
 Bei jedem Änderungspaket README, Entwicklungsprotokoll, Projektsteckbrief, Testprotokoll und fachlich betroffene weitere Markdown-Dateien auf den aktuellen Stand bringen. Umgesetzte Änderungen, tatsächlich durchgeführte Prüfungen und offene Punkte klar trennen. docs/verbesserungsplan.md hält die erledigten Nutzerpunkte und die lokale Release-Vorbereitung nach; AGENTS.md verankert diese Vorgabe für weitere Arbeiten.
 
 Summaries dokumentieren Klassen, Felder, Properties, Methoden, Enums, Services und Events. Private Methoden benötigen ein Summary bei nicht offensichtlichem Verhalten. Kommentare erklären Entscheidungen oder gliedern größere Abschnitte; sie wiederholen nicht den Code.
@@ -74,7 +76,7 @@ Funktionsaufgaben erhalten einen expliziten Vertrag über `FunctionName` und `Fu
 
 ## Ordner und Namespaces
 
-Fachlogik wird nach Lernmodul gruppiert: Core/Sql, Core/Algorithms, Core/DatabaseDesign und Core/BusinessStudies. Ermittlung, Werkstatt, Validierung, Ergebnisse, Datenbankzugriff und Inhalte erhalten innerhalb von SQL eigene Ordner; die anderen Module gliedern sich entsprechend ihrer Zuständigkeit. Allgemeine Webdienste liegen unter Configuration, Learning, Networking und Updates; SQL-spezifische Webdienste unter Sql. Namespaces folgen dem Ordnerpfad. Öffentliche Typen erhalten eigene Dateien; zusammengehörige Teile einer partial class bleiben im selben Ordner. Program.cs bleibt als Einstieg im Web-Projektroot. Neue Lernmodule nicht in den SQL-Bereich einordnen. Die konkrete Struktur steht in entwicklung.md.
+Fachlogik wird nach Lernmodul gruppiert: Core/Sql, Core/Algorithms, Core/Uml, Core/DatabaseDesign und Core/BusinessStudies. Ermittlung, Werkstatt, Validierung, Ergebnisse, Datenbankzugriff und Inhalte erhalten innerhalb von SQL eigene Ordner; die anderen Module gliedern sich entsprechend ihrer Zuständigkeit. Allgemeine Webdienste liegen unter Configuration, Learning, Networking und Updates; SQL-spezifische Webdienste unter Sql. Namespaces folgen dem Ordnerpfad. Öffentliche Typen erhalten eigene Dateien; zusammengehörige Teile einer partial class bleiben im selben Ordner. Program.cs bleibt als Einstieg im Web-Projektroot. Neue Lernmodule nicht in den SQL-Bereich einordnen. Die konkrete Struktur steht in entwicklung.md.
 
 WiSo-Aufgaben erhalten stabile IDs, strukturierte Antwortverträge, eindeutige Annahmen, plausible Ablenkantworten, eine Erklärung, einen Merksatz und fachliche Primärquellen mit Prüfstand. Keine Originalprüfungen kopieren oder verteilen. Veränderliche Beitragswerte als ausdrücklich vorgegebene Annahmen behandeln. Zahlen-, Datums- und Uhrzeitsollwerte zusätzlich unabhängig prüfen. Eigene Trainingspunkte nicht als amtliche IHK-Note ausgeben. Rundenrevision, Zeitspeicherung und Antwortsperren bei Erweiterungen erhalten; SQL- und Algorithmus-Profile dabei nicht ersetzen. Einzelheiten und Inhaltsversionierung: docs/wiso.md.
 

@@ -1,15 +1,20 @@
 # Entwicklung und Projektstruktur
 
-Quellstand: **0.1.1-alpha.12 mit Heimnetz-Einstellung in derselben EXE**, 250 Lernübungen plus 25 SQL-/Pseudocode-Prüfungsaufgaben und drei Entwurfsprüfungen mit neun Teilaufgaben. Zuletzt gebautes Windows-Paket: **0.1.1-alpha.9 mit 220 Lernübungen und 25 Prüfungsaufgaben**, am 05.11.2026 gebaut und aus dem ZIP geprüft. Anwendungscode aus dem sauberen, gepushten Commit `a6c929f`; Paketdokumente anschließend ergänzt. Noch nicht veröffentlicht. Diese Anleitung dient dem Projektinhaber zur Pflege und Erweiterung. Auch ein Zugriff auf die Dateien räumt keine Open-Source-Lizenz ein; es gelten die [Nutzungsbedingungen](../LICENSE). Die Entstehung und Zuordnung älterer Pakete stehen unter [lokale Releases](lokale-releases.md).
+Quellstand: **0.1.1-alpha.13 mit Abschnitt 03 UML und Modellierung**, 298 Lernübungen plus 25 SQL-/Pseudocode-Prüfungsaufgaben, drei Entwurfsprüfungen und drei UML-Prüfungsfälle mit jeweils neun Teilaufgaben je Modul. Zuletzt gebautes Windows-Paket: **0.1.1-alpha.12 mit 250 Lernübungen und den separaten Prüfungsrunden**, am 06.11.2026 aus sauberem, gepushtem Commit `e3af6aa` gebaut und aus dem ZIP geprüft. Anwendungscode und Paketdokumente stammen aus diesem Commit; die Prüfdokumentation wird anschließend getrennt ergänzt. Das Pre-release wurde am 07.11.2026 auf GitHub bestätigt. Diese Anleitung dient dem Projektinhaber zur Pflege und Erweiterung. Auch ein Zugriff auf die Dateien räumt keine Open-Source-Lizenz ein; es gelten die [Nutzungsbedingungen](../LICENSE). Die Entstehung und Zuordnung älterer Pakete stehen unter [lokale Releases](lokale-releases.md).
 
 ## Orientierung
 
 ```text
 src/
   FiaeTrainer.Core/
+    Uml/
+      Models/           Elemente, Merkmale, Verbindungen, Sequenzgruppen und Antworten
+      Content/          36 eigene Lernaufgaben, drei Prüfungsfälle und Katalog
+      Evaluation/       Speichergrenzen, Fachrollen und geprüfte UML-Varianten
+      Practice/         Getrennte Lernversuche und 45-Minuten-Prüfungen
     DatabaseDesign/
       Models/           Tabellen, Attribute, FK-Paare und strukturierte Antworten
-      Content/          30 Lernaufgaben, drei eigene Prüfungsfälle und Katalog
+      Content/          42 Lernaufgaben, ER-Vorlagen/Unterlagen, drei Prüfungsfälle und Katalog
       Evaluation/       Relationale Integrität und explizite Modellvarianten
       Practice/         Individuelle Versuche und 45-Minuten-Prüfungen
     Algorithms/
@@ -37,9 +42,11 @@ src/
       Layout/           Kopfbereich und Seitenrahmen
       Learning/         Gemeinsame Lernbedienung
       Project/          Dezente Unterstützungskarte und Projektverweise
+      Uml/              Bedienbarer Diagrammbaukasten, SVG-Anordnung und Rückmeldungen
+      DatabaseDesign/   Modellbaukasten und eigene ER-/Tabellendarstellungen
       BusinessStudies/  WiSo-Eingaben, Auflösung und eigene Abbildungen
       Exams/            Nachbereitung und Prüfungsrückweg
-      Pages/Training/   SQL-, Algorithmus- und WiSo-Seiten samt Code-behind
+      Pages/Training/   Lern- und Prüfungsseiten aller fünf Module samt Code-behind
       Sql/              SQL-Ergebnisse, Fallnotizen und Tabellenübersicht
       Updates/          Updatehinweis
     Exams/              Koordination der zwei fachlichen Prüfungen
@@ -77,6 +84,9 @@ Die Projektmappe `FIAE_AP2_Trainer.sln` in Visual Studio 2026 öffnen und `FiaeT
 | SQL-Zulässigkeit prüfen | `Sql/Validation/SqlQueryValidator.cs` im Core-Projekt |
 | Schreibskript bewerten | `Sql/Workshop/WorkshopEvaluator.cs` im Core-Projekt |
 | Verbindung einrichten | `Sql/DatabaseState.cs` und `Configuration/LocalSettingsStore.cs` im Webprojekt |
+| UML-Entwurf bewerten | `Uml/Evaluation/UmlEvaluator.cs` im Core-Projekt |
+| UML-Diagramm darstellen | `Components/Uml/UmlDiagram.razor` und `UmlLayout.cs` |
+| UML-Lern-/Prüfungsstand speichern | `Learning/ProgressStore.Uml.cs` |
 | Lernstand speichern | `Learning/ProgressStore.cs` im Webprojekt |
 | Updateauswahl nachvollziehen | `Updates/UpdateChecker.cs` im Webprojekt |
 
@@ -106,7 +116,7 @@ Der Parser liefert Hauptanweisungen und Funktionsdefinitionen getrennt. Die Mach
 
 Funktionsaufgaben definieren `FunctionName` und die Eingabereihenfolge `FunctionInputs`. Der Katalog prüft deren Zuordnung zu Beispielen und Tests. Bewertung und Vorschau verwenden `RunFunction`; Hauptanweisungen sind in diesem Weg unzulässig. Der Prüfaufruf macht den Rückgabewert als Ergebnis vergleichbar, ohne einen erfundenen AUSGABE-Schritt in die Spur einzufügen. `AlgorithmStep.Scope` nennt Hauptablauf oder aktive Funktion. Das UI zeigt den Beispiel-Rückgabewert separat. Andere Parameternamen und eigene Hilfsfunktionen bleiben erlaubt.
 
-Die bisherigen IDs und das JSON-Profilformat bleiben stabil. Neue Aufgaben benötigen keine Migration; Lernplan und Themenkarte verwenden Katalogzahlen: SQL und Algorithmen umfassen 70, zusammen mit WiSo 220 und seit Alpha 11 mit Datenbankentwurf 250 Lernaufgaben. Die Endphase der Algorithmusgeschichte ist an Aufgabe 30 gebunden. Prüffälle enthalten ausdrücklich unabhängige Sollausgaben; generierte Such-/Sortierfälle vergleichen zusätzlich mit Bibliotheksergebnissen. Laufzeitklassen und konkrete Algorithmusidentität beliebiger Lösungen werden nicht benotet; Aufgabe 26 zählt eine konkrete innere Anweisung bei zwei Eingabegrößen.
+Die bisherigen IDs und das JSON-Profilformat bleiben stabil. Neue Aufgaben benötigen keine Migration; Lernplan und Themenkarte verwenden Katalogzahlen: SQL und Algorithmen umfassen 70, zusammen mit WiSo 220 und seit Alpha 11 mit Datenbankentwurf 250 und mit dem Diagrammausbau der aktuellen Alpha-12-Quellfassung 262 Lernaufgaben. Die Endphase der Algorithmusgeschichte ist an Aufgabe 30 gebunden. Prüffälle enthalten ausdrücklich unabhängige Sollausgaben; generierte Such-/Sortierfälle vergleichen zusätzlich mit Bibliotheksergebnissen. Laufzeitklassen und konkrete Algorithmusidentität beliebiger Lösungen werden nicht benotet; Aufgabe 26 zählt eine konkrete innere Anweisung bei zwei Eingabegrößen.
 
 Rekursion ist einschließlich indirekter Aufrufe bis zur gemeinsamen Grenze von 16 gleichzeitig aktiven Aufrufen zugelassen. `AlgorithmStep.CallDepth` ergänzt den Namen des aktiven Bereichs, damit gleiche Funktionsnamen auf verschiedenen Ebenen unterscheidbar bleiben. Das Rechenbudget wird auch bei verzweigter Rekursion nicht zurückgesetzt. Testfallaufgaben verwenden `CaseInputName` (standardmäßig gewicht); dadurch kann die Mengenstaffel anzahl prüfen, ohne das skalare Antwortformat zu verändern. Katalogprüfung und Spickzettel bleiben dazu synchron.
 
@@ -169,7 +179,7 @@ Weitere Vorgaben: [Coding Guideline](coding-guideline.md), [Lernkonzept](lernkon
 
 ## Neue Prüfungsrunden und Aufgabenwechsel
 
-SQL und Pseudocode besitzen separate 45-Minuten-Prüfungen. Inhalt, Teilpunkte, Routen, Profilfelder und Bewertungsgrenzen stehen unter [Prüfungsmodus](pruefungsmodus.md). Die vorhandenen 220 Lernaufgaben bleiben unverändert und werden seit Alpha 11 durch 30 Datenbankentwurfsaufgaben ergänzt; die zusätzlichen 25 SQL-/Pseudocode-Prüfungsaufgaben zählen in eigenen Ergebnissen.
+SQL und Pseudocode besitzen separate 45-Minuten-Prüfungen. Inhalt, Teilpunkte, Routen, Profilfelder und Bewertungsgrenzen stehen unter [Prüfungsmodus](pruefungsmodus.md). Die vorhandenen 220 Lernaufgaben bleiben unverändert und werden seit Alpha 11 durch Datenbankentwurf ergänzt (ursprünglich 30, aktuell 42 Lernaufgaben); die zusätzlichen 25 SQL-/Pseudocode-Prüfungsaufgaben zählen in eigenen Ergebnissen.
 
 Bei Listenklicks innerhalb von SQL, Werkstatt und Algorithmen merkt `task-navigation.js` ausschließlich die Gesamtseiten- und Listenposition dieses Wechsels. `TaskNavigationPosition` stellt sie nach dem fertig geladenen Zielrender wieder her. Andere Navigation, Prüfungsseiten, Browser-Zurück und WiSo-Abgaben bleiben davon getrennt. Während asynchroner Aufgabenwechsel bleibt der bisherige Inhalt für die Höhe im DOM und ist inert; `FocusOnNavigate` fokussiert auf diesen drei Lernseiten nicht mehr die Überschrift.
 
@@ -198,3 +208,33 @@ HomeNetworkService koordiniert die lesende Windows-Diagnose, nötigenfalls den f
 Der Helfer wird als separate Inhaltsdatei neben der EXE veröffentlicht; UTF-8 **mit BOM** ist für Windows PowerShell 5.1 erforderlich. Er verändert weder Netzwerkprofile noch fremde Firewall-Regeln. Eine vorhandene passende eigene Regel vermeidet erneutes UAC; das Beenden der Freigabe benötigt keine erhöhten Rechte und lässt die eng begrenzte Regel für spätere Nutzung bestehen. Ein neuer Programmordner benötigt gegebenenfalls eine Reparatur der pfadgebundenen Regel. QRCoder 1.8.1 erzeugt PNGs vollständig lokal; seine MIT-Lizenz und Urheberhinweise werden über die vorhandene Abhängigkeitsdokumentation berücksichtigt.
 
 Grenzen, Diagnose und Prüfnachweise: [Heimnetz](heimnetz-und-serverbetrieb.md). Kein neues Release-Paket erstellt.
+
+## Paketnachweis Alpha 12
+
+Die native selbstständig startbare EXE aus dem ZIP wurde ohne SDK-Aufruf auf Port 5214 betrieben. SettingsFile und ProgressDirectory lagen ausdrücklich außerhalb des entpackten Programmordners in einem eigenen synthetischen QA-Profil. Der mitgelieferte Windows-PowerShell-Helfer und QRCoder funktionieren auch im Single-File-Paket. Alle 59 Programmdateien blieben nach den Laufprüfungen bitgleich. Nicht allein aus einer allgemeinen Release-Dateiendung auf Paketportabilität schließen; der Nachweis steht in artifacts/alpha12-verification.json und im Testprotokoll. Keine Veröffentlichung durch die KI.
+
+## 07.11.2026 – Gemeinsamer Rahmen für Datenbankentwurf
+
+DatabaseDesign.razor verwendet TaskRail und LearningModePicker statt eigener Listen-/Modusschalter. HasOwnDraft vergleicht die strukturierte Antwort mit InitialAnswer; die gemeinsame Bestätigung löst anschließend RestartAsync aus. Die vorhandene Speichersperre, Revisionen und Unterstützungserfassung bleiben erhalten. Bestehende workspace-, mission-main-, story-note-, task-card-, editor-card- und help-card-Stile tragen die Darstellung. Nur der eingebettete Modellbaukasten erhält begrenzte zusätzliche Regeln für schmale Eingabefelder; DesignExam und task-navigation.js bleiben unverändert. Zum Übernehmen dieser kompilierten Razor-Änderung Trainer-starten.cmd neu starten; ein Neuladen des alten Prozesses genügt nicht. Kein Release-Paket erstellt.
+
+## 07.11.2026 – Fortschrittsabhängige Lichtblick-Geschichte
+
+DesignAssignment ergänzt PreviousContext und Discovery nach dem bestehenden Algorithmus-Vorbild. DesignCatalog verlangt vollständige Story-/Ergebnisfelder aller Lernaufgaben und Vorgängertexte ab Aufgabe 2; Prüfungsaufgaben benötigen diese Lernfelder nicht. DatabaseDesign prüft den abgeschlossenen Vorgänger vor Anzeige des Übergangs und verlinkt andernfalls den offenen Schritt. Die rechte Planungsliste verwendet nur freigeschaltete Discovery-Texte bis zur aktuellen Aufgabe; ausgelassene Schritte vor späteren Abschlüssen erhalten Links. Fachliche Explanation bleibt getrennt erhalten. Keine Profilmigration, neue Inhaltsvertragsversion oder Änderung von DesignExam nötig. Die drei neuen Komponentenprüfungen sichern offene/gelöste Vorgänger, fehlende Vorwegnahme, unveränderte gespeicherte Entwürfe und Berichtslücken einschließlich ausgeblendeter späterer Erfolge.
+
+## 07.11.2026 – Audit des Datenbankentwurf-Lernablaufs
+
+DatabaseDesign.razor.cs trennt die Ablaufsteuerung vom Markup. Routenparameter 0 bedeutet Fortsetzen; CurrentId und _loaded tragen die fachliche Kennung. Eine Laderevision verwirft überholte Anfragen vor Zustandsübernahme, der bisherige Hauptinhalt ist während des Ladens inert. CanEdit und die Aktionssperre verhindern doppelte Bewertungen; SaveAsync hält die ursprüngliche Aufgabenkennung fest. Moduswechsel verwerfen frühere Rückmeldungen, Erfolge bleiben in ProgressStore erhalten.
+
+DesignLearningFeedback ist ausschließlich für Lernen, DesignFeedback ausschließlich für abgeschlossene Prüfungen zuständig. Die interne 50er-Gewichtung des Evaluators bleibt für die bestehende Prüfungsrechnung und gespeicherte Resultate erhalten; keine sichtbaren Punkte in der Lernansicht. Falsche Auswahlantworten übernehmen nicht mehr Explanation als ungefragte Lösung. DesignAnswerEditor sichert ReadOnly und Größenlimits zusätzlich in den Handlern und vergibt nach Löschungen freie Tabellennamen. 34 neue Auditfälle prüfen unter anderem alle 23 Modellaufgaben mit Umbenennung/Umordnung und unzulässigem NULL-PK, Ergebnisdarstellung, Schreibschutz, Doppelklick und gezielt verzögerten Aufgabenwechsel. Keine zusätzliche Laufzeitbibliothek oder Profilmigration.
+
+## 07.11.2026 – Additiver Diagrammlernweg in Abschnitt 04
+
+Aufträge 31–42 liegen unter DatabaseDesign/Content/diagram-lessons.json; Lessons verbindet sie in stabiler Reihenfolge mit dem ursprünglichen Bestand. DesignErDiagram/Entity/Relationship beschreiben eigene ER-Vorlagen, DesignDiagramSlot die begrenzten Ergänzungen, DesignEvidence synthetische Belege und Datentabellen. DesignCatalog prüft Platzhalter-/Optionszuordnung, Beziehungsendpunkte und rechteckige Unterlagen. DesignEvaluator vergleicht ER-Ergänzungen je Feld; relationale Aufträge verwenden den bisherigen Variantenprüfer.
+
+DesignErDiagramView zeichnet eigene SVG-Elemente und eine gleichbedeutende Textliste. DesignMaterial zeigt unveränderliche Arbeitsunterlagen; DesignAnswerEditor meldet ER-Änderungen über denselben Speicherweg wie bisherige Entwürfe. DiagramValues wird additiv gespeichert. Keine neue Bibliothek, KI-Auswertung oder Profilmigration. Spickzettel-Rückwege folgen dem Katalog statt der Obergrenze 30. Prüfungsfälle sowie SQL-/Algorithmusimplementierungen bleiben unverändert.
+
+## Abschnitt 03 seit Alpha 13
+
+UML verwendet eigene Models/Content/Evaluation/Practice unter Core/Uml, eigene Komponenten unter Components/Uml und ProgressStore.Uml.cs. Inhaltsversion 2026-11-09, 36 Lern-IDs und drei unabhängige Prüfungsfälle. Keine SQL-Abhängigkeit, zusätzliche Bibliothek oder KI-Anbindung. Additive Profilfelder und eigene Revisionen erhalten alle bestehenden Module; Quellversion zentral in Directory.Build.props. Die Freigabe für dieses neue Modul erfolgte ausdrücklich nach der vorherigen Begrenzung auf Abschnitt 04. [Fachvertrag und Bewertungsgrenzen](uml.md).
+
+Tests ausschließlich mit separatem Port und Training:ProgressDirectory; SQL-Integration für dieses Paket nicht erneut ausgeführt. Kein Publish/ZIP und keine Änderung der alten Archive. Die Benutzereinstiege der README beschreiben weiterhin die aktuelle App, Paketstände werden hier und unter lokale-releases.md getrennt geführt.

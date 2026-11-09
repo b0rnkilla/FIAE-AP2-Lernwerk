@@ -1,5 +1,17 @@
 # AP2 Lernwerk lokal starten
 
+## Aktuelles Paket Alpha 12
+
+**Windows-Paket 0.1.1-alpha.12: am 06.11.2026 gebaut und aus dem ZIP geprüft.** Sauberer Commit `e3af6aa95c12d25df3f5fe36d80417e3506fb2ad`, identisch mit dem bestätigten GitHub-master. Anwendungscode, Anleitung und Versionshinweise stammen aus diesem Commit. Enthalten: 250 Lernübungen, 25 separate SQL-/Pseudocode-Prüfungsaufgaben sowie drei Entwurfsprüfungen mit neun Teilaufgaben; Heimnetz-Einstellung direkt in derselben EXE.
+
+Datei: `artifacts/releases/AP2-Lernwerk-0.1.1-alpha.12-win-x64.zip`, **51.363.008 Bytes (48,98 MiB)**, 59 Paketdateien, zusätzlich `.zip.sha256`. SHA256: `bc660d417e9279ec7fa22eadea9f9b87efbc4b6147618faaf519fb50ec914402`. Windows x64, mitgelieferte Laufzeit, private Projektlizenz und eigenständige Drittanbieterhinweise einschließlich QRCoder. Keine privaten Einstellungen, Lernstände, QA-/Originalprüfungsdateien oder Debugsymbole. ZIP und SHA256 unverändert erhalten.
+
+GitHub: Tag **v0.1.1-alpha.12**, Titel **AP2 Lernwerk 0.1.1-alpha.12**, Zielcommit **e3af6aa**, **Pre-release**. ZIP und SHA256-Datei als Assets anhängen. Veröffentlichung übernimmt der Nutzer; noch kein Upload/Tag durch die KI. Releasebeschreibung: release/Versionshinweise-0.1.1-alpha.12.md.
+
+866 .NET-Tests einschließlich SQL und 31 JavaScript-Prüfungen erfolgreich. Entpackte native EXE auf eigenem Port 5214 und eigenem Profil geprüft: Auswahlaufgabe und freies Tabellenmodell ohne SQL jeweils 50/50, neue 45-Minuten-Prüfung mit gespeicherter Pause/Kontrollmarkierung, echter SQL-JOIN, nativer Firewall-Diagnosehelfer und lokal erzeugter QR-Code, Remoteansicht ohne Verwaltung sowie Rückwechsel zu localhost mit internem Neustart. Vorherige Modulstände und Prüfungsverläufe erhalten; alle Paketdateien nach Lauf unverändert. Nachweis artifacts/alpha12-verification.json. Neue erhöhte Firewall-Regelerstellung und ein frisch eingerichteter fremder Windows-Rechner waren nicht Teil des Pakettests; der Nutzer hat den Heimnetzbetrieb zuvor bestätigt.
+
+## Historisches Paket Alpha 9
+
 **Windows-Paket 0.1.1-alpha.9: gebaut und aus dem entpackten ZIP geprüft am 05.11.2026.** Anwendungscode aus dem sauberen, gepushten Commit `a6c929f846cf3d0957e15db4a74ace47ac947991`. Die Paketdokumente ANLEITUNG und VERSIONSHINWEISE wurden nach dem Commit ergänzt; am Anwendungscode wurde für den Paketbau nichts geändert. Enthalten sind 220 Lernübungen und 25 zusätzliche Prüfungsaufgaben, neue SQL-/Pseudocode-Prüfungsrunden und der WiSo-Feinschliff. Veröffentlichung führt der Nutzer selbst aus.
 
 Datei: `artifacts/releases/AP2-Lernwerk-0.1.1-alpha.9-win-x64.zip`, **50.946.094 Bytes (48,59 MiB)**, 50 Dateien, plus `.zip.sha256`. SHA256: `2056930755bf556418fbd227f2fe664185ac7b54c8a95e365d29be3cf058be4f`. Keine privaten Einstellungen, Lernstände, QA-Dateien, Originalprüfungen oder Debugsymbole. Eigene Projektlizenz und Drittanbieterhinweise enthalten. ZIP nach Prüfung unverändert erhalten.
@@ -136,3 +148,7 @@ Dieses Änderungspaket ist ausschließlich gebaut und geprüft; **kein neues ZIP
 ## Beauftragt: Windows-ZIP Alpha 12 nach Nutzer-Push
 
 Der Nutzer hat Paketbau und Release-Informationen für **0.1.1-alpha.12** ausdrücklich nach seinem nächsten Commit und Push beauftragt. Versionshinweise unter release/Versionshinweise-0.1.1-alpha.12.md vorbereitet. Enthalten sein sollen 250 Lernübungen, die bisherigen SQL-/Pseudocode-Prüfungen, drei Entwurfsprüfungen und die Heimnetz-Einstellung. Heimnetz vom Nutzer bestätigt, Abschnitt 04 noch nicht selbst erprobt. Zielcommit, ZIP/SHA256 und Paketprüfung werden erst nach dem Push bestimmt. Bisherige Archive bleiben unverändert; Upload/Veröffentlichung übernimmt der Nutzer.
+
+## Quellfassung Alpha 13 – kein neues Paket
+
+Seit 09.11.2026 ergänzt die ausdrücklich freigegebene Quellfassung Abschnitt 03 UML und Modellierung: 36 Lernaufgaben sowie drei weitere Prüfungsfälle. Zusammen mit der Entwurfserweiterung auf 42 Aufgaben sind 298 Lernübungen in fünf Modulen verfügbar. Build und Browserprüfung des Quellprojekts sind kein portables Release. Alpha-12-ZIP und Prüfsumme bleiben unverändert bei 250 Lernübungen; keine Alpha-13-Veröffentlichung und kein Paketbau beauftragt.

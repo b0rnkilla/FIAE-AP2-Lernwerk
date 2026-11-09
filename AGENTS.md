@@ -1,5 +1,22 @@
 # Projektvorgaben
 
+## Committexte
+
+Committexte kurz, sachlich und auf Deutsch formulieren. Ein kurzer Titel steht in der ersten Zeile, danach eine Leerzeile und einzelne Beschreibungszeilen mit den großgeschriebenen Präfixen:
+
+```text
+Kurzer Commit-Titel
+
+FEAT: Kurze Beschreibung
+FIX: Kurze Beschreibung
+REF: Kurze Beschreibung
+DOC: Kurze Beschreibung
+```
+
+Nicht benötigte Präfix-Zeilen weglassen. Keine Aufzählungszeichen vor den Präfixen. Aus der AGENTS.md des DummyDataGenerator-Projekts wurde auf Nutzerwunsch ausschließlich dieses Commitformat übernommen; dessen übrige Arbeitsregeln gelten hier nicht. Commit und Push führt weiterhin der Nutzer aus.
+
+## Weitere Projektvorgaben
+
 * Beachte docs/coding-guideline.md. Oberfläche, Lerntexte, Kommentare und Dokumentation sind deutsch, Codebezeichner englisch.
 * Halte die Markdown-Dokumentation bei jedem Änderungspaket aktuell. Prüfe mindestens README.md, docs/entwicklungsprotokoll.md, docs/projektsteckbrief.md, docs/testprotokoll.md und alle fachlich betroffenen weiteren Dokumente. Beschreibe den tatsächlich umgesetzten Stand und die durchgeführten Prüfungen; frühere Protokolleinträge bleiben als Historie erhalten.
 * docs/verbesserungsplan.md verfolgt die Nutzerpunkte. Die elf SQL-Anpassungen sind erledigt und vom Nutzer positiv erprobt. Ziel sind lokale Windows-Releases über GitHub; Login, Registrierung, Benutzertabellen und öffentlicher Homeserver-/nginx-Betrieb sind auf Nutzerwunsch gestrichen. Die bestehende Heimnetz-Vorführung bleibt optional.
@@ -47,3 +64,16 @@
 * Alpha-12-Entwicklungsstart: Grundadresse localhost:5080 in appsettings.json; FiaeTrainer darf keine applicationUrl und keinen erzwungenen Netzwerkmodus besitzen, damit persönliche Netzwerkpräferenzen wirken. Browser über FIAE_OPEN_BROWSER öffnen, nicht zusätzlich launchBrowser. Trainer-starten.cmd ist der normale Quellprojektstarter; FiaeTrainerLan/Netzwerk-CMD bleibt optionaler expliziter Override. Zwei Konfigurationsregressionen und 35 betroffene Tests erfolgreich. Build-EXE nicht mit portablem Release-Paket verwechseln; kein Paketauftrag aus einer Testfrage ableiten.
 
 * Nutzer bestätigt Heimnetz als einwandfrei; Abschnitt 04 noch nicht selbst getestet. Windows-ZIP 0.1.1-alpha.12 und Release-Informationen sind ausdrücklich **nach Nutzer-Commit und Push** beauftragt. Versionshinweise vorbereitet, noch kein Paket erstellt. Zielcommit nach Push prüfen; dann isolierten Pakettest und Ausschluss privater Dateien/Lizenzvollständigkeit durchführen. Keine vorhandenen ZIPs überschreiben und nichts automatisch veröffentlichen.
+
+* Windows-ZIP 0.1.1-alpha.12 wurde nach ausdrücklich bestätigtem Nutzer-Push aus sauberem Commit `e3af6aa95c12d25df3f5fe36d80417e3506fb2ad` am 06.11.2026 gebaut und aus dem ZIP geprüft. Code und Paketdokumente aus diesem Commit, Prüfdokumentation anschließend separat. 250 Lernübungen plus bisherige 25 SQL-/Pseudocode-Prüfungsaufgaben und drei Entwurfsfälle mit neun Teilen. 866 .NET-/31 JavaScript-Prüfungen, native Paketprüfung mit/ohne SQL, Modell 50/50, Pause/Kontrollmarkierung, QR, interner Hostneustart und Erhalt alter Profilfelder erfolgreich. 59 Dateien, 51.363.008 Bytes, SHA256 `bc660d417e9279ec7fa22eadea9f9b87efbc4b6147618faaf519fb50ec914402`. Nachweis artifacts/alpha12-verification.json. ZIP/SHA256 und ältere Pakete unverändert erhalten. Keine neue erhöhte Windows-Regel im Pakettest angelegt. Nutzer veröffentlicht selbst mit Tag v0.1.1-alpha.12 auf e3af6aa; kein automatischer Upload/Commit/Push. Weitere Pakete nur auf Auftrag.
+
+* Gestaltungsnachlauf 07.11.2026: Datenbankentwurf verwendet dieselbe TaskRail/LearningModePicker und den gemeinsamen Lernrahmen wie SQL/Pseudocode. Linke Liste, Auftrag/Arbeitsbereich/Hilfen in der Mitte, bestätigte Planungsschritte rechts beziehungsweise mobil darunter erhalten. HasOwnDraft schützt bearbeitete strukturierte Antworten über die gemeinsame Neustartbestätigung; keine Inhalts-/Profilrevision. 53 betroffene Tests und eigener Browser auf 5215 mit eigenem Profil erfolgreich; kein neues Paket. Alpha 12 ist inzwischen öffentlich als Pre-release bestätigt, Tag/master e3af6aa und ZIP-Digest stimmen überein.
+
+* Storynachlauf 07.11.2026: Alle 30 Entwurfsaufgaben erzählen mit Lea Berger die Vorbereitung des Herbstforums. PreviousContext nur bei abgeschlossenem Vorgänger zeigen, sonst offenen Schritt verlinken; Discovery erst nach Erfolg in Auswertung/Bericht. Offene Zwischenstücke und die Grenze zur aktuellen Aufgabe im Bericht erhalten; Explanation bleibt fachliche Erläuterung. Rein erzählerische Erweiterung ohne Inhalts-/Profilrevision, Fachverträge und Prüfungen unverändert. 56 betroffene Tests einschließlich drei neuer Story-/Berichtsprüfungen und eigener Browser auf 5216 erfolgreich. Kein Paketauftrag.
+
+* Auditnachlauf 07.11.2026: Datenbankentwurf-Lernen nutzt DesignLearningFeedback mit genau einer Ergebnis-/Erkenntniskarte ohne Punkte/Prozent/IHK-Zusatz. DesignFeedback mit Gewichtung nur nach Prüfungsabgabe verwenden. Falsche Auswahl verrät nicht Explanation. Leere Antworten sperren Prüftaste; Antwort-/Moduswechsel verwerfen altes Feedback. DatabaseDesign.razor.cs schützt schnelle Ladewechsel und doppelte Abgaben; Moduleinstieg setzt letzten Entwurf fort. Alle Baukastenhandler beachten ReadOnly und Grenzen, freie automatische Tabellennamen auch nach Entfernen. Keine Inhalts-/Profilrevision oder Änderung der Prüfungsgewichtung. 903 .NET-/31 JavaScript-Prüfungen einschließlich SQL erfolgreich; isolierter Browser auf 5217 mit Auswahl, Modellreparatur, Pause/Neustart und Prüfungsabgaben geprüft. Kein ZIP.
+
+* Quellfassung Alpha 12 ergänzt am 07.11.2026 auf Nutzerauftrag ausschließlich Abschnitt 04 um Aufgaben 31–42: vier ER-Ergänzungen, zwei ER-zu-Tabellen-Aufträge, drei relationale Modellerweiterungen, zwei Entwürfe aus eigenen Unterlagen und eine konkrete Anomaliebeurteilung. 42 Entwurfs-/262 Gesamtlernaufgaben. `diagram-lessons.json` additiv; ursprüngliche IDs 1–30, Inhaltsversion 2026-11-06 und Prüfungsfälle erhalten. `DiagramValues` ergänzt alte Antworten standardmäßig leer. ER-Felder prüfen stabile Optionskennungen; kein frei zeichnender ER-Editor. Spickzettel-Rückwege am Katalog ausrichten. SQL/Pseudocode bleiben vorerst abgeschlossen; in dieser Alpha keinen weiteren Abschnitt anfangen. Vorhandenes Alpha-12-Paket bleibt bei 250 Übungen, kein neuer Paketauftrag; Nutzer testet anschließend.
+
+* Quellstand 0.1.1-alpha.13 ergänzt am 09.11.2026 nach Vorstellung und ausdrücklichem Nutzer-GO Abschnitt 03 UML und Modellierung. Diese Freigabe ersetzt nur dafür die vorherige Alpha-12-Begrenzung auf Abschnitt 04. 36 eigene Aufgaben (4 Grundlagen/6 Anwendungsfälle/8 Klassen/6 Aktivitäten/6 Sequenzen/6 Zustände), davon 23 eigene Diagrammentwürfe, sieben Lese- und sechs Reparaturaufgaben. Kulturzentrum Nordhafen mit Mira König; fünf aktive Module/298 Lernübungen. SQL/Pseudocode vorerst abgeschlossen, Abschnitt 05 nicht anfangen. Kein neuer Paketauftrag.
+* UML liegt unter Core/Uml nach Models/Content/Evaluation/Practice, Web-Komponenten unter Components/Uml, Speicherung in ProgressStore.Uml.cs. Vertrag docs/uml.md, Inhaltsversion 2026-11-09. UmlLessons/LastUmlLessonId und UmlExam/UmlHistory additiv erhalten; alte Modulkennungen, Profile, Entwürfe und Erfolge nicht überschreiben. Fachrollen bleiben stabil, Anzeigenamen und Zeichenanordnung frei. Eigene Diagramme über bedienbaren Baukasten, keine KI-Freitextprüfung oder beliebige UML-Äquivalenz behaupten. Richtungen, Multiplizitäten, Typen, Merkmale, Sequenzreihenfolge und einfache alt/opt/loop-Fragmente prüfen; explizite Varianten und Textalternativen erhalten. Im Lernen eine Ergebnis-/Erkenntniskarte ohne Punkte; gewichtete Bewertung nur nach Prüfungsabgabe. Drei eigene 45-Minuten-Fälle mit je drei unabhängigen Teilen (20/20/10), UTC-Frist, Revisionen, Pause, gesperrte Abgabe und einmalige Historie. Published Alpha-12-ZIP unverändert; kein automatischer Commit/Push/Upload.

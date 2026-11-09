@@ -16,6 +16,12 @@
             <NavLink href="algorithmen/pruefung">Prüfung üben</NavLink>
             <NavLink href="@(InExam ? "/algorithmen/spickzettel?pruefung=true" : "/algorithmen/spickzettel")">Pseudocode-Spickzettel</NavLink>
         }
+        else if (LearningNavigation.Module == LearningModule.Uml)
+        {
+            <NavLink href="uml" Match="NavLinkMatch.All">UML lernen</NavLink>
+            <NavLink href="uml/pruefung">Prüfung üben</NavLink>
+            <NavLink href="@(InExam ? "/uml/spickzettel?pruefung=true" : "/uml/spickzettel")">UML-Spickzettel</NavLink>
+        }
         else if (LearningNavigation.Module == LearningModule.DatabaseDesign)
         {
             <NavLink href="datenbankentwurf" Match="NavLinkMatch.All">Entwurf lernen</NavLink>

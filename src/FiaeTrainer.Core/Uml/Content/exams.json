@@ -1,0 +1,1002 @@
+[
+  {
+    "id": "proberaum",
+    "title": "Proberäume im Vereinszentrum",
+    "scenario": "Ein Vereinszentrum führt eine Buchungsanwendung für seine Proberäume ein. Die folgenden drei Ausschnitte werden unabhängig modelliert.",
+    "points": [
+      20,
+      20,
+      10
+    ],
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Funktionen der Mitglieder",
+        "diagramType": "UseCase",
+        "format": "Build",
+        "story": "Das Projektteam benötigt diesen unabhängig beschriebenen Ausschnitt.",
+        "task": "Erstelle eine beschriftete Systemgrenze. Mitglied nutzt Proberaum buchen. Proberaum buchen bindet Mitgliedschaft prüfen verpflichtend per include ein. Verwende nur die beschriebenen Fachrollen, Merkmale und Verbindungen; eigene Anzeigenamen sind erlaubt.",
+        "nodeVocabulary": {
+          "member": "Mitglied",
+          "reserve": "Proberaum buchen",
+          "check": "Mitgliedschaft prüfen"
+        },
+        "memberVocabulary": {},
+        "solutions": [
+          {
+            "nodes": [
+              {
+                "id": "member",
+                "key": "member",
+                "name": "Mitglied",
+                "kind": "Actor",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "reserve",
+                "key": "reserve",
+                "name": "Proberaum buchen",
+                "kind": "UseCase",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "check",
+                "key": "check",
+                "name": "Mitgliedschaft prüfen",
+                "kind": "UseCase",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              }
+            ],
+            "links": [
+              {
+                "id": "edge1",
+                "source": "member",
+                "target": "reserve",
+                "kind": "Association",
+                "meaning": "",
+                "name": "",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              },
+              {
+                "id": "edge2",
+                "source": "reserve",
+                "target": "check",
+                "kind": "Include",
+                "meaning": "",
+                "name": "",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              }
+            ],
+            "systemName": "Proberaumbuchung",
+            "fragments": []
+          }
+        ],
+        "hints": [
+          "Trenne die Elemente.",
+          "Prüfe die Verbindungen.",
+          "Vergleiche jede Anforderung mit dem Entwurf."
+        ],
+        "explanation": "Ein Akteur, zwei Anwendungsfälle und eine include-Abhängigkeit vom Buchen zur Prüfung."
+      },
+      {
+        "id": 2,
+        "title": "Mitglieder und Buchungen",
+        "diagramType": "Class",
+        "format": "Build",
+        "story": "Das Projektteam benötigt diesen unabhängig beschriebenen Ausschnitt.",
+        "task": "Erstelle die konkreten Klassen Mitglied mit privater nummer: Integer und Raumbuchung mit öffentlicher bestaetigen(): Boolean. Jede Raumbuchung gehört genau einem Mitglied, ein Mitglied hat 0..* Raumbuchungen. Verwende eine Assoziation. Verwende nur die beschriebenen Fachrollen, Merkmale und Verbindungen; eigene Anzeigenamen sind erlaubt.",
+        "nodeVocabulary": {
+          "member": "Mitglied",
+          "booking": "Raumbuchung"
+        },
+        "memberVocabulary": {
+          "number": "nummer",
+          "confirm": "bestaetigen"
+        },
+        "solutions": [
+          {
+            "nodes": [
+              {
+                "id": "member",
+                "key": "member",
+                "name": "Mitglied",
+                "kind": "Class",
+                "members": [
+                  {
+                    "id": "member_number",
+                    "key": "number",
+                    "name": "nummer",
+                    "kind": "Attribute",
+                    "type": "Integer",
+                    "visibility": "-",
+                    "parameters": "",
+                    "abstract": false,
+                    "static": false
+                  }
+                ],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "booking",
+                "key": "booking",
+                "name": "Raumbuchung",
+                "kind": "Class",
+                "members": [
+                  {
+                    "id": "booking_confirm",
+                    "key": "confirm",
+                    "name": "bestaetigen",
+                    "kind": "Method",
+                    "type": "Boolean",
+                    "visibility": "+",
+                    "parameters": "",
+                    "abstract": false,
+                    "static": false
+                  }
+                ],
+                "abstract": false,
+                "lane": ""
+              }
+            ],
+            "links": [
+              {
+                "id": "edge1",
+                "source": "member",
+                "target": "booking",
+                "kind": "Association",
+                "meaning": "",
+                "name": "",
+                "sourceMultiplicity": "1",
+                "targetMultiplicity": "0..*",
+                "guard": "",
+                "fragment": ""
+              }
+            ],
+            "systemName": "",
+            "fragments": []
+          }
+        ],
+        "hints": [
+          "Trenne die Elemente.",
+          "Prüfe die Verbindungen.",
+          "Vergleiche jede Anforderung mit dem Entwurf."
+        ],
+        "explanation": "1 am Mitgliedsende, 0..* am Buchungsende; nummer ist ein Attribut und bestaetigen eine Methode."
+      },
+      {
+        "id": 3,
+        "title": "Die Schlüsselausgabe",
+        "diagramType": "Activity",
+        "format": "Build",
+        "story": "Das Projektteam benötigt diesen unabhängig beschriebenen Ausschnitt.",
+        "task": "Start führt zur Entscheidung Schlüssel da?. Bei Schlüssel vorhanden folgt Schlüssel ausgeben, bei Schlüssel fehlt Wartehinweis senden. Beide Aktionen führen zum Finalknoten Ende. Verwende nur die beschriebenen Fachrollen, Merkmale und Verbindungen; eigene Anzeigenamen sind erlaubt.",
+        "nodeVocabulary": {
+          "start": "Start",
+          "decide": "Schlüssel da?",
+          "issue": "Schlüssel ausgeben",
+          "wait": "Wartehinweis senden",
+          "end": "Ende"
+        },
+        "memberVocabulary": {},
+        "solutions": [
+          {
+            "nodes": [
+              {
+                "id": "start",
+                "key": "start",
+                "name": "Start",
+                "kind": "Initial",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "decide",
+                "key": "decide",
+                "name": "Schlüssel da?",
+                "kind": "Decision",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "issue",
+                "key": "issue",
+                "name": "Schlüssel ausgeben",
+                "kind": "Action",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "wait",
+                "key": "wait",
+                "name": "Wartehinweis senden",
+                "kind": "Action",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "end",
+                "key": "end",
+                "name": "Ende",
+                "kind": "Final",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              }
+            ],
+            "links": [
+              {
+                "id": "edge1",
+                "source": "start",
+                "target": "decide",
+                "kind": "Flow",
+                "meaning": "",
+                "name": "",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              },
+              {
+                "id": "edge2",
+                "source": "decide",
+                "target": "issue",
+                "kind": "Flow",
+                "meaning": "",
+                "name": "",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "yes",
+                "fragment": ""
+              },
+              {
+                "id": "edge3",
+                "source": "decide",
+                "target": "wait",
+                "kind": "Flow",
+                "meaning": "",
+                "name": "",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "no",
+                "fragment": ""
+              },
+              {
+                "id": "edge4",
+                "source": "issue",
+                "target": "end",
+                "kind": "Flow",
+                "meaning": "",
+                "name": "",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              },
+              {
+                "id": "edge5",
+                "source": "wait",
+                "target": "end",
+                "kind": "Flow",
+                "meaning": "",
+                "name": "",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              }
+            ],
+            "systemName": "",
+            "fragments": []
+          }
+        ],
+        "hints": [
+          "Trenne die Elemente.",
+          "Prüfe die Verbindungen.",
+          "Vergleiche jede Anforderung mit dem Entwurf."
+        ],
+        "explanation": "Die beiden Entscheidungszweige sind unterschiedlich bedingt und führen nach ihrer Aktion zum Ende.",
+        "conditions": {
+          "yes": "Schlüssel vorhanden",
+          "no": "Schlüssel fehlt"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ausgabe",
+    "title": "Mobile Geräte für die Veranstaltung",
+    "scenario": "Die Geräteausgabe dokumentiert Ausstattung und ihre Rücknahme. Jede Teilaufgabe beschreibt einen eigenen begrenzten Ausschnitt.",
+    "points": [
+      20,
+      20,
+      10
+    ],
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Positionen einer Ausgabe",
+        "diagramType": "Class",
+        "format": "Build",
+        "story": "Das Projektteam benötigt diesen unabhängig beschriebenen Ausschnitt.",
+        "task": "Erstelle konkrete Ausgabe und Ausgabeposition. Ausgabeposition hat privates anzahl: Integer. Jede Position ist ein existenziell gebundener Bestandteil genau einer Ausgabe; eine Ausgabe enthält 1..* Positionen. Modelliere Komposition mit der Raute bei Ausgabe. Verwende nur die beschriebenen Fachrollen, Merkmale und Verbindungen; eigene Anzeigenamen sind erlaubt.",
+        "nodeVocabulary": {
+          "loan": "Ausgabe",
+          "position": "Ausgabeposition"
+        },
+        "memberVocabulary": {
+          "quantity": "anzahl"
+        },
+        "solutions": [
+          {
+            "nodes": [
+              {
+                "id": "loan",
+                "key": "loan",
+                "name": "Ausgabe",
+                "kind": "Class",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "position",
+                "key": "position",
+                "name": "Ausgabeposition",
+                "kind": "Class",
+                "members": [
+                  {
+                    "id": "position_quantity",
+                    "key": "quantity",
+                    "name": "anzahl",
+                    "kind": "Attribute",
+                    "type": "Integer",
+                    "visibility": "-",
+                    "parameters": "",
+                    "abstract": false,
+                    "static": false
+                  }
+                ],
+                "abstract": false,
+                "lane": ""
+              }
+            ],
+            "links": [
+              {
+                "id": "edge1",
+                "source": "position",
+                "target": "loan",
+                "kind": "Composition",
+                "meaning": "",
+                "name": "",
+                "sourceMultiplicity": "1..*",
+                "targetMultiplicity": "1",
+                "guard": "",
+                "fragment": ""
+              }
+            ],
+            "systemName": "",
+            "fragments": []
+          }
+        ],
+        "hints": [
+          "Trenne die Elemente.",
+          "Prüfe die Verbindungen.",
+          "Vergleiche jede Anforderung mit dem Entwurf."
+        ],
+        "explanation": "Die Komposition zeigt den besitzenden Zusammenhang; die Raute liegt am Ganzen Ausgabe."
+      },
+      {
+        "id": 2,
+        "title": "Die Ausgabe im Zusammenspiel",
+        "diagramType": "Sequence",
+        "format": "Build",
+        "story": "Das Projektteam benötigt diesen unabhängig beschriebenen Ausschnitt.",
+        "task": "Erstelle Ausgabeseite, Ausgabedienst und Gerätebestand als Lebenslinien. Reihenfolge: Seite ruft ausgeben() am Dienst auf, Dienst ruft sperren() am Bestand auf, Bestand liefert Sperrergebnis zum Dienst zurück, Dienst liefert Ausgabebeleg zur Seite zurück. Alle Aufrufe sind synchron; keine Gruppen. Verwende nur die beschriebenen Fachrollen, Merkmale und Verbindungen; eigene Anzeigenamen sind erlaubt.",
+        "nodeVocabulary": {
+          "desk": "Ausgabeseite",
+          "service": "Ausgabedienst",
+          "stock": "Gerätebestand"
+        },
+        "memberVocabulary": {},
+        "solutions": [
+          {
+            "nodes": [
+              {
+                "id": "desk",
+                "key": "desk",
+                "name": "Ausgabeseite",
+                "kind": "Lifeline",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "service",
+                "key": "service",
+                "name": "Ausgabedienst",
+                "kind": "Lifeline",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "stock",
+                "key": "stock",
+                "name": "Gerätebestand",
+                "kind": "Lifeline",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              }
+            ],
+            "links": [
+              {
+                "id": "edge1",
+                "source": "desk",
+                "target": "service",
+                "kind": "Message",
+                "meaning": "issue",
+                "name": "ausgeben()",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              },
+              {
+                "id": "edge2",
+                "source": "service",
+                "target": "stock",
+                "kind": "Message",
+                "meaning": "lock",
+                "name": "sperren()",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              },
+              {
+                "id": "edge3",
+                "source": "stock",
+                "target": "service",
+                "kind": "Return",
+                "meaning": "locked",
+                "name": "Sperrergebnis",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              },
+              {
+                "id": "edge4",
+                "source": "service",
+                "target": "desk",
+                "kind": "Return",
+                "meaning": "done",
+                "name": "Ausgabebeleg",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              }
+            ],
+            "systemName": "",
+            "fragments": []
+          }
+        ],
+        "hints": [
+          "Trenne die Elemente.",
+          "Prüfe die Verbindungen.",
+          "Vergleiche jede Anforderung mit dem Entwurf."
+        ],
+        "explanation": "Die innere Abfrage wird vor dem äußeren Aufruf beantwortet.",
+        "messages": {
+          "issue": "ausgeben()",
+          "lock": "sperren()",
+          "locked": "Sperrergebnis",
+          "done": "Ausgabebeleg"
+        }
+      },
+      {
+        "id": 3,
+        "title": "Vom Bereitstellen zum Abschluss",
+        "diagramType": "State",
+        "format": "Build",
+        "story": "Das Projektteam benötigt diesen unabhängig beschriebenen Ausschnitt.",
+        "task": "Start führt ohne Ereignis nach Bereit. abholen führt nach Ausgegeben, zurückgeben von dort nach Zurückgegeben, abschließen von Zurückgegeben zum Finalknoten Ende. Die Geschäftsstände sind normale Zustände. Verwende nur die beschriebenen Fachrollen, Merkmale und Verbindungen; eigene Anzeigenamen sind erlaubt.",
+        "nodeVocabulary": {
+          "start": "Start",
+          "ready": "Bereit",
+          "taken": "Ausgegeben",
+          "returned": "Zurückgegeben",
+          "end": "Ende"
+        },
+        "memberVocabulary": {},
+        "solutions": [
+          {
+            "nodes": [
+              {
+                "id": "start",
+                "key": "start",
+                "name": "Start",
+                "kind": "Initial",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "ready",
+                "key": "ready",
+                "name": "Bereit",
+                "kind": "State",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "taken",
+                "key": "taken",
+                "name": "Ausgegeben",
+                "kind": "State",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "returned",
+                "key": "returned",
+                "name": "Zurückgegeben",
+                "kind": "State",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "end",
+                "key": "end",
+                "name": "Ende",
+                "kind": "Final",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              }
+            ],
+            "links": [
+              {
+                "id": "edge1",
+                "source": "start",
+                "target": "ready",
+                "kind": "Transition",
+                "meaning": "",
+                "name": "",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              },
+              {
+                "id": "edge2",
+                "source": "ready",
+                "target": "taken",
+                "kind": "Transition",
+                "meaning": "pickup",
+                "name": "abholen",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              },
+              {
+                "id": "edge3",
+                "source": "taken",
+                "target": "returned",
+                "kind": "Transition",
+                "meaning": "return",
+                "name": "zurückgeben",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              },
+              {
+                "id": "edge4",
+                "source": "returned",
+                "target": "end",
+                "kind": "Transition",
+                "meaning": "finish",
+                "name": "abschließen",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              }
+            ],
+            "systemName": "",
+            "fragments": []
+          }
+        ],
+        "hints": [
+          "Trenne die Elemente.",
+          "Prüfe die Verbindungen.",
+          "Vergleiche jede Anforderung mit dem Entwurf."
+        ],
+        "explanation": "Drei Geschäftsstände sind vom abschließenden Finalknoten unterschieden.",
+        "events": {
+          "pickup": "abholen",
+          "return": "zurückgeben",
+          "finish": "abschließen"
+        }
+      }
+    ]
+  },
+  {
+    "id": "abend",
+    "title": "Einlass zur Abendveranstaltung",
+    "scenario": "Anmeldung, Vorbereitung und Ticketkontrolle werden für eine Abendveranstaltung geplant. Die drei Teilaufgaben sind unabhängig lösbar.",
+    "points": [
+      20,
+      20,
+      10
+    ],
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Die freiwillige Infomail",
+        "diagramType": "UseCase",
+        "format": "Build",
+        "story": "Das Projektteam benötigt diesen unabhängig beschriebenen Ausschnitt.",
+        "task": "Erstelle eine beschriftete Grenze. Gast nutzt Eintritt anmelden. Infomail bestellen erweitert Eintritt anmelden optional per extend. Weitere Verbindungen werden nicht verlangt. Verwende nur die beschriebenen Fachrollen, Merkmale und Verbindungen; eigene Anzeigenamen sind erlaubt.",
+        "nodeVocabulary": {
+          "guest": "Gast",
+          "ticket": "Eintritt anmelden",
+          "newsletter": "Infomail bestellen"
+        },
+        "memberVocabulary": {},
+        "solutions": [
+          {
+            "nodes": [
+              {
+                "id": "guest",
+                "key": "guest",
+                "name": "Gast",
+                "kind": "Actor",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "ticket",
+                "key": "ticket",
+                "name": "Eintritt anmelden",
+                "kind": "UseCase",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "newsletter",
+                "key": "newsletter",
+                "name": "Infomail bestellen",
+                "kind": "UseCase",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              }
+            ],
+            "links": [
+              {
+                "id": "edge1",
+                "source": "guest",
+                "target": "ticket",
+                "kind": "Association",
+                "meaning": "",
+                "name": "",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              },
+              {
+                "id": "edge2",
+                "source": "newsletter",
+                "target": "ticket",
+                "kind": "Extend",
+                "meaning": "",
+                "name": "",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              }
+            ],
+            "systemName": "Abendveranstaltung",
+            "fragments": []
+          }
+        ],
+        "hints": [
+          "Trenne die Elemente.",
+          "Prüfe die Verbindungen.",
+          "Vergleiche jede Anforderung mit dem Entwurf."
+        ],
+        "explanation": "Die Erweiterung zeigt per extend auf den selbstständig nutzbaren Basisfall."
+      },
+      {
+        "id": 2,
+        "title": "Vorbereitungen parallel erledigen",
+        "diagramType": "Activity",
+        "format": "Build",
+        "story": "Das Projektteam benötigt diesen unabhängig beschriebenen Ausschnitt.",
+        "task": "Erstelle Start → Fork Vorbereitung starten. Danach laufen Raum herrichten und Einlass vorbereiten parallel. Beide führen zum Join Vorbereitung fertig und danach zum Finalknoten Ende. Verwende nur die beschriebenen Fachrollen, Merkmale und Verbindungen; eigene Anzeigenamen sind erlaubt.",
+        "nodeVocabulary": {
+          "start": "Start",
+          "fork": "Vorbereitung starten",
+          "room": "Raum herrichten",
+          "entry": "Einlass vorbereiten",
+          "join": "Vorbereitung fertig",
+          "end": "Ende"
+        },
+        "memberVocabulary": {},
+        "solutions": [
+          {
+            "nodes": [
+              {
+                "id": "start",
+                "key": "start",
+                "name": "Start",
+                "kind": "Initial",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "fork",
+                "key": "fork",
+                "name": "Vorbereitung starten",
+                "kind": "Fork",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "room",
+                "key": "room",
+                "name": "Raum herrichten",
+                "kind": "Action",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "entry",
+                "key": "entry",
+                "name": "Einlass vorbereiten",
+                "kind": "Action",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "join",
+                "key": "join",
+                "name": "Vorbereitung fertig",
+                "kind": "Join",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "end",
+                "key": "end",
+                "name": "Ende",
+                "kind": "Final",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              }
+            ],
+            "links": [
+              {
+                "id": "edge1",
+                "source": "start",
+                "target": "fork",
+                "kind": "Flow",
+                "meaning": "",
+                "name": "",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              },
+              {
+                "id": "edge2",
+                "source": "fork",
+                "target": "room",
+                "kind": "Flow",
+                "meaning": "",
+                "name": "",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              },
+              {
+                "id": "edge3",
+                "source": "fork",
+                "target": "entry",
+                "kind": "Flow",
+                "meaning": "",
+                "name": "",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              },
+              {
+                "id": "edge4",
+                "source": "room",
+                "target": "join",
+                "kind": "Flow",
+                "meaning": "",
+                "name": "",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              },
+              {
+                "id": "edge5",
+                "source": "entry",
+                "target": "join",
+                "kind": "Flow",
+                "meaning": "",
+                "name": "",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              },
+              {
+                "id": "edge6",
+                "source": "join",
+                "target": "end",
+                "kind": "Flow",
+                "meaning": "",
+                "name": "",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              }
+            ],
+            "systemName": "",
+            "fragments": []
+          }
+        ],
+        "hints": [
+          "Trenne die Elemente.",
+          "Prüfe die Verbindungen.",
+          "Vergleiche jede Anforderung mit dem Entwurf."
+        ],
+        "explanation": "Der Fork eröffnet parallele Arbeit, der Join synchronisiert vor dem Abschluss."
+      },
+      {
+        "id": 3,
+        "title": "Zwei Ergebnisse der Ticketprüfung",
+        "diagramType": "Sequence",
+        "format": "Build",
+        "story": "Das Projektteam benötigt diesen unabhängig beschriebenen Ausschnitt.",
+        "task": "Erstelle Einlassseite und Ticketdienst. Die Seite ruft kontrollieren() am Dienst auf. Danach folgt alt-Gruppe Prüfergebnis: zuerst Rückgabe Einlass erlaubt bei Ticket gültig, danach alternative Rückgabe Einlass abgelehnt bei Ticket ungültig. Beide Antworten laufen zur Seite und gehören zur Gruppe. Verwende nur die beschriebenen Fachrollen, Merkmale und Verbindungen; eigene Anzeigenamen sind erlaubt.",
+        "nodeVocabulary": {
+          "ui": "Einlassseite",
+          "service": "Ticketdienst"
+        },
+        "memberVocabulary": {},
+        "solutions": [
+          {
+            "nodes": [
+              {
+                "id": "ui",
+                "key": "ui",
+                "name": "Einlassseite",
+                "kind": "Lifeline",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              },
+              {
+                "id": "service",
+                "key": "service",
+                "name": "Ticketdienst",
+                "kind": "Lifeline",
+                "members": [],
+                "abstract": false,
+                "lane": ""
+              }
+            ],
+            "links": [
+              {
+                "id": "edge1",
+                "source": "ui",
+                "target": "service",
+                "kind": "Message",
+                "meaning": "check",
+                "name": "kontrollieren()",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "",
+                "fragment": ""
+              },
+              {
+                "id": "edge2",
+                "source": "service",
+                "target": "ui",
+                "kind": "Return",
+                "meaning": "accept",
+                "name": "Einlass erlaubt",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "valid",
+                "fragment": "result"
+              },
+              {
+                "id": "edge3",
+                "source": "service",
+                "target": "ui",
+                "kind": "Return",
+                "meaning": "deny",
+                "name": "Einlass abgelehnt",
+                "sourceMultiplicity": "",
+                "targetMultiplicity": "",
+                "guard": "invalid",
+                "fragment": "result"
+              }
+            ],
+            "systemName": "",
+            "fragments": [
+              {
+                "id": "result",
+                "key": "result",
+                "kind": "alt",
+                "guard": ""
+              }
+            ]
+          }
+        ],
+        "hints": [
+          "Trenne die Elemente.",
+          "Prüfe die Verbindungen.",
+          "Vergleiche jede Anforderung mit dem Entwurf."
+        ],
+        "explanation": "Die Rückgaben stehen als bedingte Alternativen im alt-Fragment.",
+        "conditions": {
+          "valid": "Ticket gültig",
+          "invalid": "Ticket ungültig"
+        },
+        "messages": {
+          "check": "kontrollieren()",
+          "accept": "Einlass erlaubt",
+          "deny": "Einlass abgelehnt"
+        },
+        "fragmentVocabulary": {
+          "result": "Prüfergebnis"
+        }
+      }
+    ]
+  }
+]

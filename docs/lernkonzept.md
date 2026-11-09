@@ -59,7 +59,7 @@ Bekannte Falltabellen dürfen mit oder ohne Schemapräfix angegeben werden. Der 
 
 ## Allgemeine Oberfläche und Darstellung
 
-Die Startseite zeigt den allgemeinen AP2-Themenkompass. Der SQL-Bereich ist eine Karte unter den vorgesehenen Themen, keine dominierende Einstiegsgeschichte mehr. Der Gesamtfortschritt umfasst die 40 SQL-, 30 Algorithmus-, 30 Datenbankentwurfs- und 150 WiSo-Aufgaben, insgesamt 250. Prüfungsaufgaben bleiben von diesem Lernzähler getrennt. Die Kopfnavigation beginnt immer mit Übersicht und Lernplan; danach folgen die Links des besuchten Moduls.
+Die Startseite zeigt den allgemeinen AP2-Themenkompass. Der SQL-Bereich ist eine Karte unter den vorgesehenen Themen, keine dominierende Einstiegsgeschichte mehr. Der Gesamtfortschritt umfasst die 40 SQL-, 30 Algorithmus-, 42 Datenbankentwurfs- und 150 WiSo-Aufgaben, insgesamt 262. Prüfungsaufgaben bleiben von diesem Lernzähler getrennt. Die Kopfnavigation beginnt immer mit Übersicht und Lernplan; danach folgen die Links des besuchten Moduls.
 
 Die Auswahl System/Hell/Dunkel wird rein im Browser angewendet. Ein früh im Dokument geladenes kleines Skript wertet die Systempräferenz und ein validiertes Präferenzcookie aus, bevor die Styles geladen werden. Explizite Auswahl überschreibt die Systempräferenz; die Option System aktiviert deren automatische Nachführung wieder. Ein neu von Blazor eingesetzter Auswahlschalter wird mit der aktuellen Auswahl synchronisiert. Das Cookie enthält ausschließlich einen der drei festgelegten Auswahlwerte.
 
@@ -149,6 +149,28 @@ Die neuen SQL-/Pseudocode-Prüfungen ergänzen den geführten Lernweg mit eigene
 
 ## Datenbankentwurf
 
-Die Eventagentur Lichtblick gibt dem neuen Lernweg ein gemeinsames Ziel: einen nachvollziehbaren relationalen Entwurf aus verstreuten Unterlagen entwickeln. Dreißig Aufgaben verbinden Begriffsverständnis, eigene Modellierung, Reparatur und fachliche Entscheidungen. Die konkrete Ausgangssituation wird jeweils genannt, ungelöste Vorgänger werden nicht als bewiesene Ergebnisse vorausgesetzt. Bestätigte Planungsschritte enthalten nur bereits gelöste Aufgaben bis zum aktuellen Stand.
+Die Eventagentur Lichtblick gibt dem neuen Lernweg ein gemeinsames Ziel: einen nachvollziehbaren relationalen Entwurf aus verstreuten Unterlagen entwickeln. 42 Aufgaben verbinden Begriffsverständnis, eigene Modellierung, Reparatur, ER-Ergänzungen, Entwürfe aus Unterlagen und fachliche Entscheidungen. Die konkrete Ausgangssituation wird jeweils genannt, ungelöste Vorgänger werden nicht als bewiesene Ergebnisse vorausgesetzt. Bestätigte Planungsschritte enthalten nur bereits gelöste Aufgaben bis zum aktuellen Stand.
 
 Der Baukasten trennt die fachliche Wahl von der Zeichenarbeit. Attribute aus dem Auftrag werden eigenen Tabellen zugeordnet, Schlüssel und Referenzen markiert, Kardinalitäten in beide Richtungen beschrieben. Namen und Reihenfolge sind frei. Die Bewertung folgt getesteten Modellvarianten und ausdrücklich genannten Abhängigkeiten, keinem allgemeinen Normalformbeweiser. Drei unabhängige 45-Minuten-Prüfungsfälle ergänzen den Lernweg. [Bewertungsvertrag](datenbankentwurf.md).
+
+## Lichtblick-Geschichte nach Nutzerfeedback (07.11.2026)
+
+Lea Berger begleitet alle 30 Entwurfsaufgaben bei der Vorbereitung des Herbstforums. Ein konkretes Problem im Büro, der Disposition oder der Personalplanung begründet jeweils den nächsten Auftrag. Spätere Aufgaben greifen bekannte Ausschnitte mit einer neuen Frage wieder auf; abweichende Regeln und absichtlich begrenzte Arbeitsblätter werden ausdrücklich eingeordnet. Die Geschichte bleibt auch beim direkten Einstieg in eine spätere Aufgabe verständlich.
+
+Ein Übergang darf den vorherigen Schritt nur nach tatsächlichem Abschluss als gelöst beschreiben. Sonst nennt die Karte den offenen Vorgänger mit Rücklink. Erzählerische Planungsergebnisse werden erst durch die richtige Lösung freigeschaltet; der chronologische Bericht kennzeichnet ausgelassene Schritte und blendet spätere Erfolge bei früheren Aufgaben aus. Fachliche Lösungserklärung und erzählerisches Ergebnis bleiben getrennt. Aufgabenverträge und vorhandene Leistungen werden nicht neu interpretiert.
+
+## Lernrückmeldung und Prüfungswertung trennen (07.11.2026)
+
+Abschnitt 04 meldet wie SQL/Pseudocode verständlich zurück, ob der Schritt funktioniert. Eine einzige Karte enthält Ergebnis, freigeschaltete Erkenntnis und Einordnung der Hilfenutzung. Bei unvollständigen Modellen erklären einzelne Kriterien die verbleibenden Abweichungen. Trainingspunkte und Prozentwerte gehören zur Prüfung, nicht zur Lernrückmeldung. Eine falsche Auswahl zeigt nicht automatisch die vollständige fachliche Lösungserklärung; freiwillige Hinweise und Musterlösung bleiben dem geführten Lernen zugeordnet. Korrigierte Antworten und Moduswechsel entfernen veraltetes Feedback. Historische Erfolge bleiben beim neuen Versuch erhalten.
+
+## Diagramme lesen, ergänzen und übertragen (07.11.2026)
+
+Aufgaben 31–42 ergänzen Abschnitt 04 auf 42 Aufgaben. Der Arbeitsweg beginnt beim Lesen fachlicher ER-Abbildungen und ihren gezielten Ergänzungen, führt über die Übertragung in relationale Tabellen zu vorbereiteten Modellerweiterungen und anschließend zu Entwürfen aus einer Standliste und einem Leihschein. Beziehungsattribute bleiben von Entitätsattributen unterscheidbar. Konkrete Anomalien schließen den Lernweg ab.
+
+Die ursprüngliche Vorlage bleibt bei relationalen Ergänzungen sichtbar. ER-Ergänzungen erscheinen unmittelbar in der Abbildung; Hinweise und Musterlösung bleiben dem geführten Modus zugeordnet. Textbeschreibungen und beschriftete Felder ermöglichen die Bearbeitung ohne notwendiges Ziehen. Eigene Fälle setzen Leas Geschichte fort; Originalprüfungen werden nicht eingebettet. Die Erweiterung gehört nur zur Quellfassung.
+
+## UML und Modellierung seit Alpha 13
+
+Abschnitt 03 erweitert denselben Lernrahmen um 36 Aufgaben: vier Grundlagen, sechs Anwendungsfälle, acht Klassen sowie je sechs Aktivitäten, Sequenzen und Zustände. Sieben Aufgaben trainieren Lesen, sechs Reparatur und 23 das eigene Modellieren von einer leeren Arbeitsfläche. Mira König begleitet die Entwicklung im Kulturzentrum Nordhafen. Übergänge setzen keine unbestätigten Vorgänger voraus; Erkenntnisse erscheinen erst nach Erfolg und bleiben im chronologischen Bericht nachvollziehbar.
+
+Eigene Diagramme entstehen durch Hinzufügen, Zuordnen und Verbinden von Elementen; Anzeigenamen sind frei, Fachrollen verbindlich. Zeichenpositionen entstehen automatisch und zählen nicht zur Bewertung. Fehlerhafte Entwürfe erhalten Kriterien und Markierungen; im Lernen keine Punkte. Geführtes Lernen, drei Hinweise und eine ausdrücklich aufgedeckte Musterlösung zählen als Unterstützung. Der frische Selbsttest schützt vorhandene Entwürfe mit der gemeinsamen Bestätigung. Drei unabhängige Prüfungsfälle übertragen den Stoff in unbekannte Situationen. Konkrete Notations-/Bewertungsgrenzen: [UML-Vertrag](uml.md).
