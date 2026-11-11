@@ -12,6 +12,8 @@ Ermittle mit SQL, entwickle eigene Algorithmen und UML-Diagramme, entwirf relati
 
 **454 Lernübungen in acht Lernbereichen** – dazu eigene Prüfungsrunden.
 
+Der Quellstand für die erste Beta trägt die Version **1.0.0-beta.1**. Den veröffentlichten Windows-Stand findest du unter **Releases**.
+
 <table>
   <thead><tr>
     <th width="25%">SQL &amp; Datenbanken</th>
@@ -76,7 +78,7 @@ Ermittle mit SQL, entwickle eigene Algorithmen und UML-Diagramme, entwirf relati
 
 1. Unter **[Releases](https://github.com/b0rnkilla/FIAE-AP2-Lernwerk/releases)** das Paket **AP2-Lernwerk-…-win-x64.zip** herunterladen.
 2. Das vollständige ZIP entpacken.
-3. **AP2-Lernwerk.exe** starten und im Browser loslernen. Falls nötig: **http://localhost:5080** öffnen.
+3. **AP2-Lernwerk.exe** starten und im Browser loslernen. Läuft das Lernwerk bereits, öffne **http://localhost:5080** im Browser.
 
 Du brauchst Windows x64 und einen aktuellen Browser. Die .NET-Laufzeit ist enthalten. Für SQL ist zusätzlich [Microsoft SQL Server](https://www.microsoft.com/de-de/sql-server/sql-server-downloads) nötig; Pseudocode, UML, Datenbankentwurf, Softwareplanung, Tests/Qualität/Sicherheit, Projekte/Wirtschaftlichkeit und WiSo funktionieren ohne SQL Server. Die automatisch angebotenen Source-code-Archive sind nicht die fertige Anwendung.
 

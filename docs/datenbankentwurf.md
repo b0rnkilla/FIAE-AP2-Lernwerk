@@ -1,6 +1,6 @@
 # Datenbankentwurf
 
-Stand: **11.11.2026 · geprüftes Paket 0.1.1-alpha.15 mit unverändertem Entwurfsumfang aus Alpha 13**. Abschnitt 04 besitzt 42 Lernaufgaben, ER-Ergänzungen, Arbeitsunterlagen, Modellbaukasten, automatisch gezeichnete relationale Modelle, Spickzettel und drei eigene Prüfungsfälle. Alpha 15 enthält mit Qualitätssicherung insgesamt 400 Lernübungen in sieben Modulen; das historische Alpha-14-Paket enthält 346 und Alpha 13 enthält 298. Prüfungsaufgaben bleiben getrennt. Das frühere Alpha-12-ZIP bleibt unverändert bei 30 Entwurfsaufgaben.
+Abschnitt 04 umfasst in **1.0.0-beta.1** 42 Lernaufgaben und drei Prüfungsfälle. Lernende ergänzen ER-Diagramme, arbeiten mit Unterlagen und entwerfen im Modellbaukasten relationale Modelle. Der Spickzettel unterstützt beim Nachschlagen.
 
 ## Lernweg und Inhalt
 
@@ -114,3 +114,7 @@ Prüfnachweise stehen im Testprotokoll. Das veröffentlichte Alpha-12-Paket enth
 ## 09.11.2026 – Paket Alpha 13
 
 Die zuvor ausschließlich im Quellprojekt liegenden Erweiterungen sind im ausdrücklich beauftragten Alpha-13-ZIP enthalten. Native EXE ohne SQL mit eigenem Profil geprüft; ER-Aufgabe 31 korrekt ergänzt und bewertet, bisheriger Entwurfserfolg 37 erhalten. Fachverträge und Prüfungsfälle unverändert. Älteres Alpha-12-ZIP unverändert; Details in [lokale Releases](lokale-releases.md).
+
+## Unveränderter Modulstand im Alpha-16-Paket
+
+Das nach Nutzer-Push aus 1dbcb12 gebaute und geprüfte Alpha-16-ZIP enthält dieses Modul unverändert sowie Abschnitt 07 Projekte und Wirtschaftlichkeit; insgesamt 454 Übungen in acht Modulen. Historische Profilfelder blieben im isolierten nativen Pakettest erhalten. Details: [lokale Releases](lokale-releases.md), [Testprotokoll](testprotokoll.md). Alpha 16 wurde vom Nutzer veröffentlicht.

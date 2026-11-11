@@ -1,6 +1,6 @@
 # UML und Modellierung – Abschnitt 03
 
-Stand: **0.1.1-alpha.13, 09.11.2026**. Nach Vorstellung und Rückfrage zu eigenen Diagrammen ausdrücklich zur Umsetzung freigegeben. Der Lernweg ist im Quellprojekt und im geprüften Alpha-13-ZIP umgesetzt. Die neuere Quellfassung Alpha 14 ergänzt Abschnitt 05 Softwareplanung bei unverändertem UML-Katalog; bestehende Pakete werden dadurch nicht verändert.
+Die Quellfassung **1.0.0-beta.1** enthält 36 Lernaufgaben und drei Prüfungsfälle. Der Lernweg ist seit Alpha 13 im Windows-Paket enthalten. Die Beta akzeptiert bei Klassenbeziehungen auch die Kurzschreibweise `*` für `0..*`.
 
 ## Lernweg und Geschichte
 
@@ -26,6 +26,8 @@ Elemente lassen sich hinzufügen, entfernen, einer Fachrolle zuordnen und frei b
 Die automatische SVG-Anordnung verlangt kein Ziehen. Klasseneigenschaften und Operationen stehen in getrennten Fächern. Synchrone Aufrufe haben eine gefüllte Pfeilspitze, Rückgaben eine gestrichelte Linie mit offener Spitze. Aktivierungen werden aus den Aufruf-/Rückgabepaaren abgeleitet; sie sind keine zusätzlichen Antwortfelder. Aktivitätsenden stehen bei verschieden langen Zweigen hinter allen Vorgängern. Vergrößerung und eine ausgeschriebene Textdarstellung ergänzen das Diagramm. Auf schmalen Bildschirmen scrollt die Zeichenfläche intern; Eingabefelder umbrechen.
 
 ## Fachliche Bewertung
+
+Bei Klassenbeziehungen bedeuten `*` und `0..*` jeweils „null bis beliebig viele“. In Lernaufgaben und Prüfungen gilt dieselbe Bewertung, auch für Klassendiagramme in Abschnitt 05. Die Untergrenze von `1..*` bleibt fachlich relevant.
 
 `Core/Uml` trennt Models, Content, Evaluation und Practice. Eigene JSON-Ressourcen `lessons.json` und `exams.json` enthalten keine Originalprüfungen. `UmlCatalog` prüft Vollständigkeit, alle Modellreferenzen und Prüfungsgewichte beim Laden. `UmlRules` trennt speicherbare unvollständige Entwürfe von fachlich vollständigen Antworten. `UmlEvaluator` bewertet folgende Merkmale:
 

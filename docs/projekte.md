@@ -1,6 +1,6 @@
 # Abschnitt 07 – Projekte und Wirtschaftlichkeit
 
-Stand: **11.11.2026 · Quellfassung 0.1.1-alpha.16**, nach Konzept und ausdrücklichem Nutzer-GO umgesetzt. **54 eigene Lernaufgaben in neun Kapiteln**, drei eigene Prüfungsfälle. Insgesamt 454 Lernübungen; alle acht Themenkarten sind nutzbar. Das veröffentlichte Alpha-15-Paket bleibt unverändert bei 400 Übungen. **Kein Alpha-16-ZIP beauftragt oder erstellt.**
+Die Quellfassung **1.0.0-beta.1** enthält in Abschnitt 07 **54 Lernaufgaben in neun Kapiteln** und drei Prüfungsfälle. Der Abschnitt ist seit Alpha 16 im veröffentlichten Windows-Paket enthalten.
 
 ## Lernweg und Arbeitsformen
 
@@ -80,3 +80,7 @@ Die bereits privat gesichteten alten Teil-1-/Teil-2-Prüfungen dienen ausschlie�
 ## Darstellungsnachlauf 11.11.2026
 
 Auswahl- und Reviewaussagen besitzen eigene umrandete, vollständig anklickbare Zeilen mit Abstand, nicht schrumpfender 20-Pixel-Checkbox, Textumbruch und sichtbarem Tastaturfokus. Diese Regeln stehen ausdrücklich unter project-options in project-management.css; die Markupklasse design-option allein liefert keine globale Zeilengestaltung. Prüfung im dunklen Desktop und in der mobilen Hellansicht auf eigenem Port 5248. Reine Darstellungskorrektur ohne Inhalts-/Profilrevision, geänderte Antworten oder Bewertung. Einzelheiten im Testprotokoll.
+
+## Paketnachweis Alpha 16
+
+Windows-ZIP am 11.11.2026 nach Nutzer-Push aus 1dbcb12 mit unverändertem Anwendungscode gebaut. Native EXE direkt aus dem Archiv mit getrenntem Altprofil auf 5250 geprüft: eigener Strukturplan, alternative Ressourcenfolge, Netzplan, Auswahlkarten und Museumsprüfung 50/50. Pause/Neustart bei 2684 Sekunden, Markierung, Antwortsperre und alle Altprofilfelder erhalten. 1.190 .NET-/31 JavaScript-Prüfungen erfolgreich,20 SQL-Integrationen ausgelassen. 62 Dateien nach Lauf bitgleich; keine privaten/QA-/Originalprüfungsdateien, Lizenzen vollständig. Nachweis artifacts/alpha16-verification.json. Tag v0.1.1-alpha.16 auf 1dbcb12, Veröffentlichung durch Nutzer. ZIP/SHA256 und ältere Pakete unverändert erhalten.

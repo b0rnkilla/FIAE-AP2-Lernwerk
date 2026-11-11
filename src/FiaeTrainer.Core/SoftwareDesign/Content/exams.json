@@ -17,7 +17,7 @@
         "hints": [
           "Notiere Messgröße und Einheit getrennt.",
           "„Höchstens“ schließt die Grenze ein.",
-          "Die zwei vorgegebenen Zahlen sind 2 Sekunden und 50 Personen."
+          "Prüfe die Obergrenze von drei Sekunden bei 25 gleichzeitig Suchenden."
         ],
         "previousContext": "",
         "material": "",

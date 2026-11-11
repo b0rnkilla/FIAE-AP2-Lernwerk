@@ -87,6 +87,10 @@ public sealed class UmlTests : IDisposable
         method.Parameters = "personen"; Assert.NotEmpty(UmlRules.Errors(task, model));
         task = _catalog.Lessons[13]; model = new() { Nodes = [new() { Id = "k", Key = "guest", Name = "Kunde", Kind = "Class" }, new() { Id = "r", Key = "booking", Name = "Reservierung", Kind = "Class" }], Links = [new() { Source = "r", Target = "k", Kind = "Association", SourceMultiplicity = "0..n", TargetMultiplicity = "1..1" }] };
         Assert.True(UmlEvaluator.Evaluate(task, new() { Model = model }).Correct);
+        model.Links[0].SourceMultiplicity = "*";
+        Assert.True(UmlEvaluator.Evaluate(task, new() { Model = model }).Correct);
+        model.Links[0].SourceMultiplicity = "1..*";
+        Assert.False(UmlEvaluator.Evaluate(task, new() { Model = model }).Correct);
         model.Links[0].SourceMultiplicity = "1"; Assert.False(UmlEvaluator.Evaluate(task, new() { Model = model }).Correct);
         task = _catalog.Lessons[16]; model = task.Solutions[0].Copy(); model.Links[0].Kind = "Generalization"; Assert.False(UmlEvaluator.Evaluate(task, new() { Model = model }).Correct);
         task = _catalog.Lessons[17]; model = task.Solutions[0].Copy(); model.Links.Single(item => item.Kind == "Composition").Kind = "Aggregation"; Assert.False(UmlEvaluator.Evaluate(task, new() { Model = model }).Correct);

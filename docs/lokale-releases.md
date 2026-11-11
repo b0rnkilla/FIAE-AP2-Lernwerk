@@ -1,6 +1,22 @@
 # AP2 Lernwerk lokal starten
 
-## Aktuelles Paket Alpha 15
+## Erste Beta in Vorbereitung
+
+Quellversion **1.0.0-beta.1**. Nach Commit und Push wird das Windows-Paket aus dem bestätigten Commit gebaut und mit eigenem Profil aus dem entpackten ZIP geprüft. Für die spätere Veröffentlichung ist der Tag `v1.0.0-beta.1` als GitHub-Pre-release vorgesehen. [Versionshinweise zur ersten Beta](../release/Versionshinweise-1.0.0-beta.1.md).
+
+## Zuletzt veröffentlichtes Paket Alpha 16
+
+**Windows-Paket 0.1.1-alpha.16: am 11.11.2026 nach ausdrücklich bestätigtem Nutzer-Push gebaut und direkt aus dem ZIP geprüft.** Sauberer Code-Commit `1dbcb124859cf9dd31cda7296b02d8608bd3a2dc`, identisch mit direkt abgefragtem origin/master. Anwendungscode und Anleitung aus diesem Commit; kurze Versionshinweise anschließend ergänzt. Nachträgliche Prüfdokumentation separat committen.
+
+**454 Lernübungen in allen acht Modulen**, 25 SQL-/Pseudocode-Prüfungsaufgaben und je drei Datenbankentwurfs-, UML-, Softwareplanungs-, Qualitäts- und Projektprüfungsfälle. Neu: Abschnitt 07 mit 54 Aufgaben, eigenen Struktur-/Netz-/Terminplänen, Wirtschaftlichkeitsrechnungen und getrennten anklickbaren Auswahlkarten.
+
+Datei: `artifacts/releases/AP2-Lernwerk-0.1.1-alpha.16-win-x64.zip`, **51.705.122 Bytes (49,31 MiB)**, **62 Dateien**; zusätzlich `.zip.sha256`. SHA256: `7eec3a4f9d3404ad629795587065614d51fd1eb0f87aaa64b59bd71ceecc267e`. Eigenständig startbare Windows-x64-Fassung mit enthaltener Laufzeit. Keine privaten Einstellungen/Lernstände, QA-Dateien, Originalprüfungen oder Debugsymbole. Anleitung, Projektlizenz, Drittanbieter-/Runtime-/QRCoder-Lizenzen und Windows-Helfer mit UTF-8-BOM vollständig.
+
+Native Prüfung auf 5250 mit eigenem synthetischem Altprofil: Auswahl-/Tastaturbedienung, eigener Strukturplan, alternative Ressourcenfolge, Netzplan und Museumsprüfung 50/50. Pause/EXE-Neustart bei 2684 Sekunden, Kontrollmarkierung und Antwortsperre erhalten. Alle alten Modulfelder einschließlich unsichtbarer Reasoning-Werte bewahrt. Alle 62 Paketdateien nach Lauf bitgleich; ältere Archive/Prüfsummen unverändert. Nachweis artifacts/alpha16-verification.json. Keine neue erhöhte Firewall-Einrichtung, physisches Zweitgerät oder persönliche SQL-Integration.
+
+GitHub: Tag **v0.1.1-alpha.16**, Titel **AP2 Lernwerk 0.1.1-alpha.16**, Zielcommit **1dbcb124859cf9dd31cda7296b02d8608bd3a2dc**, **Pre-release**. ZIP und SHA256 anhängen. Kurze Beschreibung: [Versionshinweise Alpha 16](../release/Versionshinweise-0.1.1-alpha.16.md). Nutzer veröffentlicht selbst; kein automatischer Tag/Upload/Commit/Push. Geprüftes ZIP/SHA256 und ältere Pakete nicht ersetzen.
+
+## Historisches Paket Alpha 15
 
 **Windows-Paket 0.1.1-alpha.15: am 11.11.2026 nach ausdrücklich bestätigtem Nutzer-Push gebaut und direkt aus dem ZIP geprüft.** Anwendungscode aus sauberem gepushtem Commit `3c7339f87745350d9a4b9c2a525095f7a3147775`, identisch mit direkt abgefragtem origin/master. Anleitung aus diesem Commit; kurze Versionshinweise anschließend ergänzt, Anwendungscode unverändert. Nachträgliche Prüfdokumentation separat committen.
 
@@ -200,3 +216,7 @@ Nach Konzept und ausdrücklichem Nutzer-GO ergänzt Abschnitt 06 Tests, Qualitä
 ## Quellfassung Alpha 16 – kein Paketauftrag
 
 Der Nutzer bestätigt Alpha 15 als hochgeladen. Abschnitt 07 Projekte und Wirtschaftlichkeit ist nach Konzept-GO in der Quellfassung 0.1.1-alpha.16 ergänzt: 454 Übungen, acht aktive Module. Ausschließlich Quellprojekt und getrennte Testausgaben bauen. Noch kein Windows-ZIP, kein Upload/Tag/Commit/Push. Das geprüfte Alpha-15-ZIP mit 51.622.353 Bytes und SHA256 `92f1f08e2b0b5cd6df8c31cba7704fc58655801ba7e6912a4950183c641245fa` sowie ältere Archive unverändert erhalten. Weitere Pakete nur auf ausdrücklichen Auftrag.
+
+## Startverhalten der Quellfassung nach Alpha 16
+
+Ist der konfigurierte Port beim Start belegt, nennt das Lernwerk die Browseradresse und empfiehlt, eine bereits laufende Instanz für einen Neustart zuerst zu beenden. Der zweite Prozess endet mit Exitcode 1. Im interaktiven Release-Fenster bestätigt der Nutzer die Meldung mit der Eingabetaste. Die Vorlage der Paketanleitung nennt alle acht Lernbereiche.

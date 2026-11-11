@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Net;
+using Microsoft.AspNetCore.Connections;
+using Microsoft.Extensions.Logging.Console;
 using FiaeTrainer.Core.Algorithms.Content;
 using FiaeTrainer.Core.BusinessStudies.Content;
 using FiaeTrainer.Core.Algorithms.Execution;
@@ -46,6 +48,11 @@ do
     }
     CultureInfo.DefaultThreadCurrentCulture = CultureInfo.GetCultureInfo("de-DE");
     CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.GetCultureInfo("de-DE");
+    // Der Host protokolliert Startfehler schon vor dem Weiterwerfen. Die Konsole erhält
+    // unten den konkreten Porthinweis, andere Startausnahmen bleiben über den Prozess sichtbar.
+    bool starting = true;
+    builder.Logging.AddFilter<ConsoleLoggerProvider>("Microsoft.Extensions.Hosting.Internal.Host",
+        level => level >= LogLevel.Information && (!starting || level != LogLevel.Error));
     builder.Services.AddRazorComponents().AddInteractiveServerComponents();
     builder.Services.AddSingleton<LessonCatalog>();
     builder.Services.AddSingleton<AlgorithmCatalog>();
@@ -113,6 +120,7 @@ do
     await app.Services.GetRequiredService<DatabaseState>().ConnectAsync();
     app.Lifetime.ApplicationStarted.Register(() =>
     {
+        starting = false;
         if (localRelease)
         {
             app.Logger.LogInformation("AP2 Lernwerk läuft lokal: {Address}", LocalReleaseConfiguration.BrowserAddress(app.Urls));
@@ -138,6 +146,23 @@ do
             catch (System.ComponentModel.Win32Exception exception) { app.Logger.LogWarning(exception, "Der Browser konnte nicht geöffnet werden. Öffne {Address} manuell.", browserAddress); }
         }
     });
-    await app.RunAsync();
+    string startupUrls = builder.Configuration["Urls"] ?? "http://localhost:5080";
+    try
+    {
+        await app.RunAsync();
+    }
+    catch (IOException error) when (starting && error.InnerException is AddressInUseException)
+    {
+        string address = LocalReleaseConfiguration.BrowserAddress(startupUrls.Split(';'));
+        Console.Error.WriteLine($"AP2 Lernwerk konnte nicht starten. Der Port für {address} ist bereits belegt.");
+        Console.Error.WriteLine($"Falls das Lernwerk schon läuft, öffne {address} im Browser. Für einen Neustart beende zuerst die laufende Instanz.");
+        if (localRelease && !Console.IsInputRedirected && !Console.IsErrorRedirected)
+        {
+            Console.Error.WriteLine("Drücke die Eingabetaste, um dieses Fenster zu schließen.");
+            Console.ReadLine();
+        }
+        Environment.ExitCode = 1;
+        break;
+    }
     firstStart = false;
 } while (networkRestart.Requested);

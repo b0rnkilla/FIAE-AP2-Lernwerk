@@ -1,6 +1,6 @@
 # Projektauftritt und freiwillige Unterstützung
 
-Stand: **11.11.2026 · Quellfassung 0.1.1-alpha.16**. Die fünf freigegebenen Projektaktionen sind unverändert umgesetzt und seit Alpha 8 in Windows-Paketen enthalten. Die README-Galerie bildet alle acht aktuellen Lernbereiche ab; kein neues Zahlungs-, GitHub- oder Veröffentlichungsverhalten.
+Die README zur ersten Beta **1.0.0-beta.1** zeigt alle acht Lernbereiche und führt Nutzer über GitHub-Releases zum veröffentlichten Windows-Paket. Die fünf Projektaktionen sind seit Alpha 8 verfügbar.
 
 ## Übersicht und Fußzeile
 
@@ -36,10 +36,10 @@ Der freigegebene öffentliche PayPal-Link lautet **https://www.paypal.com/paypal
 
 Die README führt mit Nutzen, direktem Release-Link, einem großen Übersichtsbild und einer kompakten Galerie durch die acht aktiven Module. Vier gleich breite Plätze je Tabellenreihe zeigen zuerst SQL, Algorithmen, UML und Datenbankentwurf, dann Softwareplanung/OOP, Qualitätssicherung, Projekte/Wirtschaftlichkeit und WiSo. Beschreibungen, Umfang und Bilder besitzen eigene Zeilen. Alle acht Vorschaubilder sind 120 Pixel hoch und zur großen Ansicht verlinkt; keine großen Einzelblöcke. Danach folgen drei Startschritte und Projektaktionen. Anwenderweg bleibt Releases → Windows-ZIP → Entpacken → EXE; Entwicklerdetails stehen in Fachdokumenten.
 
-Unter `docs/images` liegen die Übersicht sowie eigene Modulbilder einschließlich `qualitaet.png` und `projekte.png`. Bilder entstehen mit getrennten synthetischen Profilen, ohne Originalprüfungsabbildungen oder Nutzerlernstände. Die README beschreibt auf Nutzerwunsch die aktuelle App mit 454 Übungen. Das vom Nutzer veröffentlichte Alpha-15-ZIP bleibt unverändert bei 400; Paketstand und Historie stehen unter [lokale Releases](lokale-releases.md). Für Alpha 16 ist ausdrücklich kein neues ZIP beauftragt.
+Unter `docs/images` liegen die Übersicht sowie eigene Modulbilder einschließlich `qualitaet.png` und `projekte.png`. Bilder entstehen mit getrennten synthetischen Profilen, ohne Originalprüfungsabbildungen oder Nutzerlernstände. Die README beschreibt auf Nutzerwunsch die aktuelle App mit 454 Übungen. Das nach Nutzer-Push gebaute und geprüfte Alpha-16-ZIP enthält 454 Übungen; Veröffentlichung durch den Nutzer ausstehend. Das veröffentlichte Alpha-15-ZIP bleibt unverändert bei 400. Paketstand und Historie stehen unter [lokale Releases](lokale-releases.md).
 
 Die Link- und Darstellungsprüfung ist im [Testprotokoll](testprotokoll.md) festgehalten. Grundlage für die GitHub-Sternfunktion: [GitHub-Dokumentation](https://docs.github.com/en/get-started/exploring-projects-on-github/saving-repositories-with-stars).
 
 ## README mit acht Modulbildern seit Alpha 16
 
-Die kurze öffentliche README beschreibt die aktuelle App-Fassung mit 454 Übungen und allen acht aktiven Themen. Zwei Tabellen mit jeweils vier gleich großen Vorschaubildern (120 Pixel Höhe), Reihenfolge 01–04 und 05–08. Das eigene Netzplanbild `docs/images/projekte.png` und die erneuerte Übersicht stammen aus dem getrennten synthetischen Profil auf 5246, ohne private Lernstände. Aktueller Paketstand bleibt Alpha 15 mit 400 Übungen; kein Alpha-16-ZIP beauftragt.
+Die kurze öffentliche README beschreibt die aktuelle App-Fassung mit 454 Übungen und allen acht aktiven Themen. Zwei Tabellen mit jeweils vier gleich großen Vorschaubildern (120 Pixel Höhe), Reihenfolge 01–04 und 05–08. Das eigene Netzplanbild `docs/images/projekte.png` und die erneuerte Übersicht stammen aus dem getrennten synthetischen Profil auf 5246, ohne private Lernstände. Alpha 16 wurde anschließend ausdrücklich nach Nutzer-Push gebaut und aus dem ZIP geprüft; Das veröffentlichte Alpha-16-Paket enthält 454 Übungen.

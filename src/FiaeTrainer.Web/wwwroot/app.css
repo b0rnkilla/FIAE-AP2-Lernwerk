@@ -2674,7 +2674,7 @@ h1:focus {
 .quality-learning .mission-main, .quality-results, .quality-contract {
     min-width: 0;
 }
-.quality-learning h1, .quality-learning h2, .quality-test-case legend {
+.software-learning h1, .quality-learning h1, .quality-learning h2, .quality-test-case legend {
     overflow-wrap: anywhere;
 }
 .quality-fields {

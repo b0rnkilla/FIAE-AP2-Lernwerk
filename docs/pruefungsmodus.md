@@ -1,6 +1,6 @@
 # Prüfungsrunden und modulbezogene Trainingsprüfungen
 
-Stand: **11.11.2026 · Quellfassung 0.1.1-alpha.16**. Die getrennten Prüfungsrunden ergänzen 454 Lernübungen in acht Modulen, ohne deren Abschlusszähler zu verändern. SQL/Pseudocode besitzen 15 beziehungsweise zehn eigene Prüfungsaufgaben; Datenbankentwurf, UML, Softwareplanung, Qualitätssicherung und Projekte bieten jeweils drei Fälle mit drei Teilen. WiSo nutzt seinen eigenen Fragenbestand. Die Grundlagen unten beschreiben SQL/Pseudocode; ergänzende Modulverträge stehen am Ende. Zuletzt veröffentlicht: Alpha 15 mit 400 Übungen. Kein Alpha-16-Paketauftrag.
+In **1.0.0-beta.1** ergänzen die Prüfungsrunden 454 Lernübungen in acht Modulen. SQL und Pseudocode haben 15 beziehungsweise zehn eigene Prüfungsaufgaben. Datenbankentwurf, UML, Softwareplanung, Qualitätssicherung und Projekte bieten jeweils drei Fälle mit je drei Teilen. WiSo nutzt seinen eigenen Fragenbestand. Lernabschlüsse und Prüfungsergebnisse werden getrennt gespeichert.
 
 Historischer Grundstand Alpha 10: SQL-/Pseudocode-Prüfungen ergänzten 220 Lernübungen. Das damalige Alpha-8-Paket enthielt diese Runden noch nicht. Die bisherigen Prüfungsnachweise bleiben im Testprotokoll erhalten.
 

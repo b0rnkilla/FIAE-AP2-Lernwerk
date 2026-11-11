@@ -1,6 +1,6 @@
 # Entwicklung und Projektstruktur
 
-Quellstand: **0.1.1-alpha.16 mit Abschnitt 07 Projekte und Wirtschaftlichkeit**, 454 Lernübungen in allen acht Modulen. 54 neue eigene Aufgaben, 15 Planaufträge und drei Projektprüfungsfälle mit je drei Teilen. Zuletzt gebautes und laut Nutzer veröffentlichtes Windows-Paket: **0.1.1-alpha.15**, Code-Commit `3c7339f87745350d9a4b9c2a525095f7a3147775`, 400 Übungen. Dieses ZIP und alle älteren Pakete bleiben unverändert; **kein Alpha-16-Paket beauftragt**. Nachweise: [lokale Releases](lokale-releases.md), Fachvertrag: [Projekte](projekte.md). Es gelten die [Nutzungsbedingungen](../LICENSE).
+Die Quellfassung **1.0.0-beta.1** enthält 454 Lernübungen in acht Modulen und die sechs Korrekturen aus dem Abschlusscheck. Zuletzt veröffentlicht wurde das Windows-Paket **0.1.1-alpha.16** aus Commit `1dbcb12`. Der Paketbau für Beta 1 folgt nach Commit und Push. [Paketnachweise](lokale-releases.md), [Testprotokoll](testprotokoll.md).
 
 ## Orientierung
 
@@ -294,3 +294,7 @@ Auf Nutzerwunsch besitzen Abschnitt 05/06 keine freiwilligen Begründungs-/Notiz
 Nach genehmigtem Konzept mit neun Kapiteln und 54 eigenen Aufgaben umgesetzt. Projektstrukturpläne, Netz- und Gantt-Pläne entstehen aus eigenen Elementen, Obergruppen, Abhängigkeiten und Rechenwerten. Die Ansicht löst gesuchte Werte nicht automatisch. Freie Anzeigenamen, alternative gültige Terminierung und mehrere kritische Pfade werden berücksichtigt. Rechenfelder akzeptieren Dezimalkomma/Punkt bei ausdrücklich benannten Einheiten und Zeiträumen. Keine zusätzlichen Freitext-/Reflexionsfelder.
 
 `ProjectLessons`, `LastProjectLessonId`, `ProjectExam`, `ProjectHistory` ergänzen das Profil. Inhaltsversion 2026-11-11 nur im neuen Modul; gemeinsame atomare Sperre, Revisionen und UTC-Zeitbudget erhalten. Eigene Prüfungsfälle Bibliothek, Sportverein und Museum: 45 Minuten, 20/20/10 Punkte, Lösungen erst nach Abgabe. Einzelheiten, Grenzen und Quellen in [projekte.md](projekte.md). Quellbuild/automatische Prüfungen und eigener Browser auf 5246 im Testprotokoll. Kein neues ZIP, Commit/Push oder Upload.
+
+## Paketprüfung Alpha 16 aus 1dbcb12
+
+1.190 .NET-/31 JavaScript-Prüfungen erfolgreich, 20 persönliche SQL-Integrationen ausgelassen. Native EXE direkt aus der neuen ZIP auf 5250 mit getrenntem Altprofil: korrigierte Auswahlkarten, eigener Strukturplan, alternative Ressourcenfolge, Netzplan und Museumsprüfung 50/50. Pause/EXE-Neustart bei 2684 Sekunden, Markierung, Antwortsperre und alle bisherigen Profilfelder erfolgreich. 62 Dateien nach Lauf unverändert, private Dateien ausgeschlossen, Lizenzen vollständig. ZIP **51.705.122 Bytes**, SHA256 **7eec3a4f9d3404ad629795587065614d51fd1eb0f87aaa64b59bd71ceecc267e**, Nachweis artifacts/alpha16-verification.json. Keine neue erhöhte Firewall-/physische Zweitgeräte-/persönliche SQL-Prüfung. Nutzerbetrieb 5080 unberührt. Prüfdokumentation/Versionshinweise separat committen; kein automatischer Commit/Push/Tag/Upload.

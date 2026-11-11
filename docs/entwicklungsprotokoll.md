@@ -620,3 +620,23 @@ Pflichtdokumente, Fachvertrag mit Primärquellen, Benutzeranleitung und AGENTS n
 Nutzerrückmeldung: Checkboxen erschienen mitten in einem durchlaufenden Text. Der Projekteditor verwendete zwar einzelne Label, aber die neue project-options-Gruppe besaß keine eigenen Zeilen-/Checkboxregeln. Modulbezogen in project-management.css ergänzt: getrennte umrandete Flex-Zeilen, Abstand, feste nicht schrumpfende 20-Pixel-Checkboxen, umbrechender Text und sichtbarer Tastaturfokus. Die gesamte Aussage bleibt anklickbar. Gilt für Auswahl und Review im Lern- und Prüfungseditor. Keine Änderung an Inhalten, Bewertung, Profil oder Revision.
 
 Warnungsfreier Build und 17 bestehende Projekt-Komponentenprüfungen erfolgreich. Eigener Browser auf 5248 mit temporärem Profil: Aufgabe1 durch Textklick und Leertaste richtig gelöst, alle vier Aussagen einzeln angeordnet; Reviewaufgabe6 ebenfalls getrennt. Mobile Hellansicht 390 × 844 mit 375 Pixel Dokument-/Scrollbreite, dunkler Desktop und Fokus geprüft. Nachweise artifacts/qa-project-options. README geprüft, acht kompakte Bilder bleiben passend; Projektsteckbrief, Fachvertrag, Testprotokoll, Verbesserungsplan und AGENTS nachgeführt. Eigener Host/Tab beendet, Viewport zurückgesetzt, Nutzerbetrieb 5080 unberührt. Kein ZIP/Commit/Push/Upload.
+
+## 11.11.2026 – Alpha-16-ZIP nach bestätigt gepushtem Commit
+
+Vor Paketbau leere git-status-Ausgabe, HEAD und direkt abgefragter origin/master `1dbcb124859cf9dd31cda7296b02d8608bd3a2dc` bestätigt. Version zentral 0.1.1-alpha.16. Tatsächliche öffentliche Alpha15-/Alpha14-Beschreibungen über die GitHub-API gelesen; kurze Neu/Verbessert/Start-und-Update-Gliederung übernommen. Versionshinweise nach dem Code-Commit ergänzt, Anwendungscode und Anleitung unverändert. Keine vorhandenen Archive überschrieben.
+
+1.190 .NET-/31 JavaScript-Prüfungen erfolgreich, 20 persönliche SQL-Integrationen ausgelassen. Selbstständiges Windows-x64-ZIP mit 454 Übungen und allen acht Modulen erstellt. 62 Dateien, 51.705.122 Bytes, SHA256 `7eec3a4f9d3404ad629795587065614d51fd1eb0f87aaa64b59bd71ceecc267e`. Eigenständige EXE direkt aus dem entpackten Archiv auf eigenem Port 5250 geprüft, Production und getrenntes synthetisches Altprofil außerhalb des Programms. Auswahlkarten/Tastatur, eigener Strukturplan, alternative Ressourcenfolge, Netzplan und neue Museumsprüfung 50/50 erfolgreich. Pause/EXE-Neustart bei 2684 Sekunden, Markierung, Antwortsperre und alle bisherigen Modulfelder inklusive unsichtbarer Altbegründungen erhalten. Mobile Hellansicht ohne Dokumentüberlauf und dunkler Desktop geprüft.
+
+Paketdateien nach Lauf alle bitgleich, private/QA-/Debug-/Originalprüfungsdateien ausgeschlossen und Lizenzen vollständig. Alte Archive/Prüfsummen erhalten; Nachweis artifacts/alpha16-verification.json. README/Anleitung geprüft, Pflichtdokumente/Fachverträge/Paketstand nachgeführt; frühere Einträge bleiben Historie. Testhost/Tab beendet und Viewport zurückgesetzt, Nutzerbetrieb 5080/persönliche Profile unberührt. Tag v0.1.1-alpha.16 auf 1dbcb12, als Pre-release. Nutzer veröffentlicht selbst; kein automatischer Commit/Push/Tag/Upload und kein weiterer Inhaltsauftrag. Nachträgliche Prüfdokumentation und Versionshinweise separat committen. Geprüftes Archiv unverändert erhalten.
+
+## Nachlauf zu Alpha 16 – Vier Korrekturen aus dem Abschlusscheck
+
+Die Softwareplanungsprüfung zeigt für jede Teilaufgabe den zugehörigen Sachverhalt. Die gemeinsame UML-Bewertung akzeptiert den einzelnen Stern als Kurzform von `0..*`. Lange Aufgabentitel der Softwareplanung können auf schmalen Displays innerhalb eines Wortes umbrechen. Die internen Hinweise der Prüfungsfälle Radverleih, Paketstation, Bibliothek und Sportverein verwenden die jeweiligen Fallwerte. Die Änderungen betreffen die Quellfassung nach dem veröffentlichten Alpha-16-Paket.
+
+## Abschlusscheck Schritt 3 – Start und Anleitung
+
+Beim Portkonflikt meldet die zweite Instanz die lokale Browseradresse und erklärt den Neustart. Die interaktive Windows-Fassung wartet auf die Eingabetaste. Die Anleitung für das nächste Paket führt „Projekte & Wirtschaftlichkeit“ an siebter Stelle auf.
+
+## 11.11.2026 – Erste Beta vorbereitet
+
+Die zentrale Version wechselt von 0.1.1-alpha.16 auf 1.0.0-beta.1. Die erste Beta umfasst alle acht Lernbereiche mit 454 Übungen sowie die sechs nachgeprüften Korrekturen aus dem Abschlusscheck. Die versionsbezogenen Hinweise für die Windows-Ausgabe liegen unter [Versionshinweise zur Beta](../release/Versionshinweise-1.0.0-beta.1.md). Der vollständige Testlauf ist im [Testprotokoll](testprotokoll.md) dokumentiert.

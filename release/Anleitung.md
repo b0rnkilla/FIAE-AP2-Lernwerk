@@ -18,7 +18,7 @@ Im Fußbereich **Updates & SQL-Einrichtung** öffnen, die eigene Instanz auswäh
 
 ## Lernstand und Updates
 
-Über die Übersicht zwischen SQL, Pseudocode & Algorithmen, UML & Modellierung, Datenbankentwurf, Softwareplanung & OOP, Tests/Qualität/Sicherheit und Wirtschafts- & Sozialkunde wählen. Die Kopfnavigation beginnt immer mit Übersicht und Lernplan; die folgenden Links passen zum gewählten Lernbereich. Neue SQL- und Pseudocode-Aufgaben starten im Modus **Ohne Hilfe lösen**. **Geführt lernen** ergänzt Erklärungen, Hinweise, Spickzettel und Musterlösung; bei Pseudocode zusätzlich eine schrittweise Ablaufansicht. Pseudocode-Beispiele verwenden **=** für Zuweisungen und **==** für Gleichheitsvergleiche.
+Über die Übersicht zwischen SQL, Pseudocode & Algorithmen, UML & Modellierung, Datenbankentwurf, Softwareplanung & OOP, Tests/Qualität/Sicherheit, Projekte & Wirtschaftlichkeit und Wirtschafts- & Sozialkunde wählen. Die Kopfnavigation beginnt immer mit Übersicht und Lernplan; die folgenden Links passen zum gewählten Lernbereich. Neue SQL- und Pseudocode-Aufgaben starten im Modus **Ohne Hilfe lösen**. **Geführt lernen** ergänzt Erklärungen, Hinweise, Spickzettel und Musterlösung; bei Pseudocode zusätzlich eine schrittweise Ablaufansicht. Pseudocode-Beispiele verwenden **=** für Zuweisungen und **==** für Gleichheitsvergleiche.
 
 Es gibt 30 SQL-Ermittlungsaufgaben, zehn SQL-Werkstattaufgaben, 30 Pseudocode- und 150 WiSo-Aufgaben, zusammen mit 42 Datenbankentwurfs-, 36 UML-, 48 Softwareplanungs-, 54 Qualitäts- und 54 Projektaufgaben insgesamt 454. Der Pseudocode-Lernweg reicht von Bedingungen und Schleifen über Listen, Suche und Sortierung bis zu Funktionen und Rekursion. Schlüsselwörter wie **WENN**, **DANN** und **AUSGABE** müssen großgeschrieben sein. Im nummerierten Codefeld rückt **Tab** ein, **Umschalt+Tab** aus. **Esc, danach Tab** verlässt das Codefeld; reine Ausgabe- und Testfallantworten behalten die normale Tab-Navigation. Alle Spickzettel besitzen einen Rückweg zum Lernen.
 
@@ -28,7 +28,7 @@ Lernstände und persönliche Einstellungen liegen unter **%LOCALAPPDATA%\AP2-Ler
 
 Die abschaltbare Updateprüfung liest öffentliche GitHub-Releases und zeigt neue passende Windows-Versionen an. Für ein Update die App beenden, das neue vollständige ZIP in einen neuen Ordner entpacken und die neue EXE starten. Es findet kein automatischer Dateiaustausch statt. Der Lernstand bleibt im Benutzerordner. Solange das Repository oder der Release privat ist, kann die anonyme Prüfung ihn nicht erkennen.
 
-Die App zeigt nur **höhere** Versionsnummern als Update an. Zum Testen muss daher beispielsweise eine laufende 0.1.1-alpha.4 auf ein veröffentlichtes Paket 0.1.1-alpha.7 treffen. Derselbe Release wird nicht als neues Update gemeldet.
+Die App zeigt **höhere** Versionsnummern als Update an. Sobald die erste Beta als Windows-ZIP veröffentlicht ist, kann Alpha 16 sie als Update auf **1.0.0-beta.1** anbieten.
 
 ## SQL- und Pseudocode-Prüfungen
 

@@ -1,6 +1,6 @@
 # Stand und weitere Entwicklung
 
-Entwicklungsstand: **0.1.1-alpha.16 · 11.11.2026**, acht aktive Module und 454 Lernübungen einschließlich Projekte und Wirtschaftlichkeit. Zuletzt gebautes Windows-Paket: **0.1.1-alpha.15**, aus 3c7339f geprüft und laut Nutzer veröffentlicht; 400 Übungen. Bestehende Archive/Prüfsummen unverändert. **Kein Alpha-16-ZIP beauftragt.** Historie: [Entwicklungsprotokoll](entwicklungsprotokoll.md), Nachweise: [Testprotokoll](testprotokoll.md).
+Die Quellfassung **1.0.0-beta.1** umfasst acht Lernbereiche mit 454 Übungen. Die sechs Befunde aus dem Abschlusscheck sind behoben und nachgeprüft. Alpha 16 aus Commit `1dbcb12` ist auf GitHub veröffentlicht. [Entwicklungsprotokoll](entwicklungsprotokoll.md), [Testprotokoll](testprotokoll.md).
 
 ## Umgesetzte Rückmeldungen
 
@@ -179,3 +179,13 @@ Der Nutzer hat Alpha 15 veröffentlicht und das vorgestellte Konzept für Projek
 ## 11.11.2026 – Checkboxdarstellung Abschnitt 07 berichtigt
 
 Auf Nutzerrückmeldung durchlaufende Auswahltexte in eigenständige, voll anklickbare Auswahlkarten umgestaltet. Feste Checkboxgröße, Textumbruch, Abstand und sichtbarer Tastaturfokus gelten für Auswahl- und Reviewaufgaben. Warnungsfreier Build, 17 Komponentenprüfungen und isolierter Browser auf 5248 (Desktop dunkel/Handy hell) erfolgreich. README geprüft, Darstellung der acht Module unverändert passend. Keine Inhalts-/Profilrevision und kein ZIP; Nutzer testet weiter.
+
+## 11.11.2026 – Alpha-16-ZIP nach Nutzer-Push erledigt
+
+Sauberer HEAD und direkt abgefragter origin/master 1dbcb12 bestätigt. Anwendungscode unverändert gepackt, kurze Versionshinweise im Stil der tatsächlichen öffentlichen Alpha15-/Alpha14-Beschreibungen ergänzt. 454 Übungen, alle acht Module, neue Projektprüfungen und korrigierte Auswahlkarten. 1.190 .NET-/31 JavaScript-Prüfungen erfolgreich, 20 SQL-Integrationen ausgelassen. Native EXE aus dem ZIP: Pläne/alternative Reihenfolge, Prüfung 50/50, Pause/Neustart und alle Altprofilfelder erhalten. 62 Dateien nach Lauf bitgleich. ZIP/SHA256 vorhanden, alte Archive unverändert; Nutzer veröffentlicht selbst mit Tag v0.1.1-alpha.16 auf 1dbcb12. Kein automatischer Tag/Upload/Commit/Push, keine weiteren Inhalte aus diesem Paketauftrag ableiten.
+
+## Abschlusscheck nach Alpha 16
+
+AB-01 bis AB-04 in der Quellfassung behoben und nachgeprüft. Einzelbefunde und Messergebnisse stehen im [Testprotokoll](testprotokoll.md).
+
+Die beiden Befunde aus Schritt 3 (AB-05 und AB-06) sind in der Quellfassung behoben. Die Nachprüfung ist im [Testprotokoll](testprotokoll.md) dokumentiert.

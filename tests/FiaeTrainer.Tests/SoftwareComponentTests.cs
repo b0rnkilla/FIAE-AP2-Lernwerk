@@ -128,6 +128,28 @@ public sealed class SoftwareComponentTests : IDisposable
         return (string)type.GetField("ReturnPath", flags)!.GetValue(reference)!;
     }
 
+    [Theory]
+    [InlineData("radverleih")]
+    [InlineData("reparatur")]
+    [InlineData("kurse")]
+    public async Task EachExamPartShowsItsOwnCaseContext(string caseId)
+    {
+        using var services = Services();
+        var store = services.GetRequiredService<ProgressStore>();
+        var exam = _catalog.Cases.Single(item => item.Id == caseId);
+        var round = new SoftwareExamRound { CaseId = caseId };
+        await store.StartSoftwareExamAsync(round, _catalog);
+        for (int index = 0; index < exam.Tasks.Count; index++)
+        {
+            round.Index = index;
+            round = await store.SaveSoftwareExamAsync(round, _catalog);
+            string html = await RenderAsync<SoftwareExam>(services);
+            Assert.Contains($"<p>{exam.Tasks[index].Story}</p>", html);
+            Assert.Contains(exam.Tasks[index].Task, html);
+            Assert.DoesNotContain("Musterlösung mit Erklärung", html);
+        }
+    }
+
     [Fact]
     public async Task ExamEntryOnlyReadsPauseHidesAndSubmittedAnswersAreDisabled()
     {

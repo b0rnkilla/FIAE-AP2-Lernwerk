@@ -192,7 +192,7 @@
         "discovery": "",
         "hints": [
           "Schulung ist hier einmalig.",
-          "Die laufende Gebühr wird 36-mal fällig.",
+          "Die monatliche Gebühr fällt über den Betrachtungszeitraum 24-mal an.",
           "Addiere erst nach gleicher Zeitraumzuordnung."
         ],
         "fields": [
@@ -519,7 +519,7 @@
         "discovery": "",
         "hints": [
           "Multipliziere statt ungewichtet zu addieren.",
-          "Verwende Anteile 0,40/0,35/0,25.",
+          "Gewichte Bedienung mit 0,50, Unterstützung mit 0,30 und Passung mit 0,20.",
           "Addiere erst die gewichteten Teilwerte."
         ],
         "fields": [

@@ -16,7 +16,14 @@
         else
         {
             <div class="design-exam-overview" role="group" aria-label="Teilaufgaben">@for (int i = 0; i < 3; i++) { int index = i; <button class="button secondary" disabled="@(_busy || _error != null)" aria-pressed="@(_round.Index == i ? "true" : "false")" @onclick="() => GoAsync(index)">Aufgabe @(i + 1)@(_round.FlaggedIds.Contains(i + 1) ? " ⚑" : "")</button> }</div>
-            <div class="eyebrow">@_case.Title · @_case.Points[_round.Index] Punkte</div><h1 class="business-question-title">@Current.Title</h1><section class="business-scenario"><h2>Dein Prüfungsfall</h2><p>@_case.Scenario</p></section><section class="task-card"><p>@Current.Task</p></section>
+            <div class="eyebrow">@_case.Title · @_case.Points[_round.Index] Punkte</div>
+            <h1 class="business-question-title">@Current.Title</h1>
+            <section class="business-scenario">
+                <h2>Dein Prüfungsfall</h2>
+                <p>@_case.Scenario</p>
+                <p>@Current.Story</p>
+            </section>
+            <section class="task-card"><p>@Current.Task</p></section>
             @if (Current.Material.Length > 0) { <section class="software-material"><h2>Deine Arbeitsunterlage</h2><pre class="software-code">@Current.Material</pre></section> }
             <SoftwareEditor @key="Current.Id" Task="Current" Answer="Answer" Changed="SaveAsync" ReadOnly="@(_busy || _error != null || _round.FinishedUtc != null)" />
             @if (_round.FinishedUtc != null) { <SoftwareExamFeedback Result="_round.Results[Current.Id]" Maximum="_case.Points[_round.Index]" /><details class="exam-solution"><summary>Musterlösung mit Erklärung</summary><p>@Current.Explanation</p><SoftwareSolution Task="Current" Answer="@(Current.Solutions.FirstOrDefault() ?? new())" /></details> }

@@ -105,7 +105,7 @@
         "discovery": "",
         "hints": [
           "Ein beobachteter Wert ist nicht automatisch der richtige Wert.",
-          "Berechne zunächst den vollen Centbetrag und dann 80 Prozent davon.",
+          "Addiere für den Sollwert den Expresszuschlag von 3 Euro zum Grundpreis von 8 Euro.",
           "Die Gleichheitsassertion verlangt zwei gleiche Werte."
         ],
         "fields": [

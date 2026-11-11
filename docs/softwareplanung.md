@@ -1,6 +1,6 @@
 # Softwareplanung und OOP – Abschnitt 05
 
-Quell- und geprüfter Paketstand **0.1.1-alpha.15**, Inhaltsvertrag unverändert **2026-11-09**. 48 eigene Lernaufgaben und drei eigene Prüfungsfälle mit je drei Teilen. Abschnitt 05 ist seit dem aus 33f09a7 gebauten Alpha-14-ZIP enthalten. Alpha 15 aus 3c7339f übernimmt den Umfang ohne zusätzliche Begründungs-/Selbstkontrollfelder; vorhandene Profile bleiben erhalten. Die früheren Pakete bleiben unverändert.
+Die Quellfassung **1.0.0-beta.1** umfasst 48 Lernaufgaben und drei Prüfungsfälle mit je drei Teilen. Der Inhaltsvertrag gilt seit **2026-11-09**. Seit Beta 1 zeigt jede Teilaufgabe der Prüfung ihren eigenen Falltext.
 
 ## Lernweg und Umfang
 
@@ -43,6 +43,8 @@ Im Lernen enthält genau eine Ergebniskarte Rückmeldung, Erkenntnis und Hilfene
 
 ## Prüfungsfälle
 
+In der Quellfassung nach Alpha 16 zeigt jede Teilaufgabe unter „Dein Prüfungsfall“ zuerst das gemeinsame Szenario und dann die Situation der aktuellen Teilaufgabe. So lässt sich beispielsweise im Reparaturfall das passende Muster aus dem beschriebenen Benachrichtigungsvertrag herleiten.
+
 | Kennung | Eigener Fall | Drei unabhängig bearbeitbare Ausschnitte |
 | --- | --- | --- |
 | radverleih | Fahrräder für das Wochenende | Messbarer Suchvertrag, Schichtenarchitektur, API zum Anlegen einer Ausleihe |
@@ -71,3 +73,7 @@ Fachliche Orientierung geprüft am 09.11.2026. Eigene Trainingsfälle; Altprüfu
 - [W3C WAI: Forms Tutorial](https://www.w3.org/WAI/tutorials/forms/): Beschriftung, Gruppen, Hinweise und Rückmeldungen.
 
 Am 11.11.2026 hat der Nutzer nach kurzem Einblick und einigen gelösten Aufgaben die Umsetzung positiv bewertet. Die ausführliche Erprobung aller Aufgaben/Prüfungsfälle und Zeitkalibrierung bleiben offen. Prüfnachweise stehen im [Testprotokoll](testprotokoll.md). Nach dem Nutzer-Commit/Push wurde Alpha 14 am 11.11.2026 aus dem ZIP geprüft: API-/XML-/Formularaufgaben und Softwareprüfung 50/50 einschließlich Pause/Hostneustart, alter Profilfelder und unveränderter Paketdateien. Tag und Veröffentlichung erfolgen durch den Nutzer.
+
+## Unveränderter Modulstand im Alpha-16-Paket
+
+Das nach Nutzer-Push aus 1dbcb12 gebaute und geprüfte Alpha-16-ZIP enthält dieses Modul unverändert sowie Abschnitt 07 Projekte und Wirtschaftlichkeit; insgesamt 454 Übungen in acht Modulen. Historische Profilfelder blieben im isolierten nativen Pakettest erhalten. Details: [lokale Releases](lokale-releases.md), [Testprotokoll](testprotokoll.md). Alpha 16 wurde vom Nutzer veröffentlicht.

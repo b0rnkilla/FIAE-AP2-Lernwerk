@@ -4,13 +4,14 @@
 | --- | --- |
 | Anwendung | AP2 Lernwerk |
 | Projektmappe | FIAE_AP2_Trainer.sln |
-| Entwicklungsfassung | 0.1.1-alpha.16 · 11.11.2026 · Abschnitt 07 Projekte und Wirtschaftlichkeit |
-| Zuletzt gebautes Windows-Paket | 0.1.1-alpha.15, bestätigter gepushter Code-Commit 3c7339f, aus dem ZIP geprüft am 11.11.2026; kurze Versionshinweise nach dem Commit ergänzt, laut Nutzer veröffentlicht |
-| Alpha-15-Freigabe | Nach Nutzer-Commit/Push ausdrücklich beauftragt, ZIP und native Prüfung erfolgreich; Tag v0.1.1-alpha.15 auf 3c7339f, Veröffentlichung durch Nutzer |
+| Entwicklungsfassung | 1.0.0-beta.1 mit allen acht Lernbereichen und den sechs Korrekturen aus dem Abschlusscheck |
+| Zuletzt gebautes Windows-Paket | 0.1.1-alpha.16 aus Commit 1dbcb12, am 11.11.2026 geprüft und vom Nutzer veröffentlicht |
+| Alpha-16-Freigabe | Nach Nutzer-Commit/Push ausdrücklich beauftragt, ZIP und native Prüfung erfolgreich; Tag v0.1.1-alpha.16 auf 1dbcb12, Veröffentlichung durch Nutzer |
 | Plattform | Windows, lokale Browseroberfläche |
 | Technik | C#, .NET 10, ASP.NET Core, Blazor, Microsoft SQL Server |
 | Verfügbar im Quellstand | 40 SQL-, 30 Algorithmus-, 36 UML-, 42 Datenbankentwurfs-, 48 Softwareplanungs-, 54 Qualitäts-, 54 Projekt- und 150 WiSo-Aufgaben: 454 Lernübungen in acht Modulen; zusätzlich 25 SQL-/Pseudocode-Prüfungsaufgaben sowie je drei Entwurfs-, UML-, Softwareplanungs-, Qualitäts- und Projektprüfungen mit je neun Teilen |
-| Inhalt Windows-Paket Alpha 15 | 400 Lernübungen in sieben Modulen, 25 SQL-/Pseudocode-Prüfungsaufgaben und je drei Datenbankentwurfs-, UML-, Softwareplanungs- und Qualitätsprüfungsfälle |
+| Inhalt Windows-Paket Alpha 16 | 454 Lernübungen in acht Modulen, 25 SQL-/Pseudocode-Prüfungsaufgaben und je drei Datenbankentwurfs-, UML-, Softwareplanungs-, Qualitäts- und Projektprüfungsfälle |
+| Historischer Inhalt Windows-Paket Alpha 15 | 400 Lernübungen in sieben Modulen, 25 SQL-/Pseudocode-Prüfungsaufgaben und je drei Datenbankentwurfs-, UML-, Softwareplanungs- und Qualitätsprüfungsfälle |
 | Historischer Inhalt Windows-Paket Alpha 14 | 346 Lernübungen in sechs Modulen, 25 SQL-/Pseudocode-Prüfungsaufgaben und jeweils drei Datenbankentwurfs-, UML- und Softwareplanungs-Prüfungsfälle |
 | Historischer Inhalt Windows-Paket Alpha 13 | 298 Lernübungen in fünf Modulen, 25 SQL-/Pseudocode-Prüfungsaufgaben sowie je drei Datenbankentwurfs- und UML-Prüfungsfälle |
 | Historischer Inhalt Windows-Paket Alpha 12 | 250 Lernübungen plus 25 SQL-/Pseudocode-Prüfungsaufgaben und drei Entwurfsfälle; Heimnetz in derselben EXE |

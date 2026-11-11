@@ -1,6 +1,6 @@
 # Tests, Qualität und Sicherheit – Abschnitt 06
 
-Quell- und geprüfter Paketstand **0.1.1-alpha.15**, Inhaltsvertrag **2026-11-11**. 54 eigene Lernaufgaben, acht feste lokale Testmodelle und drei eigene Prüfungsfälle mit je drei Teilen. Auf ausdrücklichen Auftrag am 11.11.2026 aus gepushtem Code-Commit `3c7339f` als Windows-ZIP gebaut und nativ geprüft; kurze Versionshinweise nach dem Code-Commit ergänzt. 400 Lernübungen in sieben Modulen, nur Abschnitt 07 vorbereitet. Nutzer lädt als Pre-release hoch; frühere Archive bleiben unverändert.
+Die Quellfassung **1.0.0-beta.1** umfasst 54 Lernaufgaben, acht feste lokale Testmodelle und drei Prüfungsfälle mit je drei Teilen. Der Inhaltsvertrag gilt seit **2026-11-11**. Abschnitt 06 ist seit Alpha 15 im Windows-Paket enthalten.
 
 ## Lernweg
 
@@ -89,3 +89,7 @@ Am 11.11.2026 auf Nutzerwunsch vollständig aus Lern-/Prüfungsansichten entfern
 ## Native Paketprüfung Alpha 15
 
 Direkt aus dem ZIP auf eigenem Port 5244 ohne SQL: eigene Klassenvertreter -8/17/39 akzeptiert, falscher Sollwert abgelehnt und alte Ausführung bei Antwortänderung verworfen. Reparatur 33 mit eigenem vierten Testfall korrekt, Ausgangskopie unverändert. Paketstationsprüfung vollständig per Oberfläche mit alternativen Versandwerten bearbeitet, bei 44:39 pausiert und nach EXE-Neustart mit Entwürfen/Markierung fortgesetzt; endgültig 50/50 und gesperrte Antworten. Alle bisherigen synthetischen Modulfelder einschließlich altem unsichtbarem Reasoning-Text erhalten. Kein Zusatzfreitext in Lernen/Prüfung; mobile Seite innerhalb der Bildschirmbreite. Einzelheiten und Grenzen: Testprotokoll. ZIP/SHA256 unverändert erhalten; Veröffentlichung übernimmt der Nutzer.
+
+## Unveränderter Modulstand im Alpha-16-Paket
+
+Das nach Nutzer-Push aus 1dbcb12 gebaute und geprüfte Alpha-16-ZIP enthält dieses Modul unverändert sowie Abschnitt 07 Projekte und Wirtschaftlichkeit; insgesamt 454 Übungen in acht Modulen. Historische Profilfelder blieben im isolierten nativen Pakettest erhalten. Details: [lokale Releases](lokale-releases.md), [Testprotokoll](testprotokoll.md). Alpha 16 wurde vom Nutzer veröffentlicht.

@@ -55,7 +55,12 @@ public static class UmlRules
     /// <summary> Gültige, bewusst begrenzte Multiplizitäten; n und * sind gleichbedeutend. </summary>
     private static bool Multiplicity(string value) => NormalizeMultiplicity(value) is "1" or "0..1" or "0..*" or "1..*" or "2..*";
     /// <summary> Entfernt lediglich Schreibvarianten, keine fachlichen Unterschiede. </summary>
-    public static string NormalizeMultiplicity(string value) => value.Trim().Replace(" ", "").Replace("n", "*").Replace("N", "*") is var text && text == "1..1" ? "1" : text;
+    public static string NormalizeMultiplicity(string value) => value.Trim().Replace(" ", "").Replace("n", "*").Replace("N", "*") switch
+    {
+        "*" => "0..*",
+        "1..1" => "1",
+        var text => text
+    };
     /// <summary> Vereinheitlicht übliche Typnamen; Double und Decimal bleiben verschiedene Typen. </summary>
     public static string NormalizeType(string value) => value.Trim().ToLowerInvariant() switch { "integer" or "ganzzahl" => "int", "boolean" or "wahrheitswert" => "bool", "text" or "zeichenkette" => "string", "nichts" => "void", var text => text };
     /// <summary> Begrenzt lokale Texte, ohne Entwürfe beim Speichern fachlich vorzeitig abzulehnen. </summary>
