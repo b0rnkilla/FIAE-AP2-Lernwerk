@@ -65,4 +65,12 @@ public sealed class TrainingProgress
 
     /// <summary> Wählt den getrennten Fortschrittsbereich. </summary>
     public Dictionary<int, LessonProgress> GetLessons(LearningArea area) => area == LearningArea.Investigation ? Lessons : WorkshopLessons;
+    /// <summary> Letzter besuchter Schritt der Qualitätssicherung. </summary>
+    public int LastQualityLessonId { get; set; } = 1;
+    /// <summary> Getrennte Testentwürfe und Abschlüsse. </summary>
+    public Dictionary<int, FiaeTrainer.Core.QualityAssurance.Practice.QualityProgress> QualityLessons { get; set; } = [];
+    /// <summary> Aktuelle oder zuletzt abgegebene Qualitätsprüfung. </summary>
+    public FiaeTrainer.Core.QualityAssurance.Practice.QualityExamRound? QualityExam { get; set; }
+    /// <summary> Höchstens zwanzig endgültige Qualitätsprüfungen. </summary>
+    public List<FiaeTrainer.Core.QualityAssurance.Practice.QualityExamRound> QualityHistory { get; set; } = [];
 }

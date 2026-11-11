@@ -1,6 +1,16 @@
 # AP2 Lernwerk lokal starten
 
-## Aktuelles Paket Alpha 13
+## Aktuelles Paket Alpha 14
+
+**Windows-Paket 0.1.1-alpha.14: am 11.11.2026 nach ausdrücklich bestätigtem Nutzer-Push gebaut und aus dem ZIP geprüft.** Sauberer HEAD und direkt abgefragter Remote-master `33f09a7f896839962c9a29f0a9167d24ae9aa181`. Code, Anleitung und Versionshinweise aus diesem Commit; nachträgliche Prüfdokumentation separat. Enthalten: **346 Lernübungen in sechs Modulen**, 25 SQL-/Pseudocode-Prüfungsaufgaben sowie je drei Datenbankentwurfs-, UML- und Softwareplanungs-Prüfungsfälle mit neun Teilen je Modul. Abschnitt 05: 48 Aufgaben in acht Kapiteln und eigene Architektur-/API-/Formularentwürfe.
+
+Datei: `artifacts/releases/AP2-Lernwerk-0.1.1-alpha.14-win-x64.zip`, **51.548.922 Bytes (49,16 MiB)**, 59 Paketdateien, zusätzlich `.zip.sha256`. SHA256: `34f0a09a7de8d667960ca52c80b525f553a7295b20dff02294cc0d00d8be1ef8`. Eigenständige win-x64-Laufzeit; keine privaten Einstellungen/Profile, Originalprüfungen, QA-Dateien oder Debugsymbole. Projektlizenz, eigenständige Drittanbieter-/Runtime-/QRCoder-Lizenzen und Windows-PowerShell-BOM-Helfer vollständig.
+
+GitHub: Tag **v0.1.1-alpha.14**, Titel **AP2 Lernwerk 0.1.1-alpha.14**, Zielcommit **33f09a7f896839962c9a29f0a9167d24ae9aa181**, **Pre-release**. ZIP und SHA256 anhängen. Beschreibung: [Versionshinweise Alpha 14](../release/Versionshinweise-0.1.1-alpha.14.md). Veröffentlichung als Alpha-14-Pre-release vom Nutzer bestätigt. Kein automatischer Upload/Commit/Push. Das geprüfte ZIP nicht ersetzen.
+
+1.090 .NET- und 31 JavaScript-Prüfungen erfolgreich, 20 echte SQL-Integrationen ausgelassen. Native EXE auf Port 5236 mit eigenem temporärem Profil und unerreichbarem SQL-Ziel: API32, XML35 und Formular39 erfolgreich; eigene Beschriftung erhalten, Vorschau benennt fehlende Pflichtangaben. Prüfungsfall Fahrradverleih vollständig per Oberfläche beantwortet, bei 44:39/Teil2/Markierung pausiert, EXE neu gestartet und unverändert fortgesetzt; Abgabe **50/50**, Antworten gesperrt, Historie einmal. Alle alten synthetischen Modulfelder und 59 Paketdateien nach Lauf unverändert. Nachweis artifacts/alpha14-verification.json. Kein kompletter 45-Minuten-Endnutzerlauf, neues physisches Gerät oder erneute erhöhte Firewall-Einrichtung Teil dieses Tests.
+
+## Historisches Paket Alpha 13
 
 **Windows-Paket 0.1.1-alpha.13: am 09.11.2026 ausdrücklich beauftragt, gebaut und aus dem ZIP geprüft.** Anwendungscode aus dem sauberen und remote bestätigten Commit `b4224b0b87f3f66a742e4b25bdbb9dacf7aeb9d5`. Die Versionshinweise wurden nach dem Commit ergänzt; Anwendungscode und Version blieben unverändert. Enthalten: **298 Lernübungen in fünf Modulen**, 25 SQL-/Pseudocode-Prüfungsaufgaben, drei Datenbankentwurfs- und drei UML-Prüfungsfälle mit jeweils neun Teilaufgaben je Modul. UML mit 36 Aufgaben, Datenbankentwurf mit 42 Aufgaben einschließlich Gestaltung und Storynachlauf.
 
@@ -166,3 +176,11 @@ Seit 09.11.2026 ergänzt die ausdrücklich freigegebene Quellfassung Abschnitt 0
 ## Quellfassung Alpha 14 – Paket nach Nutzer-Push beauftragt
 
 Abschnitt 05 Softwareplanung und OOP ergänzt 48 Lernübungen und drei eigene Prüfungsfälle; insgesamt 346 Übungen in sechs Modulen. Version zentral in Directory.Build.props auf 0.1.1-alpha.14. Nur Quellprojekt/Testausgabe gebaut und mit eigenem Profil geprüft. Das obige Alpha-13-ZIP samt SHA256 bleibt unverändert bei 298 Übungen. Änderungen an der Anleitung im Quellprojekt verändern keine bereits geprüften Archive. Am 11.11.2026 hat der Nutzer das Windows-ZIP und Release-Informationen ausdrücklich **nach seinem Commit und Push** beauftragt. Erste Nutzererprobung von Abschnitt 05 positiv, ausführliche Prüfung/Zeitkalibrierung weiter offen. Versionshinweise unter [Alpha 14](../release/Versionshinweise-0.1.1-alpha.14.md) vorbereitet. Zielcommit, ZIP/SHA256 und native Paketprüfung erst nach dem Push bestimmen. Bestehende Archive erhalten; Veröffentlichung führt der Nutzer selbst aus.
+
+## Abschluss Alpha-14-Paketauftrag
+
+Nach dem oben protokollierten Auftrag hat der Nutzer Commit und Push bestätigt. Paketbau und native Prüfung am 11.11.2026 erfolgreich abgeschlossen; endgültige Datei-, Commit- und Release-Angaben stehen im aktuellen Paketabschnitt oben. Ältere Beauftragt-/Noch-nicht-gebaut-Vermerke bleiben als Historie erhalten.
+
+## Quellfassung Alpha 15 – Abschnitt 06, ausdrücklich kein ZIP
+
+Nach Konzept und ausdrücklichem Nutzer-GO ergänzt Abschnitt 06 Tests, Qualität und Sicherheit 54 eigene Lernaufgaben und drei eigene Prüfungsfälle. Zentralversion 0.1.1-alpha.15; 400 Übungen in sieben Modulen. Ausschließlich Quellprojekt bauen und mit getrenntem Profil testen. Der Nutzer testet anschließend. Kein neues ZIP, kein Upload/Commit/Push und kein Beginn von Abschnitt 07. Das veröffentlichte Alpha-14-Paket aus 33f09a7 mit 346 Übungen, dessen SHA256 und alle älteren Archive bleiben unverändert.

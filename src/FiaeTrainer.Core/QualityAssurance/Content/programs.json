@@ -1,0 +1,456 @@
+[
+  {
+    "key": "capacity",
+    "title": "Personenzahl prüfen",
+    "contract": "Der Eingang people ist eine ganze Zahl. Zulässig sind einschließlich 1 bis 24 Personen. Für diese Werte lautet die Rückgabe WAHR, sonst FALSCH. Der Testdatenbereich reicht von -10 bis 40; negative und zu große Werte sind absichtlich testbar.",
+    "code": "[D1] WENN people < 1 ODER people > 24 DANN\n    [S1] RÜCKGABE FALSCH\nENDE WENN\n[S2] RÜCKGABE WAHR",
+    "inputs": [
+      {
+        "key": "people",
+        "label": "Personenzahl",
+        "kind": "Number",
+        "minimum": -10,
+        "maximum": 40,
+        "options": {}
+      }
+    ],
+    "statements": {
+      "S1": "S1: unzulässige Zahl ablehnen",
+      "S2": "S2: zulässige Zahl bestätigen"
+    },
+    "branches": {
+      "D1.T": "D1 – wahr",
+      "D1.F": "D1 – falsch"
+    },
+    "partitions": {
+      "below": "weniger als 1",
+      "valid": "1 bis 24 einschließlich",
+      "above": "mehr als 24",
+      "min": "untere Grenze 1",
+      "max": "obere Grenze 24",
+      "before-min": "unmittelbar unter der Grenze: 0",
+      "after-max": "unmittelbar über der Grenze: 25"
+    },
+    "faults": {
+      "exclude-min": "1 wird fälschlich abgelehnt",
+      "exclude-max": "24 wird fälschlich abgelehnt",
+      "accept-zero": "0 wird fälschlich zugelassen"
+    },
+    "paths": {
+      "D1.T": "Ablehnung",
+      "D1.F": "Zulassung"
+    },
+    "outputKind": "Boolean",
+    "outputOptions": {}
+  },
+  {
+    "key": "fee",
+    "title": "Gruppenbeitrag in Cent",
+    "contract": "Für 1 bis 24 Personen werden je 1200 Cent berechnet. Nur bei Vereinsmitgliedschaft UND mindestens 10 Personen erhält die gesamte Gruppe 20 Prozent Nachlass. Andere Personenzahlen liefern -1. Die Rückgabe ist immer eine ganze Centzahl. Jeder Fall ist eine neue unabhängige Anfrage.",
+    "code": "[D1] WENN people < 1 ODER people > 24 DANN\n    [S1] RÜCKGABE -1\nENDE WENN\n[S2] fee = people * 1200\n[D2] WENN member UND people >= 10 DANN\n    [S3] fee = fee * 80 / 100\nENDE WENN\n[S4] RÜCKGABE fee",
+    "inputs": [
+      {
+        "key": "people",
+        "label": "Personenzahl",
+        "kind": "Number",
+        "minimum": -5,
+        "maximum": 30,
+        "options": {}
+      },
+      {
+        "key": "member",
+        "label": "Vereinsmitgliedschaft",
+        "kind": "Select",
+        "options": {
+          "true": "Ja",
+          "false": "Nein"
+        }
+      }
+    ],
+    "statements": {
+      "S1": "S1: ungültige Gruppe ablehnen",
+      "S2": "S2: Grundbeitrag berechnen",
+      "S3": "S3: Nachlass anwenden",
+      "S4": "S4: Centbetrag zurückgeben"
+    },
+    "branches": {
+      "D1.T": "D1 – wahr",
+      "D1.F": "D1 – falsch",
+      "D2.T": "D2 – wahr",
+      "D2.F": "D2 – falsch"
+    },
+    "partitions": {
+      "below": "weniger als 1 Person",
+      "above": "mehr als 24 Personen",
+      "discount": "Mitglied mit Nachlass",
+      "member-small": "Mitglied unter der Nachlassgrenze",
+      "nonmember": "zulässige Gruppe ohne Mitgliedschaft",
+      "before-threshold": "9 Personen",
+      "threshold": "10 Personen",
+      "after-threshold": "11 Personen"
+    },
+    "faults": {
+      "strict-threshold": "Nachlass beginnt erst bei 11",
+      "wrong-discount": "nur 10 statt 20 Prozent Nachlass",
+      "ignore-member": "Nachlass auch ohne Mitgliedschaft"
+    },
+    "paths": {
+      "D1.T": "ungültige Gruppe",
+      "D1.F|D2.T": "Gruppe mit Nachlass",
+      "D1.F|D2.F": "Gruppe ohne Nachlass"
+    },
+    "outputKind": "Number",
+    "outputOptions": {}
+  },
+  {
+    "key": "rental",
+    "title": "Ausleihgebühr berechnen",
+    "contract": "Eine Ausleihe dauert einschließlich 1 bis 14 Tage. Jeder Tag kostet 7 Euro. Bei gemeldetem Schaden werden einmalig 20 Euro addiert. Ungültige Tageszahlen liefern -1. Rückgabe in ganzen Euro; keine weiteren Gebühren. Jeder Test beginnt mit einer neuen Ausleihe.",
+    "code": "[D1] WENN days < 1 ODER days > 14 DANN\n    [S1] RÜCKGABE -1\nENDE WENN\n[S2] fee = days * 7\n[D2] WENN damaged DANN\n    [S3] fee = fee + 20\nENDE WENN\n[S4] RÜCKGABE fee",
+    "inputs": [
+      {
+        "key": "days",
+        "label": "Ausleihtage",
+        "kind": "Number",
+        "minimum": -5,
+        "maximum": 20,
+        "options": {}
+      },
+      {
+        "key": "damaged",
+        "label": "Schaden gemeldet",
+        "kind": "Select",
+        "options": {
+          "true": "Ja",
+          "false": "Nein"
+        }
+      }
+    ],
+    "statements": {
+      "S1": "S1: ungültige Dauer ablehnen",
+      "S2": "S2: Tagesgebühr",
+      "S3": "S3: Schadenspauschale",
+      "S4": "S4: Ergebnis"
+    },
+    "branches": {
+      "D1.T": "D1 – wahr",
+      "D1.F": "D1 – falsch",
+      "D2.T": "D2 – wahr",
+      "D2.F": "D2 – falsch"
+    },
+    "partitions": {
+      "below": "Dauer unter 1",
+      "above": "Dauer über 14",
+      "min": "untere Grenze 1 Tag",
+      "max": "obere Grenze 14 Tage",
+      "damaged": "zulässige Ausleihe mit Schaden",
+      "intact": "zulässige Ausleihe ohne Schaden"
+    },
+    "faults": {
+      "exclude-max": "14 Tage werden abgelehnt",
+      "missing-damage": "Schadenspauschale fehlt",
+      "double-damage": "Schadenspauschale wird verdoppelt"
+    },
+    "paths": {
+      "D1.T": "ungültige Dauer",
+      "D1.F|D2.T": "Ausleihe mit Schaden",
+      "D1.F|D2.F": "Ausleihe ohne Schaden"
+    },
+    "outputKind": "Number",
+    "outputOptions": {}
+  },
+  {
+    "key": "shipping",
+    "title": "Versandtarif berechnen",
+    "contract": "Das Gewicht ist eine ganze Grammzahl. Zulässig sind 1 bis 5000 Gramm einschließlich, sonst Rückgabe -1. Bis 1000 Gramm einschließlich kostet Versand 4 Euro, darüber 8 Euro. Express addiert bei gültigen Gewichten 3 Euro. Rückgabe in ganzen Euro. Die drei D-Markierungen zählen jeweils den gesamten Bedingungsausgang; keine einzelne ODER-Teilbedingung.",
+    "code": "[D1] WENN weight < 1 ODER weight > 5000 DANN\n    [S1] RÜCKGABE -1\nENDE WENN\n[D2] WENN weight <= 1000 DANN\n    [S2] fee = 4\nSONST\n    [S3] fee = 8\nENDE WENN\n[D3] WENN express DANN\n    [S4] fee = fee + 3\nENDE WENN\n[S5] RÜCKGABE fee",
+    "inputs": [
+      {
+        "key": "weight",
+        "label": "Gewicht in Gramm",
+        "kind": "Number",
+        "minimum": -5,
+        "maximum": 6000,
+        "options": {}
+      },
+      {
+        "key": "express",
+        "label": "Expressversand",
+        "kind": "Select",
+        "options": {
+          "true": "Ja",
+          "false": "Nein"
+        }
+      }
+    ],
+    "statements": {
+      "S1": "S1: ungültiges Gewicht",
+      "S2": "S2: leichter Tarif",
+      "S3": "S3: schwerer Tarif",
+      "S4": "S4: Expresszuschlag",
+      "S5": "S5: Preis zurückgeben"
+    },
+    "branches": {
+      "D1.T": "D1 – wahr",
+      "D1.F": "D1 – falsch",
+      "D2.T": "D2 – wahr",
+      "D2.F": "D2 – falsch",
+      "D3.T": "D3 – wahr",
+      "D3.F": "D3 – falsch"
+    },
+    "partitions": {
+      "below": "Gewicht unter 1 Gramm",
+      "above": "Gewicht über 5000 Gramm",
+      "light": "gültiges leichtes Paket",
+      "heavy": "gültiges schweres Paket",
+      "express": "gültiges Expresspaket",
+      "standard": "gültiges Standardpaket",
+      "split": "Tarifgrenze 1000 Gramm",
+      "after-split": "1001 Gramm"
+    },
+    "faults": {
+      "strict-split": "1000 Gramm werden als schwer behandelt",
+      "wrong-heavy": "schwerer Tarif beträgt fälschlich 7 Euro",
+      "ignore-express": "Expresszuschlag fehlt"
+    },
+    "paths": {
+      "D1.T": "ungültiges Gewicht",
+      "D1.F|D2.T|D3.F": "leicht / Standard",
+      "D1.F|D2.T|D3.T": "leicht / Express",
+      "D1.F|D2.F|D3.F": "schwer / Standard",
+      "D1.F|D2.F|D3.T": "schwer / Express"
+    },
+    "outputKind": "Number",
+    "outputOptions": {}
+  },
+  {
+    "key": "access",
+    "title": "Objektbezogenen Zugriff prüfen",
+    "contract": "Dies ist eine lokale Testvorrichtung, keine Anmeldung am Trainer. role und own stammen im Beispiel aus vertrauenswürdig ermittelten Serverdaten. admin darf jedes Objekt bearbeiten. member darf nur ein eigenes Objekt bearbeiten. guest darf keines bearbeiten. own beschreibt genau das angesprochene Objekt. Jeder Test startet mit einer unabhängigen Anfrage.",
+    "code": "[D1] WENN role == \"admin\" DANN\n    [S1] RÜCKGABE WAHR\nENDE WENN\n[D2] WENN role == \"member\" UND own DANN\n    [S2] RÜCKGABE WAHR\nENDE WENN\n[S3] RÜCKGABE FALSCH",
+    "inputs": [
+      {
+        "key": "role",
+        "label": "Serverseitig ermittelte Rolle",
+        "kind": "Select",
+        "options": {
+          "guest": "Gast",
+          "member": "Mitglied",
+          "admin": "Verwaltung"
+        }
+      },
+      {
+        "key": "own",
+        "label": "Objekt gehört zur anfragenden Person",
+        "kind": "Select",
+        "options": {
+          "true": "Ja",
+          "false": "Nein"
+        }
+      }
+    ],
+    "statements": {
+      "S1": "S1: Verwaltung zulassen",
+      "S2": "S2: eigenes Mitgliedsobjekt zulassen",
+      "S3": "S3: Zugriff verweigern"
+    },
+    "branches": {
+      "D1.T": "D1 – wahr",
+      "D1.F": "D1 – falsch",
+      "D2.T": "D2 – wahr",
+      "D2.F": "D2 – falsch"
+    },
+    "partitions": {
+      "guest": "Gast",
+      "member-own": "Mitglied / eigenes Objekt",
+      "member-other": "Mitglied / fremdes Objekt",
+      "admin": "Verwaltung"
+    },
+    "faults": {
+      "member-all": "Mitglied darf auch fremde Objekte ändern",
+      "guest-own": "Gast wird bei own zugelassen",
+      "admin-own": "Verwaltung wird auf eigene Objekte beschränkt"
+    },
+    "paths": {
+      "D1.T": "Verwaltung",
+      "D1.F|D2.T": "berechtigtes Mitglied",
+      "D1.F|D2.F": "verweigerter Zugriff"
+    },
+    "outputKind": "Boolean",
+    "outputOptions": {}
+  },
+  {
+    "key": "attempt",
+    "title": "Anmeldeentscheidung testen",
+    "contract": "failed bezeichnet bereits vor dem Versuch gezählte Fehlversuche (0 bis 5). Ab 3 ist die Anmeldung gesperrt, auch bei richtigem Passwort. Unter 3 liefert correct=true erlaubt, sonst abgelehnt. Dieses Modell gibt nur die Entscheidung zurück; es verändert keinen Zähler. Jeder Test benennt seinen eigenen Vorzustand.",
+    "code": "[D1] WENN failed >= 3 DANN\n    [S1] RÜCKGABE gesperrt\nENDE WENN\n[D2] WENN correct DANN\n    [S2] RÜCKGABE erlaubt\nENDE WENN\n[S3] RÜCKGABE abgelehnt",
+    "inputs": [
+      {
+        "key": "failed",
+        "label": "Bisherige Fehlversuche",
+        "kind": "Number",
+        "minimum": 0,
+        "maximum": 5,
+        "options": {}
+      },
+      {
+        "key": "correct",
+        "label": "Passwort im Testfall richtig",
+        "kind": "Select",
+        "options": {
+          "true": "Ja",
+          "false": "Nein"
+        }
+      }
+    ],
+    "statements": {
+      "S1": "S1: Sperre",
+      "S2": "S2: Zulassung",
+      "S3": "S3: Ablehnung"
+    },
+    "branches": {
+      "D1.T": "D1 – wahr",
+      "D1.F": "D1 – falsch",
+      "D2.T": "D2 – wahr",
+      "D2.F": "D2 – falsch"
+    },
+    "partitions": {
+      "locked": "gesperrter Vorzustand",
+      "allowed": "zugelassener Versuch",
+      "rejected": "abgelehnter Versuch unter Sperrgrenze",
+      "before-lock": "2 bisherige Fehlversuche",
+      "lock": "3 bisherige Fehlversuche"
+    },
+    "faults": {
+      "late-lock": "Sperre erst nach mehr als 3 Fehlversuchen",
+      "ignore-lock": "Sperre wird ignoriert",
+      "reverse-result": "Passwortentscheidung ist vertauscht"
+    },
+    "paths": {
+      "D1.T": "gesperrt",
+      "D1.F|D2.T": "erlaubt",
+      "D1.F|D2.F": "abgelehnt"
+    },
+    "outputKind": "Text",
+    "outputOptions": {
+      "locked": "gesperrt",
+      "allowed": "erlaubt",
+      "rejected": "abgelehnt"
+    }
+  },
+  {
+    "key": "cancel",
+    "title": "Buchungszustand ändern",
+    "contract": "Vorzustände sind angefragt, bestätigt und storniert. Bestätigen ist ausschließlich aus angefragt zulässig und liefert bestätigt. Stornieren ist aus angefragt oder bestätigt zulässig und liefert storniert. Alle anderen Paare liefern unzulässig. Jeder Testfall startet unabhängig im selbst angegebenen Vorzustand; Fälle verändern einander nicht.",
+    "code": "[D1] WENN state == \"cancelled\" DANN\n    [S1] RÜCKGABE unzulässig\nENDE WENN\n[D2] WENN action == \"confirm\" UND state == \"requested\" DANN\n    [S2] RÜCKGABE bestätigt\nENDE WENN\n[D3] WENN action == \"cancel\" DANN\n    [S3] RÜCKGABE storniert\nENDE WENN\n[S4] RÜCKGABE unzulässig",
+    "inputs": [
+      {
+        "key": "state",
+        "label": "Vorzustand",
+        "kind": "Select",
+        "options": {
+          "requested": "angefragt",
+          "confirmed": "bestätigt",
+          "cancelled": "storniert"
+        }
+      },
+      {
+        "key": "action",
+        "label": "Aktion",
+        "kind": "Select",
+        "options": {
+          "confirm": "Bestätigen",
+          "cancel": "Stornieren"
+        }
+      }
+    ],
+    "statements": {
+      "S1": "S1: bereits stornierte Buchung abweisen",
+      "S2": "S2: bestätigen",
+      "S3": "S3: stornieren",
+      "S4": "S4: unzulässige Bestätigung abweisen"
+    },
+    "branches": {
+      "D1.T": "D1 – wahr",
+      "D1.F": "D1 – falsch",
+      "D2.T": "D2 – wahr",
+      "D2.F": "D2 – falsch",
+      "D3.T": "D3 – wahr",
+      "D3.F": "D3 – falsch"
+    },
+    "partitions": {
+      "already-cancelled": "bereits storniert",
+      "confirm": "zulässige Bestätigung",
+      "cancel": "zulässige Stornierung",
+      "invalid-confirm": "erneute Bestätigung einer bestätigten Buchung"
+    },
+    "faults": {
+      "repeat-cancel": "erneute Stornierung wird zugelassen",
+      "repeat-confirm": "erneute Bestätigung wird zugelassen",
+      "ignore-action": "ungültige Bestätigung wird zur Stornierung"
+    },
+    "paths": {
+      "D1.T": "stornierter Vorzustand",
+      "D1.F|D2.T": "zulässige Bestätigung",
+      "D1.F|D2.F|D3.T": "zulässige Stornierung",
+      "D1.F|D2.F|D3.F": "unzulässige Bestätigung"
+    },
+    "outputKind": "Text",
+    "outputOptions": {
+      "confirmed": "bestätigt",
+      "cancelled": "storniert",
+      "rejected": "unzulässig"
+    }
+  },
+  {
+    "key": "availability",
+    "title": "Freie Plätze bestimmen",
+    "contract": "capacity muss mindestens 1 sein. booked muss zwischen 0 und capacity einschließlich liegen. Bei Verletzung einer dieser Regeln liefert das Modell -1. Sonst liefert es capacity - booked. Beide Parameter sind ganze Zahlen im Testdatenbereich -5 bis 50. Eine vollständig belegte Veranstaltung besitzt 0 freie Plätze.",
+    "code": "[D1] WENN capacity < 1 ODER booked < 0 ODER booked > capacity DANN\n    [S1] RÜCKGABE -1\nENDE WENN\n[S2] RÜCKGABE capacity - booked",
+    "inputs": [
+      {
+        "key": "capacity",
+        "label": "Kapazität",
+        "kind": "Number",
+        "minimum": -5,
+        "maximum": 50,
+        "options": {}
+      },
+      {
+        "key": "booked",
+        "label": "Gebuchte Plätze",
+        "kind": "Number",
+        "minimum": -5,
+        "maximum": 50,
+        "options": {}
+      }
+    ],
+    "statements": {
+      "S1": "S1: ungültige Bestandsdaten",
+      "S2": "S2: freie Plätze"
+    },
+    "branches": {
+      "D1.T": "D1 – wahr",
+      "D1.F": "D1 – falsch"
+    },
+    "partitions": {
+      "invalid-capacity": "Kapazität unter 1",
+      "invalid-booked": "negative Belegung",
+      "overbooked": "Belegung über Kapazität",
+      "empty": "keine Belegung bei gültiger Kapazität",
+      "full": "vollständige Belegung",
+      "partial": "teilweise Belegung"
+    },
+    "faults": {
+      "zero-capacity": "Kapazität 0 wird angenommen",
+      "overbooked": "Überbelegung wird nicht abgewiesen",
+      "off-by-one": "ein freier Platz wird hinzugezählt"
+    },
+    "paths": {
+      "D1.T": "ungültige Daten",
+      "D1.F": "gültige Bestandsdaten"
+    },
+    "outputKind": "Number",
+    "outputOptions": {}
+  }
+]

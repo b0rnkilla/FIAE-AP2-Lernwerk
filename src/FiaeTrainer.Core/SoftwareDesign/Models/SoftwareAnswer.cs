@@ -3,7 +3,7 @@ using FiaeTrainer.Core.Uml.Models;
 
 namespace FiaeTrainer.Core.SoftwareDesign.Models;
 
-/// <summary> Antwort eines Softwareentwurfs; optionale Begründungen verändern die automatische Bewertung nicht. </summary>
+/// <summary> Strukturierte Antwort eines Softwareentwurfs. </summary>
 public sealed class SoftwareAnswer
 {
     /// <summary> Strukturierte Spezifikations-, OOP-, Werkzeug- oder Vertragsfelder. </summary>
@@ -16,7 +16,7 @@ public sealed class SoftwareAnswer
     public SoftwareBoard Board { get; set; } = new();
     /// <summary> Eigene JSON-/XML-Nachricht ohne externe Ausführung. </summary>
     public string Payload { get; set; } = "";
-    /// <summary> Freie Begründung zur ausdrücklich unbewerteten Selbstkontrolle. </summary>
+    /// <summary> Altes Profilfeld zur verlustfreien Übernahme vorhandener Dateien; keine Eingabe oder Anzeige mehr. </summary>
     public string Reasoning { get; set; } = "";
     /// <summary> Trennt Referenzen, Entwürfe und unveränderliche Speicherübergaben. </summary>
     public SoftwareAnswer Copy() => JsonSerializer.Deserialize<SoftwareAnswer>(JsonSerializer.Serialize(this))!;

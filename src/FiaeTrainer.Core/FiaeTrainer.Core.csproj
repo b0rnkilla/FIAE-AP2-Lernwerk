@@ -9,6 +9,7 @@
     <EmbeddedResource Include="DatabaseDesign/Content/*.json" />
     <EmbeddedResource Include="Uml/Content/*.json" />
     <EmbeddedResource Include="SoftwareDesign/Content/*.json" />
+    <EmbeddedResource Include="QualityAssurance/Content/*.json" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.1.1" />

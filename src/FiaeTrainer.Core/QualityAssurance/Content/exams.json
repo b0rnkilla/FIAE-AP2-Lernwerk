@@ -1,0 +1,649 @@
+[
+  {
+    "id": "paketstation",
+    "title": "Paketstation am Marktplatz",
+    "scenario": "Eine Paketstation plant den Probebetrieb ihrer Versandverwaltung. Die drei Teilaufträge besitzen jeweils einen vollständigen eigenen Vertrag.",
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Versandfälle für eine Paketstation",
+        "chapter": "",
+        "kind": "TestSuite",
+        "format": "Build",
+        "story": "Eine Paketstation muss Gewichtsklassen und Expresszuschlag korrekt berechnen.",
+        "previousContext": "",
+        "task": "Decke ungültige kleine/große Gewichte, beide gültigen Tarifklassen, Standard und Express sowie 1000 und 1001 Gramm ab. Erkenne alle drei beschriebenen Tariffehler. Erstelle eigene Testfälle mit Eingaben und Sollwerten. Jeder Fall startet unabhängig. Die verlangten Klassen, gezählten Wege und Fehlervarianten stehen unten ausdrücklich dabei. Andere passende Testwerte sind erlaubt; gleiche Fälle ersetzen keine zusätzliche Abdeckung.",
+        "explanation": "1000 Gramm gehört noch zum leichten Tarif. Express addiert drei Euro erst bei gültigen Gewichten. Andere Vertreter für die allgemeinen Klassen sind erlaubt; die ausdrücklich genannten Tarifgrenzen bleiben verbindlich.",
+        "discovery": "",
+        "hints": [
+          "Trenne ungültige Gewichte von der Tarifauswahl.",
+          "Bei der Tarifgrenze ist einschließlich entscheidend.",
+          "Ein schweres Expresspaket liefert 8 plus 3 Euro."
+        ],
+        "fields": [],
+        "solutions": [
+          {
+            "values": {},
+            "selectedIds": [],
+            "testCases": [
+              {
+                "id": "case-17",
+                "inputs": {
+                  "weight": "0",
+                  "express": "false"
+                },
+                "expected": "-1"
+              },
+              {
+                "id": "case-18",
+                "inputs": {
+                  "weight": "5001",
+                  "express": "true"
+                },
+                "expected": "-1"
+              },
+              {
+                "id": "case-19",
+                "inputs": {
+                  "weight": "1000",
+                  "express": "false"
+                },
+                "expected": "4"
+              },
+              {
+                "id": "case-20",
+                "inputs": {
+                  "weight": "1001",
+                  "express": "true"
+                },
+                "expected": "11"
+              }
+            ],
+            "order": []
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "material": "",
+        "programKey": "shipping",
+        "requiredPartitions": [
+          "below",
+          "above",
+          "light",
+          "heavy",
+          "express",
+          "standard",
+          "split",
+          "after-split"
+        ],
+        "requiredStatements": [],
+        "requiredBranches": [],
+        "requiredPaths": [],
+        "requiredFaults": [
+          "strict-split",
+          "wrong-heavy",
+          "ignore-express"
+        ],
+        "maximumCases": 12,
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "testCases": [],
+          "order": []
+        }
+      },
+      {
+        "id": 2,
+        "title": "Einen abweichenden Preis protokollieren",
+        "chapter": "",
+        "kind": "Worksheet",
+        "format": "Build",
+        "story": "Für eine Paketstation gilt ein fester Tarif von 8 Euro plus 3 Euro bei Express. Im beobachteten fehlerhaften Lauf erscheint 8 Euro.",
+        "previousContext": "",
+        "task": "Der Vertrag verlangt 8 Euro plus 3 Euro Expresszuschlag; beobachtet wurden 8 Euro. Ergänze fachlichen Sollwert, Istwert und das Ergebnis der Gleichheitsprüfung. Alle Zahlen in ganzen Euro.",
+        "explanation": "Der Sollwert beträgt elf Euro. Acht Euro ist die Beobachtung des fehlerhaften Laufs, deshalb schlägt die Gleichheitsprüfung fehl.",
+        "discovery": "",
+        "hints": [
+          "Ein beobachteter Wert ist nicht automatisch der richtige Wert.",
+          "Berechne zunächst den vollen Centbetrag und dann 80 Prozent davon.",
+          "Die Gleichheitsassertion verlangt zwei gleiche Werte."
+        ],
+        "fields": [
+          {
+            "key": "expected",
+            "label": "Fachlicher Sollwert in Euro",
+            "kind": "Number",
+            "comparison": "Number",
+            "options": {},
+            "help": ""
+          },
+          {
+            "key": "actual",
+            "label": "Beobachteter Istwert in Euro",
+            "kind": "Number",
+            "comparison": "Number",
+            "options": {},
+            "help": ""
+          },
+          {
+            "key": "result",
+            "label": "Ergebnis von ASSERT_EQUAL(soll, ist)",
+            "kind": "Select",
+            "comparison": "Exact",
+            "options": {
+              "1": "bestanden",
+              "2": "fehlgeschlagen"
+            },
+            "help": ""
+          }
+        ],
+        "solutions": [
+          {
+            "values": {
+              "expected": "11",
+              "actual": "8",
+              "result": "2"
+            },
+            "selectedIds": [],
+            "testCases": [],
+            "order": []
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "material": "Vertrag: schweres Expresspaket = 8 + 3 Euro.\nBeobachteter fehlerhafter Lauf: ist = 8 Euro.",
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "testCases": [],
+          "order": []
+        }
+      },
+      {
+        "id": 3,
+        "title": "Rechte einer Paketverwaltung",
+        "chapter": "",
+        "kind": "Matrix",
+        "format": "Build",
+        "story": "Im Fallportal besitzt Gast keine persönlichen Vorgangsrechte. Mitglied darf eigene Vorgänge lesen und ändern; Verwaltung darf zusätzlich beliebige Vorgänge löschen.",
+        "previousContext": "",
+        "task": "Fülle die Matrix für das Fallportal aus: Gast ohne persönliche Rechte, Mitglied mit Lesen/Ändern eigener Vorgänge, Verwaltung mit allen drei angebotenen Rechten.",
+        "explanation": "Die Matrix überträgt die vereinbarte Regel vollständig. Eine allgemeine Anmeldung ersetzt keine einzelne Entscheidung; zusätzliche Rechte werden nicht stillschweigend angenommen.",
+        "discovery": "",
+        "hints": [
+          "Lies jede Rollenregel getrennt.",
+          "Eigene Objekte und beliebige Objekte sind unterschiedliche Reichweiten.",
+          "Gäste erhalten in dieser Matrix keine persönlichen Buchungsrechte."
+        ],
+        "fields": [],
+        "solutions": [
+          {
+            "values": {
+              "guest.read": "deny",
+              "guest.edit": "deny",
+              "guest.delete": "deny",
+              "member.read": "allow",
+              "member.edit": "allow",
+              "member.delete": "deny",
+              "admin.read": "allow",
+              "admin.edit": "allow",
+              "admin.delete": "allow"
+            },
+            "selectedIds": [],
+            "testCases": [],
+            "order": []
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "material": "",
+        "matrixRows": {
+          "guest": "Gast",
+          "member": "Mitglied",
+          "admin": "Verwaltung"
+        },
+        "matrixColumns": {
+          "read": "Eigenen Vorgang lesen",
+          "edit": "Eigenen Vorgang ändern",
+          "delete": "Beliebigen Vorgang löschen"
+        },
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "testCases": [],
+          "order": []
+        }
+      }
+    ],
+    "points": [
+      20,
+      20,
+      10
+    ]
+  },
+  {
+    "id": "werkzeugverleih",
+    "title": "Werkzeugverleih im Probebetrieb",
+    "scenario": "Ein Werkzeugverleih sichert Fachfunktion und Betriebsnachweise ab. Jeder der drei Ausschnitte kann unabhängig bearbeitet werden.",
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Die Ausleihgebühr absichern",
+        "chapter": "",
+        "kind": "TestSuite",
+        "format": "Build",
+        "story": "Ein Werkzeugverleih prüft seine Tagesgebühr und einmalige Schadenspauschale.",
+        "previousContext": "",
+        "task": "Erreiche alle S-Anweisungen und bedingten Zweige und erkenne die drei beschriebenen Fehlervarianten. Erstelle eigene Testfälle mit Eingaben und Sollwerten. Jeder Fall startet unabhängig. Die verlangten Klassen, gezählten Wege und Fehlervarianten stehen unten ausdrücklich dabei. Andere passende Testwerte sind erlaubt; gleiche Fälle ersetzen keine zusätzliche Abdeckung.",
+        "explanation": "Ungültige Dauer, gültige Ausleihe ohne Schaden und gültige Ausleihe mit Schaden decken die geforderte Struktur ab. Der erlaubte obere Rand erkennt außerdem eine fälschliche Ablehnung von 14 Tagen.",
+        "discovery": "",
+        "hints": [
+          "Der ungültige Fall endet vor der Gebührenberechnung.",
+          "Ein gültiger Fall muss die Schadenspauschale auslassen, ein anderer anwenden.",
+          "Nutze auch den eingeschlossenen oberen Rand, wenn dessen Fehlervariante erkannt werden soll."
+        ],
+        "fields": [],
+        "solutions": [
+          {
+            "values": {},
+            "selectedIds": [],
+            "testCases": [
+              {
+                "id": "case-31",
+                "inputs": {
+                  "days": "0",
+                  "damaged": "false"
+                },
+                "expected": "-1"
+              },
+              {
+                "id": "case-32",
+                "inputs": {
+                  "days": "1",
+                  "damaged": "false"
+                },
+                "expected": "7"
+              },
+              {
+                "id": "case-33",
+                "inputs": {
+                  "days": "14",
+                  "damaged": "true"
+                },
+                "expected": "118"
+              }
+            ],
+            "order": []
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "material": "",
+        "programKey": "rental",
+        "requiredPartitions": [],
+        "requiredStatements": [
+          "S1",
+          "S2",
+          "S3",
+          "S4"
+        ],
+        "requiredBranches": [
+          "D1.T",
+          "D1.F",
+          "D2.T",
+          "D2.F"
+        ],
+        "requiredPaths": [],
+        "requiredFaults": [
+          "exclude-max",
+          "missing-damage",
+          "double-damage"
+        ],
+        "maximumCases": 12,
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "testCases": [],
+          "order": []
+        }
+      },
+      {
+        "id": 2,
+        "title": "Die Prüfkette vor der Freigabe beurteilen",
+        "chapter": "",
+        "kind": "Worksheet",
+        "format": "Build",
+        "story": "Ein Werkzeugverleih hat drei verbindliche Prüfschritte für den neuen Stand festgelegt.",
+        "previousContext": "",
+        "task": "Bewerte die protokollierten Schritte und die daraus folgende Freigabe. Fehlende oder fehlgeschlagene Nachweise werden nicht durch einen erfolgreichen Build ersetzt.",
+        "explanation": "Die gegebene UND-Freigaberegel ist durch den fehlgeschlagenen Sicherheitsschritt nicht erfüllt. Ein erfolgreicher Build und richtige Fachrückgaben beantworten andere Fragen.",
+        "discovery": "",
+        "hints": [
+          "Lies die drei protokollierten Ergebnisse einzeln.",
+          "Prüfe anschließend die ausdrücklich genannte Verknüpfung.",
+          "Ein anderer erfolgreicher Schritt kann die fehlgeschlagene Pflichtprüfung nicht ersetzen."
+        ],
+        "fields": [
+          {
+            "key": "build",
+            "label": "Build",
+            "kind": "Select",
+            "comparison": "Exact",
+            "options": {
+              "1": "bestanden",
+              "2": "fehlgeschlagen"
+            },
+            "help": ""
+          },
+          {
+            "key": "tests",
+            "label": "Fachtests",
+            "kind": "Select",
+            "comparison": "Exact",
+            "options": {
+              "1": "bestanden",
+              "2": "fehlgeschlagen"
+            },
+            "help": ""
+          },
+          {
+            "key": "security",
+            "label": "Sicherheitstest",
+            "kind": "Select",
+            "comparison": "Exact",
+            "options": {
+              "1": "bestanden",
+              "2": "fehlgeschlagen"
+            },
+            "help": ""
+          },
+          {
+            "key": "release",
+            "label": "Freigabe nach dieser Regel",
+            "kind": "Select",
+            "comparison": "Exact",
+            "options": {
+              "1": "ja",
+              "2": "nein"
+            },
+            "help": ""
+          }
+        ],
+        "solutions": [
+          {
+            "values": {
+              "build": "1",
+              "tests": "1",
+              "security": "2",
+              "release": "2"
+            },
+            "selectedIds": [],
+            "testCases": [],
+            "order": []
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "material": "BUILD: BESTANDEN\nFACHTESTS: BESTANDEN\nSICHERHEITSTEST: FEHLGESCHLAGEN\nFreigabe: alle drei Schritte bestanden.",
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "testCases": [],
+          "order": []
+        }
+      },
+      {
+        "id": 3,
+        "title": "Den Sicherungsstand wiederherstellen",
+        "chapter": "",
+        "kind": "Order",
+        "format": "Build",
+        "story": "Der Werkzeugverleih benötigt den vereinbarten Mittwochsstand aus Vollsicherung und zwei abhängigen Inkrementen.",
+        "previousContext": "",
+        "task": "Stelle zuerst die Vollsicherung wieder her, dann das Dienstagsinkrement und danach das Mittwochsinkrement. Prüfe anschließend den wiederhergestellten Datenstand und die vereinbarte Fachfunktion. Es werden hier keine Dateien am echten Rechner verändert. Baue den Ablauf aus den angebotenen Schritten selbst auf. Maßgeblich sind die hier genannten Voraussetzungen; es wird kein universeller Ablauf für alle Projekte behauptet.",
+        "explanation": "Die ausdrücklich abhängigen Inkremente benötigen ihre Grundlage und Reihenfolge. Ein Sicherungslauf allein beweist keine erfolgreiche Wiederherstellung; der Zielstand wird zusätzlich geprüft.",
+        "discovery": "",
+        "hints": [
+          "Die Inkremente sind laut Auftrag nicht unabhängig voneinander.",
+          "Die Vollsicherung ist die Grundlage.",
+          "Der letzte Schritt beurteilt den wiederhergestellten Stand statt nur den Sicherungslauf."
+        ],
+        "fields": [],
+        "solutions": [
+          {
+            "values": {},
+            "selectedIds": [],
+            "testCases": [],
+            "order": [
+              "full",
+              "tuesday",
+              "wednesday",
+              "verify"
+            ]
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "material": "",
+        "cards": {
+          "full": "Vollsicherung vom Montag wiederherstellen",
+          "tuesday": "Davon abhängiges Dienstagsinkrement anwenden",
+          "wednesday": "Davon abhängiges Mittwochsinkrement anwenden",
+          "verify": "Zielstand und vereinbarte Fachfunktion prüfen"
+        },
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "testCases": [],
+          "order": []
+        }
+      }
+    ],
+    "points": [
+      20,
+      20,
+      10
+    ]
+  },
+  {
+    "id": "terminportal",
+    "title": "Terminportal vor dem Start",
+    "scenario": "Ein Terminportal überprüft Zugriff und Nachrichtenschutz. Die drei unabhängigen Teilaufträge verlangen jeweils nur die gegebenen Annahmen.",
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Die Sperrregel des Terminportals testen",
+        "chapter": "",
+        "kind": "TestSuite",
+        "format": "Build",
+        "story": "Ein Terminportal prüft Anmeldung und Sperrgrenze in einer lokalen Testvorrichtung.",
+        "previousContext": "",
+        "task": "Decke die drei Ergebnisgruppen sowie Vorzustände mit 2 und 3 Fehlversuchen ab und erkenne alle drei beschriebenen Fehler. Erstelle eigene Testfälle mit Eingaben und Sollwerten. Jeder Fall startet unabhängig. Die verlangten Klassen, gezählten Wege und Fehlervarianten stehen unten ausdrücklich dabei. Andere passende Testwerte sind erlaubt; gleiche Fälle ersetzen keine zusätzliche Abdeckung.",
+        "explanation": "Der Vorzustand steht in jedem Fall ausdrücklich dabei. Ein richtiges Passwort hebt die vereinbarte Sperre nicht auf. Unter der Sperrgrenze müssen Zulassung und Ablehnung auseinandergehalten werden.",
+        "discovery": "",
+        "hints": [
+          "Jeder Test beginnt mit seinem eigenen Zählerstand.",
+          "An der Schwelle hat die Sperrprüfung Vorrang vor der Passwortentscheidung.",
+          "Ein falscher Versuch unter der Grenze muss abgelehnt, aber im Modell noch nicht als gesperrt bezeichnet werden."
+        ],
+        "fields": [],
+        "solutions": [
+          {
+            "values": {},
+            "selectedIds": [],
+            "testCases": [
+              {
+                "id": "case-48",
+                "inputs": {
+                  "failed": "2",
+                  "correct": "true"
+                },
+                "expected": "allowed"
+              },
+              {
+                "id": "case-49",
+                "inputs": {
+                  "failed": "0",
+                  "correct": "false"
+                },
+                "expected": "rejected"
+              },
+              {
+                "id": "case-50",
+                "inputs": {
+                  "failed": "3",
+                  "correct": "true"
+                },
+                "expected": "locked"
+              }
+            ],
+            "order": []
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "material": "",
+        "programKey": "attempt",
+        "requiredPartitions": [
+          "locked",
+          "allowed",
+          "rejected",
+          "before-lock",
+          "lock"
+        ],
+        "requiredStatements": [],
+        "requiredBranches": [],
+        "requiredPaths": [],
+        "requiredFaults": [
+          "late-lock",
+          "ignore-lock",
+          "reverse-result"
+        ],
+        "maximumCases": 12,
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "testCases": [],
+          "order": []
+        }
+      },
+      {
+        "id": 2,
+        "title": "Nachrichtenausgaben im Review prüfen",
+        "chapter": "",
+        "kind": "Review",
+        "format": "Analyze",
+        "story": "Ein Terminportal zeigt Nachrichten aus Terminanfragen an. Mira prüft ausschließlich die beschriebenen Ausgabestellen.",
+        "previousContext": "",
+        "task": "Markiere die zwei Ausgaben, die in der angegebenen Form ungeprüften Inhalt als ausführbaren beziehungsweise interpretierbaren Inhalt übernehmen.",
+        "explanation": "Der konkrete Ausgabekontext entscheidet über die erforderliche Behandlung. Reine Textausgabe ist von interpretiertem HTML oder JavaScript zu unterscheiden. Eine einzelne pauschale Ersetzung oder alleinige CSP ersetzt keine passende Behandlung aller Ausgabestellen.",
+        "discovery": "",
+        "hints": [
+          "Soll die Nachricht als Text oder als Code interpretiert werden?",
+          "HTML und JavaScript sind unterschiedliche Ausgabekontexte.",
+          "textContent setzt Text, statt ihn als HTML auszuwerten."
+        ],
+        "fields": [],
+        "solutions": [],
+        "options": {
+          "1": "L1: element.innerHTML = request.message",
+          "2": "L2: element.textContent = request.message",
+          "3": "L3: ungeprüfte Nachricht wird direkt in ein Inline-JavaScript-Literal verkettet",
+          "4": "L4: Ausgaben werden passend zu ihrem jeweiligen HTML-/JavaScript-Kontext behandelt"
+        },
+        "correctIds": [
+          "1",
+          "3"
+        ],
+        "material": "",
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "testCases": [],
+          "order": []
+        }
+      },
+      {
+        "id": 3,
+        "title": "Verfahren für konkrete Schutzziele wählen",
+        "chapter": "",
+        "kind": "Worksheet",
+        "format": "Build",
+        "story": "Das Terminportal unterscheidet Geheimhaltung, Dateiabgleich und Signaturprüfung.",
+        "previousContext": "",
+        "task": "Ordne jeweils das unmittelbar passende Verfahren zu. Ein ungeschützter Hash allein beweist keine Identität des Absenders.",
+        "explanation": "Verschlüsselung, Hashvergleich und Signatur erfüllen unterschiedliche Aufgaben. Auch ein Signaturergebnis benötigt eine vertrauenswürdige Zuordnung des öffentlichen Schlüssels; eine Signatur macht den Nachrichteninhalt nicht automatisch geheim.",
+        "discovery": "",
+        "hints": [
+          "Unlesbarkeit und Änderungsnachweis sind unterschiedliche Ziele.",
+          "Ein Referenzhash muss selbst vertrauenswürdig bekannt sein.",
+          "Eine Signaturprüfung macht keine automatische Aussage über Geheimhaltung des Inhalts."
+        ],
+        "fields": [
+          {
+            "key": "secret",
+            "label": "Inhalt für Unbefugte unlesbar halten",
+            "kind": "Select",
+            "comparison": "Exact",
+            "options": {
+              "1": "Verschlüsselung",
+              "2": "Hashvergleich gegen vertrauenswürdigen Referenzwert",
+              "3": "Digitale Signatur"
+            },
+            "help": ""
+          },
+          {
+            "key": "digest",
+            "label": "Datei mit vertrauenswürdig bekanntem Fingerabdruck vergleichen",
+            "kind": "Select",
+            "comparison": "Exact",
+            "options": {
+              "1": "Verschlüsselung",
+              "2": "Hashvergleich gegen vertrauenswürdigen Referenzwert",
+              "3": "Digitale Signatur"
+            },
+            "help": ""
+          },
+          {
+            "key": "signature",
+            "label": "Signatur einer Nachricht mit zugeordnetem öffentlichem Schlüssel prüfen",
+            "kind": "Select",
+            "comparison": "Exact",
+            "options": {
+              "1": "Verschlüsselung",
+              "2": "Hashvergleich gegen vertrauenswürdigen Referenzwert",
+              "3": "Digitale Signatur"
+            },
+            "help": ""
+          }
+        ],
+        "solutions": [
+          {
+            "values": {
+              "secret": "1",
+              "digest": "2",
+              "signature": "3"
+            },
+            "selectedIds": [],
+            "testCases": [],
+            "order": []
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "material": "",
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "testCases": [],
+          "order": []
+        }
+      }
+    ],
+    "points": [
+      20,
+      20,
+      10
+    ]
+  }
+]

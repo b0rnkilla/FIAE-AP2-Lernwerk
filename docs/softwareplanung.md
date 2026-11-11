@@ -1,6 +1,6 @@
 # Softwareplanung und OOP – Abschnitt 05
 
-Quellstand **0.1.1-alpha.14**, Inhaltsvertrag **2026-11-09**. 48 eigene Lernaufgaben und drei eigene Prüfungsfälle mit je drei Teilen. Das vorhandene Windows-ZIP Alpha 13 bleibt unverändert; Abschnitt 05 ist noch nicht als neues Paket gebaut.
+Quellstand **0.1.1-alpha.14**, Inhaltsvertrag **2026-11-09**. 48 eigene Lernaufgaben und drei eigene Prüfungsfälle mit je drei Teilen. Abschnitt 05 ist seit 11.11.2026 auch im aus Commit 33f09a7 gebauten und geprüften Windows-ZIP Alpha 14 enthalten. Das frühere Alpha-13-ZIP bleibt unverändert.
 
 ## Lernweg und Umfang
 
@@ -21,11 +21,11 @@ Sechs Arbeitsformen: zehn Auswahlaufgaben, 16 Ausarbeitungen, acht Klassenentwü
 
 ## Bedienung und Hilfen
 
-Gemeinsame linke TaskRail, LearningModePicker, mittiger Auftrag/Arbeitsbereich und rechte Planungsschritte entsprechen den vorhandenen Modulen. Ohne Hilfe ist der Standard. Geführtes Lernen bietet drei Hinweise, Spickzettel mit lokalem Rückweg und eine bewusst aufgedeckte Lösung. Ein neuer Selbsttest verlangt bei eigenem Entwurf die gemeinsame Bestätigung. Historische Erfolge bleiben erhalten. Leere Antworten sperren die Prüftaste; eine freie Zusatzbegründung allein gilt nicht als abgegebene Fachlösung.
+Gemeinsame linke TaskRail, LearningModePicker, mittiger Auftrag/Arbeitsbereich und rechte Planungsschritte entsprechen den vorhandenen Modulen. Ohne Hilfe ist der Standard. Geführtes Lernen bietet drei Hinweise, Spickzettel mit lokalem Rückweg und eine bewusst aufgedeckte Lösung. Ein neuer Selbsttest verlangt bei eigenem Entwurf die gemeinsame Bestätigung. Historische Erfolge bleiben erhalten. Leere Antworten sperren die Prüftaste.
 
 Klassenentwürfe verwenden die bestehenden UML-Darstellungs- und Bearbeitungskomponenten mit eigenen Aufträgen und eigenen Antworten. Architektur und Formulare verwenden einen eigenen Baukasten mit stabilen Fachrollen und freien Anzeigenamen. Hinzufügen, Auswählen, Verbinden, Entfernen sowie Früher/Später sind ohne Ziehen möglich. Diagramme besitzen eine Textalternative, Vergrößerung und einen begrenzten seitlichen Scrollbereich. Lange Rückverbindungen werden unter den Kästen geführt; Verbindungsbeschriftungen liegen außerhalb der Elemente.
 
-Die Formularvorschau zeigt die wirklich gewählten Feldarten, Reihenfolge, Gruppen und eigenen Hilfen. Lokale Beispieleingaben und Pflichtfeldmeldungen können ausprobiert werden. Diese Vorschauwerte werden nicht als Lernantwort gespeichert; der Entwurf und die Begründung werden gespeichert. Die Vorschau ist keine echte Buchung und prüft keine vollständige Terminverfügbarkeit oder alle denkbaren Feldvalidierungen.
+Die Formularvorschau zeigt die wirklich gewählten Feldarten, Reihenfolge, Gruppen und eigenen Hilfen. Lokale Beispieleingaben und Pflichtfeldmeldungen können ausprobiert werden. Diese Vorschauwerte werden nicht als Lernantwort gespeichert; der Entwurf wird gespeichert. Die Vorschau ist keine echte Buchung und prüft keine vollständige Terminverfügbarkeit oder alle denkbaren Feldvalidierungen.
 
 ## Fachliche Bewertung und Grenzen
 
@@ -37,9 +37,9 @@ Die Formularvorschau zeigt die wirklich gewählten Feldarten, Reihenfolge, Grupp
 - JSON: struktureller Vergleich von Namen, Typen und Werten; Objektfeldreihenfolge frei, Arrayreihenfolge verbindlich. Numerisch gleichwertige Werte sind erlaubt. Fehlende/zusätzliche oder doppelte Felder, falsche Typen und ungültige Syntax scheitern.
 - XML: Elementnamen einschließlich Namensräumen, Hierarchie, Attribute, Elementreihenfolge und Textwerte zählen. Attributreihenfolge, Einrückung, Kommentare und erlaubte Deklaration zählen nicht. DTD/externe Entitäten sind gesperrt; kein Zugriff auf Dateien oder fremde Dienste. Die Aufgaben verlangen ausdrücklich ihre konkrete Nachricht, kein allgemeines XML-Schema.
 
-Freie Begründungen werden gespeichert und erhalten eine fachliche Kriterienliste sowie die Mustererklärung. Sie verändern **keine** automatische Bewertung und werden nicht anhand von Schlüsselwörtern benotet. Eine beliebige alternative Architektur wird nicht automatisch als gleichwertig erkannt; die Aufgaben grenzen ihre geprüften Varianten ausdrücklich ein. Keine vollständige AP2-Katalogabdeckung oder amtliche Korrektur behaupten.
+Zusätzliche Freitextfelder und die zugehörige Kriterienliste sind auf Nutzerwunsch vollständig aus der Oberfläche entfernt. Eine beliebige alternative Architektur wird nicht automatisch als gleichwertig erkannt; die Aufgaben grenzen ihre geprüften Varianten ausdrücklich ein. Keine vollständige AP2-Katalogabdeckung oder amtliche Korrektur behaupten.
 
-Im Lernen enthält genau eine Ergebniskarte Rückmeldung, Erkenntnis und Hilfeneinordnung, ohne Punkte/Prozente/IHK-Zusatz. Falsche Antworten verraten nicht automatisch die vollständige Erklärung. Antwort-/Moduswechsel entfernen alte Rückmeldungen. Die zusätzliche aufklappbare Kriterienliste dient ausschließlich der Selbstkontrolle.
+Im Lernen enthält genau eine Ergebniskarte Rückmeldung, Erkenntnis und Hilfeneinordnung, ohne Punkte/Prozente/IHK-Zusatz. Falsche Antworten verraten nicht automatisch die vollständige Erklärung. Antwort-/Moduswechsel entfernen alte Rückmeldungen.
 
 ## Prüfungsfälle
 
@@ -51,7 +51,7 @@ Im Lernen enthält genau eine Ergebniskarte Rückmeldung, Erkenntnis und Hilfene
 
 Je **45 Minuten**, **50 Trainingspunkte**, Gewichtung **20/20/10**. Start erst nach Aktion, offene Prüfung nur nach zusätzlicher Ersetzungsbestätigung. UTC-Frist, Pause mit ausgeblendeten Aufgaben, Kontrollmarkierungen, Nachschlagen mit Kennzeichnung, endgültige Antwortsperre und höchstens 20 Historieneinträge je Modul. Browserende hält die Uhr nicht an; ausdrücklich gespeicherte Pause überlebt den Hostneustart. Nach Fristablauf zählen ausschließlich zuvor gespeicherte Antworten. Doppelte/veraltete Abgaben werden zurückgewiesen; die Historie zählt einmal.
 
-Die internen Kriterien summieren sich je Teil auf 50 Anteile. Prüfungsbewertung skaliert ganzzahlig auf die Teilgewichtung; freie Begründungen bringen keine Punkte. Diese Trainingsdauer bildet einen begrenzten Modulausschnitt ab. Der offizielle schriftliche Bereich Planen eines Softwareproduktes dauert 90 Minuten. Keine amtliche IHK-Note.
+Die internen Kriterien summieren sich je Teil auf 50 Anteile. Prüfungsbewertung skaliert ganzzahlig auf die Teilgewichtung. Diese Trainingsdauer bildet einen begrenzten Modulausschnitt ab. Der offizielle schriftliche Bereich Planen eines Softwareproduktes dauert 90 Minuten. Keine amtliche IHK-Note.
 
 ## Speicherung, Struktur und Grenzen
 
@@ -59,7 +59,7 @@ Die internen Kriterien summieren sich je Teil auf 50 Anteile. Prüfungsbewertung
 
 Zusätzliche Profilfelder: `SoftwareLessons`, `LastSoftwareLessonId`, `SoftwareExam`, `SoftwareHistory`. Fehlende Felder alter Profile erhalten leere Vorgaben; SQL, Werkstatt, Algorithmen, UML, Entwurf und WiSo bleiben erhalten. Revisions- und Inhaltsversionsschutz sowie dieselbe atomare Dateisperre gelten für alle Schreibvorgänge. Lesender Moduleinstieg legt keinen Entwurf an. Der letzte eigene Auftrag wird fortgesetzt. Prüfungs-Autospeicherung erhält die Referenzen der sichtbaren Editorelemente, damit unmittelbar folgende Eingabeereignisse gültig bleiben; die Datei erhält dennoch eine unabhängige Übergabekopie.
 
-Unvollständige Entwürfe bleiben speicherbar. Maximal 16 Architektur-/Formularelemente, 32 Verbindungen, 24 Antwortfelder, 500 Zeichen je Antwortwert, 80 Zeichen für Kennungen/Anzeigenamen, 200 für Hilfetext, 8.000 für Nachricht, 4.000 für Begründung. JSON/XML-Verschachtelung ist begrenzt; UML-Entwürfe verwenden deren bestehende Grenzen. Alle schreibenden Editorhandler beachten ReadOnly und Grenzen, auch nach gesperrter Prüfungsabgabe.
+Unvollständige Entwürfe bleiben speicherbar. Maximal 16 Architektur-/Formularelemente, 32 Verbindungen, 24 Antwortfelder, 500 Zeichen je Antwortwert, 80 Zeichen für Kennungen/Anzeigenamen, 200 für Hilfetext, 8.000 für Nachrichten. Das frühere Profilfeld Reasoning bleibt ausschließlich zum verlustfreien Erhalt alter Dateien lesbar; es wird weder angezeigt noch bearbeitet und löst allein keine Neustartbestätigung aus. JSON/XML-Verschachtelung ist begrenzt; UML-Entwürfe verwenden deren bestehende Grenzen. Alle schreibenden Editorhandler beachten ReadOnly und Grenzen, auch nach gesperrter Prüfungsabgabe.
 
 ## Quellenstand
 
@@ -70,4 +70,4 @@ Fachliche Orientierung geprüft am 09.11.2026. Eigene Trainingsfälle; Altprüfu
 - [IETF RFC 9110](https://www.rfc-editor.org/rfc/rfc9110.html): HTTP-Semantik; konkrete API-Verträge bleiben Aufgabenannahmen.
 - [W3C WAI: Forms Tutorial](https://www.w3.org/WAI/tutorials/forms/): Beschriftung, Gruppen, Hinweise und Rückmeldungen.
 
-Am 11.11.2026 hat der Nutzer nach kurzem Einblick und einigen gelösten Aufgaben die Umsetzung positiv bewertet. Die ausführliche Erprobung aller Aufgaben/Prüfungsfälle und Zeitkalibrierung bleiben offen. Prüfnachweise stehen im [Testprotokoll](testprotokoll.md). ZIP und Release-Informationen für Alpha 14 sind nach Nutzer-Commit und Push beauftragt; noch kein neues Paket gebaut.
+Am 11.11.2026 hat der Nutzer nach kurzem Einblick und einigen gelösten Aufgaben die Umsetzung positiv bewertet. Die ausführliche Erprobung aller Aufgaben/Prüfungsfälle und Zeitkalibrierung bleiben offen. Prüfnachweise stehen im [Testprotokoll](testprotokoll.md). Nach dem Nutzer-Commit/Push wurde Alpha 14 am 11.11.2026 aus dem ZIP geprüft: API-/XML-/Formularaufgaben und Softwareprüfung 50/50 einschließlich Pause/Hostneustart, alter Profilfelder und unveränderter Paketdateien. Tag und Veröffentlichung erfolgen durch den Nutzer.

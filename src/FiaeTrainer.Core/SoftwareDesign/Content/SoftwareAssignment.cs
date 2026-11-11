@@ -30,8 +30,6 @@ public sealed class SoftwareAssignment
     public List<string> Hints { get; set; } = [];
     /// <summary> Fachliche Erklärung nach bewusster Aufdeckung. </summary>
     public string Explanation { get; set; } = "";
-    /// <summary> Kriterien für die zusätzliche freie Begründung; keine automatische Textbenotung. </summary>
-    public List<string> ReflectionCriteria { get; set; } = [];
     /// <summary> Aussagen einer Auswahlaufgabe. </summary>
     public Dictionary<string, string> Options { get; set; } = [];
     /// <summary> Vollständige richtige Auswahl. </summary>

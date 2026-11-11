@@ -16,10 +16,6 @@
     ],
     "previousContext": "",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [],
     "starter": {
@@ -38,8 +34,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "options": {
       "function": "Freie Räume für einen Zeitraum suchen ist eine funktionale Anforderung.",
@@ -69,10 +64,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Nutzerfunktionen und messbare Qualitätsanforderungen sind im Auftrag getrennt.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [
       {
         "key": "measure",
@@ -137,8 +128,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -157,8 +147,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     }
   },
   {
@@ -178,10 +167,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Suchgeschwindigkeit hat eine messbare Grenze und eine definierte Nutzungssituation.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [
       {
         "key": "need",
@@ -239,8 +224,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -259,8 +243,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     }
   },
   {
@@ -280,10 +263,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Bedarf und vereinbarte Umsetzung lassen sich getrennt abstimmen.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [
       {
         "key": "role",
@@ -343,8 +322,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -363,8 +341,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     }
   },
   {
@@ -384,10 +361,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die erste User Story verbindet eine Nutzerrolle mit Funktion und Nutzen.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [
       {
         "key": "zero",
@@ -456,8 +429,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -476,8 +448,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     }
   },
   {
@@ -497,10 +468,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Kapazitätsregel besitzt nachvollziehbare Annahme- und Ablehnungsgrenzen.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [
       {
         "key": "request",
@@ -560,8 +527,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -580,8 +546,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     }
   },
   {
@@ -601,10 +566,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Vereinbarter Umfang, spätere Wünsche und offene Fragen sind sichtbar getrennt.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [],
     "starter": {
@@ -623,8 +584,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "options": {
       "objects": "Die beiden Reservierungen sind verschiedene Objekte derselben Klasse.",
@@ -654,10 +614,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Identität und Zustand gehören zur einzelnen Reservierung.",
     "material": "a = NEU Reservierung(41)\nb = NEU Reservierung(42)\nKonstruktor: eigene Nummer übernehmen; eigenen Status auf \"angefragt\" setzen.",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [
       {
         "key": "a",
@@ -722,8 +678,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -742,8 +697,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     }
   },
   {
@@ -763,10 +717,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Beide erzeugten Reservierungen besitzen unabhängig initialisierte Zustände.",
     "material": "a = NEU Reservierung(41)\nb = NEU Reservierung(42)\na.number = 99\nJeder Konstruktor erhöht createdCount um 1. Nummernänderungen erhöhen ihn nicht.",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [
       {
         "key": "a",
@@ -814,8 +764,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -834,8 +783,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     }
   },
   {
@@ -855,10 +803,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der gemeinsame Zähler und die individuellen Nummern haben getrennte Aufgaben.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [
       {
@@ -910,8 +854,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -930,8 +873,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "diagram": {
       "id": 10,
@@ -1012,10 +954,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Statusänderung wird über einen öffentlichen Fachaufruf gekapselt.",
     "material": "setCapacity(neu):\n  WENN neu > 0: capacity = neu; RÜCKGABE true\n  SONST: RÜCKGABE false\nAnfang: capacity = 12",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [
       {
         "key": "first",
@@ -1078,8 +1016,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -1098,8 +1035,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     }
   },
   {
@@ -1119,10 +1055,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Ungültige Eingaben verändern den gültigen Raumzustand nicht.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [
       {
@@ -1217,8 +1149,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -1237,8 +1168,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "diagram": {
       "id": 12,
@@ -1366,10 +1296,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Raum und Reservierung besitzen getrennte, fachlich nachvollziehbare Verantwortungen.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [],
     "starter": {
@@ -1388,8 +1314,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "options": {
       "interface": "Ein Interface kann den gemeinsamen Aufrufvertrag beschreiben.",
@@ -1419,10 +1344,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Gemeinsamer Aufrufvertrag und geerbte Implementierung sind bewusst unterschieden.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [
       {
@@ -1530,8 +1451,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -1550,8 +1470,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "diagram": {
       "id": 14,
@@ -1689,10 +1608,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Buchungsarten bieten denselben Preisaufruf mit eigener Implementierung an.",
     "material": "Standardbuchung.price() liefert 30.\nVereinsbuchung.price() liefert 24.\na: Buchung = NEU Standardbuchung()\nb: Buchung = NEU Vereinsbuchung()",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [
       {
         "key": "standard",
@@ -1744,8 +1659,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -1764,8 +1678,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     }
   },
   {
@@ -1785,10 +1698,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der gleiche Aufruf erreicht die jeweils konkrete Preisimplementierung.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [
       {
@@ -1874,8 +1783,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -1894,8 +1802,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "diagram": {
       "id": 16,
@@ -2012,10 +1919,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Reservierung verwendet einen austauschbaren Tarif über dessen Vertrag.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [
       {
         "key": "parameters",
@@ -2075,8 +1978,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -2095,8 +1997,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     }
   },
   {
@@ -2116,10 +2017,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Unterschiedliche Parameter und ersetzte geerbte Implementierung werden getrennt beurteilt.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [
       {
@@ -2238,8 +2135,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -2258,8 +2154,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "diagram": {
       "id": 18,
@@ -2410,10 +2305,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der Buchungsdienst arbeitet gegen einen Speichervertrag statt gegen eine Dateiklasse.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [],
     "starter": {
@@ -2432,8 +2323,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "options": {
       "observer": "Observer: Ein Subjekt benachrichtigt registrierte Beobachter.",
@@ -2462,10 +2352,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Statusverteilung hat einen konkreten Anlass für Observer.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [
       {
@@ -2573,8 +2459,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -2593,8 +2478,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "diagram": {
       "id": 20,
@@ -2733,10 +2617,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der Statusgeber erreicht beliebig viele vertragskonforme Anzeigen.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [
       {
         "key": "notice",
@@ -2832,8 +2712,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -2852,8 +2731,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     }
   },
   {
@@ -2873,10 +2751,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Musterauswahl folgt fünf unterschiedlichen Entwurfsabsichten.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [
       {
@@ -3028,8 +2902,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -3048,8 +2921,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "diagram": {
       "id": 22,
@@ -3234,10 +3106,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der Preiskontext kann seine Berechnungsstrategie über einen gemeinsamen Vertrag wechseln.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [
       {
         "key": "static",
@@ -3297,8 +3165,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -3317,8 +3184,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     }
   },
   {
@@ -3338,10 +3204,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Erzeugungsmuster und globale Einzelinstanzen werden anhand ihrer tatsächlichen Folgen beurteilt.",
     "material": "MailErzeuger.create():\n  RÜCKGABE NEU MailNachricht()\nDie Auswahl des konkreten Produkts liegt in dieser überschriebenen Erzeugeroperation.",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [
       {
@@ -3470,8 +3332,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -3600,8 +3461,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "diagram": {
       "id": 24,
@@ -3872,10 +3732,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der gemeinsame Erzeuger lässt die konkrete Produkterzeugung überschreiben.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [],
     "starter": {
@@ -3894,8 +3750,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "options": {
       "logic": "Die Fachregel zur Buchungsannahme gehört zur Fachlogik.",
@@ -3925,10 +3780,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Darstellung, Fachentscheidung und Speicherung besitzen getrennte Aufgaben.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [
       {
@@ -3988,8 +3839,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -4008,8 +3858,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "nodeVocabulary": {
       "screen": "Buchungsmaske",
@@ -4053,10 +3902,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die drei Bausteine folgen einer klaren Aufrufkette vom Bildschirm zur Speicherung.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [
       {
@@ -4116,8 +3961,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -4177,8 +4021,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "nodeVocabulary": {
       "service": "Buchungsdienst",
@@ -4221,10 +4064,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die konkrete Speicherung hängt vom fachlich vereinbarten Speichervertrag ab.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [
       {
         "key": "state",
@@ -4284,8 +4123,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -4304,8 +4142,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     }
   },
   {
@@ -4325,10 +4162,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Das MVC-Team kann Darstellung, Koordination und Fachzustand getrennt besprechen.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [
       {
@@ -4394,8 +4227,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -4414,8 +4246,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "nodeVocabulary": {
       "view": "Buchungsansicht",
@@ -4459,10 +4290,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Eingabe und Änderungsbenachrichtigung besitzen einen ausdrücklich vereinbarten Weg.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [
       {
@@ -4537,8 +4364,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -4557,8 +4383,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "nodeVocabulary": {
       "screen": "Buchungsmaske",
@@ -4604,10 +4429,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Systemgrenze trennt die Browseransicht von den serverseitigen Integrationen.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [],
     "starter": {
@@ -4626,8 +4447,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "options": {
       "get": "Ein GET-Aufruf kann die Darstellung der angeforderten Reservierung abrufen.",
@@ -4657,10 +4477,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Ressource, Operation und Ergebnis der HTTP-Kommunikation sind getrennt erkennbar.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [
       {
         "key": "method",
@@ -4723,8 +4539,7 @@
           },
           "selectedIds": []
         },
-        "payload": "{\"roomId\":12,\"date\":\"2027-02-14\",\"participants\":5}",
-        "reasoning": ""
+        "payload": "{\"roomId\":12,\"date\":\"2027-02-14\",\"participants\":5}"
       }
     ],
     "starter": {
@@ -4743,8 +4558,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "payloadFormat": "Json"
   },
@@ -4765,10 +4579,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der erste Anlegeaufruf besitzt einen vollständigen und eindeutig benannten Nachrichtenvertrag.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [
       {
         "key": "method",
@@ -4822,8 +4632,7 @@
           },
           "selectedIds": []
         },
-        "payload": "{\"error\":\"nicht gefunden\",\"id\":42}",
-        "reasoning": ""
+        "payload": "{\"error\":\"nicht gefunden\",\"id\":42}"
       }
     ],
     "starter": {
@@ -4846,8 +4655,7 @@
         },
         "selectedIds": []
       },
-      "payload": "{\"error\":\"nicht gefunden\",\"id\":\"42\"}",
-      "reasoning": ""
+      "payload": "{\"error\":\"nicht gefunden\",\"id\":\"42\"}"
     },
     "payloadFormat": "Json"
   },
@@ -4868,10 +4676,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Eine fehlende Reservierung liefert den vereinbarten Fehlerstatus und eine typgerechte Fehlernachricht.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [
       {
@@ -4890,8 +4694,7 @@
           },
           "selectedIds": []
         },
-        "payload": "{\"rooms\":[{\"id\":12,\"free\":true},{\"id\":18,\"free\":false}]}",
-        "reasoning": ""
+        "payload": "{\"rooms\":[{\"id\":12,\"free\":true},{\"id\":18,\"free\":false}]}"
       }
     ],
     "starter": {
@@ -4910,8 +4713,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "payloadFormat": "Json"
   },
@@ -4932,10 +4734,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Raumantwort unterscheidet Sammlung, einzelne Objekte und deren Datentypen.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [
       {
@@ -4954,8 +4752,7 @@
           },
           "selectedIds": []
         },
-        "payload": "<reservierung id=\"42\"><raum>12</raum><teilnehmer>5</teilnehmer><bestaetigt>true</bestaetigt></reservierung>",
-        "reasoning": ""
+        "payload": "<reservierung id=\"42\"><raum>12</raum><teilnehmer>5</teilnehmer><bestaetigt>true</bestaetigt></reservierung>"
       }
     ],
     "starter": {
@@ -4974,8 +4771,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "payloadFormat": "Xml"
   },
@@ -4996,10 +4792,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der Partner erhält einen XML-Beleg mit eindeutiger Hierarchie und vereinbarten Namen.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [
       {
         "key": "method",
@@ -5062,8 +4854,7 @@
           },
           "selectedIds": []
         },
-        "payload": "{\"participants\":8}",
-        "reasoning": ""
+        "payload": "{\"participants\":8}"
       }
     ],
     "starter": {
@@ -5082,8 +4873,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "payloadFormat": "Json"
   },
@@ -5104,10 +4894,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Teiländerung besitzt einen eigenen Vertrag und lässt andere Eigenschaften unberührt.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [],
     "starter": {
@@ -5126,8 +4912,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "options": {
       "labels": "Sichtbare, dauerhaft erkennbare Beschriftungen für Eingabefelder anbieten.",
@@ -5157,10 +4942,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Oberfläche hält Feldzweck und Fehler auch während der Bearbeitung erkennbar.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [
       {
@@ -5216,8 +4997,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -5236,8 +5016,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "nodeVocabulary": {
       "room": "Raum",
@@ -5280,10 +5059,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Eine eigene Eingabemaske führt von Raum und Datum zur Personenzahl und Absendeaktion.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [
       {
@@ -5330,8 +5105,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -5378,8 +5152,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "nodeVocabulary": {
       "room": "Raum",
@@ -5421,10 +5194,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Vorlage besitzt wieder passende Eingaben, sichtbare Beschriftungen und eine klare Aktion.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [
       {
@@ -5498,8 +5267,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -5518,8 +5286,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "nodeVocabulary": {
       "name": "Name",
@@ -5556,7 +5323,7 @@
     "kind": "Form",
     "format": "Build",
     "story": "Datumsangaben führen am Empfang immer wieder zu Rückfragen. Mira möchte einen sichtbaren Hilfetext direkt am Datum und einen eigenen Platz für eine verständliche Rückmeldung vorsehen. Du entwirfst diese kleine Formularpassage.",
-    "task": "Gruppe Termin, Reihenfolge: Datum als Pflicht-Datumsfeld mit einem nichtleeren eigenen Hilfetext; Datumsrückmeldung als Hinweis / Fehlermeldung ohne Pflichtmarkierung; Anfrage senden als Schaltfläche ohne Pflichtmarkierung. Formuliere den Hilfetext selbst. Seine Verständlichkeit beurteilst du zusätzlich mit der Kriterienliste. Jede Fachrolle wird genau einmal benötigt. Eigene lesbare Beschriftungen sind frei. Die genannte Feldreihenfolge zählt; Pflichtfelder und erforderliche Hilfetexte sind ausdrücklich angegeben.",
+    "task": "Gruppe Termin, Reihenfolge: Datum als Pflicht-Datumsfeld mit einem nichtleeren eigenen Hilfetext; Datumsrückmeldung als Hinweis / Fehlermeldung ohne Pflichtmarkierung; Anfrage senden als Schaltfläche ohne Pflichtmarkierung. Formuliere den Hilfetext selbst. Achte dabei auf eine verständliche konkrete Hilfe zur Eingabe. Jede Fachrolle wird genau einmal benötigt. Eigene lesbare Beschriftungen sind frei. Die genannte Feldreihenfolge zählt; Pflichtfelder und erforderliche Hilfetexte sind ausdrücklich angegeben.",
     "discovery": "Der Entwurf enthält sowohl eine Eingabehilfe als auch einen Platz für konkrete Rückmeldung.",
     "explanation": "Die automatische Prüfung erkennt Hilfetext, Rolle, Eingabeart und Reihenfolge. Ob deine eigene Formulierung den Nutzenden wirklich hilft, bleibt eine ausdrücklich getrennte Selbstkontrolle. Die Vorschau prüft einfache Pflichtangaben, keine vollständige fachliche Terminverfügbarkeit.",
     "hints": [
@@ -5566,10 +5333,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Zusammengehörige Angaben sind gruppiert, freiwillige Daten bleiben als solche erkennbar.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [
       {
@@ -5616,8 +5379,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -5636,8 +5398,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "nodeVocabulary": {
       "date": "Datum",
@@ -5679,10 +5440,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der Entwurf enthält sowohl eine Eingabehilfe als auch einen Platz für konkrete Rückmeldung.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [
       {
@@ -5729,8 +5486,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -5749,8 +5505,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "nodeVocabulary": {
       "query": "Suchbegriff",
@@ -5792,10 +5547,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der kleine Prototyp macht eine konkrete Bedienfrage vor der vollständigen Umsetzung besprechbar.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [],
     "starter": {
@@ -5814,8 +5565,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "options": {
       "ide": "Eine IDE kann Bearbeitung, Navigation, Build und Debugger zusammenführen.",
@@ -5845,10 +5595,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Werkzeugunterstützung, Übersetzung und tatsächliches Programmverhalten sind getrennt eingeordnet.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [
       {
         "key": "state",
@@ -5925,8 +5671,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -5945,8 +5690,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     }
   },
   {
@@ -5966,10 +5710,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Konkrete Entwicklungsfragen sind passenden Hilfsmitteln zugeordnet.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [],
     "starter": {
@@ -5988,8 +5728,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "options": {
       "library": "Bei der beschriebenen Bibliothek ruft die Anwendung die benötigte Funktion gezielt auf.",
@@ -6019,10 +5758,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der Einfluss eines Bausteins auf Aufrufe und Anwendungsablauf ist vor der Auswahl erkennbar.",
     "material": "Kandidat A: offline ja; Laufzeit unterstützt ja; Projektfreigabe ja.\nKandidat B: offline nein; Laufzeit unterstützt ja; Projektfreigabe ja.\nKandidat C: offline ja; Laufzeitunterstützung ungeklärt; Projektfreigabe ja.",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [
       {
         "key": "a",
@@ -6082,8 +5817,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -6102,8 +5836,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     }
   },
   {
@@ -6123,10 +5856,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Auswahl unterscheidet erfüllte Vorgaben, bekannte Ausschlüsse und fehlende Informationen.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [],
     "solutions": [],
     "starter": {
@@ -6145,8 +5874,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     },
     "options": {
       "history": "Nachvollziehbare Commits dokumentieren zusammengehörige Änderungen.",
@@ -6176,10 +5904,6 @@
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Zusammenarbeit hat einen nachvollziehbaren Änderungs- und Abstimmungsweg.",
     "material": "",
-    "reflectionCriteria": [
-      "Welche Anforderung löst dein Entwurf konkret?",
-      "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-    ],
     "fields": [
       {
         "key": "operation",
@@ -6239,8 +5963,7 @@
           },
           "selectedIds": []
         },
-        "payload": "",
-        "reasoning": ""
+        "payload": ""
       }
     ],
     "starter": {
@@ -6259,8 +5982,7 @@
         },
         "selectedIds": []
       },
-      "payload": "",
-      "reasoning": ""
+      "payload": ""
     }
   }
 ]

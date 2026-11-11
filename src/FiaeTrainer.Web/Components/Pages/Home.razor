@@ -6,6 +6,7 @@
 @inject DesignCatalog DesignCatalog
 @inject UmlCatalog UmlCatalog
 @inject SoftwareCatalog SoftwareCatalog
+@inject QualityCatalog QualityCatalog
 @inject ProgressStore Store
 @inject DatabaseState Database
 <PageTitle>Dein Lernraum · AP2 Lernwerk</PageTitle>
@@ -50,7 +51,7 @@
 
     <div class="section-heading" id="themen">
         <div><div class="eyebrow">DEIN THEMENKOMPASS</div><h2>Was möchtest du heute üben?</h2></div>
-        <span>6 Themenbereiche bereit · weitere im Aufbau</span>
+        <span>7 Themenbereiche bereit · weitere im Aufbau</span>
     </div>
 
     <section class="module-grid learning-modules" aria-label="Lernbereiche der FIAE-AP2">
@@ -86,6 +87,10 @@
             else if (module.Number == "05")
             {
                 <article class="module-card ready"><span class="module-number">05</span><span class="badge">Bereit zum Lernen</span><h3>Softwareplanung &amp; OOP</h3><p>Entwickle Anforderungen, Klassen und Architekturen. Plane eigene Schnittstellen und Bedienoberflächen.</p><div class="module-progress">@_progress.SoftwareLessons.Values.Count(item => item.Completed) / @SoftwareCatalog.Lessons.Count Übungen gelöst</div><div class="module-actions"><a class="button primary" href="@($"/softwareplanung/{_progress.LastSoftwareLessonId}")">Weiter lernen →</a><a class="button secondary module-exam-action" href="/softwareplanung/pruefung">Prüfung üben →</a></div><small>Nordhafen weiterdenken · @SoftwareCatalog.Lessons.Count Aufgaben · Eigene Softwareentwürfe</small></article>
+            }
+            else if (module.Number == "06")
+            {
+                <article class="module-card ready"><span class="module-number">06</span><span class="badge">Bereit zum Lernen</span><h3>Tests, Qualität &amp; Sicherheit</h3><p>Entwirf eigene Testfälle, prüfe Abdeckung und finde Fehler. Plane Rechte, sichere Ausgaben und Wiederherstellung.</p><div class="module-progress">@_progress.QualityLessons.Values.Count(item => item.Completed) / @QualityCatalog.Lessons.Count Übungen gelöst</div><div class="module-actions"><a class="button primary" href="@($"/qualitaet/{_progress.LastQualityLessonId}")">Weiter lernen →</a><a class="button secondary module-exam-action" href="/qualitaet/pruefung">Prüfung üben →</a></div><small>Nordhafen im Probebetrieb · @QualityCatalog.Lessons.Count Aufgaben · Eigene Testsätze</small></article>
             }
             else
             {
@@ -138,7 +143,7 @@
         ("07", "Projekte & Wirtschaftlichkeit", "Vorgehen planen, Alternativen vergleichen und Kosten berechnen.")];
 
     /// <summary> Anzahl der tatsächlich implementierten Übungen. </summary>
-    private int TotalExercises => Catalog.Lessons.Count + WorkshopCatalog.Lessons.Count + AlgorithmCatalog.Lessons.Count + BusinessCatalog.Questions.Count + DesignCatalog.Lessons.Count + UmlCatalog.Lessons.Count + SoftwareCatalog.Lessons.Count;
+    private int TotalExercises => Catalog.Lessons.Count + WorkshopCatalog.Lessons.Count + AlgorithmCatalog.Lessons.Count + BusinessCatalog.Questions.Count + DesignCatalog.Lessons.Count + UmlCatalog.Lessons.Count + SoftwareCatalog.Lessons.Count + QualityCatalog.Lessons.Count;
 
     protected override async Task OnInitializedAsync()
     {
@@ -147,9 +152,9 @@
             _progress = await Store.LoadAsync();
             _sqlCompleted = _progress.Lessons.Values.Count(x => x.Completed) + _progress.WorkshopLessons.Values.Count(x => x.Completed);
             _completed = _sqlCompleted + _progress.AlgorithmLessons.Values.Count(x => x.Completed) + _progress.BusinessQuestions.Values.Count(x => x.Completed);
-            _completed += _progress.DesignLessons.Values.Count(item => item.Completed) + _progress.UmlLessons.Values.Count(item => item.Completed) + _progress.SoftwareLessons.Values.Count(item => item.Completed);
+            _completed += _progress.DesignLessons.Values.Count(item => item.Completed) + _progress.UmlLessons.Values.Count(item => item.Completed) + _progress.SoftwareLessons.Values.Count(item => item.Completed) + _progress.QualityLessons.Values.Count(item => item.Completed);
             _independent = _progress.Lessons.Values.Count(x => x.Independent) + _progress.WorkshopLessons.Values.Count(x => x.Independent) + _progress.AlgorithmLessons.Values.Count(x => x.Independent) + _progress.BusinessQuestions.Values.Count(x => x.Independent);
-            _independent += _progress.DesignLessons.Values.Count(item => item.Independent) + _progress.UmlLessons.Values.Count(item => item.Independent) + _progress.SoftwareLessons.Values.Count(item => item.Independent);
+            _independent += _progress.DesignLessons.Values.Count(item => item.Independent) + _progress.UmlLessons.Values.Count(item => item.Independent) + _progress.SoftwareLessons.Values.Count(item => item.Independent) + _progress.QualityLessons.Values.Count(item => item.Independent);
         }
         catch (Exception exception) when (exception is IOException or System.Text.Json.JsonException or UnauthorizedAccessException)
         {

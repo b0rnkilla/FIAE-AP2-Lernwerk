@@ -1,0 +1,22 @@
+@if (QualityPrograms.Find(Task.ProgramKey) is { } program)
+{
+    <section class="quality-results" aria-label="Ausführung deiner Testfälle"><h2>Was dein Testsatz zeigt</h2><p>Alle Zeilen laufen unabhängig gegen den angegebenen Fachvertrag. Nur fachlich richtige Sollwerte können eine Fehlervariante nachweisen.</p>
+    <div class="quality-table-wrap"><table class="quality-table"><caption>Deine Eingaben, Sollwerte und tatsächlich berechneten Ergebnisse</caption><thead><tr><th scope="col">Fall / Eingaben</th><th scope="col">Erwartet</th><th scope="col">Berechnet</th><th scope="col">Prüfung und Ablauf</th></tr></thead><tbody>
+    @for (int i = 0; i < Probe.Rows.Count; i++)
+    {
+        var row = Probe.Rows[i];
+        <tr><th scope="row">@(i + 1) · @row.Inputs</th><td>@QualitySimulator.Display(program, row.Expected)</td><td>@(row.Execution is { } result ? QualitySimulator.Display(program, result.Output) : "Nicht ausgeführt")</td><td><strong>@(row.ExpectedCorrect ? "Sollwert stimmt" : "Noch prüfen")</strong><p>@row.Detail</p>@if (row.Execution is { } execution) { <p>Anweisungen: @string.Join(", ", execution.Statements.Order())<br />Bedingte Zweige: @string.Join(", ", execution.Branches.Order())<br />Pfad: @execution.Path</p> }<p>Erkannte Fehlervarianten: @(row.DetectedFaults.Count == 0 ? "keine" : string.Join("; ", row.DetectedFaults.Select(key => program.Faults.GetValueOrDefault(key, key))))</p></td></tr>
+    }
+    </tbody></table></div>
+    <dl class="quality-coverage"><dt>Gezählte Anweisungen</dt><dd>@Probe.Statements.Count / @program.Statements.Count · @Percent(Probe.Statements.Count, program.Statements.Count) %</dd><dt>Bedingte Zweige</dt><dd>@Probe.Branches.Count / @program.Branches.Count · @Percent(Probe.Branches.Count, program.Branches.Count) %</dd><dt>Erreichbare Pfade dieses Modells</dt><dd>@Probe.Paths.Count / @program.Paths.Count</dd></dl>
+    <p>Abdeckung beschreibt die tatsächlich ausgeführten Marken, auch bei einem falschen Sollwert. Sie allein beweist keine richtige Assertion und keine Fehlerfreiheit. Der Auftrag legt fest, welche Teilmenge benötigt wird.</p>
+    <details><summary>Gemeinsam ausgeführte Anweisungen im Ablauf</summary><pre class="quality-code">@foreach (var line in program.Code.Split('\n')) { string? mark = program.Statements.Keys.FirstOrDefault(key => line.TrimStart().StartsWith("[" + key + "]", StringComparison.Ordinal)); <span class="@(mark != null && Probe.Statements.Contains(mark) ? "quality-code-covered" : "")">@line</span>@("\n") }</pre><p>Hervorgehobene S-Marken wurden mindestens einmal ausgeführt. Die Zweigausgänge und einzelnen Pfade stehen je Fall in der Tabelle.</p></details>
+    </section>
+}
+@code {
+    /// <summary> Ausschließlich ein Ergebnis nach ausdrücklicher Lernprüfung oder endgültiger Prüfungsabgabe. </summary>
+    [Parameter, EditorRequired] public QualityProbe Probe { get; set; } = new();
+    /// <summary> Liefert die feste Zählmenge und lesbare Ergebnisbezeichnungen. </summary>
+    [Parameter, EditorRequired] public QualityAssignment Task { get; set; } = new();
+    private static int Percent(int reached, int total) => total == 0 ? 0 : reached * 100 / total;
+}

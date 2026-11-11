@@ -1,12 +1,17 @@
 # Entwicklung und Projektstruktur
 
-Quellstand: **0.1.1-alpha.14 mit Abschnitt 05 Softwareplanung und OOP**, 346 Lernübungen plus 25 SQL-/Pseudocode-Prüfungsaufgaben und jeweils drei Entwurfs-, UML- und Softwareplanungs-Prüfungsfälle mit neun Teilen je Modul. Zuletzt gebautes Windows-Paket: **0.1.1-alpha.13 mit 298 Lernübungen und den separaten Prüfungsrunden**, am 09.11.2026 aus sauberem, gepushtem Anwendungscode-Commit `b4224b0` gebaut und aus dem ZIP geprüft. Versionshinweise nach dem Commit ergänzt, Anwendungscode unverändert. Alpha 13 wurde am 09.11.2026 vom Nutzer als Pre-release veröffentlicht; öffentlich bestätigt am 11.11.2026. Das ältere Alpha-12-Paket bleibt unverändert. Diese Anleitung dient dem Projektinhaber zur Pflege und Erweiterung. Auch ein Zugriff auf die Dateien räumt keine Open-Source-Lizenz ein; es gelten die [Nutzungsbedingungen](../LICENSE). Die Entstehung und Zuordnung älterer Pakete stehen unter [lokale Releases](lokale-releases.md).
+Quellstand: **0.1.1-alpha.15 mit Abschnitt 06 Tests, Qualität und Sicherheit**, 400 Lernübungen in sieben Modulen. Dazu 25 SQL-/Pseudocode-Prüfungsaufgaben und jeweils drei Entwurfs-, UML-, Softwareplanungs- und Qualitätsprüfungsfälle mit neun Teilen je Modul. Zuletzt gebautes und vom Nutzer veröffentlichtes Windows-Paket bleibt **0.1.1-alpha.14 mit 346 Lernübungen**, aus sauberem gepushtem Commit `33f09a7f896839962c9a29f0a9167d24ae9aa181`. Alpha 15 wurde nur als Quellprojekt gebaut und mit eigenem Profil geprüft; **kein neues ZIP beauftragt oder erstellt**. Diese Anleitung dient dem Projektinhaber. Es gelten die [Nutzungsbedingungen](../LICENSE); Paketnachweise unter [lokale Releases](lokale-releases.md).
 
 ## Orientierung
 
 ```text
 src/
   FiaeTrainer.Core/
+    QualityAssurance/
+      Models/           Strukturierte Antworten und eigene unabhängige Testfälle
+      Content/          54 eigene Aufgaben, acht Testverträge und drei Prüfungsfälle
+      Evaluation/       Lokale Ausführung, Abdeckung, Sollwerte und gezielte Fehlervarianten
+      Practice/         Separate Lernversuche und 45-Minuten-Prüfungen
     SoftwareDesign/
       Models/           Eigene strukturierte Antworten, Architekturbausteine und Formularfelder
       Content/          48 eigene Aufgaben, drei Prüfungsfälle und Inhaltsvertrag
@@ -47,12 +52,13 @@ src/
       Layout/           Kopfbereich und Seitenrahmen
       Learning/         Gemeinsame Lernbedienung
       Project/          Dezente Unterstützungskarte und Projektverweise
+      QualityAssurance/ Eigene Testwerkstatt, Reviews, Matrix, Abläufe und Ausführungsbericht
       SoftwareDesign/   Eigene Architektur-/Formularbaukästen, Nachrichten und Rückmeldungen
       Uml/              Bedienbarer Diagrammbaukasten, SVG-Anordnung und Rückmeldungen
       DatabaseDesign/   Modellbaukasten und eigene ER-/Tabellendarstellungen
       BusinessStudies/  WiSo-Eingaben, Auflösung und eigene Abbildungen
       Exams/            Nachbereitung und Prüfungsrückweg
-      Pages/Training/   Lern- und Prüfungsseiten aller sechs Module samt Code-behind
+      Pages/Training/   Lern- und Prüfungsseiten aller sieben Module samt Code-behind
       Sql/              SQL-Ergebnisse, Fallnotizen und Tabellenübersicht
       Updates/          Updatehinweis
     Exams/              Koordination der zwei fachlichen Prüfungen
@@ -258,3 +264,18 @@ Prüfungs-Autospeicherung darf laufende Editorobjekte nicht nach jedem Tastendru
 ## Alpha-14-Paketvorbereitung am 11.11.2026
 
 Der Nutzer hat Abschnitt 05 kurz erprobt, einige Aufgaben gelöst und die Umsetzung positiv bewertet. Die vollständige Nutzererprobung und Zeitkalibrierung bleiben offen. Dokumentationsstand und README für die aktuelle Quellfassung nachgeführt; Versionshinweise Alpha 14 liegen vor. Paketbau und Release-Informationen sind ausdrücklich erst nach Nutzer-Commit und Push beauftragt. Danach den sauberen Zielcommit/Remote-Stand prüfen und die native EXE aus dem ZIP mit eigenem Profil prüfen; keine vorhandenen Archive überschreiben. Bisher kein Alpha-14-ZIP, kein automatischer Commit/Push/Upload.
+
+## Paketprüfung Alpha 14
+
+Nach Nutzer-Commit/Push den sauberen HEAD und Remote-master 33f09a7 bestätigt. Bestehenden Release-erstellen.ps1 ausgeführt, unveränderter Code und Paketdokumente aus diesem Commit. ZIP 51.548.922 Bytes, 59 Dateien; Ausschluss privater Daten, Lizenzen, BOM-Helfer und Versionsangabe geprüft. Native EXE aus dem entpackten ZIP ohne SDK-Start auf 5236, eigenes temporäres Profil außerhalb des Programmordners und unerreichbares SQL-Ziel. API/XML/Formular ohne SQL sowie Softwareprüfung 50/50 nach Pause und Hostneustart erfolgreich; alte Profilfelder und alle Paketdateien unverändert. Nachweis artifacts/alpha14-verification.json. Keine erhöhte Firewall-Einrichtung oder weiterer physischer Rechner Teil dieses Laufs. ZIP/SHA256 erhalten; Prüfdokumentation separat committen, Tag/Upload durch Nutzer.
+
+## Abschnitt 06: Qualitätssicherung seit Alpha 15
+
+`QualityCatalog` lädt eigene eingebettete Aufträge und prüft Referenzen einschließlich Reparaturvorlagen. `QualitySimulator` führt acht begrenzte Modelle aus, weder freie C#-Programme noch Angriffe. `QualityEvaluator` trennt richtige Sollwerte, tatsächliche Abdeckung und nachgewiesene Fehlervarianten. Eingaben müssen nicht wörtlich der Musterlösung entsprechen. Nur explizit markierte S-Anweisungen und bedingte D-Ausgänge werden gezählt; Fachvertrag und Grenzen stehen in [qualitaet.md](qualitaet.md).
+
+`ProgressStore.Quality` ergänzt QualityLessons/LastQualityLessonId und QualityExam/QualityHistory neben allen bisherigen Profilfeldern. `QualityTraining` verwendet die gemeinsame Aufgabenleiste und Moduswahl. `QualityExam` erhält beim Autosave die Identität der bearbeiteten Testzeilen, UTC-Frist und endgültige Antwortsperre. Ausführungsergebnisse erscheinen im Lernen nach Prüfen, in der Prüfung erst nach endgültiger Abgabe. Für Entwicklungstests weiterhin eigenen Port und Training:ProgressDirectory nutzen; persönliche Profile/5080 nicht verwenden. Kein Release-Paket aus dem Nutzer-GO für die Umsetzung ableiten.
+
+
+## Nachlauf Alpha 15: zusätzliche Freitextfelder entfernt
+
+Auf Nutzerwunsch besitzen Abschnitt 05/06 keine freiwilligen Begründungs-/Notizfelder und keine zugehörigen Reflexionskarten mehr, auch nicht bei Prüfungen oder Musterlösungen. Verwaiste Inhaltskriterien, Handler, Darstellungsparameter und Styles sind entfernt; betroffene Aufgaben und Spickzettel verlangen keinen Freitext mehr. Die bewerteten Fachangaben, IDs, Inhaltsversionen und Punkte bleiben erhalten. Nur das frühere Reasoning-Datenfeld bleibt zur verlustfreien Übernahme bestehender Profile bestehen; es wird nicht angezeigt/bearbeitet und allein nicht als eigener neuer Entwurf gewertet.

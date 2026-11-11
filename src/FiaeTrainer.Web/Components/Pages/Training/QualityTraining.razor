@@ -1,0 +1,81 @@
+@page "/qualitaet"
+@page "/qualitaet/{Id:int}"
+<PageTitle>@(_task?.Title ?? "Tests, Qualität und Sicherheit") · AP2 Lernwerk</PageTitle>
+<main class="workspace quality-learning @(_collapsed ? "rail-collapsed" : "")">
+    <TaskRail Id="quality-tasks" Collapsed="_collapsed" CollapsedChanged="SetCollapsedAsync">
+        <div class="eyebrow">KULTURZENTRUM NORDHAFEN</div>
+        <h2>Schritt für Schritt.<br />Zum sicheren Probebetrieb.</h2>
+        <div class="rail-progress"><span>@_state.QualityLessons.Values.Count(item => item.Completed) / @Catalog.Lessons.Count gelöst</span><progress value="@_state.QualityLessons.Values.Count(item => item.Completed)" max="@Catalog.Lessons.Count" aria-label="Fortschritt in Tests, Qualität und Sicherheit"></progress></div>
+        <nav aria-label="Aufgabenauswahl" class="@(_busy ? "busy-nav" : "")">
+            @foreach (var chapter in Catalog.Lessons.GroupBy(task => task.Chapter))
+            {
+                <div class="chapter-label">@chapter.Key</div>
+                @foreach (var item in chapter)
+                {
+                    bool complete = _state.QualityLessons.GetValueOrDefault(item.Id)?.Completed == true;
+                    <a class="mission-link @(CurrentId == item.Id ? "selected" : "")" href="@($"/qualitaet/{item.Id}")" aria-current="@(CurrentId == item.Id ? "step" : null)"><span class="mission-index @(complete ? "done" : "")">@(complete ? "✓" : item.Id.ToString("D2"))</span><span>@item.Title</span></a>
+                }
+            }
+        </nav>
+    </TaskRail>
+    <div class="mission-main" aria-busy="@(_busy || _loading ? "true" : "false")" inert="@(_loading ? "" : null)">
+    @if (_loading) { <p class="task-loading-note" role="status">Deine Aufgabe wird geladen …</p> }
+    @if (_error != null) { <section class="notice warning" role="alert"><p>@_error</p><a href="@($"/qualitaet/{CurrentId}")" data-enhance-nav="false">Aufgabe neu laden</a></section> }
+    @if (_task != null && _progress != null)
+    {
+        <div class="mission-topline"><span class="eyebrow">AUFGABE @CurrentId.ToString("D2") / @Catalog.Lessons.Count</span><span class="badge">@QualityCatalog.Kinds[_task.Kind] · @(_task.Kind == "Choice" ? "Lesen" : _task.Format == "Repair" ? "Reparieren" : "Selbst erstellen")</span></div>
+        <h1>@_task.Title</h1>
+        <LearningModePicker @key="CurrentId" ExamMode="_progress.IndependentMode" Busy="@(!CanEdit)" HasDraft="HasOwnDraft" AssistedAttempt="_progress.Assisted" ModeChanged="SetModeAsync" />
+        <section class="story-note" aria-label="Stand des Probebetriebs bei Nordhafen">
+            <div class="avatar" aria-hidden="true">MK</div>
+            <div>
+                <span>Entwicklerin Mira König · Nordhafen</span>
+                @if (CurrentId > 1)
+                {
+                    @if (_state.QualityLessons.GetValueOrDefault(CurrentId - 1)?.Completed == true) { <p class="story-context">@_task.PreviousContext</p> }
+                    else { <p class="story-context">Vorheriger Prüfschritt noch offen: <a href="@($"/qualitaet/{CurrentId - 1}")">Aufgabe @(CurrentId - 1)</a>. Du kannst diese Aufgabe trotzdem unabhängig bearbeiten.</p> }
+                }
+                <p>@_task.Story</p>
+            </div>
+        </section>
+        <section class="task-card"><div class="eyebrow">01 · AUFGABE VERSTEHEN</div><p>@_task.Task</p></section>
+        @if (_task.Material.Length > 0) { <section class="quality-material"><h2>Deine Arbeitsunterlage</h2><pre class="quality-code">@_task.Material</pre><p>Die Beispiele verwenden die jeweils erklärte Notation; sie werden hier gelesen und fachlich ausgewertet.</p></section> }
+        @if (_task.Format == "Repair") { <section class="design-material"><h2>Vorgegebener Entwurf</h2><p>Diese Vorlage bleibt zum Vergleichen erhalten. Bearbeite darunter deine eigene Kopie.</p><QualitySolution Task="_task" Answer="_task.Starter" /></section> }
+        <section class="editor-card design-answer" aria-label="Arbeitsbereich in Tests, Qualität und Sicherheit">
+            <div class="editor-toolbar"><strong>02 · @(_task.Kind switch { "Choice" => "Deine Antwort", "Worksheet" => "Deine Ausarbeitung", "TestSuite" => "Deine Testfälle", "Review" => "Deine Reviewbefunde", "Matrix" => "Deine Berechtigungsmatrix", "Order" => "Dein Ablauf", _ => "Deine Bearbeitung" })</strong><span>@QualityCatalog.Kinds[_task.Kind]</span></div>
+            <div class="design-answer-content"><QualityEditor @key="CurrentId" Task="_task" Answer="_progress.Answer" Changed="EditorChangedAsync" ReadOnly="@(!CanEdit)" /></div>
+            <div class="editor-actions"><div><button class="button primary" disabled="@(!CanEdit || !HasAnswer)" @onclick="CheckAsync">@(_busy ? "Wird geprüft …" : "Lösung prüfen") →</button></div></div>
+        </section>
+        @if (_result != null)
+        {
+            <div @ref="_feedback" tabindex="-1"><QualityLearningFeedback Result="_result" Task="_task" IndependentMode="_progress.IndependentMode" Assisted="_progress.Assisted" /></div>
+            @if (_result.Probe != null) { <QualityTestResults Probe="_result.Probe" Task="_task" /> }
+        }
+        @if (!_progress.IndependentMode)
+        {
+            <section class="help-card"><div class="help-row"><div><h2>Ein kleiner Denkanstoß?</h2><p>Du entscheidest, wie viel Unterstützung du brauchst.</p></div><button class="button secondary" disabled="@(!CanEdit || _progress.HintLevel == 3)" @onclick="HintAsync">@(_progress.HintLevel == 3 ? "Alle Hinweise geöffnet" : $"Hinweis {_progress.HintLevel + 1} von 3 öffnen")</button></div>
+            @for (int i = 0; i < _progress.HintLevel; i++) { <div class="hint"><span>@(i + 1)</span><p>@_task.Hints[i]</p></div> }
+            <div class="help-row"><div><h2>Testregeln und Schutzmaßnahmen nachschlagen?</h2><p>Der Spickzettel erklärt Testentwurf, Abdeckung, Fehlerberichte und Schutzmaßnahmen.</p></div><a class="button secondary" href="@($"/qualitaet/spickzettel?aufgabe={CurrentId}")">Spickzettel öffnen</a></div>
+            <div class="help-row"><div><h2>Musterlösung</h2><p>Eine aufgedeckte Lösung zählt nicht als selbstständiger Versuch.</p></div><button class="button secondary" aria-label="@(_showSolution ? "Musterlösung ausblenden" : "Musterlösung ansehen")" aria-expanded="@_showSolution.ToString().ToLowerInvariant()" aria-controls="@(_showSolution ? "quality-solution" : null)" disabled="@(!CanEdit)" @onclick="SolutionAsync">@(_showSolution ? "Ausblenden" : "Ansehen")</button></div>
+            @if (_showSolution) { <div class="solution" id="quality-solution"><p>@_task.Explanation</p><QualitySolution Task="_task" Answer="@(_task.Solutions.FirstOrDefault() ?? new())" /></div> }
+            </section>
+        }
+        <nav class="mission-bottom" aria-label="Vorherige und nächste Qualitätsaufgabe">@if (CurrentId > 1) { <a class="button secondary" href="@($"/qualitaet/{CurrentId - 1}")">← Vorherige Aufgabe</a> }<span></span>@if (CurrentId < Catalog.Lessons.Count) { <a class="button @(_result?.Correct == true ? "primary" : "secondary")" href="@($"/qualitaet/{CurrentId + 1}")">Nächste Aufgabe →</a> } else { <a class="button primary" href="/lernplan">Deine Wiederholung planen →</a> }</nav>
+    }
+    </div>
+    <aside class="inspector design-notes" aria-label="Bestätigte Prüfschritte">
+        <h2>Prüfbericht</h2><p>Deine bestätigten Schritte zum Probebetrieb.</p>
+        @if (!_state.QualityLessons.Any(item => item.Key <= CurrentId && item.Value.Completed)) { <p>Noch kein Schritt bestätigt. Deine erste gelöste Aufgabe eröffnet den Bericht.</p> }
+        @{ int previousConfirmed = 0; }
+        @foreach (var item in Catalog.Lessons.Where(task => task.Id <= CurrentId && _state.QualityLessons.GetValueOrDefault(task.Id)?.Completed == true))
+        {
+            var missing = Catalog.Lessons.Where(task => task.Id > previousConfirmed && task.Id < item.Id).ToArray();
+            @if (missing.Length > 0)
+            {
+                <details class="quality-story-gaps"><summary>Noch offen: @(missing.Length == 1 ? $"Aufgabe {missing[0].Id}" : $"Aufgaben {missing[0].Id}–{missing[^1].Id}")</summary><ul>@foreach (var open in missing) { <li><a href="@($"/qualitaet/{open.Id}")">Aufgabe @open.Id · @open.Title</a></li> }</ul></details>
+            }
+            <article><span class="eyebrow">AUFGABE @item.Id.ToString("D2")</span><h3>@item.Title</h3><p>@item.Discovery</p></article>
+            previousConfirmed = item.Id;
+        }
+    </aside>
+</main>

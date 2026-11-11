@@ -33,6 +33,7 @@ public sealed class SoftwareComponentTests : IDisposable
         using var services = Services(); var task = _catalog.Lessons[id - 1];
         string html = await RenderAsync<SoftwareTraining>(services, new() { ["Id"] = id });
         Assert.Contains(task.Title, html); Assert.Contains("Ohne Hilfe lösen", html); Assert.Contains("Geführt lernen", html);
+        Assert.DoesNotContain("Begründung", html);
         Assert.DoesNotContain(task.Discovery, html); Assert.DoesNotContain(task.Explanation, html);
         if (id > 1) Assert.Contains("Vorheriger Planungsschritt noch offen", html);
         if (task.Kind is "Architecture" or "Form") Assert.Contains("noch leer", html);
@@ -47,7 +48,7 @@ public sealed class SoftwareComponentTests : IDisposable
         string wrong = await RenderAsync<SoftwareLearningFeedback>(services, new() { ["Task"] = task, ["Result"] = SoftwareEvaluator.Evaluate(task, task.InitialAnswer()) });
         Assert.DoesNotContain(task.Explanation, wrong); Assert.DoesNotContain(task.Discovery, wrong);
         string right = await RenderAsync<SoftwareLearningFeedback>(services, new() { ["Task"] = task, ["Result"] = SoftwareEvaluator.Evaluate(task, task.Solutions[0]) });
-        Assert.Contains(task.Discovery, right); Assert.Contains("selbst überprüfen", right);
+        Assert.Contains(task.Discovery, right); Assert.DoesNotContain("Begründung", right);
         foreach (var html in new[] { wrong, right })
         {
             Assert.Single(System.Text.RegularExpressions.Regex.Matches(html, "aria-label=\"Rückmeldung zu deiner Lösung\""));
@@ -66,6 +67,13 @@ public sealed class SoftwareComponentTests : IDisposable
         Assert.Contains(_catalog.Lessons[1].Title, html); Assert.Contains(_catalog.Lessons[1].PreviousContext, html);
         Assert.Contains(_catalog.Lessons[0].Discovery, html); Assert.DoesNotContain(_catalog.Lessons[1].Discovery, html);
         Assert.Equal(before, await File.ReadAllTextAsync(Path.Combine(_directory, "progress.json")));
+        Assert.DoesNotContain("Eigener Ansatz", html);
+        var legacy = (await store.LoadAsync()).SoftwareLessons[2];
+        Assert.Equal("Eigener Ansatz", legacy.Answer.Reasoning);
+        var page = new SoftwareTraining(); const BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
+        typeof(SoftwareTraining).GetField("_task", flags)!.SetValue(page, _catalog.Lessons[1]);
+        typeof(SoftwareTraining).GetField("_progress", flags)!.SetValue(page, legacy);
+        Assert.False((bool)typeof(SoftwareTraining).GetProperty("HasOwnDraft", flags)!.GetValue(page)!);
     }
 
     [Fact]
@@ -155,7 +163,7 @@ public sealed class SoftwareComponentTests : IDisposable
 #pragma warning restore BL0005
             string before = JsonSerializer.Serialize(answer);
             foreach (var (name, arguments) in new (string, object[])[] {
-                ("SelectAsync", ["x"]), ("ValueAsync", [new SoftwareField(), "x"]), ("PayloadAsync", ["x"]), ("ReasoningAsync", ["x"]),
+                ("SelectAsync", ["x"]), ("ValueAsync", [new SoftwareField(), "x"]), ("PayloadAsync", ["x"]),
                 ("AddNodeAsync", []), ("RemoveNodeAsync", [node]), ("NodeAsync", [node, "Name", "x"]), ("RequiredAsync", [node, true]),
                 ("MoveAsync", [node, 1]), ("AddLinkAsync", []), ("RemoveLinkAsync", [link]), ("LinkAsync", [link, "Kind", "x"]) })
                 await (Task)typeof(SoftwareEditor).GetMethod(name, BindingFlags.Instance | BindingFlags.NonPublic)!.Invoke(editor, arguments)!;

@@ -1,0 +1,3314 @@
+[
+  {
+    "id": 1,
+    "title": "Qualität hat mehrere Seiten",
+    "chapter": "01 · Qualität beurteilen",
+    "kind": "Choice",
+    "format": "Analyze",
+    "story": "Mira bereitet den Probebetrieb im Kulturzentrum Nordhafen vor. Eine schnelle Buchungsmaske hilft wenig, wenn sie falsche Plätze vergibt oder sich kaum warten lässt. Sie sammelt zunächst unterschiedliche Qualitätsziele.",
+    "previousContext": "",
+    "task": "Welche zwei Aussagen unterscheiden die Qualitätsziele sinnvoll?",
+    "explanation": "Qualität umfasst mehrere Eigenschaften. Messwerte zu einer Eigenschaft beweisen nicht automatisch alle anderen. Die Aufgaben benennen bei normbezogenen Fragen die jeweilige Fassung; ältere Modelle werden nicht stillschweigend gleichgesetzt.",
+    "discovery": "Miras Qualitätsübersicht trennt richtige Fachfunktionen, Bedienung und spätere Änderbarkeit.",
+    "hints": [
+      "Frage jeweils, welche Eigenschaft die Aussage tatsächlich beschreibt.",
+      "Ein Geschwindigkeitsmesswert sagt nichts darüber aus, ob die richtige Buchung gespeichert wurde.",
+      "Wartbarkeit betrachtet spätere Anpassungen; ein Build prüft dagegen nur einen begrenzten technischen Schritt."
+    ],
+    "fields": [],
+    "solutions": [],
+    "options": {
+      "1": "Korrekte Fachfunktionen und verständliche Bedienung sind unterschiedliche Qualitätsaspekte.",
+      "2": "Eine sehr kurze Antwortzeit beweist automatisch richtige Buchungsergebnisse.",
+      "3": "Wartbarkeit betrifft unter anderem die Möglichkeit, Änderungen nachvollziehbar vorzunehmen.",
+      "4": "Ein erfolgreicher Build ersetzt sämtliche Qualitätskontrollen."
+    },
+    "correctIds": [
+      "1",
+      "3"
+    ],
+    "material": ""
+  },
+  {
+    "id": 2,
+    "title": "Ein Qualitätsziel messbar machen",
+    "chapter": "01 · Qualität beurteilen",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Am Empfang warten bei Kursbeginn viele Personen gleichzeitig. Das Team vereinbart für die Raumsuche eine klare Grenze, damit der Probebetrieb nicht nach Bauchgefühl beurteilt wird.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Miras Qualitätsübersicht trennt richtige Fachfunktionen, Bedienung und spätere Änderbarkeit.",
+    "task": "Vervollständige die Vereinbarung: Die Antwortzeit der Raumsuche darf bei 80 gleichzeitig Suchenden höchstens 1500 Millisekunden betragen. Erfolgreiche Suchantworten werden am vollständig angezeigten Ergebnis gemessen.",
+    "explanation": "Messgegenstand, Grenze, Vergleich und Lastannahme gehören zusammen. Einschließlich 1500 Millisekunden bedeutet kleiner oder gleich, nicht strikt kleiner.",
+    "discovery": "Der Empfang besitzt eine messbare Vereinbarung für den Lastversuch.",
+    "hints": [
+      "Übernimm die im Auftrag vorgegebene Einheit.",
+      "Eine Grenze allein nennt noch keine Lastsituation.",
+      "Höchstens schließt die genannte Zeitgrenze ein."
+    ],
+    "fields": [
+      {
+        "key": "measure",
+        "label": "Messgegenstand",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Antwortzeit der Raumsuche",
+          "2": "Anzahl der Quellcodedateien",
+          "3": "Anzahl aller Tasten"
+        },
+        "help": ""
+      },
+      {
+        "key": "limit",
+        "label": "Zeitgrenze in Millisekunden",
+        "kind": "Number",
+        "comparison": "Number",
+        "options": {},
+        "help": ""
+      },
+      {
+        "key": "load",
+        "label": "Gleichzeitig Suchende",
+        "kind": "Number",
+        "comparison": "Number",
+        "options": {},
+        "help": ""
+      },
+      {
+        "key": "operator",
+        "label": "Vergleich",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "kleiner oder gleich",
+          "2": "größer",
+          "3": "ungleich"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "measure": "1",
+          "limit": "1500",
+          "load": "80",
+          "operator": "1"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": ""
+  },
+  {
+    "id": 3,
+    "title": "Unklare Anforderungen im Review finden",
+    "chapter": "01 · Qualität beurteilen",
+    "kind": "Review",
+    "format": "Analyze",
+    "story": "Vor der Umsetzung eines weiteren Formulars legt Mira vier Sätze aus dem internen Entwurf zur Prüfung vor. Zwei Sätze lassen ohne weitere Festlegung keine eindeutige Abnahme zu.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Empfang besitzt eine messbare Vereinbarung für den Lastversuch.",
+    "task": "Markiere genau die zwei Aussagen, denen im beschriebenen Ausschnitt messbare beziehungsweise eindeutige Kriterien fehlen.",
+    "explanation": "Schnell und benutzerfreundlich benötigen im konkreten Vertrag zusätzliche beobachtbare Kriterien. Der Zahlenbereich und das unveränderte Speichern sind dagegen in diesem Ausschnitt überprüfbar.",
+    "discovery": "Zwei unklare Formulierungen sind als offene Klärungspunkte erkannt.",
+    "hints": [
+      "Ein Review untersucht die Unterlage, bevor ein Programm laufen muss.",
+      "Suche nach Wertungen ohne vereinbarte Beobachtung.",
+      "Ein eindeutiger Zahlenbereich ist konkreter als ein allgemeines Qualitätswort."
+    ],
+    "fields": [],
+    "solutions": [],
+    "options": {
+      "1": "Die Suche soll sehr schnell sein.",
+      "2": "Die Personenzahl muss eine ganze Zahl von 1 bis 24 einschließlich sein.",
+      "3": "Fehler sollen benutzerfreundlich behandelt werden.",
+      "4": "Beim Ablehnen bleibt die zuvor gespeicherte Buchung unverändert."
+    },
+    "correctIds": [
+      "1",
+      "3"
+    ],
+    "material": ""
+  },
+  {
+    "id": 4,
+    "title": "Ein Review nachvollziehbar vorbereiten",
+    "chapter": "01 · Qualität beurteilen",
+    "kind": "Order",
+    "format": "Build",
+    "story": "Mira führt ein kleines Review des Buchungsentwurfs durch. Im vereinbarten Teamablauf werden Befunde erst nach individueller Sichtung besprochen und später auf Erledigung geprüft.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Zwei unklare Formulierungen sind als offene Klärungspunkte erkannt.",
+    "task": "Vorgabe: Zuerst Prüfziel und Unterlage festlegen; danach individuell sichten; dann Befunde besprechen; schließlich die Überarbeitung nachprüfen. Baue den Ablauf aus den angebotenen Schritten selbst auf. Maßgeblich sind die hier genannten Voraussetzungen; es wird kein universeller Ablauf für alle Projekte behauptet.",
+    "explanation": "Ein vorbereiteter Ablauf macht Anlass, Befunde und Nachverfolgung sichtbar. Die Aufgabe verwendet ausdrücklich den vereinbarten kleinen Teamprozess.",
+    "discovery": "Das Review erhält einen nachvollziehbaren Weg von der Vorbereitung bis zur Nachverfolgung.",
+    "hints": [
+      "Bevor jemand prüfen kann, müssen Ziel und Unterlage bekannt sein.",
+      "Die individuelle Sichtung liefert die Befunde für das Gespräch.",
+      "Erledigung wird erst nach der Überarbeitung nachgeprüft."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {},
+        "selectedIds": [],
+        "testCases": [],
+        "order": [
+          "scope",
+          "inspect",
+          "discuss",
+          "verify"
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "cards": {
+      "scope": "Prüfziel und Unterlage festlegen",
+      "inspect": "Individuell sichten und Befunde notieren",
+      "discuss": "Befunde gemeinsam besprechen",
+      "verify": "Überarbeitung nachprüfen"
+    }
+  },
+  {
+    "id": 5,
+    "title": "Statisch und dynamisch unterscheiden",
+    "chapter": "01 · Qualität beurteilen",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Der Probebetrieb ist noch nicht freigegeben. Mira kombiniert Prüfungen an Dokumenten und Code mit ausgeführten Versuchen, statt alles als denselben Test zu bezeichnen.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Das Review erhält einen nachvollziehbaren Weg von der Vorbereitung bis zur Nachverfolgung.",
+    "task": "Ordne jede Tätigkeit als statisch oder dynamisch ein. Statisch bedeutet hier Prüfung ohne Ausführen des Testobjekts; dynamisch beobachtet dessen Ausführung.",
+    "explanation": "Statische Prüfung benötigt keinen laufenden Fachablauf. Dynamische Prüfung führt das Testobjekt aus. Beide Perspektiven können sich ergänzen.",
+    "discovery": "Miras Prüfplan kombiniert Unterlagenprüfung und beobachtete Ausführung.",
+    "hints": [
+      "Entscheidend ist, ob das geprüfte Testobjekt ausgeführt wird.",
+      "Ein gemeinsames Lesen ist keine Programmausführung.",
+      "Antwortzeiten lassen sich erst an einem laufenden Versuch beobachten."
+    ],
+    "fields": [
+      {
+        "key": "review",
+        "label": "Anforderungen gemeinsam lesen",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "statisch",
+          "2": "dynamisch"
+        },
+        "help": ""
+      },
+      {
+        "key": "analysis",
+        "label": "Code auf unerreichbare Stellen analysieren",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "statisch",
+          "2": "dynamisch"
+        },
+        "help": ""
+      },
+      {
+        "key": "run",
+        "label": "Gebührenfunktion mit eigenen Eingaben aufrufen",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "statisch",
+          "2": "dynamisch"
+        },
+        "help": ""
+      },
+      {
+        "key": "load",
+        "label": "Antwortzeit unter Last messen",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "statisch",
+          "2": "dynamisch"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "review": "1",
+          "analysis": "1",
+          "run": "2",
+          "load": "2"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": ""
+  },
+  {
+    "id": 6,
+    "title": "Was erfolgreiche Prüfungen wirklich belegen",
+    "chapter": "01 · Qualität beurteilen",
+    "kind": "Review",
+    "format": "Analyze",
+    "story": "Alle bisherigen Unit-Tests sind grün. Im Freigabegespräch werden daraus sehr weitreichende Aussagen abgeleitet. Mira prüft, welche Folgerungen über den Nachweis hinausgehen.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Miras Prüfplan kombiniert Unterlagenprüfung und beobachtete Ausführung.",
+    "task": "Markiere zwei unzulässige Schlussfolgerungen.",
+    "explanation": "Ein endlicher Testsatz und ein Strukturmaß begrenzen den Nachweis. Nicht geprüfte Anforderungen oder ungeeignete Sollwerte verschwinden nicht durch einen grünen Lauf.",
+    "discovery": "Die erste Qualitätsbesprechung trennt Nachweise von unbegründeten Garantien.",
+    "hints": [
+      "Prüfe Wörter wie gesamte, jede und vollständig.",
+      "Überdeckung zählt ausgeführte Struktur; sie beurteilt nicht alle fachlichen Anforderungen.",
+      "Grüne Prüffälle sind ein Ergebnis des verwendeten Satzes, kein allgemeiner Fehlerfreiheitsbeweis."
+    ],
+    "fields": [],
+    "solutions": [],
+    "options": {
+      "1": "Die verwendeten Prüffälle haben kein abweichendes Ergebnis gezeigt.",
+      "2": "Die gesamte Anwendung ist damit nachweislich fehlerfrei.",
+      "3": "Andere Testarten können weiterhin zusätzliche Erkenntnisse liefern.",
+      "4": "Ein hoher Überdeckungswert beweist jede Anforderung vollständig."
+    },
+    "correctIds": [
+      "2",
+      "4"
+    ],
+    "material": ""
+  },
+  {
+    "id": 7,
+    "title": "Die passende Teststufe wählen",
+    "chapter": "02 · Tests planen",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Nordhafen besitzt Gebührenfunktion, Speicherschnittstelle und Buchungsoberfläche. Mira ordnet vier Prüfaufträge so zu, dass der Umfang des jeweiligen Testobjekts erkennbar bleibt.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Die erste Qualitätsbesprechung trennt Nachweise von unbegründeten Garantien.",
+    "task": "Wähle die passende Stufe. Die Gebührenfunktion wird isoliert geprüft; danach folgen Zusammenarbeit mit dem Speicher, der vollständige Buchungsweg und schließlich die vereinbarte Prüfung durch den Auftraggeber.",
+    "explanation": "Die Teststufe richtet sich nach Umfang und Ziel des Testobjekts. Ein isolierter Komponententest ersetzt nicht die Zusammenarbeit mehrerer Komponenten oder die fachliche Abnahme.",
+    "discovery": "Vier Prüfaufträge besitzen einen klaren Umfang.",
+    "hints": [
+      "Beginne beim kleinsten isolierten Baustein.",
+      "Zusammenarbeit mehrerer Bausteine ist eine eigene Betrachtung.",
+      "Die vereinbarte Prüfung durch den Auftraggeber verfolgt ein Abnahmeziel."
+    ],
+    "fields": [
+      {
+        "key": "unit",
+        "label": "Isolierte Gebührenfunktion",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Komponententest",
+          "2": "Integrationstest",
+          "3": "Systemtest",
+          "4": "Abnahmetest"
+        },
+        "help": ""
+      },
+      {
+        "key": "integration",
+        "label": "Dienst und echter Testspeicher gemeinsam",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Komponententest",
+          "2": "Integrationstest",
+          "3": "Systemtest",
+          "4": "Abnahmetest"
+        },
+        "help": ""
+      },
+      {
+        "key": "system",
+        "label": "Vollständiger Buchungsweg im Gesamtsystem",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Komponententest",
+          "2": "Integrationstest",
+          "3": "Systemtest",
+          "4": "Abnahmetest"
+        },
+        "help": ""
+      },
+      {
+        "key": "acceptance",
+        "label": "Auftraggeber prüft vereinbarte Akzeptanz",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Komponententest",
+          "2": "Integrationstest",
+          "3": "Systemtest",
+          "4": "Abnahmetest"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "unit": "1",
+          "integration": "2",
+          "system": "3",
+          "acceptance": "4"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": ""
+  },
+  {
+    "id": 8,
+    "title": "Funktion und Qualitätsverhalten prüfen",
+    "chapter": "02 · Tests planen",
+    "kind": "Choice",
+    "format": "Analyze",
+    "story": "Die Buchungsfunktion liefert bei 24 Personen WAHR. Gleichzeitig soll die Suche unter Last erreichbar und ausreichend schnell bleiben. Mira trennt die Prüfziele.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Vier Prüfaufträge besitzen einen klaren Umfang.",
+    "task": "Welche zwei Zuordnungen treffen zu?",
+    "explanation": "Funktionales Prüfen betrachtet die angebotene Fachleistung. Nichtfunktionales Prüfen untersucht etwa Leistungs- oder Sicherheitsaspekte unter festgelegten Bedingungen.",
+    "discovery": "Der Testplan hält fachliche Rückgaben und Lastverhalten auseinander.",
+    "hints": [
+      "Welche Leistung wird angeboten, und unter welchen Qualitätsbedingungen?",
+      "Die Preisformel und die Antwortzeit sind unterschiedliche Fragen.",
+      "Auch Sicherheitsanforderungen können überprüfbare Erwartungen enthalten."
+    ],
+    "fields": [],
+    "solutions": [],
+    "options": {
+      "1": "Die zulässige Personenzahl prüft funktionales Verhalten.",
+      "2": "Eine Lastmessung beweist bereits die korrekte Preisformel.",
+      "3": "Antwortzeit unter vereinbarter Last ist ein nichtfunktionales Prüfziel.",
+      "4": "Sicherheit kann grundsätzlich niemals Gegenstand von Tests sein."
+    },
+    "correctIds": [
+      "1",
+      "3"
+    ],
+    "material": ""
+  },
+  {
+    "id": 9,
+    "title": "Nach vorgegebenem Risiko priorisieren",
+    "chapter": "02 · Tests planen",
+    "kind": "Order",
+    "format": "Build",
+    "story": "Für den ersten Probebetrieb bleibt nur Zeit für drei Prüfblöcke. Das Team hat deren Risiko bereits aus Auswirkung und Eintrittswahrscheinlichkeit bewertet; diese Reihenfolge wird nicht frei geraten.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Testplan hält fachliche Rückgaben und Lastverhalten auseinander.",
+    "task": "Prüfe zuerst den ausdrücklich hohen Risikoblock, danach den mittleren, zuletzt den niedrigen: Fremdzugriff auf Buchungen = hoch, Rundungsanzeige = mittel, Abstand einer Überschrift = niedrig. Baue den Ablauf aus den angebotenen Schritten selbst auf. Maßgeblich sind die hier genannten Voraussetzungen; es wird kein universeller Ablauf für alle Projekte behauptet.",
+    "explanation": "Risikoorientierte Auswahl berücksichtigt Wirkung und Wahrscheinlichkeit. Hier ist die Einstufung vorgegeben; sie wird nicht allein aus dem Namen eines Fehlers erfunden.",
+    "discovery": "Die knappe Prüfzeit folgt den ausdrücklich festgelegten Risiken.",
+    "hints": [
+      "Nutze die gegebenen Risikoeinstufungen.",
+      "Hoch liegt vor mittel, mittel vor niedrig.",
+      "Die Aufgabe verlangt keine eigene Berechnung unbekannter Wahrscheinlichkeiten."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {},
+        "selectedIds": [],
+        "testCases": [],
+        "order": [
+          "access",
+          "rounding",
+          "spacing"
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "cards": {
+      "access": "Fremdzugriff auf Buchungen – hohes Risiko",
+      "rounding": "Rundungsanzeige – mittleres Risiko",
+      "spacing": "Überschriftenabstand – niedriges Risiko"
+    }
+  },
+  {
+    "id": 10,
+    "title": "Eine Testabhängigkeit gezielt ersetzen",
+    "chapter": "02 · Tests planen",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Die Preisregel soll ohne Netzwerk und echten Speicher geprüft werden. Ein Ersatz liefert feste Datensätze. Für einen anderen Test soll zusätzlich kontrolliert werden, ob ein Speicherruf genau einmal erfolgte.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Die knappe Prüfzeit folgt den ausdrücklich festgelegten Risiken.",
+    "task": "Ordne den beiden Zielen die passende Rolle des Testdoubles zu. In dieser Aufgabe liefert ein Stub vorgegebene Antworten, ein Mock überprüft erwartete Interaktionen.",
+    "explanation": "Ein Testdouble muss zum Testziel passen. Eine Ersatzabhängigkeit unterstützt Isolation, beweist aber nicht automatisch die reale Zusammenarbeit mit dem späteren Speicher.",
+    "discovery": "Die isolierte Regelprüfung erhält passende Ersatzabhängigkeiten.",
+    "hints": [
+      "Unterscheide feste Antworten von überprüften Interaktionen.",
+      "Ein ersetzter Speicher wird in diesem Lauf nicht als echter Speicher geprüft.",
+      "Integration bleibt eine zusätzliche Fragestellung."
+    ],
+    "fields": [
+      {
+        "key": "data",
+        "label": "Feste Antwortdaten liefern",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Stub",
+          "2": "Mock",
+          "3": "Produktivserver"
+        },
+        "help": ""
+      },
+      {
+        "key": "interaction",
+        "label": "Erwarteten Aufruf genau einmal prüfen",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Stub",
+          "2": "Mock",
+          "3": "Produktivserver"
+        },
+        "help": ""
+      },
+      {
+        "key": "isolation",
+        "label": "Warum eine Ersatzabhängigkeit?",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Die Fachregel unabhängig vom echten Netzwerk prüfen",
+          "2": "Den Integrationstest dauerhaft abschaffen",
+          "3": "Jede fachliche Assertion überflüssig machen"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "data": "1",
+          "interaction": "2",
+          "isolation": "1"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": ""
+  },
+  {
+    "id": 11,
+    "title": "Lücken im Testplan markieren",
+    "chapter": "02 · Tests planen",
+    "kind": "Review",
+    "format": "Analyze",
+    "story": "Ein erster Testplan enthält vier Vorschläge. Mira möchte die vereinbarte fachliche Grenze und die Serverantwortzeit nachweisen und sucht nach zwei Aussagen, die diesen Plan schwächen.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Die isolierte Regelprüfung erhält passende Ersatzabhängigkeiten.",
+    "task": "Markiere genau die zwei problematischen Aussagen.",
+    "explanation": "Ein mittlerer Wert ist kein Nachweis der Randwerte. Unterschiedliche Prüfziele brauchen passende Beobachtungen; eine kontrollierte Uhr kann dagegen Wiederholbarkeit unterstützen.",
+    "discovery": "Der Testplan erhält konkrete Hinweise auf fehlende Grenzen und Lastbeobachtungen.",
+    "hints": [
+      "Welche Aussage verwechselt einen mittleren Wert mit einer Grenze?",
+      "Suche nach dem Ersatz eines völlig anderen Prüfziels.",
+      "Eine festgelegte Messstelle und kontrollierte Zeit sind keine Mängel."
+    ],
+    "fields": [],
+    "solutions": [],
+    "options": {
+      "1": "Für den Bereich 1–24 reicht ausschließlich der Eingabewert 12 als Grenzwertprüfung.",
+      "2": "Die Lastannahme und Messstelle der Antwortzeit werden vor dem Lauf festgelegt.",
+      "3": "Eine bestandene Preisprüfung ersetzt den benötigten Lastversuch.",
+      "4": "Bei zeitabhängigen Tests wird eine kontrollierte Uhr verwendet."
+    },
+    "correctIds": [
+      "1",
+      "3"
+    ],
+    "material": ""
+  },
+  {
+    "id": 12,
+    "title": "Akzeptanz anhand von Ergebnissen prüfen",
+    "chapter": "02 · Tests planen",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Für den Probebetrieb sind maximal 1500 Millisekunden bei 80 Suchenden vereinbart. Das Protokoll nennt 1420 Millisekunden bei 80 Suchenden; der Lastpunkt ist erfüllt. Die Wiederherstellungsprobe wurde hingegen noch nicht durchgeführt.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Testplan erhält konkrete Hinweise auf fehlende Grenzen und Lastbeobachtungen.",
+    "task": "Bewerte nur die ausdrücklich genannten Nachweise. Die Freigaberegel verlangt sowohl bestandenen Lastversuch als auch bestandene Wiederherstellungsprobe.",
+    "explanation": "Ein bestandener Teilnachweis erfüllt nicht automatisch alle Freigabekriterien. Eine nicht durchgeführte Probe ist offen und wird nicht als bestanden gewertet.",
+    "discovery": "Mira erkennt den noch fehlenden Wiederherstellungsnachweis vor dem Probebetrieb.",
+    "hints": [
+      "Vergleiche Messwert und Lastannahme mit der Vereinbarung.",
+      "Nicht durchgeführt bedeutet nicht bestanden.",
+      "Die Freigaberegel verknüpft beide Nachweise mit UND."
+    ],
+    "fields": [
+      {
+        "key": "load",
+        "label": "Lastkriterium",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "erfüllt",
+          "2": "nicht erfüllt"
+        },
+        "help": ""
+      },
+      {
+        "key": "restore",
+        "label": "Wiederherstellungsnachweis",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "vorhanden und bestanden",
+          "2": "noch offen"
+        },
+        "help": ""
+      },
+      {
+        "key": "release",
+        "label": "Freigabe nach dieser Regel",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "ja",
+          "2": "noch nicht"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "load": "1",
+          "restore": "2",
+          "release": "2"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": ""
+  },
+  {
+    "id": 13,
+    "title": "Drei Äquivalenzklassen selbst testen",
+    "chapter": "03 · Blackbox-Testfälle entwickeln",
+    "kind": "TestSuite",
+    "format": "Build",
+    "story": "Die Annahmeprüfung soll jede unzulässige Personenzahl abweisen. Mira bittet dich um einen kleinen, begründeten Satz statt vieler zufälliger Mittelwerte.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Mira erkennt den noch fehlenden Wiederherstellungsnachweis vor dem Probebetrieb.",
+    "task": "Decke die drei Klassen unterhalb, innerhalb und oberhalb des erlaubten Bereichs ab. Erstelle eigene Testfälle mit Eingaben und Sollwerten. Jeder Fall startet unabhängig. Die verlangten Klassen, gezählten Wege und Fehlervarianten stehen unten ausdrücklich dabei. Andere passende Testwerte sind erlaubt; gleiche Fälle ersetzen keine zusätzliche Abdeckung.",
+    "explanation": "Ein geeigneter Vertreter je verlangter Klasse erfüllt diesen Ausschnitt. Andere Werte derselben Klassen sind erlaubt; dreimal derselbe gültige Wert deckt keine ungültige Klasse ab.",
+    "discovery": "Ein eigener Testsatz trennt drei fachlich unterschiedliche Eingabebereiche.",
+    "hints": [
+      "Lies zuerst den gültigen Bereich einschließlich seiner Grenzen.",
+      "Unterhalb, innerhalb und oberhalb benötigen jeweils einen eigenen Vertreter.",
+      "Leite WAHR oder FALSCH aus dem Vertrag ab, nicht aus einer Fehlervariante."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {},
+        "selectedIds": [],
+        "testCases": [
+          {
+            "id": "case-1",
+            "inputs": {
+              "people": "-2"
+            },
+            "expected": "false"
+          },
+          {
+            "id": "case-2",
+            "inputs": {
+              "people": "8"
+            },
+            "expected": "true"
+          },
+          {
+            "id": "case-3",
+            "inputs": {
+              "people": "30"
+            },
+            "expected": "false"
+          }
+        ],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "programKey": "capacity",
+    "requiredPartitions": [
+      "below",
+      "valid",
+      "above"
+    ],
+    "requiredStatements": [],
+    "requiredBranches": [],
+    "requiredPaths": [],
+    "requiredFaults": [],
+    "maximumCases": 12
+  },
+  {
+    "id": 14,
+    "title": "Die vier Bereichsgrenzen absichern",
+    "chapter": "03 · Blackbox-Testfälle entwickeln",
+    "kind": "TestSuite",
+    "format": "Build",
+    "story": "Ein früherer Entwurf enthielt Vergleichsfehler genau an den Grenzen. Mira möchte die beiden erlaubten Randwerte und deren unmittelbare Nachbarn absichern.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Ein eigener Testsatz trennt drei fachlich unterschiedliche Eingabebereiche.",
+    "task": "Prüfe 0, 1, 24 und 25 und erkenne die drei unten genannten Vergleichsfehler. Erstelle eigene Testfälle mit Eingaben und Sollwerten. Jeder Fall startet unabhängig. Die verlangten Klassen, gezählten Wege und Fehlervarianten stehen unten ausdrücklich dabei. Andere passende Testwerte sind erlaubt; gleiche Fälle ersetzen keine zusätzliche Abdeckung.",
+    "explanation": "Die eingeschlossenen Randwerte müssen WAHR liefern. Ihre unmittelbaren äußeren Nachbarn müssen FALSCH liefern. Erst richtige Sollwerte machen eine abweichende Fehlervariante erkennbar.",
+    "discovery": "Die Annahmeprüfung besitzt konkrete Sicherungen gegen drei Grenzfehler.",
+    "hints": [
+      "Ein eingeschlossener Randwert gehört noch zum erlaubten Bereich.",
+      "Nimm zusätzlich den unmittelbaren Nachbarn außerhalb jeder Grenze.",
+      "Ein falscher Sollwert ist ein Fehler im Test, kein entdeckter Fehler im Programm."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {},
+        "selectedIds": [],
+        "testCases": [
+          {
+            "id": "case-4",
+            "inputs": {
+              "people": "0"
+            },
+            "expected": "false"
+          },
+          {
+            "id": "case-5",
+            "inputs": {
+              "people": "1"
+            },
+            "expected": "true"
+          },
+          {
+            "id": "case-6",
+            "inputs": {
+              "people": "24"
+            },
+            "expected": "true"
+          },
+          {
+            "id": "case-7",
+            "inputs": {
+              "people": "25"
+            },
+            "expected": "false"
+          }
+        ],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "programKey": "capacity",
+    "requiredPartitions": [
+      "before-min",
+      "min",
+      "max",
+      "after-max"
+    ],
+    "requiredStatements": [],
+    "requiredBranches": [],
+    "requiredPaths": [],
+    "requiredFaults": [
+      "exclude-min",
+      "exclude-max",
+      "accept-zero"
+    ],
+    "maximumCases": 6
+  },
+  {
+    "id": 15,
+    "title": "Mitgliedschaft und Gruppengröße kombinieren",
+    "chapter": "03 · Blackbox-Testfälle entwickeln",
+    "kind": "TestSuite",
+    "format": "Build",
+    "story": "Beim Gruppenbeitrag wirkt ein Nachlass nur unter zwei gemeinsamen Voraussetzungen. Mira möchte außerdem ungültige Gruppengrößen abdecken.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Die Annahmeprüfung besitzt konkrete Sicherungen gegen drei Grenzfehler.",
+    "task": "Decke zu kleine und zu große Gruppen, kleine Mitgliedergruppen, Mitglieder mit Nachlass und gültige Gruppen ohne Mitgliedschaft ab. Erkenne außerdem alle drei beschriebenen Nachlassfehler. Erstelle eigene Testfälle mit Eingaben und Sollwerten. Jeder Fall startet unabhängig. Die verlangten Klassen, gezählten Wege und Fehlervarianten stehen unten ausdrücklich dabei. Andere passende Testwerte sind erlaubt; gleiche Fälle ersetzen keine zusätzliche Abdeckung.",
+    "explanation": "Die Sollwerte sind Centbeträge. Mitgliedschaft allein und Größe allein genügen nicht für den Nachlass. Die kritische Gruppe mit genau zehn Personen unterscheidet die strenge von der einschließenden Schwelle.",
+    "discovery": "Die Gebührenprüfung unterscheidet fachliche Kombinationen und erkennt falsche Nachlassregeln.",
+    "hints": [
+      "Trenne zuerst ungültige von gültigen Gruppengrößen.",
+      "Bei gültigen Gruppen muss die Mitgliedschaft mit der Zehnerschwelle zusammen betrachtet werden.",
+      "Zehn mal 1200 Cent mit 20 Prozent Nachlass ergibt 9600 Cent."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {},
+        "selectedIds": [],
+        "testCases": [
+          {
+            "id": "case-8",
+            "inputs": {
+              "people": "0",
+              "member": "false"
+            },
+            "expected": "-1"
+          },
+          {
+            "id": "case-9",
+            "inputs": {
+              "people": "25",
+              "member": "true"
+            },
+            "expected": "-1"
+          },
+          {
+            "id": "case-10",
+            "inputs": {
+              "people": "4",
+              "member": "true"
+            },
+            "expected": "4800"
+          },
+          {
+            "id": "case-11",
+            "inputs": {
+              "people": "10",
+              "member": "true"
+            },
+            "expected": "9600"
+          },
+          {
+            "id": "case-12",
+            "inputs": {
+              "people": "10",
+              "member": "false"
+            },
+            "expected": "12000"
+          }
+        ],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "programKey": "fee",
+    "requiredPartitions": [
+      "below",
+      "above",
+      "member-small",
+      "discount",
+      "nonmember"
+    ],
+    "requiredStatements": [],
+    "requiredBranches": [],
+    "requiredPaths": [],
+    "requiredFaults": [
+      "strict-threshold",
+      "wrong-discount",
+      "ignore-member"
+    ],
+    "maximumCases": 12
+  },
+  {
+    "id": 16,
+    "title": "Eine Entscheidungstabelle vervollständigen",
+    "chapter": "03 · Blackbox-Testfälle entwickeln",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Die Nachlassregel soll auch ohne Programmcode verständlich bleiben. Mira betrachtet nur gültige Gruppengrößen und trennt zwei Bedingungen in einer Tabelle.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Die Gebührenprüfung unterscheidet fachliche Kombinationen und erkennt falsche Nachlassregeln.",
+    "task": "Fülle die vier Kombinationen aus. Nachlass gibt es genau dann, wenn Mitgliedschaft vorliegt UND die Gruppe mindestens zehn Personen besitzt.",
+    "explanation": "Die UND-Verknüpfung ist ausschließlich bei zwei erfüllten Bedingungen wahr. Die betrachteten Gruppengrößen sind in dieser Tabelle ausdrücklich gültig.",
+    "discovery": "Die Nachlassentscheidung ist als vollständige Viererkombination festgehalten.",
+    "hints": [
+      "Prüfe beide Bedingungen unabhängig.",
+      "Eine einzige erfüllte Bedingung genügt bei UND nicht.",
+      "Nur die Kombination Mitglied und mindestens zehn erhält Nachlass."
+    ],
+    "fields": [
+      {
+        "key": "tt",
+        "label": "Mitglied / mindestens 10",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Nachlass",
+          "2": "kein Nachlass"
+        },
+        "help": ""
+      },
+      {
+        "key": "tf",
+        "label": "Mitglied / weniger als 10",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Nachlass",
+          "2": "kein Nachlass"
+        },
+        "help": ""
+      },
+      {
+        "key": "ft",
+        "label": "kein Mitglied / mindestens 10",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Nachlass",
+          "2": "kein Nachlass"
+        },
+        "help": ""
+      },
+      {
+        "key": "ff",
+        "label": "kein Mitglied / weniger als 10",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Nachlass",
+          "2": "kein Nachlass"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "tt": "1",
+          "tf": "2",
+          "ft": "2",
+          "ff": "2"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": ""
+  },
+  {
+    "id": 17,
+    "title": "Zustandsübergänge als eigene Testfälle",
+    "chapter": "03 · Blackbox-Testfälle entwickeln",
+    "kind": "TestSuite",
+    "format": "Build",
+    "story": "Mira hat Rückmeldungen zu mehrfach bestätigten oder bereits stornierten Buchungen erhalten. Die Tests müssen ihren Vorzustand ausdrücklich nennen, damit sie unabhängig bleiben.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Die Nachlassentscheidung ist als vollständige Viererkombination festgehalten.",
+    "task": "Decke alle vier angegebenen Übergangsgruppen ab und erkenne die drei Fehlervarianten. Erstelle eigene Testfälle mit Eingaben und Sollwerten. Jeder Fall startet unabhängig. Die verlangten Klassen, gezählten Wege und Fehlervarianten stehen unten ausdrücklich dabei. Andere passende Testwerte sind erlaubt; gleiche Fälle ersetzen keine zusätzliche Abdeckung.",
+    "explanation": "Jeder Fall startet in seinem eigenen Vorzustand. Eine erlaubte Stornierung ersetzt keine Prüfung einer wiederholten Bestätigung oder einer bereits stornierten Buchung.",
+    "discovery": "Der Zustandstest trennt zulässige Übergänge von wiederholten und unzulässigen Aktionen.",
+    "hints": [
+      "Betrachte stets Vorzustand und Aktion gemeinsam.",
+      "Ein vorheriger Test setzt nicht den Zustand des nächsten Falls.",
+      "Bestätigt plus Bestätigen ist ein anderer Fehlerfall als storniert plus Stornieren."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {},
+        "selectedIds": [],
+        "testCases": [
+          {
+            "id": "case-13",
+            "inputs": {
+              "state": "cancelled",
+              "action": "cancel"
+            },
+            "expected": "rejected"
+          },
+          {
+            "id": "case-14",
+            "inputs": {
+              "state": "requested",
+              "action": "confirm"
+            },
+            "expected": "confirmed"
+          },
+          {
+            "id": "case-15",
+            "inputs": {
+              "state": "confirmed",
+              "action": "cancel"
+            },
+            "expected": "cancelled"
+          },
+          {
+            "id": "case-16",
+            "inputs": {
+              "state": "confirmed",
+              "action": "confirm"
+            },
+            "expected": "rejected"
+          }
+        ],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "programKey": "cancel",
+    "requiredPartitions": [
+      "already-cancelled",
+      "confirm",
+      "cancel",
+      "invalid-confirm"
+    ],
+    "requiredStatements": [],
+    "requiredBranches": [],
+    "requiredPaths": [],
+    "requiredFaults": [
+      "repeat-cancel",
+      "repeat-confirm",
+      "ignore-action"
+    ],
+    "maximumCases": 12
+  },
+  {
+    "id": 18,
+    "title": "Tarifgrenze und Versandart prüfen",
+    "chapter": "03 · Blackbox-Testfälle entwickeln",
+    "kind": "TestSuite",
+    "format": "Build",
+    "story": "Ein Versandauftrag im Nordhafen-Fundbüro hängt von Gewicht und Expresswahl ab. Mira möchte sehen, ob der Tarifwechsel und beide Versandarten im Testsatz vorkommen.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Zustandstest trennt zulässige Übergänge von wiederholten und unzulässigen Aktionen.",
+    "task": "Decke ungültige kleine/große Gewichte, beide gültigen Tarifklassen, Standard und Express sowie 1000 und 1001 Gramm ab. Erkenne alle drei beschriebenen Tariffehler. Erstelle eigene Testfälle mit Eingaben und Sollwerten. Jeder Fall startet unabhängig. Die verlangten Klassen, gezählten Wege und Fehlervarianten stehen unten ausdrücklich dabei. Andere passende Testwerte sind erlaubt; gleiche Fälle ersetzen keine zusätzliche Abdeckung.",
+    "explanation": "1000 Gramm gehört noch zum leichten Tarif. Express addiert drei Euro erst bei gültigen Gewichten. Andere Vertreter für die allgemeinen Klassen sind erlaubt; die ausdrücklich genannten Tarifgrenzen bleiben verbindlich.",
+    "discovery": "Die Versandprüfung deckt Tarifwechsel, Versandarten und ungültige Gewichte ab.",
+    "hints": [
+      "Trenne ungültige Gewichte von der Tarifauswahl.",
+      "Bei der Tarifgrenze ist einschließlich entscheidend.",
+      "Ein schweres Expresspaket liefert 8 plus 3 Euro."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {},
+        "selectedIds": [],
+        "testCases": [
+          {
+            "id": "case-17",
+            "inputs": {
+              "weight": "0",
+              "express": "false"
+            },
+            "expected": "-1"
+          },
+          {
+            "id": "case-18",
+            "inputs": {
+              "weight": "5001",
+              "express": "true"
+            },
+            "expected": "-1"
+          },
+          {
+            "id": "case-19",
+            "inputs": {
+              "weight": "1000",
+              "express": "false"
+            },
+            "expected": "4"
+          },
+          {
+            "id": "case-20",
+            "inputs": {
+              "weight": "1001",
+              "express": "true"
+            },
+            "expected": "11"
+          }
+        ],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "programKey": "shipping",
+    "requiredPartitions": [
+      "below",
+      "above",
+      "light",
+      "heavy",
+      "express",
+      "standard",
+      "split",
+      "after-split"
+    ],
+    "requiredStatements": [],
+    "requiredBranches": [],
+    "requiredPaths": [],
+    "requiredFaults": [
+      "strict-split",
+      "wrong-heavy",
+      "ignore-express"
+    ],
+    "maximumCases": 12
+  },
+  {
+    "id": 19,
+    "title": "Beide Rückgaben ausführen",
+    "chapter": "04 · Whitebox und Überdeckung",
+    "kind": "TestSuite",
+    "format": "Build",
+    "story": "Die Personenzahlprüfung besitzt zwei gezählte Rückgabeanweisungen. Mira möchte zunächst nachweisen, dass beide überhaupt ausgeführt werden.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Die Versandprüfung deckt Tarifwechsel, Versandarten und ungültige Gewichte ab.",
+    "task": "Erreiche alle S-Anweisungen des Modells. Die Bedingungen D werden separat betrachtet und zählen hier nicht als zusätzliche S-Anweisung. Erstelle eigene Testfälle mit Eingaben und Sollwerten. Jeder Fall startet unabhängig. Die verlangten Klassen, gezählten Wege und Fehlervarianten stehen unten ausdrücklich dabei. Andere passende Testwerte sind erlaubt; gleiche Fälle ersetzen keine zusätzliche Abdeckung.",
+    "explanation": "Eine ungültige und eine gültige Zahl führen zu unterschiedlichen Rückgaben. Ein einzelner gültiger Mittelwert erreicht nur eine der beiden gezählten Anweisungen.",
+    "discovery": "Beide Rückgabeanweisungen der Annahmeprüfung wurden durch eigene Daten ausgeführt.",
+    "hints": [
+      "Lies die mit S markierten gezählten Anweisungen.",
+      "Welcher Fall beendet die Funktion bereits in der Ablehnung?",
+      "Für die andere Rückgabe benötigst du eine gültige Zahl."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {},
+        "selectedIds": [],
+        "testCases": [
+          {
+            "id": "case-21",
+            "inputs": {
+              "people": "0"
+            },
+            "expected": "false"
+          },
+          {
+            "id": "case-22",
+            "inputs": {
+              "people": "7"
+            },
+            "expected": "true"
+          }
+        ],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "programKey": "capacity",
+    "requiredPartitions": [],
+    "requiredStatements": [
+      "S1",
+      "S2"
+    ],
+    "requiredBranches": [],
+    "requiredPaths": [],
+    "requiredFaults": [],
+    "maximumCases": 12
+  },
+  {
+    "id": 20,
+    "title": "Alle bedingten Zweige erreichen",
+    "chapter": "04 · Whitebox und Überdeckung",
+    "kind": "TestSuite",
+    "format": "Build",
+    "story": "Die Versandfunktion enthält drei Entscheidungen. Mira legt für diese Aufgabe ausdrücklich deren wahre und falsche Ausgänge als Zähleinheiten fest.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Beide Rückgabeanweisungen der Annahmeprüfung wurden durch eigene Daten ausgeführt.",
+    "task": "Erreiche sämtliche S-Anweisungen und die sechs beschrifteten bedingten Zweige. ODER-Teilbedingungen von D1 werden nicht zusätzlich gezählt. Es ist noch keine vollständige Pfadabdeckung verlangt. Erstelle eigene Testfälle mit Eingaben und Sollwerten. Jeder Fall startet unabhängig. Die verlangten Klassen, gezählten Wege und Fehlervarianten stehen unten ausdrücklich dabei. Andere passende Testwerte sind erlaubt; gleiche Fälle ersetzen keine zusätzliche Abdeckung.",
+    "explanation": "D1 muss eine ungültige und eine gültige Eingabe sehen. Für gültige Gewichte braucht D2 beide Tarife und D3 beide Expressentscheidungen. Drei geeignete Fälle können dies erreichen, ohne alle fünf erreichbaren Pfade abzudecken.",
+    "discovery": "Der Testsatz erreicht alle gezählten Anweisungen und bedingten Zweige der Versandfunktion.",
+    "hints": [
+      "Ein ungültiges Gewicht erreicht die späteren Entscheidungen nicht.",
+      "Verwende gültige Gewichte auf beiden Seiten des Tarifwechsels.",
+      "Verbinde diese mit unterschiedlichen Expresswerten."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {},
+        "selectedIds": [],
+        "testCases": [
+          {
+            "id": "case-23",
+            "inputs": {
+              "weight": "0",
+              "express": "false"
+            },
+            "expected": "-1"
+          },
+          {
+            "id": "case-24",
+            "inputs": {
+              "weight": "1000",
+              "express": "false"
+            },
+            "expected": "4"
+          },
+          {
+            "id": "case-25",
+            "inputs": {
+              "weight": "1001",
+              "express": "true"
+            },
+            "expected": "11"
+          }
+        ],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "programKey": "shipping",
+    "requiredPartitions": [],
+    "requiredStatements": [
+      "S1",
+      "S2",
+      "S3",
+      "S4",
+      "S5"
+    ],
+    "requiredBranches": [
+      "D1.T",
+      "D1.F",
+      "D2.T",
+      "D2.F",
+      "D3.T",
+      "D3.F"
+    ],
+    "requiredPaths": [],
+    "requiredFaults": [],
+    "maximumCases": 6
+  },
+  {
+    "id": 21,
+    "title": "Zweige sind noch nicht alle Pfade",
+    "chapter": "04 · Whitebox und Überdeckung",
+    "kind": "TestSuite",
+    "format": "Build",
+    "story": "Der vorige Strukturmaßstab kann verschiedene Kombinationen auslassen. Mira möchte nun zusätzlich jeden erreichbaren Weg des kleinen schleifenfreien Versandmodells sehen.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Testsatz erreicht alle gezählten Anweisungen und bedingten Zweige der Versandfunktion.",
+    "task": "Decke alle fünf ausdrücklich benannten Pfade ab. Gezählt werden eine ungültige Eingabe und die vier Kombinationen aus gültiger Gewichtsklasse und Versandart. Erstelle eigene Testfälle mit Eingaben und Sollwerten. Jeder Fall startet unabhängig. Die verlangten Klassen, gezählten Wege und Fehlervarianten stehen unten ausdrücklich dabei. Andere passende Testwerte sind erlaubt; gleiche Fälle ersetzen keine zusätzliche Abdeckung.",
+    "explanation": "Jeder Pfad ist eine vollständige Folge der D-Ausgänge. Leicht/Express und schwer/Standard fehlen leicht in einem Satz, der bereits jeden einzelnen Zweig irgendwann erreicht. Das Modell enthält keine Schleife; unbeschränkte Schleifenpfade werden hier nicht versprochen.",
+    "discovery": "Die vier gültigen Versandkombinationen und der Ablehnungsweg sind einzeln geprüft.",
+    "hints": [
+      "Vergleiche vollständige D-Folgen statt einzelner D-Ausgänge.",
+      "Für gültige Gewichte entstehen zwei mal zwei Kombinationen.",
+      "Ein zusätzlicher ungültiger Fall deckt den frühen Ablehnungsweg ab."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {},
+        "selectedIds": [],
+        "testCases": [
+          {
+            "id": "case-26",
+            "inputs": {
+              "weight": "0",
+              "express": "false"
+            },
+            "expected": "-1"
+          },
+          {
+            "id": "case-27",
+            "inputs": {
+              "weight": "500",
+              "express": "false"
+            },
+            "expected": "4"
+          },
+          {
+            "id": "case-28",
+            "inputs": {
+              "weight": "500",
+              "express": "true"
+            },
+            "expected": "7"
+          },
+          {
+            "id": "case-29",
+            "inputs": {
+              "weight": "2000",
+              "express": "false"
+            },
+            "expected": "8"
+          },
+          {
+            "id": "case-30",
+            "inputs": {
+              "weight": "2000",
+              "express": "true"
+            },
+            "expected": "11"
+          }
+        ],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "programKey": "shipping",
+    "requiredPartitions": [],
+    "requiredStatements": [],
+    "requiredBranches": [],
+    "requiredPaths": [
+      "D1.T",
+      "D1.F|D2.T|D3.F",
+      "D1.F|D2.T|D3.T",
+      "D1.F|D2.F|D3.F",
+      "D1.F|D2.F|D3.T"
+    ],
+    "requiredFaults": [],
+    "maximumCases": 8
+  },
+  {
+    "id": 22,
+    "title": "Überdeckung aus einem Protokoll berechnen",
+    "chapter": "04 · Whitebox und Überdeckung",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Für people=5 und member=false nennt das Gebührenprotokoll die ausgeführten S-Anweisungen S2 und S4 sowie D1.falsch und D2.falsch. Das Modell besitzt insgesamt vier S-Anweisungen und vier bedingte Zweige.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Die vier gültigen Versandkombinationen und der Ablehnungsweg sind einzeln geprüft.",
+    "task": "Trage die Anzahl erreichter Anweisungen und Zweige sowie deren Prozentanteile ein. Verwende die im Protokoll ausdrücklich gezählten Einheiten.",
+    "explanation": "Je zwei von vier Zähleinheiten entsprechen 50 Prozent. Ein Strukturmaß beweist keine allgemeine Fehlerfreiheit und entdeckt nicht automatisch fehlende Anforderungen.",
+    "discovery": "Mira kann den beobachteten Strukturanteil korrekt beziffern.",
+    "hints": [
+      "Zähle nur die ausdrücklich genannten S- beziehungsweise D-Ausgänge.",
+      "Überdeckung = erreicht geteilt durch insgesamt mal 100.",
+      "Auch 100 Prozent wären keine Garantie für alle Fachanforderungen."
+    ],
+    "fields": [
+      {
+        "key": "statements",
+        "label": "Erreichte S-Anweisungen",
+        "kind": "Number",
+        "comparison": "Number",
+        "options": {},
+        "help": ""
+      },
+      {
+        "key": "statementPercent",
+        "label": "Anweisungsüberdeckung in Prozent",
+        "kind": "Number",
+        "comparison": "Number",
+        "options": {},
+        "help": ""
+      },
+      {
+        "key": "branches",
+        "label": "Erreichte bedingte Zweige",
+        "kind": "Number",
+        "comparison": "Number",
+        "options": {},
+        "help": ""
+      },
+      {
+        "key": "branchPercent",
+        "label": "Zweigüberdeckung in Prozent",
+        "kind": "Number",
+        "comparison": "Number",
+        "options": {},
+        "help": ""
+      },
+      {
+        "key": "guarantee",
+        "label": "Beweist das Fehlerfreiheit?",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "ja",
+          "2": "nein"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "statements": "2",
+          "statementPercent": "50",
+          "branches": "2",
+          "branchPercent": "50",
+          "guarantee": "2"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "Modell: vier S-Anweisungen, vier bedingte Zweige.\nAusgeführt: S2, S4; D1.falsch, D2.falsch."
+  },
+  {
+    "id": 23,
+    "title": "Überdeckungsbehauptungen im Review prüfen",
+    "chapter": "04 · Whitebox und Überdeckung",
+    "kind": "Review",
+    "format": "Analyze",
+    "story": "Im Testbericht stehen vier Aussagen. Mira möchte verhindern, dass aus einem hohen Strukturwert eine nicht belegte Freigabegarantie wird.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Mira kann den beobachteten Strukturanteil korrekt beziffern.",
+    "task": "Markiere genau die zwei fachlich falschen Aussagen.",
+    "explanation": "Ein Fall kann alle Anweisungen eines Ausschnitts ausführen und trotzdem einen Bedingungsausgang auslassen. Vollständige Zweigüberdeckung ist stärker, bleibt aber ein Strukturmaß und kein allgemeiner Korrektheitsbeweis.",
+    "discovery": "Der Testbericht trennt Anweisungs-, Zweig- und Pfadaussagen von Garantien.",
+    "hints": [
+      "Die Richtung einer Schlussfolgerung ist wichtig.",
+      "Strukturabdeckung beurteilt nicht die Vollständigkeit der Spezifikation.",
+      "Eine beliebig oft wiederholbare Schleife erzeugt eine andere Pfadfrage als ein kleines schleifenfreies Modell."
+    ],
+    "fields": [],
+    "solutions": [],
+    "options": {
+      "1": "100 Prozent Anweisungsüberdeckung garantieren stets 100 Prozent Zweigüberdeckung.",
+      "2": "100 Prozent Zweigüberdeckung beinhalten im betrachteten Modell auch alle gezählten Anweisungen.",
+      "3": "Vollständige Zweigüberdeckung beweist die Fehlerfreiheit jeder Fachanforderung.",
+      "4": "Bei unbeschränkten Schleifen kann die vollständige Pfadmenge eine praktische Grenze für erschöpfendes Testen darstellen."
+    },
+    "correctIds": [
+      "1",
+      "3"
+    ],
+    "material": ""
+  },
+  {
+    "id": 24,
+    "title": "Eine Gebührenänderung strukturell absichern",
+    "chapter": "04 · Whitebox und Überdeckung",
+    "kind": "TestSuite",
+    "format": "Build",
+    "story": "Bei der Werkzeugausleihe wurde die Schadenspauschale überarbeitet. Mira möchte sowohl die gültigen Rechenwege als auch die Ablehnung ungültiger Dauer beobachten.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Testbericht trennt Anweisungs-, Zweig- und Pfadaussagen von Garantien.",
+    "task": "Erreiche alle S-Anweisungen und bedingten Zweige und erkenne die drei beschriebenen Fehlervarianten. Erstelle eigene Testfälle mit Eingaben und Sollwerten. Jeder Fall startet unabhängig. Die verlangten Klassen, gezählten Wege und Fehlervarianten stehen unten ausdrücklich dabei. Andere passende Testwerte sind erlaubt; gleiche Fälle ersetzen keine zusätzliche Abdeckung.",
+    "explanation": "Ungültige Dauer, gültige Ausleihe ohne Schaden und gültige Ausleihe mit Schaden decken die geforderte Struktur ab. Der erlaubte obere Rand erkennt außerdem eine fälschliche Ablehnung von 14 Tagen.",
+    "discovery": "Die Ausleihprüfung verbindet Strukturabdeckung und gezielte Fehlererkennung.",
+    "hints": [
+      "Der ungültige Fall endet vor der Gebührenberechnung.",
+      "Ein gültiger Fall muss die Schadenspauschale auslassen, ein anderer anwenden.",
+      "Nutze auch den eingeschlossenen oberen Rand, wenn dessen Fehlervariante erkannt werden soll."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {},
+        "selectedIds": [],
+        "testCases": [
+          {
+            "id": "case-31",
+            "inputs": {
+              "days": "0",
+              "damaged": "false"
+            },
+            "expected": "-1"
+          },
+          {
+            "id": "case-32",
+            "inputs": {
+              "days": "1",
+              "damaged": "false"
+            },
+            "expected": "7"
+          },
+          {
+            "id": "case-33",
+            "inputs": {
+              "days": "14",
+              "damaged": "true"
+            },
+            "expected": "118"
+          }
+        ],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "programKey": "rental",
+    "requiredPartitions": [],
+    "requiredStatements": [
+      "S1",
+      "S2",
+      "S3",
+      "S4"
+    ],
+    "requiredBranches": [
+      "D1.T",
+      "D1.F",
+      "D2.T",
+      "D2.F"
+    ],
+    "requiredPaths": [],
+    "requiredFaults": [
+      "exclude-max",
+      "missing-damage",
+      "double-damage"
+    ],
+    "maximumCases": 12
+  },
+  {
+    "id": 25,
+    "title": "Arrange, Act und Assert zuordnen",
+    "chapter": "05 · Unit-Tests verbessern",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Mira möchte einen Test so lesen können, dass Vorbereitung, eigentlicher Aufruf und Ergebnisprüfung erkennbar bleiben.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Die Ausleihprüfung verbindet Strukturabdeckung und gezielte Fehlererkennung.",
+    "task": "Ordne die drei Schritte nach Arrange–Act–Assert zu. Der betrachtete Test bereitet eine Gruppe vor, ruft die Gebührenfunktion auf und vergleicht die Rückgabe mit 9600 Cent.",
+    "explanation": "Eine übersichtliche Struktur zeigt, was der Test voraussetzt, was tatsächlich ausgeführt wird und welches Ergebnis er erwartet. Die Erwartung stammt aus der Fachregel.",
+    "discovery": "Der Unit-Test besitzt erkennbare Vorbereitung, Ausführung und Prüfung.",
+    "hints": [
+      "Vorbereitete Daten sind noch kein Aufruf des Testobjekts.",
+      "Act bezeichnet den untersuchten Aufruf.",
+      "Die fachliche Erwartung wird in der Assertion verglichen."
+    ],
+    "fields": [
+      {
+        "key": "setup",
+        "label": "Gruppe mit 10 Personen und Mitgliedschaft vorbereiten",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Arrange – vorbereiten",
+          "2": "Act – ausführen",
+          "3": "Assert – prüfen"
+        },
+        "help": ""
+      },
+      {
+        "key": "call",
+        "label": "Gebührenfunktion einmal aufrufen",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Arrange – vorbereiten",
+          "2": "Act – ausführen",
+          "3": "Assert – prüfen"
+        },
+        "help": ""
+      },
+      {
+        "key": "check",
+        "label": "Rückgabe mit 9600 Cent vergleichen",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Arrange – vorbereiten",
+          "2": "Act – ausführen",
+          "3": "Assert – prüfen"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "setup": "1",
+          "call": "2",
+          "check": "3"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": ""
+  },
+  {
+    "id": 26,
+    "title": "Sollwert und Istwert auseinanderhalten",
+    "chapter": "05 · Unit-Tests verbessern",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Im Protokoll einer fehlerhaften Gebührenfassung steht für zehn Mitglieder ein Istwert von 12000 Cent. Der Vertrag verlangt 20 Prozent Nachlass auf zehn mal 1200 Cent.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Unit-Test besitzt erkennbare Vorbereitung, Ausführung und Prüfung.",
+    "task": "Ergänze Sollwert, beobachteten Istwert und das Ergebnis einer Gleichheitsassertion.",
+    "explanation": "Der Istwert wird aus dem beobachteten fehlerhaften Lauf übernommen. Der Sollwert wird unabhängig aus dem Vertrag berechnet. Ungleiche Werte lassen die Gleichheitsprüfung fehlschlagen.",
+    "discovery": "Ein konkreter Gebührenfehler ist durch eine unabhängige Erwartung nachgewiesen.",
+    "hints": [
+      "Ein beobachteter Wert ist nicht automatisch der richtige Wert.",
+      "Berechne zunächst den vollen Centbetrag und dann 80 Prozent davon.",
+      "Die Gleichheitsassertion verlangt zwei gleiche Werte."
+    ],
+    "fields": [
+      {
+        "key": "expected",
+        "label": "Fachlicher Sollwert in Cent",
+        "kind": "Number",
+        "comparison": "Number",
+        "options": {},
+        "help": ""
+      },
+      {
+        "key": "actual",
+        "label": "Beobachteter Istwert in Cent",
+        "kind": "Number",
+        "comparison": "Number",
+        "options": {},
+        "help": ""
+      },
+      {
+        "key": "result",
+        "label": "Ergebnis von ASSERT_EQUAL(soll, ist)",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "bestanden",
+          "2": "fehlgeschlagen"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "expected": "9600",
+          "actual": "12000",
+          "result": "2"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "Vertrag: 10 * 1200 Cent, davon 80 Prozent.\nFehlerhafter Lauf: ist = 12000 Cent.\nASSERT_EQUAL(soll, ist)"
+  },
+  {
+    "id": 27,
+    "title": "Eine wirkungslose Assertion reparieren",
+    "chapter": "05 · Unit-Tests verbessern",
+    "kind": "Worksheet",
+    "format": "Repair",
+    "story": "Ein Test vergleicht die berechnete Rückgabe mit sich selbst. Er bleibt auch bei einem falschen Gebührenbetrag grün. Mira möchte die tatsächlich geforderte Fachregel prüfen.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Ein konkreter Gebührenfehler ist durch eine unabhängige Erwartung nachgewiesen.",
+    "task": "Ersetze die beiden markierten Argumente durch den unabhängig bestimmten Sollwert und die beobachtete Rückgabe. ASSERT_EQUAL erwartet hier zuerst Expected, danach Actual.",
+    "explanation": "ASSERT_EQUAL(ist, ist) bestätigt nur die Gleichheit eines Werts mit sich selbst. Der reparierte Test vergleicht die tatsächliche Rückgabe mit dem aus der Spezifikation abgeleiteten Sollwert.",
+    "discovery": "Die Assertion kann nun einen falschen Gebührenbetrag tatsächlich erkennen.",
+    "hints": [
+      "Die Erwartung darf nicht dieselbe unbeurteilte Rückgabe sein.",
+      "Für zehn Mitglieder beträgt der vereinbarte Sollwert 9600 Cent.",
+      "Beachte die im Auftrag erklärte Argumentreihenfolge."
+    ],
+    "fields": [
+      {
+        "key": "expected",
+        "label": "Erstes Argument",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "9600",
+          "2": "ist",
+          "3": "12000"
+        },
+        "help": ""
+      },
+      {
+        "key": "actual",
+        "label": "Zweites Argument",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "9600",
+          "2": "ist",
+          "3": "12000"
+        },
+        "help": ""
+      },
+      {
+        "key": "effect",
+        "label": "Was war am Selbstvergleich problematisch?",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Er prüfte keine unabhängige fachliche Erwartung",
+          "2": "Er verglich zwei unterschiedliche Datenbanken",
+          "3": "Er musste zwangsläufig immer fehlschlagen"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "expected": "1",
+          "actual": "2",
+          "effect": "1"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "Fachvertrag: 1200 Cent je Person; Mitgliedergruppen ab zehn Personen erhalten 20 Prozent Nachlass auf den Gesamtbetrag.\npeople = 10; member = WAHR\nist = gruppenbeitrag(people, member)\nFehlerhafter Test: ASSERT_EQUAL(ist, ist)\nErgänze stattdessen ASSERT_EQUAL(Argument1, Argument2).",
+    "starter": {
+      "values": {
+        "expected": "2",
+        "actual": "2"
+      },
+      "selectedIds": [],
+      "testCases": [],
+      "order": []
+    }
+  },
+  {
+    "id": 28,
+    "title": "Unzuverlässige Tests erkennen",
+    "chapter": "05 · Unit-Tests verbessern",
+    "kind": "Review",
+    "format": "Analyze",
+    "story": "Ein Testpaket fällt je nach Reihenfolge oder Tageszeit aus. Mira untersucht die Ursachen, bevor sie daraus einen wechselnden Produktfehler ableitet.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Die Assertion kann nun einen falschen Gebührenbetrag tatsächlich erkennen.",
+    "task": "Markiere genau zwei Ursachen für fehlende Unabhängigkeit beziehungsweise Wiederholbarkeit.",
+    "explanation": "Versteckte Abhängigkeiten zwischen Tests und unkontrollierte Zeit können den Lauf beeinflussen. Ein eigener Anfangszustand und eine kontrollierte Beispieluhr unterstützen Wiederholbarkeit.",
+    "discovery": "Zwei konkrete Ursachen des wechselnden Testverhaltens sind isoliert.",
+    "hints": [
+      "Welche Voraussetzung steht nicht ausdrücklich im jeweiligen Test?",
+      "Zeitabhängige Erwartungen benötigen eine kontrollierte Zeitquelle.",
+      "Ein grüner Lauf nur in einer bestimmten Reihenfolge ist ein Hinweis auf Kopplung."
+    ],
+    "fields": [],
+    "solutions": [],
+    "options": {
+      "1": "Test B benötigt den von Test A zurückgelassenen Datensatz.",
+      "2": "Jeder Test stellt einen ausdrücklich definierten Anfangszustand her.",
+      "3": "Die Erwartung verwendet unkontrolliert das aktuelle Tagesdatum.",
+      "4": "Eine feste Beispieluhr wird als Abhängigkeit übergeben."
+    },
+    "correctIds": [
+      "1",
+      "3"
+    ],
+    "material": ""
+  },
+  {
+    "id": 29,
+    "title": "Ungültige Bestandsdaten gezielt testen",
+    "chapter": "05 · Unit-Tests verbessern",
+    "kind": "TestSuite",
+    "format": "Build",
+    "story": "Die Anzeige freier Plätze darf weder Überbelegung verschweigen noch bei voller Belegung einen zusätzlichen Platz erfinden. Mira bittet um eigene voneinander unabhängige Testfälle.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Zwei konkrete Ursachen des wechselnden Testverhaltens sind isoliert.",
+    "task": "Decke alle sechs Bestandsklassen ab und erkenne die drei genannten Fehlervarianten. Wähle Überbelegung so, dass sie den Fehler auch tatsächlich sichtbar macht. Erstelle eigene Testfälle mit Eingaben und Sollwerten. Jeder Fall startet unabhängig. Die verlangten Klassen, gezählten Wege und Fehlervarianten stehen unten ausdrücklich dabei. Andere passende Testwerte sind erlaubt; gleiche Fälle ersetzen keine zusätzliche Abdeckung.",
+    "explanation": "Die Referenz liefert bei ungültigen Daten -1. Bei genau einem Platz Überbelegung kann auch eine fehlerhafte Subtraktion zufällig -1 liefern. Ein weiter überbelegter Fall macht diese Fehlervariante sichtbar; korrekte Vertreter anderer Klassen bleiben frei wählbar.",
+    "discovery": "Der Bestandsprüfsatz erkennt ungültige Daten und einen zusätzlich erfundenen freien Platz.",
+    "hints": [
+      "Leite zuerst alle gültigen und ungültigen Klassen aus dem Vertrag ab.",
+      "Volle Belegung ist gültig und besitzt null freie Plätze.",
+      "Ein Test erkennt einen Fehler nur bei einem abweichenden Ergebnis; Zufallsgleichheit kann einen weiteren Vertreter nötig machen."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {},
+        "selectedIds": [],
+        "testCases": [
+          {
+            "id": "case-34",
+            "inputs": {
+              "capacity": "0",
+              "booked": "0"
+            },
+            "expected": "-1"
+          },
+          {
+            "id": "case-35",
+            "inputs": {
+              "capacity": "5",
+              "booked": "-1"
+            },
+            "expected": "-1"
+          },
+          {
+            "id": "case-36",
+            "inputs": {
+              "capacity": "5",
+              "booked": "7"
+            },
+            "expected": "-1"
+          },
+          {
+            "id": "case-37",
+            "inputs": {
+              "capacity": "8",
+              "booked": "0"
+            },
+            "expected": "8"
+          },
+          {
+            "id": "case-38",
+            "inputs": {
+              "capacity": "8",
+              "booked": "8"
+            },
+            "expected": "0"
+          },
+          {
+            "id": "case-39",
+            "inputs": {
+              "capacity": "8",
+              "booked": "3"
+            },
+            "expected": "5"
+          }
+        ],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "programKey": "availability",
+    "requiredPartitions": [
+      "invalid-capacity",
+      "invalid-booked",
+      "overbooked",
+      "empty",
+      "full",
+      "partial"
+    ],
+    "requiredStatements": [],
+    "requiredBranches": [],
+    "requiredPaths": [],
+    "requiredFaults": [
+      "zero-capacity",
+      "overbooked",
+      "off-by-one"
+    ],
+    "maximumCases": 12
+  },
+  {
+    "id": 30,
+    "title": "Isolation und Integration passend einsetzen",
+    "chapter": "05 · Unit-Tests verbessern",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Die isolierte Preisprüfung verwendet einen Stub für Mitgliedsdaten. Für den späteren gemeinsamen Lauf wird ein eigener Testspeicher verwendet. Das Team diskutiert, was die beiden Läufe nachweisen.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Bestandsprüfsatz erkennt ungültige Daten und einen zusätzlich erfundenen freien Platz.",
+    "task": "Ordne die Aussagen den ausdrücklich beschriebenen Nachweisen zu.",
+    "explanation": "Isolation macht den Fachtest unabhängig von einer technischen Anbindung. Gerade weil diese ersetzt wird, ist ihr Zusammenspiel ein zusätzlicher Integrationstest.",
+    "discovery": "Der Prüfplan nutzt Isolation und gemeinsame Prüfung für unterschiedliche Ziele.",
+    "hints": [
+      "Frage, welches Testobjekt wirklich beteiligt ist.",
+      "Ein Stub ist kein Nachweis über den späteren realen Adapter.",
+      "Zwei sich ergänzende Läufe dürfen unterschiedliche Fragen beantworten."
+    ],
+    "fields": [
+      {
+        "key": "isolated",
+        "label": "Fachregel ohne echten Speicher prüfen",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "isolierter Komponententest",
+          "2": "Integrationstest"
+        },
+        "help": ""
+      },
+      {
+        "key": "combined",
+        "label": "Dienst und echter Testspeicher gemeinsam prüfen",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "isolierter Komponententest",
+          "2": "Integrationstest"
+        },
+        "help": ""
+      },
+      {
+        "key": "claim",
+        "label": "Beweist der Stub-Lauf die reale Speicheranbindung?",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "ja",
+          "2": "nein"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "isolated": "1",
+          "combined": "2",
+          "claim": "2"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": ""
+  },
+  {
+    "id": 31,
+    "title": "Einen Fehlerbericht fachlich vervollständigen",
+    "chapter": "06 · Fehler und Freigaben",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Bei Kapazität 8 und Belegung 8 zeigt eine fehlerhafte Anzeige 1 freien Platz. Mira möchte einen Bericht, der Beobachtung und Erwartung klar trennt. Im Team gilt eine falsche verfügbare Platzanzahl als hoher Schweregrad.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Prüfplan nutzt Isolation und gemeinsame Prüfung für unterschiedliche Ziele.",
+    "task": "Ergänze die festen Berichtsdaten anhand der vorliegenden Unterlage.",
+    "explanation": "Ein Bericht nennt den reproduzierbaren Anfangszustand, die Aktion und getrennte Soll-/Istwerte. Die strukturierte Prüfung erfasst die im Auftrag verlangten Berichtsdaten.",
+    "discovery": "Der Platzfehler besitzt einen nachvollziehbaren Bericht mit unabhängigen Soll-/Istwerten.",
+    "hints": [
+      "Bei voller Belegung bleibt kein freier Platz.",
+      "Die beobachtete 1 wird nicht als Erwartung übernommen.",
+      "Nutze für den freien Text die konkrete Eingabe, die Anzeigeaktion und das abweichende Ergebnis."
+    ],
+    "fields": [
+      {
+        "key": "capacity",
+        "label": "Vorgegebene Kapazität",
+        "kind": "Number",
+        "comparison": "Number",
+        "options": {},
+        "help": ""
+      },
+      {
+        "key": "booked",
+        "label": "Vorgegebene Belegung",
+        "kind": "Number",
+        "comparison": "Number",
+        "options": {},
+        "help": ""
+      },
+      {
+        "key": "expected",
+        "label": "Erwartete freie Plätze",
+        "kind": "Number",
+        "comparison": "Number",
+        "options": {},
+        "help": ""
+      },
+      {
+        "key": "actual",
+        "label": "Beobachtete freie Plätze",
+        "kind": "Number",
+        "comparison": "Number",
+        "options": {},
+        "help": ""
+      },
+      {
+        "key": "severity",
+        "label": "Schweregrad nach der vorgegebenen Teamregel",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "hoch",
+          "2": "mittel",
+          "3": "niedrig"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "capacity": "8",
+          "booked": "8",
+          "expected": "0",
+          "actual": "1",
+          "severity": "1"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": ""
+  },
+  {
+    "id": 32,
+    "title": "Fehlernachtest und Regression einplanen",
+    "chapter": "06 · Fehler und Freigaben",
+    "kind": "Order",
+    "format": "Build",
+    "story": "Nach dem Bericht wird der Platzfehler bearbeitet. Das Team vereinbart für diesen Fall einen festen Ablauf, damit die Behebung nicht nur behauptet wird.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Platzfehler besitzt einen nachvollziehbaren Bericht mit unabhängigen Soll-/Istwerten.",
+    "task": "Reproduziere zuerst den Befund, grenze dann die Ursache ein und korrigiere sie. Prüfe anschließend den ursprünglichen Fehlerfall erneut und führe danach die vereinbarten Regressionstests aus. Baue den Ablauf aus den angebotenen Schritten selbst auf. Maßgeblich sind die hier genannten Voraussetzungen; es wird kein universeller Ablauf für alle Projekte behauptet.",
+    "explanation": "Der Fehlernachtest prüft die konkrete Behebung. Regression untersucht unerwünschte Auswirkungen auf bereits vorhandenes Verhalten. Hier ist die Reihenfolge für diesen Bearbeitungsfall ausdrücklich vorgegeben.",
+    "discovery": "Der Platzfehler erhält einen kontrollierten Abschluss mit Nachtest und Regression.",
+    "hints": [
+      "Vor einer gezielten Korrektur braucht das Team einen nachvollziehbaren Befund.",
+      "Der ursprüngliche Fehlerfall beantwortet eine andere Frage als die Regression.",
+      "Beides folgt auf die Korrektur."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {},
+        "selectedIds": [],
+        "testCases": [],
+        "order": [
+          "reproduce",
+          "isolate",
+          "repair",
+          "retest",
+          "regress"
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "cards": {
+      "reproduce": "Ursprünglichen Befund reproduzieren",
+      "isolate": "Ursache eingrenzen",
+      "repair": "Ursache korrigieren",
+      "retest": "Ursprünglichen Fehlerfall erneut prüfen",
+      "regress": "Vereinbarte Regressionstests ausführen"
+    }
+  },
+  {
+    "id": 33,
+    "title": "Die Nachlasskorrektur regressiv absichern",
+    "chapter": "06 · Fehler und Freigaben",
+    "kind": "TestSuite",
+    "format": "Repair",
+    "story": "Die Nachlassgrenze wurde korrigiert. Mira möchte die unmittelbare Umgebung der Grenze und das unveränderte Verhalten ohne Mitgliedschaft im Regressionstest behalten.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Platzfehler erhält einen kontrollierten Abschluss mit Nachtest und Regression.",
+    "task": "Repariere und vervollständige den vorgegebenen Testsatz. Prüfe 9, 10 und 11 Personen mit passenden Sollwerten und mindestens eine gültige Gruppe ohne Mitgliedschaft. Erkenne alle drei Nachlassfehler. Erstelle eigene Testfälle mit Eingaben und Sollwerten. Jeder Fall startet unabhängig. Die verlangten Klassen, gezählten Wege und Fehlervarianten stehen unten ausdrücklich dabei. Andere passende Testwerte sind erlaubt; gleiche Fälle ersetzen keine zusätzliche Abdeckung.",
+    "explanation": "Regression schützt sowohl die korrigierte Schwelle als auch die übrige Fachregel. Ohne Mitgliedschaft bleibt auch eine große gültige Gruppe ohne Nachlass.",
+    "discovery": "Die Regression hält die korrigierte Schwelle und die Mitgliedschaftsvoraussetzung fest.",
+    "hints": [
+      "Berechne die Centbeträge unabhängig vom bisherigen fehlerhaften Lauf.",
+      "Die drei benachbarten Größen betrachten die Umgebung der Schwelle.",
+      "Ein Nichtmitgliedsfall verhindert einen versehentlich allgemein eingeführten Nachlass."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {},
+        "selectedIds": [],
+        "testCases": [
+          {
+            "id": "case-40",
+            "inputs": {
+              "people": "9",
+              "member": "true"
+            },
+            "expected": "10800"
+          },
+          {
+            "id": "case-41",
+            "inputs": {
+              "people": "10",
+              "member": "true"
+            },
+            "expected": "9600"
+          },
+          {
+            "id": "case-42",
+            "inputs": {
+              "people": "11",
+              "member": "true"
+            },
+            "expected": "10560"
+          },
+          {
+            "id": "case-43",
+            "inputs": {
+              "people": "10",
+              "member": "false"
+            },
+            "expected": "12000"
+          }
+        ],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "programKey": "fee",
+    "requiredPartitions": [
+      "before-threshold",
+      "threshold",
+      "after-threshold",
+      "nonmember"
+    ],
+    "requiredStatements": [],
+    "requiredBranches": [],
+    "requiredPaths": [],
+    "requiredFaults": [
+      "strict-threshold",
+      "wrong-discount",
+      "ignore-member"
+    ],
+    "maximumCases": 8,
+    "starter": {
+      "values": {},
+      "selectedIds": [],
+      "testCases": [
+        {
+          "id": "case-51",
+          "inputs": {
+            "people": "9",
+            "member": "true"
+          },
+          "expected": "10800"
+        },
+        {
+          "id": "case-52",
+          "inputs": {
+            "people": "11",
+            "member": "true"
+          },
+          "expected": "10560"
+        },
+        {
+          "id": "case-53",
+          "inputs": {
+            "people": "10",
+            "member": "false"
+          },
+          "expected": "12000"
+        }
+      ],
+      "order": []
+    }
+  },
+  {
+    "id": 34,
+    "title": "Einen Prüfablauf anhand des Protokolls beurteilen",
+    "chapter": "06 · Fehler und Freigaben",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Die automatische Prüfkette protokolliert einen erfolgreichen Build und bestandene Fachtests. Der verpflichtende Sicherheitstest ist fehlgeschlagen. Laut Freigaberegel müssen alle drei Schritte erfolgreich sein.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Die Regression hält die korrigierte Schwelle und die Mitgliedschaftsvoraussetzung fest.",
+    "task": "Bewerte die protokollierten Schritte und die daraus folgende Freigabe. Fehlende oder fehlgeschlagene Nachweise werden nicht durch einen erfolgreichen Build ersetzt.",
+    "explanation": "Die gegebene UND-Freigaberegel ist durch den fehlgeschlagenen Sicherheitsschritt nicht erfüllt. Ein erfolgreicher Build und richtige Fachrückgaben beantworten andere Fragen.",
+    "discovery": "Ein fehlgeschlagener Pflichtschritt stoppt die Freigabe nachvollziehbar.",
+    "hints": [
+      "Lies die drei protokollierten Ergebnisse einzeln.",
+      "Prüfe anschließend die ausdrücklich genannte Verknüpfung.",
+      "Ein anderer erfolgreicher Schritt kann die fehlgeschlagene Pflichtprüfung nicht ersetzen."
+    ],
+    "fields": [
+      {
+        "key": "build",
+        "label": "Build",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "bestanden",
+          "2": "fehlgeschlagen"
+        },
+        "help": ""
+      },
+      {
+        "key": "tests",
+        "label": "Fachtests",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "bestanden",
+          "2": "fehlgeschlagen"
+        },
+        "help": ""
+      },
+      {
+        "key": "security",
+        "label": "Sicherheitstest",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "bestanden",
+          "2": "fehlgeschlagen"
+        },
+        "help": ""
+      },
+      {
+        "key": "release",
+        "label": "Freigabe nach dieser Regel",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "ja",
+          "2": "nein"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "build": "1",
+          "tests": "1",
+          "security": "2",
+          "release": "2"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "BUILD: BESTANDEN\nFACHTESTS: BESTANDEN\nSICHERHEITSTEST: FEHLGESCHLAGEN\nFreigabe: alle drei Schritte bestanden."
+  },
+  {
+    "id": 35,
+    "title": "Schweregrad und Bearbeitungspriorität trennen",
+    "chapter": "06 · Fehler und Freigaben",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Ein Fehler verursacht falsche Buchungen und wird nach der Teamregel als hoher Schweregrad eingestuft. Die Disposition legt zusätzlich fest, dass er vor dem Probebetrieb zuerst bearbeitet werden muss.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Ein fehlgeschlagener Pflichtschritt stoppt die Freigabe nachvollziehbar.",
+    "task": "Ordne fachliche Auswirkung und vereinbarte Bearbeitungsreihenfolge den passenden Begriffen zu. Die Einstufung ist im Auftrag vorgegeben.",
+    "explanation": "Schweregrad beschreibt die Auswirkung eines Fehlers. Priorität beschreibt seine Bearbeitungsdringlichkeit. In realen Fällen können weitere Rahmenbedingungen hinzukommen; hier ist die Vereinbarung ausdrücklich genannt.",
+    "discovery": "Der Fehlerbericht vermischt Auswirkung und Bearbeitungsreihenfolge nicht mehr.",
+    "hints": [
+      "Frage einmal nach der Wirkung und einmal nach der Reihenfolge.",
+      "Ein hoher Schaden ist nicht dieselbe Information wie eine Terminentscheidung.",
+      "Nutze die im Fall festgelegten Bedingungen."
+    ],
+    "fields": [
+      {
+        "key": "severity",
+        "label": "Auswirkung falscher Buchungen",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Schweregrad",
+          "2": "Priorität"
+        },
+        "help": ""
+      },
+      {
+        "key": "priority",
+        "label": "Zuerst vor dem Probebetrieb bearbeiten",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Schweregrad",
+          "2": "Priorität"
+        },
+        "help": ""
+      },
+      {
+        "key": "source",
+        "label": "Darf die Priorität hier frei geraten werden?",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "ja",
+          "2": "nein"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "severity": "1",
+          "priority": "2",
+          "source": "2"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": ""
+  },
+  {
+    "id": 36,
+    "title": "Die Freigabeentscheidung überprüfen",
+    "chapter": "06 · Fehler und Freigaben",
+    "kind": "Review",
+    "format": "Analyze",
+    "story": "Mira prüft die letzte Freigabenotiz. Zwei Formulierungen ignorieren noch offene Pflichtnachweise beziehungsweise bekannte Risiken.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Fehlerbericht vermischt Auswirkung und Bearbeitungsreihenfolge nicht mehr.",
+    "task": "Markiere zwei Aussagen, die eine Freigabe nicht ausreichend begründen.",
+    "explanation": "Ein offener Nachweis ist nicht bestanden. Erfolgreiche Fachtests beseitigen keine bekannte Zugriffslücke. Die Freigabe braucht die zum Fall vereinbarten Nachweise und eine ehrliche Darstellung verbleibender Risiken.",
+    "discovery": "Der Probebetrieb wird anhand von Nachweisen statt umgedeuteten Lücken vorbereitet.",
+    "hints": [
+      "Welche Aussage ersetzt einen fehlenden Versuch durch eine Annahme?",
+      "Fachfunktion und Zugriffsprüfung untersuchen unterschiedliche Risiken.",
+      "Offene Punkte müssen erkennbar bleiben."
+    ],
+    "fields": [],
+    "solutions": [],
+    "options": {
+      "1": "Ein nicht ausgeführter Wiederherstellungstest wird vorsorglich als bestanden eingetragen.",
+      "2": "Die nachgewiesenen Kriterien und verbleibenden Restrisiken werden getrennt dokumentiert.",
+      "3": "Eine bekannte kritische Zugriffslücke wird wegen grüner Preisprüfungen als erledigt behandelt.",
+      "4": "Offene Pflichtnachweise werden vor der Freigabe nach der vereinbarten Regel bearbeitet."
+    },
+    "correctIds": [
+      "1",
+      "3"
+    ],
+    "material": ""
+  },
+  {
+    "id": 37,
+    "title": "Schutzziele am konkreten Fall erkennen",
+    "chapter": "07 · Daten und Zugriffe schützen",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Die Anwendung verarbeitet Buchungen und Kontaktdaten. Mira unterscheidet unbefugtes Lesen, unbemerkte Änderungen und den Ausfall des Dienstes.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Probebetrieb wird anhand von Nachweisen statt umgedeuteten Lücken vorbereitet.",
+    "task": "Ordne jedem Vorfall das unmittelbar betroffene klassische Schutzziel zu. Andere Folgen sind möglich, aber hier wird jeweils das direkt beschriebene Ziel gesucht.",
+    "explanation": "Vertraulichkeit schützt gegen unbefugte Offenlegung, Integrität gegen unbefugte oder unbemerkte Veränderung und Verfügbarkeit die bedarfsgerechte Nutzbarkeit.",
+    "discovery": "Die drei Vorfälle besitzen ein klar benanntes unmittelbar betroffenes Schutzziel.",
+    "hints": [
+      "Was wird im Vorfall konkret ermöglicht oder verhindert?",
+      "Lesen und Verändern sind unterschiedliche Eingriffe.",
+      "Ein nicht erreichbarer Dienst betrifft zunächst seine Nutzbarkeit."
+    ],
+    "fields": [
+      {
+        "key": "read",
+        "label": "Unbefugte lesen Kontaktdaten",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Vertraulichkeit",
+          "2": "Integrität",
+          "3": "Verfügbarkeit"
+        },
+        "help": ""
+      },
+      {
+        "key": "change",
+        "label": "Buchungen werden unbemerkt verändert",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Vertraulichkeit",
+          "2": "Integrität",
+          "3": "Verfügbarkeit"
+        },
+        "help": ""
+      },
+      {
+        "key": "outage",
+        "label": "Der Buchungsdienst ist nicht erreichbar",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Vertraulichkeit",
+          "2": "Integrität",
+          "3": "Verfügbarkeit"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "read": "1",
+          "change": "2",
+          "outage": "3"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": ""
+  },
+  {
+    "id": 38,
+    "title": "Identität und Berechtigung auseinanderhalten",
+    "chapter": "07 · Daten und Zugriffe schützen",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Im fiktiven Portal ist eine Person angemeldet. Daraus soll nicht automatisch das Recht entstehen, die Buchung einer anderen Person zu verändern.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Die drei Vorfälle besitzen ein klar benanntes unmittelbar betroffenes Schutzziel.",
+    "task": "Ordne Identitätsprüfung und Rechteprüfung zu und bewerte den beschriebenen Schluss von Anmeldung auf beliebige Bearbeitung.",
+    "explanation": "Eine festgestellte Identität beantwortet noch keine konkrete Zugriffsentscheidung. Die serverseitige Prüfung muss Aktion und angesprochenes Objekt berücksichtigen. Es handelt sich um einen Lernfall, nicht um eine zusätzliche Anmeldung am Trainer.",
+    "discovery": "Miras Zugriffskonzept trennt Identität von der konkreten Objektberechtigung.",
+    "hints": [
+      "Unterscheide die Fragen Wer? und Darf diese Person das?",
+      "Auch eine bekannte Identität kann für ein fremdes Objekt unberechtigt sein.",
+      "Der Objektbezug darf bei der Prüfung nicht verloren gehen."
+    ],
+    "fields": [
+      {
+        "key": "identity",
+        "label": "Wer ist die anfragende Person?",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Authentifizierung",
+          "2": "Autorisierung"
+        },
+        "help": ""
+      },
+      {
+        "key": "rights",
+        "label": "Darf diese Person genau dieses Objekt ändern?",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Authentifizierung",
+          "2": "Autorisierung"
+        },
+        "help": ""
+      },
+      {
+        "key": "claim",
+        "label": "Anmeldung erlaubt automatisch jede Buchungsänderung",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "richtig",
+          "2": "falsch"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "identity": "1",
+          "rights": "2",
+          "claim": "2"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": ""
+  },
+  {
+    "id": 39,
+    "title": "Eine Berechtigungsmatrix selbst ausfüllen",
+    "chapter": "07 · Daten und Zugriffe schützen",
+    "kind": "Matrix",
+    "format": "Build",
+    "story": "Mira vereinbart drei Rollen für einen fiktiven Buchungsdienst. Gäste besitzen keine persönlichen Buchungsrechte; Mitglieder lesen und ändern eigene Buchungen. Nur die Verwaltung darf beliebige Buchungen löschen.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Miras Zugriffskonzept trennt Identität von der konkreten Objektberechtigung.",
+    "task": "Fülle jede Zelle mit erlaubt oder verweigert aus. Verwaltung darf zusätzlich eigene Buchungen lesen und ändern; Mitglieder dürfen keine beliebigen Buchungen löschen. Es gelten nur die ausdrücklich genannten Rollen und Aktionen.",
+    "explanation": "Die Matrix überträgt die vereinbarte Regel vollständig. Eine allgemeine Anmeldung ersetzt keine einzelne Entscheidung; zusätzliche Rechte werden nicht stillschweigend angenommen.",
+    "discovery": "Eine vollständige Matrix hält die vereinbarten Rollenrechte nachvollziehbar fest.",
+    "hints": [
+      "Lies jede Rollenregel getrennt.",
+      "Eigene Objekte und beliebige Objekte sind unterschiedliche Reichweiten.",
+      "Gäste erhalten in dieser Matrix keine persönlichen Buchungsrechte."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {
+          "guest.read": "deny",
+          "guest.edit": "deny",
+          "guest.delete": "deny",
+          "member.read": "allow",
+          "member.edit": "allow",
+          "member.delete": "deny",
+          "admin.read": "allow",
+          "admin.edit": "allow",
+          "admin.delete": "allow"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "matrixRows": {
+      "guest": "Gast",
+      "member": "Mitglied",
+      "admin": "Verwaltung"
+    },
+    "matrixColumns": {
+      "read": "Eigene Buchung lesen",
+      "edit": "Eigene Buchung ändern",
+      "delete": "Beliebige Buchung löschen"
+    }
+  },
+  {
+    "id": 40,
+    "title": "Fremdzugriffe mit eigenen Fällen erkennen",
+    "chapter": "07 · Daten und Zugriffe schützen",
+    "kind": "TestSuite",
+    "format": "Build",
+    "story": "Die serverseitige Zugriffsfunktion soll nicht nur bei der richtigen Rolle, sondern auch beim richtigen Objekt entscheiden. Mira möchte ausdrücklich negative Prüfungen sehen.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Eine vollständige Matrix hält die vereinbarten Rollenrechte nachvollziehbar fest.",
+    "task": "Decke alle vier Rollen-/Objektgruppen ab und erkenne alle drei beschriebenen Rechtefehler. Rolle und Eigentumsbezug sind vertrauenswürdige Testvoraussetzungen, keine vom Browser ungeprüft übernommenen Rechte. Erstelle eigene Testfälle mit Eingaben und Sollwerten. Jeder Fall startet unabhängig. Die verlangten Klassen, gezählten Wege und Fehlervarianten stehen unten ausdrücklich dabei. Andere passende Testwerte sind erlaubt; gleiche Fälle ersetzen keine zusätzliche Abdeckung.",
+    "explanation": "Ein eigener Mitgliedsdatensatz allein erkennt keinen Fremdzugriff. Gäste, Mitglieder mit fremdem Objekt und Verwaltung mit fremdem Objekt unterscheiden die beschriebenen Fehler gezielt.",
+    "discovery": "Der Berechtigungstest enthält erlaubte und ausdrücklich verweigerte Objektzugriffe.",
+    "hints": [
+      "Ein positiver Mitgliedsfall reicht nicht für die negative Rechteprüfung.",
+      "Prüfe dieselbe Rolle auch mit einem fremden Objekt.",
+      "Verwaltung mit fremdem Objekt unterscheidet die vereinbarte weitergehende Rolle."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {},
+        "selectedIds": [],
+        "testCases": [
+          {
+            "id": "case-44",
+            "inputs": {
+              "role": "guest",
+              "own": "true"
+            },
+            "expected": "false"
+          },
+          {
+            "id": "case-45",
+            "inputs": {
+              "role": "member",
+              "own": "true"
+            },
+            "expected": "true"
+          },
+          {
+            "id": "case-46",
+            "inputs": {
+              "role": "member",
+              "own": "false"
+            },
+            "expected": "false"
+          },
+          {
+            "id": "case-47",
+            "inputs": {
+              "role": "admin",
+              "own": "false"
+            },
+            "expected": "true"
+          }
+        ],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "programKey": "access",
+    "requiredPartitions": [
+      "guest",
+      "member-own",
+      "member-other",
+      "admin"
+    ],
+    "requiredStatements": [],
+    "requiredBranches": [],
+    "requiredPaths": [],
+    "requiredFaults": [
+      "member-all",
+      "guest-own",
+      "admin-own"
+    ],
+    "maximumCases": 12
+  },
+  {
+    "id": 41,
+    "title": "Nur benötigte Daten im Testbestand behalten",
+    "chapter": "07 · Daten und Zugriffe schützen",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Für die Bestätigung einer Raumanfrage wird im vereinbarten Fall eine E-Mail-Adresse benötigt. Telefonnummer, Privatanschrift und Geburtsdatum haben in diesem Ausschnitt keinen Zweck. Für den Test wird ausschließlich ein synthetischer Datensatz verwendet.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Berechtigungstest enthält erlaubte und ausdrücklich verweigerte Objektzugriffe.",
+    "task": "Entscheide anhand des ausdrücklich beschriebenen Zwecks, welche Angaben in diesem Testdatensatz benötigt werden. Es geht um Datenminimierung, nicht um eine vollständige rechtliche Bewertung.",
+    "explanation": "Der Testzweck bestimmt die benötigten Daten. Eine reale Kontaktliste ist weder für diesen synthetischen Test erforderlich noch durch ihre Verfügbarkeit automatisch geeignet. Weitere rechtliche Anforderungen werden dadurch nicht abschließend beurteilt.",
+    "discovery": "Der Testbestand enthält nur die für den beschriebenen Bestätigungsfall benötigte synthetische Angabe.",
+    "hints": [
+      "Welche konkrete Aktion muss der Test nachweisen?",
+      "Verfügbar bedeutet nicht automatisch erforderlich.",
+      "Behalte den ausdrücklich vorgegebenen synthetischen Testbestand bei."
+    ],
+    "fields": [
+      {
+        "key": "email",
+        "label": "Synthetische E-Mail-Adresse",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "benötigt",
+          "2": "in diesem Fall nicht benötigt"
+        },
+        "help": ""
+      },
+      {
+        "key": "phone",
+        "label": "Telefonnummer",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "benötigt",
+          "2": "in diesem Fall nicht benötigt"
+        },
+        "help": ""
+      },
+      {
+        "key": "address",
+        "label": "Privatanschrift",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "benötigt",
+          "2": "in diesem Fall nicht benötigt"
+        },
+        "help": ""
+      },
+      {
+        "key": "birth",
+        "label": "Geburtsdatum",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "benötigt",
+          "2": "in diesem Fall nicht benötigt"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "email": "1",
+          "phone": "2",
+          "address": "2",
+          "birth": "2"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": ""
+  },
+  {
+    "id": 42,
+    "title": "Geheimnisse und echte Daten im Protokoll finden",
+    "chapter": "07 · Daten und Zugriffe schützen",
+    "kind": "Review",
+    "format": "Analyze",
+    "story": "Bei der Vorbereitung des Probebetriebs überprüft Mira den Umgang mit Testdaten und Diagnoseausgaben. Zwei Vorschläge würden unnötig sensible Informationen offenlegen.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Testbestand enthält nur die für den beschriebenen Bestätigungsfall benötigte synthetische Angabe.",
+    "task": "Markiere genau die zwei problematischen Vorschläge.",
+    "explanation": "Geheimnisse gehören nicht in allgemein lesbare Protokolle. Echte Personendaten werden nicht allein deshalb geeignet, weil sie vorhanden sind. Aussagekräftige technische Kennungen können die Diagnose ohne vollständige Geheimnisse unterstützen.",
+    "discovery": "Zwei unnötige Offenlegungen werden vor dem Probebetrieb erkannt.",
+    "hints": [
+      "Welche Information würde einer unberechtigten Person direkt weiterhelfen?",
+      "Unterscheide synthetische Beispiele von realen Kontaktlisten.",
+      "Eine technische Vorgangskennung muss nicht das Zugangstoken enthalten."
+    ],
+    "fields": [],
+    "solutions": [],
+    "options": {
+      "1": "Vollständige Zugangstoken werden in einem allgemein lesbaren Diagnoseprotokoll gespeichert.",
+      "2": "Für den Test werden erfundene Kontakte mit festgelegten Beispielwerten verwendet.",
+      "3": "Eine echte Kundenliste wird ohne Prüfung des Zwecks in den allgemein zugänglichen Testbestand übernommen.",
+      "4": "Das Protokoll enthält eine technische Vorgangskennung und einen passenden Fehlercode ohne Geheimnis."
+    },
+    "correctIds": [
+      "1",
+      "3"
+    ],
+    "material": ""
+  },
+  {
+    "id": 43,
+    "title": "Eine gefährliche Abfrage prüfen",
+    "chapter": "08 · Webanwendungen absichern",
+    "kind": "Review",
+    "format": "Analyze",
+    "story": "Ein Entwurf des fiktiven Portals übernimmt die Buchungsnummer direkt in einen SQL-Text und gibt bei Fehlern interne Diagnosedaten an jeden Browser zurück. Mira führt ein Review durch; es wird keine Abfrage ausgeführt.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Zwei unnötige Offenlegungen werden vor dem Probebetrieb erkannt.",
+    "task": "Markiere die zwei tatsächlich problematischen Befunde.",
+    "explanation": "Parameter binden Daten getrennt vom SQL-Befehlstext. Die Diagnose für Betreiber und die öffentliche Fehlermeldung haben unterschiedliche Informationsbedarfe. Minimale Rechte sind eine zusätzliche Schutzmaßnahme.",
+    "discovery": "Der Review benennt SQL-Verkettung und zu ausführliche öffentliche Diagnosen als konkrete Risiken.",
+    "hints": [
+      "Wo wird aus einer Nutzereingabe ein Bestandteil des Befehlstexts?",
+      "Welche Informationen braucht ein öffentlicher Fehlertext tatsächlich?",
+      "Parametrisierung und minimale Rechte sind keine Schwachstellen."
+    ],
+    "fields": [],
+    "solutions": [],
+    "options": {
+      "1": "Die ungeprüfte Buchungsnummer wird in den SQL-Befehlstext verkettet.",
+      "2": "Eine öffentliche Fehlerantwort verrät interne Verbindungs- und Ablaufdetails.",
+      "3": "Ein Parameterwert wird von der Datenbank getrennt vom Befehlstext behandelt.",
+      "4": "Der Datenbankzugriff verwendet nur die für seine Aufgabe benötigten Rechte."
+    },
+    "correctIds": [
+      "1",
+      "2"
+    ],
+    "material": "query = \"SELECT number FROM Booking WHERE number = \" + request.number\nÖffentliche Fehlerantwort: vollständige interne Verbindungsdetails und Stacktrace\nDer Ausschnitt ist nur eine Unterlage und wird nicht ausgeführt."
+  },
+  {
+    "id": 44,
+    "title": "Datenwerte und SQL-Bezeichner passend behandeln",
+    "chapter": "08 · Webanwendungen absichern",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Die Buchungsnummer soll als Datenwert verwendet werden. Zusätzlich darf der Nutzer zwischen den fest angebotenen Sortierungen Name und Zeitpunkt wählen. Freier SQL-Text ist nicht vorgesehen.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Review benennt SQL-Verkettung und zu ausführliche öffentliche Diagnosen als konkrete Risiken.",
+    "task": "Wähle die passenden Maßnahmen. Parameter sind für Datenwerte bestimmt; die angebotene Sortierung wird serverseitig auf feste bekannte Bezeichner abgebildet.",
+    "explanation": "Gebundene Parameter trennen Datenwerte und Befehlstext. Bezeichner wie Spaltennamen benötigen eine andere Behandlung, hier eine feste serverseitige Zuordnung. Minimale Rechte begrenzen zusätzliche Auswirkungen.",
+    "discovery": "Die Abfrageplanung trennt Datenparameter, erlaubte Sortierbezeichner und Datenbankrechte.",
+    "hints": [
+      "Ein Datenwert ist nicht dieselbe Syntaxposition wie ein Spaltenname.",
+      "Es sind bereits genau zwei Sortierungen angeboten.",
+      "Zusätzliche Rechte lösen kein Eingabeproblem."
+    ],
+    "fields": [
+      {
+        "key": "value",
+        "label": "Behandlung der Buchungsnummer",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "gebundener Parameter",
+          "2": "ungeprüft in SQL verketten",
+          "3": "nur Anführungszeichen entfernen"
+        },
+        "help": ""
+      },
+      {
+        "key": "sort",
+        "label": "Behandlung der Sortierauswahl",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Whitelist mit festen serverseitigen Zuordnungen",
+          "2": "beliebigen SQL-Bezeichner übernehmen",
+          "3": "Spaltenname als normalen Wertparameter behandeln"
+        },
+        "help": ""
+      },
+      {
+        "key": "rights",
+        "label": "Datenbankrechte",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "nur benötigte Rechte",
+          "2": "grundsätzlich volle Administration",
+          "3": "Rechteprüfung vollständig abschalten"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "value": "1",
+          "sort": "1",
+          "rights": "1"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": ""
+  },
+  {
+    "id": 45,
+    "title": "Unsichere Ausgabestellen erkennen",
+    "chapter": "08 · Webanwendungen absichern",
+    "kind": "Review",
+    "format": "Analyze",
+    "story": "Eine Nachricht aus einer Buchungsanfrage soll im Browser als Text erscheinen. Mira prüft drei Ausgabeorte und eine zusätzliche Behauptung zur Absicherung.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Die Abfrageplanung trennt Datenparameter, erlaubte Sortierbezeichner und Datenbankrechte.",
+    "task": "Markiere die zwei Ausgaben, die in der angegebenen Form ungeprüften Inhalt als ausführbaren beziehungsweise interpretierbaren Inhalt übernehmen.",
+    "explanation": "Der konkrete Ausgabekontext entscheidet über die erforderliche Behandlung. Reine Textausgabe ist von interpretiertem HTML oder JavaScript zu unterscheiden. Eine einzelne pauschale Ersetzung oder alleinige CSP ersetzt keine passende Behandlung aller Ausgabestellen.",
+    "discovery": "Zwei gefährliche Ausgabestellen sind als konkrete Reviewbefunde markiert.",
+    "hints": [
+      "Soll die Nachricht als Text oder als Code interpretiert werden?",
+      "HTML und JavaScript sind unterschiedliche Ausgabekontexte.",
+      "textContent setzt Text, statt ihn als HTML auszuwerten."
+    ],
+    "fields": [],
+    "solutions": [],
+    "options": {
+      "1": "L1: element.innerHTML = request.message",
+      "2": "L2: element.textContent = request.message",
+      "3": "L3: ungeprüfte Nachricht wird direkt in ein Inline-JavaScript-Literal verkettet",
+      "4": "L4: Ausgaben werden passend zu ihrem jeweiligen HTML-/JavaScript-Kontext behandelt"
+    },
+    "correctIds": [
+      "1",
+      "3"
+    ],
+    "material": ""
+  },
+  {
+    "id": 46,
+    "title": "Eine cookiegestützte Änderung absichern",
+    "chapter": "08 · Webanwendungen absichern",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Im fiktiven Portal sendet der Browser das Sitzungscookie automatisch. Eine fremde Seite soll dadurch nicht allein eine Buchungsänderung auslösen können. Mira plant eine zustandsändernde Formularaktion.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Zwei gefährliche Ausgabestellen sind als konkrete Reviewbefunde markiert.",
+    "task": "Ergänze den beschriebenen Schutzansatz. Die Prüfung des Anti-CSRF-Nachweises findet auf dem Server statt; Berechtigungsprüfungen bleiben zusätzlich erforderlich.",
+    "explanation": "Automatisch mitgesendete Sitzungscookies sind keine Bestätigung der beabsichtigten Aktion. Ein serverseitig validierter Anti-CSRF-Nachweis und passende Cookie-/Anfragekontrollen ergänzen die separate Rechteprüfung. TLS schützt den Transport, ersetzt diese Anwendungsentscheidung aber nicht.",
+    "discovery": "Die Änderungsaktion trennt Sitzung, beabsichtigte Anfrage und Objektberechtigung.",
+    "hints": [
+      "Das Cookie kann auch bei einer fremd ausgelösten Anfrage gesendet werden.",
+      "Ein sichtbarer Nachweis hilft nur, wenn der Server ihn prüft.",
+      "Transportverschlüsselung und die Absicht einer Aktion sind verschiedene Fragen."
+    ],
+    "fields": [
+      {
+        "key": "method",
+        "label": "Zustandsänderung über lesenden GET-Link auslösen?",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "ja",
+          "2": "nein"
+        },
+        "help": ""
+      },
+      {
+        "key": "token",
+        "label": "Anti-CSRF-Nachweis",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "serverseitig prüfen",
+          "2": "nur optisch im Formular anzeigen",
+          "3": "Prüfung dem fremden Browser überlassen"
+        },
+        "help": ""
+      },
+      {
+        "key": "rights",
+        "label": "Objektberechtigung zusätzlich prüfen?",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "ja",
+          "2": "nein"
+        },
+        "help": ""
+      },
+      {
+        "key": "tls",
+        "label": "Ersetzt TLS allein diese CSRF-Prüfung?",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "ja",
+          "2": "nein"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "method": "2",
+          "token": "1",
+          "rights": "1",
+          "tls": "2"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": ""
+  },
+  {
+    "id": 47,
+    "title": "Die Sperrgrenze unabhängig testen",
+    "chapter": "08 · Webanwendungen absichern",
+    "kind": "TestSuite",
+    "format": "Build",
+    "story": "Eine Anmeldung darf bei drei bereits gezählten Fehlversuchen auch mit richtigem Passwort nicht mehr zugelassen werden. Mira möchte die Schwelle und beide Ergebnisse unterhalb der Schwelle prüfen.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Die Änderungsaktion trennt Sitzung, beabsichtigte Anfrage und Objektberechtigung.",
+    "task": "Decke die drei Ergebnisgruppen sowie Vorzustände mit 2 und 3 Fehlversuchen ab und erkenne alle drei beschriebenen Fehler. Erstelle eigene Testfälle mit Eingaben und Sollwerten. Jeder Fall startet unabhängig. Die verlangten Klassen, gezählten Wege und Fehlervarianten stehen unten ausdrücklich dabei. Andere passende Testwerte sind erlaubt; gleiche Fälle ersetzen keine zusätzliche Abdeckung.",
+    "explanation": "Der Vorzustand steht in jedem Fall ausdrücklich dabei. Ein richtiges Passwort hebt die vereinbarte Sperre nicht auf. Unter der Sperrgrenze müssen Zulassung und Ablehnung auseinandergehalten werden.",
+    "discovery": "Der Test erfasst Sperrschwelle, gültige Anmeldung und abgewiesenen Versuch getrennt.",
+    "hints": [
+      "Jeder Test beginnt mit seinem eigenen Zählerstand.",
+      "An der Schwelle hat die Sperrprüfung Vorrang vor der Passwortentscheidung.",
+      "Ein falscher Versuch unter der Grenze muss abgelehnt, aber im Modell noch nicht als gesperrt bezeichnet werden."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {},
+        "selectedIds": [],
+        "testCases": [
+          {
+            "id": "case-48",
+            "inputs": {
+              "failed": "2",
+              "correct": "true"
+            },
+            "expected": "allowed"
+          },
+          {
+            "id": "case-49",
+            "inputs": {
+              "failed": "0",
+              "correct": "false"
+            },
+            "expected": "rejected"
+          },
+          {
+            "id": "case-50",
+            "inputs": {
+              "failed": "3",
+              "correct": "true"
+            },
+            "expected": "locked"
+          }
+        ],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "programKey": "attempt",
+    "requiredPartitions": [
+      "locked",
+      "allowed",
+      "rejected",
+      "before-lock",
+      "lock"
+    ],
+    "requiredStatements": [],
+    "requiredBranches": [],
+    "requiredPaths": [],
+    "requiredFaults": [
+      "late-lock",
+      "ignore-lock",
+      "reverse-result"
+    ],
+    "maximumCases": 12
+  },
+  {
+    "id": 48,
+    "title": "Einen bekannt gewordenen Testschlüssel behandeln",
+    "chapter": "08 · Webanwendungen absichern",
+    "kind": "Order",
+    "format": "Build",
+    "story": "Ein ausschließlich fiktiver Testschlüssel ist in einer öffentlich sichtbaren Beispielkonfiguration gelandet. Das Team hat die betroffene Testinstanz bereits eingegrenzt und einen Verantwortlichen benannt.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Test erfasst Sperrschwelle, gültige Anmeldung und abgewiesenen Versuch getrennt.",
+    "task": "Baue den vereinbarten Ausschnitt auf: Zuerst weitere Offenlegung begrenzen, dann den bekannt gewordenen Schlüssel ungültig machen, die Konfiguration ohne Geheimnis korrigieren und danach den korrigierten Zustand prüfen. Der alte Schlüssel darf nicht durch bloßes Löschen der sichtbaren Zeile als wieder geheim gelten. Baue den Ablauf aus den angebotenen Schritten selbst auf. Maßgeblich sind die hier genannten Voraussetzungen; es wird kein universeller Ablauf für alle Projekte behauptet.",
+    "explanation": "Eine sichtbare Zeile zu entfernen macht ein bereits bekannt gewordenes Geheimnis nicht wieder geheim. Die Aufgabe behandelt nur den ausdrücklich vereinbarten Ausschnitt eines fiktiven Vorfalls, keinen universellen Notfallprozess.",
+    "discovery": "Der Testvorfall besitzt einen überprüfbaren Umgang mit dem bekannt gewordenen Schlüssel.",
+    "hints": [
+      "Die weitere Offenlegung wird zuerst begrenzt.",
+      "Der alte bekannte Schlüssel darf nicht weiter gelten.",
+      "Abschließend müssen Konfiguration und Ungültigkeit des alten Werts überprüft werden."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {},
+        "selectedIds": [],
+        "testCases": [],
+        "order": [
+          "contain",
+          "revoke",
+          "repair",
+          "verify"
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "cards": {
+      "contain": "Weitere Offenlegung in der betroffenen Testinstanz begrenzen",
+      "revoke": "Bekannt gewordenen Testschlüssel ungültig machen",
+      "repair": "Konfiguration ohne veröffentlichtes Geheimnis korrigieren",
+      "verify": "Korrigierte Konfiguration und Sperre des alten Schlüssels prüfen"
+    }
+  },
+  {
+    "id": 49,
+    "title": "Verschlüsseln, Hashen und Signieren zuordnen",
+    "chapter": "09 · Kryptografie und Betrieb",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Mira betrachtet drei unterschiedliche Ziele: Eine Nachricht soll für Unbefugte unlesbar bleiben, ein Dateiabgleich soll Änderungen erkennen, und eine Nachricht soll mit Bezug auf den Signaturschlüssel geprüft werden.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Testvorfall besitzt einen überprüfbaren Umgang mit dem bekannt gewordenen Schlüssel.",
+    "task": "Ordne jeweils das unmittelbar passende Verfahren zu. Ein ungeschützter Hash allein beweist keine Identität des Absenders.",
+    "explanation": "Verschlüsselung, Hashvergleich und Signatur erfüllen unterschiedliche Aufgaben. Auch ein Signaturergebnis benötigt eine vertrauenswürdige Zuordnung des öffentlichen Schlüssels; eine Signatur macht den Nachrichteninhalt nicht automatisch geheim.",
+    "discovery": "Der Schutzplan verwendet Verfahren entsprechend ihrem konkreten Zweck.",
+    "hints": [
+      "Unlesbarkeit und Änderungsnachweis sind unterschiedliche Ziele.",
+      "Ein Referenzhash muss selbst vertrauenswürdig bekannt sein.",
+      "Eine Signaturprüfung macht keine automatische Aussage über Geheimhaltung des Inhalts."
+    ],
+    "fields": [
+      {
+        "key": "secret",
+        "label": "Inhalt für Unbefugte unlesbar halten",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Verschlüsselung",
+          "2": "Hashvergleich gegen vertrauenswürdigen Referenzwert",
+          "3": "Digitale Signatur"
+        },
+        "help": ""
+      },
+      {
+        "key": "digest",
+        "label": "Datei mit vertrauenswürdig bekanntem Fingerabdruck vergleichen",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Verschlüsselung",
+          "2": "Hashvergleich gegen vertrauenswürdigen Referenzwert",
+          "3": "Digitale Signatur"
+        },
+        "help": ""
+      },
+      {
+        "key": "signature",
+        "label": "Signatur einer Nachricht mit zugeordnetem öffentlichem Schlüssel prüfen",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Verschlüsselung",
+          "2": "Hashvergleich gegen vertrauenswürdigen Referenzwert",
+          "3": "Digitale Signatur"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "secret": "1",
+          "digest": "2",
+          "signature": "3"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": ""
+  },
+  {
+    "id": 50,
+    "title": "Einen hybriden Versandablauf aufbauen",
+    "chapter": "09 · Kryptografie und Betrieb",
+    "kind": "Order",
+    "format": "Build",
+    "story": "Für einen kleinen Lehrfall wird eine Nachricht mit einem frischen symmetrischen Schlüssel geschützt. Dieser Schlüssel soll ausschließlich für den Empfänger mit dessen öffentlichem Schlüssel verpackt werden. Es ist ein vereinfachtes Modell, kein vollständiger TLS-Handshake.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Schutzplan verwendet Verfahren entsprechend ihrem konkreten Zweck.",
+    "task": "Vereinbarte Reihenfolge: Zuerst Empfängerschlüssel vertrauenswürdig zuordnen, dann frischen symmetrischen Schlüssel erzeugen, ihn für den Empfänger verpacken und die Nachricht symmetrisch verschlüsselt senden. Danach entpackt der Empfänger den Schlüssel mit seinem privaten Schlüssel und entschlüsselt die Nachricht. Baue den Ablauf aus den angebotenen Schritten selbst auf. Maßgeblich sind die hier genannten Voraussetzungen; es wird kein universeller Ablauf für alle Projekte behauptet.",
+    "explanation": "Im vereinfachten hybriden Modell schützt ein symmetrisches Verfahren die Nutzdaten, während das asymmetrische Verfahren die Schlüsselbereitstellung übernimmt. Die privaten Schlüssel bleiben beim jeweiligen Inhaber. Der konkrete Auftrag legt die Reihenfolge dieses Lehrablaufs fest.",
+    "discovery": "Der Nachrichtenablauf trennt Nutzdatenverschlüsselung und Schlüsselbereitstellung.",
+    "hints": [
+      "Der öffentliche Schlüssel muss zunächst dem richtigen Empfänger zugeordnet sein.",
+      "Nutzdaten werden hier symmetrisch geschützt; der dafür benötigte Schlüssel wird separat verpackt.",
+      "Der private Empfängerschlüssel wird zum Entpacken genutzt und nicht mitgesendet."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {},
+        "selectedIds": [],
+        "testCases": [],
+        "order": [
+          "identify",
+          "generate",
+          "wrap",
+          "send",
+          "unwrap",
+          "decrypt"
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "cards": {
+      "identify": "Öffentlichen Empfängerschlüssel vertrauenswürdig zuordnen",
+      "generate": "Frischen symmetrischen Schlüssel erzeugen",
+      "wrap": "Symmetrischen Schlüssel mit öffentlichem Empfängerschlüssel verpacken",
+      "send": "Nachricht symmetrisch verschlüsseln und zusammen mit verpacktem Schlüssel senden",
+      "unwrap": "Empfänger entpackt den Schlüssel mit seinem privaten Schlüssel",
+      "decrypt": "Empfänger entschlüsselt die Nachricht symmetrisch"
+    }
+  },
+  {
+    "id": 51,
+    "title": "Passwortprüfung passend planen",
+    "chapter": "09 · Kryptografie und Betrieb",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Im fiktiven Portal soll ein Passwort später geprüft, aber nicht wieder im Klartext angezeigt werden. Mira bewertet drei Planungsentscheidungen.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Nachrichtenablauf trennt Nutzdatenverschlüsselung und Schlüsselbereitstellung.",
+    "task": "Wähle die für diesen Fall passenden Aussagen. Konkrete Kostenparameter müssen bei einer echten Implementierung zum aktuellen Verfahren und System geprüft werden.",
+    "explanation": "Ein geeignetes Passwort-Hashverfahren mit individuellem Salt ist für die Prüfung vorgesehen. Der Salt ist kein Ersatz für ein starkes Passwort oder passende Kostenparameter. Ein Hash wird nicht wie verschlüsselter Klartext entschlüsselt.",
+    "discovery": "Der Lernentwurf trennt sichere Passwortprüfung von wiederherstellbarer Klartextspeicherung.",
+    "hints": [
+      "Soll das Originalpasswort wieder angezeigt werden oder nur überprüfbar bleiben?",
+      "Schnelle allgemeine Hashfunktionen verfolgen nicht denselben Kostenansatz wie Passwort-Hashverfahren.",
+      "Der individuelle Salt darf zusammen mit dem Hash bekannt sein."
+    ],
+    "fields": [
+      {
+        "key": "algorithm",
+        "label": "Speicherverfahren",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "geeignetes langsames Passwort-Hashverfahren, etwa Argon2id",
+          "2": "Passwort im Klartext",
+          "3": "ein schneller SHA-256-Hash als alleinige Passwortspeicherung"
+        },
+        "help": ""
+      },
+      {
+        "key": "salt",
+        "label": "Salt",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "pro Passwort zufällig und eindeutig; darf beim Hash gespeichert werden",
+          "2": "für alle Benutzer identisch",
+          "3": "muss das ursprüngliche Passwort enthalten"
+        },
+        "help": ""
+      },
+      {
+        "key": "recover",
+        "label": "Ursprüngliches Passwort zur Prüfung entschlüsseln?",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "ja",
+          "2": "nein"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "algorithm": "1",
+          "salt": "1",
+          "recover": "2"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": ""
+  },
+  {
+    "id": 52,
+    "title": "Zertifikatsbefunde richtig behandeln",
+    "chapter": "09 · Kryptografie und Betrieb",
+    "kind": "Review",
+    "format": "Analyze",
+    "story": "Ein Testprotokoll meldet zwei konkrete Zertifikatsprobleme. Mira soll sie vor dem geplanten verschlüsselten Betrieb klären, statt nur auf das Vorhandensein eines Schloss-Symbols zu achten.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Lernentwurf trennt sichere Passwortprüfung von wiederherstellbarer Klartextspeicherung.",
+    "task": "Markiere genau die zwei Befunde, die in diesem Ausschnitt gegen eine erfolgreiche vertrauenswürdige Zertifikatsprüfung sprechen.",
+    "explanation": "Hostname, zeitliche Gültigkeit und Vertrauenskette gehören zur Prüfung im beschriebenen Fall. Ein verschlüsselter Kanal ersetzt weder diese Zuordnung noch die zusätzliche Anwendungsberechtigung.",
+    "discovery": "Zwei konkrete Zertifikatsprobleme bleiben vor dem Probebetrieb sichtbar offen.",
+    "hints": [
+      "Vergleiche die tatsächliche Zieladresse mit dem Zertifikatsbezug.",
+      "Verwende den ausdrücklich kontrollierten Prüfzeitpunkt.",
+      "Eine zusätzliche Rechteprüfung ist kein Zertifikatsfehler."
+    ],
+    "fields": [],
+    "solutions": [],
+    "options": {
+      "1": "Der angefragte Hostname passt nicht zu den geprüften Zertifikatsnamen.",
+      "2": "Das Zertifikat liegt im gültigen Zeitraum und die Vertrauenskette ist bestätigt.",
+      "3": "Das Zertifikat ist zum kontrollierten Prüfzeitpunkt abgelaufen.",
+      "4": "Die Anwendung prüft zusätzlich die Objektberechtigungen."
+    },
+    "correctIds": [
+      "1",
+      "3"
+    ],
+    "material": ""
+  },
+  {
+    "id": 53,
+    "title": "Eine Wiederherstellung nach dem Sicherungsplan aufbauen",
+    "chapter": "09 · Kryptografie und Betrieb",
+    "kind": "Order",
+    "format": "Build",
+    "story": "Das Sicherungsprotokoll nennt eine geprüfte Vollsicherung vom Montag und davon abhängige inkrementelle Sicherungen vom Dienstag und Mittwoch. Für den Zielstand Mittwoch werden beide Inkremente benötigt.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Zwei konkrete Zertifikatsprobleme bleiben vor dem Probebetrieb sichtbar offen.",
+    "task": "Stelle zuerst die Vollsicherung wieder her, dann das Dienstagsinkrement und danach das Mittwochsinkrement. Prüfe anschließend den wiederhergestellten Datenstand und die vereinbarte Fachfunktion. Es werden hier keine Dateien am echten Rechner verändert. Baue den Ablauf aus den angebotenen Schritten selbst auf. Maßgeblich sind die hier genannten Voraussetzungen; es wird kein universeller Ablauf für alle Projekte behauptet.",
+    "explanation": "Die ausdrücklich abhängigen Inkremente benötigen ihre Grundlage und Reihenfolge. Ein Sicherungslauf allein beweist keine erfolgreiche Wiederherstellung; der Zielstand wird zusätzlich geprüft.",
+    "discovery": "Der Wiederherstellungsplan enthält Grundlage, abhängige Schritte und einen tatsächlichen Prüfschritt.",
+    "hints": [
+      "Die Inkremente sind laut Auftrag nicht unabhängig voneinander.",
+      "Die Vollsicherung ist die Grundlage.",
+      "Der letzte Schritt beurteilt den wiederhergestellten Stand statt nur den Sicherungslauf."
+    ],
+    "fields": [],
+    "solutions": [
+      {
+        "values": {},
+        "selectedIds": [],
+        "testCases": [],
+        "order": [
+          "full",
+          "tuesday",
+          "wednesday",
+          "verify"
+        ]
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": "",
+    "cards": {
+      "full": "Vollsicherung vom Montag wiederherstellen",
+      "tuesday": "Davon abhängiges Dienstagsinkrement anwenden",
+      "wednesday": "Davon abhängiges Mittwochsinkrement anwenden",
+      "verify": "Zielstand und vereinbarte Fachfunktion prüfen"
+    }
+  },
+  {
+    "id": 54,
+    "title": "Den Probebetrieb ehrlich freigeben",
+    "chapter": "09 · Kryptografie und Betrieb",
+    "kind": "Worksheet",
+    "format": "Build",
+    "story": "Mira hat den letzten Prüfstand vorliegen: Fachtests und Wiederherstellungsprobe sind bestanden; eine bekannte kritische Objektzugriffslücke ist noch offen. Die vereinbarte Freigaberegel verbietet den Probebetrieb mit dieser offenen Lücke.",
+    "previousContext": "Im zuletzt bestätigten Schritt: Der Wiederherstellungsplan enthält Grundlage, abhängige Schritte und einen tatsächlichen Prüfschritt.",
+    "task": "Vervollständige die Freigabenotiz anhand der vorliegenden Nachweise.",
+    "explanation": "Der Freigabevermerk unterscheidet bestandene Nachweise von einer bekannten offenen kritischen Lücke. Nach ihrer Behebung werden der konkrete Fehlerfall und die vereinbarte Regression geprüft. Auch ein vollständig bestandener begrenzter Testsatz ist keine allgemeine Fehlerfreiheitsgarantie.",
+    "discovery": "Miras Freigabeentscheidung ist nachvollziehbar: bestätigte Ergebnisse bleiben anerkannt, die offene kritische Zugriffslücke verhindert den vereinbarten Probebetrieb noch.",
+    "hints": [
+      "Übernimm jedes protokollierte Ergebnis ohne Umdeutung.",
+      "Die Freigaberegel nennt die kritische Lücke ausdrücklich als Ausschluss.",
+      "Behebung und deren Nachweis sind zwei getrennte Schritte."
+    ],
+    "fields": [
+      {
+        "key": "functional",
+        "label": "Fachtests",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "bestanden",
+          "2": "offen"
+        },
+        "help": ""
+      },
+      {
+        "key": "restore",
+        "label": "Wiederherstellungsprobe",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "bestanden",
+          "2": "offen"
+        },
+        "help": ""
+      },
+      {
+        "key": "access",
+        "label": "Kritische Zugriffslücke",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "behoben und nachgeprüft",
+          "2": "noch offen"
+        },
+        "help": ""
+      },
+      {
+        "key": "release",
+        "label": "Freigabe nach der vereinbarten Regel",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "ja",
+          "2": "noch nicht"
+        },
+        "help": ""
+      },
+      {
+        "key": "next",
+        "label": "Nächster notwendiger Nachweis",
+        "kind": "Select",
+        "comparison": "Exact",
+        "options": {
+          "1": "Fehlernachtest und passende Regression nach der Behebung",
+          "2": "Offene Lücke wegen grüner Fachtests ignorieren",
+          "3": "Nur Farbe des Freigabebuttons ändern"
+        },
+        "help": ""
+      }
+    ],
+    "solutions": [
+      {
+        "values": {
+          "functional": "1",
+          "restore": "1",
+          "access": "2",
+          "release": "2",
+          "next": "1"
+        },
+        "selectedIds": [],
+        "testCases": [],
+        "order": []
+      }
+    ],
+    "options": {},
+    "correctIds": [],
+    "material": ""
+  }
+]

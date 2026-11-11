@@ -1,0 +1,121 @@
+@if (Task.Kind is "Choice" or "Review")
+{
+    <fieldset class="quality-options"><legend>@(Task.Kind == "Review" ? "Markiere alle begründeten Befunde" : "Wähle alle zutreffenden Aussagen")</legend>
+    @foreach (var option in Task.Options)
+    {
+        <label class="design-option"><input type="checkbox" checked="@Answer.SelectedIds.Contains(option.Key)" disabled="@ReadOnly" @onchange="args => ToggleAsync(option.Key, args.Value is true)" /> <span>@option.Value</span></label>
+    }
+    </fieldset>
+}
+else if (Task.Kind == "Worksheet")
+{
+    <div class="quality-fields">
+    @foreach (var field in Task.Fields)
+    {
+        <label>@field.Label
+        @if (field.Kind == "Select")
+        {
+            <select value="@Answer.Values.GetValueOrDefault(field.Key, "")" disabled="@ReadOnly" @onchange="@(args => ValueAsync(field.Key, args.Value?.ToString() ?? ""))"><option value="">Bitte wählen</option>@foreach (var option in field.Options) { <option value="@option.Key">@option.Value</option> }</select>
+        }
+        else
+        {
+            <input value="@Answer.Values.GetValueOrDefault(field.Key, "")" maxlength="500" inputmode="@(field.Kind == "Number" ? "decimal" : "text")" readonly="@ReadOnly" @oninput="@(args => ValueAsync(field.Key, args.Value?.ToString() ?? ""))" />
+        }
+        @if (field.Help.Length > 0) { <small>@field.Help</small> }
+        </label>
+    }
+    </div>
+}
+else if (Task.Kind == "Matrix")
+{
+    <div class="quality-table-wrap"><table class="quality-table"><caption>Deine Berechtigungsmatrix · jede Zelle ausdrücklich entscheiden</caption><thead><tr><th scope="col">Rolle</th>@foreach (var column in Task.MatrixColumns.Values) { <th scope="col">@column</th> }</tr></thead><tbody>
+    @foreach (var row in Task.MatrixRows)
+    {
+        <tr><th scope="row">@row.Value</th>@foreach (var column in Task.MatrixColumns) { string key = row.Key + "." + column.Key; <td><select aria-label="@(row.Value + " · " + column.Value)" value="@Answer.Values.GetValueOrDefault(key, "")" disabled="@ReadOnly" @onchange="@(args => ValueAsync(key, args.Value?.ToString() ?? ""))"><option value="">Offen</option><option value="allow">Erlauben</option><option value="deny">Verweigern</option></select></td> }</tr>
+    }
+    </tbody></table></div>
+}
+else if (Task.Kind == "Order")
+{
+    <h3>Dein Ablauf</h3><p>Füge die benötigten Schritte hinzu und ordne sie mit Früher und Später.</p>
+    <ol class="quality-order">
+    @for (int i = 0; i < Answer.Order.Count; i++)
+    {
+        int index = i; string key = Answer.Order[i];
+        <li @key="key"><span>@Task.Cards.GetValueOrDefault(key, "Unbekannter Schritt")</span><div class="quality-row-actions"><button class="button secondary" disabled="@(ReadOnly || i == 0)" aria-label="@(Task.Cards.GetValueOrDefault(key) + " früher")" @onclick="() => MoveAsync(index, -1)">Früher</button><button class="button secondary" disabled="@(ReadOnly || i == Answer.Order.Count - 1)" aria-label="@(Task.Cards.GetValueOrDefault(key) + " später")" @onclick="() => MoveAsync(index, 1)">Später</button><button class="button secondary" disabled="@ReadOnly" aria-label="@(Task.Cards.GetValueOrDefault(key) + " entfernen")" @onclick="() => RemoveStepAsync(index)">Entfernen</button></div></li>
+    }
+    </ol>
+    @if (!ReadOnly)
+    {
+        <fieldset class="quality-cards"><legend>Verfügbare Schritte</legend>@foreach (var card in Task.Cards.Where(item => !Answer.Order.Contains(item.Key))) { <button class="button secondary" @onclick="() => AddStepAsync(card.Key)">+ @card.Value</button> }</fieldset>
+    }
+}
+else if (Task.Kind == "TestSuite" && Program is { } program)
+{
+    <section class="quality-contract"><h3>@program.Title</h3><p>@program.Contract</p><details><summary>Ablauf mit Zählmarken lesen</summary><pre class="quality-code">@program.Code</pre><p>S markiert die hier gezählten ausführbaren Anweisungen. D markiert Entscheidungen mit Wahr-/Falsch-Ausgang. Die Prozentwerte beziehen sich ausschließlich auf diese ausdrücklich markierten Mengen.</p></details></section>
+    <section class="quality-targets"><h3>Gefordert für diesen Auftrag</h3>
+    @foreach (var target in Targets(program)) { <div><strong>@target.Name</strong><ul>@foreach (var value in target.Values) { <li>@value</li> }</ul></div> }
+    </section>
+    <div class="quality-test-list">
+    @for (int i = 0; i < Answer.TestCases.Count; i++)
+    {
+        var test = Answer.TestCases[i]; int index = i;
+        <fieldset class="quality-test-case" @key="test.Id"><legend>Testfall @(i + 1)</legend><div class="quality-fields">
+        @foreach (var input in program.Inputs)
+        {
+            <label>@input.Label
+            @if (input.Kind == "Select") { <select value="@test.Inputs.GetValueOrDefault(input.Key, "")" disabled="@ReadOnly" @onchange="@(args => CaseAsync(test, input.Key, args.Value?.ToString() ?? ""))"><option value="">Bitte wählen</option>@foreach (var option in input.Options) { <option value="@option.Key">@option.Value</option> }</select> }
+            else { <input value="@test.Inputs.GetValueOrDefault(input.Key, "")" maxlength="200" inputmode="numeric" readonly="@ReadOnly" @oninput="@(args => CaseAsync(test, input.Key, args.Value?.ToString() ?? ""))" /><small>Ganze Zahl · Testdatenbereich @input.Minimum bis @input.Maximum</small> }
+            </label>
+        }
+        <label>Erwartetes Ergebnis
+        @if (program.OutputKind is "Boolean" or "Text")
+        {
+            <select value="@test.Expected" disabled="@ReadOnly" @onchange="@(args => ExpectedAsync(test, args.Value?.ToString() ?? ""))"><option value="">Bitte wählen</option>@if (program.OutputKind == "Boolean") { <option value="true">WAHR</option><option value="false">FALSCH</option> } else { @foreach (var option in program.OutputOptions) { <option value="@option.Key">@option.Value</option> } }</select>
+        }
+        else { <input value="@test.Expected" maxlength="200" inputmode="decimal" readonly="@ReadOnly" @oninput="@(args => ExpectedAsync(test, args.Value?.ToString() ?? ""))" /> }
+        </label></div>
+        <div class="quality-row-actions"><button class="button secondary" disabled="@(ReadOnly || index == 0)" aria-label="@($"Testfall {index + 1} früher")" @onclick="() => MoveCaseAsync(index, -1)">Früher</button><button class="button secondary" disabled="@(ReadOnly || index == Answer.TestCases.Count - 1)" aria-label="@($"Testfall {index + 1} später")" @onclick="() => MoveCaseAsync(index, 1)">Später</button><button class="button secondary" disabled="@ReadOnly" aria-label="@($"Testfall {index + 1} entfernen")" @onclick="() => RemoveCaseAsync(test)">Entfernen</button></div></fieldset>
+    }
+    </div>
+    @if (!ReadOnly) { <button class="button secondary" disabled="@(Answer.TestCases.Count >= Task.MaximumCases)" @onclick="AddCaseAsync">Testfall hinzufügen</button><p class="muted">@Answer.TestCases.Count / @Task.MaximumCases Testfälle · @(ExamMode ? "Berechnete Ergebnisse erscheinen erst nach der endgültigen Prüfungsabgabe." : "Berechnete Ergebnisse erscheinen erst nach deiner Lösungsprüfung.")</p> }
+}
+
+@code {
+    /// <summary> Der feste Fachvertrag bestimmt die zulässigen Editoraktionen. </summary>
+    [Parameter, EditorRequired] public QualityAssignment Task { get; set; } = new();
+    /// <summary> Entwurf bleibt während aufeinanderfolgender Eingaben dieselbe Instanz. </summary>
+    [Parameter, EditorRequired] public QualityAnswer Answer { get; set; } = new();
+    /// <summary> Endgültige Abgaben und laufende Speicheraktionen sperren sämtliche Handler. </summary>
+    [Parameter] public bool ReadOnly { get; set; }
+    /// <summary> Meldet ausschließlich erlaubte Änderungen zur Speicherung. </summary>
+    [Parameter] public EventCallback Changed { get; set; }
+    /// <summary> Die Prüfung gibt vor der endgültigen Abgabe keine Ausführungsergebnisse preis. </summary>
+    [Parameter] public bool ExamMode { get; set; }
+    private QualityProgram? Program => QualityPrograms.Find(Task.ProgramKey);
+    /// <summary> Zeigt die verbindlichen Bewertungsziele vor dem eigenen Testentwurf ausdrücklich an. </summary>
+    private IEnumerable<(string Name, IEnumerable<string> Values)> Targets(QualityProgram program)
+    {
+        foreach (var (name, required, labels) in new[] {
+            ("Klassen und Grenzen", Task.RequiredPartitions, program.Partitions), ("Gezählte Anweisungen", Task.RequiredStatements, program.Statements),
+            ("Bedingte Zweige", Task.RequiredBranches, program.Branches), ("Erreichbare Pfade", Task.RequiredPaths, program.Paths), ("Zu erkennende Fehlervarianten", Task.RequiredFaults, program.Faults) })
+            if (required.Count > 0) yield return (name, required.Select(key => labels[key]));
+    }
+    private async Task ToggleAsync(string key, bool selected) { if (ReadOnly || !Task.Options.ContainsKey(key)) return; if (selected && !Answer.SelectedIds.Contains(key)) Answer.SelectedIds.Add(key); else if (!selected) Answer.SelectedIds.Remove(key); await Changed.InvokeAsync(); }
+    private async Task ValueAsync(string key, string value)
+    {
+        if (ReadOnly || value.Length > 500) return;
+        var field = Task.Fields.SingleOrDefault(field => field.Key == key);
+        bool matrix = Task.Kind == "Matrix" && Task.MatrixRows.Keys.Any(row => Task.MatrixColumns.Keys.Any(column => key == row + "." + column));
+        if (matrix ? value is not ("" or "allow" or "deny") : field == null || field.Kind == "Select" && value != "" && !field.Options.ContainsKey(value)) return;
+        Answer.Values[key] = value; await Changed.InvokeAsync();
+    }
+    private async Task AddStepAsync(string key) { if (ReadOnly || Task.Kind != "Order" || !Task.Cards.ContainsKey(key) || Answer.Order.Contains(key) || Answer.Order.Count >= 24) return; Answer.Order.Add(key); await Changed.InvokeAsync(); }
+    private async Task RemoveStepAsync(int index) { if (ReadOnly || index < 0 || index >= Answer.Order.Count) return; Answer.Order.RemoveAt(index); await Changed.InvokeAsync(); }
+    private async Task MoveAsync(int index, int offset) { int target = index + offset; if (ReadOnly || offset is not (-1 or 1) || index < 0 || index >= Answer.Order.Count || target < 0 || target >= Answer.Order.Count) return; (Answer.Order[index], Answer.Order[target]) = (Answer.Order[target], Answer.Order[index]); await Changed.InvokeAsync(); }
+    private async Task AddCaseAsync() { if (ReadOnly || Task.Kind != "TestSuite" || Answer.TestCases.Count >= Task.MaximumCases) return; Answer.TestCases.Add(new()); await Changed.InvokeAsync(); }
+    private async Task RemoveCaseAsync(QualityTestCase test) { if (ReadOnly || !Answer.TestCases.Remove(test)) return; await Changed.InvokeAsync(); }
+    private async Task MoveCaseAsync(int index, int offset) { int target = index + offset; if (ReadOnly || offset is not (-1 or 1) || index < 0 || index >= Answer.TestCases.Count || target < 0 || target >= Answer.TestCases.Count) return; (Answer.TestCases[index], Answer.TestCases[target]) = (Answer.TestCases[target], Answer.TestCases[index]); await Changed.InvokeAsync(); }
+    private async Task CaseAsync(QualityTestCase test, string key, string value) { var input = Program?.Inputs.SingleOrDefault(input => input.Key == key); if (ReadOnly || !Answer.TestCases.Contains(test) || input == null || value.Length > 200 || input.Kind == "Select" && value != "" && !input.Options.ContainsKey(value)) return; test.Inputs[key] = value; await Changed.InvokeAsync(); }
+    private async Task ExpectedAsync(QualityTestCase test, string value) { if (ReadOnly || !Answer.TestCases.Contains(test) || value.Length > 200) return; test.Expected = value; await Changed.InvokeAsync(); }
+}

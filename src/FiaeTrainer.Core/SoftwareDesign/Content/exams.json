@@ -21,10 +21,6 @@
         ],
         "previousContext": "",
         "material": "",
-        "reflectionCriteria": [
-          "Welche Anforderung löst dein Entwurf konkret?",
-          "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-        ],
         "fields": [
           {
             "key": "measure",
@@ -89,8 +85,7 @@
               },
               "selectedIds": []
             },
-            "payload": "",
-            "reasoning": ""
+            "payload": ""
           }
         ],
         "starter": {
@@ -109,8 +104,7 @@
             },
             "selectedIds": []
           },
-          "payload": "",
-          "reasoning": ""
+          "payload": ""
         }
       },
       {
@@ -130,10 +124,6 @@
         ],
         "previousContext": "",
         "material": "",
-        "reflectionCriteria": [
-          "Welche Anforderung löst dein Entwurf konkret?",
-          "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-        ],
         "fields": [],
         "solutions": [
           {
@@ -193,8 +183,7 @@
               },
               "selectedIds": []
             },
-            "payload": "",
-            "reasoning": ""
+            "payload": ""
           }
         ],
         "starter": {
@@ -213,8 +202,7 @@
             },
             "selectedIds": []
           },
-          "payload": "",
-          "reasoning": ""
+          "payload": ""
         },
         "nodeVocabulary": {
           "screen": "Verleihmaske",
@@ -258,10 +246,6 @@
         ],
         "previousContext": "",
         "material": "",
-        "reflectionCriteria": [
-          "Welche Anforderung löst dein Entwurf konkret?",
-          "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-        ],
         "fields": [
           {
             "key": "method",
@@ -324,8 +308,7 @@
               },
               "selectedIds": []
             },
-            "payload": "{\"bikeId\":7,\"days\":2}",
-            "reasoning": ""
+            "payload": "{\"bikeId\":7,\"days\":2}"
           }
         ],
         "starter": {
@@ -344,8 +327,7 @@
             },
             "selectedIds": []
           },
-          "payload": "",
-          "reasoning": ""
+          "payload": ""
         },
         "payloadFormat": "Json"
       }
@@ -378,10 +360,6 @@
         ],
         "previousContext": "",
         "material": "",
-        "reflectionCriteria": [
-          "Welche Anforderung löst dein Entwurf konkret?",
-          "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-        ],
         "fields": [],
         "solutions": [
           {
@@ -489,8 +467,7 @@
               },
               "selectedIds": []
             },
-            "payload": "",
-            "reasoning": ""
+            "payload": ""
           }
         ],
         "starter": {
@@ -509,8 +486,7 @@
             },
             "selectedIds": []
           },
-          "payload": "",
-          "reasoning": ""
+          "payload": ""
         },
         "diagram": {
           "id": 1,
@@ -648,10 +624,6 @@
         ],
         "previousContext": "",
         "material": "",
-        "reflectionCriteria": [
-          "Welche Anforderung löst dein Entwurf konkret?",
-          "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-        ],
         "fields": [
           {
             "key": "method",
@@ -714,8 +686,7 @@
               },
               "selectedIds": []
             },
-            "payload": "{\"participants\":11}",
-            "reasoning": ""
+            "payload": "{\"participants\":11}"
           }
         ],
         "starter": {
@@ -734,8 +705,7 @@
             },
             "selectedIds": []
           },
-          "payload": "",
-          "reasoning": ""
+          "payload": ""
         },
         "payloadFormat": "Json"
       },
@@ -756,10 +726,6 @@
         ],
         "previousContext": "",
         "material": "",
-        "reflectionCriteria": [
-          "Welche Anforderung löst dein Entwurf konkret?",
-          "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-        ],
         "fields": [],
         "solutions": [
           {
@@ -815,8 +781,7 @@
               },
               "selectedIds": []
             },
-            "payload": "",
-            "reasoning": ""
+            "payload": ""
           }
         ],
         "starter": {
@@ -835,8 +800,7 @@
             },
             "selectedIds": []
           },
-          "payload": "",
-          "reasoning": ""
+          "payload": ""
         },
         "nodeVocabulary": {
           "room": "Kurs",
@@ -891,10 +855,6 @@
         ],
         "previousContext": "",
         "material": "",
-        "reflectionCriteria": [
-          "Welche Anforderung löst dein Entwurf konkret?",
-          "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-        ],
         "fields": [
           {
             "key": "role",
@@ -954,8 +914,7 @@
               },
               "selectedIds": []
             },
-            "payload": "",
-            "reasoning": ""
+            "payload": ""
           }
         ],
         "starter": {
@@ -974,8 +933,7 @@
             },
             "selectedIds": []
           },
-          "payload": "",
-          "reasoning": ""
+          "payload": ""
         }
       },
       {
@@ -995,10 +953,6 @@
         ],
         "previousContext": "",
         "material": "",
-        "reflectionCriteria": [
-          "Welche Anforderung löst dein Entwurf konkret?",
-          "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-        ],
         "fields": [],
         "solutions": [
           {
@@ -1063,8 +1017,7 @@
               },
               "selectedIds": []
             },
-            "payload": "",
-            "reasoning": ""
+            "payload": ""
           }
         ],
         "starter": {
@@ -1083,8 +1036,7 @@
             },
             "selectedIds": []
           },
-          "payload": "",
-          "reasoning": ""
+          "payload": ""
         },
         "nodeVocabulary": {
           "name": "Name",
@@ -1130,10 +1082,6 @@
         ],
         "previousContext": "",
         "material": "",
-        "reflectionCriteria": [
-          "Welche Anforderung löst dein Entwurf konkret?",
-          "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
-        ],
         "fields": [],
         "solutions": [],
         "starter": {
@@ -1152,8 +1100,7 @@
             },
             "selectedIds": []
           },
-          "payload": "",
-          "reasoning": ""
+          "payload": ""
         },
         "options": {
           "observer": "Observer: Ein Subjekt benachrichtigt registrierte Beobachter.",

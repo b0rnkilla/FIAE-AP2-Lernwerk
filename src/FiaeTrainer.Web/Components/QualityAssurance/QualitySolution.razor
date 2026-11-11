@@ -1,0 +1,18 @@
+@if (Task.Kind is "Choice" or "Review")
+{
+    <ul>@foreach (var id in Task.CorrectIds) { <li>@Task.Options[id]</li> }</ul>
+}
+else if (Task.Kind == "TestSuite" && QualityPrograms.Find(Task.ProgramKey) is { } program)
+{
+    <div class="quality-table-wrap"><table class="quality-table"><caption>Vorgegebene Eingaben und Sollwerte</caption><thead><tr>@foreach (var input in program.Inputs) { <th scope="col">@input.Label</th> }<th scope="col">Erwartetes Ergebnis</th></tr></thead><tbody>@foreach (var test in Answer.TestCases) { <tr>@foreach (var input in program.Inputs) { string value = test.Inputs.GetValueOrDefault(input.Key, ""); <td>@input.Options.GetValueOrDefault(value, value)</td> }<td>@QualitySimulator.Display(program, test.Expected)</td></tr> }</tbody></table></div>
+}
+else
+{
+    <QualityEditor Task="Task" Answer="Answer" ReadOnly="true" />
+}
+@code {
+    /// <summary> Musterlösung für einen ausdrücklich aufgedeckten Auftrag. </summary>
+    [Parameter, EditorRequired] public QualityAssignment Task { get; set; } = new();
+    /// <summary> Die erste zulässige Referenz oder eine unveränderte Reparaturvorlage. </summary>
+    [Parameter, EditorRequired] public QualityAnswer Answer { get; set; } = new();
+}

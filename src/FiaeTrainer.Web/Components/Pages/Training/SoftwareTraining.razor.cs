@@ -43,8 +43,17 @@ public partial class SoftwareTraining
     /// <summary> Leere Auswahlen und vollständig leere Modelle werden nicht versehentlich abgegeben. </summary>
     private bool HasAnswer => _progress != null && SoftwareRules.HasAnswer(_progress.Answer);
     /// <summary> Nur ein tatsächlich bearbeiteter Entwurf verlangt eine Neustartbestätigung. </summary>
-    private bool HasOwnDraft => _progress != null && _task != null
-        && JsonSerializer.Serialize(_progress.Answer) != JsonSerializer.Serialize(_task.InitialAnswer());
+    private bool HasOwnDraft
+    {
+        get
+        {
+            if (_progress == null || _task == null) return false;
+            var answer = _progress.Answer.Copy();
+            var initial = _task.InitialAnswer();
+            answer.Reasoning = initial.Reasoning = "";
+            return JsonSerializer.Serialize(answer) != JsonSerializer.Serialize(initial);
+        }
+    }
 
     /// <summary> 0 bedeutet Fortsetzen der zuletzt besuchten Aufgabe; positive IDs sind direkte Einstiege. </summary>
     [Parameter] public int Id { get; set; }

@@ -57,7 +57,6 @@ else
     @if (Task.PayloadFormat != "None") { <label class="software-payload-label">Deine @(Task.PayloadFormat == "Json" ? "JSON" : "XML")-Nachricht<textarea class="software-payload" rows="10" maxlength="8000" spellcheck="false" value="@Answer.Payload" @oninput='args => PayloadAsync(args.Value?.ToString() ?? "")'>@Answer.Payload</textarea></label> }
     </fieldset>
 }
-<details class="software-reflection"><summary>Deine eigene Begründung ergänzen</summary><label>Freiwillige Begründung zur Selbstkontrolle<textarea rows="4" maxlength="4000" disabled="@ReadOnly" value="@Answer.Reasoning" @oninput='args => ReasoningAsync(args.Value?.ToString() ?? "")'>@Answer.Reasoning</textarea></label><p>Dieser Text bleibt mit deinem Entwurf gespeichert. Die automatische Bewertung erfasst die fachlichen Antwortfelder und Entwürfe; deine Formulierung prüfst du zusätzlich anhand der Kriterienliste.</p></details>
 @code {
     /// <summary> Strukturierter Fachauftrag ohne vorweggenommene Antworten. </summary>
     [Parameter, EditorRequired] public SoftwareAssignment Task { get; set; } = new();
@@ -72,7 +71,6 @@ else
     private async System.Threading.Tasks.Task SelectAsync(string id) { if (ReadOnly || !Task.Options.ContainsKey(id)) return; if (Task.CorrectIds.Count == 1) Answer.SelectedIds = [id]; else if (!Answer.SelectedIds.Remove(id)) Answer.SelectedIds.Add(id); await ChangedAsync(); }
     private async System.Threading.Tasks.Task ValueAsync(SoftwareField field, string value) { if (ReadOnly || value.Length > 500 || !Task.Fields.Contains(field) || field.Kind == "Select" && value.Length > 0 && !field.Options.ContainsKey(value)) return; Answer.Values[field.Key] = value; await ChangedAsync(); }
     private async System.Threading.Tasks.Task PayloadAsync(string value) { if (ReadOnly || value.Length > 8000) return; Answer.Payload = value; await ChangedAsync(); }
-    private async System.Threading.Tasks.Task ReasoningAsync(string value) { if (ReadOnly || value.Length > 4000) return; Answer.Reasoning = value; await ChangedAsync(); }
     private async System.Threading.Tasks.Task AddNodeAsync() { if (ReadOnly || Answer.Board.Nodes.Count >= 16) return; Answer.Board.Nodes.Add(new() { Kind = Task.NodeKinds.Keys.First() }); await ChangedAsync(); }
     private async System.Threading.Tasks.Task RemoveNodeAsync(SoftwareNode node) { if (ReadOnly) return; Answer.Board.Nodes.Remove(node); Answer.Board.Links.RemoveAll(link => link.Source == node.Id || link.Target == node.Id); await ChangedAsync(); }
     private async System.Threading.Tasks.Task NodeAsync(SoftwareNode node, string property, string value)
