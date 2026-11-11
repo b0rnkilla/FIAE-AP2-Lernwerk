@@ -1,6 +1,6 @@
 # Stand und weitere Entwicklung
 
-Entwicklungsstand: **0.1.1-alpha.14 · 11.11.2026**, sechs aktive Module und 346 Lernübungen einschließlich Softwareplanung und OOP. Zuletzt gebautes Windows-Paket: **0.1.1-alpha.14**, am 11.11.2026 nach Nutzer-Push aus sauberem Commit `33f09a7` gebaut und aus dem ZIP geprüft; Veröffentlichung durch den Nutzer ausstehend. Alpha 13 ist als Pre-release veröffentlicht und bleibt unverändert. Detaillierte Historie: [Entwicklungsprotokoll](entwicklungsprotokoll.md). Nachweise: [Testprotokoll](testprotokoll.md).
+Entwicklungsstand: **0.1.1-alpha.16 · 11.11.2026**, acht aktive Module und 454 Lernübungen einschließlich Projekte und Wirtschaftlichkeit. Zuletzt gebautes Windows-Paket: **0.1.1-alpha.15**, aus 3c7339f geprüft und laut Nutzer veröffentlicht; 400 Übungen. Bestehende Archive/Prüfsummen unverändert. **Kein Alpha-16-ZIP beauftragt.** Historie: [Entwicklungsprotokoll](entwicklungsprotokoll.md), Nachweise: [Testprotokoll](testprotokoll.md).
 
 ## Umgesetzte Rückmeldungen
 
@@ -165,3 +165,17 @@ Quelle Alpha 15 mit 400 Übungen und sieben aktiven Modulen. Eigene Profile/Revi
 ## 11.11.2026 – Zusatzfreitext auf Nutzerwunsch vollständig aus der Bedienung entfernt
 
 Abschnitt 05/06 besitzen weder im Lernen noch in Prüfungen zusätzliche Begründungs-/Notizfelder. Zugehörige Reflexionskarten, Selbstkontrolllisten, Hinweise und verwaiste Metadaten entfernt; betroffene Aufgabentexte und Dokumentation bereinigt. Reguläre Fachangaben, Modelle und Nachrichteneditoren bleiben erhalten. Historische Reasoning-Daten werden nur zur verlustfreien Profilübernahme weiter mitgeführt, nicht angezeigt oder bearbeitet. Alle 1.147 bestehenden .NET-Prüfungen erfolgreich (20 SQL-Integrationen ausgelassen); eigener Browser mit korrekten Fachantworten und beiden Prüfungsauswertungen geprüft. Nutzer kann nach Trainerneustart weiter testen. Kein neues ZIP.
+
+## 11.11.2026 – Windows-ZIP Alpha 15 nach Nutzer-Push erledigt
+
+Nutzer hat Commit und Push bestätigt und ZIP/Prüfung/kurze Release-Infos ausdrücklich beauftragt. Code-Commit 3c7339f87745350d9a4b9c2a525095f7a3147775 und Remote-master stimmen überein. Paket mit 400 Übungen/sieben Modulen und dem entfernten Zusatzfreitext gebaut. 1.147 .NET-/31 JavaScript-Prüfungen erfolgreich, 20 echte SQL-Integrationen ausgelassen. Native EXE mit eigenem Altprofil: alternative Testsätze, Reparatur, Qualitätsprüfung 50/50, Pause/Neustart, gesperrte Abgabe und alte Profilfelder erfolgreich. 59 Dateien bitgleich nach Lauf, ZIP/SHA256 und ältere Archive unverändert. Kurze Neu/Verbessert/Start-und-Update-Beschreibung an den tatsächlichen vorhandenen GitHub-Releases ausgerichtet. Versionshinweise nach dem Code-Commit ergänzt, Prüfdokumentation separat. Veröffentlichung als Pre-release v0.1.1-alpha.15 auf 3c7339f durch Nutzer. Kein automatischer Upload/Tag/Commit/Push oder Beginn von Abschnitt 07.
+
+## 11.11.2026 – Abschnitt 07 nach Nutzer-GO umgesetzt
+
+Der Nutzer hat Alpha 15 veröffentlicht und das vorgestellte Konzept für Projekte und Wirtschaftlichkeit ausdrücklich freigegeben. 54 eigene Lernaufgaben in neun Kapiteln, eigene Struktur-/Netz-/Terminpläne, Kosten-/Wirtschaftlichkeitsrechnungen, Nutzwerttabellen und Projektsteuerung umgesetzt. Drei neue Prüfungsfälle mit 45 Minuten und 50 Trainingspunkten, gewohnter Lernrahmen und eigenes Profil. Keine Zusatznotizen/Reflexionsfelder. SQL/Pseudocode und bisherige fachliche Kataloge bleiben unverändert. Damit sind alle acht Themenkarten nutzbar; keine vollständige AP2-Abdeckung behauptet.
+
+1.190 .NET-/31 JavaScript-Prüfungen erfolgreich; 20 persönliche SQL-Integrationen bewusst ausgelassen. Eigene Browserprüfung auf 5246: eigener Strukturplan, Netzplanzeiten, alternative Ressourcenfolge, Rechenmatrix, Hilfen, Prüfung 50/50 und Pause/Neustart. README mit acht gleich großen Modulbildern, Fachvertrag und Pflichtdokumente nachgeführt. Nutzer testet anschließend ausführlicher; Zeitkalibrierung bleibt offen. Kein ZIP, Commit/Push oder Upload.
+
+## 11.11.2026 – Checkboxdarstellung Abschnitt 07 berichtigt
+
+Auf Nutzerrückmeldung durchlaufende Auswahltexte in eigenständige, voll anklickbare Auswahlkarten umgestaltet. Feste Checkboxgröße, Textumbruch, Abstand und sichtbarer Tastaturfokus gelten für Auswahl- und Reviewaufgaben. Warnungsfreier Build, 17 Komponentenprüfungen und isolierter Browser auf 5248 (Desktop dunkel/Handy hell) erfolgreich. README geprüft, Darstellung der acht Module unverändert passend. Keine Inhalts-/Profilrevision und kein ZIP; Nutzer testet weiter.

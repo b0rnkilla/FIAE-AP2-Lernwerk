@@ -1,0 +1,22 @@
+<label class="project-value">@Field.Label
+    @if (Field.Kind == "Select")
+    {
+        <select value="@Value" disabled="@ReadOnly" @onchange="ChangeAsync"><option value="">Bitte wählen</option>@foreach (var option in Field.Options) { <option value="@option.Key">@option.Value</option> }</select>
+    }
+    else
+    {
+        <input value="@Value" maxlength="500" inputmode="@(Field.Kind == "Number" ? "decimal" : "text")" readonly="@ReadOnly" @oninput="ChangeAsync" />
+    }
+    @if (Field.Help.Length > 0) { <small>@Field.Help</small> }
+</label>
+@code {
+    /// <summary> Benannte Rechenzelle mit ausdrücklicher Einheit. </summary>
+    [Parameter, EditorRequired] public ProjectField Field { get; set; } = new();
+    /// <summary> Eigener aktueller Eingabewert. </summary>
+    [Parameter] public string Value { get; set; } = "";
+    /// <summary> Sperrt Vorlage, Musterlösung und abgegebene Prüfung. </summary>
+    [Parameter] public bool ReadOnly { get; set; }
+    /// <summary> Unmittelbare Übernahme in den gespeicherten Entwurf. </summary>
+    [Parameter] public EventCallback<string> Changed { get; set; }
+    private Task ChangeAsync(ChangeEventArgs args) => ReadOnly ? Task.CompletedTask : Changed.InvokeAsync(args.Value?.ToString() ?? "");
+}

@@ -1,0 +1,14 @@
+<section class="feedback @(Result.Correct ? "correct" : "retry")" role="status" aria-label="Rückmeldung zu deiner Lösung"><strong>@(Result.Correct ? "Dieser Plan trägt." : "Schau noch einmal genau hin.")</strong><p>@(Result.Correct ? "Deine fachliche Lösung erfüllt die beschriebenen Anforderungen." : "Vergleiche die offenen Kriterien mit dem Arbeitsauftrag.")</p>
+@if (Result.Correct) { <p class="discovery">@Task.Discovery</p><AttemptOutcomeNote ExamMode="IndependentMode" AssistedAttempt="Assisted" /> }
+else { <div class="design-checks">@foreach (var check in Result.Checks) { <details open="@(check.Earned != check.Maximum)"><summary>@check.Name · @(check.Earned == check.Maximum ? "erfüllt" : "noch offen")</summary><p>@check.Detail</p></details> }</div> }
+</section>
+@code {
+    /// <summary> Aktuelle fachliche Rückmeldung ohne Lernpunkte. </summary>
+    [Parameter, EditorRequired] public ProjectEvaluation Result { get; set; } = new();
+    /// <summary> Bestätigte Erkenntnis zur gelösten Aufgabe. </summary>
+    [Parameter, EditorRequired] public ProjectAssignment Task { get; set; } = new();
+    /// <summary> Gewählter Lernmodus des Versuchs. </summary>
+    [Parameter] public bool IndependentMode { get; set; }
+    /// <summary> Bereits verwendete Unterstützung. </summary>
+    [Parameter] public bool Assisted { get; set; }
+}

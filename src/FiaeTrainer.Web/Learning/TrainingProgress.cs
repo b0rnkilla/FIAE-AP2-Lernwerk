@@ -73,4 +73,12 @@ public sealed class TrainingProgress
     public FiaeTrainer.Core.QualityAssurance.Practice.QualityExamRound? QualityExam { get; set; }
     /// <summary> Höchstens zwanzig endgültige Qualitätsprüfungen. </summary>
     public List<FiaeTrainer.Core.QualityAssurance.Practice.QualityExamRound> QualityHistory { get; set; } = [];
+    /// <summary> Zuletzt bearbeitete Projektaufgabe; alte Profile beginnen bei eins. </summary>
+    public int LastProjectLessonId { get; set; } = 1;
+    /// <summary> Getrennte Pläne, Rechentabellen und Lernabschlüsse aus Abschnitt 07. </summary>
+    public Dictionary<int, FiaeTrainer.Core.ProjectManagement.Practice.ProjectProgress> ProjectLessons { get; set; } = [];
+    /// <summary> Aktuelle oder zuletzt abgegebene Projektprüfung. </summary>
+    public FiaeTrainer.Core.ProjectManagement.Practice.ProjectExamRound? ProjectExam { get; set; }
+    /// <summary> Höchstens zwanzig endgültige Projektprüfungen. </summary>
+    public List<FiaeTrainer.Core.ProjectManagement.Practice.ProjectExamRound> ProjectHistory { get; set; } = [];
 }

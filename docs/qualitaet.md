@@ -1,6 +1,6 @@
 # Tests, Qualität und Sicherheit – Abschnitt 06
 
-Quellstand **0.1.1-alpha.15**, Inhaltsvertrag **2026-11-11**. 54 eigene Lernaufgaben, acht feste lokale Testmodelle und drei eigene Prüfungsfälle mit je drei Teilen. **Kein neues Windows-ZIP**: Das vom Nutzer veröffentlichte Alpha-14-Paket bleibt unverändert bei 346 Übungen. Die Quelle besitzt jetzt 400 Lernübungen in sieben Modulen; nur Abschnitt 07 bleibt vorbereitet.
+Quell- und geprüfter Paketstand **0.1.1-alpha.15**, Inhaltsvertrag **2026-11-11**. 54 eigene Lernaufgaben, acht feste lokale Testmodelle und drei eigene Prüfungsfälle mit je drei Teilen. Auf ausdrücklichen Auftrag am 11.11.2026 aus gepushtem Code-Commit `3c7339f` als Windows-ZIP gebaut und nativ geprüft; kurze Versionshinweise nach dem Code-Commit ergänzt. 400 Lernübungen in sieben Modulen, nur Abschnitt 07 vorbereitet. Nutzer lädt als Pre-release hoch; frühere Archive bleiben unverändert.
 
 ## Lernweg
 
@@ -84,4 +84,8 @@ Bereitgestellte alte Prüfungen aus Teil 1/2 dienen ausschließlich als private 
 
 ## Nachlauf: zusätzliche Freitextfelder entfernt
 
-Am 11.11.2026 auf Nutzerwunsch vollständig aus Lern-/Prüfungsansichten entfernt, einschließlich der zugehörigen Selbstkontrollkarten und Kriterienlisten. Aufgaben31/54 verlangen keine zusätzliche schriftliche Begründung mehr. Bewertete Fachangaben und Inhaltsversion bleiben gleich; ältere Profile werden ohne Datenverlust übernommen. Einzelheiten und Nachweis im Testprotokoll.
+Am 11.11.2026 auf Nutzerwunsch vollständig aus Lern-/Prüfungsansichten entfernt, einschließlich der zugehörigen Selbstkontrollkarten und Kriterienlisten. Aufgaben 31/54 verlangen keine zusätzliche schriftliche Begründung mehr. Bewertete Fachangaben und Inhaltsversion bleiben gleich; ältere Profile werden ohne Datenverlust übernommen. Einzelheiten und Nachweis im Testprotokoll.
+
+## Native Paketprüfung Alpha 15
+
+Direkt aus dem ZIP auf eigenem Port 5244 ohne SQL: eigene Klassenvertreter -8/17/39 akzeptiert, falscher Sollwert abgelehnt und alte Ausführung bei Antwortänderung verworfen. Reparatur 33 mit eigenem vierten Testfall korrekt, Ausgangskopie unverändert. Paketstationsprüfung vollständig per Oberfläche mit alternativen Versandwerten bearbeitet, bei 44:39 pausiert und nach EXE-Neustart mit Entwürfen/Markierung fortgesetzt; endgültig 50/50 und gesperrte Antworten. Alle bisherigen synthetischen Modulfelder einschließlich altem unsichtbarem Reasoning-Text erhalten. Kein Zusatzfreitext in Lernen/Prüfung; mobile Seite innerhalb der Bildschirmbreite. Einzelheiten und Grenzen: Testprotokoll. ZIP/SHA256 unverändert erhalten; Veröffentlichung übernimmt der Nutzer.

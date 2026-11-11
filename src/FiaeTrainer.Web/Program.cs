@@ -54,6 +54,7 @@ do
     builder.Services.AddSingleton<FiaeTrainer.Core.Uml.Content.UmlCatalog>();
     builder.Services.AddSingleton<FiaeTrainer.Core.SoftwareDesign.Content.SoftwareCatalog>();
     builder.Services.AddSingleton<FiaeTrainer.Core.QualityAssurance.Content.QualityCatalog>();
+    builder.Services.AddSingleton<FiaeTrainer.Core.ProjectManagement.Content.ProjectCatalog>();
     builder.Services.AddSingleton<FiaeTrainer.Core.Algorithms.Exams.AlgorithmExamCatalog>();
     builder.Services.AddSingleton<FiaeTrainer.Core.Algorithms.Exams.AlgorithmExamEvaluator>();
     builder.Services.AddSingleton<FiaeTrainer.Core.Sql.Exams.SqlExamCatalog>();

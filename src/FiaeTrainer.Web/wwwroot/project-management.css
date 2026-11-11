@@ -1,0 +1,64 @@
+/* Lernunterlagen, Rechentabellen und eigene Planbaukästen in Abschnitt 07. */
+.project-material { margin: 24px 0; padding: 24px; border: 1px solid var(--line); border-radius: 20px; background: var(--paper); }
+.project-code { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; line-height: 1.7; }
+.project-options { border: 0; padding: 0; min-width: 0; }
+.project-options legend { margin-bottom: 16px; font-weight: 700; }
+.project-options label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    margin: 12px 0;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    cursor: pointer;
+}
+.project-options input[type=checkbox] {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    accent-color: var(--accent);
+}
+.project-options label span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+.project-options label:focus-within {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+}
+.project-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 18px; margin: 18px 0; }
+.project-fields label, .project-value { display: grid; align-content: start; gap: 8px; overflow-wrap: anywhere; }
+.project-editor input:not([type=checkbox]), .project-editor select { width: 100%; min-width: 0; padding: 12px; border: 1px solid var(--line); border-radius: 10px; color: var(--ink); background: var(--paper); font: inherit; }
+.project-editor small { color: var(--muted); line-height: 1.5; }
+.project-editor input[readonly], .project-editor select:disabled { opacity: .8; }
+.project-table-wrap, .project-diagram-scroll { overflow: auto; max-width: 100%; }
+.project-table { width: 100%; min-width: 580px; margin: 18px 0; }
+.project-table caption { padding: 12px; text-align: left; font-weight: 700; }
+.project-table td, .project-table th { white-space: normal; vertical-align: top; min-width: 160px; }
+.project-table .project-value { font-size: .9rem; }
+.project-activity, .project-dependency { min-width: 0; padding: 20px; margin: 22px 0; border: 1px solid var(--line); border-radius: 16px; }
+.project-activity legend, .project-dependency legend { max-width: 100%; padding: 0 8px; overflow-wrap: anywhere; font-weight: 700; }
+.project-critical { display: flex !important; align-items: center; }
+.project-critical input { width: 22px; height: 22px; }
+.project-plan > .button { margin: 0 0 24px; }
+.project-preview { margin-bottom: 24px; }
+.project-preview-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 16px; }
+.project-diagram-scroll { border: 1px solid var(--line); border-radius: 16px; background: var(--paper); }
+.project-diagram { display: block; width: 100%; min-width: 560px; }
+.project-diagram.zoomed { min-width: 1100px; }
+.project-diagram text { fill: var(--ink); font: 18px sans-serif; }
+.project-diagram .project-small { fill: var(--muted); font-size: 14px; }
+.project-node { fill: var(--white); stroke: var(--line); stroke-width: 2; }
+.project-node.marked { stroke: var(--accent); stroke-width: 4; }
+.project-edge { fill: none; stroke: var(--accent); stroke-width: 2; }
+.project-arrow, .project-bar { fill: var(--accent); }
+.project-gridline { stroke: var(--line); stroke-width: 1; }
+.project-text-plan { margin-top: 16px; }
+.project-text-plan li { margin: 12px 0; overflow-wrap: anywhere; }
+.project-learning h1, .project-learning .badge { overflow-wrap: anywhere; }
+@media (max-width: 600px) {
+    .project-material, .project-activity, .project-dependency { padding: 16px; }
+    .project-preview-toolbar .button { width: 100%; }
+    .project-fields { grid-template-columns: 1fr; }
+}

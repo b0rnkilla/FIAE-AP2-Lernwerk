@@ -1,0 +1,80 @@
+@page "/projekte"
+@page "/projekte/{Id:int}"
+<PageTitle>@(_task?.Title ?? "Projekte und Wirtschaftlichkeit") · AP2 Lernwerk</PageTitle>
+<main class="workspace project-learning @(_collapsed ? "rail-collapsed" : "")">
+    <TaskRail Id="project-tasks" Collapsed="_collapsed" CollapsedChanged="SetCollapsedAsync">
+        <div class="eyebrow">KULTURZENTRUM NORDHAFEN</div>
+        <h2>Schritt für Schritt.<br />Zum tragfähigen Projekt.</h2>
+        <div class="rail-progress"><span>@_state.ProjectLessons.Values.Count(item => item.Completed) / @Catalog.Lessons.Count gelöst</span><progress value="@_state.ProjectLessons.Values.Count(item => item.Completed)" max="@Catalog.Lessons.Count" aria-label="Fortschritt in Projekte und Wirtschaftlichkeit"></progress></div>
+        <nav aria-label="Aufgabenauswahl" class="@(_busy ? "busy-nav" : "")">
+            @foreach (var chapter in Catalog.Lessons.GroupBy(task => task.Chapter))
+            {
+                <div class="chapter-label">@chapter.Key</div>
+                @foreach (var item in chapter)
+                {
+                    bool complete = _state.ProjectLessons.GetValueOrDefault(item.Id)?.Completed == true;
+                    <a class="mission-link @(CurrentId == item.Id ? "selected" : "")" href="@($"/projekte/{item.Id}")" aria-current="@(CurrentId == item.Id ? "step" : null)"><span class="mission-index @(complete ? "done" : "")">@(complete ? "✓" : item.Id.ToString("D2"))</span><span>@item.Title</span></a>
+                }
+            }
+        </nav>
+    </TaskRail>
+    <div class="mission-main" aria-busy="@(_busy || _loading ? "true" : "false")" inert="@(_loading ? "" : null)">
+    @if (_loading) { <p class="task-loading-note" role="status">Deine Aufgabe wird geladen …</p> }
+    @if (_error != null) { <section class="notice warning" role="alert"><p>@_error</p><a href="@($"/projekte/{CurrentId}")" data-enhance-nav="false">Aufgabe neu laden</a></section> }
+    @if (_task != null && _progress != null)
+    {
+        <div class="mission-topline"><span class="eyebrow">AUFGABE @CurrentId.ToString("D2") / @Catalog.Lessons.Count</span><span class="badge">@ProjectCatalog.Kinds[_task.Kind] · @(_task.Kind == "Choice" ? "Lesen" : _task.Kind == "Review" ? "Prüfen" : _task.Format == "Repair" ? "Reparieren" : "Selbst erstellen")</span></div>
+        <h1>@_task.Title</h1>
+        <LearningModePicker @key="CurrentId" ExamMode="_progress.IndependentMode" Busy="@(!CanEdit)" HasDraft="HasOwnDraft" AssistedAttempt="_progress.Assisted" ModeChanged="SetModeAsync" />
+        <section class="story-note" aria-label="Stand des Kursprojekts bei Nordhafen">
+            <div class="avatar" aria-hidden="true">MK</div>
+            <div>
+                <span>Entwicklerin Mira König · Nordhafen</span>
+                @if (CurrentId > 1)
+                {
+                    @if (_state.ProjectLessons.GetValueOrDefault(CurrentId - 1)?.Completed == true) { <p class="story-context">@_task.PreviousContext</p> }
+                    else { <p class="story-context">Vorheriger Planungsschritt noch offen: <a href="@($"/projekte/{CurrentId - 1}")">Aufgabe @(CurrentId - 1)</a>. Du kannst diese Aufgabe trotzdem unabhängig bearbeiten.</p> }
+                }
+                <p>@_task.Story</p>
+            </div>
+        </section>
+        <section class="task-card"><div class="eyebrow">01 · AUFGABE VERSTEHEN</div><p>@_task.Task</p></section>
+        @if (_task.Material.Length > 0) { <section class="project-material"><h2>Deine Arbeitsunterlage</h2><pre class="project-code">@_task.Material</pre></section> }
+        @if (_task.Format == "Repair") { <section class="design-material"><h2>Vorgegebener Entwurf</h2><p>Diese Vorlage bleibt zum Vergleichen erhalten. Bearbeite darunter deine eigene Kopie.</p><ProjectSolution Task="_task" Answer="_task.Starter" /></section> }
+        <section class="editor-card design-answer" aria-label="Arbeitsbereich in Projekte und Wirtschaftlichkeit">
+            <div class="editor-toolbar"><strong>02 · @(_task.Kind switch { "Choice" => "Deine Antwort", "Worksheet" => "Deine Ausarbeitung", "Structure" => "Dein Strukturplan", "Review" => "Deine Planprüfung", "Network" => "Dein Netzplan", "Schedule" => "Dein Terminplan", _ => "Deine Bearbeitung" })</strong><span>@ProjectCatalog.Kinds[_task.Kind]</span></div>
+            <div class="design-answer-content"><ProjectEditor @key="CurrentId" Task="_task" Answer="_progress.Answer" Changed="EditorChangedAsync" ReadOnly="@(!CanEdit)" /></div>
+            <div class="editor-actions"><div><button class="button primary" disabled="@(!CanEdit || !HasAnswer)" @onclick="CheckAsync">@(_busy ? "Wird geprüft …" : "Lösung prüfen") →</button></div></div>
+        </section>
+        @if (_result != null)
+        {
+            <div @ref="_feedback" tabindex="-1"><ProjectLearningFeedback Result="_result" Task="_task" IndependentMode="_progress.IndependentMode" Assisted="_progress.Assisted" /></div>
+        }
+        @if (!_progress.IndependentMode)
+        {
+            <section class="help-card"><div class="help-row"><div><h2>Ein kleiner Denkanstoß?</h2><p>Du entscheidest, wie viel Unterstützung du brauchst.</p></div><button class="button secondary" disabled="@(!CanEdit || _progress.HintLevel == 3)" @onclick="HintAsync">@(_progress.HintLevel == 3 ? "Alle Hinweise geöffnet" : $"Hinweis {_progress.HintLevel + 1} von 3 öffnen")</button></div>
+            @for (int i = 0; i < _progress.HintLevel; i++) { <div class="hint"><span>@(i + 1)</span><p>@_task.Hints[i]</p></div> }
+            <div class="help-row"><div><h2>Planung und Rechenwege nachschlagen?</h2><p>Der Spickzettel erklärt Projektplanung, Netzpläne, Terminierung und Wirtschaftlichkeit.</p></div><a class="button secondary" href="@($"/projekte/spickzettel?aufgabe={CurrentId}")">Spickzettel öffnen</a></div>
+            <div class="help-row"><div><h2>Musterlösung</h2><p>Eine aufgedeckte Lösung zählt nicht als selbstständiger Versuch.</p></div><button class="button secondary" aria-label="@(_showSolution ? "Musterlösung ausblenden" : "Musterlösung ansehen")" aria-expanded="@_showSolution.ToString().ToLowerInvariant()" aria-controls="@(_showSolution ? "project-solution" : null)" disabled="@(!CanEdit)" @onclick="SolutionAsync">@(_showSolution ? "Ausblenden" : "Ansehen")</button></div>
+            @if (_showSolution) { <div class="solution" id="project-solution"><p>@_task.Explanation</p><ProjectSolution Task="_task" Answer="@(_task.Solutions.FirstOrDefault() ?? new())" /></div> }
+            </section>
+        }
+        <nav class="mission-bottom" aria-label="Vorherige und nächste Projektaufgabe">@if (CurrentId > 1) { <a class="button secondary" href="@($"/projekte/{CurrentId - 1}")">← Vorherige Aufgabe</a> }<span></span>@if (CurrentId < Catalog.Lessons.Count) { <a class="button @(_result?.Correct == true ? "primary" : "secondary")" href="@($"/projekte/{CurrentId + 1}")">Nächste Aufgabe →</a> } else { <a class="button primary" href="/lernplan">Deine Wiederholung planen →</a> }</nav>
+    }
+    </div>
+    <aside class="inspector design-notes" aria-label="Bestätigte Planungsschritte">
+        <h2>Projektbericht</h2><p>Deine bestätigten Schritte für den neuen Kursbereich.</p>
+        @if (!_state.ProjectLessons.Any(item => item.Key <= CurrentId && item.Value.Completed)) { <p>Noch kein Schritt bestätigt. Deine erste gelöste Aufgabe eröffnet den Bericht.</p> }
+        @{ int previousConfirmed = 0; }
+        @foreach (var item in Catalog.Lessons.Where(task => task.Id <= CurrentId && _state.ProjectLessons.GetValueOrDefault(task.Id)?.Completed == true))
+        {
+            var missing = Catalog.Lessons.Where(task => task.Id > previousConfirmed && task.Id < item.Id).ToArray();
+            @if (missing.Length > 0)
+            {
+                <details class="project-story-gaps"><summary>Noch offen: @(missing.Length == 1 ? $"Aufgabe {missing[0].Id}" : $"Aufgaben {missing[0].Id}–{missing[^1].Id}")</summary><ul>@foreach (var open in missing) { <li><a href="@($"/projekte/{open.Id}")">Aufgabe @open.Id · @open.Title</a></li> }</ul></details>
+            }
+            <article><span class="eyebrow">AUFGABE @item.Id.ToString("D2")</span><h3>@item.Title</h3><p>@item.Discovery</p></article>
+            previousConfirmed = item.Id;
+        }
+    </aside>
+</main>

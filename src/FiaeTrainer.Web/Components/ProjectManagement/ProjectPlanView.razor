@@ -1,0 +1,114 @@
+<div class="project-preview">
+    <div class="project-preview-toolbar"><strong>@ProjectCatalog.Kinds[Task.Kind] · dein Entwurf</strong><button class="button secondary" aria-pressed="@(_zoom ? "true" : "false")" @onclick="() => _zoom = !_zoom">@(_zoom ? "Diagramm verkleinern" : "Diagramm vergrößern")</button></div>
+    @if (Answer.Activities.Count == 0) { <p>Dein Plan ist noch leer. Füge darunter die ersten Elemente hinzu.</p> }
+    else
+    {
+        var nodes = Answer.Activities;
+        var positions = Positions();
+        int rows = positions.Values.GroupBy(point => point.X).Select(group => group.Count()).DefaultIfEmpty(1).Max();
+        int width = Task.Kind == "Schedule" ? 960 : Math.Max(780, positions.Values.Max(point => point.X) + 250);
+        int height = Task.Kind == "Schedule" ? 80 + nodes.Count * 60 : Math.Max(210, rows * 190 + 30);
+        <div class="project-diagram-scroll" tabindex="0" role="region" aria-label="Planzeichnung, bei Bedarf horizontal verschiebbar">
+            <svg class="project-diagram @(_zoom ? "zoomed" : "")" viewBox="@($"0 0 {width} {height}")" role="img" aria-labelledby="@(_id + "-title " + _id + "-desc")">
+                <title id="@(_id + "-title")">@ProjectCatalog.Kinds[Task.Kind] aus deinen Angaben</title><desc id="@(_id + "-desc")">Die folgende Textansicht enthält alle Elemente und Verbindungen. Gesuchte Rechenwerte werden nicht automatisch ergänzt.</desc>
+                <defs><marker id="@(_id + "-arrow")" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M 0 0 L 10 4 L 0 8 Z" class="project-arrow" /></marker></defs>
+                @if (Task.Kind == "Schedule")
+                {
+                    @for (int day = 0; day <= Plan.Horizon; day++)
+                    {
+                        int x = 250 + day * 680 / Plan.Horizon;
+                        <g><line x1="@x" x2="@x" y1="40" y2="@(height - 15)" class="project-gridline" /><text x="@x" y="25" text-anchor="middle">@day</text></g>
+                    }
+                    @for (int i = 0; i < nodes.Count; i++)
+                    {
+                        var node = nodes[i]; int y = 62 + i * 60;
+                        <g><title>@Label(node)</title><text x="15" y="@(y + 15)">@Short(Label(node), 27)</text>
+                        @if (ProjectRules.Integer(node.Start, out int start) && ProjectRules.Integer(node.Duration, out int duration) && start >= 0 && duration >= 0 && (long)start + duration <= Plan.Horizon)
+                        {
+                            int x = 250 + start * 680 / Plan.Horizon;
+                            @if (duration == 0) { <path d="@($"M{x} {y} l10 13 l-10 13 l-10 -13 Z")" class="project-bar" /> }
+                            else { <rect x="@x" y="@y" width="@(duration * 680 / Plan.Horizon)" height="28" rx="5" class="project-bar" /> }
+                        }
+                        else { <g><text x="255" y="@(y + 15)">Beginn oder Dauer noch offen</text></g> }
+                        <text x="15" y="@(y + 34)" class="project-small">@Plan.Resources.GetValueOrDefault(node.Resource, "")</text></g>
+                    }
+                }
+                else
+                {
+                    @foreach (var edge in Edges())
+                    {
+                        if (!positions.TryGetValue(edge.Source, out var from) || !positions.TryGetValue(edge.Target, out var to)) continue;
+                        int x1 = from.X + 220, y1 = from.Y + 65, x2 = to.X, y2 = to.Y + 65;
+                        <path d="@($"M{x1} {y1} L{(x1 + x2) / 2} {y1} L{(x1 + x2) / 2} {y2} L{x2} {y2}")" class="project-edge" marker-end="@($"url(#{_id}-arrow)")" />
+                    }
+                    @foreach (var node in nodes)
+                    {
+                        var point = positions[node.Id];
+                        <g><title>@Label(node)</title><rect x="@point.X" y="@point.Y" width="220" height="155" rx="10" class="project-node @(node.Critical && Task.Kind == "Network" && Plan.CheckCritical ? "marked" : "")" />
+                        <text x="@(point.X + 12)" y="@(point.Y + 28)">@Short(Label(node), 24)</text>
+                        <text x="@(point.X + 12)" y="@(point.Y + 52)" class="project-small">@Short(Plan.Activities.SingleOrDefault(role => role.Key == node.Key)?.Label ?? "Fachrolle offen", 28)</text>
+                        @if (Task.Kind == "Network")
+                        {
+                            <g><text x="@(point.X + 12)" y="@(point.Y + 77)">Dauer: @(node.Duration.Length == 0 ? "offen" : node.Duration) Tage</text></g>
+                            @for (int row = 0; row < 3; row++)
+                            {
+                                string line = string.Join(" · ", Plan.TimingFields.Skip(row * 2).Take(2).Select(key => $"{(key == "tf" ? "GP" : key == "ff" ? "FP" : ProjectEvaluator.TimeLabels[key])}: {node.Values.GetValueOrDefault(key, "–")}"));
+                                <g><text x="@(point.X + 12)" y="@(point.Y + 100 + row * 20)" class="project-small">@line</text></g>
+                            }
+                        }
+                        </g>
+                    }
+                }
+            </svg>
+        </div>
+        @if (Task.Kind == "Network" && Plan.TimingFields.Any(key => key is "tf" or "ff")) { <p>GP = Gesamtpuffer · FP = freier Puffer</p> }
+        <details class="project-text-plan"><summary>Plan als Text lesen</summary><ul>
+            @foreach (var node in nodes)
+            {
+                <li><strong>@Label(node)</strong> · Fachrolle: @(Plan.Activities.SingleOrDefault(role => role.Key == node.Key)?.Label ?? "offen")
+                    @if (Task.Kind == "Structure") { <span> · Obergruppe: @(nodes.SingleOrDefault(parent => parent.Id == node.ParentId) is { } parent ? Label(parent) : "keine")</span> }
+                    else { <span> · Dauer: @node.Duration</span> }
+                    @if (Task.Kind == "Schedule") { <span> · Beginn: @node.Start · Ressource: @Plan.Resources.GetValueOrDefault(node.Resource, "offen")</span> }
+                    @foreach (string key in Plan.TimingFields) { <span> · @ProjectEvaluator.TimeLabels[key]: @node.Values.GetValueOrDefault(key, "offen")</span> }
+                    @if (Plan.CheckCritical) { <span> · Kritisch markiert: @(node.Critical ? "ja" : "nein")</span> }
+                </li>
+            }
+        </ul><h4>Verbindungen</h4><ul>@foreach (var edge in Edges()) { <li>@Label(nodes.Single(node => node.Id == edge.Source)) → @Label(nodes.Single(node => node.Id == edge.Target))</li> }</ul></details>
+    }
+</div>
+@code {
+    /// <summary> Darstellung verwendet nur die eigenen Werte, keine berechneten Referenzzeiten. </summary>
+    [Parameter, EditorRequired] public ProjectAssignment Task { get; set; } = new();
+    /// <summary> Auch unvollständige oder zyklische Entwürfe bleiben darstellbar. </summary>
+    [Parameter, EditorRequired] public ProjectAnswer Answer { get; set; } = new();
+    private readonly string _id = "project-" + Guid.NewGuid().ToString("N");
+    private bool _zoom;
+    private ProjectPlan Plan => Task.Plan!;
+    private string Label(ProjectActivity item) => item.Name.Length > 0 ? item.Name : Plan.Activities.SingleOrDefault(role => role.Key == item.Key)?.Label ?? "Noch ohne Fachrolle";
+    private static string Short(string text, int length) => text.Length > length ? text[..(length - 1)] + "…" : text;
+    private IEnumerable<(string Source, string Target)> Edges()
+    {
+        var ids = Answer.Activities.Select(item => item.Id).ToHashSet();
+        return Task.Kind == "Structure" ? Answer.Activities.Where(item => ids.Contains(item.ParentId)).Select(item => (item.ParentId, item.Id))
+            : Answer.Dependencies.Where(link => ids.Contains(link.SourceId) && ids.Contains(link.TargetId)).Select(link => (link.SourceId, link.TargetId));
+    }
+    /// <summary> Begrenzte graphische Anordnung; Kreise beeinflussen weder Speicherbarkeit noch Rechenwerte. </summary>
+    private Dictionary<string, (int X, int Y)> Positions()
+    {
+        var edges = Edges().ToArray();
+        int Depth(string id, HashSet<string> path)
+        {
+            if (!path.Add(id)) return 0;
+            return Math.Min(15, edges.Where(edge => edge.Target == id && !path.Contains(edge.Source)).Select(edge => 1 + Depth(edge.Source, new(path))).DefaultIfEmpty(0).Max());
+        }
+        var rows = new Dictionary<int, int>();
+        var positions = new Dictionary<string, (int, int)>();
+        foreach (var node in Answer.Activities)
+        {
+            int column = Depth(node.Id, []), row = rows.GetValueOrDefault(column);
+            positions[node.Id] = (20 + column * 270, 15 + row * 190);
+            rows[column] = row + 1;
+        }
+        return positions;
+    }
+}

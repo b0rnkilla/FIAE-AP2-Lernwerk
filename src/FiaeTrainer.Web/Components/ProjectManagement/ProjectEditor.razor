@@ -1,0 +1,54 @@
+<div class="project-editor">
+@if (Task.Kind is "Choice" or "Review")
+{
+    <fieldset class="project-options"><legend>@(Task.Kind == "Review" ? "Markiere alle begründeten Befunde" : "Wähle alle zutreffenden Aussagen")</legend>
+    @foreach (var option in Task.Options)
+    {
+        <label class="design-option"><input type="checkbox" checked="@Answer.SelectedIds.Contains(option.Key)" disabled="@ReadOnly" @onchange="args => ToggleAsync(option.Key, args.Value is true)" /><span>@option.Value</span></label>
+    }
+    </fieldset>
+}
+else if (Task.Kind == "Worksheet")
+{
+    @if (Task.Fields.Any(field => field.Group.Length > 0))
+    {
+        var columns = Task.Fields.Where(field => field.Group.Length > 0).Select(field => field.Column).Distinct().ToArray();
+        <div class="project-table-wrap"><table class="project-table"><caption>Deine Rechentabelle und Entscheidungen</caption><thead><tr><th scope="col">Position</th>@foreach (string column in columns) { <th scope="col">@column</th> }</tr></thead><tbody>
+        @foreach (var row in Task.Fields.Where(field => field.Group.Length > 0).GroupBy(field => field.Group))
+        {
+            <tr><th scope="row">@row.Key</th>@foreach (string column in columns) { <td>@foreach (var field in row.Where(field => field.Column == column)) { <ProjectValue Field="field" Value="@Answer.Values.GetValueOrDefault(field.Key, "")" ReadOnly="ReadOnly" Changed="value => ValueAsync(field.Key, value)" /> }</td> }</tr>
+        }
+        </tbody></table></div>
+    }
+    <div class="project-fields">@foreach (var field in Task.Fields.Where(field => field.Group.Length == 0)) { <ProjectValue Field="field" Value="@Answer.Values.GetValueOrDefault(field.Key, "")" ReadOnly="ReadOnly" Changed="value => ValueAsync(field.Key, value)" /> }</div>
+}
+else if (Task.Plan != null)
+{
+    <ProjectPlanEditor Task="Task" Answer="Answer" Changed="Changed" ReadOnly="ReadOnly" />
+}
+</div>
+@code {
+    /// <summary> Aktueller Fachvertrag ohne automatische Lösung der Eingaben. </summary>
+    [Parameter, EditorRequired] public ProjectAssignment Task { get; set; } = new();
+    /// <summary> Bearbeiteter Entwurf. </summary>
+    [Parameter, EditorRequired] public ProjectAnswer Answer { get; set; } = new();
+    /// <summary> Meldet jede gültige Eingabe für die Speicherung. </summary>
+    [Parameter] public EventCallback Changed { get; set; }
+    /// <summary> Einheitliche Sperre für Vorlagen und Abgaben. </summary>
+    [Parameter] public bool ReadOnly { get; set; }
+    /// <summary> Prüfungsansicht bietet keine vorzeitige Bewertung. </summary>
+    [Parameter] public bool ExamMode { get; set; }
+    private async Task ValueAsync(string key, string value)
+    {
+        if (ReadOnly || value.Length > 500 || !Task.Fields.Any(field => field.Key == key)) return;
+        Answer.Values[key] = value;
+        await Changed.InvokeAsync();
+    }
+    private async Task ToggleAsync(string key, bool selected)
+    {
+        if (ReadOnly || !Task.Options.ContainsKey(key)) return;
+        if (selected && !Answer.SelectedIds.Contains(key) && Answer.SelectedIds.Count < 24) Answer.SelectedIds.Add(key);
+        else if (!selected) Answer.SelectedIds.Remove(key);
+        await Changed.InvokeAsync();
+    }
+}

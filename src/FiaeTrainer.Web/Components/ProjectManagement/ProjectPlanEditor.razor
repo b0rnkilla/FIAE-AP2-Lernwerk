@@ -1,0 +1,132 @@
+<section class="project-plan" aria-label="Dein eigener Planbaukasten">
+    <ProjectPlanView Task="Task" Answer="Answer" />
+    @if (!ReadOnly) { <p>Baue und bearbeite deinen Plan über die Felder. Die Grafik ordnet deine Angaben automatisch an; sie berechnet keine gesuchten Zeiten. Eigene Anzeigenamen sind frei. Die Fachrolle bestimmt die Bedeutung.</p> }
+    @for (int i = 0; i < Answer.Activities.Count; i++)
+    {
+        var activity = Answer.Activities[i];
+        <fieldset class="project-activity" @key="activity.Id"><legend>Element @(i + 1) · @Display(activity)</legend>
+            <div class="project-fields">
+                <label>Fachrolle<select value="@activity.Key" disabled="@ReadOnly" @onchange="@(args => EditAsync(activity, "key", args.Value))"><option value="">Bitte wählen</option>@foreach (var role in Plan.Activities) { <option value="@role.Key">@role.Label</option> }</select></label>
+                <label>Eigener Anzeigename<input value="@activity.Name" maxlength="80" readonly="@ReadOnly" @oninput="@(args => EditAsync(activity, "name", args.Value))" /></label>
+                @if (Task.Kind == "Structure")
+                {
+                    <label>Obergruppe<select value="@activity.ParentId" disabled="@ReadOnly" @onchange="@(args => EditAsync(activity, "parent", args.Value))"><option value="">Keine Obergruppe</option>@foreach (var parent in Answer.Activities.Where(item => item.Id != activity.Id && Plan.Activities.Any(role => role.Key == item.Key && role.Kind == "Group"))) { <option value="@parent.Id">@Display(parent)</option> }</select></label>
+                }
+                else
+                {
+                    <label>Dauer in Arbeitstagen<input value="@activity.Duration" inputmode="numeric" maxlength="12" readonly="@ReadOnly" @oninput="@(args => EditAsync(activity, "duration", args.Value))" /></label>
+                    @if (Task.Kind == "Schedule")
+                    {
+                        <label>Beginn ab Tag 0<input value="@activity.Start" inputmode="numeric" maxlength="12" readonly="@ReadOnly" @oninput="@(args => EditAsync(activity, "start", args.Value))" /></label>
+                        @if (Plan.Resources.Count > 0 && Plan.Activities.SingleOrDefault(role => role.Key == activity.Key)?.Kind != "Milestone")
+                        {
+                            <label>Zuständige Ressource<select value="@activity.Resource" disabled="@ReadOnly" @onchange="@(args => EditAsync(activity, "resource", args.Value))"><option value="">Bitte wählen</option>@foreach (var resource in Plan.Resources) { <option value="@resource.Key">@resource.Value</option> }</select></label>
+                        }
+                    }
+                    @if (Task.Kind == "Network")
+                    {
+                        @foreach (string key in Plan.TimingFields)
+                        {
+                            <label>@ProjectEvaluator.TimeLabels[key]<input value="@activity.Values.GetValueOrDefault(key, "")" inputmode="numeric" maxlength="12" readonly="@ReadOnly" @oninput="args => EditAsync(activity, key, args.Value)" /></label>
+                        }
+                        @if (Plan.CheckCritical) { <label class="project-critical"><input type="checkbox" checked="@activity.Critical" disabled="@ReadOnly" @onchange="@(args => EditAsync(activity, "critical", args.Value))" />Als kritisch markieren</label> }
+                    }
+                }
+            </div>
+            @if (!ReadOnly) { <button class="button secondary" aria-label="@(Display(activity) + " entfernen")" @onclick="() => RemoveAsync(activity)">Element entfernen</button> }
+        </fieldset>
+    }
+    @if (!ReadOnly) { <button class="button secondary" disabled="@(Answer.Activities.Count >= 16)" @onclick="AddAsync">+ Element hinzufügen</button> }
+    @if (Task.Kind is "Network" or "Schedule")
+    {
+        <h3>Deine direkten Abhängigkeiten</h3><p>Verbinde Vorgänger und Nachfolger. Ein Pfeil bedeutet: Der Nachfolger darf erst nach dem Ende des Vorgängers beginnen.</p>
+        @foreach (var link in Answer.Dependencies)
+        {
+            <fieldset class="project-dependency" @key="link.Id"><legend>Abhängigkeit @(Answer.Dependencies.IndexOf(link) + 1)</legend><div class="project-fields">
+                <label>Von · Vorgänger<select value="@link.SourceId" disabled="@ReadOnly" @onchange="args => LinkAsync(link, true, args.Value)"><option value="">Bitte wählen</option>@foreach (var activity in Answer.Activities) { <option value="@activity.Id">@Display(activity)</option> }</select></label>
+                <label>Nach · Nachfolger<select value="@link.TargetId" disabled="@ReadOnly" @onchange="args => LinkAsync(link, false, args.Value)"><option value="">Bitte wählen</option>@foreach (var activity in Answer.Activities) { <option value="@activity.Id">@Display(activity)</option> }</select></label>
+            </div>@if (!ReadOnly) { <button class="button secondary" @onclick="() => RemoveLinkAsync(link)">Abhängigkeit entfernen</button> }</fieldset>
+        }
+        @if (!ReadOnly) { <button class="button secondary" disabled="@(Answer.Dependencies.Count >= 32 || Answer.Activities.Count < 2)" @onclick="AddLinkAsync">+ Abhängigkeit hinzufügen</button> }
+    }
+</section>
+@code {
+    #region Properties
+
+    /// <summary> Planauftrag mit Rollen, Zeitachse und Ressourcen. </summary>
+    [Parameter, EditorRequired] public ProjectAssignment Task { get; set; } = new();
+    /// <summary> Unmittelbar bearbeitete eigene Elemente und Verbindungen. </summary>
+    [Parameter, EditorRequired] public ProjectAnswer Answer { get; set; } = new();
+    /// <summary> Sperrt sämtliche Handler bei Vorlage und fertiger Abgabe. </summary>
+    [Parameter] public bool ReadOnly { get; set; }
+    /// <summary> Speichert nach jeder Änderung unter der gemeinsamen Profilsperre. </summary>
+    [Parameter] public EventCallback Changed { get; set; }
+    private ProjectPlan Plan => Task.Plan!;
+    #endregion
+
+    #region Methods
+
+    private string Display(ProjectActivity item) => item.Name.Length > 0 ? item.Name : Plan.Activities.SingleOrDefault(role => role.Key == item.Key)?.Label ?? "Noch ohne Fachrolle";
+    private async Task AddAsync()
+    {
+        if (ReadOnly || Answer.Activities.Count >= 16) return;
+        Answer.Activities.Add(new());
+        await Changed.InvokeAsync();
+    }
+    /// <summary> Entfernt auch abhängige Pfeile und löst verwaiste Obergruppen, ohne andere Elemente umzubenennen. </summary>
+    private async Task RemoveAsync(ProjectActivity item)
+    {
+        if (ReadOnly || !Answer.Activities.Remove(item)) return;
+        Answer.Dependencies.RemoveAll(link => link.SourceId == item.Id || link.TargetId == item.Id);
+        foreach (var child in Answer.Activities.Where(child => child.ParentId == item.Id)) child.ParentId = "";
+        await Changed.InvokeAsync();
+    }
+    /// <summary> Alle Eingabepfade prüfen Sperre, Zugehörigkeit und Speichergrenze auch unabhängig vom Markup. </summary>
+    private async Task EditAsync(ProjectActivity item, string key, object? raw)
+    {
+        if (ReadOnly || !Answer.Activities.Contains(item)) return;
+        string value = raw?.ToString() ?? "";
+        if (key == "key")
+        {
+            if (value != "" && !Plan.Activities.Any(role => role.Key == value)) return;
+            item.Key = value;
+        }
+        else if (key == "name") { if (value.Length > 80) return; item.Name = value; }
+        else if (key == "parent")
+        {
+            if (Task.Kind != "Structure" || value != "" && !Answer.Activities.Any(parent => parent.Id == value && parent.Id != item.Id && Plan.Activities.Any(role => role.Key == parent.Key && role.Kind == "Group"))) return;
+            item.ParentId = value;
+        }
+        else if (key == "resource") { if (!Plan.Resources.ContainsKey(value) && value != "") return; item.Resource = value; }
+        else if (key == "critical") { if (!Plan.CheckCritical) return; item.Critical = raw is true; }
+        else
+        {
+            if (value.Length > 12) return;
+            if (key == "duration") item.Duration = value;
+            else if (key == "start" && Task.Kind == "Schedule") item.Start = value;
+            else if (Task.Kind == "Network" && Plan.TimingFields.Contains(key)) item.Values[key] = value;
+            else return;
+        }
+        await Changed.InvokeAsync();
+    }
+    private async Task AddLinkAsync()
+    {
+        if (ReadOnly || Task.Kind == "Structure" || Answer.Dependencies.Count >= 32 || Answer.Activities.Count < 2) return;
+        Answer.Dependencies.Add(new());
+        await Changed.InvokeAsync();
+    }
+    private async Task LinkAsync(ProjectDependency link, bool source, object? raw)
+    {
+        string id = raw?.ToString() ?? "";
+        if (ReadOnly || !Answer.Dependencies.Contains(link) || id != "" && !Answer.Activities.Any(item => item.Id == id)) return;
+        if (source) link.SourceId = id; else link.TargetId = id;
+        await Changed.InvokeAsync();
+    }
+    private async Task RemoveLinkAsync(ProjectDependency link)
+    {
+        if (ReadOnly || !Answer.Dependencies.Remove(link)) return;
+        await Changed.InvokeAsync();
+    }
+
+    #endregion
+}

@@ -16,6 +16,12 @@
             <NavLink href="algorithmen/pruefung">Prüfung üben</NavLink>
             <NavLink href="@(InExam ? "/algorithmen/spickzettel?pruefung=true" : "/algorithmen/spickzettel")">Pseudocode-Spickzettel</NavLink>
         }
+        else if (LearningNavigation.Module == LearningModule.ProjectManagement)
+        {
+            <NavLink href="projekte" Match="NavLinkMatch.All">Projekte lernen</NavLink>
+            <NavLink href="projekte/pruefung">Prüfung üben</NavLink>
+            <NavLink href="@(InExam ? "/projekte/spickzettel?pruefung=true" : "/projekte/spickzettel")">Projekt-Spickzettel</NavLink>
+        }
         else if (LearningNavigation.Module == LearningModule.QualityAssurance)
         {
             <NavLink href="qualitaet" Match="NavLinkMatch.All">Qualität lernen</NavLink>

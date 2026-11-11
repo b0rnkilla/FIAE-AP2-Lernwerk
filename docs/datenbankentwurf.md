@@ -1,6 +1,6 @@
 # Datenbankentwurf
 
-Stand: **11.11.2026 · Paket 0.1.1-alpha.14 mit unverändertem Entwurfsumfang aus Alpha 13**. Abschnitt 04 ist mit 42 Lernaufgaben, ER-Ergänzungen, Arbeitsunterlagen, Modellbaukasten und automatisch gezeichnetem relationalem Modell, Spickzettel und drei eigenen Prüfungsfällen umgesetzt. Das Alpha-13-Paket enthält mit UML insgesamt 298 Lernübungen; Quellfassung und geprüftes Alpha-14-Paket enthalten mit Softwareplanung 346. Prüfungsaufgaben bleiben getrennt. Das auf Nutzerauftrag am 09.11.2026 gebaute Alpha-13-ZIP enthält alle 42 Entwurfsaufgaben und den UI-/Storynachlauf. Das frühere Alpha-12-ZIP bleibt unverändert bei 30 Entwurfsaufgaben.
+Stand: **11.11.2026 · geprüftes Paket 0.1.1-alpha.15 mit unverändertem Entwurfsumfang aus Alpha 13**. Abschnitt 04 besitzt 42 Lernaufgaben, ER-Ergänzungen, Arbeitsunterlagen, Modellbaukasten, automatisch gezeichnete relationale Modelle, Spickzettel und drei eigene Prüfungsfälle. Alpha 15 enthält mit Qualitätssicherung insgesamt 400 Lernübungen in sieben Modulen; das historische Alpha-14-Paket enthält 346 und Alpha 13 enthält 298. Prüfungsaufgaben bleiben getrennt. Das frühere Alpha-12-ZIP bleibt unverändert bei 30 Entwurfsaufgaben.
 
 ## Lernweg und Inhalt
 

@@ -1,12 +1,17 @@
 # Entwicklung und Projektstruktur
 
-Quellstand: **0.1.1-alpha.15 mit Abschnitt 06 Tests, Qualität und Sicherheit**, 400 Lernübungen in sieben Modulen. Dazu 25 SQL-/Pseudocode-Prüfungsaufgaben und jeweils drei Entwurfs-, UML-, Softwareplanungs- und Qualitätsprüfungsfälle mit neun Teilen je Modul. Zuletzt gebautes und vom Nutzer veröffentlichtes Windows-Paket bleibt **0.1.1-alpha.14 mit 346 Lernübungen**, aus sauberem gepushtem Commit `33f09a7f896839962c9a29f0a9167d24ae9aa181`. Alpha 15 wurde nur als Quellprojekt gebaut und mit eigenem Profil geprüft; **kein neues ZIP beauftragt oder erstellt**. Diese Anleitung dient dem Projektinhaber. Es gelten die [Nutzungsbedingungen](../LICENSE); Paketnachweise unter [lokale Releases](lokale-releases.md).
+Quellstand: **0.1.1-alpha.16 mit Abschnitt 07 Projekte und Wirtschaftlichkeit**, 454 Lernübungen in allen acht Modulen. 54 neue eigene Aufgaben, 15 Planaufträge und drei Projektprüfungsfälle mit je drei Teilen. Zuletzt gebautes und laut Nutzer veröffentlichtes Windows-Paket: **0.1.1-alpha.15**, Code-Commit `3c7339f87745350d9a4b9c2a525095f7a3147775`, 400 Übungen. Dieses ZIP und alle älteren Pakete bleiben unverändert; **kein Alpha-16-Paket beauftragt**. Nachweise: [lokale Releases](lokale-releases.md), Fachvertrag: [Projekte](projekte.md). Es gelten die [Nutzungsbedingungen](../LICENSE).
 
 ## Orientierung
 
 ```text
 src/
   FiaeTrainer.Core/
+    ProjectManagement/
+      Models/           Eigene Rechentabellen, Planelemente und direkte Abhängigkeiten
+      Content/          54 eigene Aufgaben und drei unabhängige Prüfungsfälle
+      Evaluation/       CPM, echte Termin-/Kapazitätsbedingungen und Fachwerte
+      Practice/         Getrennte Lernversuche und 45-Minuten-Prüfungen
     QualityAssurance/
       Models/           Strukturierte Antworten und eigene unabhängige Testfälle
       Content/          54 eigene Aufgaben, acht Testverträge und drei Prüfungsfälle
@@ -58,7 +63,7 @@ src/
       DatabaseDesign/   Modellbaukasten und eigene ER-/Tabellendarstellungen
       BusinessStudies/  WiSo-Eingaben, Auflösung und eigene Abbildungen
       Exams/            Nachbereitung und Prüfungsrückweg
-      Pages/Training/   Lern- und Prüfungsseiten aller sieben Module samt Code-behind
+      Pages/Training/   Lern- und Prüfungsseiten aller acht Module samt Code-behind
       Sql/              SQL-Ergebnisse, Fallnotizen und Tabellenübersicht
       Updates/          Updatehinweis
     Exams/              Koordination der zwei fachlichen Prüfungen
@@ -279,3 +284,13 @@ Nach Nutzer-Commit/Push den sauberen HEAD und Remote-master 33f09a7 bestätigt. 
 ## Nachlauf Alpha 15: zusätzliche Freitextfelder entfernt
 
 Auf Nutzerwunsch besitzen Abschnitt 05/06 keine freiwilligen Begründungs-/Notizfelder und keine zugehörigen Reflexionskarten mehr, auch nicht bei Prüfungen oder Musterlösungen. Verwaiste Inhaltskriterien, Handler, Darstellungsparameter und Styles sind entfernt; betroffene Aufgaben und Spickzettel verlangen keinen Freitext mehr. Die bewerteten Fachangaben, IDs, Inhaltsversionen und Punkte bleiben erhalten. Nur das frühere Reasoning-Datenfeld bleibt zur verlustfreien Übernahme bestehender Profile bestehen; es wird nicht angezeigt/bearbeitet und allein nicht als eigener neuer Entwurf gewertet.
+
+## Paketnachweis Alpha 15 aus 3c7339f
+
+1.147 .NET-/31 JavaScript-Prüfungen bestanden, 20 echte SQL-Integrationen bewusst ausgelassen. Native AP2-Lernwerk.exe aus dem entpackten ZIP auf 5244 in Production mit eigenem synthetischem Altprofil außerhalb des Programmordners gestartet. Kein SDK-/dotnet-Start für den Paketlauf. Eigene Testsätze/Reparatur, entfernte Zusatzfelder, Prüfung 50/50, Pause/Hostneustart, gesperrte Abgabe und bisherige Profilfelder erfolgreich. 59 Paketdateien nach Test bitgleich. ZIP 51.622.353 Bytes, SHA256 `92f1f08e2b0b5cd6df8c31cba7704fc58655801ba7e6912a4950183c641245fa`; Nachweis artifacts/alpha15-verification.json. Anwendungscode unverändert, kurze Versionshinweise nach dem Code-Commit hinzugefügt. Nachträgliche Dokumentation separat committen; geprüfte Archive nicht überschreiben, kein automatischer Upload/Tag/Push.
+
+## Abschnitt 07 seit Alpha 16
+
+Nach genehmigtem Konzept mit neun Kapiteln und 54 eigenen Aufgaben umgesetzt. Projektstrukturpläne, Netz- und Gantt-Pläne entstehen aus eigenen Elementen, Obergruppen, Abhängigkeiten und Rechenwerten. Die Ansicht löst gesuchte Werte nicht automatisch. Freie Anzeigenamen, alternative gültige Terminierung und mehrere kritische Pfade werden berücksichtigt. Rechenfelder akzeptieren Dezimalkomma/Punkt bei ausdrücklich benannten Einheiten und Zeiträumen. Keine zusätzlichen Freitext-/Reflexionsfelder.
+
+`ProjectLessons`, `LastProjectLessonId`, `ProjectExam`, `ProjectHistory` ergänzen das Profil. Inhaltsversion 2026-11-11 nur im neuen Modul; gemeinsame atomare Sperre, Revisionen und UTC-Zeitbudget erhalten. Eigene Prüfungsfälle Bibliothek, Sportverein und Museum: 45 Minuten, 20/20/10 Punkte, Lösungen erst nach Abgabe. Einzelheiten, Grenzen und Quellen in [projekte.md](projekte.md). Quellbuild/automatische Prüfungen und eigener Browser auf 5246 im Testprotokoll. Kein neues ZIP, Commit/Push oder Upload.

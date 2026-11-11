@@ -1,6 +1,6 @@
 # Softwareplanung und OOP – Abschnitt 05
 
-Quellstand **0.1.1-alpha.14**, Inhaltsvertrag **2026-11-09**. 48 eigene Lernaufgaben und drei eigene Prüfungsfälle mit je drei Teilen. Abschnitt 05 ist seit 11.11.2026 auch im aus Commit 33f09a7 gebauten und geprüften Windows-ZIP Alpha 14 enthalten. Das frühere Alpha-13-ZIP bleibt unverändert.
+Quell- und geprüfter Paketstand **0.1.1-alpha.15**, Inhaltsvertrag unverändert **2026-11-09**. 48 eigene Lernaufgaben und drei eigene Prüfungsfälle mit je drei Teilen. Abschnitt 05 ist seit dem aus 33f09a7 gebauten Alpha-14-ZIP enthalten. Alpha 15 aus 3c7339f übernimmt den Umfang ohne zusätzliche Begründungs-/Selbstkontrollfelder; vorhandene Profile bleiben erhalten. Die früheren Pakete bleiben unverändert.
 
 ## Lernweg und Umfang
 

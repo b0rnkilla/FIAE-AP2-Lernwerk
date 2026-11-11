@@ -125,6 +125,7 @@ public sealed partial class ProgressStore(IWebHostEnvironment environment, IConf
         ValidateUmlProgress(progress);
         ValidateSoftwareProgress(progress);
         ValidateQualityProgress(progress);
+        ValidateProjectProgress(progress);
         return progress;
     }
 

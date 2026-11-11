@@ -1,0 +1,940 @@
+[
+  {
+    "id": "bibliothek",
+    "title": "Stadtbibliothek erweitert den Online-Bereich",
+    "scenario": "Drei unabhängige Teilaufträge planen Terminlogik, Kosten und Beteiligte einer Stadtbibliothek. Alle nötigen Annahmen stehen beim jeweiligen Teil.",
+    "points": [
+      20,
+      20,
+      10
+    ],
+    "tasks": [
+      {
+        "id": 1,
+        "chapter": "",
+        "title": "Einen Bibliotheks-Netzplan aufbauen",
+        "kind": "Network",
+        "format": "Build",
+        "story": "Eine Stadtbibliothek plant einen neuen Online-Bereich.",
+        "previousContext": "",
+        "discovery": "",
+        "task": "Baue den Netzplan auf, ergänze FAZ/FEZ und markiere alle kritischen Vorgänge. Ganze Arbeitstage ab Tag 0; direkte Ende-Anfang-Beziehungen ohne Abstand und keine Ressourcenbegrenzung. Alle Endvorgänge beziehen sich auf das gemeinsame früheste Projektende. Jede Fachrolle einmal, Anzeigenamen und Anordnung frei.",
+        "material": "Vorgang | Dauer | direkte Vorgänger\nBestand klären | 1 | keine\nKatalogmaske bauen | 2 | Bestand klären\nKontodienst bauen | 4 | Bestand klären\nGemeinsam prüfen | 1 | Katalogmaske bauen, Kontodienst bauen",
+        "hints": [
+          "Betrachte direkte Vorgänger.",
+          "Rechne ab Tag 0.",
+          "Kritische Vorgänge besitzen Gesamtpuffer null."
+        ],
+        "explanation": "Die beiden Zweige beginnen bei Tag 1. Katalogmaske endet bei 3, Kontodienst bei 5, gemeinsame Prüfung bei 6. Kritisch sind Bestand, Kontodienst und gemeinsame Prüfung.",
+        "options": {},
+        "correctIds": [],
+        "fields": [],
+        "plan": {
+          "activities": [
+            {
+              "key": "scope",
+              "label": "Bestand klären",
+              "duration": 1,
+              "predecessors": [],
+              "kind": "Work",
+              "parentKey": "",
+              "resource": ""
+            },
+            {
+              "key": "catalog",
+              "label": "Katalogmaske bauen",
+              "duration": 2,
+              "predecessors": [
+                "scope"
+              ],
+              "kind": "Work",
+              "parentKey": "",
+              "resource": ""
+            },
+            {
+              "key": "account",
+              "label": "Kontodienst bauen",
+              "duration": 4,
+              "predecessors": [
+                "scope"
+              ],
+              "kind": "Work",
+              "parentKey": "",
+              "resource": ""
+            },
+            {
+              "key": "verify",
+              "label": "Gemeinsam prüfen",
+              "duration": 1,
+              "predecessors": [
+                "catalog",
+                "account"
+              ],
+              "kind": "Work",
+              "parentKey": "",
+              "resource": ""
+            }
+          ],
+          "horizon": 12,
+          "deadline": 0,
+          "requireEarliest": false,
+          "timingFields": [
+            "es",
+            "ef"
+          ],
+          "checkCritical": true,
+          "resources": {},
+          "capacities": {}
+        },
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "activities": [],
+          "dependencies": []
+        },
+        "solutions": [
+          {
+            "values": {},
+            "selectedIds": [],
+            "activities": [
+              {
+                "id": "node-scope",
+                "key": "scope",
+                "name": "Bestand klären",
+                "parentId": "",
+                "duration": "1",
+                "start": "",
+                "resource": "",
+                "values": {
+                  "es": "0",
+                  "ef": "1"
+                },
+                "critical": true
+              },
+              {
+                "id": "node-catalog",
+                "key": "catalog",
+                "name": "Katalogmaske bauen",
+                "parentId": "",
+                "duration": "2",
+                "start": "",
+                "resource": "",
+                "values": {
+                  "es": "1",
+                  "ef": "3"
+                },
+                "critical": false
+              },
+              {
+                "id": "node-account",
+                "key": "account",
+                "name": "Kontodienst bauen",
+                "parentId": "",
+                "duration": "4",
+                "start": "",
+                "resource": "",
+                "values": {
+                  "es": "1",
+                  "ef": "5"
+                },
+                "critical": true
+              },
+              {
+                "id": "node-verify",
+                "key": "verify",
+                "name": "Gemeinsam prüfen",
+                "parentId": "",
+                "duration": "1",
+                "start": "",
+                "resource": "",
+                "values": {
+                  "es": "5",
+                  "ef": "6"
+                },
+                "critical": true
+              }
+            ],
+            "dependencies": [
+              {
+                "id": "link-scope-catalog",
+                "sourceId": "node-scope",
+                "targetId": "node-catalog"
+              },
+              {
+                "id": "link-scope-account",
+                "sourceId": "node-scope",
+                "targetId": "node-account"
+              },
+              {
+                "id": "link-catalog-verify",
+                "sourceId": "node-catalog",
+                "targetId": "node-verify"
+              },
+              {
+                "id": "link-account-verify",
+                "sourceId": "node-account",
+                "targetId": "node-verify"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "chapter": "",
+        "title": "Die Kosten eines Bibliotheksdienstes berechnen",
+        "kind": "Worksheet",
+        "format": "Build",
+        "story": "Die Stadtbibliothek vergleicht die Kosten ihres neuen Dienstes.",
+        "previousContext": "",
+        "task": "Einführung 8000 Euro, einmalige Schulung 1000 Euro, monatlicher Betrieb 250 Euro über genau 24 Monate. Berechne einmalige, laufende und gesamte Kosten ohne Umsatzsteuer, Zinsen oder Restwert; Geldwerte auf zwei Nachkommastellen.",
+        "explanation": "Einmalig entstehen 9000 Euro, laufend 24 × 250 = 6000, zusammen 15000 Euro.",
+        "discovery": "",
+        "hints": [
+          "Schulung ist hier einmalig.",
+          "Die laufende Gebühr wird 36-mal fällig.",
+          "Addiere erst nach gleicher Zeitraumzuordnung."
+        ],
+        "fields": [
+          {
+            "key": "once",
+            "label": "Einmalige Kosten in Euro",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "group": "",
+            "column": "",
+            "help": ""
+          },
+          {
+            "key": "recurring",
+            "label": "Laufende Kosten über 24 Monate in Euro",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "group": "",
+            "column": "",
+            "help": ""
+          },
+          {
+            "key": "total",
+            "label": "Gesamtkosten über 24 Monate in Euro",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "group": "",
+            "column": "",
+            "help": ""
+          }
+        ],
+        "solutions": [
+          {
+            "values": {
+              "once": "9000",
+              "recurring": "6000",
+              "total": "15000"
+            },
+            "selectedIds": [],
+            "activities": [],
+            "dependencies": []
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "material": "",
+        "plan": null,
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "activities": [],
+          "dependencies": []
+        }
+      },
+      {
+        "id": 3,
+        "chapter": "",
+        "title": "Beteiligteninteressen der Bibliothek einordnen",
+        "kind": "Worksheet",
+        "format": "Build",
+        "story": "Die Leitung achtet im Fall auf das Budget, das Ausleihteam auf verständliche Arbeit und die Lesenden auf einfache Nutzung.",
+        "previousContext": "",
+        "task": "Ordne die ausdrücklich genannten Interessen zu: Leitung = Budgeteinhaltung, Ausleihteam = verständlicher Arbeitsablauf, Lesende = verfügbare Medien einfach reservieren.",
+        "explanation": "Stakeholder werden mit ihren konkreten Interessen betrachtet. Eine Rolle besitzt nicht automatisch in jedem Projekt dasselbe wichtigste Anliegen; hier gelten die ausdrücklich beschriebenen Interessen.",
+        "discovery": "",
+        "hints": [
+          "Frage, wer durch das Ergebnis betroffen ist.",
+          "Übertrage die drei genannten Interessen.",
+          "Erfinde keine zusätzlichen Wünsche."
+        ],
+        "fields": [
+          {
+            "key": "management",
+            "label": "Leitung",
+            "kind": "Select",
+            "options": {
+              "1": "Budgeteinhaltung",
+              "2": "Automatisch möglichst viele Zusatzfunktionen",
+              "3": "Nur die Farbe der Kabel"
+            },
+            "comparison": "Exact",
+            "group": "",
+            "column": "",
+            "help": ""
+          },
+          {
+            "key": "staff",
+            "label": "Ausleihteam",
+            "kind": "Select",
+            "options": {
+              "1": "Verständlicher Arbeitsablauf",
+              "2": "Beliebige Preisänderungen ohne Auftrag",
+              "3": "Ein bestimmter Programmiersprachenname"
+            },
+            "comparison": "Exact",
+            "group": "",
+            "column": "",
+            "help": ""
+          },
+          {
+            "key": "participants",
+            "label": "Lesende",
+            "kind": "Select",
+            "options": {
+              "1": "Verfügbare Medien einfach reservieren",
+              "2": "Internes Berichtslayout des Projekts",
+              "3": "Anzahl der Builddateien"
+            },
+            "comparison": "Exact",
+            "group": "",
+            "column": "",
+            "help": ""
+          }
+        ],
+        "solutions": [
+          {
+            "values": {
+              "management": "1",
+              "staff": "1",
+              "participants": "1"
+            },
+            "selectedIds": [],
+            "activities": [],
+            "dependencies": []
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "material": "",
+        "plan": null,
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "activities": [],
+          "dependencies": []
+        }
+      }
+    ]
+  },
+  {
+    "id": "sportverein",
+    "title": "Sportverein plant seine Verwaltungssoftware",
+    "scenario": "Drei unabhängige Teilaufträge betreffen Kapazität, Angebotsentscheidung und geregelten Umgang mit einem neuen Wunsch.",
+    "points": [
+      20,
+      20,
+      10
+    ],
+    "tasks": [
+      {
+        "id": 1,
+        "chapter": "",
+        "title": "Einen realistischen Vereinsplan erstellen",
+        "kind": "Schedule",
+        "format": "Build",
+        "story": "Ein Sportverein besitzt eine Entwicklungskapazität für zwei Entwicklungszweige und eine getrennte Prüfkapazität.",
+        "previousContext": "",
+        "task": "Baue einen vollständigen Gantt-Plan mit direkten Pfeilen, Dauern, Starttagen und genannten Ressourcen auf. Zeitachse ab Tag 0 bis Tag 12, Abschluss spätestens Tag 8. Ein Vorgang belegt [Beginn, Beginn + Dauer). Entwicklung: höchstens ein gleichzeitiger Vorgang; Prüfung: höchstens einer. Jede Fachrolle einmal, Anzeigenamen frei. Alle zulässigen Reihenfolgen der Entwicklungszweige werden akzeptiert.",
+        "explanation": "Die Vorbereitung braucht zwei Tage, die Entwicklung wegen gemeinsamer Kapazität anschließend insgesamt fünf. Die gemeinsame Prüfung liegt ab Tag 7. Beide Reihenfolgen der Entwicklungszweige können bestehen.",
+        "discovery": "",
+        "hints": [
+          "Baue zuerst die vier verlangten Vorgänge auf.",
+          "Füge nur die genannten direkten Beziehungen hinzu.",
+          "Nutze Spielraum, ohne den Abschluss zu verschieben."
+        ],
+        "fields": [],
+        "solutions": [
+          {
+            "values": {},
+            "selectedIds": [],
+            "activities": [
+              {
+                "id": "node-prepare",
+                "key": "prepare",
+                "name": "Voraussetzungen klären",
+                "parentId": "",
+                "duration": "2",
+                "start": "0",
+                "resource": "dev",
+                "values": {},
+                "critical": false
+              },
+              {
+                "id": "node-courses",
+                "key": "courses",
+                "name": "Kursbereich entwickeln",
+                "parentId": "",
+                "duration": "2",
+                "start": "2",
+                "resource": "dev",
+                "values": {},
+                "critical": false
+              },
+              {
+                "id": "node-members",
+                "key": "members",
+                "name": "Mitgliedsbereich entwickeln",
+                "parentId": "",
+                "duration": "3",
+                "start": "4",
+                "resource": "dev",
+                "values": {},
+                "critical": false
+              },
+              {
+                "id": "node-accept",
+                "key": "accept",
+                "name": "Gemeinsam prüfen",
+                "parentId": "",
+                "duration": "1",
+                "start": "7",
+                "resource": "qa",
+                "values": {},
+                "critical": false
+              }
+            ],
+            "dependencies": [
+              {
+                "id": "link-prepare-courses",
+                "sourceId": "node-prepare",
+                "targetId": "node-courses"
+              },
+              {
+                "id": "link-prepare-members",
+                "sourceId": "node-prepare",
+                "targetId": "node-members"
+              },
+              {
+                "id": "link-courses-accept",
+                "sourceId": "node-courses",
+                "targetId": "node-accept"
+              },
+              {
+                "id": "link-members-accept",
+                "sourceId": "node-members",
+                "targetId": "node-accept"
+              }
+            ]
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "material": "Vorgang | Dauer | direkte Vorgänger | Ressource\nVoraussetzungen klären | 2 | keine | Entwicklung\nKursbereich entwickeln | 2 | Voraussetzungen klären | Entwicklung\nMitgliedsbereich entwickeln | 3 | Voraussetzungen klären | Entwicklung\nGemeinsam prüfen | 1 | Kursbereich entwickeln, Mitgliedsbereich entwickeln | Prüfung",
+        "plan": {
+          "activities": [
+            {
+              "key": "prepare",
+              "label": "Voraussetzungen klären",
+              "duration": 2,
+              "predecessors": [],
+              "kind": "Work",
+              "parentKey": "",
+              "resource": "dev"
+            },
+            {
+              "key": "courses",
+              "label": "Kursbereich entwickeln",
+              "duration": 2,
+              "predecessors": [
+                "prepare"
+              ],
+              "kind": "Work",
+              "parentKey": "",
+              "resource": "dev"
+            },
+            {
+              "key": "members",
+              "label": "Mitgliedsbereich entwickeln",
+              "duration": 3,
+              "predecessors": [
+                "prepare"
+              ],
+              "kind": "Work",
+              "parentKey": "",
+              "resource": "dev"
+            },
+            {
+              "key": "accept",
+              "label": "Gemeinsam prüfen",
+              "duration": 1,
+              "predecessors": [
+                "courses",
+                "members"
+              ],
+              "kind": "Work",
+              "parentKey": "",
+              "resource": "qa"
+            }
+          ],
+          "horizon": 12,
+          "deadline": 8,
+          "requireEarliest": false,
+          "timingFields": [],
+          "checkCritical": false,
+          "resources": {
+            "dev": "Entwicklung",
+            "qa": "Prüfung"
+          },
+          "capacities": {
+            "dev": 1,
+            "qa": 1
+          }
+        },
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "activities": [],
+          "dependencies": []
+        }
+      },
+      {
+        "id": 2,
+        "chapter": "",
+        "title": "Eine Vereinssoftware nachvollziehbar auswählen",
+        "kind": "Worksheet",
+        "format": "Build",
+        "story": "Der Sportverein bewertet zwei geeignete Angebote mit vorgegebenen Punkten, Gewichten und einer zusätzlichen Gleichstandsregel.",
+        "previousContext": "",
+        "task": "Höhere Punkte sind besser. Kriterien: Bedienung Gewicht 0,50, A=9/B=7; Unterstützung 0,30, A=5/B=9; Passung 0,20, A=8/B=7. Berechne Teilwerte/Summen ohne Zwischenrundung. Bei gleicher Summe gewinnt das günstigere Angebot: A kostet 2400 Euro, B 2100 im selben Zeitraum. Alle Mindestanforderungen sind erfüllt.",
+        "explanation": "Beide erreichen 7,6 Punkte. Die ausdrücklich vereinbarte Gleichstandsregel entscheidet für B mit dem niedrigeren Betrag.",
+        "discovery": "",
+        "hints": [
+          "Multipliziere statt ungewichtet zu addieren.",
+          "Verwende Anteile 0,40/0,35/0,25.",
+          "Addiere erst die gewichteten Teilwerte."
+        ],
+        "fields": [
+          {
+            "key": "a1",
+            "label": "Bedienung · A gewichtet",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "group": "Bedienung",
+            "column": "A gewichtet",
+            "help": ""
+          },
+          {
+            "key": "b1",
+            "label": "Bedienung · B gewichtet",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "group": "Bedienung",
+            "column": "B gewichtet",
+            "help": ""
+          },
+          {
+            "key": "a2",
+            "label": "Unterstützung · A gewichtet",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "group": "Unterstützung",
+            "column": "A gewichtet",
+            "help": ""
+          },
+          {
+            "key": "b2",
+            "label": "Unterstützung · B gewichtet",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "group": "Unterstützung",
+            "column": "B gewichtet",
+            "help": ""
+          },
+          {
+            "key": "a3",
+            "label": "Passung · A gewichtet",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "group": "Passung",
+            "column": "A gewichtet",
+            "help": ""
+          },
+          {
+            "key": "b3",
+            "label": "Passung · B gewichtet",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "group": "Passung",
+            "column": "B gewichtet",
+            "help": ""
+          },
+          {
+            "key": "a",
+            "label": "Nutzwertsumme A",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "group": "",
+            "column": "",
+            "help": ""
+          },
+          {
+            "key": "b",
+            "label": "Nutzwertsumme B",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "group": "",
+            "column": "",
+            "help": ""
+          },
+          {
+            "key": "decision",
+            "label": "Gewähltes Angebot nach Punkten und Gleichstandsregel",
+            "kind": "Select",
+            "options": {
+              "1": "A",
+              "2": "B",
+              "3": "Keine eindeutige Entscheidung"
+            },
+            "comparison": "Exact",
+            "group": "",
+            "column": "",
+            "help": ""
+          }
+        ],
+        "solutions": [
+          {
+            "values": {
+              "a1": "4.5",
+              "b1": "3.5",
+              "a2": "1.5",
+              "b2": "2.7",
+              "a3": "1.6",
+              "b3": "1.4",
+              "a": "7.6",
+              "b": "7.6",
+              "decision": "2"
+            },
+            "selectedIds": [],
+            "activities": [],
+            "dependencies": []
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "material": "",
+        "plan": null,
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "activities": [],
+          "dependencies": []
+        }
+      },
+      {
+        "id": 3,
+        "chapter": "",
+        "title": "Einen zusätzlichen Vereinswunsch behandeln",
+        "kind": "Choice",
+        "format": "Analyze",
+        "story": "Für den Sportverein ist ein neuer Export gewünscht. Er gehört nicht zum genehmigten Umfang; seine Folgen sind noch unklar.",
+        "previousContext": "",
+        "task": "Welche zwei Schritte passen zum beschriebenen Umgang?",
+        "explanation": "Eine Änderung wird mit ihren Auswirkungen und ihrer Entscheidung sichtbar. Ein freigegebener neuer Stand wird nachvollziehbar übernommen; eine ungenehmigte Ausweitung oder heimliche Änderung des Nachweises wäre keine verlässliche Steuerung.",
+        "discovery": "",
+        "hints": [
+          "Was ist vor einer belastbaren Entscheidung noch unbekannt?",
+          "Benannte Verantwortlichkeiten bleiben gültig.",
+          "Eine Planaktualisierung folgt der abgestimmten Entscheidung."
+        ],
+        "fields": [],
+        "solutions": [],
+        "options": {
+          "1": "Auswirkungen auf Umfang, Termine und Kosten nachvollziehbar prüfen.",
+          "2": "Die zusätzliche Arbeit ohne Rückfrage als bereits finanziert behandeln.",
+          "3": "Eine Entscheidung mit den benannten Verantwortlichen abstimmen und den vereinbarten Plan bei Freigabe aktualisieren.",
+          "4": "Die laufenden Abnahmekriterien stillschweigend so ändern, dass jede Lösung besteht."
+        },
+        "correctIds": [
+          "1",
+          "3"
+        ],
+        "material": "",
+        "plan": null,
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "activities": [],
+          "dependencies": []
+        }
+      }
+    ]
+  },
+  {
+    "id": "museum",
+    "title": "Museum führt einen Besucherdienst ein",
+    "scenario": "Drei unabhängige Teilaufträge betrachten verfügbare Arbeit, wirtschaftliche Einführung und Zusammenarbeit im Team.",
+    "points": [
+      20,
+      20,
+      10
+    ],
+    "tasks": [
+      {
+        "id": 1,
+        "chapter": "",
+        "title": "Die Kapazität des Museumsteams ermitteln",
+        "kind": "Worksheet",
+        "format": "Build",
+        "story": "Für den Museumsauftrag sind drei Personen an vier Tagen mit je sechs produktiven Stunden verfügbar; davon fallen insgesamt zwölf Stunden aus.",
+        "previousContext": "",
+        "task": "Drei Personen × vier Tage × sechs produktive Stunden, abzüglich insgesamt zwölf Stunden Ausfall. Der teilbare Arbeitsvorrat umfasst 90 Stunden ohne weitere Abhängigkeiten. Berechne Bruttokapazität, verfügbare Stunden und positiven Fehlbedarf.",
+        "explanation": "Brutto 72 Stunden, nach Ausfällen 60. Gegenüber 90 Stunden Bedarf fehlen 30.",
+        "discovery": "",
+        "hints": [
+          "Multipliziere Personen, Tage und produktive Stunden.",
+          "Ziehe die ausdrücklich genannten Ausfälle ab.",
+          "Vergleiche verfügbare Stunden und benötigte Arbeit."
+        ],
+        "fields": [
+          {
+            "key": "gross",
+            "label": "Bruttokapazität in Stunden",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "group": "",
+            "column": "",
+            "help": ""
+          },
+          {
+            "key": "available",
+            "label": "Verfügbare Kapazität nach Ausfällen in Stunden",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "group": "",
+            "column": "",
+            "help": ""
+          },
+          {
+            "key": "missing",
+            "label": "Fehlbedarf in Stunden",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "group": "",
+            "column": "",
+            "help": ""
+          }
+        ],
+        "solutions": [
+          {
+            "values": {
+              "gross": "72",
+              "available": "60",
+              "missing": "30"
+            },
+            "selectedIds": [],
+            "activities": [],
+            "dependencies": []
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "material": "",
+        "plan": null,
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "activities": [],
+          "dependencies": []
+        }
+      },
+      {
+        "id": 2,
+        "chapter": "",
+        "title": "Die Einführung eines Besucherdienstes beurteilen",
+        "kind": "Worksheet",
+        "format": "Build",
+        "story": "Das Museum plant eine Einführung mit ausdrücklich konstanten monatlichen Zahlungen.",
+        "previousContext": "",
+        "task": "Einführung 10000 Euro, monatlich vermiedene Kosten 900 Euro und zusätzliche Betriebskosten 400 Euro ab dem ersten Monat. Keine Zinsen, Restwerte oder weiteren Zahlungen. Berechne monatliche Nettoeinsparung und statische Amortisation; entscheide, ob 24 Monate eingehalten werden.",
+        "explanation": "Monatlich bleiben 500 Euro netto. 10000 / 500 = 20 Monate, damit innerhalb von 24 Monaten.",
+        "discovery": "",
+        "hints": [
+          "Ziehe die zusätzlichen Monatskosten zuerst ab.",
+          "Teile die Anfangsauszahlung durch die monatliche Nettoeinsparung.",
+          "Vergleiche Monate mit Monaten."
+        ],
+        "fields": [
+          {
+            "key": "net",
+            "label": "Monatliche Nettoeinsparung in Euro",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "group": "",
+            "column": "",
+            "help": ""
+          },
+          {
+            "key": "months",
+            "label": "Amortisationsdauer in Monaten",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "group": "",
+            "column": "",
+            "help": ""
+          },
+          {
+            "key": "decision",
+            "label": "Amortisation innerhalb von 24 Monaten?",
+            "kind": "Select",
+            "options": {
+              "1": "ja",
+              "2": "nein"
+            },
+            "comparison": "Exact",
+            "group": "",
+            "column": "",
+            "help": ""
+          }
+        ],
+        "solutions": [
+          {
+            "values": {
+              "net": "500",
+              "months": "20",
+              "decision": "1"
+            },
+            "selectedIds": [],
+            "activities": [],
+            "dependencies": []
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "material": "",
+        "plan": null,
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "activities": [],
+          "dependencies": []
+        }
+      },
+      {
+        "id": 3,
+        "chapter": "",
+        "title": "Besprechungen im Museumsprojekt passend einsetzen",
+        "kind": "Worksheet",
+        "format": "Build",
+        "story": "Das Museumsteam unterscheidet Rückmeldung zum Produkt, Verbesserung der Zusammenarbeit und tägliche Abstimmung.",
+        "previousContext": "",
+        "task": "Ordne die Ziele den Scrum-Events zu und ergänze die Dauer des Daily Scrum in Minuten.",
+        "explanation": "Review und Retrospektive verfolgen unterschiedliche Zwecke. Das Daily Scrum ist auf 15 Minuten begrenzt und dient der Anpassung des Arbeitsplans durch die Developers, nicht einer allgemeinen Pflicht zum Statusbericht an eine Führungskraft.",
+        "discovery": "",
+        "hints": [
+          "Ergebnis und Arbeitsweise sind verschiedene Gegenstände.",
+          "Das Daily betrachtet das Sprint-Ziel.",
+          "Die Zeitbegrenzung beträgt eine Viertelstunde."
+        ],
+        "fields": [
+          {
+            "key": "product",
+            "label": "Ergebnis mit Stakeholdern betrachten und weitere Anpassung besprechen",
+            "kind": "Select",
+            "options": {
+              "1": "Sprint Review",
+              "2": "Sprint Retrospective",
+              "3": "Daily Scrum"
+            },
+            "comparison": "Exact",
+            "group": "",
+            "column": "",
+            "help": ""
+          },
+          {
+            "key": "process",
+            "label": "Zusammenarbeit und Wirksamkeit verbessern",
+            "kind": "Select",
+            "options": {
+              "1": "Sprint Review",
+              "2": "Sprint Retrospective",
+              "3": "Daily Scrum"
+            },
+            "comparison": "Exact",
+            "group": "",
+            "column": "",
+            "help": ""
+          },
+          {
+            "key": "daily",
+            "label": "Fortschritt zum Sprint-Ziel prüfen und den Arbeitsplan anpassen",
+            "kind": "Select",
+            "options": {
+              "1": "Sprint Review",
+              "2": "Sprint Retrospective",
+              "3": "Daily Scrum"
+            },
+            "comparison": "Exact",
+            "group": "",
+            "column": "",
+            "help": ""
+          },
+          {
+            "key": "minutes",
+            "label": "Zeitbegrenzung Daily Scrum in Minuten",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "group": "",
+            "column": "",
+            "help": ""
+          }
+        ],
+        "solutions": [
+          {
+            "values": {
+              "product": "1",
+              "process": "2",
+              "daily": "3",
+              "minutes": "15"
+            },
+            "selectedIds": [],
+            "activities": [],
+            "dependencies": []
+          }
+        ],
+        "options": {},
+        "correctIds": [],
+        "material": "",
+        "plan": null,
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "activities": [],
+          "dependencies": []
+        }
+      }
+    ]
+  }
+]

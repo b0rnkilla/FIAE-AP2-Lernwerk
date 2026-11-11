@@ -1,6 +1,18 @@
 # AP2 Lernwerk lokal starten
 
-## Aktuelles Paket Alpha 14
+## Aktuelles Paket Alpha 15
+
+**Windows-Paket 0.1.1-alpha.15: am 11.11.2026 nach ausdrücklich bestätigtem Nutzer-Push gebaut und direkt aus dem ZIP geprüft.** Anwendungscode aus sauberem gepushtem Commit `3c7339f87745350d9a4b9c2a525095f7a3147775`, identisch mit direkt abgefragtem origin/master. Anleitung aus diesem Commit; kurze Versionshinweise anschließend ergänzt, Anwendungscode unverändert. Nachträgliche Prüfdokumentation separat committen.
+
+Enthalten: **400 Lernübungen in sieben Modulen**, 25 SQL-/Pseudocode-Prüfungsaufgaben und je drei Datenbankentwurfs-, UML-, Softwareplanungs- und Qualitätsprüfungsfälle mit neun Teilen je Modul. Neu: Abschnitt 06 mit 54 Aufgaben, eigener Testwerkstatt, Reviews, Matrix und Abläufen. Zusätzliche Begründungsfelder und Selbstkontrollbereiche in 05/06 entfernt.
+
+Datei: `artifacts/releases/AP2-Lernwerk-0.1.1-alpha.15-win-x64.zip`, **51.622.353 Bytes (49,23 MiB)**, 59 Paketdateien, zusätzlich `.zip.sha256`. SHA256: `92f1f08e2b0b5cd6df8c31cba7704fc58655801ba7e6912a4950183c641245fa`. Windows-x64-Laufzeit enthalten, keine Entwicklungswerkzeuge zum Start nötig. Keine privaten Einstellungen/Lernstände, QA-Dateien, Originalprüfungen oder Debugsymbole. Projektlizenz, Drittanbieter-/Runtime-/QRCoder-Lizenzen vollständig; Windows-Helfer UTF-8 mit BOM.
+
+Native Paketprüfung auf Port 5244 ohne SQL mit eigenem Altprofil: Testsätze, Sollwertfehler, Reparatur 33, entfernte Zusatzfelder, Qualitätsprüfung 50/50, Pause/Hostneustart, Markierung und Antwortsperre erfolgreich. Alte Modulfelder und historische unsichtbare Notiz erhalten. Alle 59 Dateien nach Lauf unverändert, ältere Archive unverändert; Nachweis artifacts/alpha15-verification.json. Keine neue erhöhte Firewall-Einrichtung, kein physisches Zweitgerät/frischer fremder Rechner und keine neue echte SQL-Integration.
+
+GitHub: Tag **v0.1.1-alpha.15**, Titel **AP2 Lernwerk 0.1.1-alpha.15**, Zielcommit **3c7339f87745350d9a4b9c2a525095f7a3147775**, **Pre-release**. ZIP und SHA256 anhängen. Kurze Beschreibung: [Versionshinweise Alpha 15](../release/Versionshinweise-0.1.1-alpha.15.md). Nutzer veröffentlicht selbst; kein automatischer Tag/Upload/Commit/Push. ZIP/SHA256 und ältere Pakete nicht ersetzen.
+
+## Historisches Paket Alpha 14
 
 **Windows-Paket 0.1.1-alpha.14: am 11.11.2026 nach ausdrücklich bestätigtem Nutzer-Push gebaut und aus dem ZIP geprüft.** Sauberer HEAD und direkt abgefragter Remote-master `33f09a7f896839962c9a29f0a9167d24ae9aa181`. Code, Anleitung und Versionshinweise aus diesem Commit; nachträgliche Prüfdokumentation separat. Enthalten: **346 Lernübungen in sechs Modulen**, 25 SQL-/Pseudocode-Prüfungsaufgaben sowie je drei Datenbankentwurfs-, UML- und Softwareplanungs-Prüfungsfälle mit neun Teilen je Modul. Abschnitt 05: 48 Aufgaben in acht Kapiteln und eigene Architektur-/API-/Formularentwürfe.
 
@@ -184,3 +196,7 @@ Nach dem oben protokollierten Auftrag hat der Nutzer Commit und Push bestätigt.
 ## Quellfassung Alpha 15 – Abschnitt 06, ausdrücklich kein ZIP
 
 Nach Konzept und ausdrücklichem Nutzer-GO ergänzt Abschnitt 06 Tests, Qualität und Sicherheit 54 eigene Lernaufgaben und drei eigene Prüfungsfälle. Zentralversion 0.1.1-alpha.15; 400 Übungen in sieben Modulen. Ausschließlich Quellprojekt bauen und mit getrenntem Profil testen. Der Nutzer testet anschließend. Kein neues ZIP, kein Upload/Commit/Push und kein Beginn von Abschnitt 07. Das veröffentlichte Alpha-14-Paket aus 33f09a7 mit 346 Übungen, dessen SHA256 und alle älteren Archive bleiben unverändert.
+
+## Quellfassung Alpha 16 – kein Paketauftrag
+
+Der Nutzer bestätigt Alpha 15 als hochgeladen. Abschnitt 07 Projekte und Wirtschaftlichkeit ist nach Konzept-GO in der Quellfassung 0.1.1-alpha.16 ergänzt: 454 Übungen, acht aktive Module. Ausschließlich Quellprojekt und getrennte Testausgaben bauen. Noch kein Windows-ZIP, kein Upload/Tag/Commit/Push. Das geprüfte Alpha-15-ZIP mit 51.622.353 Bytes und SHA256 `92f1f08e2b0b5cd6df8c31cba7704fc58655801ba7e6912a4950183c641245fa` sowie ältere Archive unverändert erhalten. Weitere Pakete nur auf ausdrücklichen Auftrag.

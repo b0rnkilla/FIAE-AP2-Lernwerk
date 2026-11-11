@@ -1,0 +1,18 @@
+@if (Task.Kind is "Choice" or "Review")
+{
+    <ul>@foreach (var id in Task.CorrectIds) { <li>@Task.Options[id]</li> }</ul>
+}
+else if (Task.Plan != null)
+{
+    <ProjectPlanView Task="Task" Answer="Answer" />
+}
+else
+{
+    <ProjectEditor Task="Task" Answer="Answer" ReadOnly="true" />
+}
+@code {
+    /// <summary> Nur auf ausdrücklichen Abruf sichtbarer Musterauftrag. </summary>
+    [Parameter, EditorRequired] public ProjectAssignment Task { get; set; } = new();
+    /// <summary> Referenz oder unveränderte Reparaturvorlage. </summary>
+    [Parameter, EditorRequired] public ProjectAnswer Answer { get; set; } = new();
+}

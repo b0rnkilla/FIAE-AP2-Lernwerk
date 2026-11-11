@@ -42,7 +42,9 @@ public sealed class LearningNavigation
                 if (IsSqlTaskPath(target)) SqlTaskPath = target;
             }
         }
-        if (path.Equals("qualitaet", StringComparison.OrdinalIgnoreCase) || path.StartsWith("qualitaet/", StringComparison.OrdinalIgnoreCase))
+        if (path.Equals("projekte", StringComparison.OrdinalIgnoreCase) || path.StartsWith("projekte/", StringComparison.OrdinalIgnoreCase))
+            Module = LearningModule.ProjectManagement;
+        else if (path.Equals("qualitaet", StringComparison.OrdinalIgnoreCase) || path.StartsWith("qualitaet/", StringComparison.OrdinalIgnoreCase))
             Module = LearningModule.QualityAssurance;
         else if (path.Equals("softwareplanung", StringComparison.OrdinalIgnoreCase) || path.StartsWith("softwareplanung/", StringComparison.OrdinalIgnoreCase))
             Module = LearningModule.SoftwareDesign;

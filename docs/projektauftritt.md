@@ -1,6 +1,6 @@
 # Projektauftritt und freiwillige Unterstützung
 
-Stand: **11.11.2026 · Quellfassung 0.1.1-alpha.14**. Die fünf freigegebenen Projektaktionen sind unverändert umgesetzt und seit Alpha 8 in Windows-Paketen enthalten. Die README-Galerie bildet alle sechs aktuellen Lernbereiche ab; kein neues Zahlungs-, GitHub- oder Veröffentlichungsverhalten.
+Stand: **11.11.2026 · Quellfassung 0.1.1-alpha.16**. Die fünf freigegebenen Projektaktionen sind unverändert umgesetzt und seit Alpha 8 in Windows-Paketen enthalten. Die README-Galerie bildet alle acht aktuellen Lernbereiche ab; kein neues Zahlungs-, GitHub- oder Veröffentlichungsverhalten.
 
 ## Übersicht und Fußzeile
 
@@ -34,8 +34,12 @@ Der freigegebene öffentliche PayPal-Link lautet **https://www.paypal.com/paypal
 
 ## README und Bilder
 
-Die README führt mit Nutzen, direktem Release-Link, einem großen Übersichtsbild und einer kompakten Galerie durch die sieben aktiven Module. Vier gleich breite Plätze je Tabellenreihe zeigen zuerst SQL, Algorithmen, UML und Datenbankentwurf, dann Softwareplanung/OOP, Qualitätssicherung und WiSo. Beschreibungen, Umfang und Bilder besitzen eigene Zeilen. Alle sieben Vorschaubilder sind 120 Pixel hoch und zur großen Ansicht verlinkt; keine großen Einzelblöcke. Danach folgen drei Startschritte und Projektaktionen. Anwenderweg bleibt Releases → Windows-ZIP → Entpacken → EXE; Entwicklerdetails stehen in Fachdokumenten.
+Die README führt mit Nutzen, direktem Release-Link, einem großen Übersichtsbild und einer kompakten Galerie durch die acht aktiven Module. Vier gleich breite Plätze je Tabellenreihe zeigen zuerst SQL, Algorithmen, UML und Datenbankentwurf, dann Softwareplanung/OOP, Qualitätssicherung, Projekte/Wirtschaftlichkeit und WiSo. Beschreibungen, Umfang und Bilder besitzen eigene Zeilen. Alle acht Vorschaubilder sind 120 Pixel hoch und zur großen Ansicht verlinkt; keine großen Einzelblöcke. Danach folgen drei Startschritte und Projektaktionen. Anwenderweg bleibt Releases → Windows-ZIP → Entpacken → EXE; Entwicklerdetails stehen in Fachdokumenten.
 
-Unter `docs/images` liegen die Übersicht sowie eigene Modulbilder einschließlich `qualitaet.png`. Bilder entstehen mit getrennten synthetischen Profilen, ohne Originalprüfungsabbildungen oder Nutzerlernstände. Die README beschreibt auf Nutzerwunsch die aktuelle App mit 400 Übungen. Das vom Nutzer veröffentlichte Alpha-14-ZIP bleibt unverändert bei 346; Paketstand und Historie stehen unter [lokale Releases](lokale-releases.md). Für Alpha 15 ist ausdrücklich kein neues ZIP beauftragt.
+Unter `docs/images` liegen die Übersicht sowie eigene Modulbilder einschließlich `qualitaet.png` und `projekte.png`. Bilder entstehen mit getrennten synthetischen Profilen, ohne Originalprüfungsabbildungen oder Nutzerlernstände. Die README beschreibt auf Nutzerwunsch die aktuelle App mit 454 Übungen. Das vom Nutzer veröffentlichte Alpha-15-ZIP bleibt unverändert bei 400; Paketstand und Historie stehen unter [lokale Releases](lokale-releases.md). Für Alpha 16 ist ausdrücklich kein neues ZIP beauftragt.
 
 Die Link- und Darstellungsprüfung ist im [Testprotokoll](testprotokoll.md) festgehalten. Grundlage für die GitHub-Sternfunktion: [GitHub-Dokumentation](https://docs.github.com/en/get-started/exploring-projects-on-github/saving-repositories-with-stars).
+
+## README mit acht Modulbildern seit Alpha 16
+
+Die kurze öffentliche README beschreibt die aktuelle App-Fassung mit 454 Übungen und allen acht aktiven Themen. Zwei Tabellen mit jeweils vier gleich großen Vorschaubildern (120 Pixel Höhe), Reihenfolge 01–04 und 05–08. Das eigene Netzplanbild `docs/images/projekte.png` und die erneuerte Übersicht stammen aus dem getrennten synthetischen Profil auf 5246, ohne private Lernstände. Aktueller Paketstand bleibt Alpha 15 mit 400 Übungen; kein Alpha-16-ZIP beauftragt.
