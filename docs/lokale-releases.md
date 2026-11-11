@@ -1,6 +1,16 @@
 # AP2 Lernwerk lokal starten
 
-## Aktuelles Paket Alpha 12
+## Aktuelles Paket Alpha 13
+
+**Windows-Paket 0.1.1-alpha.13: am 09.11.2026 ausdrücklich beauftragt, gebaut und aus dem ZIP geprüft.** Anwendungscode aus dem sauberen und remote bestätigten Commit `b4224b0b87f3f66a742e4b25bdbb9dacf7aeb9d5`. Die Versionshinweise wurden nach dem Commit ergänzt; Anwendungscode und Version blieben unverändert. Enthalten: **298 Lernübungen in fünf Modulen**, 25 SQL-/Pseudocode-Prüfungsaufgaben, drei Datenbankentwurfs- und drei UML-Prüfungsfälle mit jeweils neun Teilaufgaben je Modul. UML mit 36 Aufgaben, Datenbankentwurf mit 42 Aufgaben einschließlich Gestaltung und Storynachlauf.
+
+Datei: `artifacts/releases/AP2-Lernwerk-0.1.1-alpha.13-win-x64.zip`, **51.467.925 Bytes (49,08 MiB)**, 59 Paketdateien, zusätzlich `.zip.sha256`. SHA256: `dd8dcee9301b697a04727f25f0a416666d52d6068a75af26936811fe2609df33`. Laufzeit für Windows x64 enthalten. Keine privaten Einstellungen, Lernstände, Originalprüfungen, QA-Dateien oder Debugsymbole. Projektlizenz und unabhängige Drittanbieterhinweise einschließlich QRCoder vollständig. Alle 59 Dateien blieben nach dem Pakettest bitgleich; Alpha-12-Archiv samt Prüfsumme unverändert.
+
+GitHub: Tag **v0.1.1-alpha.13**, Titel **AP2 Lernwerk 0.1.1-alpha.13**, Zielcommit **b4224b0**, als **Pre-release** kennzeichnen. ZIP und SHA256-Datei anhängen. Beschreibung: [Versionshinweise Alpha 13](../release/Versionshinweise-0.1.1-alpha.13.md). Der Nutzer hat [Alpha 13](https://github.com/b0rnkilla/FIAE-AP2-Lernwerk/releases/tag/v0.1.1-alpha.13) am 09.11.2026 als Pre-release veröffentlicht; über die öffentliche GitHub-API am 11.11.2026 bestätigt. Kein Tag/Upload durch die KI. Nachträgliche Prüfdokumentation separat committen, das geprüfte ZIP nicht ersetzen.
+
+1.041 .NET-Tests bestanden, 20 SQL-Integrationsprüfungen bewusst ausgelassen; 31 JavaScript-Tests bestanden. Native EXE direkt aus dem ZIP auf Port 5230 mit separatem synthetischem Profil außerhalb des Programmordners: alte Modulstände erhalten, UML-Auswahl und selbst aufgebautes Diagramm sowie ER-Ergänzung 31 ohne SQL erfolgreich, Pause/Markierung/Teilaufgabe nach Hostneustart erhalten, UML-Prüfung 50/50 und anschließend gesperrt. Prüfungsreferenzen ausschließlich im QA-Profil vorbereitet. Native Windows-Netzwerkdiagnose erfolgreich, keine Firewall-Regel verändert. Nachweis: artifacts/alpha13-verification.json. Kein neuer 45-Minuten-Endnutzerlauf, kein frischer fremder Windows-Rechner und keine neue erhöhte Firewall-Regel Teil dieses Pakettests.
+
+## Historisches Paket Alpha 12
 
 **Windows-Paket 0.1.1-alpha.12: am 06.11.2026 gebaut und aus dem ZIP geprüft.** Sauberer Commit `e3af6aa95c12d25df3f5fe36d80417e3506fb2ad`, identisch mit dem bestätigten GitHub-master. Anwendungscode, Anleitung und Versionshinweise stammen aus diesem Commit. Enthalten: 250 Lernübungen, 25 separate SQL-/Pseudocode-Prüfungsaufgaben sowie drei Entwurfsprüfungen mit neun Teilaufgaben; Heimnetz-Einstellung direkt in derselben EXE.
 
@@ -149,6 +159,10 @@ Dieses Änderungspaket ist ausschließlich gebaut und geprüft; **kein neues ZIP
 
 Der Nutzer hat Paketbau und Release-Informationen für **0.1.1-alpha.12** ausdrücklich nach seinem nächsten Commit und Push beauftragt. Versionshinweise unter release/Versionshinweise-0.1.1-alpha.12.md vorbereitet. Enthalten sein sollen 250 Lernübungen, die bisherigen SQL-/Pseudocode-Prüfungen, drei Entwurfsprüfungen und die Heimnetz-Einstellung. Heimnetz vom Nutzer bestätigt, Abschnitt 04 noch nicht selbst erprobt. Zielcommit, ZIP/SHA256 und Paketprüfung werden erst nach dem Push bestimmt. Bisherige Archive bleiben unverändert; Upload/Veröffentlichung übernimmt der Nutzer.
 
-## Quellfassung Alpha 13 – kein neues Paket
+## Quellfassung Alpha 13 und anschließender Paketauftrag
 
-Seit 09.11.2026 ergänzt die ausdrücklich freigegebene Quellfassung Abschnitt 03 UML und Modellierung: 36 Lernaufgaben sowie drei weitere Prüfungsfälle. Zusammen mit der Entwurfserweiterung auf 42 Aufgaben sind 298 Lernübungen in fünf Modulen verfügbar. Build und Browserprüfung des Quellprojekts sind kein portables Release. Alpha-12-ZIP und Prüfsumme bleiben unverändert bei 250 Lernübungen; keine Alpha-13-Veröffentlichung und kein Paketbau beauftragt.
+Seit 09.11.2026 ergänzt die ausdrücklich freigegebene Quellfassung Abschnitt 03 UML und Modellierung: 36 Lernaufgaben sowie drei weitere Prüfungsfälle. Zusammen mit der Entwurfserweiterung auf 42 Aufgaben sind 298 Lernübungen in fünf Modulen verfügbar. Build und Browserprüfung des Quellprojekts sind kein portables Release. Alpha-12-ZIP und Prüfsumme bleiben unverändert bei 250 Lernübungen. Anschließend wurde Alpha 13 ausdrücklich als ZIP beauftragt und am 09.11.2026 aus dem gepushten Commit b4224b0 gebaut und geprüft; Details oben. Veröffentlichung durch den Nutzer steht noch aus.
+
+## Quellfassung Alpha 14 – Paket nach Nutzer-Push beauftragt
+
+Abschnitt 05 Softwareplanung und OOP ergänzt 48 Lernübungen und drei eigene Prüfungsfälle; insgesamt 346 Übungen in sechs Modulen. Version zentral in Directory.Build.props auf 0.1.1-alpha.14. Nur Quellprojekt/Testausgabe gebaut und mit eigenem Profil geprüft. Das obige Alpha-13-ZIP samt SHA256 bleibt unverändert bei 298 Übungen. Änderungen an der Anleitung im Quellprojekt verändern keine bereits geprüften Archive. Am 11.11.2026 hat der Nutzer das Windows-ZIP und Release-Informationen ausdrücklich **nach seinem Commit und Push** beauftragt. Erste Nutzererprobung von Abschnitt 05 positiv, ausführliche Prüfung/Zeitkalibrierung weiter offen. Versionshinweise unter [Alpha 14](../release/Versionshinweise-0.1.1-alpha.14.md) vorbereitet. Zielcommit, ZIP/SHA256 und native Paketprüfung erst nach dem Push bestimmen. Bestehende Archive erhalten; Veröffentlichung führt der Nutzer selbst aus.

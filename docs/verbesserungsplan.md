@@ -1,6 +1,6 @@
 # Stand und weitere Entwicklung
 
-Entwicklungsstand: **0.1.1-alpha.13 · 09.11.2026**, fünf aktive Module und 298 Lernübungen einschließlich UML. Zuletzt gebautes Windows-Paket: **0.1.1-alpha.12**, mit 250 Lernübungen, am 06.11.2026 aus dem gepushten Commit `e3af6aa` gebaut und aus dem ZIP geprüft; anschließend vom Nutzer als Pre-release veröffentlicht. Detaillierte Historie: [Entwicklungsprotokoll](entwicklungsprotokoll.md). Nachweise: [Testprotokoll](testprotokoll.md).
+Entwicklungsstand: **0.1.1-alpha.14 · 11.11.2026**, sechs aktive Module und 346 Lernübungen einschließlich Softwareplanung und OOP. Zuletzt gebautes Windows-Paket: **0.1.1-alpha.13**, mit 298 Lernübungen, am 09.11.2026 aus dem gepushten Anwendungscode-Commit `b4224b0` gebaut und aus dem ZIP geprüft; als Pre-release veröffentlicht und am 11.11.2026 über die öffentliche GitHub-API bestätigt. Detaillierte Historie: [Entwicklungsprotokoll](entwicklungsprotokoll.md). Nachweise: [Testprotokoll](testprotokoll.md).
 
 ## Umgesetzte Rückmeldungen
 
@@ -135,3 +135,19 @@ Nutzerauftrag nach Sichtung alter Prüfungen: Abschnitt 04 um prüfungsnahe Aufg
 Nach Vergleich von Abschnitt 03/05 wurde UML und Modellierung vorgeschlagen. Die Nutzerfrage zu eigenen Diagrammen ist berücksichtigt: Der Lernweg enthält nicht nur Lesen/Korrigieren, sondern einen eigenen Baukasten und 23 Aufgaben von leerer Arbeitsfläche. 36 Aufgaben in sechs Kapiteln, fünf Diagrammarten, zusammenhängende Nordhafen-Geschichte, Spickzettel und drei eigene Prüfungsfälle. Die anschließende ausdrückliche Freigabe ersetzt für dieses Modul die frühere Beschränkung auf Abschnitt 04 in Alpha 12; neue Quellfassung deshalb Alpha 13. SQL/Pseudocode bleiben abgeschlossen, Abschnitt 05 unverändert geplant.
 
 298 Gesamtlernaufgaben, fünf aktive Module. Getrennte Lern-/Prüfungsstände, Revisionen und unveränderliche Abgabe erhalten bestehende Profile. Quellbuild und Regressionen erfolgreich, eigene Browsererprobung auf getrenntem Port; [Prüfnachweise](testprotokoll.md). Nutzererprobung und Zeitkalibrierung stehen noch aus. Kein ZIP/Commit/Push/Upload beauftragt oder durchgeführt.
+
+## 09.11.2026 – Windows-ZIP Alpha 13 und Release-Informationen erledigt
+
+Nach Nutzer-Commit/Push b4224b0 ausdrücklich beauftragt. Selbstständig startbares ZIP samt SHA256 aus dem unveränderten Anwendungscode gebaut, Version und Remote-Commit bestätigt, Inhalt/Lizenzen sowie entpackte native EXE mit eigenem Profil geprüft. 298 Lernübungen, fünf Module, UML-Prüfung 50/50, ER-Ergänzung und Profilerhalt erfolgreich. Versionshinweise nach dem Commit ergänzt; Prüfdokumentation separat. Nutzer lädt hoch und setzt Tag v0.1.1-alpha.13 auf b4224b0 als Pre-release. Keine automatische Veröffentlichung. Als nächster Lernbereich ist Abschnitt 05 Softwareplanung & OOP vorgesehen; zunächst sollen die fehlenden Abschnitte fertiggestellt werden. Ausführliche Nutzererprobung von UML erfolgt später.
+
+## 09.11.2026 – Abschnitt 05 nach Konzeptfreigabe umgesetzt
+
+Nutzerfreigabe für acht Kapitel und 48 Aufgaben umgesetzt. Der Lernweg enthält eigene Klassen-/Musterdiagramme, Architekturbausteine, API-Verträge mit frei geschriebenem JSON/XML und Formularbaukasten mit bedienbarer Vorschau. OOP-Aufrufe werden anhand konkreter Zustände/Rückgaben bearbeitet; keine neue allgemeine Programmiersprache. Freie Begründungen bleiben gespeicherte Selbstkontrolle, keine Schlüsselwortbenotung. Gemeinsamer Lernrahmen, drei Hinweise, Spickzettel, einheitliche Lernrückmeldung ohne Punkte und bestätigte Geschichte. Drei eigene Prüfungsfälle, getrennte Profile und 20/20/10-Gewichtung.
+
+SQL/Pseudocode und die übrigen fachlichen Lernkataloge bleiben unverändert; kein Beginn von Abschnitt 06/07. Quelle Alpha 14 mit 346 Übungen. Build, automatische Prüfungen und isolierte Browsererprobung dokumentiert im Testprotokoll. Nutzer testet anschließend; Zeitkalibrierung bleibt offen. Kein ZIP, Commit, Push oder Upload beauftragt.
+
+## 11.11.2026 – Erste Nutzererprobung positiv, README und Dokumentation nachgeführt
+
+Der Nutzer hat Abschnitt 05 kurz erprobt und einige Aufgaben gelöst; Gestaltung und Umsetzung gefallen ihm. Vollständige Aufgaben-/Prüfungserprobung und Zeitabstimmung bleiben offen. README-Kritik umgesetzt: UML und Softwareplanung erhalten denselben kompakten Platz wie die übrigen Beispiele. Zwei Reihen zu drei Spalten in der Reihenfolge 01/02/03 und 04/05/08, alle Vorschaubilder 120 Pixel hoch und zur großen Ansicht verlinkt. Aktueller Umfang 346 Übungen, sechs aktive Module. Fach-/Entwicklungsdokumentation und Benutzeranleitung auf diesen Stand geprüft; veraltete aktuelle Kopfstände korrigiert, historische Nachweise erhalten.
+
+Versionshinweise Alpha 14 vorbereitet. Nutzer führt Commit und Push aus; danach sind ZIP, isolierte native Paketprüfung und Release-Informationen ausdrücklich beauftragt. Vorher kein Paketbau, kein Commit/Push/Upload. Erst anschließend folgt die Planung des nächsten noch fehlenden Abschnitts.

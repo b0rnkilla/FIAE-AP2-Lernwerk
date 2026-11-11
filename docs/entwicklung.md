@@ -1,12 +1,17 @@
 # Entwicklung und Projektstruktur
 
-Quellstand: **0.1.1-alpha.13 mit Abschnitt 03 UML und Modellierung**, 298 Lernübungen plus 25 SQL-/Pseudocode-Prüfungsaufgaben, drei Entwurfsprüfungen und drei UML-Prüfungsfälle mit jeweils neun Teilaufgaben je Modul. Zuletzt gebautes Windows-Paket: **0.1.1-alpha.12 mit 250 Lernübungen und den separaten Prüfungsrunden**, am 06.11.2026 aus sauberem, gepushtem Commit `e3af6aa` gebaut und aus dem ZIP geprüft. Anwendungscode und Paketdokumente stammen aus diesem Commit; die Prüfdokumentation wird anschließend getrennt ergänzt. Das Pre-release wurde am 07.11.2026 auf GitHub bestätigt. Diese Anleitung dient dem Projektinhaber zur Pflege und Erweiterung. Auch ein Zugriff auf die Dateien räumt keine Open-Source-Lizenz ein; es gelten die [Nutzungsbedingungen](../LICENSE). Die Entstehung und Zuordnung älterer Pakete stehen unter [lokale Releases](lokale-releases.md).
+Quellstand: **0.1.1-alpha.14 mit Abschnitt 05 Softwareplanung und OOP**, 346 Lernübungen plus 25 SQL-/Pseudocode-Prüfungsaufgaben und jeweils drei Entwurfs-, UML- und Softwareplanungs-Prüfungsfälle mit neun Teilen je Modul. Zuletzt gebautes Windows-Paket: **0.1.1-alpha.13 mit 298 Lernübungen und den separaten Prüfungsrunden**, am 09.11.2026 aus sauberem, gepushtem Anwendungscode-Commit `b4224b0` gebaut und aus dem ZIP geprüft. Versionshinweise nach dem Commit ergänzt, Anwendungscode unverändert. Alpha 13 wurde am 09.11.2026 vom Nutzer als Pre-release veröffentlicht; öffentlich bestätigt am 11.11.2026. Das ältere Alpha-12-Paket bleibt unverändert. Diese Anleitung dient dem Projektinhaber zur Pflege und Erweiterung. Auch ein Zugriff auf die Dateien räumt keine Open-Source-Lizenz ein; es gelten die [Nutzungsbedingungen](../LICENSE). Die Entstehung und Zuordnung älterer Pakete stehen unter [lokale Releases](lokale-releases.md).
 
 ## Orientierung
 
 ```text
 src/
   FiaeTrainer.Core/
+    SoftwareDesign/
+      Models/           Eigene strukturierte Antworten, Architekturbausteine und Formularfelder
+      Content/          48 eigene Aufgaben, drei Prüfungsfälle und Inhaltsvertrag
+      Evaluation/       Fachrollen, Formularfolge und strukturelle JSON-/XML-Prüfung
+      Practice/         Getrennte Lernversuche und 45-Minuten-Prüfungen
     Uml/
       Models/           Elemente, Merkmale, Verbindungen, Sequenzgruppen und Antworten
       Content/          36 eigene Lernaufgaben, drei Prüfungsfälle und Katalog
@@ -42,11 +47,12 @@ src/
       Layout/           Kopfbereich und Seitenrahmen
       Learning/         Gemeinsame Lernbedienung
       Project/          Dezente Unterstützungskarte und Projektverweise
+      SoftwareDesign/   Eigene Architektur-/Formularbaukästen, Nachrichten und Rückmeldungen
       Uml/              Bedienbarer Diagrammbaukasten, SVG-Anordnung und Rückmeldungen
       DatabaseDesign/   Modellbaukasten und eigene ER-/Tabellendarstellungen
       BusinessStudies/  WiSo-Eingaben, Auflösung und eigene Abbildungen
       Exams/            Nachbereitung und Prüfungsrückweg
-      Pages/Training/   Lern- und Prüfungsseiten aller fünf Module samt Code-behind
+      Pages/Training/   Lern- und Prüfungsseiten aller sechs Module samt Code-behind
       Sql/              SQL-Ergebnisse, Fallnotizen und Tabellenübersicht
       Updates/          Updatehinweis
     Exams/              Koordination der zwei fachlichen Prüfungen
@@ -238,3 +244,17 @@ DesignErDiagramView zeichnet eigene SVG-Elemente und eine gleichbedeutende Textl
 UML verwendet eigene Models/Content/Evaluation/Practice unter Core/Uml, eigene Komponenten unter Components/Uml und ProgressStore.Uml.cs. Inhaltsversion 2026-11-09, 36 Lern-IDs und drei unabhängige Prüfungsfälle. Keine SQL-Abhängigkeit, zusätzliche Bibliothek oder KI-Anbindung. Additive Profilfelder und eigene Revisionen erhalten alle bestehenden Module; Quellversion zentral in Directory.Build.props. Die Freigabe für dieses neue Modul erfolgte ausdrücklich nach der vorherigen Begrenzung auf Abschnitt 04. [Fachvertrag und Bewertungsgrenzen](uml.md).
 
 Tests ausschließlich mit separatem Port und Training:ProgressDirectory; SQL-Integration für dieses Paket nicht erneut ausgeführt. Kein Publish/ZIP und keine Änderung der alten Archive. Die Benutzereinstiege der README beschreiben weiterhin die aktuelle App, Paketstände werden hier und unter lokale-releases.md getrennt geführt.
+
+## Paketprüfung Alpha 13
+
+Auf ausdrücklichen Auftrag nach bestätigtem Push b4224b0 erstellt. Die selbstständig startbare Windows-EXE aus dem ZIP läuft ohne SDK-Aufruf und ohne SQL auf einem eigenen Port mit synthetischem Profil außerhalb des Programmordners. 59 Paketdateien und alte Modulfelder nach Lauf unverändert, vollständige Lizenzhinweise und UTF-8-BOM des Windows-Helfers bestätigt. 1.041 .NET-/31 JavaScript-Tests erfolgreich, 20 SQL-Integrationen ausgelassen. Anwendungscode und Version stammen aus dem gepushten Commit, Versionshinweise wurden anschließend ergänzt. Details und Prüfsumme unter [lokale Releases](lokale-releases.md), Nachweis artifacts/alpha13-verification.json. Nachträgliche Dokumentation separat committen; ZIP und SHA256 erhalten. Keine Veröffentlichung durch die KI.
+
+## Abschnitt 05 seit Alpha 14
+
+`Core/SoftwareDesign/{Models,Content,Evaluation,Practice}` enthält 48 eigene Aufgaben und drei unabhängige Prüfungsfälle. `SoftwareCatalog` ist Singleton; `ProgressStore.Software` ergänzt unter derselben Dateisperre SoftwareLessons/LastSoftwareLessonId/SoftwareExam/SoftwareHistory. Die Klassenaufgaben verwenden vorhandene UML-Komponenten mit eigenem Inhalt und eigener Antwort. Eigenes SoftwareEditor/SoftwareBoardView für Architektur/Formular, strenger struktureller Nachrichtenvergleich ohne Ausführung/Netzzugriff. Routen unter `/softwareplanung`; Navigation und Lernplan integrieren das sechste Modul, WiSo bleibt 08.
+
+Prüfungs-Autospeicherung darf laufende Editorobjekte nicht nach jedem Tastendruck durch deserialisierte Kopien ersetzen: unmittelbar folgende Browserereignisse können noch deren Referenzen halten. Nur persistierte Übergabe und endgültige/abgelaufene Abgabe verwenden die getrennte Kopie. Neuere Uhraktionen bleiben vor älteren Speicherantworten geschützt. Details und Grenzen: [Softwareplanung](softwareplanung.md). Kein neues Windows-Paket, Alpha-13-ZIP unverändert.
+
+## Alpha-14-Paketvorbereitung am 11.11.2026
+
+Der Nutzer hat Abschnitt 05 kurz erprobt, einige Aufgaben gelöst und die Umsetzung positiv bewertet. Die vollständige Nutzererprobung und Zeitkalibrierung bleiben offen. Dokumentationsstand und README für die aktuelle Quellfassung nachgeführt; Versionshinweise Alpha 14 liegen vor. Paketbau und Release-Informationen sind ausdrücklich erst nach Nutzer-Commit und Push beauftragt. Danach den sauberen Zielcommit/Remote-Stand prüfen und die native EXE aus dem ZIP mit eigenem Profil prüfen; keine vorhandenen Archive überschreiben. Bisher kein Alpha-14-ZIP, kein automatischer Commit/Push/Upload.

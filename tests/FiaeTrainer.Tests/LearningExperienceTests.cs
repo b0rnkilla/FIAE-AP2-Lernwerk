@@ -170,7 +170,7 @@ public sealed class LearningExperienceTests : IDisposable
 
     private async Task<string> RenderPlanAsync()
     {
-        using ServiceProvider services = new ServiceCollection().AddLogging().AddSingleton(CreateStore()).AddSingleton<LessonCatalog>().AddSingleton<WorkshopCatalog>().AddSingleton<FiaeTrainer.Core.Algorithms.Content.AlgorithmCatalog>().AddSingleton<FiaeTrainer.Core.BusinessStudies.Content.BusinessCatalog>().AddSingleton<FiaeTrainer.Core.DatabaseDesign.Content.DesignCatalog>().AddSingleton<FiaeTrainer.Core.Uml.Content.UmlCatalog>().BuildServiceProvider();
+        using ServiceProvider services = new ServiceCollection().AddLogging().AddSingleton(CreateStore()).AddSingleton<LessonCatalog>().AddSingleton<WorkshopCatalog>().AddSingleton<FiaeTrainer.Core.Algorithms.Content.AlgorithmCatalog>().AddSingleton<FiaeTrainer.Core.BusinessStudies.Content.BusinessCatalog>().AddSingleton<FiaeTrainer.Core.DatabaseDesign.Content.DesignCatalog>().AddSingleton<FiaeTrainer.Core.Uml.Content.UmlCatalog>().AddSingleton<FiaeTrainer.Core.SoftwareDesign.Content.SoftwareCatalog>().BuildServiceProvider();
         return await RenderAsync<LearningPlan>([], services);
     }
 

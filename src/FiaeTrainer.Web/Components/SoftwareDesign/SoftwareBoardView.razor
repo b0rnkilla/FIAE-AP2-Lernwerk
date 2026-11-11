@@ -1,0 +1,107 @@
+@if (Task.Kind == "Architecture")
+{
+    <div class="software-diagram-tools"><span class="badge">Deine Architektur</span><button class="button secondary" type="button" aria-pressed="@(_zoom ? "true" : "false")" @onclick="() => _zoom = !_zoom">@(_zoom ? "Übersicht verkleinern" : "Übersicht vergrößern")</button></div>
+    <div class="design-diagram-wrap software-canvas" role="region" tabindex="0" aria-label="Architekturübersicht – bei Bedarf seitlich scrollen">
+    @if (Board.Nodes.Count == 0) { <p class="software-empty">Deine Übersicht ist noch leer. Lege darunter die benötigten Bausteine an.</p> }
+    else
+    {
+        <svg viewBox="0 0 @Width @Height" class="software-architecture" style="@(_zoom ? $"min-width:{Width}px" : "min-width:580px")" role="img" aria-labelledby="@(_id + "-title") @(_id + "-desc")">
+            <title id="@(_id + "-title")">Architekturübersicht</title><desc id="@(_id + "-desc")">@Description</desc>
+            <defs><marker id="@(_id + "-arrow")" viewBox="0 0 12 12" markerWidth="9" markerHeight="9" refX="11" refY="6" orient="auto"><path d="M1 1 L11 6 L1 11" class="uml-open-arrow" /></marker></defs>
+            @for (int i = 0; i < GroupKeys.Length; i++) { <rect x="@(i * 260 + 8)" y="10" width="250" height="@(Height - 20)" rx="12" class="uml-boundary" /><g><text x="@(i * 260 + 25)" y="37" class="design-node-title">@Task.Groups.GetValueOrDefault(GroupKeys[i], "Noch zuordnen")</text></g> }
+            @foreach (var link in Board.Links)
+            {
+                @if (Boxes.TryGetValue(link.Source, out var a) && Boxes.TryGetValue(link.Target, out var b))
+                {
+                    var route = Route(link, a, b);
+                    <g><path d="@route.Path" class="uml-edge @(link.Kind == "Dependency" ? "uml-dashed" : "")" marker-end="url(#@(_id + "-arrow"))" /><g><text x="@route.X" y="@route.Y" text-anchor="middle" class="design-node-column">@Task.LinkKinds.GetValueOrDefault(link.Kind, "Verbindung")</text></g></g>
+                }
+            }
+            @foreach (var node in Board.Nodes)
+            {
+                var b = Boxes[node.Id];
+                <g><rect x="@b.X" y="@b.Y" width="200" height="80" rx="@(node.Kind == "Store" ? 20 : 8)" class="design-node" /><g><text x="@(b.X+100)" y="@(b.Y+25)" text-anchor="middle" class="design-node-column">@Task.NodeKinds.GetValueOrDefault(node.Kind, "Element")</text></g><g><text x="@(b.X+100)" y="@(b.Y+54)" text-anchor="middle" class="design-node-title">@Short(node.Name)<title>@node.Name</title></text></g></g>
+            }
+        </svg>
+    }
+    </div>
+    @if (Board.Nodes.Count > 0) { <details class="uml-text-model"><summary>Architektur als Text lesen</summary><ul>@foreach (var node in Board.Nodes) { <li>@node.Name · @Task.NodeKinds.GetValueOrDefault(node.Kind, "Element") · @Task.Groups.GetValueOrDefault(node.Group, "noch nicht zugeordnet")</li> }</ul><ul>@foreach (var link in Board.Links) { <li>@Name(link.Source) → @Name(link.Target): @Task.LinkKinds.GetValueOrDefault(link.Kind, "Verbindung")</li> }</ul></details> }
+}
+else
+{
+    <section class="software-form-preview" aria-label="Vorschau deines Formulars"><div class="eyebrow">DEINE FORMULARVORSCHAU</div><p>Hier siehst du die gewählten Elemente in ihrer Reihenfolge. Du kannst Eingaben und einfache Pflichtfeld-Rückmeldungen ausprobieren.</p>
+    @if (Board.Nodes.Count == 0) { <p class="software-empty">Deine Maske ist noch leer. Füge darunter die ersten Felder hinzu.</p> }
+    @foreach (var node in Board.Nodes)
+    {
+        int index = Board.Nodes.IndexOf(node);
+        @if (index == 0 || Board.Nodes[index - 1].Group != node.Group) { <h3>@Task.Groups.GetValueOrDefault(node.Group, "Noch zuordnen")</h3> }
+        @if (node.Kind == "Button") { <button type="button" class="button primary" disabled="@ReadOnly" @onclick="CheckPreview">@node.Name</button> }
+        else if (node.Kind is "Output" or "Message") { <p class="notice">@node.Name · @(node.Kind == "Output" ? "Hier erscheint später das Ergebnis." : "Hier erscheint die passende Rückmeldung.")</p> }
+        else
+        {
+            <label class="software-preview-field">@node.Name@(node.Required ? " *" : "")
+            @if (node.Kind == "Select") { <select disabled="@ReadOnly" value="@_preview.GetValueOrDefault(node.Id, "")" @onchange='args => PreviewInput(node, args.Value?.ToString() ?? "")'><option value="">Bitte wählen</option><option value="example">Beispielauswahl</option></select> }
+            else if (node.Kind == "Checkbox") { <input type="checkbox" disabled="@ReadOnly" checked="@(_preview.GetValueOrDefault(node.Id) == "true")" @onchange='args => PreviewInput(node, args.Value is true ? "true" : "false")' /> }
+            else { <input type="@InputType(node.Kind)" disabled="@ReadOnly" maxlength="200" value="@_preview.GetValueOrDefault(node.Id, "")" @oninput='args => PreviewInput(node, args.Value?.ToString() ?? "")' /> }
+            @if (!string.IsNullOrWhiteSpace(node.Hint)) { <small>@node.Hint</small> }
+            </label>
+        }
+    }
+    @if (_previewMessage != null) { <p class="notice" role="status">@_previewMessage</p> }
+    </section>
+}
+@code {
+    /// <summary> Erlaubte Fachrollen, Gruppen und Elementarten. </summary>
+    [Parameter, EditorRequired] public SoftwareAssignment Task { get; set; } = new();
+    /// <summary> Angezeigter eigener Entwurf. </summary>
+    [Parameter, EditorRequired] public SoftwareBoard Board { get; set; } = new();
+    /// <summary> Gesperrte Abgaben erlauben nur das Lesen der Vorschau. </summary>
+    [Parameter] public bool ReadOnly { get; set; }
+    private readonly string _id = "software-" + Guid.NewGuid().ToString("N");
+    private readonly Dictionary<string, string> _preview = [];
+    private SoftwareBoard? _previous;
+    private string? _previewMessage;
+    private bool _zoom;
+    private string[] GroupKeys => Task.Groups.Keys.Concat(Board.Nodes.Any(node => !Task.Groups.ContainsKey(node.Group)) ? [""] : Array.Empty<string>()).ToArray();
+    private Dictionary<string, (int X, int Y)> Boxes
+    {
+        get
+        {
+            Dictionary<string, (int X, int Y)> result = [];
+            for (int column = 0; column < GroupKeys.Length; column++)
+            {
+                var nodes = Board.Nodes.Where(node => (Task.Groups.ContainsKey(node.Group) ? node.Group : "") == GroupKeys[column]).ToArray();
+                for (int row = 0; row < nodes.Length; row++) result[nodes[row].Id] = (35 + column * 260, 75 + row * 155);
+            }
+            return result;
+        }
+    }
+    private int Width => Math.Max(580, GroupKeys.Length * 260 + 15);
+    private int Height => Math.Max(230, Boxes.Count == 0 ? 230 : Boxes.Values.Max(box => box.Y) + 140 + Board.Links.Count * 28);
+    /// <summary> Führt lange Rückverbindungen unter den Kästen und hält Beschriftungen außerhalb der Elemente. </summary>
+    private (string Path, int X, int Y) Route(SoftwareLink link, (int X, int Y) a, (int X, int Y) b)
+    {
+        int x1 = a.X + 100, y1 = a.Y + 40, x2 = b.X + 100, y2 = b.Y + 40;
+        if (a == b) return ($"M{x1 + 100} {y1 - 15} h30 v40 h-30", x1 + 125, y1 - 25);
+        if (Math.Abs(x2 - x1) > 260 || Board.Links.Any(other => other.Source == link.Target && other.Target == link.Source))
+        {
+            int lane = Boxes.Values.Max(box => box.Y) + 110 + Board.Links.IndexOf(link) * 28;
+            return ($"M{x1} {a.Y + 80} V{lane} H{x2} V{b.Y + 80}", (x1 + x2) / 2, lane + 17);
+        }
+        if (Math.Abs(x2 - x1) > Math.Abs(y2 - y1)) return ($"M{x1 + Math.Sign(x2 - x1) * 100} {y1} L{x2 - Math.Sign(x2 - x1) * 100} {y2}", (x1 + x2) / 2, Math.Min(a.Y, b.Y) - 10);
+        return ($"M{x1} {y1 + Math.Sign(y2 - y1) * 40} L{x2} {y2 - Math.Sign(y2 - y1) * 40}", (x1 + x2) / 2 + 65, (y1 + y2) / 2);
+    }
+    private string Description => string.Join("; ", Board.Nodes.Select(node => node.Name + ": " + Task.Groups.GetValueOrDefault(node.Group, "noch nicht zugeordnet"))) + "; " + string.Join("; ", Board.Links.Select(link => Name(link.Source) + " → " + Name(link.Target)));
+    private string Name(string id) => Board.Nodes.FirstOrDefault(node => node.Id == id)?.Name ?? "Noch wählen";
+    private static string Short(string value) => value.Length > 20 ? value[..19] + "…" : value;
+    private static string InputType(string kind) => kind switch { "Email" => "email", "Tel" => "tel", "Number" => "number", "Date" => "date", _ => "text" };
+    protected override void OnParametersSet() { if (!ReferenceEquals(_previous, Board)) { _preview.Clear(); _previewMessage = null; _previous = Board; } }
+    private void PreviewInput(SoftwareNode node, string value) { if (ReadOnly) return; _preview[node.Id] = value; _previewMessage = null; }
+    /// <summary> Prüft nur das sichtbare Prototypformular; Vorschauwerte gehören nicht zur fachlichen Antwort. </summary>
+    private void CheckPreview()
+    {
+        if (ReadOnly) return;
+        var missing = Board.Nodes.Where(node => node.Required && node.Kind is not ("Button" or "Output" or "Message") && (string.IsNullOrWhiteSpace(_preview.GetValueOrDefault(node.Id)) || node.Kind == "Checkbox" && _preview[node.Id] != "true")).Select(node => node.Name).ToArray();
+        _previewMessage = missing.Length > 0 ? "Bitte ergänze: " + string.Join(", ", missing) + ". Deine bisherigen Eingaben bleiben erhalten." : "Die Pflichtangaben der Vorschau sind vorhanden. Besprich nun, ob Beschriftungen und Ablauf verständlich sind; das ist noch keine echte Buchung.";
+    }
+}

@@ -1,6 +1,6 @@
 # Datenbankentwurf
 
-Stand: **07.11.2026 · Quellfassung 0.1.1-alpha.12 mit Lernansicht-/Storypflege und Diagramm-Erweiterung**. Abschnitt 04 ist mit 42 Lernaufgaben, ER-Ergänzungen, Arbeitsunterlagen, Modellbaukasten und automatisch gezeichnetem relationalem Modell, Spickzettel und drei eigenen Prüfungsfällen umgesetzt. Insgesamt stehen 262 Lernübungen bereit; Prüfungsaufgaben bleiben getrennt. Das veröffentlichte Alpha-12-ZIP enthält das Modul; die nachfolgenden UI-/Storykorrekturen und die zwölf neuen Aufgaben liegen nur im Quellprojekt. Vorhandene Pakete bleiben unverändert.
+Stand: **09.11.2026 · Paket 0.1.1-alpha.13 mit Lernansicht-/Storypflege und Diagramm-Erweiterung**. Abschnitt 04 ist mit 42 Lernaufgaben, ER-Ergänzungen, Arbeitsunterlagen, Modellbaukasten und automatisch gezeichnetem relationalem Modell, Spickzettel und drei eigenen Prüfungsfällen umgesetzt. Das Alpha-13-Paket enthält mit UML insgesamt 298 Lernübungen; die neuere Quellfassung Alpha 14 enthält mit Softwareplanung 346. Prüfungsaufgaben bleiben getrennt. Das auf Nutzerauftrag am 09.11.2026 gebaute Alpha-13-ZIP enthält alle 42 Entwurfsaufgaben und den UI-/Storynachlauf. Das frühere Alpha-12-ZIP bleibt unverändert bei 30 Entwurfsaufgaben.
 
 ## Lernweg und Inhalt
 
@@ -110,3 +110,7 @@ Zwei Übersetzungsaufgaben verlangen eigene relationale Tabellen anhand einer un
 `diagram-lessons.json` ergänzt den Katalog additiv. `DesignAnswer.DiagramValues` speichert ER-Ergänzungen als begrenzte Zuordnung aus Feld- und Optionskennung; alte JSON-Profile erhalten eine leere Zuordnung. Unvollständige Entwürfe sind speicherbar. `CONTENT_VERSION` bleibt 2026-11-06, weil keine alten Antwortverträge neu interpretiert werden. Neue Erfolge zählen in Übersicht/Lernplan dynamisch; 42 Entwurfs- und insgesamt 262 Lernaufgaben. Der Spickzettel akzeptiert auch Rückwege zu Aufgaben 31–42 und erklärt ER-Notation, Überführung und Belegauswertung. Lernrückmeldungen bleiben ohne Punkte, vorhandene Prüfungen unverändert.
 
 Prüfnachweise stehen im Testprotokoll. Das veröffentlichte Alpha-12-Paket enthält weiterhin 30 Entwurfs- und insgesamt 250 Lernaufgaben; diese Erweiterung gehört nur zur Quellfassung. Kein ZIP, Commit, Push oder Upload.
+
+## 09.11.2026 – Paket Alpha 13
+
+Die zuvor ausschließlich im Quellprojekt liegenden Erweiterungen sind im ausdrücklich beauftragten Alpha-13-ZIP enthalten. Native EXE ohne SQL mit eigenem Profil geprüft; ER-Aufgabe 31 korrekt ergänzt und bewertet, bisheriger Entwurfserfolg 37 erhalten. Fachverträge und Prüfungsfälle unverändert. Älteres Alpha-12-ZIP unverändert; Details in [lokale Releases](lokale-releases.md).

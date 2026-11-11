@@ -1,0 +1,1175 @@
+[
+  {
+    "id": "radverleih",
+    "title": "Fahrräder für das Wochenende",
+    "scenario": "Ein Fahrradverleih plant eine kleine Anwendung. Die drei Teilaufträge behandeln unabhängige Ausschnitte desselben Vorhabens.",
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Ein messbarer Suchvertrag",
+        "chapter": "",
+        "kind": "Worksheet",
+        "format": "Build",
+        "story": "Ein Fahrradverleih vereinbart höchstens drei Sekunden Antwortzeit bei 25 gleichzeitig suchenden Personen.",
+        "task": "Die Suchantwort muss höchstens drei Sekunden bei 25 gleichzeitig Suchenden benötigen. Ergänze Messgröße, Vergleich und Zahlen einschließlich der Zeitgrenze.",
+        "discovery": "",
+        "explanation": "Der Vertrag verbindet Antwortzeit der Fahrradsuche, einschließlich drei Sekunden und die vereinbarten 25 Suchenden.",
+        "hints": [
+          "Notiere Messgröße und Einheit getrennt.",
+          "„Höchstens“ schließt die Grenze ein.",
+          "Die zwei vorgegebenen Zahlen sind 2 Sekunden und 50 Personen."
+        ],
+        "previousContext": "",
+        "material": "",
+        "reflectionCriteria": [
+          "Welche Anforderung löst dein Entwurf konkret?",
+          "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
+        ],
+        "fields": [
+          {
+            "key": "measure",
+            "label": "Was wird gemessen?",
+            "kind": "Select",
+            "options": {
+              "1": "Antwortzeit der Fahrradsuche",
+              "2": "Anzahl der verfügbaren Fahrräder",
+              "3": "Dauer des Projektmeetings"
+            },
+            "comparison": "Exact",
+            "help": ""
+          },
+          {
+            "key": "operator",
+            "label": "Vergleich mit der Zeitgrenze",
+            "kind": "Select",
+            "options": {
+              "1": "kleiner oder gleich",
+              "2": "größer als",
+              "3": "ungleich"
+            },
+            "comparison": "Exact",
+            "help": ""
+          },
+          {
+            "key": "seconds",
+            "label": "Zeitgrenze in Sekunden",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "help": ""
+          },
+          {
+            "key": "users",
+            "label": "Gleichzeitige Suchende",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "help": ""
+          }
+        ],
+        "solutions": [
+          {
+            "values": {
+              "measure": "1",
+              "operator": "1",
+              "seconds": "3",
+              "users": "25"
+            },
+            "selectedIds": [],
+            "board": {
+              "nodes": [],
+              "links": []
+            },
+            "diagram": {
+              "model": {
+                "nodes": [],
+                "links": [],
+                "fragments": [],
+                "systemName": ""
+              },
+              "selectedIds": []
+            },
+            "payload": "",
+            "reasoning": ""
+          }
+        ],
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "board": {
+            "nodes": [],
+            "links": []
+          },
+          "diagram": {
+            "model": {
+              "nodes": [],
+              "links": [],
+              "fragments": [],
+              "systemName": ""
+            },
+            "selectedIds": []
+          },
+          "payload": "",
+          "reasoning": ""
+        }
+      },
+      {
+        "id": 2,
+        "title": "Den Verleih in Schichten gliedern",
+        "chapter": "",
+        "kind": "Architecture",
+        "format": "Build",
+        "story": "Die Verleihmaske darf nur den Verleihdienst ansprechen. Er verwendet den Bestandspeicher.",
+        "task": "Erstelle Verleihmaske als Komponente in Darstellung, Verleihdienst als Komponente in Fachlogik und Bestandspeicher als Datenspeicher in Datenzugriff. Genau zwei Aufrufe: Verleihmaske → Verleihdienst und Verleihdienst → Bestandspeicher. Eigene Beschriftungen sind frei; jede Fachrolle wird einmal benötigt.",
+        "discovery": "",
+        "explanation": "Die Maske erreicht die Bestandsdaten über den fachlich zuständigen Verleihdienst.",
+        "hints": [
+          "Beginne mit den drei Fachrollen.",
+          "Ordne den Dateispeicher dem Datenzugriff zu.",
+          "Die Maske spricht den Dienst an, nicht direkt den Speicher."
+        ],
+        "previousContext": "",
+        "material": "",
+        "reflectionCriteria": [
+          "Welche Anforderung löst dein Entwurf konkret?",
+          "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
+        ],
+        "fields": [],
+        "solutions": [
+          {
+            "values": {},
+            "selectedIds": [],
+            "board": {
+              "nodes": [
+                {
+                  "id": "screen",
+                  "key": "screen",
+                  "name": "Verleihmaske",
+                  "kind": "Component",
+                  "group": "ui",
+                  "required": false,
+                  "hint": ""
+                },
+                {
+                  "id": "service",
+                  "key": "service",
+                  "name": "Verleihdienst",
+                  "kind": "Component",
+                  "group": "business",
+                  "required": false,
+                  "hint": ""
+                },
+                {
+                  "id": "store",
+                  "key": "store",
+                  "name": "Bestandspeicher",
+                  "kind": "Store",
+                  "group": "data",
+                  "required": false,
+                  "hint": ""
+                }
+              ],
+              "links": [
+                {
+                  "id": "screen_service_Call",
+                  "source": "screen",
+                  "target": "service",
+                  "kind": "Call"
+                },
+                {
+                  "id": "service_store_Call",
+                  "source": "service",
+                  "target": "store",
+                  "kind": "Call"
+                }
+              ]
+            },
+            "diagram": {
+              "model": {
+                "nodes": [],
+                "links": [],
+                "fragments": [],
+                "systemName": ""
+              },
+              "selectedIds": []
+            },
+            "payload": "",
+            "reasoning": ""
+          }
+        ],
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "board": {
+            "nodes": [],
+            "links": []
+          },
+          "diagram": {
+            "model": {
+              "nodes": [],
+              "links": [],
+              "fragments": [],
+              "systemName": ""
+            },
+            "selectedIds": []
+          },
+          "payload": "",
+          "reasoning": ""
+        },
+        "nodeVocabulary": {
+          "screen": "Verleihmaske",
+          "service": "Verleihdienst",
+          "store": "Bestandspeicher",
+          "archive": "Archiv (nur falls benötigt)"
+        },
+        "groups": {
+          "ui": "Darstellung",
+          "business": "Fachlogik",
+          "data": "Datenzugriff"
+        },
+        "nodeKinds": {
+          "Component": "Komponente",
+          "Contract": "Schnittstellenvertrag",
+          "Actor": "Nutzerrolle",
+          "Store": "Datenspeicher",
+          "External": "Fremdsystem"
+        },
+        "linkKinds": {
+          "Call": "Aufruf",
+          "Dependency": "Abhängigkeit im Entwurf",
+          "Notify": "Benachrichtigung",
+          "Create": "Erzeugung"
+        }
+      },
+      {
+        "id": 3,
+        "title": "Einen Leihvorgang anlegen",
+        "chapter": "",
+        "kind": "Api",
+        "format": "Build",
+        "story": "Der Fahrradverleih legt einen neuen Leihvorgang über seine HTTP-Schnittstelle an.",
+        "task": "Vertrag: POST /ausleihen, Content-Type application/json, Erfolgsstatus 201. JSON-Anfrage mit genau bikeId als Zahl 7 und days als Zahl 2. Die Reihenfolge der JSON-Eigenschaften ist frei.",
+        "discovery": "",
+        "explanation": "POST legt in der Sammlung eine Ausleihe an; der Vertrag verlangt 201 und zwei numerische Anfragefelder.",
+        "hints": [
+          "Trenne Methode, Pfad, Medientyp und Ergebnisstatus.",
+          "Die beiden Mengenangaben stehen als JSON-Zahlen ohne Anführungszeichen.",
+          "Das Datum ist eine Zeichenfolge im vorgegebenen Format."
+        ],
+        "previousContext": "",
+        "material": "",
+        "reflectionCriteria": [
+          "Welche Anforderung löst dein Entwurf konkret?",
+          "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
+        ],
+        "fields": [
+          {
+            "key": "method",
+            "label": "HTTP-Methode",
+            "kind": "Select",
+            "options": {
+              "GET": "GET",
+              "POST": "POST",
+              "PUT": "PUT",
+              "PATCH": "PATCH",
+              "DELETE": "DELETE"
+            },
+            "comparison": "Exact",
+            "help": ""
+          },
+          {
+            "key": "path",
+            "label": "Ressourcenpfad",
+            "kind": "Text",
+            "options": {},
+            "comparison": "Exact",
+            "help": ""
+          },
+          {
+            "key": "media",
+            "label": "Content-Type",
+            "kind": "Text",
+            "options": {},
+            "comparison": "Exact",
+            "help": ""
+          },
+          {
+            "key": "status",
+            "label": "Erfolgsstatus",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "help": ""
+          }
+        ],
+        "solutions": [
+          {
+            "values": {
+              "method": "POST",
+              "path": "/ausleihen",
+              "media": "application/json",
+              "status": "201"
+            },
+            "selectedIds": [],
+            "board": {
+              "nodes": [],
+              "links": []
+            },
+            "diagram": {
+              "model": {
+                "nodes": [],
+                "links": [],
+                "fragments": [],
+                "systemName": ""
+              },
+              "selectedIds": []
+            },
+            "payload": "{\"bikeId\":7,\"days\":2}",
+            "reasoning": ""
+          }
+        ],
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "board": {
+            "nodes": [],
+            "links": []
+          },
+          "diagram": {
+            "model": {
+              "nodes": [],
+              "links": [],
+              "fragments": [],
+              "systemName": ""
+            },
+            "selectedIds": []
+          },
+          "payload": "",
+          "reasoning": ""
+        },
+        "payloadFormat": "Json"
+      }
+    ],
+    "points": [
+      20,
+      20,
+      10
+    ]
+  },
+  {
+    "id": "kurse",
+    "title": "Kurse im Bildungszentrum",
+    "scenario": "Ein Bildungszentrum führt eine Kursverwaltung ein. Jeder Teilauftrag beschreibt seinen benötigten Ausschnitt vollständig und ist unabhängig lösbar.",
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Preise verschiedener Kursbuchungen",
+        "chapter": "",
+        "kind": "Diagram",
+        "format": "Build",
+        "story": "Ein Bildungszentrum bietet reguläre und ermäßigte Kursbuchungen mit gemeinsamer Preisabfrage an.",
+        "task": "Erstelle die abstrakte Buchung mit öffentlicher abstrakter price(): Double. Standardbuchung und Vereinsbuchung sind konkrete Unterklassen und überschreiben price(): Double öffentlich und konkret. Genau diese drei Fachrollen und zwei Generalisierungen, keine zusätzlichen Merkmale. Anzeigenamen sind frei.",
+        "discovery": "",
+        "explanation": "Die beiden konkreten Buchungsarten erfüllen denselben abstrakten Preisvertrag mit eigener Implementierung.",
+        "hints": [
+          "Die gemeinsame Basis kann ihre Preisberechnung noch nicht selbst festlegen.",
+          "Jede konkrete Buchungsart muss die Operation anbieten.",
+          "Die Vererbungspfeile zeigen von den konkreten Buchungen zur abstrakten Buchung."
+        ],
+        "previousContext": "",
+        "material": "",
+        "reflectionCriteria": [
+          "Welche Anforderung löst dein Entwurf konkret?",
+          "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
+        ],
+        "fields": [],
+        "solutions": [
+          {
+            "values": {},
+            "selectedIds": [],
+            "board": {
+              "nodes": [],
+              "links": []
+            },
+            "diagram": {
+              "model": {
+                "nodes": [
+                  {
+                    "id": "booking",
+                    "key": "booking",
+                    "name": "Buchung",
+                    "kind": "Class",
+                    "members": [
+                      {
+                        "id": "booking_price",
+                        "key": "price",
+                        "name": "price",
+                        "kind": "Method",
+                        "type": "Double",
+                        "visibility": "+",
+                        "parameters": "",
+                        "abstract": true,
+                        "static": false
+                      }
+                    ],
+                    "abstract": true,
+                    "lane": ""
+                  },
+                  {
+                    "id": "standard",
+                    "key": "standard",
+                    "name": "Standardbuchung",
+                    "kind": "Class",
+                    "members": [
+                      {
+                        "id": "standard_price",
+                        "key": "price",
+                        "name": "price",
+                        "kind": "Method",
+                        "type": "Double",
+                        "visibility": "+",
+                        "parameters": "",
+                        "abstract": false,
+                        "static": false
+                      }
+                    ],
+                    "abstract": false,
+                    "lane": ""
+                  },
+                  {
+                    "id": "club",
+                    "key": "club",
+                    "name": "Vereinsbuchung",
+                    "kind": "Class",
+                    "members": [
+                      {
+                        "id": "club_price",
+                        "key": "price",
+                        "name": "price",
+                        "kind": "Method",
+                        "type": "Double",
+                        "visibility": "+",
+                        "parameters": "",
+                        "abstract": false,
+                        "static": false
+                      }
+                    ],
+                    "abstract": false,
+                    "lane": ""
+                  }
+                ],
+                "links": [
+                  {
+                    "id": "standard_booking_Generalization",
+                    "source": "standard",
+                    "target": "booking",
+                    "kind": "Generalization",
+                    "sourceMultiplicity": "",
+                    "targetMultiplicity": "",
+                    "name": "",
+                    "meaning": "",
+                    "guard": "",
+                    "fragment": ""
+                  },
+                  {
+                    "id": "club_booking_Generalization",
+                    "source": "club",
+                    "target": "booking",
+                    "kind": "Generalization",
+                    "sourceMultiplicity": "",
+                    "targetMultiplicity": "",
+                    "name": "",
+                    "meaning": "",
+                    "guard": "",
+                    "fragment": ""
+                  }
+                ],
+                "fragments": [],
+                "systemName": ""
+              },
+              "selectedIds": []
+            },
+            "payload": "",
+            "reasoning": ""
+          }
+        ],
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "board": {
+            "nodes": [],
+            "links": []
+          },
+          "diagram": {
+            "model": {
+              "nodes": [],
+              "links": [],
+              "fragments": [],
+              "systemName": ""
+            },
+            "selectedIds": []
+          },
+          "payload": "",
+          "reasoning": ""
+        },
+        "diagram": {
+          "id": 1,
+          "title": "Preise verschiedener Kursbuchungen",
+          "diagramType": "Class",
+          "format": "Build",
+          "nodeVocabulary": {
+            "booking": "Buchung",
+            "standard": "Standardbuchung",
+            "club": "Vereinsbuchung",
+            "archive": "Archiv (nur falls benötigt)"
+          },
+          "memberVocabulary": {
+            "price": "price"
+          },
+          "solutions": [
+            {
+              "nodes": [
+                {
+                  "id": "booking",
+                  "key": "booking",
+                  "name": "Buchung",
+                  "kind": "Class",
+                  "members": [
+                    {
+                      "id": "booking_price",
+                      "key": "price",
+                      "name": "price",
+                      "kind": "Method",
+                      "type": "Double",
+                      "visibility": "+",
+                      "parameters": "",
+                      "abstract": true,
+                      "static": false
+                    }
+                  ],
+                  "abstract": true,
+                  "lane": ""
+                },
+                {
+                  "id": "standard",
+                  "key": "standard",
+                  "name": "Standardbuchung",
+                  "kind": "Class",
+                  "members": [
+                    {
+                      "id": "standard_price",
+                      "key": "price",
+                      "name": "price",
+                      "kind": "Method",
+                      "type": "Double",
+                      "visibility": "+",
+                      "parameters": "",
+                      "abstract": false,
+                      "static": false
+                    }
+                  ],
+                  "abstract": false,
+                  "lane": ""
+                },
+                {
+                  "id": "club",
+                  "key": "club",
+                  "name": "Vereinsbuchung",
+                  "kind": "Class",
+                  "members": [
+                    {
+                      "id": "club_price",
+                      "key": "price",
+                      "name": "price",
+                      "kind": "Method",
+                      "type": "Double",
+                      "visibility": "+",
+                      "parameters": "",
+                      "abstract": false,
+                      "static": false
+                    }
+                  ],
+                  "abstract": false,
+                  "lane": ""
+                }
+              ],
+              "links": [
+                {
+                  "id": "standard_booking_Generalization",
+                  "source": "standard",
+                  "target": "booking",
+                  "kind": "Generalization",
+                  "sourceMultiplicity": "",
+                  "targetMultiplicity": "",
+                  "name": "",
+                  "meaning": "",
+                  "guard": "",
+                  "fragment": ""
+                },
+                {
+                  "id": "club_booking_Generalization",
+                  "source": "club",
+                  "target": "booking",
+                  "kind": "Generalization",
+                  "sourceMultiplicity": "",
+                  "targetMultiplicity": "",
+                  "name": "",
+                  "meaning": "",
+                  "guard": "",
+                  "fragment": ""
+                }
+              ],
+              "fragments": [],
+              "systemName": ""
+            }
+          ],
+          "starter": {
+            "nodes": [],
+            "links": [],
+            "fragments": [],
+            "systemName": ""
+          }
+        }
+      },
+      {
+        "id": 2,
+        "title": "Die Kursmenge teilweise ändern",
+        "chapter": "",
+        "kind": "Api",
+        "format": "Build",
+        "story": "Im Kurs mit Nummer 17 ändert sich ausschließlich die Zahl der Teilnehmenden.",
+        "task": "Vertrag: PATCH /kurse/17 mit Content-Type application/json. JSON-Anfrage ausschließlich participants als Zahl 11. Der vereinbarte Erfolgsstatus bei Rückgabe der aktualisierten Kursdarstellung ist 200.",
+        "discovery": "",
+        "explanation": "Die Teiländerung überträgt nur die neue Personenzahl; Pfad, Medientyp und Erfolgsstatus sind ausdrücklich vereinbart.",
+        "hints": [
+          "Die Aufgabe verlangt eine Teiländerung, keinen vollständigen Ersatz.",
+          "Der Anfragekörper enthält nur participants.",
+          "Der Erfolgsstatus ist in der Vereinbarung ausdrücklich genannt."
+        ],
+        "previousContext": "",
+        "material": "",
+        "reflectionCriteria": [
+          "Welche Anforderung löst dein Entwurf konkret?",
+          "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
+        ],
+        "fields": [
+          {
+            "key": "method",
+            "label": "HTTP-Methode",
+            "kind": "Select",
+            "options": {
+              "GET": "GET",
+              "POST": "POST",
+              "PUT": "PUT",
+              "PATCH": "PATCH",
+              "DELETE": "DELETE"
+            },
+            "comparison": "Exact",
+            "help": ""
+          },
+          {
+            "key": "path",
+            "label": "Ressourcenpfad",
+            "kind": "Text",
+            "options": {},
+            "comparison": "Exact",
+            "help": ""
+          },
+          {
+            "key": "media",
+            "label": "Content-Type",
+            "kind": "Text",
+            "options": {},
+            "comparison": "Exact",
+            "help": ""
+          },
+          {
+            "key": "status",
+            "label": "Vereinbarter Erfolgsstatus",
+            "kind": "Number",
+            "options": {},
+            "comparison": "Number",
+            "help": ""
+          }
+        ],
+        "solutions": [
+          {
+            "values": {
+              "method": "PATCH",
+              "path": "/kurse/17",
+              "media": "application/json",
+              "status": "200"
+            },
+            "selectedIds": [],
+            "board": {
+              "nodes": [],
+              "links": []
+            },
+            "diagram": {
+              "model": {
+                "nodes": [],
+                "links": [],
+                "fragments": [],
+                "systemName": ""
+              },
+              "selectedIds": []
+            },
+            "payload": "{\"participants\":11}",
+            "reasoning": ""
+          }
+        ],
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "board": {
+            "nodes": [],
+            "links": []
+          },
+          "diagram": {
+            "model": {
+              "nodes": [],
+              "links": [],
+              "fragments": [],
+              "systemName": ""
+            },
+            "selectedIds": []
+          },
+          "payload": "",
+          "reasoning": ""
+        },
+        "payloadFormat": "Json"
+      },
+      {
+        "id": 3,
+        "title": "Eine kleine Kursanmeldung",
+        "chapter": "",
+        "kind": "Form",
+        "format": "Build",
+        "story": "Für eine erste Erprobung benötigt das Bildungszentrum eine kleine Anmeldemaske.",
+        "task": "Gruppe Anmeldung, Reihenfolge: Kurs als verpflichtende Auswahlliste, Termin als verpflichtendes Datumsfeld, Plätze als verpflichtendes Zahlenfeld und Anmelden als Schaltfläche ohne Pflichtmarkierung. Keine weiteren Elemente. Eigene sichtbare Beschriftungen und freiwillige Hilfetexte sind erlaubt.",
+        "discovery": "",
+        "explanation": "Die drei erforderlichen Angaben stehen vor der Aktion; ihre Eingabearten entsprechen dem vereinbarten Formularvertrag.",
+        "hints": [
+          "Erstelle zuerst die drei Eingabefelder.",
+          "Datum und Personenzahl benötigen unterschiedliche Eingabearten.",
+          "Setze die Absendeaktion an das Ende."
+        ],
+        "previousContext": "",
+        "material": "",
+        "reflectionCriteria": [
+          "Welche Anforderung löst dein Entwurf konkret?",
+          "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
+        ],
+        "fields": [],
+        "solutions": [
+          {
+            "values": {},
+            "selectedIds": [],
+            "board": {
+              "nodes": [
+                {
+                  "id": "room",
+                  "key": "room",
+                  "name": "Kurs",
+                  "kind": "Select",
+                  "group": "request",
+                  "required": true,
+                  "hint": ""
+                },
+                {
+                  "id": "date",
+                  "key": "date",
+                  "name": "Termin",
+                  "kind": "Date",
+                  "group": "request",
+                  "required": true,
+                  "hint": ""
+                },
+                {
+                  "id": "people",
+                  "key": "people",
+                  "name": "Plätze",
+                  "kind": "Number",
+                  "group": "request",
+                  "required": true,
+                  "hint": ""
+                },
+                {
+                  "id": "send",
+                  "key": "send",
+                  "name": "Anmelden",
+                  "kind": "Button",
+                  "group": "request",
+                  "required": false,
+                  "hint": ""
+                }
+              ],
+              "links": []
+            },
+            "diagram": {
+              "model": {
+                "nodes": [],
+                "links": [],
+                "fragments": [],
+                "systemName": ""
+              },
+              "selectedIds": []
+            },
+            "payload": "",
+            "reasoning": ""
+          }
+        ],
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "board": {
+            "nodes": [],
+            "links": []
+          },
+          "diagram": {
+            "model": {
+              "nodes": [],
+              "links": [],
+              "fragments": [],
+              "systemName": ""
+            },
+            "selectedIds": []
+          },
+          "payload": "",
+          "reasoning": ""
+        },
+        "nodeVocabulary": {
+          "room": "Kurs",
+          "date": "Termin",
+          "people": "Plätze",
+          "send": "Anmelden",
+          "archive": "Archiv (nur falls benötigt)"
+        },
+        "groups": {
+          "request": "Anmeldung"
+        },
+        "nodeKinds": {
+          "Text": "Textfeld",
+          "Email": "E-Mail-Feld",
+          "Tel": "Telefonfeld",
+          "Number": "Zahlenfeld",
+          "Date": "Datumsfeld",
+          "Select": "Auswahlliste",
+          "Checkbox": "Kontrollkästchen",
+          "Button": "Schaltfläche",
+          "Output": "Ergebnisanzeige",
+          "Message": "Hinweis / Fehlermeldung"
+        },
+        "linkKinds": {}
+      }
+    ],
+    "points": [
+      20,
+      20,
+      10
+    ]
+  },
+  {
+    "id": "reparatur",
+    "title": "Reparaturen nachvollziehbar annehmen",
+    "scenario": "Ein Reparaturbetrieb plant Anmeldung und Statusanzeige. Die drei Teilaufträge enthalten jeweils alle benötigten Angaben und bauen nicht auf einer anderen Lösung auf.",
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Eine Annahme als User Story",
+        "chapter": "",
+        "kind": "Worksheet",
+        "format": "Build",
+        "story": "Ein Kunde möchte eine Reparatur anmelden, damit sein defektes Gerät bearbeitet werden kann.",
+        "task": "Vervollständige die User Story mit Rolle, gewünschter Funktion und fachlichem Nutzen aus diesem Fall.",
+        "discovery": "",
+        "explanation": "Rolle, fachliche Anmeldung und Nutzen bilden die Nutzerperspektive ab.",
+        "hints": [
+          "Die nutzende Person ist im Fall ausdrücklich genannt.",
+          "Beschreibe ihr Ziel statt eines technischen Arbeitsschritts.",
+          "Der Nutzen ist die Organisation einer Veranstaltung."
+        ],
+        "previousContext": "",
+        "material": "",
+        "reflectionCriteria": [
+          "Welche Anforderung löst dein Entwurf konkret?",
+          "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
+        ],
+        "fields": [
+          {
+            "key": "role",
+            "label": "Als …",
+            "kind": "Select",
+            "options": {
+              "1": "Kunde",
+              "2": "Datenbankserver",
+              "3": "Compiler"
+            },
+            "comparison": "Exact",
+            "help": ""
+          },
+          {
+            "key": "goal",
+            "label": "möchte ich …",
+            "kind": "Select",
+            "options": {
+              "1": "eine Reparatur anmelden",
+              "2": "einen Build ausführen",
+              "3": "eine Raumliste drucken"
+            },
+            "comparison": "Exact",
+            "help": ""
+          },
+          {
+            "key": "benefit",
+            "label": "damit ich …",
+            "kind": "Select",
+            "options": {
+              "1": "mein defektes Gerät bearbeitet werden kann",
+              "2": "eine Klasse abstrakt wird",
+              "3": "ein Header gespeichert wird"
+            },
+            "comparison": "Exact",
+            "help": ""
+          }
+        ],
+        "solutions": [
+          {
+            "values": {
+              "role": "1",
+              "goal": "1",
+              "benefit": "1"
+            },
+            "selectedIds": [],
+            "board": {
+              "nodes": [],
+              "links": []
+            },
+            "diagram": {
+              "model": {
+                "nodes": [],
+                "links": [],
+                "fragments": [],
+                "systemName": ""
+              },
+              "selectedIds": []
+            },
+            "payload": "",
+            "reasoning": ""
+          }
+        ],
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "board": {
+            "nodes": [],
+            "links": []
+          },
+          "diagram": {
+            "model": {
+              "nodes": [],
+              "links": [],
+              "fragments": [],
+              "systemName": ""
+            },
+            "selectedIds": []
+          },
+          "payload": "",
+          "reasoning": ""
+        }
+      },
+      {
+        "id": 2,
+        "title": "Die Reparaturannahme gestalten",
+        "chapter": "",
+        "kind": "Form",
+        "format": "Build",
+        "story": "Der Betrieb benötigt eine geordnete Eingabemaske für Kontakt und Reparaturgegenstand.",
+        "task": "Erstelle in genau dieser Reihenfolge: Name als Pflicht-Textfeld und E-Mail als Pflicht-E-Mail-Feld in Kontakt; Gerät als Pflicht-Auswahlliste und Fehlerbeschreibung als Pflicht-Textfeld in Reparatur; Auftrag senden als Schaltfläche ohne Pflichtmarkierung in Aktion. Keine weiteren Elemente, eigene Anzeigenamen erlaubt, Hilfetexte freiwillig.",
+        "discovery": "",
+        "explanation": "Kontakt und Reparaturangaben sind gruppiert; alle vereinbarten Angaben werden vor der Absendeaktion erfasst.",
+        "hints": [
+          "Bearbeite erst Kontakt, dann Termin, dann die Aktion.",
+          "Telefon ist im Fall ausdrücklich freiwillig.",
+          "Die E-Mail erhält eine passende Eingabeart."
+        ],
+        "previousContext": "",
+        "material": "",
+        "reflectionCriteria": [
+          "Welche Anforderung löst dein Entwurf konkret?",
+          "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
+        ],
+        "fields": [],
+        "solutions": [
+          {
+            "values": {},
+            "selectedIds": [],
+            "board": {
+              "nodes": [
+                {
+                  "id": "name",
+                  "key": "name",
+                  "name": "Name",
+                  "kind": "Text",
+                  "group": "contact",
+                  "required": true,
+                  "hint": ""
+                },
+                {
+                  "id": "email",
+                  "key": "email",
+                  "name": "E-Mail",
+                  "kind": "Email",
+                  "group": "contact",
+                  "required": true,
+                  "hint": ""
+                },
+                {
+                  "id": "room",
+                  "key": "room",
+                  "name": "Gerät",
+                  "kind": "Select",
+                  "group": "appointment",
+                  "required": true,
+                  "hint": ""
+                },
+                {
+                  "id": "description",
+                  "key": "description",
+                  "name": "Fehlerbeschreibung",
+                  "kind": "Text",
+                  "group": "appointment",
+                  "required": true,
+                  "hint": ""
+                },
+                {
+                  "id": "send",
+                  "key": "send",
+                  "name": "Auftrag senden",
+                  "kind": "Button",
+                  "group": "action",
+                  "required": false,
+                  "hint": ""
+                }
+              ],
+              "links": []
+            },
+            "diagram": {
+              "model": {
+                "nodes": [],
+                "links": [],
+                "fragments": [],
+                "systemName": ""
+              },
+              "selectedIds": []
+            },
+            "payload": "",
+            "reasoning": ""
+          }
+        ],
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "board": {
+            "nodes": [],
+            "links": []
+          },
+          "diagram": {
+            "model": {
+              "nodes": [],
+              "links": [],
+              "fragments": [],
+              "systemName": ""
+            },
+            "selectedIds": []
+          },
+          "payload": "",
+          "reasoning": ""
+        },
+        "nodeVocabulary": {
+          "name": "Name",
+          "email": "E-Mail",
+          "room": "Gerät",
+          "description": "Fehlerbeschreibung",
+          "send": "Auftrag senden",
+          "archive": "Archiv (nur falls benötigt)"
+        },
+        "groups": {
+          "contact": "Kontakt",
+          "appointment": "Reparatur",
+          "action": "Aktion"
+        },
+        "nodeKinds": {
+          "Text": "Textfeld",
+          "Email": "E-Mail-Feld",
+          "Tel": "Telefonfeld",
+          "Number": "Zahlenfeld",
+          "Date": "Datumsfeld",
+          "Select": "Auswahlliste",
+          "Checkbox": "Kontrollkästchen",
+          "Button": "Schaltfläche",
+          "Output": "Ergebnisanzeige",
+          "Message": "Hinweis / Fehlermeldung"
+        },
+        "linkKinds": {}
+      },
+      {
+        "id": 3,
+        "title": "Mehrere Statusanzeigen benachrichtigen",
+        "chapter": "",
+        "kind": "Choice",
+        "format": "Analyze",
+        "story": "Werkstatt und Empfang registrieren ihre Anzeigen bei einem Statusgeber. Änderungen sollen allen angemeldeten Anzeigen über einen gemeinsamen update-Vertrag gemeldet werden.",
+        "task": "Welches angebotene Muster passt unmittelbar zu dieser beschriebenen Absicht? Wähle genau eine Aussage.",
+        "discovery": "",
+        "explanation": "Registrierte austauschbare Empfänger einer Änderungsbenachrichtigung entsprechen hier dem Observer-Muster.",
+        "hints": [
+          "Suche nach dem gemeinsamen Vertrag der Empfänger.",
+          "Die Liste angemeldeter Anzeigen kann sich ändern.",
+          "Registrierung und Benachrichtigung sind die Hinweise auf Observer."
+        ],
+        "previousContext": "",
+        "material": "",
+        "reflectionCriteria": [
+          "Welche Anforderung löst dein Entwurf konkret?",
+          "Welche Randbedingung oder Einschränkung muss das Team weiterhin beachten?"
+        ],
+        "fields": [],
+        "solutions": [],
+        "starter": {
+          "values": {},
+          "selectedIds": [],
+          "board": {
+            "nodes": [],
+            "links": []
+          },
+          "diagram": {
+            "model": {
+              "nodes": [],
+              "links": [],
+              "fragments": [],
+              "systemName": ""
+            },
+            "selectedIds": []
+          },
+          "payload": "",
+          "reasoning": ""
+        },
+        "options": {
+          "observer": "Observer: Ein Subjekt benachrichtigt registrierte Beobachter.",
+          "singleton": "Singleton: Globale Einzigartigkeit ersetzt die Empfängerregistrierung.",
+          "adapter": "Adapter: Eine fremde Aufrufschnittstelle wird angepasst.",
+          "factory": "Factory Method: Unterklassen entscheiden über die Erzeugung eines Produkts."
+        },
+        "correctIds": [
+          "observer"
+        ]
+      }
+    ],
+    "points": [
+      20,
+      20,
+      10
+    ]
+  }
+]

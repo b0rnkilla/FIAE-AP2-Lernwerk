@@ -1,6 +1,6 @@
 # UML und Modellierung – Abschnitt 03
 
-Stand: **0.1.1-alpha.13, 09.11.2026**. Nach Vorstellung und Rückfrage zu eigenen Diagrammen ausdrücklich zur Umsetzung freigegeben. Der Lernweg ist im Quellprojekt umgesetzt; das veröffentlichte Alpha-12-Paket wird dadurch nicht verändert.
+Stand: **0.1.1-alpha.13, 09.11.2026**. Nach Vorstellung und Rückfrage zu eigenen Diagrammen ausdrücklich zur Umsetzung freigegeben. Der Lernweg ist im Quellprojekt und im geprüften Alpha-13-ZIP umgesetzt. Die neuere Quellfassung Alpha 14 ergänzt Abschnitt 05 Softwareplanung bei unverändertem UML-Katalog; bestehende Pakete werden dadurch nicht verändert.
 
 ## Lernweg und Geschichte
 
@@ -67,4 +67,4 @@ Ein strukturierter Lernbaukasten mit festem Aufgabenwortschatz; kein allgemeiner
 
 Fachliche Orientierung: [OMG UML 2.5.1](https://www.omg.org/spec/UML/2.5.1) und [IHK Hannover: überarbeitete Prüfungskataloge](https://www.ihk.de/hannover/hauptnavigation/ausbildung-und-weiterbildung/ausbildung/ausbildung-a-z/neuordnungen/pruefungskataloge-it-berufe-6438900). Die lokal bereitgestellten Altprüfungen wurden nur zur Themen-/Formorientierung genutzt; keine Originalseiten, Texte oder Lösungsschlüssel werden eingebettet oder verteilt. Eine vollständige Abdeckung des AP2-Katalogs wird nicht behauptet.
 
-Prüfnachweise: [Testprotokoll](testprotokoll.md). Nutzererprobung nach Übergabe ausstehend; kein neues ZIP, kein automatischer Commit/Push/Upload.
+Prüfnachweise: [Testprotokoll](testprotokoll.md). Nutzererprobung nach Übergabe ausstehend. Alpha-13-ZIP am 09.11.2026 auf ausdrücklichen Auftrag aus b4224b0 gebaut und aus der nativen EXE geprüft; siehe [lokale Releases](lokale-releases.md). Kein automatischer Commit/Push/Upload.

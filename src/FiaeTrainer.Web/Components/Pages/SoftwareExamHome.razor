@@ -1,0 +1,31 @@
+@page "/softwareplanung/pruefung"
+@inject SoftwareCatalog Catalog
+@inject ProgressStore Store
+@inject NavigationManager Navigation
+<PageTitle>Softwareplanungs-Prüfung · AP2 Lernwerk</PageTitle>
+<main class="page exam-home"><div class="eyebrow">DEIN WISSEN SELBSTSTÄNDIG ANWENDEN</div><h1>Softwareplanung und OOP unter Prüfungsbedingungen.</h1><p class="lead">45 Minuten · drei Teilaufgaben an einem neuen Fall · 50 Trainingspunkte</p>
+    <section class="exam-introduction"><h2>Ein neuer Betrieb. Dein Softwareentwurf.</h2><p>Wähle einen unbekannten Fall und bearbeite drei unabhängige Teilaufträge mit den Arbeitsbereichen für Anforderungen und Softwareentwürfe.</p><ul><li>Die Zeit beginnt erst mit „Prüfung starten“.</li><li>Du kannst Aufgaben wechseln und zur Kontrolle markieren.</li><li>Pause blendet Aufgaben aus. Browser schließen hält die Uhr nicht an.</li><li>Nachschlagen im Spickzettel pausiert und kennzeichnet die Prüfung als „mit Nachschlagen“.</li><li>Auswertung und Lösungen erscheinen erst nach Abgabe. Trainingspunkte sind keine amtliche IHK-Note.</li></ul></section>
+    @if (_error != null) { <p class="notice warning" role="alert">@_error</p> }
+    @if (_current != null) { <section class="business-resume"><div><h2>@(_current.FinishedUtc == null ? "Deine Prüfung wartet auf dich." : "Deine letzte Abgabe")</h2><p>@(_current.FinishedUtc == null ? "Antworten und Restzeit sind gespeichert." : $"{_current.Earned} / 50 Trainingspunkte")</p></div><a class="button primary" href="/softwareplanung/pruefung/runde">@(_current.FinishedUtc == null ? "Prüfung fortsetzen →" : "Zur Auswertung →")</a></section> }
+    <label class="exam-case-choice">Prüfungsfall<select @bind="_case"><option value="">Zufälliger Fall</option>@foreach (var item in Catalog.Cases) { <option value="@item.Id">@item.Title</option> }</select></label>
+    @if (_confirm) { <section class="notice warning" role="alert"><h2>Offene Prüfung ersetzen?</h2><p>Die ungeprüften Entwürfe werden verworfen. Frühere Ergebnisse und Lernaufgaben bleiben erhalten.</p><button class="button secondary" @onclick="() => _confirm = false">Abbrechen</button> <button class="button primary" disabled="@_busy" @onclick="StartAsync">Neuen Versuch starten</button></section> }
+    else { <button class="button primary" disabled="@(_busy || _error != null)" @onclick="RequestAsync">Prüfung starten →</button> }
+    @if (_history.Count > 0) { <section class="exam-history"><h2>Deine letzten Prüfungen</h2>@foreach (var item in _history.Take(5)) { <div><span>@item.FinishedUtc?.ToLocalTime().ToString("dd.MM.yyyy HH:mm")@(item.UsedReference ? " · mit Nachschlagen" : "")</span><strong>@item.Earned / 50 Punkte</strong></div> }</section> }
+</main>
+@code {
+    private SoftwareExamRound? _current;
+    private List<SoftwareExamRound> _history = [];
+    private string _case = "";
+    private string? _error;
+    private bool _confirm, _busy = true;
+    protected override async Task OnInitializedAsync() { try { var state = await Store.LoadAsync(); _current = state.SoftwareExam; _history = state.SoftwareHistory; } catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.Text.Json.JsonException) { _error = "Der Prüfungsstand konnte nicht gelesen werden und wird nicht überschrieben."; } finally { _busy = false; } }
+    private async Task RequestAsync() { if (_current is { FinishedUtc: null }) _confirm = true; else await StartAsync(); }
+    private async Task StartAsync()
+    {
+        if (_busy || _error != null) return;
+        _busy = true;
+        try { string id = _case.Length == 0 ? Catalog.Cases[Random.Shared.Next(Catalog.Cases.Count)].Id : _case; await Store.StartSoftwareExamAsync(new() { CaseId = id }, Catalog, _confirm ? _current?.Id : null); Navigation.NavigateTo("/softwareplanung/pruefung/runde"); }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidOperationException or System.Text.Json.JsonException) { _error = ex.Message; }
+        finally { _busy = false; }
+    }
+}

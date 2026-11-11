@@ -1,6 +1,8 @@
-# Prüfungsrunden für SQL und Pseudocode
+# Prüfungsrunden und modulbezogene Trainingsprüfungen
 
-Stand: **06.11.2026 · Quellfassung 0.1.1-alpha.10**. Die Prüfungen sind zusätzlich zu den bisherigen 220 Lernübungen umgesetzt; sie verändern den bisherigen Aufgabenfortschritt nicht. Im eigenen Prüfungspool liegen zehn Algorithmus- und 15 SQL-Aufgaben. Das veröffentlichte Alpha-8-ZIP enthält diese neuen Funktionen noch nicht. Kein neuer Paketbau ohne Auftrag.
+Stand: **11.11.2026 · Quellfassung 0.1.1-alpha.14**. Die separaten Prüfungsrunden ergänzen 346 Lernübungen in sechs Modulen, ohne deren Abschlusszähler zu verändern. SQL/Pseudocode verwenden 15 beziehungsweise zehn eigene Prüfungsaufgaben; Datenbankentwurf, UML und Softwareplanung bieten jeweils drei Fälle mit drei Teilen. WiSo verwendet eigene Prüfungsrunden im vorhandenen Fragenbestand. Die folgenden Grundlagen beschreiben SQL/Pseudocode; die ergänzenden Modulverträge stehen am Ende. Alpha-14-ZIP nach Nutzer-Commit und Push beauftragt, noch nicht gebaut.
+
+Historischer Grundstand Alpha 10: SQL-/Pseudocode-Prüfungen ergänzten 220 Lernübungen. Das damalige Alpha-8-Paket enthielt diese Runden noch nicht. Die bisherigen Prüfungsnachweise bleiben im Testprotokoll erhalten.
 
 ## Einstieg und Ablauf
 
@@ -88,3 +90,7 @@ Ein weiterer eigener Prüfungseinstieg liegt unter /datenbankentwurf/pruefung. D
 ## Ergänzung Alpha 13: UML und Modellierung
 
 /uml/pruefung bietet drei neue eigene Fälle mit je drei unabhängig modellierbaren Aufträgen, 45 Minuten und 50 Trainingspunkten (20/20/10). Fünf UML-Diagrammarten werden fallabhängig kombiniert; alle Prüfungsaufträge beginnen leer. Eigene Felder UmlExam/UmlHistory neben den bisherigen Prüfungsformaten. Start, Ersetzungsbestätigung, Pause, UTC-Frist, Nachschlagen, Kontrollmarkierung und endgültige Abgabe folgen dem vorhandenen Bedienprinzip. Keine Punkte im UML-Lernen. Bewertung anhand klarer Fachrollen und geprüfter Varianten, keine allgemeine UML-Beweisführung. [UML-Fachvertrag](uml.md).
+
+## Ergänzung Alpha 14: Softwareplanung und OOP
+
+`/softwareplanung/pruefung` enthält drei eigene Fälle (Fahrradverleih, Bildungszentrum, Reparaturannahme), jeweils drei unabhängig lösbare Teilaufträge, 45 Minuten und 50 Trainingspunkte (20/20/10). Anforderungen, Klassen/Architektur, API-Nachrichten, Formulare und Musterentscheidungen werden fallabhängig kombiniert. `SoftwareExam`/`SoftwareHistory` bleiben zusätzlich neben allen bisherigen Modulständen. UTC-Frist, Pause, Nachschlagekennzeichnung, Kontrollmarkierung, Ersetzungsbestätigung und unveränderliche endgültige Abgabe folgen dem bestehenden Bedienprinzip. Freie Begründungen sind Selbstkontrolle ohne Punkte. Der offizielle Bereich Planen eines Softwareproduktes dauert 90 Minuten; diese Runde ist ein begrenztes Modultraining. [Softwareplanungs-Vertrag](softwareplanung.md).

@@ -2537,3 +2537,144 @@ h1:focus {
     .home-network-page form .button { width: 100%; }
     .home-network-page form .button + .button { margin: .75rem 0 0; }
 }
+
+/* Softwareplanung: strukturierte Ausarbeitung, Nachrichten und eigener Formularprototyp. */
+.software-code {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font: 15px/1.8 Consolas, monospace;
+    padding: 20px;
+    margin: 16px 0;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--paper);
+    color: var(--ink);
+}
+.software-material {
+    padding: 22px 0;
+}
+.software-material h2 {
+    font-size: 20px;
+}
+.software-worksheet {
+    min-width: 0;
+    padding: 22px;
+    margin: 24px 0;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+}
+.software-worksheet legend {
+    padding: 0 8px;
+    font-weight: 750;
+}
+.software-payload-label, .software-reflection label {
+    display: grid;
+    gap: 12px;
+    margin-top: 24px;
+    font-weight: 650;
+}
+.software-payload, .software-reflection textarea {
+    width: 100%;
+    min-width: 0;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--paper);
+    color: var(--ink);
+    resize: vertical;
+    font: 15px/1.8 Consolas, monospace;
+}
+.software-reflection {
+    margin: 24px 0;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+.software-reflection summary {
+    font-weight: 700;
+    cursor: pointer;
+}
+.software-diagram-tools {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 24px 0 12px;
+}
+.software-canvas {
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--paper);
+}
+.software-architecture {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.software-empty {
+    padding: 24px 16px;
+    color: var(--muted);
+}
+.software-form-preview {
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: var(--paper);
+    padding: 24px;
+    margin: 24px 0;
+}
+.software-form-preview h3 {
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+}
+.software-preview-field {
+    display: grid;
+    gap: 8px;
+    font-weight: 650;
+    margin: 20px 0;
+}
+.software-preview-field input:not([type=checkbox]), .software-preview-field select {
+    min-width: 0;
+    width: 100%;
+    min-height: 44px;
+    padding: 12px;
+    font: inherit;
+    color: var(--ink);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+}
+.software-preview-field small, .software-worksheet small {
+    font-weight: 400;
+    color: var(--muted);
+    overflow-wrap: anywhere;
+}
+.software-form-preview .button {
+    margin: 12px 0;
+}
+.software-answer-list {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 12px 20px;
+    overflow-wrap: anywhere;
+}
+.software-answer-list dt {
+    font-weight: 700;
+}
+.software-answer-list dd {
+    margin: 0;
+}
+@media (max-width: 620px) {
+    .software-worksheet, .software-form-preview {
+        padding: 16px;
+    }
+    .software-payload, .software-reflection textarea {
+        padding: 12px;
+    }
+    .software-answer-list {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .software-answer-list dd {
+        margin-bottom: 12px;
+    }
+}

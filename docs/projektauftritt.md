@@ -1,6 +1,6 @@
 # Projektauftritt und freiwillige Unterstützung
 
-Stand: **05.11.2026 · Quellfassung 0.1.1-alpha.9**. Die fünf vom Nutzer freigegebenen Punkte sind umgesetzt. Der Projektbereich ist inzwischen im ausdrücklich beauftragten Windows-ZIP Alpha 8 enthalten und wurde am 05.11.2026 aus dem entpackten Paket geprüft. Alpha 7 bleibt unverändert.
+Stand: **11.11.2026 · Quellfassung 0.1.1-alpha.14**. Die fünf freigegebenen Projektaktionen sind unverändert umgesetzt und seit Alpha 8 in Windows-Paketen enthalten. Die README-Galerie bildet alle sechs aktuellen Lernbereiche ab; kein neues Zahlungs-, GitHub- oder Veröffentlichungsverhalten.
 
 ## Übersicht und Fußzeile
 
@@ -34,8 +34,8 @@ Der freigegebene öffentliche PayPal-Link lautet **https://www.paypal.com/paypal
 
 ## README und Bilder
 
-Die README führt mit Nutzen, direktem Release-Link, einem großen Übersichtsbild und einer kompakten Galerie durch SQL, Algorithmen und WiSo. Danach folgen drei Startschritte und die Projektaktionen. Entwicklerdetails bleiben in den Fachdokumenten. Die Nutzung wird weiterhin ausschließlich über Releases → Windows-ZIP → Entpacken → EXE beschrieben.
+Die README führt mit Nutzen, direktem Release-Link, einem großen Übersichtsbild und einer kompakten Galerie durch die sechs aktiven Module. Zwei Reihen mit je drei Spalten zeigen SQL, Algorithmen und UML sowie Datenbankentwurf, Softwareplanung/OOP und WiSo. Jedes Modul besitzt dieselben Zeilen für Kurzbeschreibung, Umfang und Vorschau. Sämtliche Vorschaubilder werden 120 Pixel hoch angezeigt und verlinken ihre vorhandene große Ansicht; keine vergrößerten Einzelblöcke für UML/Softwareplanung. Danach folgen drei Startschritte und die Projektaktionen. Entwicklerdetails bleiben in den Fachdokumenten. Der Anwenderweg bleibt Releases → Windows-ZIP → Entpacken → EXE.
 
-Die Bilder liegen unter `docs/images`: `uebersicht.png`, `sql.png`, `algorithmen.png`, `datenbankentwurf.png` und `wiso.png`. Es sind neue Browseraufnahmen der tatsächlichen App mit eigenem synthetischem Testprofil, keine Prüfungsabbildungen und keine Nutzerlernstände. Auf ausdrücklichen Nutzerwunsch beschreibt die README den vollständigen aktuellen Funktionsstand mit 250 Lernaufgaben und den ergänzenden Prüfungsfällen als aktuelle App-Fassung; der frühere Vorschau-/Paketvergleich entfällt dort. Der tatsächliche Paketstand bleibt in der technischen Release-Dokumentation nachvollziehbar: Alpha 8 wurde nach der README-Freigabe und dem Nutzer-Commit aus `b4e953f` gebaut und geprüft; Alpha 7 bleibt unverändert.
+Unter `docs/images` liegen `uebersicht.png`, `sql.png`, `algorithmen.png`, `uml.png`, `datenbankentwurf.png`, `softwareplanung.png` und `wiso.png`. Die vorhandenen Bilder aus synthetischen Profilen bleiben unverändert; nur ihre Darstellung in der README wurde angepasst. Keine Originalprüfungsabbildungen oder Nutzerlernstände. Die README beschreibt auf Nutzerwunsch die aktuelle App-Fassung mit 346 Lernübungen; tatsächlicher Paketstand und Historie bleiben in [lokale Releases](lokale-releases.md) nachvollziehbar. Das zuletzt geprüfte Alpha-13-ZIP bleibt unverändert; Alpha 14 folgt auf ausdrücklichen Auftrag erst nach Nutzer-Commit und Push.
 
 Die Link- und Darstellungsprüfung ist im [Testprotokoll](testprotokoll.md) festgehalten. Grundlage für die GitHub-Sternfunktion: [GitHub-Dokumentation](https://docs.github.com/en/get-started/exploring-projects-on-github/saving-repositories-with-stars).

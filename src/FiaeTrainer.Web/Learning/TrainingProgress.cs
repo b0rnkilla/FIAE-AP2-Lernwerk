@@ -54,6 +54,15 @@ public sealed class TrainingProgress
     /// <summary> Höchstens zwanzig endgültige UML-Ergebnisse. </summary>
     public List<FiaeTrainer.Core.Uml.Practice.UmlExamRound> UmlHistory { get; set; } = [];
 
+    /// <summary> Zuletzt bearbeitete Aufgabe aus Abschnitt 05. </summary>
+    public int LastSoftwareLessonId { get; set; } = 1;
+    /// <summary> Eigene Softwareplanungsentwürfe neben allen bisherigen Modulen. </summary>
+    public Dictionary<int, FiaeTrainer.Core.SoftwareDesign.Practice.SoftwareProgress> SoftwareLessons { get; set; } = [];
+    /// <summary> Aktuelle oder zuletzt abgegebene Softwareplanungsprüfung. </summary>
+    public FiaeTrainer.Core.SoftwareDesign.Practice.SoftwareExamRound? SoftwareExam { get; set; }
+    /// <summary> Höchstens zwanzig endgültige Softwareplanungsergebnisse. </summary>
+    public List<FiaeTrainer.Core.SoftwareDesign.Practice.SoftwareExamRound> SoftwareHistory { get; set; } = [];
+
     /// <summary> Wählt den getrennten Fortschrittsbereich. </summary>
     public Dictionary<int, LessonProgress> GetLessons(LearningArea area) => area == LearningArea.Investigation ? Lessons : WorkshopLessons;
 }

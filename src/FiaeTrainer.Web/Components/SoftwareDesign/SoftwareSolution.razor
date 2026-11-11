@@ -1,0 +1,14 @@
+@if (Task.Kind == "Choice") { <ul>@foreach (string id in Task.CorrectIds) { <li>@Task.Options[id]</li> }</ul> }
+else if (Task.Kind == "Diagram") { <UmlDiagram Task="Task.Diagram!" Model="Answer.Diagram.Model" /> }
+else if (Task.Kind is "Architecture" or "Form") { <SoftwareBoardView Task="Task" Board="Answer.Board" ReadOnly="true" /> }
+else
+{
+    @if (Task.Fields.Count > 0) { <dl class="software-answer-list">@foreach (var field in Task.Fields) { <dt>@field.Label</dt><dd>@field.Options.GetValueOrDefault(Answer.Values.GetValueOrDefault(field.Key, ""), Answer.Values.GetValueOrDefault(field.Key, "—"))</dd> }</dl> }
+    @if (Task.PayloadFormat != "None") { <pre class="software-code">@Answer.Payload</pre> }
+}
+@code {
+    /// <summary> Aufgabe und Wörterbuch der angezeigten Referenz. </summary>
+    [Parameter, EditorRequired] public SoftwareAssignment Task { get; set; } = new();
+    /// <summary> Unabhängige Vorlage oder ausdrücklich aufgedeckte Referenzantwort. </summary>
+    [Parameter, EditorRequired] public SoftwareAnswer Answer { get; set; } = new();
+}

@@ -4,18 +4,20 @@
 | --- | --- |
 | Anwendung | AP2 Lernwerk |
 | Projektmappe | FIAE_AP2_Trainer.sln |
-| Entwicklungsfassung | 0.1.1-alpha.13 · 09.11.2026 mit UML und Modellierung |
-| Zuletzt gebautes Windows-Paket | 0.1.1-alpha.12, sauberer gepushter Commit e3af6aa, aus dem ZIP geprüft am 06.11.2026; Pre-release auf GitHub am 07.11.2026 bestätigt |
+| Entwicklungsfassung | 0.1.1-alpha.14 · Dokumentationsstand 11.11.2026 mit Softwareplanung und OOP |
+| Zuletzt gebautes Windows-Paket | 0.1.1-alpha.13, sauberer gepushter Anwendungscode-Commit b4224b0, aus dem ZIP geprüft am 09.11.2026; Versionshinweise danach ergänzt; am 09.11.2026 als Pre-release veröffentlicht, am 11.11.2026 öffentlich bestätigt |
+| Alpha-14-Freigabe | Erste Nutzererprobung positiv; Windows-ZIP und Release-Informationen nach Nutzer-Commit und Push beauftragt, noch nicht gebaut |
 | Plattform | Windows, lokale Browseroberfläche |
 | Technik | C#, .NET 10, ASP.NET Core, Blazor, Microsoft SQL Server |
-| Verfügbar im Quellstand | 40 SQL-, 30 Algorithmus-, 36 UML-, 42 Datenbankentwurfs- und 150 WiSo-Lernaufgaben: 298 Lernübungen; zusätzlich 15 SQL-, zehn Pseudocode-Prüfungsaufgaben sowie je drei Entwurfs- und UML-Prüfungen mit je neun Teilaufgaben |
-| Inhalt Windows-Paket Alpha 12 | 250 Lernübungen plus 25 SQL-/Pseudocode-Prüfungsaufgaben und drei Entwurfsfälle; Heimnetz in derselben EXE |
+| Verfügbar im Quellstand | 40 SQL-, 30 Algorithmus-, 36 UML-, 42 Datenbankentwurfs-, 48 Softwareplanungs- und 150 WiSo-Lernaufgaben: 346 Lernübungen; zusätzlich 15 SQL-, zehn Pseudocode-Prüfungsaufgaben sowie je drei Entwurfs-, UML- und Softwareplanungs-Prüfungen mit je neun Teilaufgaben |
+| Inhalt Windows-Paket Alpha 13 | 298 Lernübungen in fünf Modulen, 25 SQL-/Pseudocode-Prüfungsaufgaben sowie je drei Datenbankentwurfs- und UML-Prüfungsfälle |
+| Historischer Inhalt Windows-Paket Alpha 12 | 250 Lernübungen plus 25 SQL-/Pseudocode-Prüfungsaufgaben und drei Entwurfsfälle; Heimnetz in derselben EXE |
 | Historischer Inhalt Windows-Paket Alpha 9 | 220 Lernübungen plus 25 getrennte SQL-/Pseudocode-Prüfungsaufgaben; WiSo-Feinschliff und Projektlogo |
 | Nutzungsmodell | Private, nichtkommerzielle lokale Nutzung gemäß LICENSE |
 
 ## Ziel
 
-Die App unterstützt die Vorbereitung auf die FIAE-Abschlussprüfung Teil 2 durch eigene Lösungen, nachvollziehbare Rückmeldungen und freiwillige Hilfen. SQL, Algorithmen, UML und Modellierung, Datenbankentwurf sowie Wirtschafts- und Sozialkunde sind die fünf verfügbaren Module. Der Code soll verständlich bleiben und vom Projektinhaber weiterentwickelt werden können.
+Die App unterstützt die Vorbereitung auf die FIAE-Abschlussprüfung Teil 2 durch eigene Lösungen, nachvollziehbare Rückmeldungen und freiwillige Hilfen. SQL, Algorithmen, UML und Modellierung, Datenbankentwurf, Softwareplanung und OOP sowie Wirtschafts- und Sozialkunde sind die sechs verfügbaren Module. Der Code soll verständlich bleiben und vom Projektinhaber weiterentwickelt werden können.
 
 Die Aufgaben, Geschichte und Daten sind eigens für die App erstellt. SQL Murder Mystery dient als konzeptionelle Inspiration; dessen Inhalte wurden nicht übernommen. Das Lernwerk ist kein offizielles IHK-Angebot, keine vollständige Abdeckung des Prüfungskatalogs und keine Zusage eines Prüfungserfolgs.
 
@@ -26,6 +28,7 @@ Die Aufgaben, Geschichte und Daten sind eigens für die App erstellt. SQL Murder
 - **Algorithmen:** eigener Lernweg „Leitstelle im Ausnahmezustand“ mit 30 Aufgaben: freie Lösungen, Reparaturen, Schreibtischtests und Testfälle; Variablen, Bedingungen, Schleifen, Kennzahlen, lineare/binäre Suche, Sortierung, verschachtelte Listen, Funktionen, Prüfziffern, Grenztests und Rekursion. Lokale Ausführung mit Prüffällen und freiwilliger Ablaufspur, unabhängig von SQL Server. Funktionsaufgaben prüfen den benannten Einstieg mit Parametern und Rückgabewerten; die Vorschau zeigt den lokalen Bereich.
 - **Pseudocode-Schreibweise:** sichtbare Zuweisungen mit `=`, Gleichheitsvergleiche bevorzugt mit `==`; bisherige alternative Zuweisungen bleiben kompatibel. Die Themenkarte zeigt nur Geschichte und Aufgabenzahl.
 - **UML und Modellierung (03):** 36 eigene Aufgaben zur Geschichte Kulturzentrum Nordhafen mit Mira König. Fünf Diagrammarten lesen, reparieren und selbst mit einem automatisch angeordneten Baukasten erstellen. Spickzettel, drei 45-Minuten-Prüfungsfälle, eigenes Profil; keine Lernpunkte. Details: [UML](uml.md).
+- **Softwareplanung und OOP (05):** 48 eigene Aufgaben, eigene Klassen-/Architektur-/API-/Formularentwürfe, konkrete Zustands-/Rückgabetabellen und drei neue Prüfungsfälle. Begründungen zur Selbstkontrolle. Details: [Softwareplanung](softwareplanung.md).
 - **Lernablauf:** Moduswahl je Aufgabe, gestufte Hilfen, Musterlösungen, zusammenhängende Fallnotizen und Wiederholungsvorschläge.
 - **WiSo:** 150 eigene Aufgaben in acht Themenbereichen mit sieben Antwortformen, eigenen Abbildungen, Erklärungen, Merksätzen und fachlichen Quellen. Themenlernen, gemischte Zehnerrunden, Fehlerwiederholung und 30er-Prüfungsrunden mit 60 Minuten. Eigene transparente Punktevergabe, keine amtliche IHK-Note. Antworten, Markierungen, Pausen und die letzte Runde bleiben erhalten; der Spickzettel führt zurück zur Aufgabe. Fachlicher Prüfstand 04.11.2026; Rechenannahmen stehen ausdrücklich im Fall. Details: [WiSo](wiso.md).
 - **Bedienung:** vollständig deutsch, helles und dunkles Design, einklappbare Aufgabenliste und ausblendbare Bedienhinweise.
@@ -41,7 +44,7 @@ In der aktuellen Entwicklungsfassung bleibt die Scrollposition der Aufgabenliste
 
 ## Architektur
 
-`FiaeTrainer.Core` enthält die Fachlogik nach Lernmodulen. Das SQL-Modul gliedert sich in Ermittlung, Werkstatt, Prüfung, Ergebnisse, Datenbankzugriff und eingebettete Inhalte. `Algorithms` enthält eigene Inhalte, Parser, Interpreter und Bewertung. `BusinessStudies` enthält WiSo-Inhalte, strukturierte Bewertung und Rundenplanung. `FiaeTrainer.Web` enthält Oberfläche, Fortschritt, Einrichtung, Netzwerkregeln und Updates in getrennten Ordnern und Namespaces. Ein eigener Testbereich prüft diese Funktionen.
+`FiaeTrainer.Core` enthält die Fachlogik nach Lernmodulen. Das SQL-Modul gliedert sich in Ermittlung, Werkstatt, Prüfung, Ergebnisse, Datenbankzugriff und eingebettete Inhalte. `Algorithms` enthält eigene Inhalte, Parser, Interpreter und Bewertung. `BusinessStudies` enthält WiSo-Inhalte, strukturierte Bewertung und Rundenplanung. `Uml` enthält fünf Diagrammarten, `DatabaseDesign` relationale und ER-Entwürfe; `SoftwareDesign` die Anforderungen, Architektur-/API-/Formularaufgaben und deren eigene Bewertung. `FiaeTrainer.Web` enthält Oberfläche, Fortschritt, Einrichtung, Netzwerkregeln und Updates in getrennten Ordnern und Namespaces. Ein eigener Testbereich prüft diese Funktionen.
 
 Neue fachliche Module erhalten eigene Unterordner neben `Core/Sql`. Gemeinsame Bedienung und Infrastruktur bleiben davon getrennt. Die konkrete Zuordnung und Einstiegspunkte stehen in [Entwicklung](entwicklung.md); Konventionen in der [Coding Guideline](coding-guideline.md).
 
@@ -57,7 +60,7 @@ Für die neue Fassung gelten eigene Bedingungen zur privaten Nutzung. Kommerziel
 
 ## Weitere Lernmodule
 
-Der Pseudocode-Basisumfang ist mit 30 Aufgaben abgeschlossen. Die sechs Ergänzungen zur ursprünglichen 24er-Planung trainieren Prüfziffern, Aufwand, Grenztests, Rekursion und paarweise Vergleiche. Weitere Aufgaben sind aus dieser Planung nicht offen; der Lernweg behauptet keine vollständige Abdeckung aller Algorithmusthemen. WiSo ist im Quellstand mit 150 Aufgaben umgesetzt. UML ist seit Alpha 13 mit 36 Aufgaben und eigenen Diagrammen in fünf Notationen umgesetzt. Datenbankentwurf ist seit Alpha 11 umgesetzt und besitzt in der aktuellen Quellfassung 42 Aufgaben einschließlich ER-Diagrammen, Unterlagen und eigenen Prüfungsfällen. Softwareplanung/OOP, Tests, Sicherheit und Projektmanagement sind weitere mögliche Module und noch nicht als eigene Lernbereiche implementiert. Details: [Pseudocode](pseudocode.md), [WiSo](wiso.md).
+Der Pseudocode-Basisumfang ist mit 30 Aufgaben abgeschlossen. Die sechs Ergänzungen zur ursprünglichen 24er-Planung trainieren Prüfziffern, Aufwand, Grenztests, Rekursion und paarweise Vergleiche. Weitere Aufgaben sind aus dieser Planung nicht offen; der Lernweg behauptet keine vollständige Abdeckung aller Algorithmusthemen. WiSo ist im Quellstand mit 150 Aufgaben umgesetzt. UML ist seit Alpha 13 mit 36 Aufgaben und eigenen Diagrammen in fünf Notationen umgesetzt. Datenbankentwurf ist seit Alpha 11 umgesetzt und besitzt in der aktuellen Quellfassung 42 Aufgaben einschließlich ER-Diagrammen, Unterlagen und eigenen Prüfungsfällen. Softwareplanung/OOP ist seit Alpha 14 mit 48 Aufgaben, eigenen Architektur-/API-/Formularentwürfen und drei Prüfungsfällen umgesetzt. Tests, Sicherheit und Projektmanagement sind als weitere eigene Lernbereiche noch offen. Details: [Pseudocode](pseudocode.md), [WiSo](wiso.md).
 
 ## Abgrenzung
 
@@ -126,3 +129,15 @@ Einheitliche einzelne Lernrückmeldung ohne Trainingspunkte; gewichtete Punkte a
 ## 07.11.2026 – Abschnitt 04 um Diagramm- und Unterlagenaufgaben erweitert
 
 42 statt 30 Entwurfsaufgaben: vier ER-Ergänzungen, zwei ER-zu-Tabellen-Aufträge, drei relationale Modellerweiterungen, zwei Entwürfe aus Unterlagen und eine konkrete Anomaliebeurteilung ergänzen den bisherigen Bestand. Insgesamt 262 Lernübungen in denselben vier aktiven Modulen. Lernstände und Prüfungsfälle bleiben erhalten; neue Ergänzungen werden je Aufgabe gespeichert. SQL/Pseudocode und weitere Abschnitte bleiben in dieser Alpha unberührt. Das veröffentlichte Alpha-12-Paket bleibt bei 250 Übungen; kein neues Paket.
+
+## Paket Alpha 13
+
+Am 09.11.2026 auf Nutzerauftrag aus gepushtem Anwendungscode b4224b0 gebaut und aus der entpackten nativen EXE geprüft. Enthalten sind die 36 UML-Aufgaben sowie der gesamte Datenbankentwurfsnachlauf mit 42 Aufgaben. Frühere Lernstände bleiben erhalten; kein automatischer Upload. [Paket und Prüfsumme](lokale-releases.md). Nutzererprobung und Zeitkalibrierung bleiben offen.
+
+## Softwareplanung und OOP (05)
+
+48 Aufgaben in acht Kapiteln setzen Nordhafen mit Mira König fort: Anforderungen, OOP, Erweiterbarkeit, Muster, Architektur, Schnittstellen, Oberflächen und Werkzeuge. Eigene strukturierte Spezifikationen, Klassenentwürfe, Architekturübersichten, JSON-/XML-Nachrichten und Formularprototypen; OOP-Unterlagen mit Zustands-/Rückgabetabellen. Freie Begründung gespeichert und ausdrücklich nur zur Selbstkontrolle. Drei neue 45-Minuten-Fälle, je 50 Trainingspunkte; eigene Profile, unveränderte alte Lernstände. [Fachvertrag](softwareplanung.md). Quellfassung Alpha 14; das zuletzt geprüfte Alpha-13-Paket bleibt bei 298 Übungen.
+
+## Nutzerstand und Release-Vorbereitung am 11.11.2026
+
+Der Nutzer hat einige Aufgaben aus Softwareplanung/OOP gelöst und die Umsetzung zunächst positiv bewertet. Das ist eine erste Erprobung, keine vollständige Abnahme aller 48 Aufgaben und drei Prüfungsfälle. Die README zeigt alle sechs Lernbereiche gleichwertig in zwei kompakten Dreierreihen; Vorschaubilder besitzen dieselbe Anzeigehöhe und verlinken die vorhandenen großen Bilder. 346 Lernübungen bleiben der aktuelle Quellumfang. Versionshinweise Alpha 14 vorbereitet; ZIP und Release-Informationen folgen erst nach dem Nutzer-Commit/Push. Kein neues Kapitel vor diesem Release-Schritt begonnen.
