@@ -1,10 +1,14 @@
 # AP2 Lernwerk lokal starten
 
-## Erste Beta in Vorbereitung
+## Erste Beta für Windows
 
-Quellversion **1.0.0-beta.1**. Nach Commit und Push wird das Windows-Paket aus dem bestätigten Commit gebaut und mit eigenem Profil aus dem entpackten ZIP geprüft. Für die spätere Veröffentlichung ist der Tag `v1.0.0-beta.1` als GitHub-Pre-release vorgesehen. [Versionshinweise zur ersten Beta](../release/Versionshinweise-1.0.0-beta.1.md).
+Das Windows-x64-Paket **1.0.0-beta.1** wurde am 11.11.2026 mit PowerShell 7 aus dem sauberen Commit `ab00d0344870aa35c283229e23d242a8f22651d1` gebaut. GitHub-`master` und die Produktversion der entpackten EXE bestätigen diesen Commit. Die Anleitung und die Versionshinweise stammen ebenfalls daraus.
 
-## Zuletzt veröffentlichtes Paket Alpha 16
+`AP2-Lernwerk-1.0.0-beta.1-win-x64.zip` enthält **62 Dateien**, darunter die Windows-Laufzeit und die Drittanbieterlizenzen. Größe **51.705.155 Bytes**, SHA256 `862e1a08d78f18a171c572f64eb7952cde5e394877b80f2b35c67f43ba18a7be`. Der Paketwechsel von Alpha 16 und die Starts mit und ohne SQL wurden mit einem separaten Lernprofil geprüft. [Testprotokoll](testprotokoll.md).
+
+Für GitHub den Tag `v1.0.0-beta.1` auf den Paketcommit setzen, als Titel **AP2 Lernwerk 1.0.0-beta.1** verwenden und **Pre-release** wählen. ZIP und zugehörige `.zip.sha256` als Assets anhängen. [Versionshinweise zur ersten Beta](../release/Versionshinweise-1.0.0-beta.1.md).
+
+## Historisches Paket Alpha 16
 
 **Windows-Paket 0.1.1-alpha.16: am 11.11.2026 nach ausdrücklich bestätigtem Nutzer-Push gebaut und direkt aus dem ZIP geprüft.** Sauberer Code-Commit `1dbcb124859cf9dd31cda7296b02d8608bd3a2dc`, identisch mit direkt abgefragtem origin/master. Anwendungscode und Anleitung aus diesem Commit; kurze Versionshinweise anschließend ergänzt. Nachträgliche Prüfdokumentation separat committen.
 
@@ -159,17 +163,25 @@ Die bisherige Anwendung beenden, das neue vollständige ZIP in einen neuen Ordne
 
 ## Für die Veröffentlichung vorbereiten
 
-Aus dem Quellprojekt lässt sich ein nummeriertes Windows-Paket erstellen:
+Der normale Aufruf in PowerShell 7 erstellt die GitHub-ZIP mit unsignierter EXE. Das a²-Symbol ist bereits beim Kompilieren eingebettet.
 
 ```powershell
-.\Release-erstellen.ps1 -Version 0.1.1-alpha.4
+.\Release-erstellen.ps1
 ```
+
+Für eine signierte Ausgabe zusätzlich `signtool.exe` aus dem Windows SDK im Suchpfad bereitstellen. Das Codesignaturzertifikat des Herausgebers muss in `Cert:\CurrentUser\My` mit zugänglichem privaten Schlüssel vorhanden sein. Für den RFC-3161-Zeitstempel die URL des Zertifikatsanbieters verwenden.
+
+```powershell
+.\Release-erstellen.ps1 -Sign -SigningThumbprint 'FINGERABDRUCK_DES_ZERTIFIKATS' -TimestampServer 'URL_DES_ZEITSTEMPELDIENSTES'
+```
+
+Die Signierung wird durch `-Sign` oder einen ausdrücklich übergebenen Signierparameter aktiviert. Erst dann liest das Skript fehlende Angaben aus `AP2_SIGNING_THUMBPRINT` und `AP2_TIMESTAMP_SERVER`. Signatur und Zeitstempel verwenden jeweils SHA-256. Vor dem Erstellen einer signierten ZIP prüft das Skript die Vertrauenskette, den Fingerabdruck und den Zeitstempel. Ein Fehler beendet den angeforderten Signierlauf.
 
 Ohne Versionsparameter verwendet das Skript die zentrale Version aus Directory.Build.props. Während der laufenden Entwicklung wird es nicht automatisch ausgeführt. Dafür sind das im Projekt festgelegte .NET-SDK und beim ersten Wiederherstellen der Windows-Laufzeitpakete Internetzugang erforderlich. Der Ablauf erstellt ein neues Buildverzeichnis und schreibt ZIP sowie SHA256-Datei nach artifacts/releases. Vorhandene gleich nummerierte ZIP-Dateien werden nicht überschrieben. Private Konfiguration, Fortschrittsdateien, QA-Profile und Protokolle werden vor dem Verpacken abgeprüft.
 
 Zum öffentlichen GitHub-Release gehören das geprüfte ZIP, seine Prüfsumme und passende Versionshinweise. Das Skript lädt nichts hoch. Eine GitHub-Automatisierung ist noch nicht eingerichtet. Für die aktuelle Projektfassung gelten die Bedingungen zur privaten Nutzung in LICENSE. LICENSE wird mitgeliefert; eine MIT-Freigabe des Projekts ist nicht vorgesehen. Drittanbieterlizenzen bleiben unabhängig davon wirksam; siehe [Private Nutzung](lizenz.md). DRITTANBIETER.md und der Ordner Lizenzen dokumentieren die aufgelösten NuGet-Pakete und enthalten die vorhandenen Originalhinweise. Die jeweiligen Drittanbieterlizenzen gelten unabhängig von der Projektlizenz.
 
-Das erste Paket ist nicht mit einem Code-Signing-Zertifikat signiert. Ein Test auf einem frisch eingerichteten fremden Windows-Rechner bleibt vor dem öffentlichen Release sinnvoll; lokale Tests ersetzen diese Prüfung nicht.
+Die veröffentlichte Beta 1 trägt noch keine Herausgebersignatur. Bei zukünftigen signierten Downloads kann Windows den geprüften Herausgeber anzeigen. SmartScreen bewertet zusätzlich die Reputation der Datei und des Herausgebers. Deshalb kann auch beim ersten Start einer gültig signierten neuen Version ein Hinweis erscheinen. [Microsoft zu SmartScreen](https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/smartscreen-reputation).
 
 ## Öffentliche Updatequelle
 

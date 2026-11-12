@@ -1,10 +1,22 @@
 # Testprotokoll
 
+## Optionaler Signierschritt – 12.11.2026
+
+Sechs isolierte Trockenläufe mit Testdateien prüften die Auswahl des Signiermodus. Der normale Aufruf erreichte den Prüfhalt unmittelbar vor der Archivierung, sowohl ohne Signierkonfiguration als auch bei ungültigen Werten in der Umgebung. Vier ausdrücklich angeforderte Signierläufe brachen wie erwartet bei unvollständigen Parametern oder fehlendem Zertifikat ab. Es wurde keine ZIP erstellt.
+
+## Windows-Symbol und Signiervorbereitung – 12.11.2026
+
+Die Windows-x64-Einzeldatei wurde mit dem Release-Profil in ein separates Prüfverzeichnis gebaut. Alle neun eingebetteten Icon-Bilder von 16 bis 256 Pixeln entsprachen bytegenau der ICO-Vorlage. Alle elf Release-Konfigurationstests bestanden. Das Paketskript brach bei fehlendem Fingerabdruck, ungeeigneter Zeitstempel-URL und nicht vorhandenem Zertifikat jeweils vor der ZIP-Erstellung ab. Im Windows-Benutzer- und Computerspeicher war kein gültiges Codesignaturzertifikat mit privatem Schlüssel verfügbar. Die Prüfung einer echten Herausgebersignatur auf einem zweiten Rechner steht aus.
+
 ## Erste Beta – 11.11.2026
 
 Die Projektmappe wurde für **1.0.0-beta.1** in Release-Konfiguration ohne Warnungen und Fehler gebaut. Alle **1.213 .NET-Tests** einschließlich SQL-Integration auf der separaten Audit-LocalDB und alle **31 JavaScript-Tests** bestanden. Es wurden keine Tests übersprungen. Die gebaute Webanwendung meldet `1.0.0-beta.1` als Vorabversion. Der Versionsvergleich für Updates bestätigt die Reihenfolge `0.1.1-alpha.16 < 1.0.0-beta.1 < 1.0.0`.
 
-Auch die **1.382 zusätzlichen Bewertungsproben** aus dem Abschlusscheck bestanden. Beim separaten Bau des Audithilfsprogramms mit dem vorhandenen Paketstand erschien NU1900 zur Erreichbarkeit der NuGet-Sicherheitsdaten. Die lokalen Ergebnisse liegen unter `artifacts/qa-1.0.0-beta.1`. Der Test des entpackten Beta-Pakets folgt nach Commit und Push. Für die praktische Erprobung bleiben die erstmalige Firewallfreigabe mit Zweitgerät und die Bearbeitung kompletter Prüfungsrunden unter Zeitvorgabe offen.
+Auch die **1.382 zusätzlichen Bewertungsproben** aus dem Abschlusscheck bestanden. Beim separaten Bau des Audithilfsprogramms mit dem vorhandenen Paketstand erschien NU1900 zur Erreichbarkeit der NuGet-Sicherheitsdaten. Die lokalen Ergebnisse liegen unter `artifacts/qa-1.0.0-beta.1`. Für die praktische Erprobung bleiben die erstmalige Firewallfreigabe mit Zweitgerät und die Bearbeitung kompletter Prüfungsrunden unter Zeitvorgabe offen.
+
+**Paketabnahme nach dem Push.** Die native EXE aus der ZIP meldete `1.0.0-beta.1+ab00d0344870aa35c283229e23d242a8f22651d1`. Beim Wechsel von der entpackten Alpha 16 zur Beta blieb das synthetische Lernprofil samt Einstellungen erhalten. Der Pseudocode-Entwurf und die mit 50/50 abgeschlossene Projektprüfung waren wieder abrufbar. Ohne SQL zeigten die übrigen Lernbereiche ihre Aufgaben bzw. den WiSo-Prüfungseinstieg. Mit der separaten Audit-LocalDB war der SQL-Editor betriebsbereit. In der Softwareprüfung waren der gemeinsame Fall und der einzelne Teilauftrag sichtbar. Beim Zweitstart nannte die zweite EXE die belegte Adresse und endete mit Status 1. Die erste Instanz blieb erreichbar.
+
+ZIP-Prüfsumme und zulässige Dateiliste stimmten. Alle Lizenzdateien waren enthalten, Anleitung und Versionshinweise entsprachen den Quelldateien. Alle 62 Paketdateien blieben nach dem Lauf bitgleich. Lokaler Nachweis unter `artifacts/beta1-verification.json`.
 
 
 Historischer Paketstand: **11.11.2026 · Windows-ZIP 0.1.1-alpha.15 aus bestätigtem gepushtem Code-Commit 3c7339f**. Warnungsfreier Build, **1.147 .NET-/31 JavaScript-Prüfungen erfolgreich**, 20 echte SQL-Integrationen ausgelassen (1.167 .NET insgesamt, null Fehler). Native EXE direkt aus dem ZIP mit eigenem Altprofil auf 5244: Testsätze/Reparatur, entfernte Zusatzfelder, Prüfung 50/50, Pause/Hostneustart, Antwortsperre und bisherige Profilfelder erfolgreich. 59 Paketdateien unverändert, private Daten ausgeschlossen. 400 Lernübungen in sieben Modulen. Versionshinweise nach dem Code-Commit ergänzt; Upload durch Nutzer ausstehend. Ausführliche Nutzererprobung und Zeitkalibrierung bleiben offen. Frühere Protokolle bleiben Historie.

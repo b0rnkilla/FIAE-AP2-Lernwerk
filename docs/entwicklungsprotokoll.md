@@ -640,3 +640,11 @@ Beim Portkonflikt meldet die zweite Instanz die lokale Browseradresse und erklä
 ## 11.11.2026 – Erste Beta vorbereitet
 
 Die zentrale Version wechselt von 0.1.1-alpha.16 auf 1.0.0-beta.1. Die erste Beta umfasst alle acht Lernbereiche mit 454 Übungen sowie die sechs nachgeprüften Korrekturen aus dem Abschlusscheck. Die versionsbezogenen Hinweise für die Windows-Ausgabe liegen unter [Versionshinweise zur Beta](../release/Versionshinweise-1.0.0-beta.1.md). Der vollständige Testlauf ist im [Testprotokoll](testprotokoll.md) dokumentiert.
+
+Nach dem Push wurde die erste Beta aus Commit `ab00d03` für Windows x64 gepackt und aus dem Archiv geprüft. Das Paket mit Prüfsumme ist zum Hochladen bereit. [Paketdaten](lokale-releases.md).
+
+## 12.11.2026 – Windows-Symbol und Herausgebersignatur
+
+Nach der Veröffentlichung von Beta 1 meldete der Nutzer die SmartScreen-Abfrage mit unbekanntem Herausgeber. Der Windows-Build bindet jetzt das a²-Symbol des Lernwerks in neun Größen ein. Der Paketbau signiert die fertige EXE mit dem gewählten Zertifikat und prüft Herausgeber und Zeitstempel vor dem Archivieren. Die erste echte Signatur steht aus, bis ein Herausgeberzertifikat verfügbar ist. [Signierkonfiguration](lokale-releases.md#für-die-veröffentlichung-vorbereiten).
+
+Der Nutzer entschied sich anschließend für den unsignierten GitHub-Download. Der Standardaufruf überspringt die Signierung. Bei ausdrücklich angeforderter Signierung gelten die Zertifikats- und Zeitstempelprüfungen weiter. Der Startabschnitt der README nennt beide Schaltflächen des SmartScreen-Dialogs.

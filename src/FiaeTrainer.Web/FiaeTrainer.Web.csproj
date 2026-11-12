@@ -1,4 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <ApplicationIcon>Properties/AP2-Lernwerk.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../FiaeTrainer.Core/FiaeTrainer.Core.csproj" />
     <PackageReference Include="QRCoder" Version="1.8.1" />

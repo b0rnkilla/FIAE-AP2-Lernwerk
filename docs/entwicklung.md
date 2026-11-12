@@ -1,6 +1,6 @@
 # Entwicklung und Projektstruktur
 
-Die Quellfassung **1.0.0-beta.1** enthält 454 Lernübungen in acht Modulen und die sechs Korrekturen aus dem Abschlusscheck. Zuletzt veröffentlicht wurde das Windows-Paket **0.1.1-alpha.16** aus Commit `1dbcb12`. Der Paketbau für Beta 1 folgt nach Commit und Push. [Paketnachweise](lokale-releases.md), [Testprotokoll](testprotokoll.md).
+Die veröffentlichte Beta **1.0.0-beta.1** aus Commit `ab00d03` enthält 454 Lernübungen in acht Modulen und die sechs Korrekturen aus dem Abschlusscheck. Im nachfolgenden Quellstand bindet `ApplicationIcon` das aus `wwwroot/favicon.svg` abgeleitete Windows-Symbol ein. Der Windows-Paketbau ist standardmäßig unsigniert und unterstützt Authenticode auf ausdrücklichen Aufruf. [Paketnachweise und Signierkonfiguration](lokale-releases.md), [Testprotokoll](testprotokoll.md).
 
 ## Orientierung
 

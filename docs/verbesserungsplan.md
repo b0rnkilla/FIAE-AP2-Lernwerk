@@ -4,6 +4,8 @@ Die Quellfassung **1.0.0-beta.1** umfasst acht Lernbereiche mit 454 Übungen. Di
 
 ## Umgesetzte Rückmeldungen
 
+Nach Beta 1 trägt die Windows-EXE das eingebettete a²-Symbol. Die GitHub-ZIP bleibt vorerst unsigniert. Die README erklärt den SmartScreen-Dialog beim ersten Start. Für die stabile 1.0.0 soll der Microsoft Store als zusätzlicher Vertriebsweg geprüft werden. [Paketbau](lokale-releases.md#für-die-veröffentlichung-vorbereiten).
+
 | Bereich | Ergebnis |
 | --- | --- |
 | SQL-Schreibweise | Große Schlüsselwörter/Funktionen und Semikolon je äußerer Anweisung; konkrete Korrekturhinweise |

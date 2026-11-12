@@ -5,7 +5,8 @@
 | Anwendung | AP2 Lernwerk |
 | Projektmappe | FIAE_AP2_Trainer.sln |
 | Entwicklungsfassung | 1.0.0-beta.1 mit allen acht Lernbereichen und den sechs Korrekturen aus dem Abschlusscheck |
-| Zuletzt gebautes Windows-Paket | 0.1.1-alpha.16 aus Commit 1dbcb12, am 11.11.2026 geprüft und vom Nutzer veröffentlicht |
+| Zuletzt veröffentlichtes Windows-Paket | 1.0.0-beta.1 aus Commit `ab00d03`, am 11.11.2026 aus der entpackten ZIP geprüft, noch ohne Herausgebersignatur |
+| Windows-Build nach Beta 1 | EXE mit eingebettetem a²-App-Symbol. GitHub-ZIP standardmäßig unsigniert, Authenticode optional |
 | Alpha-16-Freigabe | Nach Nutzer-Commit/Push ausdrücklich beauftragt, ZIP und native Prüfung erfolgreich; Tag v0.1.1-alpha.16 auf 1dbcb12, Veröffentlichung durch Nutzer |
 | Plattform | Windows, lokale Browseroberfläche |
 | Technik | C#, .NET 10, ASP.NET Core, Blazor, Microsoft SQL Server |
