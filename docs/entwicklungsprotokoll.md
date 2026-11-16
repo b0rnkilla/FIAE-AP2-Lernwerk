@@ -1,5 +1,17 @@
 # Entwicklungsprotokoll
 
+## 16.11.2026 · Vierter SQL-Prüfungsfall
+
+„Materialausgabe für ein Stadtfest“ ergänzt die bisherigen Fälle um die Aufgaben 16 bis 20. Lernende führen Lieferlisten zusammen, verknüpfen Rückgaben mit Ausgaben, übernehmen gezählte Bestände, archivieren abgeschlossene Ausgaben und korrigieren Empfangsrechte. Für Schlüssel, Inventur, Transfer und Rechte gibt es nach Abgabe getrennte Teilpunkte. Die drei bestehenden Fälle behalten ihre Aufgabenkennungen und ihre Bewertung. [Prüfungsmodus](pruefungsmodus.md).
+
+## 16.11.2026 · Beta 3 vorbereitet
+
+Die zentrale Projektversion ist `1.0.0-beta.3`. Die Paketanleitung führt 30 Ermittlungs- und 30 Werkstattaufgaben sowie insgesamt 474 Lernübungen auf. Die [Versionshinweise](../release/Versionshinweise-1.0.0-beta.3.md) fassen die Änderungen seit Beta 2 zusammen.
+
+## 16.11.2026 · SQL-Prüfung und Werkstatt
+
+Konkrete Parserpositionen und aufgabenbezogene Erklärungen für alle 15 Prüfungsaufgaben. Die November-Aktualisierung akzeptiert auch einen JOIN auf die Veranstaltung. Zwanzig zusätzliche Werkstattaufgaben ergänzen die bisherigen zehn. Die neuen Fälle prüfen Fremdschlüssel einschließlich Löschverhalten, Mengen, Migrationen, Sichten, Rechte und Indexschlüssel an echten SQL-Server-Objekten.
+
 ## Umgesetzt
 
 ### 02.11.2026 – Erste SQL-Version
@@ -648,3 +660,27 @@ Nach dem Push wurde die erste Beta aus Commit `ab00d03` für Windows x64 gepackt
 Nach der Veröffentlichung von Beta 1 meldete der Nutzer die SmartScreen-Abfrage mit unbekanntem Herausgeber. Der Windows-Build bindet jetzt das a²-Symbol des Lernwerks in neun Größen ein. Der Paketbau signiert die fertige EXE mit dem gewählten Zertifikat und prüft Herausgeber und Zeitstempel vor dem Archivieren. Die erste echte Signatur steht aus, bis ein Herausgeberzertifikat verfügbar ist. [Signierkonfiguration](lokale-releases.md#für-die-veröffentlichung-vorbereiten).
 
 Der Nutzer entschied sich anschließend für den unsignierten GitHub-Download. Der Standardaufruf überspringt die Signierung. Bei ausdrücklich angeforderter Signierung gelten die Zertifikats- und Zeitstempelprüfungen weiter. Der Startabschnitt der README nennt beide Schaltflächen des SmartScreen-Dialogs.
+
+Nach dem bestätigten Push wurde Beta 2 mit dem Versionsparameter des Paketskripts aus Anwendungscode `c417256` gebaut. Die lokale Standardversion wurde anschließend auf den geprüften Paketstand angehoben. [Release-Daten](lokale-releases.md) · [Testprotokoll](testprotokoll.md).
+
+## 16.11.2026 – SQL beim Schreiben einrücken
+
+SQL-Ermittlung und SQL-Werkstatt verwenden im Quellstand nach Beta 2 denselben nummerierten Editor wie Pseudocode und die SQL-Prüfung. Beide Lernwege speichern den eingerückten Text beim Verlassen des Felds im jeweiligen Aufgabenentwurf.
+
+Der Hinweis zur Arbeitskopie hat in beiden Werkstatt-Lernmodi eine Schließen-Schaltfläche. Das Lernprofil speichert die Auswahl für alle Werkstattaufgaben. Im Lernplan ist der Hinweis separat unter „Bedienhinweise“ aufgeführt. In älteren Profilen ist er zunächst sichtbar.
+
+## 16.11.2026 – Syntaxhinweise der SQL-Werkstatt
+
+Vorschau und Bewertung beziehen den Hinweis auf die fehlerhafte Anweisung, auch wenn ihr im Skript andere Befehle vorausgehen. Für Schreibbefehle, Tabellendefinitionen und Transaktionen gibt es eigene Hilfetexte. Beim gemeldeten UPDATE erklärt die Werkstatt die Schreibweise der Dezimalzahl.
+
+## 16.11.2026 – Rundung der Sensorpreise
+
+Die Werkstatt hatte auch einen bloßen Preisaufschlag um zehn Prozent als vollständig gelöst gewertet. Alle Sensorpreise ergaben dabei glatte Centbeträge. Zudem hätte der bisherige Spaltentyp beim Speichern auf Cent gerundet. Die Arbeitskopie behält jetzt vier Nachkommastellen, der Drucksensor kostet zum Start 40,05 und der Zusatzsensor im zweiten Prüflauf 70,04. Abweichende Endwerte führen in Aufgabe 2 zu einem Hinweis auf Auswahl und Rundung.
+
+## 16.11.2026 – Umfang der SQL-Übungen im Spickzettel
+
+Der Schlusshinweis nennt fehlende SQL-Übungen zu Fremdschlüsseln, Berechtigungen und UNION sowie die begrenzte Abdeckung des AP2-Prüfungsstoffs. Die frühere Ankündigung weiterer Module entfällt.
+
+## 16.11.2026 – Aufgabenhinweise in allen Lernwegen
+
+912 Denkanstöße für 304 Lernaufgaben überarbeitet. Auch die in den fünf Modellierungs-, Planungs- und Qualitätsprüfungskatalogen hinterlegten Hinweistexte der 45 Teilaufgaben sind nach denselben Kriterien formuliert. Die Prüfungsbedienung bleibt wie bisher. Bei der Rückgabentabelle prüfen Lernende beispielsweise einen fehlenden Mengenwert, die Menge 0 und eine doppelte Kennung, bevor sie auf Wunsch das vollständige Skript mit Erklärung öffnen.

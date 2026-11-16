@@ -9,9 +9,9 @@
     "task": "Zeige alle Sendungen. Gib genau Id und Bezeichnung in dieser Reihenfolge aus.",
     "referenceSql": "SELECT Id, Bezeichnung FROM Sendungen;",
     "hints": [
-      "Du brauchst noch keinen Filter.",
-      "Die Tabelle heißt Sendungen. SELECT nennt die beiden gesuchten Spalten.",
-      "Beginne mit SELECT Id, Bezeichnung und ergänze FROM sowie den Tabellennamen."
+      "Schau dir die Überschriften der Sendungstabelle an. Welche zwei möchtest du auf deiner Liste lesen?",
+      "Trenne die Frage „Welche Spalten?“ von der Frage „Aus welcher Tabelle?“.",
+      "Vergleiche die erste Ergebniszeile mit dem Original. Steht die Nummer vor dem Namen, und sind alle Sendungen vertreten?"
     ],
     "explanation": "Die Datenbank liefert eine Zeile je Sendung. Ohne ORDER BY ist die Reihenfolge nicht zugesichert. SELECT * wäre hier nicht passend, weil genau zwei Spalten gefragt sind.",
     "discovery": "Die Sendungsübersicht bildet den Ausgangspunkt des Falls Nachtzug. Die Suche wird als Nächstes auf gemeldete Verluste begrenzt.",
@@ -27,9 +27,9 @@
     "task": "Zeige Id und Bezeichnung aller Sendungen mit Status 'Verschwunden'.",
     "referenceSql": "SELECT Id, Bezeichnung FROM Sendungen WHERE Status = N'Verschwunden';",
     "hints": [
-      "Filtere nach der Spalte Status.",
-      "Verwende WHERE Status = 'Verschwunden'.",
-      "Schreibe SELECT Id, Bezeichnung FROM Sendungen und ergänze den Statusfilter."
+      "Suche im Datenblatt zwei Zeilen mit unterschiedlichem Status. Welche davon gehört in die Liste?",
+      "Der Status entscheidet über die Auswahl. Muss er deshalb auch im Ergebnis stehen?",
+      "Prüfe auch eine verschwundene Sendung mit ganz anderer Bezeichnung. Würde dein Filter sie finden?"
     ],
     "explanation": "Das N vor dem Text kennzeichnet in T-SQL Unicode-Text; hier funktionieren beide Schreibweisen. Wichtig sind einfache Anführungszeichen und der genaue Statuswert.",
     "discovery": "Der Verluststatus trifft auf mehrere Lieferungen zu. Für die Zuordnung zur Schadensmeldung wird zusätzlich der Warenwert benötigt.",
@@ -45,9 +45,9 @@
     "task": "Zeige Id, Bezeichnung und Wert aller verschwundenen Sendungen mit einem Wert über 10000.",
     "referenceSql": "SELECT Id, Bezeichnung, Wert FROM Sendungen WHERE Status = N'Verschwunden' AND Wert > 10000;",
     "hints": [
-      "Beide Kriterien müssen gleichzeitig gelten.",
-      "Verbinde Status = 'Verschwunden' und Wert > 10000 mit AND.",
-      "Nutze SELECT Id, Bezeichnung, Wert und einen WHERE-Abschnitt mit zwei Bedingungen."
+      "Teste zwei Gegenbeispiele: teure vorhandene Fracht und günstige verschwundene Fracht.",
+      "Beide Anforderungen müssen für dieselbe Zeile gelten. Verknüpfe die Vergleiche entsprechend.",
+      "Spiele einen Warenwert von genau 10000 durch. Gehört der schon zu „über 10000“?"
     ],
     "explanation": "OR würde auch teure, nicht verschwundene Sendungen liefern. Für diese Aufgabe ist der Grenzwert 10000 nicht eingeschlossen.",
     "discovery": "Die medizinischen Sensoren passen zur Meldung „verschwunden und über 10.000 Euro“. Ihre Sendungs-Id ist der Bezugspunkt für den weiteren Warenweg.",
@@ -63,9 +63,9 @@
     "task": "Zeige Id, Zielort und Status der offenen Sendungen nach Dortmund oder Essen.",
     "referenceSql": "SELECT Id, Zielort, Status FROM Sendungen WHERE (Zielort = N'Dortmund' OR Zielort = N'Essen') AND Status = N'Offen';",
     "hints": [
-      "Der Status muss für beide Zielorte gelten.",
-      "Klammer die beiden Zielort-Bedingungen ein. Alternativ ist IN möglich.",
-      "WHERE (Zielort = 'Dortmund' OR Zielort = 'Essen') AND Status = 'Offen'"
+      "Teile den Auftrag in eine gemeinsame Statusbedingung und zwei mögliche Ziele.",
+      "Setze die Alternativen für den Zielort gedanklich in eine Klammer. Wo gehört der Statusvergleich hin?",
+      "Teste eine abgeschlossene Sendung nach Essen. Taucht sie trotz falschem Status auf?"
     ],
     "explanation": "Ohne Klammern kann etwa eine gelieferte Sendung nach Dortmund durchrutschen. IN ('Dortmund', 'Essen') ist eine gleichwertige Lösung.",
     "discovery": "Die offenen Aufträge nach Dortmund und Essen gehören zur Kontrollliste des Tagesgeschäfts. Sie sind keine weiteren nachgewiesenen Diebstähle; die hochwertige verschwundene Fracht bleibt der Ermittlungsansatz.",
@@ -81,9 +81,9 @@
     "task": "Zeige Id und Wert aller Sendungen, zuerst nach Wert absteigend, bei gleichem Wert nach Id aufsteigend.",
     "referenceSql": "SELECT Id, Wert FROM Sendungen ORDER BY Wert DESC, Id ASC;",
     "hints": [
-      "Du brauchst keinen WHERE-Filter.",
-      "Sortiere nach zwei Spalten mit unterschiedlichen Richtungen.",
-      "ORDER BY Wert DESC, Id ASC"
+      "Ordne zwei unterschiedlich wertvolle Sendungen von Hand. Welches Merkmal entscheidet zuerst?",
+      "Für gleiche Werte brauchst du eine zweite Sortierregel. Jede Sortierspalte kann ihre eigene Richtung haben.",
+      "Vergleiche zwei gleich teure Sendungen mit verschiedenen Nummern. Steht die verlangte zuerst?"
     ],
     "explanation": "Ohne zweite Sortierung ist die Reihenfolge gleich teurer Sendungen nicht eindeutig. Die Reihenfolge ist in dieser Mission Teil der Bewertung.",
     "discovery": "Die Sendungen sind nach Wert und bei Gleichstand nach Id geordnet. Über die Sendungs-Id kann Mara den Rang der gesuchten Fracht mit der Verlustliste abgleichen; für die Lagebesprechung folgt eine kurze Prioritätenliste.",
@@ -99,9 +99,9 @@
     "task": "Zeige Id und Wert der drei teuersten Sendungen. Sortiere nach Wert absteigend und bei Gleichstand nach Id aufsteigend.",
     "referenceSql": "SELECT TOP (3) Id, Wert FROM Sendungen ORDER BY Wert DESC, Id ASC;",
     "hints": [
-      "Begrenze die sortierte Liste auf drei Zeilen.",
-      "TOP (3) steht direkt hinter SELECT.",
-      "SELECT TOP (3) Id, Wert FROM Sendungen ORDER BY Wert DESC, Id ASC;"
+      "Stell dir vor, die ersten drei Lagerzeilen wären die billigsten. Wie findest du trotzdem die teuersten?",
+      "Lege zuerst eine eindeutige Rangfolge fest. Begrenze dann die Zahl der ausgegebenen Zeilen.",
+      "Was geschieht, wenn auf Rang drei und vier derselbe Preis steht? Wähle eine verlässliche zweite Sortierspalte."
     ],
     "explanation": "TOP ohne ORDER BY bedeutet nicht „die teuersten“. Lerne den T-SQL-Befehl bewusst als SQL-Server-Variante kennen.",
     "discovery": "Die drei teuersten Sendungen sind für die Einsatzleitung zusammengestellt. Der folgende Vergleich betrachtet bewusst auch den mittleren Wertebereich.",
@@ -117,9 +117,9 @@
     "task": "Zeige Id und Wert aller Sendungen mit einem Wert von einschließlich 8000 bis einschließlich 20000.",
     "referenceSql": "SELECT Id, Wert FROM Sendungen WHERE Wert BETWEEN 8000 AND 20000;",
     "hints": [
-      "Beide Grenzwerte gehören zum Ergebnis.",
-      "BETWEEN verwendet AND zwischen Unter- und Obergrenze.",
-      "WHERE Wert BETWEEN 8000 AND 20000"
+      "Zeichne die gesuchte Preisspanne als Zahlenstrahl. Markiere ihre Endpunkte.",
+      "Du kannst einen Bereichsvergleich verwenden oder je einen Vergleich für die Unter- und Obergrenze formulieren.",
+      "Prüfe die Werte 7999, 8000 und 20000 einzeln. Schließt deine Abfrage die richtigen Endpunkte ein?"
     ],
     "explanation": "Wert > 8000 würde die Lieferung mit genau 8000 ausschließen. BETWEEN ist bei Zahlen inklusive beider Grenzen.",
     "discovery": "Die Vergleichsgruppe grenzt den mittleren Warenwert ein. Sie ergänzt die Bestandsübersicht, liefert aber allein keinen Hinweis auf beteiligte Personen.",
@@ -135,9 +135,9 @@
     "task": "Zeige Id, Vorname und Nachname aller Mitarbeiter, deren Nachname mit S beginnt.",
     "referenceSql": "SELECT Id, Vorname, Nachname FROM Mitarbeiter WHERE Nachname LIKE N'S%';",
     "hints": [
-      "Filtere Nachname mit einem Muster.",
-      "Das Prozentzeichen gehört hinter das S.",
-      "WHERE Nachname LIKE 'S%'"
+      "Vergleiche einen Namen mit S am Anfang und einen mit S in der Mitte.",
+      "Ein Suchmuster kombiniert feste Zeichen und einen Platzhalter für den variablen Rest.",
+      "Würde dein Muster auch einen kurzen Nachnamen und einen sehr langen Nachnamen mit gleichem Anfang finden?"
     ],
     "explanation": "LIKE '%S%' würde ein S an beliebiger Position finden. Die Aufgabe verlangt den Anfang des Nachnamens.",
     "discovery": "Mehrere Mitarbeiter passen zum Anfangsbuchstaben S. Der beschädigte Vermerk identifiziert daher noch keine einzelne Person; die Suche braucht Transport- und Zutrittsdaten.",
@@ -153,9 +153,9 @@
     "task": "Zeige Id und Zielort aller Sendungen nach Essen oder Köln, unabhängig vom Status.",
     "referenceSql": "SELECT Id, Zielort FROM Sendungen WHERE Zielort IN (N'Essen', N'Köln');",
     "hints": [
-      "Hier ist kein Statusfilter gefragt.",
-      "Die Liste für IN steht in runden Klammern.",
-      "WHERE Zielort IN ('Essen', 'Köln')"
+      "Notiere, was für eine Sendung nach Essen und eine nach Köln jeweils gelten muss.",
+      "Eine Werteliste kann mehrere erlaubte Werte derselben Spalte zusammenfassen.",
+      "Kontrolliere zwei Sendungen mit demselben Ziel, aber verschiedenem Status. Beide müssen gleich behandelt werden."
     ],
     "explanation": "Kommas trennen die Werte innerhalb der Liste. Eine Sendung muss nicht beide Zielorte gleichzeitig haben; AND wäre dafür falsch.",
     "discovery": "Für Essen und Köln sind die Sendungs-Ids mit ihren Zielorten aufgelistet. Über die bekannte Sendungs-Id lässt sich der geplante Weg der eingegrenzten Verlustsendung mit dieser Liste abgleichen.",
@@ -171,9 +171,9 @@
     "task": "Zeige Id und Bezeichnung aller Sendungen ohne Fahrzeugzuordnung.",
     "referenceSql": "SELECT Id, Bezeichnung FROM Sendungen WHERE FahrzeugId IS NULL;",
     "hints": [
-      "Suche keine Null als Zahl, sondern fehlende Werte.",
-      "Prüfe die Spalte FahrzeugId mit IS NULL.",
-      "WHERE FahrzeugId IS NULL"
+      "Schau in die Spalte für die Fahrzeugzuordnung. Wie wird ein fehlender Verweis dargestellt?",
+      "Ein unbekannter Wert braucht in SQL eine eigene Prüfung. Eine Zahl wie 0 hat eine andere Bedeutung.",
+      "Suche einen Datensatz mit eingetragenem Fahrzeug als Gegenprobe. Darf er erscheinen?"
     ],
     "explanation": "FahrzeugId = 0 sucht die Zahl null. FahrzeugId = NULL liefert nicht den gewünschten Wahrheitswert. NULL kann auch in anderen Spalten auftreten, etwa bei einer offenen Rückkehrzeit.",
     "discovery": "Die Sendungen ohne Fahrzeugzuordnung sind erfasst. Der Abgleich mit der Verlustliste kann nun unterscheiden, ob bei der gesuchten Fracht eine Datenlücke oder ein verfolgbarer Fahrzeugbezug vorliegt.",
@@ -189,9 +189,9 @@
     "task": "Zeige jede in Mitarbeiter vorkommende Abteilung genau einmal.",
     "referenceSql": "SELECT DISTINCT Abteilung FROM Mitarbeiter;",
     "hints": [
-      "Wähle nur die Abteilung aus.",
-      "DISTINCT steht hinter SELECT.",
-      "SELECT DISTINCT Abteilung FROM Mitarbeiter;"
+      "Stell dir drei Mitarbeitende derselben Abteilung vor. Wie viele Einträge möchtest du für sie sehen?",
+      "Welche Spalte muss übrig bleiben, bevor du doppelte Ergebniszeilen zusammenfasst?",
+      "Wenn eine weitere Person in eine bekannte Abteilung eintritt, sollte deine Liste länger werden?"
     ],
     "explanation": "Wenn du zusätzlich Id auswählst, sind die Zeilen wieder verschieden. DISTINCT wirkt auf die gesamte ausgewählte Kombination.",
     "discovery": "Logistik, Fahrdienst, IT und Sicherheit sind im Mitarbeiterbestand vertreten. Die Rollen sind eingeordnet; tatsächliche Anwesenheit wird erst durch Zutrittsdaten geprüft.",
@@ -207,9 +207,9 @@
     "task": "Zeige Id, MitarbeiterId und Zeitpunkt aller Zutritte am 12.10.2026 ab einschließlich 20:00 Uhr bis vor Mitternacht.",
     "referenceSql": "SELECT Id, MitarbeiterId, Zeitpunkt FROM Zutritte WHERE Zeitpunkt >= '2026-10-12 20:00:00' AND Zeitpunkt < '2026-10-13 00:00:00';",
     "hints": [
-      "Grenze Anfang und Ende ein.",
-      "Nutze >= für 20 Uhr und < für den Beginn des nächsten Tages.",
-      "WHERE Zeitpunkt >= '2026-10-12 20:00:00' AND Zeitpunkt < '2026-10-13 00:00:00'"
+      "Lege zwei Zeitmarken fest: Beginn des gesuchten Abends und Beginn des nächsten Tages.",
+      "Vergleiche den Zeitpunkt mit beiden Marken. Entscheide für jede Marke getrennt, ob Gleichheit zählt.",
+      "Teste 19:59, 20:00 und den nächsten Tag um 00:00. So findest du vertauschte Grenzzeichen."
     ],
     "explanation": "BETWEEN '2026-10-12 00:00:00' AND '2026-10-12 00:00:00' erfasst nur Mitternacht. Ein oberer Wert von 23:59 kann bei feineren Zeitangaben Einträge verlieren.",
     "discovery": "Für den kritischen Abend existieren mehrere Zutrittseinträge. Die Mitarbeiternummern und unterschiedlichen Standorte müssen vor einer Schlussfolgerung aufgelöst werden.",
@@ -225,9 +225,9 @@
     "task": "Zeige für jeden Zutritt ZutrittsId, Vorname, Nachname und Zeitpunkt. Nenne z.Id in der Ausgabe ZutrittsId.",
     "referenceSql": "SELECT z.Id AS ZutrittsId, m.Vorname, m.Nachname, z.Zeitpunkt FROM Zutritte AS z INNER JOIN Mitarbeiter AS m ON z.MitarbeiterId = m.Id;",
     "hints": [
-      "Verbinde Zutritte und Mitarbeiter.",
-      "Die Verbindung ist z.MitarbeiterId = m.Id, nicht z.Id = m.Id.",
-      "FROM Zutritte AS z JOIN Mitarbeiter AS m ON z.MitarbeiterId = m.Id"
+      "Nimm einen einzelnen Zutritt und suche von dort die zugehörige Person im Datenblatt.",
+      "Welche Spalte im Zutritt verweist auf den Schlüssel der Mitarbeitertabelle? Nutze sie für die Verbindung.",
+      "Vergleiche zwei Zutritte derselben Person. Erscheinen beide mit ihrer eigenen Zutrittsnummer?"
     ],
     "explanation": "Ein Mitarbeiter kann viele Zutritte haben. Sein Name erscheint dann mehrfach; das sind unterschiedliche Zutrittsereignisse und keine zu entfernenden Fehler.",
     "discovery": "Jeder Zutritt lässt sich nun einer Person zuordnen. Die vollständige Namensübersicht erlaubt im nächsten Schritt den gezielten Ausschnitt für das Nordlager.",
@@ -243,9 +243,9 @@
     "task": "Zeige z.Id als ZutrittsId, Vorname, Nachname und Zeitpunkt für Zutritte zu StandortId 1 am 12.10.2026 ab 20 Uhr bis vor Mitternacht.",
     "referenceSql": "SELECT z.Id AS ZutrittsId, m.Vorname, m.Nachname, z.Zeitpunkt FROM Zutritte z JOIN Mitarbeiter m ON z.MitarbeiterId = m.Id WHERE z.StandortId = 1 AND z.Zeitpunkt >= '2026-10-12 20:00:00' AND z.Zeitpunkt < '2026-10-13 00:00:00';",
     "hints": [
-      "Nutze die Verbindung aus der vorherigen Mission und ergänze drei Filter.",
-      "Der Standort gehört zum Zutritt, nicht zum Stammdatensatz des Mitarbeiters.",
-      "WHERE z.StandortId = 1 AND z.Zeitpunkt >= '2026-10-12 20:00:00' AND z.Zeitpunkt < '2026-10-13 00:00:00'"
+      "Verfolge zuerst einen Zutritt bis zum Namen. Markiere dann, welche Filter zum Zutritt gehören.",
+      "Tür und Zeitraum müssen für denselben Vorgang passen. Verwende für den Abend zwei Zeitgrenzen.",
+      "Teste die richtige Person zur richtigen Zeit an der falschen Tür."
     ],
     "explanation": "Ein Mitarbeiter kann an einem anderen Standort als seinem Stammsitz eine Tür betreten. Filtere daher z.StandortId. Mehrere Zeilen derselben Person bleiben richtig.",
     "discovery": "Die späten Zutritte zu Standort 1 sind von anderen Orten und Zeiten getrennt. Diese Liste kann später mit den Fahrern abgeglichen werden; Anwesenheit allein erklärt den Verlust noch nicht.",
@@ -261,9 +261,9 @@
     "task": "Zeige s.Id als SendungsId, Bezeichnung und Kennzeichen aller verschwundenen Sendungen mit Wert über 10000.",
     "referenceSql": "SELECT s.Id AS SendungsId, s.Bezeichnung, f.Kennzeichen FROM Sendungen s JOIN Fahrzeuge f ON s.FahrzeugId = f.Id WHERE s.Status = N'Verschwunden' AND s.Wert > 10000;",
     "hints": [
-      "Verbinde Sendungen mit Fahrzeuge über FahrzeugId.",
-      "Die beiden bekannten Fallfilter bleiben erhalten.",
-      "JOIN Fahrzeuge f ON s.FahrzeugId = f.Id"
+      "Beginne bei einer verschwundenen Sendung. Wo steht der Verweis auf das Fahrzeug?",
+      "Filtere nach den Merkmalen der Fracht. Hole aus der verbundenen Fahrzeugzeile nur die verlangte Zusatzangabe.",
+      "Stimmen Sendungsnummer und Kennzeichen auch dann zusammen, wenn Fahrzeug-Id und Sendungs-Id verschieden sind?"
     ],
     "explanation": "Ein INNER JOIN ist hier passend, weil ein Kennzeichen aus einer vorhandenen Zuordnung gesucht ist. Fehlende Zuordnungen benötigen bei vollständigen Listen einen LEFT JOIN.",
     "discovery": "Die hochwertige verschwundene Sensorenlieferung ist dem Fahrzeug DO-LN 202 zugeordnet. Dieses Kennzeichen verbindet den Warenweg mit dem Fahrtenbuch.",
@@ -279,9 +279,9 @@
     "task": "Zeige für jede Sendung Id, Bezeichnung und Kennzeichen. Sendungen ohne Fahrzeug müssen enthalten sein.",
     "referenceSql": "SELECT s.Id, s.Bezeichnung, f.Kennzeichen FROM Sendungen s LEFT JOIN Fahrzeuge f ON s.FahrzeugId = f.Id;",
     "hints": [
-      "Sendungen muss die linke Tabelle sein.",
-      "Verwende LEFT JOIN statt INNER JOIN.",
-      "FROM Sendungen s LEFT JOIN Fahrzeuge f ON s.FahrzeugId = f.Id"
+      "Denke an eine Sendung, deren Fahrzeugfeld leer ist. Diese Zeile soll sichtbar bleiben.",
+      "Entscheide, welche Tabelle die vollständige Liste vorgibt und auf welcher Seite ein Partner fehlen darf.",
+      "Zähle die Sendungen vor und nach der Verbindung. Eine fehlende Zuordnung sollte nur das Kennzeichen leer lassen."
     ],
     "explanation": "Ein WHERE f.Id IS NOT NULL würde die erhaltenen Zeilen ohne Fahrzeug wieder entfernen. Die NULL-Werte im Kennzeichen sind hier ausdrücklich richtig.",
     "discovery": "Die vollständige Sendungsliste enthält auch Zeilen ohne Fahrzeug. Fehlende Zuordnungen bleiben sichtbar und werden nicht mit einem bekannten Kennzeichen verwechselt.",
@@ -297,9 +297,9 @@
     "task": "Zeige Id und Kennzeichen aller Fahrzeuge, denen keine einzige Sendung zugeordnet ist.",
     "referenceSql": "SELECT f.Id, f.Kennzeichen FROM Fahrzeuge f LEFT JOIN Sendungen s ON s.FahrzeugId = f.Id WHERE s.Id IS NULL;",
     "hints": [
-      "Diesmal müssen alle Fahrzeuge zunächst erhalten bleiben.",
-      "Verbinde Fahrzeuge links mit Sendungen rechts und suche fehlende Sendungs-Ids.",
-      "LEFT JOIN Sendungen s ON s.FahrzeugId = f.Id WHERE s.Id IS NULL"
+      "Gehe von einem Fahrzeug aus und suche alle Sendungen, die auf seine Nummer verweisen.",
+      "Du suchst Fahrzeuge, für die diese Partnersuche leer ausgeht. Wie erkennst du einen fehlenden Treffer?",
+      "Teste ein Fahrzeug mit zwei Sendungen und eines ganz ohne. Welches gehört ins Ergebnis?"
     ],
     "explanation": "Prüfe eine rechte Spalte, die bei echten Datensätzen nicht NULL sein kann, etwa den Primärschlüssel s.Id. NOT IN kann bei NULL-Werten unerwartete Ergebnisse liefern.",
     "discovery": "Der Pkw hat keinen Versandauftrag. Diese Gegenprobe trennt ein vorhandenes Fahrzeug von einer tatsächlichen Sendungszuordnung; im Fahrtenbuch wird anschließend nach realen Transportbewegungen gesucht.",
@@ -315,9 +315,9 @@
     "task": "Zeige r.Id als FahrtId, Vorname, Nachname, Kennzeichen und Zielort aller am 12.10.2026 ab 20 Uhr begonnenen Fahrten vor Mitternacht, deren Rueckkehr NULL ist.",
     "referenceSql": "SELECT r.Id AS FahrtId, m.Vorname, m.Nachname, f.Kennzeichen, r.Zielort FROM Fahrten r JOIN Mitarbeiter m ON r.MitarbeiterId = m.Id JOIN Fahrzeuge f ON r.FahrzeugId = f.Id WHERE r.Abfahrt >= '2026-10-12 20:00:00' AND r.Abfahrt < '2026-10-13 00:00:00' AND r.Rueckkehr IS NULL;",
     "hints": [
-      "Gehe von Fahrten aus und ergänze Mitarbeiter und Fahrzeuge.",
-      "Verwende zwei JOINs sowie den Zeitfilter und IS NULL.",
-      "JOIN Mitarbeiter m ON r.MitarbeiterId = m.Id JOIN Fahrzeuge f ON r.FahrzeugId = f.Id"
+      "Folge einer Fahrt in zwei Richtungen: zur Person am Steuer und zum verwendeten Fahrzeug.",
+      "Nutze den Abfahrtszeitpunkt für das Zeitfenster. Die Rückkehr beantwortet eine andere Frage.",
+      "Teste eine spät gestartete, aber bereits beendete Fahrt. Erscheint sie bei dir?"
     ],
     "explanation": "Rueckkehr IS NULL bedeutet lediglich, dass keine Rückkehr erfasst ist. Das ist ein Hinweis und allein noch kein Schuldbeweis.",
     "discovery": "Nora Seidel ist mit DO-LN 202 zum Privatdepot gefahren; eine Rückkehr ist nicht erfasst. Person, Kennzeichen und Ziel sind damit gemeinsam dokumentiert. Der Abgleich mit dem Warenweg und dem Lagerzugang steht noch aus.",
@@ -333,9 +333,9 @@
     "task": "Gib die Gesamtzahl der Sendungen als Anzahl aus.",
     "referenceSql": "SELECT COUNT(*) AS Anzahl FROM Sendungen;",
     "hints": [
-      "Es wird genau eine Zahl gesucht.",
-      "COUNT(*) berücksichtigt auch Sendungen ohne Fahrzeug.",
-      "SELECT COUNT(*) AS Anzahl FROM Sendungen;"
+      "Was ist hier eine Zähleinheit: ein Euro, ein Feldwert oder eine Tabellenzeile?",
+      "Für eine Gesamtzahl brauchst du weder Einzelausgaben noch Untergruppen.",
+      "Denke an eine Sendung ohne Fahrzeug. Wird sie trotzdem mitgezählt?"
     ],
     "explanation": "COUNT(FahrzeugId) wäre hier falsch, weil nicht zugeordnete Sendungen fehlen. Ein Alias macht die Ergebnisspalte lesbar.",
     "discovery": "Der Datenbestand umfasst zwölf Sendungen. Das ist die Bezugsgröße des Lageberichts, keine Aussage über zwölf Verluste.",
@@ -351,9 +351,9 @@
     "task": "Gib für alle Sendungen genau diese vier Werte aus: Gesamtwert, Durchschnittswert, KleinsterWert und GroessterWert.",
     "referenceSql": "SELECT SUM(Wert) AS Gesamtwert, AVG(Wert) AS Durchschnittswert, MIN(Wert) AS KleinsterWert, MAX(Wert) AS GroessterWert FROM Sendungen;",
     "hints": [
-      "Alle vier Aggregatfunktionen arbeiten auf Wert.",
-      "Die vier Berechnungen stehen durch Kommas getrennt hinter SELECT.",
-      "SELECT SUM(Wert), AVG(Wert), MIN(Wert), MAX(Wert) FROM Sendungen;"
+      "Schreibe über vier Kästchen, welche Frage zum Warenwert sie beantworten sollen.",
+      "Jede Kennzahl entsteht über dieselbe Menge von Sendungen. Brauchst du dafür eine Gruppeneinteilung?",
+      "Prüfe die Ausgabeform: eine Zeile mit vier passend benannten Zahlen in Auftragsreihenfolge."
     ],
     "explanation": "Ohne GROUP BY beziehen sich die Aggregationen auf alle gefilterten Zeilen. Die geforderte Spaltenreihenfolge ist auch bei anderen Aliasnamen wichtig.",
     "discovery": "Gesamtwert, Durchschnitt sowie kleinster und größter Warenwert beschreiben den gesamten Bestand. Die hochwertige Sensorenlieferung fällt darin auf; Versandzustände müssen für die Schadensbewertung getrennt betrachtet werden.",
@@ -369,9 +369,9 @@
     "task": "Zeige Status und Anzahl der Sendungen je Status.",
     "referenceSql": "SELECT Status, COUNT(*) AS Anzahl FROM Sendungen GROUP BY Status;",
     "hints": [
-      "Du brauchst eine Ergebniszeile pro Status.",
-      "Gruppiere nach Status und zähle pro Gruppe.",
-      "SELECT Status, COUNT(*) AS Anzahl FROM Sendungen GROUP BY Status;"
+      "Lege für jeden vorkommenden Status einen gedachten Stapel an.",
+      "Ein Merkmal bestimmt die Stapel, eine Aggregatfunktion zählt ihren Inhalt.",
+      "Addiere alle ausgegebenen Anzahlen. Ergibt sich wieder die Zahl der Sendungen?"
     ],
     "explanation": "SELECT Id, Status, COUNT(*) mit nur GROUP BY Status wäre in SQL Server nicht erlaubt: Eine Gruppe enthält mehrere Ids.",
     "discovery": "Die Sendungen sind nach Status gezählt. Damit bleiben reguläre Lieferungen, offene Aufträge und verschwundene Fracht im Lagebericht unterscheidbar.",
@@ -387,9 +387,9 @@
     "task": "Zeige Zielort und Anzahl für Zielorte mit mindestens drei Sendungen.",
     "referenceSql": "SELECT Zielort, COUNT(*) AS Anzahl FROM Sendungen GROUP BY Zielort HAVING COUNT(*) >= 3;",
     "hints": [
-      "Erstelle zuerst eine Gruppe je Zielort.",
-      "Der Grenzwert ist inklusive: >= 3.",
-      "GROUP BY Zielort HAVING COUNT(*) >= 3"
+      "Stell dir einen Zielort mit zwei Lieferungen und einen mit drei vor.",
+      "Der Grenzwert bezieht sich auf das Ergebnis einer Zählung. In welcher Phase steht diese Zahl fest?",
+      "Teste einen Ort mit genau drei Sendungen. Er darf an der Grenze nicht verloren gehen."
     ],
     "explanation": "WHERE COUNT(*) >= 3 ist hier falsch. WHERE könnte beispielsweise zuerst nur offene Sendungen auswählen; HAVING würde danach die daraus gebildeten Gruppen filtern.",
     "discovery": "Die Zielorte mit mindestens drei Sendungen beschreiben häufige reguläre Versandziele. Die Einsatzleitung grenzt anschließend ein, wo mehrere Aufträge noch offen sind.",
@@ -405,9 +405,9 @@
     "task": "Zeige Zielort und Anzahl für Zielorte mit mindestens zwei Sendungen im Status 'Offen'.",
     "referenceSql": "SELECT Zielort, COUNT(*) AS Anzahl FROM Sendungen WHERE Status = N'Offen' GROUP BY Zielort HAVING COUNT(*) >= 2;",
     "hints": [
-      "Filtere zuerst auf offene Sendungen.",
-      "WHERE betrifft Status; HAVING betrifft COUNT(*).",
-      "WHERE Status = 'Offen' GROUP BY Zielort HAVING COUNT(*) >= 2"
+      "Streiche zunächst alle bereits erledigten Sendungen auf einer gedachten Liste.",
+      "Gruppiere die verbliebenen Zeilen nach Ziel. Erst danach kannst du die Mindestzahl beurteilen.",
+      "Ein Ort hat eine offene und fünf abgeschlossene Sendungen. Würde er bei dir fälschlich erscheinen?"
     ],
     "explanation": "Eine Gruppierung über alle Sendungen mit nachträglicher Statusprüfung würde eine andere Frage beantworten. Die Zeilen müssen vor dem Zählen eingegrenzt werden.",
     "discovery": "Mehrere offene Aufträge führen nach Köln. Sie gehören zum regulären Tagesgeschäft und erklären für sich keinen Verlust; die Transportspur muss anhand zusammengehöriger Datenmerkmale geprüft werden.",
@@ -423,9 +423,9 @@
     "task": "Zeige für jeden Mitarbeiter Id, Vorname, Nachname und die Anzahl seiner Zutritte, einschließlich 0.",
     "referenceSql": "SELECT m.Id, m.Vorname, m.Nachname, COUNT(z.Id) AS Anzahl FROM Mitarbeiter m LEFT JOIN Zutritte z ON z.MitarbeiterId = m.Id GROUP BY m.Id, m.Vorname, m.Nachname;",
     "hints": [
-      "Beginne links mit Mitarbeiter und erhalte alle Personen.",
-      "Zähle z.Id, nicht COUNT(*). Gruppiere nach allen drei Namens-/Identitätsspalten.",
-      "SELECT m.Id, m.Vorname, m.Nachname, COUNT(z.Id) ... GROUP BY m.Id, m.Vorname, m.Nachname"
+      "Schreibe die Namen aller Mitarbeitenden auf, auch wenn noch kein Zutritt vorliegt.",
+      "Bei einer äußeren Verbindung bleibt eine Personenzeile auch ohne Treffer übrig. Was kannst du auf der Zutrittsseite zählen?",
+      "Teste eine Person ohne Zutritt. Liefert deine Zählung für sie null oder eins?"
     ],
     "explanation": "COUNT(z.Id) ignoriert die NULL-Platzhalter ohne echten Zutritt. Ein INNER JOIN würde die Personen mit null Zutritten vollständig entfernen.",
     "discovery": "Die Zählung enthält auch Mitarbeiter ohne Zutrittseintrag mit dem Wert 0. Auf dieser vollständigen Grundlage lässt sich häufige Kartennutzung untersuchen, ohne fehlende Treffer falsch mitzuzählen.",
@@ -441,9 +441,9 @@
     "task": "Zeige MitarbeiterId, Vorname, Nachname und Anzahl der Zutritte zum Standort 1 am 12.10.2026 für Personen mit mehr als drei solchen Zutritten.",
     "referenceSql": "SELECT m.Id AS MitarbeiterId, m.Vorname, m.Nachname, COUNT(*) AS Anzahl FROM Mitarbeiter m JOIN Zutritte z ON z.MitarbeiterId = m.Id WHERE z.StandortId = 1 AND z.Zeitpunkt >= '2026-10-12 00:00:00' AND z.Zeitpunkt < '2026-10-13 00:00:00' GROUP BY m.Id, m.Vorname, m.Nachname HAVING COUNT(*) > 3;",
     "hints": [
-      "Zähle ausschließlich Zutritte des gesuchten Standorts und Tages.",
-      "Filtere in WHERE, gruppiere nach der Person und nutze HAVING COUNT(*) > 3.",
-      "GROUP BY m.Id, m.Vorname, m.Nachname HAVING COUNT(*) > 3"
+      "Grenze die Zutrittsliste auf die richtige Tür und den ganzen gefragten Tag ein.",
+      "Zähle erst dann die Vorgänge je Person. Verwende ein Merkmal, das auch Namensgleiche trennt.",
+      "Kontrolliere jemanden mit drei passenden und einem zusätzlichen Zutritt an einer anderen Tür."
     ],
     "explanation": "Gruppiere auch nach der Id, damit gleichnamige Personen getrennt bleiben. „Mehr als drei“ bedeutet > 3, nicht >= 3.",
     "discovery": "Nora Seidels Karte wurde am betroffenen Standort und Tag auffällig häufig benutzt. Das ist eine überprüfbare Zutrittsspur; für die Beweiskette müssen Personen-, Fahrzeug- und Zeitbezug mit dem Fahrtenbuch zusammenpassen.",
@@ -459,9 +459,9 @@
     "task": "Zeige Id, Bezeichnung und Wert aller Sendungen, deren Wert über dem Durchschnittswert aller Sendungen liegt.",
     "referenceSql": "SELECT Id, Bezeichnung, Wert FROM Sendungen WHERE Wert > (SELECT AVG(Wert) FROM Sendungen);",
     "hints": [
-      "Berechne den Durchschnitt mit einer zweiten SELECT-Abfrage.",
-      "Die innere Abfrage liefert AVG(Wert) aus allen Sendungen.",
-      "WHERE Wert > (SELECT AVG(Wert) FROM Sendungen)"
+      "Berechne den Vergleichswert zunächst für den gesamten Sendungsbestand.",
+      "Dein äußerer Vergleich braucht einen einzelnen Zahlenwert. Welche Abfrage kann diesen Wert liefern?",
+      "Nimm zwei gleich teure Sendungen als einzigen Bestand an. Sollte eine davon über dem Durchschnitt liegen?"
     ],
     "explanation": "Ein in die Abfrage eingetragener ausgerechneter Durchschnitt gilt nur für den aktuellen Datenstand. Die Unterabfrage berechnet ihn für jeden Datenbestand passend neu.",
     "discovery": "Die Sensoren liegen auch über dem aus dem aktuellen Bestand berechneten Durchschnittswert. Ihre Hochwertigkeit ist damit eingeordnet; für den abschließenden Warenweg wird wieder die genaue Verlustregel verwendet.",
@@ -477,9 +477,9 @@
     "task": "Zeige Id und Kennzeichen der Fahrzeuge, denen mindestens eine verschwundene Sendung mit Wert über 10000 zugeordnet ist.",
     "referenceSql": "SELECT Id, Kennzeichen FROM Fahrzeuge WHERE Id IN (SELECT FahrzeugId FROM Sendungen WHERE Status = N'Verschwunden' AND Wert > 10000);",
     "hints": [
-      "Die innere Abfrage sucht FahrzeugId bei den passenden Sendungen.",
-      "Die äußere Abfrage liest Fahrzeuge und prüft deren Id mit IN.",
-      "WHERE Id IN (SELECT FahrzeugId FROM Sendungen WHERE Status = 'Verschwunden' AND Wert > 10000)"
+      "Markiere die Fahrzeugverweise an den Sendungen, die beide Frachtbedingungen erfüllen.",
+      "Frage für jedes Fahrzeug, ob seine Nummer unter diesen Verweisen vorkommt.",
+      "Wenn zwei passende Sendungen dasselbe Fahrzeug nutzen, wie oft darf sein Kennzeichen erscheinen?"
     ],
     "explanation": "Mehrere passende Sendungen desselben Fahrzeugs erzeugen bei IN keine doppelten Fahrzeuge. Eine JOIN-Lösung braucht gegebenenfalls DISTINCT.",
     "discovery": "Die Fahrzeuge mit hochwertiger verschwundener Fracht sind durch die Sendungszuordnung ermittelt. Die nächste Teilfrage sucht die Personen mit dokumentierter Fahrt zum Privatdepot.",
@@ -495,9 +495,9 @@
     "task": "Zeige Id, Vorname und Nachname aller Mitarbeiter mit mindestens einer Fahrt zum 'Privatdepot' am 12.10.2026 ab 20 Uhr bis vor Mitternacht.",
     "referenceSql": "SELECT m.Id, m.Vorname, m.Nachname FROM Mitarbeiter m WHERE EXISTS (SELECT 1 FROM Fahrten r WHERE r.MitarbeiterId = m.Id AND r.Zielort = N'Privatdepot' AND r.Abfahrt >= '2026-10-12 20:00:00' AND r.Abfahrt < '2026-10-13 00:00:00');",
     "hints": [
-      "Die äußere Tabelle ist Mitarbeiter.",
-      "Verbinde innen r.MitarbeiterId mit der äußeren m.Id.",
-      "WHERE EXISTS (SELECT 1 FROM Fahrten r WHERE r.MitarbeiterId = m.Id AND r.Zielort = 'Privatdepot' AND r.Abfahrt >= '2026-10-12 20:00:00' AND r.Abfahrt < '2026-10-13 00:00:00')"
+      "Suche probeweise für eine bestimmte Person eine Fahrt, die Ziel und Zeitfenster erfüllt.",
+      "Binde die innere Suche an die Person der äußeren Zeile. Ein einziger Treffer genügt.",
+      "Teste zwei Personen, von denen nur eine zum Privatdepot fuhr. Liefert die innere Suche für beide dasselbe Ergebnis?"
     ],
     "explanation": "Ohne r.MitarbeiterId = m.Id wäre die Unterabfrage nicht an die Person gebunden: Eine einzige passende Fahrt könnte dann alle Mitarbeiter durchlassen.",
     "discovery": "Die Privatdepot-Fahrt im Zeitfenster ist einer konkreten Person zugeordnet. Noch offen bleibt die gemeinsame Prüfung von fehlender Rückkehr, zugehöriger hochwertiger Verlustsendung und Lagerzugang.",
@@ -513,9 +513,9 @@
     "task": "Zeige Id, Vorname und Nachname aller Mitarbeiter ohne irgendeine Fahrt im Fahrtenbuch.",
     "referenceSql": "SELECT m.Id, m.Vorname, m.Nachname FROM Mitarbeiter m WHERE NOT EXISTS (SELECT 1 FROM Fahrten r WHERE r.MitarbeiterId = m.Id);",
     "hints": [
-      "Für jede Person muss geprüft werden, ob keine Fahrt zu ihr existiert.",
-      "Verknüpfe r.MitarbeiterId mit m.Id innerhalb von NOT EXISTS.",
-      "WHERE NOT EXISTS (SELECT 1 FROM Fahrten r WHERE r.MitarbeiterId = m.Id)"
+      "Stelle für eine Person die Frage, ob das Fahrtenbuch überhaupt einen passenden Eintrag enthält.",
+      "Verknüpfe die Suche mit der jeweiligen Person und überlege, wie du den Existenztest umkehrst.",
+      "Prüfe einen Fahrer mit beliebigem Fahrtziel. Auch eine Fahrt zu einem anderen Depot zählt als Fahrt."
     ],
     "explanation": "Ein LEFT JOIN mit WHERE r.Id IS NULL ist ebenfalls korrekt. Ein Vergleich von Mitarbeiter-Id mit Fahrt-Id würde zwei unterschiedliche Schlüssel verwechseln.",
     "discovery": "Die Gegenprobe trennt Mitarbeiter ohne jede dokumentierte Fahrt von Personen mit Fahrtenbucheinträgen. Fehlende Einträge allein sind kein Entlastungsbeweis; den Abschluss entscheidet der gemeinsame positive Abgleich der drei gefragten Merkmale.",
@@ -531,9 +531,9 @@
     "task": "Zeige genau Id, Vorname und Nachname aller Mitarbeiter, die (1) am 12.10.2026 ab 20 Uhr bis vor Mitternacht eine Fahrt zum Privatdepot ohne erfasste Rückkehr begannen, (2) dabei ein Fahrzeug mit mindestens einer verschwundenen Sendung über 10000 nutzten und (3) am selben Abend ab 20 Uhr bis vor Mitternacht einen Zutritt zum Standort 1 hatten. Jede Person darf nur einmal erscheinen.",
     "referenceSql": "SELECT m.Id, m.Vorname, m.Nachname FROM Mitarbeiter m WHERE EXISTS (SELECT 1 FROM Fahrten r JOIN Sendungen s ON s.FahrzeugId = r.FahrzeugId WHERE r.MitarbeiterId = m.Id AND r.Zielort = N'Privatdepot' AND r.Rueckkehr IS NULL AND r.Abfahrt >= '2026-10-12 20:00:00' AND r.Abfahrt < '2026-10-13 00:00:00' AND s.Status = N'Verschwunden' AND s.Wert > 10000) AND EXISTS (SELECT 1 FROM Zutritte z WHERE z.MitarbeiterId = m.Id AND z.StandortId = 1 AND z.Zeitpunkt >= '2026-10-12 20:00:00' AND z.Zeitpunkt < '2026-10-13 00:00:00');",
     "hints": [
-      "Zerlege die Aufgabe in Fahrt samt Sendungszuordnung und einen separaten Zutrittsnachweis.",
-      "Zwei EXISTS-Bedingungen, mit AND verbunden, vermeiden die Vervielfachung durch mehrere Zutritte.",
-      "Äußere Tabelle: Mitarbeiter m. Erstes EXISTS: Fahrten r JOIN Sendungen s ON s.FahrzeugId = r.FahrzeugId. Zweites EXISTS: Zutritte z WHERE z.MitarbeiterId = m.Id mit Ort-/Zeitfilter."
+      "Zeichne zwei Spuren vom Namen aus: eine zur Fahrt und ihrer Fracht, die andere zur Türöffnung.",
+      "Prüfe die verdächtige Fracht am Fahrzeug genau jener Fahrt, die auch zeitlich und örtlich passt.",
+      "Denke dir jemanden mit passender Fahrt, dessen verdächtige Sendung auf einem anderen Wagen lag. Würde dein Entwurf beide Wagen verwechseln?"
     ],
     "explanation": "Die Fahrzeugbeziehung ist entscheidend: Eine beliebige teure verschwundene Sendung irgendwo in der Firma genügt nicht. EXISTS liefert jede äußere Person einmal. Ein vollständiger JOIN mit DISTINCT kann ebenfalls richtig sein. SQL belegt hier die drei Datenmerkmale; die Geschichte führt daraus zur Ermittlung.",
     "discovery": "Der gemeinsame Datenabgleich führt zu Nora Seidel: Fahrt ohne erfasste Rückkehr zum Privatdepot, zugehöriges Fahrzeug mit hochwertiger verschwundener Fracht und Zugang zum Nordlager im Zeitfenster. Im Abschluss der fiktiven Geschichte findet die Einsatzleitung die Sensoren im Privatdepot. Der Fall Nachtzug ist aufgeklärt.",

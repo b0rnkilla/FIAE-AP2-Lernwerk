@@ -1,5 +1,9 @@
 # Entwicklung und Projektstruktur
 
+## SQL-Werkstatt ab Aufgabe 11
+
+Beim ersten Aufruf der neuen Fälle richtet der Trainer in der markierten Trainingsdatenbank das leere Schema LernwerkProbe, zwei Datenbankbenutzer ohne Login und eine Rolle ein. Die Ausgangstabellen, Sichten und Lernrechte entstehen in einer neuen ungepoolten Verbindung innerhalb einer zurückgerollten Transaktion. Eine Datenbanksperre trennt gleichzeitige Versuche. Lernskripte laufen unter dem eingeschränkten Schemaeigentümer, Zugriffsproben unter dem Empfangsbenutzer. Der Prüfungsfall „Materialausgabe für ein Stadtfest“ nutzt dasselbe Arbeitsschema und dieselbe Sperre. Die SQL-Ermittlung, die ersten drei Prüfungsfälle und die ersten zehn Werkstattaufgaben verwenden ihren bisherigen Ausführungsweg.
+
 Die veröffentlichte Beta **1.0.0-beta.1** aus Commit `ab00d03` enthält 454 Lernübungen in acht Modulen und die sechs Korrekturen aus dem Abschlusscheck. Im nachfolgenden Quellstand bindet `ApplicationIcon` das aus `wwwroot/favicon.svg` abgeleitete Windows-Symbol ein. Der Windows-Paketbau ist standardmäßig unsigniert und unterstützt Authenticode auf ausdrücklichen Aufruf. [Paketnachweise und Signierkonfiguration](lokale-releases.md), [Testprotokoll](testprotokoll.md).
 
 ## Orientierung
@@ -50,7 +54,7 @@ src/
       Results/          Ergebnistabellen und Wertevergleich
       Validation/       Syntax, Schreibregeln und Zugriffsgrenzen
       Workshop/         Schreibübungen, Modelle und Bewertung
-      Exams/            Drei Prüfungsfälle, Validator und Bewertung
+      Exams/            Vier Prüfungsfälle, Validator und Bewertung
       Lesson.cs         Gemeinsames Aufgabenmodell der SQL-Lernwege
   FiaeTrainer.Web/
     Components/

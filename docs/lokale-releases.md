@@ -1,5 +1,15 @@
 # AP2 Lernwerk lokal starten
 
+## Beta 3 für Windows vorbereiten
+
+Für `1.0.0-beta.3` sind 474 Lernübungen, vier SQL-Prüfungsfälle mit insgesamt 20 Aufgaben, die aktualisierte Anleitung und die [kurzen Versionshinweise](../release/Versionshinweise-1.0.0-beta.3.md) vorbereitet. Nach Commit und Push folgt das unsignierte Windows-x64-Paket mit Prüfung der entpackten EXE und SHA256. Vorgesehen sind der Tag `v1.0.0-beta.3` und der Titel **AP2 Lernwerk 1.0.0-beta.3** als GitHub-Pre-release.
+
+## Beta 2 für Windows
+
+Die unsignierte Windows-x64-ZIP wurde am 12.11.2026 mit `Release-erstellen.ps1 -Version 1.0.0-beta.2` aus dem gepushten Anwendungscode `c417256aa2158510cc610dd7d13a7a615a2527e4` gebaut. Die Versionshinweise wurden nach dem Push für das Paket ergänzt. Der Zielcommit hat Beta 1 als Standardversion. Die EXE und die Paketmetadaten weisen durch den Versionsparameter Beta 2 aus.
+
+`AP2-Lernwerk-1.0.0-beta.2-win-x64.zip` enthält 62 Dateien und ist 51.767.594 Bytes groß. SHA256 `53aeb04c80bb520fcd8dba1892a55848bc09464a2fdb9c37951042650abff9ed`. Vorgesehener Tag `v1.0.0-beta.2` auf `c417256`, Titel **AP2 Lernwerk 1.0.0-beta.2**, GitHub-Pre-release mit ZIP und Prüfsummendatei. [Versionshinweise](../release/Versionshinweise-1.0.0-beta.2.md) · [Paketprüfung](testprotokoll.md).
+
 ## Erste Beta für Windows
 
 Das Windows-x64-Paket **1.0.0-beta.1** wurde am 11.11.2026 mit PowerShell 7 aus dem sauberen Commit `ab00d0344870aa35c283229e23d242a8f22651d1` gebaut. GitHub-`master` und die Produktversion der entpackten EXE bestätigen diesen Commit. Die Anleitung und die Versionshinweise stammen ebenfalls daraus.

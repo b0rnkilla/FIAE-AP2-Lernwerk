@@ -98,7 +98,7 @@ Begrenzungen: 12.000 Zeichen Code/Antwort, 4.000 Tokens, 64 Parser-Verschachtelu
 * `Core/Algorithms/Execution`: Interpreter, isolierter Zustand und Ablaufspur.
 * `Core/Algorithms/Evaluation`: Vergleich der Ausgaben und Prüfung der Testfallgruppen.
 * `Web/Components/Pages/Training/Algorithms.razor` und `.razor.cs`: Oberfläche und Ablaufsteuerung, unabhängig vom SQL-Verbindungsstatus.
-* `Web/Components/Learning/CodeEditor.razor` und `wwwroot/code-editor.js`: nummerierter Editor, lokale Scrollsynchronisation und Tastaturbearbeitung; derzeit nur im Algorithmus-Modul verwendet.
+* `Web/Components/Learning/CodeEditor.razor` und `wwwroot/code-editor.js` stellen den gemeinsamen nummerierten Editor für Pseudocode, SQL-Ermittlung, SQL-Werkstatt und die zugehörigen Prüfungen bereit.
 * `Web/Learning/AlgorithmProgress`: eigener Entwurf, Modus, Erfolge und protokollierte Unterstützung. `ProgressStore.SaveAlgorithmAsync` erhält parallel die bestehenden SQL-Stände.
 
 Eine Reparatur beginnt mit dem gegebenen fehlerhaften Code. Ein gespeicherter leerer Entwurf bleibt leer; nur ein noch nicht vorhandener Entwurf erhält die Vorgabe. Ein frischer unabhängiger Reparaturversuch stellt die Vorgabe wieder her. Ein unveränderter Vorgabecode braucht beim Moduswechsel keine Löschbestätigung. Einmal verwendete Hilfen bleiben bis zum Neustart vermerkt, auch wenn die Musterlösung wieder geschlossen wird. Bisherige Erfolge bleiben beim Neustart eines Versuchs erhalten.

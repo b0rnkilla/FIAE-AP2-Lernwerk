@@ -11,9 +11,9 @@
     "explanation": "Qualität umfasst mehrere Eigenschaften. Messwerte zu einer Eigenschaft beweisen nicht automatisch alle anderen. Die Aufgaben benennen bei normbezogenen Fragen die jeweilige Fassung; ältere Modelle werden nicht stillschweigend gleichgesetzt.",
     "discovery": "Miras Qualitätsübersicht trennt richtige Fachfunktionen, Bedienung und spätere Änderbarkeit.",
     "hints": [
-      "Frage jeweils, welche Eigenschaft die Aussage tatsächlich beschreibt.",
-      "Ein Geschwindigkeitsmesswert sagt nichts darüber aus, ob die richtige Buchung gespeichert wurde.",
-      "Wartbarkeit betrachtet spätere Anpassungen; ein Build prüft dagegen nur einen begrenzten technischen Schritt."
+      "Denke an eine schnelle Buchung, die den falschen Platz vergibt.",
+      "Welche Beobachtung liefert ein Messwert zur Geschwindigkeit tatsächlich?",
+      "Spiele auch den Fall einer richtigen, aber schwer zu ändernden Anwendung durch. Welche Aussage bleibt haltbar?"
     ],
     "fields": [],
     "solutions": [],
@@ -41,9 +41,9 @@
     "explanation": "Messgegenstand, Grenze, Vergleich und Lastannahme gehören zusammen. Einschließlich 1500 Millisekunden bedeutet kleiner oder gleich, nicht strikt kleiner.",
     "discovery": "Der Empfang besitzt eine messbare Vereinbarung für den Lastversuch.",
     "hints": [
-      "Übernimm die im Auftrag vorgegebene Einheit.",
-      "Eine Grenze allein nennt noch keine Lastsituation.",
-      "Höchstens schließt die genannte Zeitgrenze ein."
+      "Markiere Beginn und Ende einer Suchanfrage aus Sicht des Empfangs.",
+      "Trenne die gemessene Größe von der Anzahl der Personen, unter deren Last gemessen wird.",
+      "Teste das Ergebnis genau am Zeitlimit. Würde dein Vergleich es richtig einordnen?"
     ],
     "fields": [
       {
@@ -116,9 +116,9 @@
     "explanation": "Schnell und benutzerfreundlich benötigen im konkreten Vertrag zusätzliche beobachtbare Kriterien. Der Zahlenbereich und das unveränderte Speichern sind dagegen in diesem Ausschnitt überprüfbar.",
     "discovery": "Zwei unklare Formulierungen sind als offene Klärungspunkte erkannt.",
     "hints": [
-      "Ein Review untersucht die Unterlage, bevor ein Programm laufen muss.",
-      "Suche nach Wertungen ohne vereinbarte Beobachtung.",
-      "Ein eindeutiger Zahlenbereich ist konkreter als ein allgemeines Qualitätswort."
+      "Lies jeden Satz als Auftrag an zwei unabhängige Prüfer.",
+      "Bei welchen Formulierungen müssten die beiden selbst entscheiden, was als gut genug gilt?",
+      "Versuche für jeden verdächtigen Satz einen eindeutigen Gegenfall zu benennen. Welche Angabe fehlt dafür?"
     ],
     "fields": [],
     "solutions": [],
@@ -146,9 +146,9 @@
     "explanation": "Ein vorbereiteter Ablauf macht Anlass, Befunde und Nachverfolgung sichtbar. Die Aufgabe verwendet ausdrücklich den vereinbarten kleinen Teamprozess.",
     "discovery": "Das Review erhält einen nachvollziehbaren Weg von der Vorbereitung bis zur Nachverfolgung.",
     "hints": [
-      "Bevor jemand prüfen kann, müssen Ziel und Unterlage bekannt sein.",
-      "Die individuelle Sichtung liefert die Befunde für das Gespräch.",
-      "Erledigung wird erst nach der Überarbeitung nachgeprüft."
+      "Was brauchen die Beteiligten, bevor sie eine Unterlage gezielt lesen können?",
+      "Verfolge einen einzelnen Befund von der ersten Notiz bis zur besprochenen Änderung.",
+      "Prüfe den letzten Schritt: Kann er feststellen, ob die vereinbarte Überarbeitung wirklich erfolgt ist?"
     ],
     "fields": [],
     "solutions": [
@@ -186,9 +186,9 @@
     "explanation": "Statische Prüfung benötigt keinen laufenden Fachablauf. Dynamische Prüfung führt das Testobjekt aus. Beide Perspektiven können sich ergänzen.",
     "discovery": "Miras Prüfplan kombiniert Unterlagenprüfung und beobachtete Ausführung.",
     "hints": [
-      "Entscheidend ist, ob das geprüfte Testobjekt ausgeführt wird.",
-      "Ein gemeinsames Lesen ist keine Programmausführung.",
-      "Antwortzeiten lassen sich erst an einem laufenden Versuch beobachten."
+      "Suche für jede Tätigkeit das konkrete Testobjekt.",
+      "Muss dieses Objekt gerade laufen, damit die Beobachtung zustande kommt?",
+      "Eine Person kann ein Werkzeug ausführen, während sie nur den Quelltext analysiert. Wie ordnest du das ein?"
     ],
     "fields": [
       {
@@ -265,9 +265,9 @@
     "explanation": "Ein endlicher Testsatz und ein Strukturmaß begrenzen den Nachweis. Nicht geprüfte Anforderungen oder ungeeignete Sollwerte verschwinden nicht durch einen grünen Lauf.",
     "discovery": "Die erste Qualitätsbesprechung trennt Nachweise von unbegründeten Garantien.",
     "hints": [
-      "Prüfe Wörter wie gesamte, jede und vollständig.",
-      "Überdeckung zählt ausgeführte Struktur; sie beurteilt nicht alle fachlichen Anforderungen.",
-      "Grüne Prüffälle sind ein Ergebnis des verwendeten Satzes, kein allgemeiner Fehlerfreiheitsbeweis."
+      "Schreibe zu einem bestandenen Fall auf, welche Eingabe tatsächlich geprüft wurde.",
+      "Suche in den Aussagen den Sprung von diesem Nachweis zu einer viel größeren Behauptung.",
+      "Denke dir einen ungetesteten Randfall. Widerlegt er den Nachweis selbst oder nur die Schlussfolgerung?"
     ],
     "fields": [],
     "solutions": [],
@@ -295,9 +295,9 @@
     "explanation": "Die Teststufe richtet sich nach Umfang und Ziel des Testobjekts. Ein isolierter Komponententest ersetzt nicht die Zusammenarbeit mehrerer Komponenten oder die fachliche Abnahme.",
     "discovery": "Vier Prüfaufträge besitzen einen klaren Umfang.",
     "hints": [
-      "Beginne beim kleinsten isolierten Baustein.",
-      "Zusammenarbeit mehrerer Bausteine ist eine eigene Betrachtung.",
-      "Die vereinbarte Prüfung durch den Auftraggeber verfolgt ein Abnahmeziel."
+      "Zeichne Kreise um die Teile, die beim jeweiligen Versuch gemeinsam laufen.",
+      "Unterscheide die Frage nach einem einzelnen Ergebnis von der Frage nach dem Zusammenspiel.",
+      "Wer entscheidet beim letzten Versuch nach wessen Kriterien über die Annahme?"
     ],
     "fields": [
       {
@@ -382,9 +382,9 @@
     "explanation": "Funktionales Prüfen betrachtet die angebotene Fachleistung. Nichtfunktionales Prüfen untersucht etwa Leistungs- oder Sicherheitsaspekte unter festgelegten Bedingungen.",
     "discovery": "Der Testplan hält fachliche Rückgaben und Lastverhalten auseinander.",
     "hints": [
-      "Welche Leistung wird angeboten, und unter welchen Qualitätsbedingungen?",
-      "Die Preisformel und die Antwortzeit sind unterschiedliche Fragen.",
-      "Auch Sicherheitsanforderungen können überprüfbare Erwartungen enthalten."
+      "Nimm als Beispiel eine korrekte Buchung mit sehr langer Wartezeit.",
+      "Welche der Beobachtungen betrifft das fachliche Ergebnis, welche eine Eigenschaft seiner Bereitstellung?",
+      "Frage bei jeder Zuordnung, welche Messung sie belegen würde."
     ],
     "fields": [],
     "solutions": [],
@@ -412,9 +412,9 @@
     "explanation": "Risikoorientierte Auswahl berücksichtigt Wirkung und Wahrscheinlichkeit. Hier ist die Einstufung vorgegeben; sie wird nicht allein aus dem Namen eines Fehlers erfunden.",
     "discovery": "Die knappe Prüfzeit folgt den ausdrücklich festgelegten Risiken.",
     "hints": [
-      "Nutze die gegebenen Risikoeinstufungen.",
-      "Hoch liegt vor mittel, mittel vor niedrig.",
-      "Die Aufgabe verlangt keine eigene Berechnung unbekannter Wahrscheinlichkeiten."
+      "Lies die Einstufungen aus der Vereinbarung ab, bevor du über den Aufwand nachdenkst.",
+      "Ordne die Arbeit nach der möglichen Auswirkung im Fall.",
+      "Deine erste Prüfung wäre teuer. Gibt dir der Auftrag deswegen das Recht, sie nach hinten zu verschieben?"
     ],
     "fields": [],
     "solutions": [
@@ -450,9 +450,9 @@
     "explanation": "Ein Testdouble muss zum Testziel passen. Eine Ersatzabhängigkeit unterstützt Isolation, beweist aber nicht automatisch die reale Zusammenarbeit mit dem späteren Speicher.",
     "discovery": "Die isolierte Regelprüfung erhält passende Ersatzabhängigkeiten.",
     "hints": [
-      "Unterscheide feste Antworten von überprüften Interaktionen.",
-      "Ein ersetzter Speicher wird in diesem Lauf nicht als echter Speicher geprüft.",
-      "Integration bleibt eine zusätzliche Fragestellung."
+      "Frage, was der Test nach seiner Ausführung wissen soll.",
+      "Ein vorbestimmter Rückgabewert und der Nachweis eines erfolgten Aufrufs beantworten verschiedene Fragen.",
+      "Spiele einen korrekten Rückgabewert bei versehentlich ausgelassenem Aufruf durch. Welcher Nachweis würde fehlen?"
     ],
     "fields": [
       {
@@ -520,9 +520,9 @@
     "explanation": "Ein mittlerer Wert ist kein Nachweis der Randwerte. Unterschiedliche Prüfziele brauchen passende Beobachtungen; eine kontrollierte Uhr kann dagegen Wiederholbarkeit unterstützen.",
     "discovery": "Der Testplan erhält konkrete Hinweise auf fehlende Grenzen und Lastbeobachtungen.",
     "hints": [
-      "Welche Aussage verwechselt einen mittleren Wert mit einer Grenze?",
-      "Suche nach dem Ersatz eines völlig anderen Prüfziels.",
-      "Eine festgelegte Messstelle und kontrollierte Zeit sind keine Mängel."
+      "Markiere die Nachweise, die laut Plan tatsächlich erhoben werden.",
+      "Wo wird eine nicht ausgeführte Prüfung durch eine Annahme ersetzt?",
+      "Könnte ein Fehler trotz des behaupteten Nachweises unbemerkt bleiben? Benenne diesen Fall."
     ],
     "fields": [],
     "solutions": [],
@@ -550,9 +550,9 @@
     "explanation": "Ein bestandener Teilnachweis erfüllt nicht automatisch alle Freigabekriterien. Eine nicht durchgeführte Probe ist offen und wird nicht als bestanden gewertet.",
     "discovery": "Mira erkennt den noch fehlenden Wiederherstellungsnachweis vor dem Probebetrieb.",
     "hints": [
-      "Vergleiche Messwert und Lastannahme mit der Vereinbarung.",
-      "Nicht durchgeführt bedeutet nicht bestanden.",
-      "Die Freigaberegel verknüpft beide Nachweise mit UND."
+      "Lege für jede Freigabebedingung eine eigene Zeile an.",
+      "Trage nur dort „bestanden“ ein, wo das Material ein passendes Ergebnis nennt.",
+      "Wäre der Lastversuch allein ausreichend, wenn die Wiederherstellung morgen scheitert?"
     ],
     "fields": [
       {
@@ -617,9 +617,9 @@
     "explanation": "Ein geeigneter Vertreter je verlangter Klasse erfüllt diesen Ausschnitt. Andere Werte derselben Klassen sind erlaubt; dreimal derselbe gültige Wert deckt keine ungültige Klasse ab.",
     "discovery": "Ein eigener Testsatz trennt drei fachlich unterschiedliche Eingabebereiche.",
     "hints": [
-      "Lies zuerst den gültigen Bereich einschließlich seiner Grenzen.",
-      "Unterhalb, innerhalb und oberhalb benötigen jeweils einen eigenen Vertreter.",
-      "Leite WAHR oder FALSCH aus dem Vertrag ab, nicht aus einer Fehlervariante."
+      "Zeichne den erlaubten Bereich als Strecke mit zwei Außenseiten.",
+      "Wähle je einen Vertreter aus Bereichen, für die dieselbe Entscheidung gilt.",
+      "Ordne deine Eingaben ohne Blick auf die Ist-Ausgabe erneut zu. Decken sie tatsächlich drei verschiedene Entscheidungen ab?"
     ],
     "fields": [],
     "solutions": [
@@ -679,9 +679,9 @@
     "explanation": "Die eingeschlossenen Randwerte müssen WAHR liefern. Ihre unmittelbaren äußeren Nachbarn müssen FALSCH liefern. Erst richtige Sollwerte machen eine abweichende Fehlervariante erkennbar.",
     "discovery": "Die Annahmeprüfung besitzt konkrete Sicherungen gegen drei Grenzfehler.",
     "hints": [
-      "Ein eingeschlossener Randwert gehört noch zum erlaubten Bereich.",
-      "Nimm zusätzlich den unmittelbaren Nachbarn außerhalb jeder Grenze.",
-      "Ein falscher Sollwert ist ein Fehler im Test, kein entdeckter Fehler im Programm."
+      "Lege die Werte direkt neben der unteren und der oberen Grenze paarweise hin.",
+      "Vergleiche je Paar, auf welcher Seite die Zulässigkeit umschlägt.",
+      "Setze gedanklich ein striktes anstelle eines einschließenden Vergleichs. Welcher deiner Fälle würde das bemerken?"
     ],
     "fields": [],
     "solutions": [
@@ -753,9 +753,9 @@
     "explanation": "Die Sollwerte sind Centbeträge. Mitgliedschaft allein und Größe allein genügen nicht für den Nachlass. Die kritische Gruppe mit genau zehn Personen unterscheidet die strenge von der einschließenden Schwelle.",
     "discovery": "Die Gebührenprüfung unterscheidet fachliche Kombinationen und erkennt falsche Nachlassregeln.",
     "hints": [
-      "Trenne zuerst ungültige von gültigen Gruppengrößen.",
-      "Bei gültigen Gruppen muss die Mitgliedschaft mit der Zehnerschwelle zusammen betrachtet werden.",
-      "Zehn mal 1200 Cent mit 20 Prozent Nachlass ergibt 9600 Cent."
+      "Prüfe die Gruppengröße zuerst auf Zulässigkeit, bevor du über einen Nachlass nachdenkst.",
+      "Vergleiche gleich große gültige Gruppen mit unterschiedlichem Mitgliedsstatus.",
+      "Verschiebe eine Mitgliedergruppe um eine Person über die Schwelle. Unterscheiden sich die richtigen Sollwerte?"
     ],
     "fields": [],
     "solutions": [
@@ -840,9 +840,9 @@
     "explanation": "Die UND-Verknüpfung ist ausschließlich bei zwei erfüllten Bedingungen wahr. Die betrachteten Gruppengrößen sind in dieser Tabelle ausdrücklich gültig.",
     "discovery": "Die Nachlassentscheidung ist als vollständige Viererkombination festgehalten.",
     "hints": [
-      "Prüfe beide Bedingungen unabhängig.",
-      "Eine einzige erfüllte Bedingung genügt bei UND nicht.",
-      "Nur die Kombination Mitglied und mindestens zehn erhält Nachlass."
+      "Zeichne ein Raster mit zwei möglichen Zuständen je Bedingung.",
+      "Lies jede Zelle als vollständigen Satz über Mitgliedschaft und Gruppengröße.",
+      "Streiche gedanklich eine der beiden Voraussetzungen. In welcher Zelle würde sich die Entscheidung ändern?"
     ],
     "fields": [
       {
@@ -919,9 +919,9 @@
     "explanation": "Jeder Fall startet in seinem eigenen Vorzustand. Eine erlaubte Stornierung ersetzt keine Prüfung einer wiederholten Bestätigung oder einer bereits stornierten Buchung.",
     "discovery": "Der Zustandstest trennt zulässige Übergänge von wiederholten und unzulässigen Aktionen.",
     "hints": [
-      "Betrachte stets Vorzustand und Aktion gemeinsam.",
-      "Ein vorheriger Test setzt nicht den Zustand des nächsten Falls.",
-      "Bestätigt plus Bestätigen ist ein anderer Fehlerfall als storniert plus Stornieren."
+      "Notiere Ausgangszustand und Ereignis nebeneinander.",
+      "Leite für jede Kombination den erwarteten Folgezustand aus der Regel ab.",
+      "Beginnt jede Testzeile mit ihrem eigenen Vorzustand, auch wenn die vorherige Zeile anders endete?"
     ],
     "fields": [],
     "solutions": [
@@ -997,9 +997,9 @@
     "explanation": "1000 Gramm gehört noch zum leichten Tarif. Express addiert drei Euro erst bei gültigen Gewichten. Andere Vertreter für die allgemeinen Klassen sind erlaubt; die ausdrücklich genannten Tarifgrenzen bleiben verbindlich.",
     "discovery": "Die Versandprüfung deckt Tarifwechsel, Versandarten und ungültige Gewichte ab.",
     "hints": [
-      "Trenne ungültige Gewichte von der Tarifauswahl.",
-      "Bei der Tarifgrenze ist einschließlich entscheidend.",
-      "Ein schweres Expresspaket liefert 8 plus 3 Euro."
+      "Stelle zwei gleich schwere Sendungen mit verschiedenen Versandarten gegenüber.",
+      "Untersuche zusätzlich die benachbarten Grammwerte am Tarifwechsel.",
+      "Prüfe einen ungültigen Wert separat. Hast du versehentlich schon einen Tarif für ihn berechnet?"
     ],
     "fields": [],
     "solutions": [
@@ -1079,9 +1079,9 @@
     "explanation": "Eine ungültige und eine gültige Zahl führen zu unterschiedlichen Rückgaben. Ein einzelner gültiger Mittelwert erreicht nur eine der beiden gezählten Anweisungen.",
     "discovery": "Beide Rückgabeanweisungen der Annahmeprüfung wurden durch eigene Daten ausgeführt.",
     "hints": [
-      "Lies die mit S markierten gezählten Anweisungen.",
-      "Welcher Fall beendet die Funktion bereits in der Ablehnung?",
-      "Für die andere Rückgabe benötigst du eine gültige Zahl."
+      "Markiere im Programm nur die beschrifteten S-Anweisungen.",
+      "Verfolge eine Eingabe mit dem Finger bis zu ihrer Rückgabe und hake erreichte Stellen ab.",
+      "Welche noch leere Markierung lässt sich nur über die andere Entscheidung erreichen?"
     ],
     "fields": [],
     "solutions": [
@@ -1133,9 +1133,9 @@
     "explanation": "D1 muss eine ungültige und eine gültige Eingabe sehen. Für gültige Gewichte braucht D2 beide Tarife und D3 beide Expressentscheidungen. Drei geeignete Fälle können dies erreichen, ohne alle fünf erreichbaren Pfade abzudecken.",
     "discovery": "Der Testsatz erreicht alle gezählten Anweisungen und bedingten Zweige der Versandfunktion.",
     "hints": [
-      "Ein ungültiges Gewicht erreicht die späteren Entscheidungen nicht.",
-      "Verwende gültige Gewichte auf beiden Seiten des Tarifwechsels.",
-      "Verbinde diese mit unterschiedlichen Expresswerten."
+      "Lege für jede D-Markierung je ein Kästchen pro Ausgang an.",
+      "Hake bei jedem Fall nur den Ausgang ab, den der Lauf wirklich nimmt.",
+      "Vergleiche am Ende S-Markierungen und D-Ausgänge getrennt. Ein besuchter Knoten garantiert keine zwei besuchten Zweige."
     ],
     "fields": [],
     "solutions": [
@@ -1207,9 +1207,9 @@
     "explanation": "Jeder Pfad ist eine vollständige Folge der D-Ausgänge. Leicht/Express und schwer/Standard fehlen leicht in einem Satz, der bereits jeden einzelnen Zweig irgendwann erreicht. Das Modell enthält keine Schleife; unbeschränkte Schleifenpfade werden hier nicht versprochen.",
     "discovery": "Die vier gültigen Versandkombinationen und der Ablehnungsweg sind einzeln geprüft.",
     "hints": [
-      "Vergleiche vollständige D-Folgen statt einzelner D-Ausgänge.",
-      "Für gültige Gewichte entstehen zwei mal zwei Kombinationen.",
-      "Ein zusätzlicher ungültiger Fall deckt den frühen Ablehnungsweg ab."
+      "Zeichne die Wege bis zur Rückgabe vollständig, ohne gemeinsame Endstücke abzuschneiden.",
+      "Kombiniere für gültige Eingaben Gewichtsklasse und Versandart. Wo endet eine ungültige Eingabe früher?",
+      "Lies für jeden Fall die ganze Folge der Entscheidungen. Sind darunter zwei identische Wege?"
     ],
     "fields": [],
     "solutions": [
@@ -1290,9 +1290,9 @@
     "explanation": "Je zwei von vier Zähleinheiten entsprechen 50 Prozent. Ein Strukturmaß beweist keine allgemeine Fehlerfreiheit und entdeckt nicht automatisch fehlende Anforderungen.",
     "discovery": "Mira kann den beobachteten Strukturanteil korrekt beziffern.",
     "hints": [
-      "Zähle nur die ausdrücklich genannten S- beziehungsweise D-Ausgänge.",
-      "Überdeckung = erreicht geteilt durch insgesamt mal 100.",
-      "Auch 100 Prozent wären keine Garantie für alle Fachanforderungen."
+      "Schreibe die zwei gefragten Überdeckungsarten als verschiedene Brüche auf.",
+      "Zähle verschiedene erreichte Stellen. Mehrere Besuche derselben Stelle vergrößern den Zähler nicht.",
+      "Prüfe vor der Prozentrechnung, ob Zähler und Nenner jeweils dieselbe Einheit haben."
     ],
     "fields": [
       {
@@ -1369,9 +1369,9 @@
     "explanation": "Ein Fall kann alle Anweisungen eines Ausschnitts ausführen und trotzdem einen Bedingungsausgang auslassen. Vollständige Zweigüberdeckung ist stärker, bleibt aber ein Strukturmaß und kein allgemeiner Korrektheitsbeweis.",
     "discovery": "Der Testbericht trennt Anweisungs-, Zweig- und Pfadaussagen von Garantien.",
     "hints": [
-      "Die Richtung einer Schlussfolgerung ist wichtig.",
-      "Strukturabdeckung beurteilt nicht die Vollständigkeit der Spezifikation.",
-      "Eine beliebig oft wiederholbare Schleife erzeugt eine andere Pfadfrage als ein kleines schleifenfreies Modell."
+      "Zeichne als Gegenbeispiel zwei aufeinanderfolgende Verzweigungen.",
+      "Kann man jeden Ausgang einmal betreten, ohne jede mögliche Folge zu durchlaufen?",
+      "Was sagt ein besuchter Pfad über die Richtigkeit des dort berechneten Ergebnisses aus?"
     ],
     "fields": [],
     "solutions": [],
@@ -1399,9 +1399,9 @@
     "explanation": "Ungültige Dauer, gültige Ausleihe ohne Schaden und gültige Ausleihe mit Schaden decken die geforderte Struktur ab. Der erlaubte obere Rand erkennt außerdem eine fälschliche Ablehnung von 14 Tagen.",
     "discovery": "Die Ausleihprüfung verbindet Strukturabdeckung und gezielte Fehlererkennung.",
     "hints": [
-      "Der ungültige Fall endet vor der Gebührenberechnung.",
-      "Ein gültiger Fall muss die Schadenspauschale auslassen, ein anderer anwenden.",
-      "Nutze auch den eingeschlossenen oberen Rand, wenn dessen Fehlervariante erkannt werden soll."
+      "Markiere die Stellen, an denen sich der Rechenweg der Gebühr verzweigt.",
+      "Vergleiche für jede Fehlervariante eine Eingabe, bei der sich ihr Ergebnis vom Soll unterscheidet.",
+      "Trenne beim Abhaken „Zeile erreicht“ von „falsches Ergebnis tatsächlich entdeckt“."
     ],
     "fields": [],
     "solutions": [
@@ -1474,9 +1474,9 @@
     "explanation": "Eine übersichtliche Struktur zeigt, was der Test voraussetzt, was tatsächlich ausgeführt wird und welches Ergebnis er erwartet. Die Erwartung stammt aus der Fachregel.",
     "discovery": "Der Unit-Test besitzt erkennbare Vorbereitung, Ausführung und Prüfung.",
     "hints": [
-      "Vorbereitete Daten sind noch kein Aufruf des Testobjekts.",
-      "Act bezeichnet den untersuchten Aufruf.",
-      "Die fachliche Erwartung wird in der Assertion verglichen."
+      "Verfolge den Test einmal vom leeren Arbeitsplatz bis zur Entscheidung über Erfolg.",
+      "Wo wird die Funktion tatsächlich aufgerufen, und wo steht nur etwas für diesen Aufruf bereit?",
+      "Stelle dir eine falsche Gebührenrückgabe vor. Welcher Schritt würde den Unterschied zuerst feststellen?"
     ],
     "fields": [
       {
@@ -1544,9 +1544,9 @@
     "explanation": "Der Istwert wird aus dem beobachteten fehlerhaften Lauf übernommen. Der Sollwert wird unabhängig aus dem Vertrag berechnet. Ungleiche Werte lassen die Gleichheitsprüfung fehlschlagen.",
     "discovery": "Ein konkreter Gebührenfehler ist durch eine unabhängige Erwartung nachgewiesen.",
     "hints": [
-      "Ein beobachteter Wert ist nicht automatisch der richtige Wert.",
-      "Berechne zunächst den vollen Centbetrag und dann 80 Prozent davon.",
-      "Die Gleichheitsassertion verlangt zwei gleiche Werte."
+      "Decke die beobachtete Ausgabe ab und bestimme die Erwartung aus der Aufgabenregel.",
+      "Trage erst danach den tatsächlichen Wert aus dem Protokoll ein.",
+      "Welche der beiden Zahlen würde sich ändern, wenn nur das Programm fehlerhaft geändert würde?"
     ],
     "fields": [
       {
@@ -1605,9 +1605,9 @@
     "explanation": "ASSERT_EQUAL(ist, ist) bestätigt nur die Gleichheit eines Werts mit sich selbst. Der reparierte Test vergleicht die tatsächliche Rückgabe mit dem aus der Spezifikation abgeleiteten Sollwert.",
     "discovery": "Die Assertion kann nun einen falschen Gebührenbetrag tatsächlich erkennen.",
     "hints": [
-      "Die Erwartung darf nicht dieselbe unbeurteilte Rückgabe sein.",
-      "Für zehn Mitglieder beträgt der vereinbarte Sollwert 9600 Cent.",
-      "Beachte die im Auftrag erklärte Argumentreihenfolge."
+      "Berechne die Erwartung auf Papier, bevor du die Assertion liest.",
+      "Verfolge, wo der beim Aufruf beobachtete Wert gespeichert ist.",
+      "Spiele eine absichtlich falsche Rückgabe durch. Kann der reparierte Vergleich jetzt fehlschlagen?"
     ],
     "fields": [
       {
@@ -1684,9 +1684,9 @@
     "explanation": "Versteckte Abhängigkeiten zwischen Tests und unkontrollierte Zeit können den Lauf beeinflussen. Ein eigener Anfangszustand und eine kontrollierte Beispieluhr unterstützen Wiederholbarkeit.",
     "discovery": "Zwei konkrete Ursachen des wechselnden Testverhaltens sind isoliert.",
     "hints": [
-      "Welche Voraussetzung steht nicht ausdrücklich im jeweiligen Test?",
-      "Zeitabhängige Erwartungen benötigen eine kontrollierte Zeitquelle.",
-      "Ein grüner Lauf nur in einer bestimmten Reihenfolge ist ein Hinweis auf Kopplung."
+      "Lass denselben Test gedanklich zweimal hintereinander laufen.",
+      "Welche Eingaben oder Zustände könnten zwischen den Läufen unkontrolliert wechseln?",
+      "Vertausche die Reihenfolge zweier Tests. Eine geänderte Erwartung verrät eine Abhängigkeit."
     ],
     "fields": [],
     "solutions": [],
@@ -1714,9 +1714,9 @@
     "explanation": "Die Referenz liefert bei ungültigen Daten -1. Bei genau einem Platz Überbelegung kann auch eine fehlerhafte Subtraktion zufällig -1 liefern. Ein weiter überbelegter Fall macht diese Fehlervariante sichtbar; korrekte Vertreter anderer Klassen bleiben frei wählbar.",
     "discovery": "Der Bestandsprüfsatz erkennt ungültige Daten und einen zusätzlich erfundenen freien Platz.",
     "hints": [
-      "Leite zuerst alle gültigen und ungültigen Klassen aus dem Vertrag ab.",
-      "Volle Belegung ist gültig und besitzt null freie Plätze.",
-      "Ein Test erkennt einen Fehler nur bei einem abweichenden Ergebnis; Zufallsgleichheit kann einen weiteren Vertreter nötig machen."
+      "Zeichne für jeden Bestandsfall Ausgangswert und Bedarf nebeneinander.",
+      "Wähle für Überbelegung Zahlen, bei denen erlaubtes und fehlerhaftes Verhalten unterscheidbar sind.",
+      "Berechne jeden Sollwert vor dem Lauf. Liefern Original und Fehlervariante zufällig dieselbe Ausgabe?"
     ],
     "fields": [],
     "solutions": [
@@ -1810,9 +1810,9 @@
     "explanation": "Isolation macht den Fachtest unabhängig von einer technischen Anbindung. Gerade weil diese ersetzt wird, ist ihr Zusammenspiel ein zusätzlicher Integrationstest.",
     "discovery": "Der Prüfplan nutzt Isolation und gemeinsame Prüfung für unterschiedliche Ziele.",
     "hints": [
-      "Frage, welches Testobjekt wirklich beteiligt ist.",
-      "Ein Stub ist kein Nachweis über den späteren realen Adapter.",
-      "Zwei sich ergänzende Läufe dürfen unterschiedliche Fragen beantworten."
+      "Schreibe auf, welche echte Komponente bei einem isolierten Test ersetzt wird.",
+      "Welche Frage über das Zusammenspiel bleibt offen, auch wenn die Ersatzkomponente wie geplant reagiert?",
+      "Suche zu jeder Behauptung die Schnittstelle, über die tatsächlich kommuniziert wurde."
     ],
     "fields": [
       {
@@ -1877,9 +1877,9 @@
     "explanation": "Ein Bericht nennt den reproduzierbaren Anfangszustand, die Aktion und getrennte Soll-/Istwerte. Die strukturierte Prüfung erfasst die im Auftrag verlangten Berichtsdaten.",
     "discovery": "Der Platzfehler besitzt einen nachvollziehbaren Bericht mit unabhängigen Soll-/Istwerten.",
     "hints": [
-      "Bei voller Belegung bleibt kein freier Platz.",
-      "Die beobachtete 1 wird nicht als Erwartung übernommen.",
-      "Nutze für den freien Text die konkrete Eingabe, die Anzeigeaktion und das abweichende Ergebnis."
+      "Lies das Protokoll wie jemand, der den Versuch morgen wiederholen soll.",
+      "Trenne Schritte und Startbedingungen von erwartetem und beobachtetem Ergebnis.",
+      "Streiche vermutete Ursachen aus deiner Zusammenfassung. Welche Werte sind tatsächlich dokumentiert?"
     ],
     "fields": [
       {
@@ -1957,9 +1957,9 @@
     "explanation": "Der Fehlernachtest prüft die konkrete Behebung. Regression untersucht unerwünschte Auswirkungen auf bereits vorhandenes Verhalten. Hier ist die Reihenfolge für diesen Bearbeitungsfall ausdrücklich vorgegeben.",
     "discovery": "Der Platzfehler erhält einen kontrollierten Abschluss mit Nachtest und Regression.",
     "hints": [
-      "Vor einer gezielten Korrektur braucht das Team einen nachvollziehbaren Befund.",
-      "Der ursprüngliche Fehlerfall beantwortet eine andere Frage als die Regression.",
-      "Beides folgt auf die Korrektur."
+      "Gehe vom gemeldeten Fehler aus: Was benötigst du, bevor du seine Ursache untersuchen kannst?",
+      "Trenne nach der Änderung den ursprünglichen Fehlerfall von benachbarten, bisher funktionierenden Fällen.",
+      "Prüfe, ob dein Ablauf beides belegt: die Reparatur und den Erhalt des bisherigen Verhaltens."
     ],
     "fields": [],
     "solutions": [
@@ -1999,9 +1999,9 @@
     "explanation": "Regression schützt sowohl die korrigierte Schwelle als auch die übrige Fachregel. Ohne Mitgliedschaft bleibt auch eine große gültige Gruppe ohne Nachlass.",
     "discovery": "Die Regression hält die korrigierte Schwelle und die Mitgliedschaftsvoraussetzung fest.",
     "hints": [
-      "Berechne die Centbeträge unabhängig vom bisherigen fehlerhaften Lauf.",
-      "Die drei benachbarten Größen betrachten die Umgebung der Schwelle.",
-      "Ein Nichtmitgliedsfall verhindert einen versehentlich allgemein eingeführten Nachlass."
+      "Lege die drei benachbarten Gruppengrößen nebeneinander.",
+      "Berechne die erwarteten Gebühren aus der Fachregel, auch für den Vergleich ohne Mitgliedschaft.",
+      "Ändere gedanklich nur das Vergleichszeichen an der Schwelle. Welcher deiner Fälle würde anschlagen?"
     ],
     "fields": [],
     "solutions": [
@@ -2108,9 +2108,9 @@
     "explanation": "Die gegebene UND-Freigaberegel ist durch den fehlgeschlagenen Sicherheitsschritt nicht erfüllt. Ein erfolgreicher Build und richtige Fachrückgaben beantworten andere Fragen.",
     "discovery": "Ein fehlgeschlagener Pflichtschritt stoppt die Freigabe nachvollziehbar.",
     "hints": [
-      "Lies die drei protokollierten Ergebnisse einzeln.",
-      "Prüfe anschließend die ausdrücklich genannte Verknüpfung.",
-      "Ein anderer erfolgreicher Schritt kann die fehlgeschlagene Pflichtprüfung nicht ersetzen."
+      "Gib jedem Prüfpunkt einen Status anhand seines eigenen Protokolleintrags.",
+      "Trenne einen fehlenden Nachweis von einem ausdrücklich fehlgeschlagenen Versuch.",
+      "Ein Build wird grün. Welchen der anderen Protokolleinträge kann das tatsächlich ersetzen?"
     ],
     "fields": [
       {
@@ -2187,9 +2187,9 @@
     "explanation": "Schweregrad beschreibt die Auswirkung eines Fehlers. Priorität beschreibt seine Bearbeitungsdringlichkeit. In realen Fällen können weitere Rahmenbedingungen hinzukommen; hier ist die Vereinbarung ausdrücklich genannt.",
     "discovery": "Der Fehlerbericht vermischt Auswirkung und Bearbeitungsreihenfolge nicht mehr.",
     "hints": [
-      "Frage einmal nach der Wirkung und einmal nach der Reihenfolge.",
-      "Ein hoher Schaden ist nicht dieselbe Information wie eine Terminentscheidung.",
-      "Nutze die im Fall festgelegten Bedingungen."
+      "Schreibe zwei Fragen auf: „Wie schlimm ist die Folge?“ und „Wann bearbeiten wir den Fall?“.",
+      "Ordne die im Auftrag genannten Informationen jeweils einer Frage zu.",
+      "Stelle dir eine Terminverschiebung bei gleichem Fehler vor. Welche Einstufung kann sich dadurch ändern?"
     ],
     "fields": [
       {
@@ -2254,9 +2254,9 @@
     "explanation": "Ein offener Nachweis ist nicht bestanden. Erfolgreiche Fachtests beseitigen keine bekannte Zugriffslücke. Die Freigabe braucht die zum Fall vereinbarten Nachweise und eine ehrliche Darstellung verbleibender Risiken.",
     "discovery": "Der Probebetrieb wird anhand von Nachweisen statt umgedeuteten Lücken vorbereitet.",
     "hints": [
-      "Welche Aussage ersetzt einen fehlenden Versuch durch eine Annahme?",
-      "Fachfunktion und Zugriffsprüfung untersuchen unterschiedliche Risiken.",
-      "Offene Punkte müssen erkennbar bleiben."
+      "Unterstreiche für jede vorgeschlagene Freigabe den angeführten Nachweis.",
+      "Vergleiche dessen Umfang mit der tatsächlich vereinbarten Prüfung.",
+      "Kann die Aussage selbst dann wahr sein, wenn eine notwendige Probe noch fehlt?"
     ],
     "fields": [],
     "solutions": [],
@@ -2284,9 +2284,9 @@
     "explanation": "Vertraulichkeit schützt gegen unbefugte Offenlegung, Integrität gegen unbefugte oder unbemerkte Veränderung und Verfügbarkeit die bedarfsgerechte Nutzbarkeit.",
     "discovery": "Die drei Vorfälle besitzen ein klar benanntes unmittelbar betroffenes Schutzziel.",
     "hints": [
-      "Was wird im Vorfall konkret ermöglicht oder verhindert?",
-      "Lesen und Verändern sind unterschiedliche Eingriffe.",
-      "Ein nicht erreichbarer Dienst betrifft zunächst seine Nutzbarkeit."
+      "Beschreibe je Vorfall, was unmittelbar mit den Daten oder dem Dienst geschieht.",
+      "Unterscheide unberechtigtes Lesen, unerwünschte Veränderung und fehlenden Zugriff für Berechtigte.",
+      "Wähle das Ziel anhand der ersten beschriebenen Wirkung, bevor du mögliche spätere Schäden betrachtest."
     ],
     "fields": [
       {
@@ -2354,9 +2354,9 @@
     "explanation": "Eine festgestellte Identität beantwortet noch keine konkrete Zugriffsentscheidung. Die serverseitige Prüfung muss Aktion und angesprochenes Objekt berücksichtigen. Es handelt sich um einen Lernfall, nicht um eine zusätzliche Anmeldung am Trainer.",
     "discovery": "Miras Zugriffskonzept trennt Identität von der konkreten Objektberechtigung.",
     "hints": [
-      "Unterscheide die Fragen Wer? und Darf diese Person das?",
-      "Auch eine bekannte Identität kann für ein fremdes Objekt unberechtigt sein.",
-      "Der Objektbezug darf bei der Prüfung nicht verloren gehen."
+      "Stelle bei einer Buchung nacheinander die Fragen „Wer fragt?“ und „Was darf diese Person hier?“.",
+      "Überlege, was eine erfolgreiche Anmeldung über die Eigentümerschaft einer konkreten Buchung aussagt.",
+      "Teste deine Einordnung an zwei angemeldeten Personen mit verschiedenen Buchungen."
     ],
     "fields": [
       {
@@ -2421,9 +2421,9 @@
     "explanation": "Die Matrix überträgt die vereinbarte Regel vollständig. Eine allgemeine Anmeldung ersetzt keine einzelne Entscheidung; zusätzliche Rechte werden nicht stillschweigend angenommen.",
     "discovery": "Eine vollständige Matrix hält die vereinbarten Rollenrechte nachvollziehbar fest.",
     "hints": [
-      "Lies jede Rollenregel getrennt.",
-      "Eigene Objekte und beliebige Objekte sind unterschiedliche Reichweiten.",
-      "Gäste erhalten in dieser Matrix keine persönlichen Buchungsrechte."
+      "Lies jede Zelle als vollständigen Satz mit Rolle, Aktion und betroffener Buchung.",
+      "Vergleiche für dieselbe Rolle die eigene Buchung mit einer fremden.",
+      "Prüfe jede Erlaubnis gegen den Wortlaut der Regel. Eine Leseerlaubnis schließt Löschen nicht automatisch ein."
     ],
     "fields": [],
     "solutions": [
@@ -2470,9 +2470,9 @@
     "explanation": "Ein eigener Mitgliedsdatensatz allein erkennt keinen Fremdzugriff. Gäste, Mitglieder mit fremdem Objekt und Verwaltung mit fremdem Objekt unterscheiden die beschriebenen Fehler gezielt.",
     "discovery": "Der Berechtigungstest enthält erlaubte und ausdrücklich verweigerte Objektzugriffe.",
     "hints": [
-      "Ein positiver Mitgliedsfall reicht nicht für die negative Rechteprüfung.",
-      "Prüfe dieselbe Rolle auch mit einem fremden Objekt.",
-      "Verwaltung mit fremdem Objekt unterscheidet die vereinbarte weitergehende Rolle."
+      "Halte die Aktion fest und ändere für den nächsten Fall nur den Eigentumsbezug.",
+      "Wiederhole den Vergleich für die andere Rolle und bestimme das Soll aus der Matrix.",
+      "Würde dein Testsatz einen Prüfer bemerken, der nur die Rolle ansieht und das Objekt ignoriert?"
     ],
     "fields": [],
     "solutions": [
@@ -2548,9 +2548,9 @@
     "explanation": "Der Testzweck bestimmt die benötigten Daten. Eine reale Kontaktliste ist weder für diesen synthetischen Test erforderlich noch durch ihre Verfügbarkeit automatisch geeignet. Weitere rechtliche Anforderungen werden dadurch nicht abschließend beurteilt.",
     "discovery": "Der Testbestand enthält nur die für den beschriebenen Bestätigungsfall benötigte synthetische Angabe.",
     "hints": [
-      "Welche konkrete Aktion muss der Test nachweisen?",
-      "Verfügbar bedeutet nicht automatisch erforderlich.",
-      "Behalte den ausdrücklich vorgegebenen synthetischen Testbestand bei."
+      "Schreibe den konkreten Testzweck in einem Satz auf.",
+      "Lass jeweils ein Datenfeld gedanklich weg. Kann der vorgesehene Test noch ausgewertet werden?",
+      "Prüfe, ob für eine benötigte Eigenschaft ein künstlicher Wert ausreicht."
     ],
     "fields": [
       {
@@ -2627,9 +2627,9 @@
     "explanation": "Geheimnisse gehören nicht in allgemein lesbare Protokolle. Echte Personendaten werden nicht allein deshalb geeignet, weil sie vorhanden sind. Aussagekräftige technische Kennungen können die Diagnose ohne vollständige Geheimnisse unterstützen.",
     "discovery": "Zwei unnötige Offenlegungen werden vor dem Probebetrieb erkannt.",
     "hints": [
-      "Welche Information würde einer unberechtigten Person direkt weiterhelfen?",
-      "Unterscheide synthetische Beispiele von realen Kontaktlisten.",
-      "Eine technische Vorgangskennung muss nicht das Zugangstoken enthalten."
+      "Denke an die Person, die den Protokolleintrag später lesen kann.",
+      "Welche Angaben wären auch außerhalb des Tests noch vertraulich oder nutzbar?",
+      "Überlege, ob sich derselbe Fehler mit einer Fallnummer und synthetischen Werten nachvollziehen lässt."
     ],
     "fields": [],
     "solutions": [],
@@ -2657,9 +2657,9 @@
     "explanation": "Parameter binden Daten getrennt vom SQL-Befehlstext. Die Diagnose für Betreiber und die öffentliche Fehlermeldung haben unterschiedliche Informationsbedarfe. Minimale Rechte sind eine zusätzliche Schutzmaßnahme.",
     "discovery": "Der Review benennt SQL-Verkettung und zu ausführliche öffentliche Diagnosen als konkrete Risiken.",
     "hints": [
-      "Wo wird aus einer Nutzereingabe ein Bestandteil des Befehlstexts?",
-      "Welche Informationen braucht ein öffentlicher Fehlertext tatsächlich?",
-      "Parametrisierung und minimale Rechte sind keine Schwachstellen."
+      "Markiere in der gezeigten Abfrage feste Struktur und veränderliche Eingaben.",
+      "An welcher Stelle hängt die Interpretation einer Eingabe davon ab, wie der SQL-Text zusammengesetzt wird?",
+      "Lies auch die Fehlermeldung aus Sicht eines Gastes. Welche Details über die Datenbank braucht nur das Betriebsteam?"
     ],
     "fields": [],
     "solutions": [],
@@ -2687,9 +2687,9 @@
     "explanation": "Gebundene Parameter trennen Datenwerte und Befehlstext. Bezeichner wie Spaltennamen benötigen eine andere Behandlung, hier eine feste serverseitige Zuordnung. Minimale Rechte begrenzen zusätzliche Auswirkungen.",
     "discovery": "Die Abfrageplanung trennt Datenparameter, erlaubte Sortierbezeichner und Datenbankrechte.",
     "hints": [
-      "Ein Datenwert ist nicht dieselbe Syntaxposition wie ein Spaltenname.",
-      "Es sind bereits genau zwei Sortierungen angeboten.",
-      "Zusätzliche Rechte lösen kein Eingabeproblem."
+      "Unterscheide den gesuchten Wert von dem Namen, nach dem sortiert werden darf.",
+      "Welcher Teil kann beim Vorbereiten der Abfrage schon feststehen?",
+      "Prüfe, ob eine unbekannte Sortierauswahl auf einen vorgesehenen Fall begrenzt wird."
     ],
     "fields": [
       {
@@ -2757,9 +2757,9 @@
     "explanation": "Der konkrete Ausgabekontext entscheidet über die erforderliche Behandlung. Reine Textausgabe ist von interpretiertem HTML oder JavaScript zu unterscheiden. Eine einzelne pauschale Ersetzung oder alleinige CSP ersetzt keine passende Behandlung aller Ausgabestellen.",
     "discovery": "Zwei gefährliche Ausgabestellen sind als konkrete Reviewbefunde markiert.",
     "hints": [
-      "Soll die Nachricht als Text oder als Code interpretiert werden?",
-      "HTML und JavaScript sind unterschiedliche Ausgabekontexte.",
-      "textContent setzt Text, statt ihn als HTML auszuwerten."
+      "Folge dem Text von seiner Herkunft bis zur Stelle, an der ihn der Browser erhält.",
+      "Liest der Browser ihn dort als normalen Text oder als Teil der Seitensprache?",
+      "Prüfe die konkrete Ausgabestelle einzeln. Eine Absicherung an einer anderen Stelle reicht dafür nicht."
     ],
     "fields": [],
     "solutions": [],
@@ -2787,9 +2787,9 @@
     "explanation": "Automatisch mitgesendete Sitzungscookies sind keine Bestätigung der beabsichtigten Aktion. Ein serverseitig validierter Anti-CSRF-Nachweis und passende Cookie-/Anfragekontrollen ergänzen die separate Rechteprüfung. TLS schützt den Transport, ersetzt diese Anwendungsentscheidung aber nicht.",
     "discovery": "Die Änderungsaktion trennt Sitzung, beabsichtigte Anfrage und Objektberechtigung.",
     "hints": [
-      "Das Cookie kann auch bei einer fremd ausgelösten Anfrage gesendet werden.",
-      "Ein sichtbarer Nachweis hilft nur, wenn der Server ihn prüft.",
-      "Transportverschlüsselung und die Absicht einer Aktion sind verschiedene Fragen."
+      "Denke an eine gültige Sitzung, in der eine Änderung angefordert wird.",
+      "Welche zusätzliche Prüfung belegt, dass die Änderung aus dem vorgesehenen Bedienablauf stammt?",
+      "Verfolge den Nachweis bis zur Entscheidung über die Änderung. Kann diese Entscheidung allein im Browser fallen?"
     ],
     "fields": [
       {
@@ -2867,9 +2867,9 @@
     "explanation": "Der Vorzustand steht in jedem Fall ausdrücklich dabei. Ein richtiges Passwort hebt die vereinbarte Sperre nicht auf. Unter der Sperrgrenze müssen Zulassung und Ablehnung auseinandergehalten werden.",
     "discovery": "Der Test erfasst Sperrschwelle, gültige Anmeldung und abgewiesenen Versuch getrennt.",
     "hints": [
-      "Jeder Test beginnt mit seinem eigenen Zählerstand.",
-      "An der Schwelle hat die Sperrprüfung Vorrang vor der Passwortentscheidung.",
-      "Ein falscher Versuch unter der Grenze muss abgelehnt, aber im Modell noch nicht als gesperrt bezeichnet werden."
+      "Zeichne den Fehlversuchszähler unmittelbar vor und nach einem Versuch.",
+      "Halte den Vorzustand für jede Zeile ausdrücklich fest. Welcher Versuch liegt direkt am Sperrübergang?",
+      "Teste neben falschen Eingaben auch eine richtige Eingabe im relevanten Zustand."
     ],
     "fields": [],
     "solutions": [
@@ -2938,9 +2938,9 @@
     "explanation": "Eine sichtbare Zeile zu entfernen macht ein bereits bekannt gewordenes Geheimnis nicht wieder geheim. Die Aufgabe behandelt nur den ausdrücklich vereinbarten Ausschnitt eines fiktiven Vorfalls, keinen universellen Notfallprozess.",
     "discovery": "Der Testvorfall besitzt einen überprüfbaren Umgang mit dem bekannt gewordenen Schlüssel.",
     "hints": [
-      "Die weitere Offenlegung wird zuerst begrenzt.",
-      "Der alte bekannte Schlüssel darf nicht weiter gelten.",
-      "Abschließend müssen Konfiguration und Ungültigkeit des alten Werts überprüft werden."
+      "Schreibe auf, was trotz Entfernen eines sichtbaren Schlüssels weiterhin nutzbar sein könnte.",
+      "Trenne das Begrenzen der Offenlegung vom Beenden der Gültigkeit des betroffenen Schlüssels.",
+      "Suche einen abschließenden Nachweis, dass die korrigierte Konfiguration ohne das alte Geheimnis funktioniert."
     ],
     "fields": [],
     "solutions": [
@@ -2978,9 +2978,9 @@
     "explanation": "Verschlüsselung, Hashvergleich und Signatur erfüllen unterschiedliche Aufgaben. Auch ein Signaturergebnis benötigt eine vertrauenswürdige Zuordnung des öffentlichen Schlüssels; eine Signatur macht den Nachrichteninhalt nicht automatisch geheim.",
     "discovery": "Der Schutzplan verwendet Verfahren entsprechend ihrem konkreten Zweck.",
     "hints": [
-      "Unlesbarkeit und Änderungsnachweis sind unterschiedliche Ziele.",
-      "Ein Referenzhash muss selbst vertrauenswürdig bekannt sein.",
-      "Eine Signaturprüfung macht keine automatische Aussage über Geheimhaltung des Inhalts."
+      "Formuliere pro Verfahren die Frage des Empfängers: lesen, vergleichen oder Herkunft prüfen?",
+      "Überlege, wer die benötigten Schlüssel beziehungsweise Vergleichswerte vertrauenswürdig besitzen muss.",
+      "Ein Dritter könnte Daten und ungeschützten Prüfwert zusammen ersetzen. Welche Behauptung wäre dann zu stark?"
     ],
     "fields": [
       {
@@ -3048,9 +3048,9 @@
     "explanation": "Im vereinfachten hybriden Modell schützt ein symmetrisches Verfahren die Nutzdaten, während das asymmetrische Verfahren die Schlüsselbereitstellung übernimmt. Die privaten Schlüssel bleiben beim jeweiligen Inhaber. Der konkrete Auftrag legt die Reihenfolge dieses Lehrablaufs fest.",
     "discovery": "Der Nachrichtenablauf trennt Nutzdatenverschlüsselung und Schlüsselbereitstellung.",
     "hints": [
-      "Der öffentliche Schlüssel muss zunächst dem richtigen Empfänger zugeordnet sein.",
-      "Nutzdaten werden hier symmetrisch geschützt; der dafür benötigte Schlüssel wird separat verpackt.",
-      "Der private Empfängerschlüssel wird zum Entpacken genutzt und nicht mitgesendet."
+      "Markiere Nachricht, Empfängerschlüssel und frischen Sitzungsschlüssel als verschiedene Gegenstände.",
+      "Verfolge für jeden Schlüssel, wer ihn zu welchem Zeitpunkt braucht.",
+      "Spiele den Empfang durch. Kann der Empfänger die Nachricht bereits öffnen, bevor ihm der Sitzungsschlüssel vorliegt?"
     ],
     "fields": [],
     "solutions": [
@@ -3092,9 +3092,9 @@
     "explanation": "Ein geeignetes Passwort-Hashverfahren mit individuellem Salt ist für die Prüfung vorgesehen. Der Salt ist kein Ersatz für ein starkes Passwort oder passende Kostenparameter. Ein Hash wird nicht wie verschlüsselter Klartext entschlüsselt.",
     "discovery": "Der Lernentwurf trennt sichere Passwortprüfung von wiederherstellbarer Klartextspeicherung.",
     "hints": [
-      "Soll das Originalpasswort wieder angezeigt werden oder nur überprüfbar bleiben?",
-      "Schnelle allgemeine Hashfunktionen verfolgen nicht denselben Kostenansatz wie Passwort-Hashverfahren.",
-      "Der individuelle Salt darf zusammen mit dem Hash bekannt sein."
+      "Überlege, welche Entscheidung eine Anmeldung über ein eingegebenes Passwort treffen muss.",
+      "Welche Informationen müssen dafür gespeichert sein und welchen Zweck erfüllt ein individueller Salt?",
+      "Prüfe Aussagen zu Schutz oder Aufwand darauf, ob sie eine feste Garantie für alle Systeme versprechen."
     ],
     "fields": [
       {
@@ -3161,9 +3161,9 @@
     "explanation": "Hostname, zeitliche Gültigkeit und Vertrauenskette gehören zur Prüfung im beschriebenen Fall. Ein verschlüsselter Kanal ersetzt weder diese Zuordnung noch die zusätzliche Anwendungsberechtigung.",
     "discovery": "Zwei konkrete Zertifikatsprobleme bleiben vor dem Probebetrieb sichtbar offen.",
     "hints": [
-      "Vergleiche die tatsächliche Zieladresse mit dem Zertifikatsbezug.",
-      "Verwende den ausdrücklich kontrollierten Prüfzeitpunkt.",
-      "Eine zusätzliche Rechteprüfung ist kein Zertifikatsfehler."
+      "Schreibe auf, wem du die Verbindung zuordnen möchtest und zu welchem Zeitpunkt du prüfst.",
+      "Lies Namenszuordnung, Gültigkeitszeitraum und Vertrauenskette unabhängig voneinander.",
+      "Kann ein passender Name einen Fehler bei einem der anderen Prüfpunkte aufheben?"
     ],
     "fields": [],
     "solutions": [],
@@ -3191,9 +3191,9 @@
     "explanation": "Die ausdrücklich abhängigen Inkremente benötigen ihre Grundlage und Reihenfolge. Ein Sicherungslauf allein beweist keine erfolgreiche Wiederherstellung; der Zielstand wird zusätzlich geprüft.",
     "discovery": "Der Wiederherstellungsplan enthält Grundlage, abhängige Schritte und einen tatsächlichen Prüfschritt.",
     "hints": [
-      "Die Inkremente sind laut Auftrag nicht unabhängig voneinander.",
-      "Die Vollsicherung ist die Grundlage.",
-      "Der letzte Schritt beurteilt den wiederhergestellten Stand statt nur den Sicherungslauf."
+      "Zeichne den gesicherten Datenstand als Zeitlinie bis Mittwoch.",
+      "Welchen vorherigen Zustand setzt das jeweilige Inkrement voraus?",
+      "Ist nach dem letzten Einspielen nur der Kopiervorgang beendet oder auch die geforderte Fachfunktion geprüft?"
     ],
     "fields": [],
     "solutions": [
@@ -3231,9 +3231,9 @@
     "explanation": "Der Freigabevermerk unterscheidet bestandene Nachweise von einer bekannten offenen kritischen Lücke. Nach ihrer Behebung werden der konkrete Fehlerfall und die vereinbarte Regression geprüft. Auch ein vollständig bestandener begrenzter Testsatz ist keine allgemeine Fehlerfreiheitsgarantie.",
     "discovery": "Miras Freigabeentscheidung ist nachvollziehbar: bestätigte Ergebnisse bleiben anerkannt, die offene kritische Zugriffslücke verhindert den vereinbarten Probebetrieb noch.",
     "hints": [
-      "Übernimm jedes protokollierte Ergebnis ohne Umdeutung.",
-      "Die Freigaberegel nennt die kritische Lücke ausdrücklich als Ausschluss.",
-      "Behebung und deren Nachweis sind zwei getrennte Schritte."
+      "Lege für jede Freigabebedingung daneben, was tatsächlich als Nachweis vorliegt.",
+      "Trenne offene Punkte und bekannte Einschränkungen von erfolgreichen Prüfungen.",
+      "Lies die Notiz als Person, die den Probebetrieb verantwortet. Würde sie eine weitergehende Sicherheit vermuten, als belegt ist?"
     ],
     "fields": [
       {

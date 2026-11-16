@@ -84,14 +84,15 @@ public partial class Workshop : IAsyncDisposable
         _loading = false;
         _run = null;
         _evaluation = null;
-        if (_initial != null || !Database.Ready)
+        _initial = null;
+        if (_lesson == null || !Database.Ready)
             return;
         _busy = true;
         _queryCancellation = new CancellationTokenSource();
         CancellationToken token = _queryCancellation.Token;
         try
         {
-            WorkshopRun initial = await Evaluator.GetInitialStateAsync(token);
+            WorkshopRun initial = await Evaluator.GetInitialStateAsync(_lesson, token);
             if (revision == _revision)
                 _initial = initial;
         }
@@ -150,7 +151,7 @@ public partial class Workshop : IAsyncDisposable
             }
             else
             {
-                WorkshopRun run = await Evaluator.PreviewAsync(sql, token);
+                WorkshopRun run = await Evaluator.PreviewAsync(lesson, sql, token);
                 if (revision == _revision)
                     _run = run;
             }
@@ -201,6 +202,19 @@ public partial class Workshop : IAsyncDisposable
         catch (Exception exception) when (IsStorageError(exception))
         {
             _storageError = "Die Anzeigeeinstellung konnte nicht gespeichert werden. Kopiere dein Skript vor dem Schließen und prüfe die Schreibrechte.";
+        }
+    }
+
+    private async Task DismissWorkshopCopyHelpAsync()
+    {
+        try
+        {
+            await Store.SetWorkshopCopyHelpDismissedAsync(true);
+            _progress.WorkshopCopyHelpDismissed = true;
+        }
+        catch (Exception exception) when (IsStorageError(exception))
+        {
+            _storageError = "Der Hinweis zur Arbeitskopie konnte nicht ausgeblendet werden. Prüfe die Schreibrechte für deinen Lernstand.";
         }
     }
 

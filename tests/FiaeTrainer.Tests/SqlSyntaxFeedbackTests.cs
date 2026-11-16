@@ -30,6 +30,32 @@ public sealed class SqlSyntaxFeedbackTests
     }
 
     [Theory]
+    [InlineData("UPDATE Artikel SET Preis = Preis * 1,1 WHERE Kategorie = 'Sensoren';", "1.1")]
+    [InlineData("UPDATE Artikel SET Preis =", "Mit SET")]
+    [InlineData("INSERT INTO Artikel (Id, Preis) VALUES (1,);", "Werteliste")]
+    [InlineData("DELETE FROM Artikel WHERE Id =;", "DELETE FROM")]
+    [InlineData("UPDTE Artikel SET Preis = 2;", "SQL-Befehl")]
+    [InlineData("CREATE TABLE Rueckgaben (Id int, Anzahl);", "Spaltendefinitionen")]
+    [InlineData("ALTER TABLE Artikel ADD;", "Ergänzung nach ADD")]
+    [InlineData("BEGIN TRANSACTION; /* SELECT; */ UPDATE Artikel SET Kategorie = 'Text; SELECT', Preis =;", "Mit SET")]
+    [InlineData("BEGIN TRANSACTION; UPDATE Artikel SET Preis = ROUND(Preis * 1.1, 2), Bestand =;", "Mit SET")]
+    [InlineData("BEGIN TRANSACTION; ROLLBACK TRANSACTION 42;", "COMMIT oder ROLLBACK")]
+    public void WorkshopExplainsTheFailingStatement(string sql, string hint)
+    {
+        WorkshopSqlValidator validator = new();
+        string? feedback = validator.Validate(sql);
+        Assert.NotNull(feedback);
+        Assert.Contains(hint, feedback);
+        Assert.DoesNotContain("GROUP BY", feedback);
+        Assert.Equal(feedback, validator.Validate(sql, WorkshopOperation.Update));
+    }
+
+    [Theory]
+    [InlineData("UPDATE Artikel SET Preis = Preis * 1.1 WHERE Kategorie = 'Sensoren';")]
+    [InlineData("UPDATE Artikel SET Preis = ROUND(Preis * 1.1,2), Kategorie = 'Text 1,1';")]
+    public void WorkshopAcceptsDecimalPointsAndListSeparators(string sql) => Assert.Null(new WorkshopSqlValidator().Validate(sql));
+
+    [Theory]
     [InlineData("SELECT Id FROM Sendungen WHERE Zielort = 'O''Brien';")]
     [InlineData("SELECT Id FROM Sendungen WHERE Zielort = 'Er sagt \"Hallo\"';")]
     [InlineData("SELECT \"I\"\"d\" FROM Sendungen;")]

@@ -6,7 +6,7 @@
     "task": "Die Zahlen kapazitaet und beladen sind bereits als Eingaben vorhanden. Berechne die verbleibende Kapazität und gib ausschließlich diese Zahl mit AUSGABE aus. Du darfst annehmen: 0 ≤ beladen ≤ kapazitaet. Beispiel: kapazitaet = 1000, beladen = 350 ergibt 650. Schreibe einen eigenen Ablauf; Eingaben nicht durch feste Zahlen ersetzen.",
     "exampleInputs": { "kapazitaet": 1000, "beladen": 350 },
     "briefing": "Eingabevariablen enthalten schon die Werte des jeweiligen Testfalls. Mit = weist du einer neuen Variablen einen berechneten Wert zu. AUSGABE macht das Ergebnis sichtbar. Du kannst die Berechnung auch direkt ausgeben.",
-    "hints": ["Welche Rechenoperation bestimmt, wie viel nach dem Beladen noch frei ist?", "Ziehe beladen von kapazitaet ab. Die Reihenfolge ist entscheidend.", "Du kannst mit rest = kapazitaet - beladen beginnen und danach rest ausgeben."],
+    "hints": ["Skizziere die Ladefläche als Balken und markiere den schon belegten Teil.", "Welche der beiden Eingaben ist die Obergrenze, welche verbraucht Platz?", "Teste einen leeren und einen ganz vollen Wagen. Passt das Vorzeichen deines Ergebnisses in beiden Fällen?"],
     "referenceCode": "rest = kapazitaet - beladen\nAUSGABE rest", "referenceAnswer": "",
     "explanation": "Die Restkapazität ist Gesamtkapazität minus vorhandene Ladung. Die Namen beziehen sich auf wechselnde Eingaben. Deshalb funktioniert der Ablauf auch bei einem ganz leeren oder vollständig beladenen Fahrzeug.",
     "discovery": "Der erste Baustein der Einsatzplanung liefert die freie Kapazität wieder korrekt, auch bei leeren und vollen Fahrzeugen.",
@@ -25,7 +25,7 @@
     "givenCode": "frei = 900\nfrei = frei - 250\nAUSGABE frei\nfrei = frei - 300\nAUSGABE frei\nfrei = frei + 50\nAUSGABE frei",
     "exampleInputs": {},
     "briefing": "Bei einem Schreibtischtest verfolgst du die Werte Zeile für Zeile. Eine AUSGABE verändert die Variable nicht. Im geführten Modus kannst du den Ablauf starten und mit „Nächster Schritt“ jeden Zustand betrachten.",
-    "hints": ["Schreibe den aktuellen Wert von frei nach jeder Zuweisung auf.", "Nach der ersten Subtraktion ist frei gleich 650. Danach wird mit diesem neuen Wert weitergerechnet.", "Die zweite Ausgabe ist 350. Anschließend kommen 50 hinzu."],
+    "hints": ["Lege zwei Spalten an: aktueller Wert und sichtbare Ausgabe.", "Nach jeder Zuweisung streichst du den alten Wert. Nur eine Ausgabe erzeugt eine Ergebniszeile.", "Lies deine Notizen von oben nach unten. Hast du eine Änderung als zusätzliche Ausgabe gezählt?"],
     "referenceCode": "frei = 900\nfrei = frei - 250\nAUSGABE frei\nfrei = frei - 300\nAUSGABE frei\nfrei = frei + 50\nAUSGABE frei", "referenceAnswer": "650\n350\n400",
     "explanation": "900 - 250 ergibt 650. Von diesen 650 werden 300 abgezogen: 350. Durch die anschließende Korrektur um +50 entstehen 400. AUSGABE zeigt immer den zu diesem Zeitpunkt aktuellen Wert.",
     "discovery": "Die Reihenfolge der Zuweisungen ist nachvollzogen: Spätere Berechnungen arbeiten mit dem zuletzt gespeicherten Wert.",
@@ -39,7 +39,7 @@
     "givenCode": "WENN gewicht < frei DANN\n    AUSGABE \"passt\"\nSONST\n    AUSGABE \"zu schwer\"\nENDE WENN",
     "exampleInputs": { "frei": 500, "gewicht": 500 },
     "briefing": "Ein Vergleich ergibt WAHR oder FALSCH. WENN wählt genau einen Zweig. < schließt Gleichheit aus; ≤ wird im Editor als <= geschrieben. Solche Grenzfälle sind besonders geeignet, um einen fast richtigen Ablauf zu prüfen.",
-    "hints": ["Untersuche den Fall gewicht == frei.", "Der Auftrag passt auch dann, wenn danach genau 0 Kapazität übrig bleibt.", "Ersetze den strengen Vergleich < durch <=."],
+    "hints": ["Suche den Fall, bei dem das Paket genau so schwer ist wie der freie Platz.", "Vergleiche diesen Fall mit einem Paket, das nur eine Einheit schwerer ist. An welcher Bedingung trennen sich ihre Wege?", "Verfolge beide Pakete bis zum ausgegebenen Text. Erreicht jedes genau einen Zweig?"],
     "referenceCode": "WENN gewicht <= frei DANN\n    AUSGABE \"passt\"\nSONST\n    AUSGABE \"zu schwer\"\nENDE WENN", "referenceAnswer": "",
     "explanation": "Die erlaubten Gewichte reichen bis einschließlich frei. <= berücksichtigt die Gleichheit. Ein Gewicht oberhalb der Grenze landet im SONST-Zweig.",
     "discovery": "Die Annahmeprüfung berücksichtigt jetzt auch Aufträge, die die freie Kapazität exakt ausnutzen.",
@@ -57,7 +57,7 @@
     "task": "Die Eingaben erledigt und express sind Wahrheitswerte, minuten ist eine nichtnegative ganze Zahl. Gib erledigt aus, wenn erledigt == WAHR ist. Sonst gib dringend aus, wenn express == WAHR ODER minuten <= 30 gilt. Für alle übrigen Fälle gib normal aus. Pro Auftrag darf genau eine Ausgabe entstehen.",
     "exampleInputs": { "erledigt": false, "express": false, "minuten": 30 },
     "briefing": "Prüfe zuerst den Ausschlussfall erledigt. Im SONST-Zweig kannst du mit einer weiteren WENN-Anweisung zwischen dringend und normal unterscheiden. UND verlangt beide Bedingungen, ODER mindestens eine. NICHT kehrt einen Wahrheitswert um.",
-    "hints": ["Ein erledigter Expressauftrag muss erledigt bleiben. Welche Prüfung hat daher Vorrang?", "Verwende außen WENN erledigt DANN … SONST … ENDE WENN.", "Im SONST-Zweig lautet die Dringlichkeitsbedingung express ODER minuten <= 30."],
+    "hints": ["Was soll bei einem Auftrag passieren, der zugleich erledigt und dringend ist?", "Ordne die Entscheidungen so, dass eine endgültige Einstufung weitere Ausgaben ausschließt.", "Teste einen offenen Auftrag ohne Expresskennzeichen mit genau 30 Minuten Restzeit."],
     "referenceCode": "WENN erledigt DANN\n    AUSGABE \"erledigt\"\nSONST\n    WENN express ODER minuten <= 30 DANN\n        AUSGABE \"dringend\"\n    SONST\n        AUSGABE \"normal\"\n    ENDE WENN\nENDE WENN", "referenceAnswer": "",
     "explanation": "Der äußere Zweig verhindert eine erneute Planung erledigter Aufträge. Erst bei offenen Aufträgen entscheidet ODER über die Dringlichkeit. Genau 30 Minuten gehören ausdrücklich zum dringenden Bereich.",
     "discovery": "Die Priorisierung trennt erledigte, dringende und normale Aufträge. Express und kurze Restzeit sind alternative Gründe für Dringlichkeit.",
@@ -78,7 +78,7 @@
     "givenCode": "gesamt = 0\nFÜR i VON 1 BIS anzahl - 1\n    gesamt = gesamt + einzelgewicht\nENDE FÜR\nAUSGABE gesamt",
     "exampleInputs": { "anzahl": 3, "einzelgewicht": 20 },
     "briefing": "Eine Zählschleife wiederholt ihren Rumpf für jeden Wert zwischen Anfang und Ende einschließlich. Der Akkumulator gesamt beginnt bei 0. Er wird im Rumpf erhöht und erst nach der Schleife ausgegeben.",
-    "hints": ["Wie viele Durchläufe entstehen bei anzahl = 1?", "Die Werte 1 bis anzahl umfassen genau anzahl Zahlen.", "Die Endgrenze sollte anzahl heißen. Der Zusatz - 1 verkürzt die Schleife um ein Paket."],
+    "hints": ["Zeichne bei nur einem Paket für jeden Schleifendurchlauf einen Strich.", "Zähle Start- und Endwert der Schleife mit. Entspricht die Zahl der Striche der Paketanzahl?", "Verfolge den Ablauf für null Pakete. Darf die Addition überhaupt erreicht werden?"],
     "referenceCode": "gesamt = 0\nFÜR i VON 1 BIS anzahl\n    gesamt = gesamt + einzelgewicht\nENDE FÜR\nAUSGABE gesamt", "referenceAnswer": "",
     "explanation": "Die inklusive Grenze BIS anzahl sorgt für genau anzahl Durchläufe. Bei 0 ist der Startwert 1 bereits größer als die Endgrenze 0; gesamt bleibt 0. Eine direkte Multiplikation ist für diesen Auftrag ebenfalls eine korrekte Alternative.",
     "discovery": "Die Gesamtladung berücksichtigt alle Pakete. Der Grenzfall ohne Pakete liefert korrekt 0 statt eines fehlerhaften Schleifendurchlaufs.",
@@ -97,7 +97,7 @@
     "givenCode": "rest = 70\ngeladen = 0\nSOLANGE rest > 0\n    rest = rest - 30\n    geladen = geladen + 1\n    AUSGABE rest\nENDE SOLANGE\nAUSGABE geladen",
     "exampleInputs": {},
     "briefing": "SOLANGE prüft die Bedingung vor dem Schleifenrumpf. Wenn rest noch positiv ist, kann der nächste Abzug trotzdem zu einem negativen Wert führen. Unterscheide sorgfältig zwischen dem Verhalten des Codes und dem gewünschten Fachverhalten.",
-    "hints": ["Beginne mit rest = 70. Nach jedem Durchlauf werden 30 abgezogen.", "Nach zwei Durchläufen ist rest = 10. Die Bedingung rest > 0 ist weiterhin WAHR.", "Ein dritter Durchlauf macht rest negativ. Danach wird geladen außerhalb der Schleife ausgegeben."],
+    "hints": ["Lege eine Zeile pro Durchlauf an und notiere den Wert vor der Bedingung.", "Unterscheide die Ausgabe im Rumpf von der Ausgabe nach dem Schleifenende.", "Prüfe beim ersten falschen Bedingungstest, an welcher Programmzeile es weitergeht."],
     "referenceCode": "rest = 70\ngeladen = 0\nSOLANGE rest > 0\n    rest = rest - 30\n    geladen = geladen + 1\n    AUSGABE rest\nENDE SOLANGE\nAUSGABE geladen", "referenceAnswer": "40\n10\n-20\n3",
     "explanation": "Die Ausgaben lauten 40, 10 und -20. Erst danach wird rest > 0 falsch; geladen ist dann 3. Für eine echte Kapazitätsprüfung müsste bereits vor dem Einladen geprüft werden, ob das nächste Paket vollständig hineinpasst, etwa rest >= 30.",
     "discovery": "Die Bedingung rest > 0 verhindert keine Überladung. Entscheidend ist, ob das nächste Paket noch vollständig in die verbleibende Kapazität passt.",
@@ -110,7 +110,7 @@
     "task": "Entwirf mindestens vier Testfälle für folgende Regel: Ein ganzzahliges gewicht < 0 ergibt ungültig, von 0 bis einschließlich 100 ergibt zulässig, oberhalb von 100 ergibt zu schwer. Decke diese vier Gruppen ab: negatives Gewicht, genau 0, genau 100 und ein Gewicht über 100. Schreibe pro Zeile: Zahl => erwartete Ausgabe. Beispiel für das Format: 50 => zulässig. Dieser Normalfall allein deckt noch keine der vier geforderten Gruppen ab.",
     "exampleInputs": { "gewicht": 50 },
     "briefing": "Grenzwerttests prüfen die Stellen, an denen sich die Entscheidung ändert. Neben den Grenzen 0 und 100 brauchst du ungültige negative Eingaben und einen Wert oberhalb der Kapazität. Die App prüft jede Sollausgabe und danach die Abdeckung der geforderten Gruppen.",
-    "hints": ["Jede der vier Gruppen braucht mindestens eine passende Eingabe mit korrekter Sollausgabe.", "Die Werte 0 und 100 sind beide zulässig. Negative Werte sind ungültig.", "Ein möglicher Satz verwendet -1, 0, 100 und 101. Ergänze für jeden Wert die Ausgabe."],
+    "hints": ["Zeichne die Gewichtsbereiche auf einen Zahlenstrahl.", "Trenne die beiden Randwerte von Beispielen weit innen im gültigen Bereich.", "Decke deine Ausgaben ab und ordne jeden Testwert noch einmal nur anhand der Regel ein."],
     "referenceCode": "WENN gewicht < 0 DANN\n    AUSGABE \"ungültig\"\nSONST\n    WENN gewicht <= 100 DANN\n        AUSGABE \"zulässig\"\n    SONST\n        AUSGABE \"zu schwer\"\n    ENDE WENN\nENDE WENN", "referenceAnswer": "-1 => ungültig\n0 => zulässig\n100 => zulässig\n101 => zu schwer",
     "explanation": "Die gewählten Werte prüfen ungültige Eingaben, die untere Grenze, die obere Grenze und den Bereich darüber. Auch andere negative Zahlen oder Gewichte über 100 sind möglich. Für die beiden ausdrücklich geforderten Grenzwerte müssen 0 und 100 vorkommen.",
     "discovery": "Ein gezielter Testsatz sichert nun ungültige Eingaben und beide Kapazitätsgrenzen ab. Die Abnahme verlässt sich nicht mehr nur auf einen normalen Beispielauftrag.",
@@ -129,7 +129,7 @@
     "task": "Die Eingabeliste gewichte enthält ganze Zahlen. Berücksichtige nur Werte von 0 bis einschließlich 100; negative Werte und Werte über 100 werden ignoriert. Gib zuerst die Anzahl zulässiger Pakete aus und danach deren Gesamtgewicht, jeweils mit AUSGABE in einer eigenen Zeile. Bei einer leeren Liste lauten beide Ausgaben 0. Beispiel: [20, 110, 0, -5, 100] ergibt zuerst 3 und danach 120. Mit FÜR JEDES gewicht IN gewichte durchläufst du jeden Eintrag; abgeschlossen wird der Block mit ENDE FÜR.",
     "exampleInputs": { "gewichte": [20, 110, 0, -5, 100] },
     "briefing": "Initialisiere einen Zähler und eine Summe vor der Schleife. Prüfe jeden Listeneintrag mit UND auf beide Grenzen. Nur im gültigen Zweig veränderst du Zähler und Summe. Die beiden Ausgaben stehen nach der Schleife, damit auch eine leere Liste ein Ergebnis liefert.",
-    "hints": ["Du brauchst zwei Werte, die anfangs 0 sind: Anzahl und Gesamtgewicht.", "Die Bedingung lautet gewicht >= 0 UND gewicht <= 100.", "Im gültigen Zweig: anzahl = anzahl + 1 und gesamt = gesamt + gewicht. Gib beides erst nach ENDE FÜR aus."],
+    "hints": ["Nutze beim Durchgehen der Liste zwei Notizzettel: einen für Stücke und einen für Gewicht.", "Entscheide für jeden Eintrag zuerst über die Zulässigkeit. Erst dann änderst du die Zettel.", "Verfolge ein Paket mit Gewicht null. Welche der beiden Größen muss sich dabei ändern?"],
     "referenceCode": "anzahl = 0\ngesamt = 0\nFÜR JEDES gewicht IN gewichte\n    WENN gewicht >= 0 UND gewicht <= 100 DANN\n        anzahl = anzahl + 1\n        gesamt = gesamt + gewicht\n    ENDE WENN\nENDE FÜR\nAUSGABE anzahl\nAUSGABE gesamt", "referenceAnswer": "",
     "explanation": "Zähler und Summe werden nur für zulässige Einträge erhöht. Ein Paket mit Gewicht 0 zählt mit, verändert aber die Summe nicht. Anfangswerte außerhalb der Schleife sichern den Fall einer leeren Liste ab. Auch eine korrekt begrenzte Indexschleife ist zulässig.",
     "discovery": "Der erste Planungsstand ist wieder nutzbar: Die Leitstelle kann Restkapazität, Prioritäten und eine geprüfte Übersicht zulässiger Pakete bestimmen. Als Nächstes braucht die Leitstelle Kennzahlen aus den Meldelisten und einen verlässlichen Zugriff auf einzelne Aufträge.",
@@ -159,9 +159,9 @@
     },
     "briefing": "Ein Maximum wird mit jedem größeren Wert aktualisiert. Für eine nichtleere Liste ist der erste Eintrag ein geeigneter Anfangswert. Prüfe die Länge, bevor du abweichungen[0] liest.",
     "hints": [
-      "Behandle die leere Liste vor dem ersten Indexzugriff.",
-      "Starte das Maximum mit abweichungen[0], damit auch ausschließlich negative Werte funktionieren.",
-      "Vergleiche jeden Wert mit dem bisherigen Maximum; gib das Ergebnis erst nach der Schleife aus."
+      "Wähle eine Liste, deren Werte sämtlich unter null liegen.",
+      "Suche für den bisher größten Wert einen Start, der zu den tatsächlichen Messwerten passt.",
+      "Überlege vor dem ersten Listenzugriff, was bei einer leeren Liste passieren würde."
     ],
     "referenceCode": "WENN LÄNGE(abweichungen) == 0 DANN\n    AUSGABE \"leer\"\nSONST\n    maximum = abweichungen[0]\n    FÜR JEDES wert IN abweichungen\n        WENN wert > maximum DANN\n            maximum = wert\n        ENDE WENN\n    ENDE FÜR\n    AUSGABE maximum\nENDE WENN",
     "referenceAnswer": "",
@@ -256,9 +256,9 @@
     },
     "briefing": "DIV schneidet den Quotienten zur 0 hin ab. / behält den Dezimalanteil. Die Division darf nur erfolgen, wenn mindestens ein Wert vorhanden ist.",
     "hints": [
-      "Welche Rechenoperation kann Nachkommastellen abschneiden?",
-      "Summe und Anzahl sind bereits richtig bestimmt. Prüfe den Operator der letzten AUSGABE.",
-      "Ersetze DIV durch /, ohne die Behandlung der leeren Liste zu entfernen."
+      "Rechne mit zwei Zeiten, deren Summe ungerade ist.",
+      "Vergleiche die Wirkung der beiden Divisionsarten auf den Rest.",
+      "Spiele die leere Liste durch. Erreichst du dort eine Division?"
     ],
     "referenceCode": "WENN LÄNGE(zeiten) == 0 DANN\n    AUSGABE \"leer\"\nSONST\n    summe = 0\n    FÜR JEDES zeit IN zeiten\n        summe = summe + zeit\n    ENDE FÜR\n    AUSGABE summe / LÄNGE(zeiten)\nENDE WENN",
     "referenceAnswer": "",
@@ -357,9 +357,9 @@
     },
     "briefing": "Die lineare Suche prüft Einträge der Reihe nach. Ein Ergebniswert -1 kennzeichnet zunächst keinen Treffer. Die Suche kann beim ersten Treffer enden; alternativ darfst du ein bereits gefundenes Ergebnis nicht überschreiben.",
     "hints": [
-      "Initialisiere die Ergebnisposition mit -1 und den Index mit 0.",
-      "Ein Zugriff nummern[i] ist nur erlaubt, solange i < LÄNGE(nummern) gilt.",
-      "Eine mögliche Schleifenbedingung ist i < LÄNGE(nummern) UND position == -1. Bei Gleichheit speicherst du i."
+      "Markiere Positionen und Auftragsnummern auf zwei getrennten Zeilen.",
+      "Was muss mit einem bereits gefundenen Index geschehen, wenn später derselbe Wert wieder auftaucht?",
+      "Teste einen Treffer gleich am Anfang sowie eine erfolglose Suche."
     ],
     "referenceCode": "position = -1\ni = 0\nSOLANGE i < LÄNGE(nummern) UND position == -1\n    WENN nummern[i] == gesucht DANN\n        position = i\n    ENDE WENN\n    i = i + 1\nENDE SOLANGE\nAUSGABE position",
     "referenceAnswer": "",
@@ -466,9 +466,9 @@
     },
     "briefing": "Ein Suchzähler beginnt bei 0. Für die Häufigkeit muss die gesamte Liste untersucht werden; die Abbruchbedingung des ersten Treffers passt hier nicht.",
     "hints": [
-      "Durchlaufe jeden Eintrag, auch nach einem Treffer.",
-      "Erhöhe den Zähler nur bei nummer == gesucht.",
-      "Initialisiere anzahl = 0 vor der Schleife und gib anzahl nach ENDE FÜR aus."
+      "Setze für jeden passenden Eintrag einen Strich neben die Liste.",
+      "Prüfe, wann dein Zähler verändert wird und wann die Suche enden darf.",
+      "Lege einen weiteren Treffer ganz ans Listenende. Wird er noch erfasst?"
     ],
     "referenceCode": "anzahl = 0\nFÜR JEDES nummer IN nummern\n    WENN nummer == gesucht DANN\n        anzahl = anzahl + 1\n    ENDE WENN\nENDE FÜR\nAUSGABE anzahl",
     "referenceAnswer": "",
@@ -581,9 +581,9 @@
     },
     "briefing": "links und rechts begrenzen den noch möglichen Bereich einschließlich beider Grenzen. Nach einem zu kleinen Mittelwert geht links nach rechts; nach einem zu großen geht rechts nach links. Indizes und gespeicherte Nummern sind verschiedene Dinge.",
     "hints": [
-      "Notiere links, rechts und mitte für jeden Durchlauf.",
-      "Der erste Index ist 3 und enthält die Nummer 40. Gesucht wird rechts davon weiter.",
-      "Nach Index 5 mit Nummer 60 bleibt nur Index 4 übrig. Anschließend wird position ausgegeben."
+      "Notiere je Durchlauf linke Grenze, rechte Grenze und geprüfte Position.",
+      "Entscheide anhand des Werts an der Mitte, welche Hälfte für den nächsten Durchlauf bleibt.",
+      "Trenne die Anzeige jeder geprüften Mitte von der letzten Anzeige nach der Suche."
     ],
     "referenceCode": "links = 0\nrechts = LÄNGE(nummern) - 1\nposition = -1\nSOLANGE links <= rechts UND position == -1\n    mitte = (links + rechts) DIV 2\n    AUSGABE mitte\n    WENN nummern[mitte] == gesucht DANN\n        position = mitte\n    SONST\n        WENN nummern[mitte] < gesucht DANN\n            links = mitte + 1\n        SONST\n            rechts = mitte - 1\n        ENDE WENN\n    ENDE WENN\nENDE SOLANGE\nAUSGABE position",
     "referenceAnswer": "3\n5\n4\n4",
@@ -636,9 +636,9 @@
     },
     "briefing": "Eine Schleife muss Fortschritt machen. Wenn die Mitte zu groß ist, kann weder sie selbst noch ein Eintrag rechts von ihr passen. Die rechte Grenze muss dann links von mitte liegen.",
     "hints": [
-      "Betrachte gesucht kleiner als nummern[mitte].",
-      "Der bereits geprüfte Index mitte darf nicht noch einmal zum verbleibenden Bereich gehören.",
-      "Im Zweig für einen zu großen Mittelwert muss rechts = mitte - 1 stehen."
+      "Zeichne einen Suchbereich mit nur noch einem erfolglos geprüften Element.",
+      "Wie müssen sich die Grenzen verändern, damit dieses Element nicht wieder die Mitte wird?",
+      "Teste einen gesuchten Wert zwischen zwei vorhandenen Zahlen. Endet deine Suche?"
     ],
     "referenceCode": "links = 0\nrechts = LÄNGE(nummern) - 1\nposition = -1\nSOLANGE links <= rechts UND position == -1\n    mitte = (links + rechts) DIV 2\n    WENN nummern[mitte] == gesucht DANN\n        position = mitte\n    SONST\n        WENN nummern[mitte] < gesucht DANN\n            links = mitte + 1\n        SONST\n            rechts = mitte - 1\n        ENDE WENN\n    ENDE WENN\nENDE SOLANGE\nAUSGABE position",
     "referenceAnswer": "",
@@ -763,9 +763,9 @@
     },
     "briefing": "Eine Zuweisung überschreibt den alten Zielwert sofort. Sichere deshalb einen der beiden Werte in einer Hilfsvariablen, bevor du die erste Position veränderst. Der letzte gültige Listenindex ist LÄNGE(werte) - 1.",
     "hints": [
-      "Welcher ursprüngliche Wert ist nach der ersten Zuweisung nicht mehr in der Liste vorhanden?",
-      "Eine Hilfsvariable bewahrt werte[links] vor dem Überschreiben.",
-      "Reihenfolge: hilfe = werte[links], werte[links] = werte[rechts], werte[rechts] = hilfe."
+      "Gib den beiden Listenwerten auf Papier verschiedene Farben.",
+      "Verfolge, welcher ursprüngliche Wert nach der ersten Zuweisung noch verfügbar ist.",
+      "Teste auch zwei gleiche Indizes. Der Eintrag an dieser Stelle muss erhalten bleiben."
     ],
     "referenceCode": "hilfe = werte[links]\nwerte[links] = werte[rechts]\nwerte[rechts] = hilfe\nAUSGABE werte",
     "referenceAnswer": "",
@@ -858,9 +858,9 @@
     "exampleInputs": {},
     "briefing": "Ein Bubble-Sort-Durchlauf vergleicht Nachbarn von links nach rechts und tauscht bei falscher Reihenfolge. Der größte Wert wandert dadurch bis nach rechts. Die übrige Liste ist danach noch nicht zwingend sortiert.",
     "hints": [
-      "Der erste Vergleich tauscht 9 und 2.",
-      "Die 9 steht danach an Index 1 und wird im nächsten Vergleich mit 7 verglichen.",
-      "Nach dem dritten Tausch steht 9 ganz rechts. Verfolge auch, wo die 1 dabei landet."
+      "Schreibe die Ausgangsliste ab und markiere nur das erste betrachtete Nachbarpaar.",
+      "Übernimm jeden Tausch sofort in deine Skizze, bevor du das nächste Paar vergleichst.",
+      "Zähle nur tatsächliche Vertauschungen. Stoppe dort, wo der vorgegebene Durchlauf endet."
     ],
     "referenceCode": "werte = [9, 2, 7, 1]\ntausche = 0\nFÜR i VON 0 BIS LÄNGE(werte) - 2\n    WENN werte[i] > werte[i + 1] DANN\n        hilfe = werte[i]\n        werte[i] = werte[i + 1]\n        werte[i + 1] = hilfe\n        tausche = tausche + 1\n    ENDE WENN\nENDE FÜR\nAUSGABE werte\nAUSGABE tausche",
     "referenceAnswer": "[2, 7, 1, 9]\n3",
@@ -896,9 +896,9 @@
     },
     "briefing": "Nach jedem Bubble-Durchlauf steht ein weiterer großer Wert am rechten Ende fest. Die äußere Schleife wiederholt die Durchläufe, die innere vergleicht benachbarte Einträge. Bei weniger als zwei Werten sind keine Tausche erforderlich.",
     "hints": [
-      "Du benötigst mehr als einen Durchlauf durch benachbarte Paare.",
-      "Der Index j + 1 muss gültig bleiben. Eine mögliche innere Grenze lautet LÄNGE(werte) - 2 - i.",
-      "Verwende außen FÜR i VON 0 BIS LÄNGE(werte) - 2 und innen FÜR j VON 0 BIS LÄNGE(werte) - 2 - i; tausche nur bei werte[j] > werte[j + 1]."
+      "Finde in einer kleinen unsortierten Liste ein benachbartes Paar in falscher Reihenfolge.",
+      "Überlege nach einem Durchlauf, welcher Bereich bereits geordnet sein kann und welcher noch Arbeit braucht.",
+      "Vergleiche die Häufigkeit jedes Werts vor und nach dem Sortieren, besonders bei Duplikaten."
     ],
     "referenceCode": "FÜR i VON 0 BIS LÄNGE(werte) - 2\n    FÜR j VON 0 BIS LÄNGE(werte) - 2 - i\n        WENN werte[j] > werte[j + 1] DANN\n            hilfe = werte[j]\n            werte[j] = werte[j + 1]\n            werte[j + 1] = hilfe\n        ENDE WENN\n    ENDE FÜR\nENDE FÜR\nAUSGABE werte",
     "referenceAnswer": "",
@@ -1026,9 +1026,9 @@
     },
     "briefing": "Die äußere Schleife wählt eine Reihe, die innere durchläuft deren Werte. Setze die Reihensumme für jede Reihe neu auf 0. Eine eigene Gesamtsumme bleibt über alle Reihen bestehen. belegung[i] ist selbst wieder eine Liste.",
     "hints": [
-      "Halte Gesamtsumme, aktuelle Reihensumme und beste Reihe getrennt.",
-      "Bei nichtnegativen Werten ist -1 ein geeigneter Anfangswert für die bisher größte Reihensumme; besteReihe beginnt ebenfalls bei -1.",
-      "Aktualisiere die beste Reihe nur bei reihensumme > maximum. Ein >= würde bei Gleichstand die letzte statt der ersten Reihe auswählen."
+      "Lege Platz für eine laufende Gesamtsumme und eine Summe der aktuellen Reihe an.",
+      "Entscheide am Ende einer Reihe, ob sie die bisher beste Reihe verdrängt.",
+      "Teste zwei gleich starke Reihen und eine leere äußere Liste. Welcher Index gilt jeweils?"
     ],
     "referenceCode": "gesamt = 0\nbesteReihe = -1\nmaximum = -1\nFÜR i VON 0 BIS LÄNGE(belegung) - 1\n    reihensumme = 0\n    FÜR JEDES wert IN belegung[i]\n        reihensumme = reihensumme + wert\n    ENDE FÜR\n    gesamt = gesamt + reihensumme\n    WENN reihensumme > maximum DANN\n        maximum = reihensumme\n        besteReihe = i\n    ENDE WENN\nENDE FÜR\nAUSGABE gesamt\nAUSGABE besteReihe",
     "referenceAnswer": "",
@@ -1147,9 +1147,9 @@
     "exampleInputs": {},
     "briefing": "Eine Funktion wird mit FUNKTION name(parameter) begonnen und mit ENDE FUNKTION abgeschlossen. Erst ein Aufruf führt ihren Rumpf aus. Jeder Aufruf hat eigene Parameter und lokale Variablen. Gleichnamige Variablen außerhalb der Funktion bleiben unverändert.",
     "hints": [
-      "Der erste Aufruf erhält 100 und 30 als eigene Parameterwerte.",
-      "Die Zuweisung an platz innerhalb der Funktion verändert nicht platz im Hauptablauf.",
-      "Der zweite Funktionsaufruf arbeitet mit 50 und 10 und verwendet keine lokalen Werte des ersten Aufrufs."
+      "Markiere den Aufruf im Hauptablauf und schreibe die tatsächlichen Argumente daneben.",
+      "Gib jedem Aufruf einen eigenen Zettel für seine Parameter. Übertrage nur den Rückgabewert zurück.",
+      "Ordne sichtbare Ausgaben nach der Ausführung, unabhängig vom Ort der Funktionsdefinition."
     ],
     "referenceCode": "platz = 100\nFUNKTION reserviere(platz, anzahl)\n    platz = platz - anzahl\n    RÜCKGABE platz\nENDE FUNKTION\nAUSGABE reserviere(platz, 30)\nAUSGABE platz\nAUSGABE reserviere(50, 10)",
     "referenceAnswer": "70\n100\n40",
@@ -1182,9 +1182,9 @@
     },
     "briefing": "Ein Rückgabewert ist etwas anderes als eine Bildschirmausgabe. Jeder tatsächlich durchlaufene Pfad muss RÜCKGABE erreichen. Eine Funktion mit fehlendem Ergebnis wird mit einem gezielten Hinweis abgelehnt.",
     "hints": [
-      "Was passiert, wenn beladen größer als kapazitaet ist?",
-      "In diesem Fall darf die Funktion nicht ohne Wert am ENDE FUNKTION ankommen.",
-      "Berechne rest. Bei rest < 0 gib 0 zurück, danach für alle übrigen Fälle rest."
+      "Zeichne je einen Weg für ausreichend Platz und für Überladung.",
+      "Verfolge beide Wege bis ans Funktionsende. Wo fehlt dem Aufrufer ein Wert?",
+      "Teste volle Auslastung und ein Paket darüber. Kann dein Ergebnis negativ werden?"
     ],
     "referenceCode": "FUNKTION restkapazitaet(kapazitaet, beladen)\n    rest = kapazitaet - beladen\n    WENN rest < 0 DANN\n        RÜCKGABE 0\n    ENDE WENN\n    RÜCKGABE rest\nENDE FUNKTION",
     "referenceAnswer": "",
@@ -1272,9 +1272,9 @@
     },
     "briefing": "Der Testaufruf übergibt den Wert an deinen Parameter. Ein früher Rückgabewert beendet nur den aktuellen Aufruf. Du kannst deshalb zuerst einen Sonderfall behandeln und für die übrigen Fälle darunter fortfahren.",
     "hints": [
-      "Trenne zuerst negative Eingaben von nichtnegativen.",
-      "Nach der Behandlung negativer Werte genügt für zulässig die Bedingung gewicht <= 100.",
-      "Ein möglicher Aufbau: WENN gewicht < 0 DANN RÜCKGABE \"ungültig\", danach bis 100 \"zulässig\", abschließend \"zu schwer\". Jeder Block und jede Anweisung erhält eine eigene Zeile."
+      "Unterteile den Zahlenstrahl in die drei Bereiche des Vertrags.",
+      "Verfolge jede Verzweigung bis zum Wert, den der Aufrufer bekommt.",
+      "Prüfe beide exakten Grenzen und ihre äußeren Nachbarn. Liefert jeder Aufruf genau einen Text zurück?"
     ],
     "referenceCode": "FUNKTION pruefeGewicht(gewicht)\n    WENN gewicht < 0 DANN\n        RÜCKGABE \"ungültig\"\n    ENDE WENN\n    WENN gewicht <= 100 DANN\n        RÜCKGABE \"zulässig\"\n    ENDE WENN\n    RÜCKGABE \"zu schwer\"\nENDE FUNKTION",
     "referenceAnswer": "",
@@ -1369,9 +1369,9 @@
     },
     "briefing": "Ein Listenparameter ist im Trainer eine eigene Wertkopie. Du kannst ihn mit FÜR JEDES durchlaufen. Eine Hilfsfunktion kann ebenfalls als Ausdruck aufgerufen werden, zum Beispiel WENN istGueltig(gewicht) DANN. Alle Definitionen gehören außerhalb anderer Funktionen.",
     "hints": [
-      "Initialisiere die Summe vor dem Durchlaufen der Liste.",
-      "Prüfe jeden Eintrag auf beide Grenzen: gewicht >= 0 UND gewicht <= 100.",
-      "Gib die Summe nach der Schleife mit RÜCKGABE zurück. Eine Hilfsfunktion für die Bedingung kann WAHR oder FALSCH liefern."
+      "Gehe eine gemischte Liste durch und markiere nur Gewichte im zulässigen Bereich.",
+      "Führe eine Zwischensumme über die markierten Einträge. Wann steht der endgültige Rückgabewert fest?",
+      "Teste eine Liste, die ausschließlich unzulässige Gewichte enthält."
     ],
     "referenceCode": "FUNKTION istGueltig(gewicht)\n    RÜCKGABE gewicht >= 0 UND gewicht <= 100\nENDE FUNKTION\nFUNKTION summeGueltig(gewichte)\n    summe = 0\n    FÜR JEDES gewicht IN gewichte\n        WENN istGueltig(gewicht) DANN\n            summe = summe + gewicht\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE summe\nENDE FUNKTION",
     "referenceAnswer": "",
@@ -1474,9 +1474,9 @@
     },
     "briefing": "Um eine allgemeine Behauptung zu widerlegen, genügt ein Gegenbeispiel. Ein fallendes Paar kann sofort FALSCH zurückgeben. WAHR darf dagegen erst nach allen Vergleichen zurückgegeben werden.",
     "hints": [
-      "Vergleiche [1, 1, 2] mit [2, 1]. Nur die zweite Liste verletzt die Reihenfolge.",
-      "Gleichheit ist hier zulässig; der Fehlerfall braucht einen strengen Vergleich.",
-      "Verwende werte[i] > werte[i + 1] als Bedingung für RÜCKGABE FALSCH."
+      "Markiere in einer geordneten Liste mit Wiederholungen alle Nachbarpaare.",
+      "Suche nach einem einzigen Gegenbeispiel zur Ordnung. Welche Richtung des Vergleichs entdeckt es?",
+      "Prüfe eine Liste mit weniger als zwei Werten. Wie viele Nachbarvergleiche sind dort möglich?"
     ],
     "referenceCode": "FUNKTION istSortiert(werte)\n    FÜR i VON 0 BIS LÄNGE(werte) - 2\n        WENN werte[i] > werte[i + 1] DANN\n            RÜCKGABE FALSCH\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE WAHR\nENDE FUNKTION",
     "referenceAnswer": "",
@@ -1593,9 +1593,9 @@
     },
     "briefing": "Die verfügbare Kapazität ändert sich nur bei einer Annahme. Eine Ablehnung darf spätere kleinere Pakete nicht blockieren. Die Ausgabe ist diesmal ein einzelner Rückgabewert mit zwei Listeneinträgen: RÜCKGABE [anzahl, rest].",
     "hints": [
-      "Starte anzahl bei 0 und rest mit kapazitaet.",
-      "Die Annahmebedingung verbindet die Einzelgewichtsgrenzen und gewicht <= rest mit UND.",
-      "Verringere rest und erhöhe anzahl nur im Annahmezweig. Nach dem vollständigen Durchlauf folgt RÜCKGABE [anzahl, rest]."
+      "Lege eine Tabelle mit Paketgewicht, bisherigem Rest und Entscheidung an.",
+      "Prüfe erst das einzelne Paket, dann seinen Platzbedarf. Ein abgelehntes Paket verbraucht keinen Platz.",
+      "Setze nach einem zu schweren Paket ein leichtes und ein schwereloses Paket in die Liste. Werden beide noch geprüft?"
     ],
     "referenceCode": "FUNKTION planeLadung(gewichte, kapazitaet)\n    anzahl = 0\n    rest = kapazitaet\n    FÜR JEDES gewicht IN gewichte\n        WENN gewicht >= 0 UND gewicht <= 100 UND gewicht <= rest DANN\n            rest = rest - gewicht\n            anzahl = anzahl + 1\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE [anzahl, rest]\nENDE FUNKTION",
     "referenceAnswer": "",
@@ -1731,9 +1731,9 @@
     },
     "briefing": "nummer MOD 10 liefert bei einer nichtnegativen ganzen Zahl die letzte Ziffer. nummer DIV 10 entfernt diese letzte Ziffer. Wiederhole beide Schritte, bis keine weitere Ziffer übrig ist. Der ursprüngliche Aufruferwert bleibt wegen der lokalen Parameter unverändert.",
     "hints": [
-      "Beginne mit einer Ziffernsumme von 0.",
-      "Addiere in der Schleife nummer MOD 10 und ersetze nummer danach durch nummer DIV 10.",
-      "Die Schleife läuft, solange nummer > 0 gilt. Gib anschließend summe MOD 10 zurück; damit funktioniert auch die Eingabe 0."
+      "Zerlege eine kurze Kennung auf Papier von rechts in einzelne Ziffern.",
+      "Welche ganzzahligen Rechenoperationen liefern die letzte Ziffer und den verbleibenden Zahlenteil?",
+      "Unterscheide den Rest beim Zerlegen der Kennung vom Rest, den du am Ende zurückgeben sollst."
     ],
     "referenceCode": "FUNKTION pruefziffer(nummer)\n    summe = 0\n    SOLANGE nummer > 0\n        summe = summe + nummer MOD 10\n        nummer = nummer DIV 10\n    ENDE SOLANGE\n    RÜCKGABE summe MOD 10\nENDE FUNKTION",
     "referenceAnswer": "",
@@ -1820,9 +1820,9 @@
     "exampleInputs": {},
     "briefing": "Die äußere Schleife läuft n-mal. Für jeden dieser Durchläufe läuft die innere erneut n-mal. Die Anzahl der Zählererhöhungen ist deshalb n * n. Das wird als quadratisches Wachstum beziehungsweise O(n²) bezeichnet; Konstanten und kleinere Terme werden bei dieser Einordnung nicht betrachtet.",
     "hints": [
-      "Bei n = 4 werden vier äußere Durchläufe mit je vier inneren kombiniert.",
-      "Für n = 8 gibt es acht äußere Durchläufe mit je acht inneren.",
-      "Die Verdopplung von n vervierfacht n * n. Gib die beiden konkreten Anzahlen aus, keine Formel."
+      "Zeichne für jeden äußeren Durchlauf eine eigene Reihe von Strichen.",
+      "Setze einen Strich nur beim Ausführen der im Auftrag genannten Zählzeile.",
+      "Vergleiche die beiden Strichfelder. Welche Abmessungen ändern sich, wenn n doppelt so groß wird?"
     ],
     "referenceCode": "FUNKTION vergleiche(n)\n    anzahl = 0\n    FÜR i VON 0 BIS n - 1\n        FÜR j VON 0 BIS n - 1\n            anzahl = anzahl + 1\n        ENDE FÜR\n    ENDE FÜR\n    RÜCKGABE anzahl\nENDE FUNKTION\nAUSGABE vergleiche(4)\nAUSGABE vergleiche(8)",
     "referenceAnswer": "16\n64",
@@ -1853,9 +1853,9 @@
     },
     "briefing": "Äquivalenzklassen teilen den Eingabebereich in Gruppen mit gleichem Verhalten. Grenzwerttests betrachten besonders die Stellen, an denen sich dieses Verhalten ändert. Ein Wert direkt vor und ein Wert direkt auf einer Grenze finden oft fehlerhafte < oder <= Vergleiche.",
     "hints": [
-      "Du brauchst sechs verschiedene Eingabegruppen, darunter eine ungültige negative Menge.",
-      "Die Paare 9/10 und 49/50 liegen jeweils auf beiden Seiten einer Änderung.",
-      "0 und 9 ergeben 0; 10 und 49 ergeben 5; 50 ergibt 10. Ergänze einen negativen Test mit Ausgabe ungültig."
+      "Markiere auf dem Zahlenstrahl jede Stelle, an der sich die Rückgabe ändert.",
+      "Schreibe zu jedem Übergang die Werte unmittelbar links und rechts davon auf.",
+      "Ordne die Sollausgabe für jede Zeile unabhängig zu. Ist neben den Rabattgrenzen auch der ungültige Bereich vertreten?"
     ],
     "referenceCode": "WENN anzahl < 0 DANN\n    AUSGABE \"ungültig\"\nSONST\n    WENN anzahl >= 50 DANN\n        AUSGABE 10\n    SONST\n        WENN anzahl >= 10 DANN\n            AUSGABE 5\n        SONST\n            AUSGABE 0\n        ENDE WENN\n    ENDE WENN\nENDE WENN",
     "referenceAnswer": "-1 => ungültig\n0 => 0\n9 => 0\n10 => 5\n49 => 5\n50 => 10",
@@ -1971,9 +1971,9 @@
     "exampleInputs": {},
     "briefing": "Rekursion ist ein Selbstaufruf mit einem kleineren Teilproblem. Der Basisfall beendet die Kette. Jeder Aufruf hat eigene Parameter und lokale Werte. Beim Rückweg verarbeitet der wartende Aufrufer den Rückgabewert des Kindes weiter. Die Ablaufanzeige unterscheidet die Aufrufe durch ihre Aufrufebene.",
     "hints": [
-      "Die Aufrufkette führt von n = 3 über 2 und 1 zum Basisfall 0.",
-      "Der erste sichtbare ergebnis-Wert entsteht beim Rückweg im Aufruf mit n = 1.",
-      "Die Zwischenergebnisse sind 1, 3 und 6. Der Hauptablauf gibt danach noch einmal den zurückgegebenen Endwert aus."
+      "Lege für jede Aufruftiefe einen Zettel mit ihrem eigenen n an.",
+      "Markiere auf jedem Zettel, ob die Ausgabe vor oder nach dem nächsten Aufruf steht.",
+      "Verfolge den Weg zurück bis ins Hauptprogramm. Rückgabewert und sichtbare Ausgabe sind verschiedene Ereignisse."
     ],
     "referenceCode": "FUNKTION summeBis(n)\n    WENN n == 0 DANN\n        RÜCKGABE 0\n    ENDE WENN\n    ergebnis = n + summeBis(n - 1)\n    AUSGABE ergebnis\n    RÜCKGABE ergebnis\nENDE FUNKTION\nAUSGABE summeBis(3)",
     "referenceAnswer": "1\n3\n6\n6",
@@ -2006,9 +2006,9 @@
     },
     "briefing": "Ein Basisfall allein genügt nicht. Jeder weitere Selbstaufruf muss ein kleineres Teilproblem bearbeiten, das den Basisfall erreichen kann. Der Trainer begrenzt alle verschachtelten Aufrufe gemeinsam auf 16 Ebenen und behält zusätzlich das Rechenbudget bei.",
     "hints": [
-      "Vergleiche das Argument des Selbstaufrufs mit dem aktuellen n.",
-      "Wird immer wieder dasselbe n übergeben, bleibt auch die Entscheidung n <= 1 unverändert.",
-      "Im rekursiven Zweig muss fakultaet(n - 1) aufgerufen werden. Multipliziere dessen Rückgabewert mit dem aktuellen n."
+      "Beginne mit einem kleinen n und schreibe die ersten drei Aufrufargumente nebeneinander.",
+      "Bewegt sich die Folge in Richtung eines Basisfalls? Prüfe die Änderung zwischen zwei Aufrufen.",
+      "Verfolge auch den Rückweg. Wie wird das Ergebnis des kleineren Problems im größeren verwendet?"
     ],
     "referenceCode": "FUNKTION fakultaet(n)\n    WENN n <= 1 DANN\n        RÜCKGABE 1\n    ENDE WENN\n    RÜCKGABE n * fakultaet(n - 1)\nENDE FUNKTION",
     "referenceAnswer": "",
@@ -2093,9 +2093,9 @@
     },
     "briefing": "Die äußere Schleife wählt die erste Position. Die innere startet erst bei i + 1. Dadurch werden weder ein Selbstvergleich noch das spiegelverkehrte Paar untersucht. Drei gleiche Meldungen ergeben drei verschiedene Paare von Positionen.",
     "hints": [
-      "Zähle passende Positionspaare, nicht nur unterschiedliche Werte oder die Zahl zusätzlicher Meldungen.",
-      "Wenn i die erste Position ist, beginnt j bei i + 1 und läuft bis LÄNGE(nummern) - 1.",
-      "Initialisiere paare = 0. Erhöhe es bei nummern[i] == nummern[j] und gib den Zähler erst nach beiden Schleifen zurück."
+      "Nummeriere die Positionen der Liste, auch wenn Werte mehrfach vorkommen.",
+      "Fixiere eine Position. Welche Partner darfst du noch betrachten, wenn jedes Paar nur einmal zählen soll?",
+      "Skizziere drei gleiche Werte als Punkte und verbinde verschiedene Positionen paarweise. Entspricht dein Zähler den Verbindungslinien?"
     ],
     "referenceCode": "FUNKTION doppeltePaare(nummern)\n    paare = 0\n    FÜR i VON 0 BIS LÄNGE(nummern) - 2\n        FÜR j VON i + 1 BIS LÄNGE(nummern) - 1\n            WENN nummern[i] == nummern[j] DANN\n                paare = paare + 1\n            ENDE WENN\n        ENDE FÜR\n    ENDE FÜR\n    RÜCKGABE paare\nENDE FUNKTION",
     "referenceAnswer": "",

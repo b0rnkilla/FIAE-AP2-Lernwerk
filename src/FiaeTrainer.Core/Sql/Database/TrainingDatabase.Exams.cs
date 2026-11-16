@@ -1,15 +1,17 @@
 using FiaeTrainer.Core.Sql.Exams;
+using FiaeTrainer.Core.Sql.Validation;
 using Microsoft.Data.SqlClient;
 
 namespace FiaeTrainer.Core.Sql.Database;
 
 public sealed partial class TrainingDatabase
 {
-    /// <summary> Führt jeden Prüfversuch unter eingeschränkten Rechten in einer neuen Sitzung mit ausschließlich temporären Tabellen aus. </summary>
+    /// <summary> Führt jeden Prüfversuch unter eingeschränkten Rechten in einer neuen Sitzung mit isolierten Falltabellen aus. </summary>
     public async Task<SqlExamRun> ExecuteExamAsync(SqlExamCase item, SqlExamTask task, string answer, bool verification = false)
     {
-        string? validation = SqlExamValidator.Prepare(item, task, answer, out string sql);
+        string? validation = SqlExamValidator.Prepare(item, task, answer, out string sql, out bool atomic);
         if (validation != null) return new() { Error = validation };
+        if (item.UsesWorkSchema) return await ExecuteWorkSchemaExamAsync(item, task, answer, sql, atomic, verification);
         SqlConnectionStringBuilder builder = GetConnectionBuilder();
         builder.Pooling = false;
         using CancellationTokenSource deadline = new(TimeSpan.FromSeconds(8));
@@ -37,7 +39,11 @@ public sealed partial class TrainingDatabase
             }
             return result;
         }
-        catch (SqlException exception) { return new() { Error = ExplainError(exception.Number, answer), TechnicalFailure = exception.Number is 53 or -1 or 26 or 4060 or 18456 or 10060 or 10061 }; }
+        catch (SqlException exception)
+        {
+            return new() { Error = SqlSyntaxFeedback.ExplainBinding(answer, exception.Number, exception.Message, ExplainError(exception.Number, answer)),
+                TechnicalFailure = exception.Number is 53 or -1 or 26 or 4060 or 18456 or 10060 or 10061 or 1205 };
+        }
         catch (OperationCanceledException) { return new() { Error = "Die SQL-Ausführung wurde nach acht Sekunden beendet." }; }
     }
 }

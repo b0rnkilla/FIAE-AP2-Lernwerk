@@ -21,9 +21,9 @@
         "task": "Baue den Netzplan auf, ergänze FAZ/FEZ und markiere alle kritischen Vorgänge. Ganze Arbeitstage ab Tag 0; direkte Ende-Anfang-Beziehungen ohne Abstand und keine Ressourcenbegrenzung. Alle Endvorgänge beziehen sich auf das gemeinsame früheste Projektende. Jede Fachrolle einmal, Anzeigenamen und Anordnung frei.",
         "material": "Vorgang | Dauer | direkte Vorgänger\nBestand klären | 1 | keine\nKatalogmaske bauen | 2 | Bestand klären\nKontodienst bauen | 4 | Bestand klären\nGemeinsam prüfen | 1 | Katalogmaske bauen, Kontodienst bauen",
         "hints": [
-          "Betrachte direkte Vorgänger.",
-          "Rechne ab Tag 0.",
-          "Kritische Vorgänge besitzen Gesamtpuffer null."
+          "Lies für jede Bibliotheksarbeit die direkten Voraussetzungen aus der Tabelle.",
+          "Trage an der gemeinsamen Prüfung zuerst die Enden beider Arbeitszweige zusammen.",
+          "Verschiebe probeweise einen Zweig um einen Tag. Wann verschiebt sich dadurch auch das Projektende?"
         ],
         "explanation": "Die beiden Zweige beginnen bei Tag 1. Katalogmaske endet bei 3, Kontodienst bei 5, gemeinsame Prüfung bei 6. Kritisch sind Bestand, Kontodienst und gemeinsame Prüfung.",
         "options": {},
@@ -191,9 +191,9 @@
         "explanation": "Einmalig entstehen 9000 Euro, laufend 24 × 250 = 6000, zusammen 15000 Euro.",
         "discovery": "",
         "hints": [
-          "Schulung ist hier einmalig.",
-          "Die monatliche Gebühr fällt über den Betrachtungszeitraum 24-mal an.",
-          "Addiere erst nach gleicher Zeitraumzuordnung."
+          "Zeichne eine Zeitachse über den gesamten Betrieb des Dienstes.",
+          "Trage Einführung und Schulung an ihren einmaligen Zeitpunkten ein und markiere die wiederkehrenden Zahlungen separat.",
+          "Streiche einen Betriebsmonat. Welche Größe deiner Rechnung dürfte sich dadurch ändern?"
         ],
         "fields": [
           {
@@ -262,9 +262,9 @@
         "explanation": "Stakeholder werden mit ihren konkreten Interessen betrachtet. Eine Rolle besitzt nicht automatisch in jedem Projekt dasselbe wichtigste Anliegen; hier gelten die ausdrücklich beschriebenen Interessen.",
         "discovery": "",
         "hints": [
-          "Frage, wer durch das Ergebnis betroffen ist.",
-          "Übertrage die drei genannten Interessen.",
-          "Erfinde keine zusätzlichen Wünsche."
+          "Lies das Reservieren je einmal aus Sicht der Lesenden und des Ausleihteams.",
+          "Welche Frage betrifft die tägliche Abwicklung und welche den Zugang zu Medien?",
+          "Suche für die verbleibende Zuständigkeit den ausdrücklich genannten finanziellen Maßstab."
         ],
         "fields": [
           {
@@ -357,9 +357,9 @@
         "explanation": "Die Vorbereitung braucht zwei Tage, die Entwicklung wegen gemeinsamer Kapazität anschließend insgesamt fünf. Die gemeinsame Prüfung liegt ab Tag 7. Beide Reihenfolgen der Entwicklungszweige können bestehen.",
         "discovery": "",
         "hints": [
-          "Baue zuerst die vier verlangten Vorgänge auf.",
-          "Füge nur die genannten direkten Beziehungen hinzu.",
-          "Nutze Spielraum, ohne den Abschluss zu verschieben."
+          "Zeichne zunächst die Vorgängerpfeile im Vereinsplan.",
+          "Belege die Entwicklungskapazität für die Dauer jedes Pakets und suche nach zeitlichen Überschneidungen.",
+          "Prüfe am gemeinsamen Abschluss, ob alle benötigten Arbeiten rechtzeitig beendet sind."
         ],
         "fields": [],
         "solutions": [
@@ -518,9 +518,9 @@
         "explanation": "Beide erreichen 7,6 Punkte. Die ausdrücklich vereinbarte Gleichstandsregel entscheidet für B mit dem niedrigeren Betrag.",
         "discovery": "",
         "hints": [
-          "Multipliziere statt ungewichtet zu addieren.",
-          "Gewichte Bedienung mit 0,50, Unterstützung mit 0,30 und Passung mit 0,20.",
-          "Addiere erst die gewichteten Teilwerte."
+          "Lege je Kriterium die Bewertungen beider Angebote nebeneinander.",
+          "Wende das jeweilige Gewicht auf beide Kandidaten an. Addiere erst danach je Angebot.",
+          "Vergleiche die ungerundeten Summen, bevor du entscheidest, ob der Preis als weiteres Kriterium zum Zug kommt."
         ],
         "fields": [
           {
@@ -659,9 +659,9 @@
         "explanation": "Eine Änderung wird mit ihren Auswirkungen und ihrer Entscheidung sichtbar. Ein freigegebener neuer Stand wird nachvollziehbar übernommen; eine ungenehmigte Ausweitung oder heimliche Änderung des Nachweises wäre keine verlässliche Steuerung.",
         "discovery": "",
         "hints": [
-          "Was ist vor einer belastbaren Entscheidung noch unbekannt?",
-          "Benannte Verantwortlichkeiten bleiben gültig.",
-          "Eine Planaktualisierung folgt der abgestimmten Entscheidung."
+          "Markiere im Vereinswunsch, welche bestehende Vereinbarung sich ändern würde.",
+          "Was muss vor einer Zusage hinsichtlich Aufwand und Folgen geklärt sein?",
+          "Spiele den späteren Rückblick durch. Wäre erkennbar, wer die Änderung auf welcher Grundlage freigegeben hat?"
         ],
         "fields": [],
         "solutions": [],
@@ -708,9 +708,9 @@
         "explanation": "Brutto 72 Stunden, nach Ausfällen 60. Gegenüber 90 Stunden Bedarf fehlen 30.",
         "discovery": "",
         "hints": [
-          "Multipliziere Personen, Tage und produktive Stunden.",
-          "Ziehe die ausdrücklich genannten Ausfälle ab.",
-          "Vergleiche verfügbare Stunden und benötigte Arbeit."
+          "Bestimme zunächst die Personenstunden eines normalen Arbeitstags im Museum.",
+          "Multipliziere über die verfügbaren Tage und lies genau, worauf sich der Ausfall bezieht.",
+          "Vergleiche den Vorrat mit der tatsächlich verfügbaren Arbeit. Hast du den gemeinsamen Ausfall mehrfach abgezogen?"
         ],
         "fields": [
           {
@@ -779,9 +779,9 @@
         "explanation": "Monatlich bleiben 500 Euro netto. 10000 / 500 = 20 Monate, damit innerhalb von 24 Monaten.",
         "discovery": "",
         "hints": [
-          "Ziehe die zusätzlichen Monatskosten zuerst ab.",
-          "Teile die Anfangsauszahlung durch die monatliche Nettoeinsparung.",
-          "Vergleiche Monate mit Monaten."
+          "Lege für jeden Monat vermiedene und neu entstehende Kosten nebeneinander.",
+          "Welcher wiederkehrende Betrag steht wirklich zum Ausgleich der Einführung zur Verfügung?",
+          "Multipliziere deine ermittelte Dauer mit diesem Betrag. Deckt das Ergebnis die Investition?"
         ],
         "fields": [
           {
@@ -853,9 +853,9 @@
         "explanation": "Review und Retrospektive verfolgen unterschiedliche Zwecke. Das Daily Scrum ist auf 15 Minuten begrenzt und dient der Anpassung des Arbeitsplans durch die Developers, nicht einer allgemeinen Pflicht zum Statusbericht an eine Führungskraft.",
         "discovery": "",
         "hints": [
-          "Ergebnis und Arbeitsweise sind verschiedene Gegenstände.",
-          "Das Daily betrachtet das Sprint-Ziel.",
-          "Die Zeitbegrenzung beträgt eine Viertelstunde."
+          "Lies das Ziel jeder Besprechung aus Sicht der Teilnehmenden.",
+          "Geht es um den aktuellen Arbeitstag, das nächste Vorhaben, ein Ergebnis oder die Zusammenarbeit?",
+          "Prüfe zuletzt beim kurzen täglichen Termin, welche Einheit im Eingabefeld verlangt wird."
         ],
         "fields": [
           {

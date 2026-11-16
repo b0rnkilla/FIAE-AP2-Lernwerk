@@ -64,26 +64,25 @@ public sealed partial class ProgressStore(IWebHostEnvironment environment, IConf
     }
 
     /// <summary> Speichert die Anzeige der allgemeinen Selbsttest-Hilfe für alle Lernbereiche, ohne Aufgabenstände zu überschreiben. </summary>
-    public async Task SetSelfTestHelpDismissedAsync(bool dismissed)
-    {
-        await _gate.WaitAsync();
-        try
-        {
-            TrainingProgress state = await ReadFileAsync();
-            state.SelfTestHelpDismissed = dismissed;
-            await WriteFileAsync(state);
-        }
-        finally { _gate.Release(); }
-    }
+    public Task SetSelfTestHelpDismissedAsync(bool dismissed) =>
+        UpdatePreferenceAsync(state => state.SelfTestHelpDismissed = dismissed);
+
+    /// <summary> Speichert die Sichtbarkeit des Werkstatthinweises unabhängig von der Selbsttest-Hilfe. </summary>
+    public Task SetWorkshopCopyHelpDismissedAsync(bool dismissed) =>
+        UpdatePreferenceAsync(state => state.WorkshopCopyHelpDismissed = dismissed);
 
     /// <summary> Speichert die eingeklappte Aufgabenliste, ohne Entwürfe oder andere Einstellungen zu überschreiben. </summary>
-    public async Task SetTaskListCollapsedAsync(bool collapsed)
+    public Task SetTaskListCollapsedAsync(bool collapsed) =>
+        UpdatePreferenceAsync(state => state.TaskListCollapsed = collapsed);
+
+    /// <summary> Ändert eine Anzeigeeinstellung unter derselben Dateisperre wie die Aufgabenentwürfe. </summary>
+    private async Task UpdatePreferenceAsync(Action<TrainingProgress> update)
     {
         await _gate.WaitAsync();
         try
         {
             TrainingProgress state = await ReadFileAsync();
-            state.TaskListCollapsed = collapsed;
+            update(state);
             await WriteFileAsync(state);
         }
         finally { _gate.Release(); }

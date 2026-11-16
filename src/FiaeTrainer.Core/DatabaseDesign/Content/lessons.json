@@ -25,9 +25,9 @@
       "b"
     ],
     "hints": [
-      "Lies die ausdrücklich genannten Geschäftsregeln, nicht nur die Beispieldaten.",
-      "Unterscheide einen einzelnen gespeicherten Wert von einem selbstständigen Objekt.",
-      "Kunden und Aufträge besitzen eine eigene Identität. Datum und Name beschreiben diese Objekte."
+      "Lege für jeden Begriff gedanklich eine eigene Karteikarte an. Welche Karten würdest du einzeln verwalten?",
+      "Frage, ob ein Name oder Datum schon festlegt, welchen konkreten Gegenstand du meinst.",
+      "Ändere auf einer Karte das Datum. Ist damit ein neues Objekt entstanden oder hat sich eine Eigenschaft geändert?"
     ],
     "explanation": "Kunden und Aufträge besitzen eine eigene Identität. Datum und Name beschreiben diese Objekte."
   },
@@ -56,9 +56,9 @@
       "a"
     ],
     "hints": [
-      "Lies die ausdrücklich genannten Geschäftsregeln, nicht nur die Beispieldaten.",
-      "Unterscheide einen einzelnen gespeicherten Wert von einem selbstständigen Objekt.",
-      "Ein Datensatz beschreibt ein konkretes Exemplar, die Tabelle den Entitätstyp."
+      "Lies eine Kundenzeile von links nach rechts. Auf wen beziehen sich die Angaben?",
+      "Vergleiche die Zeile mit einer Spaltenüberschrift. Was könntest du ein zweites Mal erfassen?",
+      "Stelle dir eine zweite Zeile mit demselben Nachnamen vor. Was zählt jetzt als zweiter Fall?"
     ],
     "explanation": "Ein Datensatz beschreibt ein konkretes Exemplar, die Tabelle den Entitätstyp."
   },
@@ -87,9 +87,9 @@
       "b"
     ],
     "hints": [
-      "Lies die ausdrücklich genannten Geschäftsregeln, nicht nur die Beispieldaten.",
-      "Unterscheide einen einzelnen gespeicherten Wert von einem selbstständigen Objekt.",
-      "Kardinalitäten folgen den Geschäftsregeln. Beispieldaten können sie veranschaulichen, aber nicht vollständig beweisen."
+      "Trenne die Beobachtung in der Liste von der Vereinbarung mit dem Fachbereich.",
+      "Überlege, ob die Beispieldaten jemals einen zweiten Auftrag je Kunde verbieten könnten.",
+      "Füge gedanklich einen zweiten Auftrag hinzu. Gegen welche ausdrücklich genannte Regel würde er verstoßen?"
     ],
     "explanation": "Kardinalitäten folgen den Geschäftsregeln. Beispieldaten können sie veranschaulichen, aber nicht vollständig beweisen."
   },
@@ -118,9 +118,9 @@
       "c"
     ],
     "hints": [
-      "Lies die ausdrücklich genannten Geschäftsregeln, nicht nur die Beispieldaten.",
-      "Unterscheide einen einzelnen gespeicherten Wert von einem selbstständigen Objekt.",
-      "Eine variable Menge selbstständig zu verarbeitender Telefonnummern gehört in abhängige Datensätze; keine Liste und keine feste Wiederholungsgruppe."
+      "Stell dir die Suche nach genau einer Telefonnummer vor.",
+      "Was müsstest du mit einem Feld tun, in dem drei Nummern durch Kommas getrennt stehen?",
+      "Teste das Ändern einer einzigen Nummer. Muss dafür eine ganze Liste zerlegt werden?"
     ],
     "explanation": "Eine variable Menge selbstständig zu verarbeitender Telefonnummern gehört in abhängige Datensätze; keine Liste und keine feste Wiederholungsgruppe."
   },
@@ -182,9 +182,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: KundeId, Name, Mail."
+      "Zeichne die Karte für zwei verschiedene Kunden mit derselben Mailadresse.",
+      "Markiere das Merkmal, dem die Verwaltung Eindeutigkeit garantiert.",
+      "Kannst du beide Kunden anlegen und später einen davon allein auswählen?"
     ],
     "explanation": "KundeId identifiziert einen Kunden. Eine eindeutige Mailadresse ist ausdrücklich nicht vorausgesetzt."
   },
@@ -213,9 +213,9 @@
       "c"
     ],
     "hints": [
-      "Lies die ausdrücklich genannten Geschäftsregeln, nicht nur die Beispieldaten.",
-      "Unterscheide einen einzelnen gespeicherten Wert von einem selbstständigen Objekt.",
-      "Ein Name ist nicht automatisch eindeutig. Die vorgegebene Identifikationsnummer ist hier der sichere Schlüssel."
+      "Frage bei jedem Schlüsselkandidaten, wer seine Eindeutigkeit garantiert.",
+      "Spiele gleiche Namen und gemeinsam genutzte Postfächer durch.",
+      "Welcher Kandidat bleibt auch dann eindeutig, wenn sich die Kontaktdaten ändern?"
     ],
     "explanation": "Ein Name ist nicht automatisch eindeutig. Die vorgegebene Identifikationsnummer ist hier der sichere Schlüssel."
   },
@@ -308,9 +308,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: KundeId, Name, Mail."
+      "Suche in der vorhandenen Karte nach der bereits vergebenen Kennung.",
+      "Überlege, was das Markieren eines weiteren Attributs am Schlüssel ändern würde.",
+      "Prüfe mit zwei Kunden gleichen Namens, ob ihre Identität weiterhin klar ist."
     ],
     "explanation": "Alle PK-Attribute sind zwingend vorhanden; Name und Mail sind keine Schlüssel."
   },
@@ -419,9 +419,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: KundeId, Name, Mail; AuftragId, Datum, KundeId."
+      "Skizziere einen Kunden mit zwei unterschiedlichen Aufträgen.",
+      "Wo kann dieselbe Kundennummer mehrfach stehen, ohne die Identität eines Auftrags zu verändern?",
+      "Lies deine Verbindung rückwärts. Kann jemand ohne Auftrag schon als Kunde erfasst werden?"
     ],
     "explanation": "KundeId liegt zusätzlich als FK in Auftrag, also auf der n-Seite. Ein neuer Kunde muss noch keinen Auftrag besitzen."
   },
@@ -450,9 +450,9 @@
       "c"
     ],
     "hints": [
-      "Lies die ausdrücklich genannten Geschäftsregeln, nicht nur die Beispieldaten.",
-      "Unterscheide einen einzelnen gespeicherten Wert von einem selbstständigen Objekt.",
-      "Erst das Paar identifiziert eine Position. Jeder einzelne Bestandteil darf sich wiederholen."
+      "Stelle zwei Zeilen zusammen, in denen derselbe Artikel in verschiedenen Aufträgen vorkommt.",
+      "Wiederhole den Test mit zwei Artikeln desselben Auftrags. Welche Einzelangabe wiederholt sich jeweils?",
+      "Ändere nur die Menge. Sollte daraus eine zweite, unterscheidbare Position werden?"
     ],
     "explanation": "Erst das Paar identifiziert eine Position. Jeder einzelne Bestandteil darf sich wiederholen."
   },
@@ -589,9 +589,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: AuftragId, Datum; ArtikelId, Bezeichnung; AuftragId, ArtikelId, Menge."
+      "Zeichne einen Auftrag, der zwei Artikel enthält.",
+      "Trenne die Angaben zum Artikel von der Menge in genau diesem Auftrag.",
+      "Versuche, denselben Artikel im selben Auftrag noch einmal anzulegen. Welche Schlüsselgruppe hindert dich daran?"
     ],
     "explanation": "Position hat den zusammengesetzten PK aus AuftragId und ArtikelId. Beide Bestandteile sind gleichzeitig FKs."
   },
@@ -700,9 +700,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: KundeId, Name, Mail; AuftragId, Datum, KundeId."
+      "Beschreibe zuerst einen gerade angelegten Kunden und dann einen gerade angelegten Auftrag.",
+      "Lies die Beziehung von beiden Seiten. Für wen ist die Teilnahme sofort Pflicht?",
+      "Darf der Auftrag auf eine unbekannte Nummer verweisen, bloß weil der Kunde selbst noch keinen Auftrag braucht?"
     ],
     "explanation": "0..n Aufträge je Kunde und genau 1 Kunde je Auftrag sind zwei getrennte Aussagen."
   },
@@ -811,9 +811,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: KundeId, Name, Mail; AuftragId, Datum, KundeId."
+      "Skizziere einen Auftrag eines Gasts neben einem Auftrag eines bekannten Kunden.",
+      "Überlege, was ein leeres Referenzfeld von einer eingetragenen, unbekannten Kundennummer unterscheidet.",
+      "Spiele beide Eingaben durch. Die Regeln sollen nur den ausdrücklich erlaubten Gastfall ermöglichen."
     ],
     "explanation": "Die optionale Zuordnung bedeutet 0..1 Kunde je Auftrag. Dazu muss der FK NULL erlauben."
   },
@@ -913,9 +913,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: KundeId, Name, Mail; KundeId, Notiz."
+      "Lege gedanklich einen Kunden ohne Notizprofil an.",
+      "Welche Kennung könnte ein Profil vom zugehörigen Kunden übernehmen?",
+      "Versuche zwei verschiedene Notizen als zwei Profile desselben Kunden zu speichern. Verhindert dein Schlüssel das?"
     ],
     "explanation": "Der PK im Profil ist zugleich FK. Seine Eindeutigkeit begrenzt die Beziehung auf höchstens ein Profil pro Kunde."
   },
@@ -1052,9 +1052,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: AuftragId, Datum; ArtikelId, Bezeichnung; AuftragId, ArtikelId, Menge."
+      "Ein Artikel liegt in zwei Aufträgen mit unterschiedlichen Mengen. Wo könntest du beide Mengen speichern?",
+      "Gib jeder Zuordnung einen Platz, an dem ihre beiden Partner erkennbar sind.",
+      "Kann es den Artikel schon geben, bevor zum ersten Mal jemand eine Menge bestellt?"
     ],
     "explanation": "Die Zuordnungstabelle Position speichert beide FKs und die Menge. Eine direkte n:m-Linie ersetzt diese Tabelle im relationalen Modell nicht."
   },
@@ -1131,9 +1131,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: MitarbeiterId, Mitarbeitername, LeitungId."
+      "Zeichne eine Mitarbeiterin und daneben die Person, die sie führt. Welche Daten haben beide gemeinsam?",
+      "Unterscheide die eigene Nummer von der Nummer, auf die der Leitungsverweis zeigt.",
+      "Teste eine Person ohne Leitung sowie zwei Personen mit derselben Leitung."
     ],
     "explanation": "Die Selbstreferenz zeigt auf MitarbeiterId derselben Tabelle. LeitungId bleibt optional; die Diagrammposition ändert daran nichts."
   },
@@ -1233,9 +1233,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: KundeId, Name, Mail; KundeId, Telefonnummer."
+      "Schreibe die Nummern eines Kunden untereinander, sodass jede einzeln suchbar ist.",
+      "Was muss bei jeder Nummer stehen, damit die Verbindung zu ihrem Kunden erhalten bleibt?",
+      "Teste dieselbe Nummer bei zwei Kunden und dann zweimal bei nur einem Kunden."
     ],
     "explanation": "Telefon ist eine eigene abhängige Tabelle. Das Paar KundeId und Telefonnummer identifiziert einen Kontakt; es gibt keine Spalten Telefon1, Telefon2 usw."
   },
@@ -1374,9 +1374,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: ArtikelId, Bezeichnung; AuftragId, ArtikelId, Menge."
+      "Unterstreiche in zwei Positionen desselben Artikels die Werte, die allein durch den Artikel feststehen.",
+      "Bei welcher Angabe brauchst du wirklich beide Teile des Positionsschlüssels?",
+      "Benenne den Artikel um. Wie viele Stellen müsstest du in deinem Entwurf ändern?"
     ],
     "explanation": "Bezeichnung hängt nur von ArtikelId ab. Sie gehört in Artikel. Das zusammengesetzte Positionsschlüssel-Paar bleibt bestehen."
   },
@@ -1476,9 +1476,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: KategorieId, Kategoriename; ArtikelId, Bezeichnung, KategorieId."
+      "Zeichne die Abhängigkeiten vom Artikel bis zum Namen seiner Kategorie als Pfeile.",
+      "Welche Angabe kannst du allein anhand der Kategorienummer nachschlagen?",
+      "Benenne eine Kategorie mit mehreren Artikeln um. Wo müsste der neue Name gespeichert werden?"
     ],
     "explanation": "Kategoriename wird durch KategorieId bestimmt und gehört in Kategorie. Eine neue ArtikelId allein beseitigt die transitive Abhängigkeit nicht."
   },
@@ -1507,9 +1507,9 @@
       "b"
     ],
     "hints": [
-      "Lies die ausdrücklich genannten Geschäftsregeln, nicht nur die Beispieldaten.",
-      "Unterscheide einen einzelnen gespeicherten Wert von einem selbstständigen Objekt.",
-      "Eine künstliche ID beseitigt fachliche Abhängigkeiten zwischen anderen Attributen nicht."
+      "Stell dir zwei Positionen mit verschiedenen Positionsnummern, aber gleichem Artikel vor.",
+      "Welche Angabe über den Artikel stünde trotz neuer ID noch mehrfach in der Liste?",
+      "Verfolge eine Umbenennung des Artikels. Beseitigt die neue Nummer das Änderungsproblem?"
     ],
     "explanation": "Eine künstliche ID beseitigt fachliche Abhängigkeiten zwischen anderen Attributen nicht."
   },
@@ -1598,9 +1598,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: KundeId, Name, Strasse, Hausnummer, Postleitzahl, Ort."
+      "Notiere nur Abhängigkeiten, die der Fachbereich ausdrücklich zusichert.",
+      "Würdest du mit einer eigenen PLZ-Zuordnung eine zusätzliche Regel erzwingen?",
+      "Teste zwei Kunden mit derselben Postleitzahl. Was darfst du über ihren Ort tatsächlich folgern?"
     ],
     "explanation": "Aus einer Beispieltabelle darf keine funktionale Abhängigkeit erfunden werden. Die Aufgabe gibt keine eindeutige Ortszuordnung je Postleitzahl vor."
   },
@@ -1770,9 +1770,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: KundeId, Name, Mail; AuftragId, Datum, KundeId."
+      "Suche im Auftrag das Feld, das schon wie eine Kundennummer aussieht.",
+      "Ein gleicher Spaltenname allein verhindert keinen Auftrag mit unbekanntem Kunden. Welche Verbindung fehlt?",
+      "Versuche gedanklich, zwei Aufträge auf denselben Kunden zu beziehen. Das muss weiterhin möglich sein."
     ],
     "explanation": "Der FK ist Auftrag.KundeId → Kunde.KundeId, nicht die umgekehrte Richtung."
   },
@@ -2013,9 +2013,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: AuftragId, Datum; ArtikelId, Bezeichnung; AuftragId, ArtikelId, Menge."
+      "Schreibe drei Positionspaare auf: einen Auftrag mit zwei Artikeln und einen zweiten Auftrag mit einem der Artikel.",
+      "Welche der gültigen Zeilen würde der bisherige Schlüssel ausschließen?",
+      "Dupliziere jetzt nur ein vollständiges Paar. Genau dieses Duplikat muss scheitern."
     ],
     "explanation": "AuftragId allein begrenzt den Auftrag auf eine Position. Ergänze ArtikelId zum PK."
   },
@@ -2200,9 +2200,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: KundeId, Name, Mail; KundeId, Notiz, ProfilId."
+      "Gib zwei Profilen verschiedene Profilnummern, aber dieselbe Kundennummer.",
+      "Welche bestehende Regel prüft bereits die Existenz des Kunden? Welche Mehrfachbelegung lässt sie offen?",
+      "Versuche denselben Kunden im zweiten Profil zuzuweisen. Wo muss die Eindeutigkeit wirken?"
     ],
     "explanation": "Mit zusätzlicher ProfilId muss KundeId im Profil weiterhin eindeutig sein. Die 1:1-Beschriftung allein erzwingt das nicht."
   },
@@ -2387,9 +2387,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: KundeId, Name, Mail; AuftragId, Datum, KundeId."
+      "Lies die aktuelle Verbindung aus Sicht eines Kunden am Tag seiner Registrierung.",
+      "Entscheide getrennt über die Mindestzahl der Aufträge und die Pflichtangabe im Auftrag.",
+      "Spiele einen Kunden ohne Auftrag und anschließend einen Auftrag ohne Kunden durch."
     ],
     "explanation": "Die Mindestzahl der Aufträge je Kunde ist 0. Das bedeutet nicht, dass der FK im Auftrag fehlen darf."
   },
@@ -2544,9 +2544,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: AuftragId, Datum; ArtikelId, Bezeichnung, Listenpreis; AuftragId, ArtikelId, Menge, VereinbarterPreis."
+      "Markiere auf einem alten Auftrag den Preis, auf den man sich damals geeinigt hat.",
+      "Welche Preiseigenschaft gilt für den heutigen Artikel und welche nur für eine Bestellung?",
+      "Erhöhe morgen den Listenpreis. Bleibt die alte Rechnung in deinem Modell nachvollziehbar?"
     ],
     "explanation": "Listenpreis und VereinbarterPreis haben unterschiedliche Bedeutungen. Das Speichern des vereinbarten Positionspreises ist hier keine unzulässige Wiederholung des aktuellen Listenpreises."
   },
@@ -2738,9 +2738,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: KundeId, Name, Mail; AuftragId, Datum, KundeId; ArtikelId, Bezeichnung; AuftragId, ArtikelId, Menge."
+      "Zeichne den Weg von einem Kunden über seinen Auftrag zu zwei bestellten Artikeln.",
+      "Trage die Menge dort ein, wo genau ein Auftrags-Artikel-Paar feststeht.",
+      "Teste auch einen neuen Artikel und einen neuen Kunden, für die noch keine Position existiert."
     ],
     "explanation": "Der vollständige Ausschnitt besteht aus vier Attributgruppen. Position löst n:m auf, Auftrag trägt den Kunden-FK."
   },
@@ -2877,9 +2877,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: AuftragId, Datum; MitarbeiterId, Mitarbeitername; AuftragId, MitarbeiterId, Stunden."
+      "Plane dieselbe Mitarbeiterin an zwei Aufträgen mit verschiedenen Stundenzahlen ein.",
+      "Welche zwei Angaben bestimmen, zu welchem Einsatz die Stunden gehören?",
+      "Kann ein Auftrag schon existieren, bevor die erste Person dafür eingeteilt ist?"
     ],
     "explanation": "Die Stunden hängen von der Zuordnung ab und gehören in Einsatz. Dessen zusammengesetzter PK ist zugleich aus zwei FKs aufgebaut."
   },
@@ -3133,9 +3133,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: AuftragId, Datum; ArtikelId, Bezeichnung; AuftragId, ArtikelId, Menge."
+      "Notiere getrennt die Identität einer Position und die Regel gegen doppelte Artikel je Auftrag.",
+      "Wenn du der Position eine eigene Nummer gibst, welche Kombination könnte sich trotzdem wiederholen?",
+      "Versuche, dasselbe Paar unter zwei verschiedenen Positionsnummern zu speichern."
     ],
     "explanation": "Beide Varianten erfüllen denselben Vertrag. Bei PositionId muss das fachlich eindeutige Paar als gemeinsamer alternativer Schlüssel erhalten bleiben."
   },
@@ -3272,9 +3272,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: AuftragId, Datum; MitarbeiterId, Mitarbeitername; AuftragId, MitarbeiterId, Stunden."
+      "Zeichne einen Auftrag mit nur einer eingeteilten Person.",
+      "Welche Regel sichert die Existenz der Person und welche beschreibt die Mindestbesetzung des Auftrags?",
+      "Lies die Mindestzahl rückwärts. Verlangt dein Modell versehentlich zwei Aufträge je Person?"
     ],
     "explanation": "Ein FK sichert die Referenz, nicht mindestens zwei Einsätze je Auftrag. Die Kardinalität 2..n erfordert zusätzlich eine geeignete Geschäftsregel beziehungsweise kontrollierte Transaktion."
   },
@@ -3512,9 +3512,9 @@
     "options": {},
     "correctIds": [],
     "hints": [
-      "Trenne Dinge mit eigener Identität von Eigenschaften und von Zuordnungen.",
-      "Lege die Schlüssel fest und prüfe anschließend, auf welcher Seite die Fremdschlüssel stehen.",
-      "Benötigte Attributgruppen: KundeId, Name, Mail; AuftragId, Datum, KundeId; ArtikelId, Bezeichnung, KategorieId; AuftragId, ArtikelId, Menge; KategorieId, Kategoriename."
+      "Folge einer Belegzeile vom Kunden bis zur Kategorie des Artikels.",
+      "Bei jeder Angabe frage, welche Nummer oder welches Paar genügt, um sie zu bestimmen.",
+      "Spiele eine Umbenennung der Kategorie und eine Mengenänderung in nur einem Auftrag durch."
     ],
     "explanation": "Kunde, Auftrag, Artikel, Kategorie und Position trennen die vorgegebenen Abhängigkeiten. Es gibt drei Pflicht-FK-Verbindungen zur Elternseite plus den zweiten Positions-FK. Die Fallakte führt von unübersichtlichen Listen zu einem nachvollziehbaren Modell."
   }

@@ -46,9 +46,9 @@ else
                 {
                     <div class="notice warning" role="alert">@Database.Error <a href="/einrichtung#sql">SQL-Verbindung einrichten</a></div>
                 }
-                <section class="editor-card" aria-label="SQL-Arbeitsbereich">
+                <section class="editor-card" aria-label="SQL-Arbeitsbereich" aria-busy="@(_busy ? "true" : "false")">
                     <div class="editor-toolbar"><label for="sql-editor">02 · Deine SQL-Abfrage</label><span>T-SQL · Microsoft SQL Server</span></div>
-                    <textarea id="sql-editor" class="sql-editor" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Schreibe hier deine Abfrage …" @bind="_sql" @bind:event="oninput" @onblur="SaveAsync" readonly="@_busy" aria-busy="@(_busy ? "true" : "false")"></textarea>
+                    <CodeEditor @key="_lesson.Id" Id="sql-editor" @bind-Value="_sql" Blur="SaveAsync" ReadOnly="@_busy" CodeMode="true" Placeholder="Schreibe hier deine Abfrage …" />
                     <div class="editor-actions"><div>@if (!_examMode) { <button class="button secondary" @onclick="PreviewAsync" disabled="@(_busy || !Database.Ready)">Abfrage ausführen</button> }<button class="button primary" @onclick="EvaluateAsync" disabled="@(_busy || !Database.Ready || string.IsNullOrWhiteSpace(_sql))">@(_busy ? "Wird geprüft …" : "Lösung prüfen") <span aria-hidden="true">→</span></button></div></div>
                 </section>
                 @if (_storageError != null) { <p class="notice warning" role="alert">@_storageError</p> }

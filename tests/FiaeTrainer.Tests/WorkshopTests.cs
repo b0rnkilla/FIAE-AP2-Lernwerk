@@ -29,11 +29,12 @@ public sealed class WorkshopValidatorTests
     public void AllWorkshopLessonsUseSupportedSqlAndHaveThreeHints()
     {
         WorkshopCatalog catalog = new();
-        Assert.Equal(Enumerable.Range(1, 10), catalog.Lessons.Select(x => x.Id));
+        Assert.Equal(Enumerable.Range(1, 30), catalog.Lessons.Select(x => x.Id));
         foreach (WorkshopLesson lesson in catalog.Lessons)
         {
-            Assert.Null(new WorkshopSqlValidator().Validate(lesson.ReferenceSql, lesson.Operation));
+            Assert.Null(new WorkshopSqlValidator().Validate(lesson, lesson.ReferenceSql));
             Assert.Equal(3, lesson.Hints.Length);
+            Assert.All(lesson.Hints, hint => Assert.DoesNotContain(lesson.ReferenceSql.TrimEnd(';'), hint, StringComparison.OrdinalIgnoreCase));
         }
     }
 
@@ -76,7 +77,7 @@ public sealed class WorkshopIntegrationTests : IAsyncLifetime
     public async Task AllTenSolutionsPassBothDatasetsAndHaveExpectedEffects()
     {
         WorkshopEvaluator evaluator = new(_database, new WorkshopSqlValidator());
-        foreach (WorkshopLesson lesson in new WorkshopCatalog().Lessons)
+        foreach (WorkshopLesson lesson in new WorkshopCatalog().Lessons.Where(l => l.Scenario.Length == 0))
         {
             WorkshopEvaluation result = await evaluator.EvaluateAsync(lesson, lesson.ReferenceSql);
             Assert.True(result.Correct, $"Werkstatt {lesson.Id}: {result.Message}");
@@ -96,6 +97,28 @@ public sealed class WorkshopIntegrationTests : IAsyncLifetime
             }
             if (lesson.Id == 10)
                 Assert.Equal(600m, result.Run.Tables["Konten"].Rows[0][2]);
+        }
+    }
+
+    [SqlFact]
+    public async Task SensorPriceIncreaseRequiresRoundingTheCalculatedPrice()
+    {
+        WorkshopEvaluator evaluator = new(_database, new WorkshopSqlValidator());
+        WorkshopLesson lesson = new WorkshopCatalog().Lessons.Single(x => x.Id == 2);
+        const string UPDATE = "UPDATE Artikel SET Preis = ";
+        const string FILTER = " WHERE Kategorie = 'Sensoren';";
+        foreach (string expression in new[] { "Preis * 1.1", "ROUND(Preis, 2) * 1.1", "ROUND(Preis * 1.1, 3)", "ROUND(Preis * 1.1, 2, 1)", "ROUND(Preis * 1.1 + 0.004, 2)" })
+        {
+            WorkshopEvaluation result = await evaluator.EvaluateAsync(lesson, UPDATE + expression + FILTER);
+            Assert.False(result.Correct, expression);
+            Assert.False(result.TechnicalFailure);
+            Assert.Contains("auf zwei Nachkommastellen", result.Message);
+        }
+        foreach (string expression in new[] { "ROUND(Preis * 1.1, 2)", "CAST(Preis * 1.1 AS DECIMAL(12,2))" })
+        {
+            WorkshopEvaluation result = await evaluator.EvaluateAsync(lesson, UPDATE + expression + FILTER);
+            Assert.True(result.Correct, result.Message);
+            Assert.Equal(44.06m, result.Run.Tables["Artikel"].Rows.Single(row => Equals(row[0], 2))[3]);
         }
     }
 

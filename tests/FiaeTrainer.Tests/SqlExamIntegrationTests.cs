@@ -13,13 +13,13 @@ public sealed class SqlExamIntegrationTests : IAsyncLifetime
     public Task DisposeAsync() => Task.CompletedTask;
 
     [SqlFact]
-    public async Task AllFifteenReferencesPassAndQueryDimensionsAreIndependentlyCounted()
+    public async Task AllTwentyReferencesPassAndQueryDimensionsAreIndependentlyCounted()
     {
         Dictionary<int, (int Visible, int Probe, int Columns)> expected = new()
         {
             [1] = (3,3,3), [2] = (4,6,4), [3] = (1,2,2), [4] = (1,2,2),
             [6] = (2,3,2), [7] = (2,4,3), [8] = (2,3,2), [9] = (1,1,2),
-            [11] = (2,3,3), [12] = (2,4,4), [13] = (3,5,2), [14] = (1,2,2)
+            [11] = (2,3,3), [12] = (2,4,4), [13] = (3,5,2), [14] = (1,2,2), [16] = (5,8,2)
         };
         SqlExamEvaluator evaluator = new(_database);
         foreach (var item in _catalog.Cases)
@@ -51,6 +51,128 @@ public sealed class SqlExamIntegrationTests : IAsyncLifetime
         var stock = _catalog.Cases[2];
         Assert.Equal(2, (await evaluator.EvaluateAsync(stock, stock.Tasks[2], "SELECT k.Id, COUNT(*) FROM Kategorien AS k LEFT JOIN Artikel AS a ON a.KategorieId=k.Id GROUP BY k.Id ORDER BY k.Id;")).Earned);
         Assert.Equal(8, (await evaluator.EvaluateAsync(stock, stock.Tasks[0], "SELECT Id, Name, Mindestbestand-Bestand FROM Artikel WHERE Bestand<Mindestbestand ORDER BY Id;")).Earned);
+    }
+
+    [SqlFact]
+    public async Task UpdateFromJoinUsesTheTargetAliasAndChecksTheChangedRows()
+    {
+        var item = _catalog.Cases[0];
+        var task = item.Tasks[4];
+        var evaluator = new SqlExamEvaluator(_database);
+        const string JOIN = "UPDATE b SET Status='bestaetigt' FROM Buchungen AS b JOIN Veranstaltungen AS v ON v.Id=b.VeranstaltungId WHERE b.Status='offen' AND v.Beginn>='20261101' AND v.Beginn<'20261201';";
+        Assert.Equal(10, (await evaluator.EvaluateAsync(item, task, JOIN)).Earned);
+        Assert.NotEqual(10, (await evaluator.EvaluateAsync(item, task, JOIN.Replace("20261201","20261101"))).Earned);
+        Assert.NotNull(SqlExamValidator.Prepare(item, task, JOIN.Replace("UPDATE b","UPDATE v"), out _));
+    }
+
+    [SqlFact]
+    public async Task DelimitedAliasWorksAndUnknownColumnPointsIntoLearnerText()
+    {
+        var item = _catalog.Cases[0];
+        var task = item.Tasks[1];
+        var query = task.ReferenceSql.Replace("SELECT b.Id,", "SELECT b.Id AS [Buchungs-Id],");
+        Assert.Equal(10,(await new SqlExamEvaluator(_database).EvaluateAsync(item,task,query)).Earned);
+        var invalid = await _database.ExecuteExamAsync(item,task,"SELECT b.Id,\n       b.FalscheSpalte FROM Buchungen AS b;");
+        Assert.Contains("FalscheSpalte",invalid.Error);
+        Assert.Contains("Zeile 2",invalid.Error);
+    }
+
+    [SqlFact]
+    public async Task FestivalAcceptsEquivalentSolutionsForAllFiveTasks()
+    {
+        var item = _catalog.Cases.Single(c => c.Id == "stadtfest");
+        var evaluator = new SqlExamEvaluator(_database);
+        string[] alternatives =
+        [
+            "SELECT MaterialId, Menge FROM DepotSued UNION ALL SELECT MaterialId, Menge FROM DepotNord;",
+            "ALTER TABLE Rueckgaben WITH CHECK ADD FOREIGN KEY (AusgabeId) REFERENCES Ausgaben (Id) ON DELETE NO ACTION;",
+            "UPDATE Material SET Bestand=(SELECT z.Menge FROM Zaehlliste z WHERE z.MaterialId=Material.Id) WHERE EXISTS (SELECT 1 FROM Zaehlliste z WHERE z.MaterialId=Material.Id AND z.Menge IS NOT NULL);",
+            "DELETE a OUTPUT DELETED.Id, DELETED.Stand, DELETED.Erledigt INTO AusgabeArchiv (Id,Stand,Erledigt) FROM Ausgaben a WHERE a.Erledigt=1;",
+            "REVOKE UPDATE, INSERT ON OBJECT::[Ausgabeliste] FROM [Empfang];"
+        ];
+        foreach (var (task, answer) in item.Tasks.Zip(alternatives))
+        {
+            var result = await evaluator.EvaluateAsync(item, task, answer);
+            Assert.True(result.Earned == 10, task.Title + ": " + string.Join(" / ",result.Checks.Where(c => c.Earned < c.Maximum).Select(c => c.Detail)));
+        }
+        Assert.Equal(10, (await evaluator.EvaluateAsync(item, item.Tasks[4], "DENY UPDATE ON Ausgabeliste TO Empfang;")).Earned);
+    }
+
+    [SqlFact]
+    public async Task FestivalDistinguishesIncorrectDataRulesMissingCountsAndIncompleteRights()
+    {
+        var item = _catalog.Cases.Single(c => c.Id == "stadtfest");
+        var evaluator = new SqlExamEvaluator(_database);
+        var cases = new (int Index, string Answer, int Points, string Failed)[]
+        {
+            (0, item.Tasks[0].ReferenceSql.Replace("UNION ALL", "UNION"), 2, "Ergebniswerte"),
+            (1, item.Tasks[1].ReferenceSql.TrimEnd(';') + " ON DELETE CASCADE;", 9, "Ausgabe mit Rückgabe"),
+            (1, item.Tasks[1].ReferenceSql.Replace("ADD CONSTRAINT", "WITH NOCHECK ADD CONSTRAINT"), 7, "Verknüpfte Spalten"),
+            (2, item.Tasks[2].ReferenceSql.Replace("z.Menge IS NOT NULL", "z.Menge > 0"), 8, "Gemeldete null"),
+            (2, item.Tasks[2].ReferenceSql.Replace("SET Bestand = z.Menge","SET Bestand = ISNULL(z.Menge, 0)").Replace("WHERE z.Menge IS NOT NULL",""), 7, "Fehlender Messwert"),
+            (3, item.Tasks[3].ReferenceSql.Replace("BEGIN TRANSACTION;", "").Replace("COMMIT;", ""), 8, "Gemeinsame Transaktion"),
+            (3, "INSERT AusgabeArchiv SELECT * FROM Ausgaben WHERE Erledigt=1;", 5, "Aktive Ausgaben"),
+            (4, "GRANT SELECT ON Ausgabeliste TO Empfang;", 7, "Sicht vor Änderungen"),
+            (4, item.Tasks[4].ReferenceSql + " GRANT SELECT ON Ausgaben TO Empfang;", 8, "Weitere Rechte"),
+            (4, "REVOKE SELECT, UPDATE ON Ausgabeliste FROM Empfang;", 7, "Offene Ausgaben")
+        };
+        foreach (var example in cases)
+        {
+            var result = await evaluator.EvaluateAsync(item, item.Tasks[example.Index], example.Answer);
+            Assert.Equal(example.Points, result.Earned);
+            Assert.Contains(result.Checks, c => c.Earned == 0 && c.Name.StartsWith(example.Failed, StringComparison.Ordinal));
+        }
+    }
+
+    [SqlFact]
+    public async Task FestivalGradesHiddenChangesAndDiscardsFailedTransfers()
+    {
+        var item = _catalog.Cases.Single(c => c.Id == "stadtfest");
+        var stock = item.Tasks[2];
+        string visibleOnly = stock.ReferenceSql.Replace("IS NOT NULL;", "IS NOT NULL AND m.Id <= 4;");
+        var evaluator = new SqlExamEvaluator(_database);
+        Assert.Equal(8, (await evaluator.EvaluateAsync(item, stock, visibleOnly)).Earned);
+        var archive = item.Tasks[3];
+        string duplicate = archive.ReferenceSql.Replace("DELETE FROM", "INSERT AusgabeArchiv SELECT * FROM Ausgaben WHERE Erledigt=1; DELETE FROM");
+        var failed = await _database.ExecuteExamAsync(item, archive, duplicate);
+        Assert.NotNull(failed.Error);
+        Assert.False(failed.TechnicalFailure);
+        Assert.Equal(10, (await evaluator.EvaluateAsync(item, archive, archive.ReferenceSql)).Earned);
+    }
+
+    [Theory]
+    [InlineData(1, "ALTER TABLE Ausgaben ADD FOREIGN KEY (Id) REFERENCES Material (Id);")]
+    [InlineData(3, "COMMIT;")]
+    [InlineData(3, "BEGIN TRANSACTION; DELETE FROM Ausgaben;")]
+    [InlineData(3, "DELETE FROM AusgabeArchiv;")]
+    [InlineData(3, "DELETE FROM Ausgaben OUTPUT DELETED.Id INTO Material;")]
+    [InlineData(4, "GRANT SELECT ON Material TO Empfang;")]
+    [InlineData(4, "GRANT UPDATE ON Ausgabeliste TO Andere;")]
+    public void FestivalRejectsAnswersOutsideTheTask(int index, string answer)
+    {
+        var item = _catalog.Cases.Single(c => c.Id == "stadtfest");
+        Assert.NotNull(SqlExamValidator.Prepare(item, item.Tasks[index], answer, out _));
+    }
+
+    [Fact]
+    public void EachExamTaskExplainsItsOwnSolution()
+    {
+        var tasks = _catalog.Cases.SelectMany(c => c.Tasks).ToList();
+        Assert.Equal(20,tasks.Select(t => t.Explanation).Distinct().Count());
+        Assert.All(tasks,t => Assert.Contains('\n',t.ReferenceSql));
+    }
+
+    [Theory]
+    [InlineData("SELECT b.Id AS Buchungs-Id FROM Buchungen b;", "Bindestrich", "Spalte 24")]
+    [InlineData("SELECT b.Id FROM Buchungen b\nWHERE b.Status IS NOT 'offen';", "IS NULL", "Zeile 2")]
+    [InlineData("SELECT b.Id FROM Buchungen b WHERE b.Id=1\nJOIN Veranstaltungen v ON v.Id=b.VeranstaltungId;", "JOIN", "Zeile 2")]
+    [InlineData("UPDATE Buchungen b SET Status='offen';", "Zielalias", "Zeile 1")]
+    public void DiagnosticsLocateTheFirstProblemInTheOriginalAnswer(string sql, string reason, string location)
+    {
+        var item = _catalog.Cases[0];
+        string? message = SqlExamValidator.Prepare(item,item.Tasks[0],sql,out _);
+        Assert.Contains(reason,message);
+        Assert.Contains(location,message);
     }
 
     [SqlFact]

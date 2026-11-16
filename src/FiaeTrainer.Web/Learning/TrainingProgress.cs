@@ -10,6 +10,8 @@ public sealed class TrainingProgress
     public bool TaskListCollapsed { get; set; }
     /// <summary> Blendet den allgemeinen Bedienhinweis in allen Lernwegen aus, bis er wieder eingeschaltet wird. </summary>
     public bool SelfTestHelpDismissed { get; set; }
+    /// <summary> Blendet den Hinweis zur Arbeitskopie in allen Aufgaben der SQL-Werkstatt aus. </summary>
+    public bool WorkshopCopyHelpDismissed { get; set; }
     /// <summary> Zuletzt bearbeitete Aufgabe. </summary>
     public int LastLessonId { get; set; } = 1;
     /// <summary> Ergebnisse und Entwürfe nach Aufgabennummer. </summary>

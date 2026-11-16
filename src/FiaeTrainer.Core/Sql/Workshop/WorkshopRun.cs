@@ -13,6 +13,8 @@ public sealed class WorkshopRun
     public Dictionary<string, QueryResult> BeforeRollback { get; init; } = [];
     /// <summary> Ergebnisse gezielter Einfügeversuche zur Prüfung von Constraints. </summary>
     public QueryResult ConstraintChecks { get; init; } = new();
+    /// <summary> Ausgabe der eigenen Mengenabfrage. </summary>
+    public QueryResult? Selection { get; set; }
     /// <summary> Verständlicher Fehler statt eines bewertbaren Endzustands. </summary>
     public string? Error { get; init; }
     /// <summary> Infrastrukturfehler ohne fachliche Wertung. </summary>

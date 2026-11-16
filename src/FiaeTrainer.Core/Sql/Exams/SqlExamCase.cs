@@ -11,6 +11,8 @@ public sealed class SqlExamCase
     public string Scenario { get; init; } = "";
     /// <summary> Sichtbare Typen und Beziehungen. </summary>
     public string Schema { get; init; } = "";
+    /// <summary> Verwendet das isolierte Arbeitsschema für echte Schlüssel und Rollenrechte. </summary>
+    public bool UsesWorkSchema { get; init; }
     /// <summary> Erlaubte Tabellen, ausschließlich innerhalb der Arbeitskopie. </summary>
     public string[] Tables { get; init; } = [];
     /// <summary> Eigene Ausgangsdaten für eine neue Sitzung. </summary>

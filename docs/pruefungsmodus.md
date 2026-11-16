@@ -1,6 +1,6 @@
 # Prüfungsrunden und modulbezogene Trainingsprüfungen
 
-In **1.0.0-beta.1** ergänzen die Prüfungsrunden 454 Lernübungen in acht Modulen. SQL und Pseudocode haben 15 beziehungsweise zehn eigene Prüfungsaufgaben. Datenbankentwurf, UML, Softwareplanung, Qualitätssicherung und Projekte bieten jeweils drei Fälle mit je drei Teilen. WiSo nutzt seinen eigenen Fragenbestand. Lernabschlüsse und Prüfungsergebnisse werden getrennt gespeichert.
+In **1.0.0-beta.3** ergänzen die Prüfungsrunden 474 Lernübungen in acht Modulen. SQL und Pseudocode haben 20 beziehungsweise zehn eigene Prüfungsaufgaben. Datenbankentwurf, UML, Softwareplanung, Qualitätssicherung und Projekte bieten jeweils drei Fälle mit je drei Teilen. WiSo nutzt seinen eigenen Fragenbestand. Lernabschlüsse und Prüfungsergebnisse werden getrennt gespeichert.
 
 Historischer Grundstand Alpha 10: SQL-/Pseudocode-Prüfungen ergänzten 220 Lernübungen. Das damalige Alpha-8-Paket enthielt diese Runden noch nicht. Die bisherigen Prüfungsnachweise bleiben im Testprotokoll erhalten.
 
@@ -13,6 +13,8 @@ Jede Runde dauert 45 Minuten und bietet 50 Trainingspunkte. 25 Punkte entspreche
 **Pause** friert die Restzeit ein und blendet Aufgaben/Editoren aus. Browser schließen, zu einer anderen Seite wechseln oder die App beenden pausiert nicht. Die UTC-Frist bleibt gespeichert; nach Ablauf wird beim nächsten Öffnen/Speichern abgegeben. Offene Runden werden etwa einmal pro Sekunde auf Fristablauf geprüft. Entwürfe werden bei Änderungen ungefähr sekündlich sowie beim Verlassen des Editors, Wechseln, Pausieren und Abgeben atomar gespeichert. Bei abruptem Prozess-/Verbindungsabbruch können die letzten noch nicht gespeicherten Eingaben verloren gehen.
 
 Der Spickzettel bleibt erreichbar. Er pausiert die Runde, merkt **mit Nachschlagen** und führt direkt zur Prüfung zurück. Nach Fristablauf kann Nachschlagen die Abgabe nicht rückgängig machen. Veraltete Fenster werden durch Revisionsprüfung am Überschreiben gehindert. In der Heimnetz-Vorführung gilt weiterhin ein gemeinsames Profil: keine getrennten Benutzerprüfungen.
+
+Bei SQL-Syntaxfehlern nennt die Auswertung Zeile und Spalte des abgegebenen Entwurfs. Sie erläutert unter anderem Bindestriche in Aliasnamen, Textvergleiche mit IS und falsch platzierte JOINs. Jede der 20 Musterlösungen erklärt ihre Tabellenbezüge, Filter oder Änderungen. Die November-Aufgabe akzeptiert auch UPDATE mit einem im FROM-Teil definierten Zielalias und JOIN.
 
 ## Pseudocode: zehn eigene Aufgaben
 
@@ -33,23 +35,28 @@ Aus dem separaten Pool werden zwei Funktions-/Korrekturaufgaben zu je 20 Punkten
 
 Der bestehende Interpreter wird verwendet, einschließlich großer Schlüsselwörter, Wertsemantik, eigener Funktionsparameter und gemeinsamer Laufzeitbudgets. Es kommen keine externen Objekte oder sprachfremden Pseudocode-Befehle hinzu. Funktionsaufträge nennen Eingaben, Rückgabe und zulässige Werte. Die automatische Prüfung bewertet funktionales Verhalten auf einer endlichen Prüfmenge, keine bewiesene allgemeine Korrektheit oder Laufzeitklasse.
 
-## SQL: drei neue Fälle
+## Die vier SQL-Prüfungsfälle
 
 | Fall | Tabellen | Fünf Aufgaben |
 | --- | --- | --- |
 | Bildungszentrum | Raeume, Veranstaltungen, Buchungen | Datumsbereich, mehrstufiger JOIN, GROUP BY/HAVING, fehlende Bestätigung, UPDATE |
 | Servicebetrieb | Kunden, Auftraege, Arbeitsschritte | Datums-/NULL-Filter, JOIN, Aggregation, fehlender Arbeitsschritt, INSERT VALUES |
 | Ersatzteillager | Kategorien, Artikel, Lieferpositionen | Bestandsdifferenz, JOIN, LEFT JOIN/COUNT, Durchschnitts-Unterabfrage, ALTER TABLE ADD |
+| Materialausgabe für ein Stadtfest | DepotNord, DepotSued, Material, Zaehlliste, Ausgaben, Rueckgaben, AusgabeArchiv, Sicht Ausgabeliste | Lieferungen mit Wiederholungen, referenzielle Integrität, gezählte Bestände, atomarer Archivtransfer, Leserecht am Empfang |
 
-Die Auswahl kann zufällig oder gezielt erfolgen. Schema, Beziehungen und Beispieldaten bleiben in jeder Aufgabe sichtbar. Eine Aufgabe beeinflusst keine andere: Jede Ausführung beginnt mit frischen sitzungseigenen temporären Tabellen. Prüfungen laufen unter `TrainerReader` ohne Rückkehr zu erhöhten Rechten, ohne Verbindungspooling und mit acht Sekunden Ausführungsbudget sowie 200 Ergebniszeilen. Die bestehende Ermittlung/Werkstatt bleibt unverändert.
+Die Auswahl kann zufällig oder gezielt erfolgen. Schema, Beziehungen und Beispieldaten bleiben in jeder Aufgabe sichtbar. In den ersten drei Fällen beginnt jede Ausführung mit frischen sitzungseigenen temporären Tabellen. Diese Fälle laufen unter `TrainerReader` ohne Rückkehr zu erhöhten Rechten, ohne Verbindungspooling und mit acht Sekunden Ausführungsbudget sowie 200 Ergebniszeilen.
 
-Erlaubt ist genau eine Anweisung der verlangten Art. Tabellenbezüge werden mit ScriptDom auf die Falltabellen begrenzt und im Syntaxbaum zu temporären Namen umgeschrieben. Literale und Aliase bleiben erhalten. Externe Quellen, andere Schemas, Verwaltungsbefehle, INTO, WITH, OPTION und Tabellenhinweise sind ausgeschlossen. INSERT verwendet VALUES, keine Prozeduraufrufe. ALTER unterstützt genau eine einfache Spalte mit int, bit, decimal oder nvarchar und NULL/NOT NULL ohne zusätzliche Eigenschaften. Alternative korrekte JOIN-/Unterabfrageformulierungen werden innerhalb dieser Grenzen akzeptiert. SQL-Schreibregeln bleiben wie im Trainer: große Befehle/Funktionen und Semikolon.
+In diesen drei Fällen ist genau eine Anweisung der verlangten Art erlaubt. Tabellenbezüge werden mit ScriptDom auf die Falltabellen begrenzt und im Syntaxbaum zu temporären Namen umgeschrieben. Literale und Aliase bleiben erhalten. Externe Quellen, andere Schemas, Verwaltungsbefehle, INTO, WITH, OPTION und Tabellenhinweise sind ausgeschlossen. INSERT verwendet VALUES, keine Prozeduraufrufe. ALTER unterstützt genau eine einfache Spalte mit int, bit, decimal oder nvarchar und NULL/NOT NULL ohne zusätzliche Eigenschaften. Alternative korrekte JOIN-/Unterabfrageformulierungen werden innerhalb dieser Grenzen akzeptiert. SQL-Schreibregeln bleiben wie im Trainer: große Befehle/Funktionen und Semikolon.
+
+Im Stadtfest-Fall (Aufgaben 16–20) startet jeder Auftrag mit eigenen Falltabellen im geschützten Werkstattschema. Fremdschlüssel wirken dort auch bei echten Einfüge- und Löschversuchen. Die Rechteprüfung führt Lese- und Schreibversuche als Mitglied der Rolle Empfang aus. Die Archivaufgabe akzeptiert getrenntes Kopieren und Löschen in einer Transaktion sowie eine einzelne Verschiebung mit `DELETE … OUTPUT … INTO`. In der Arbeitskopie gilt für den Archivtransfer `XACT_ABORT ON`.
 
 ## Teilpunkte und Nachbereitung
 
 **Pseudocode:** Die festen Prüffälle teilen sich die maximalen Punkte der Aufgabe; Restpunkte werden den ersten Fällen zugeordnet. Jeder Prüffall wird unabhängig ausgeführt, auch wenn ein anderer fehlschlägt. Beim Schreibtischtest gibt jede der fünf richtig zugeordneten Ausgaben zwei Punkte; unwichtige Leerzeichen in Listen sind erlaubt. Die Testfallaufgabe vergibt Punkte für die fest geforderten Eingabegruppen, nicht für beliebig viele zusätzliche Fälle. Falsche Formate/Sollausgaben verhindern dort Abdeckungspunkte. Nicht ausführbarer Code wird nicht wie durch einen Menschen auf richtige Ansätze bewertet.
 
 **SQL:** Zwei Punkte für eine ausführbare, erlaubte Anweisung mit den Schreibregeln. Acht Punkte für das vollständig passende Ergebnis beziehungsweise den vollständigen Endzustand auf beiden Datenbeständen. Bei Sortieraufgaben teilen sich diese acht Punkte in sechs für Werte und zwei für die richtige Sortierung auf; Sortierpunkte setzen richtige Werte voraus. Verglichen werden auch NULL, Duplikate und Spaltenreihenfolge. Bei Änderungen zählen unbeteiligte Tabellen und Spaltenstrukturen mit. Der Vergleich zweier Datenbestände ist kein allgemeiner semantischer Beweis. Eine inhaltlich falsche, aber formal gültige SQL-Antwort kann deshalb zwei Formpunkte erhalten; das ist ausdrücklich eine Trainingsregel.
+
+Beim Stadtfest werden die acht Fachpunkte der Schreibaufträge nach Teilanforderungen vergeben. Beispielsweise erhält eine Archivierung mit vollständig richtigen Tabellenständen sechs Fachpunkte. Die zwei weiteren Fachpunkte setzen einen atomaren Transfer voraus. Jedes Kriterium muss auf beiden Datenständen erfüllt sein.
 
 Nach Abgabe bleiben Antworten schreibgeschützt. Teilanforderungen, erreichte Punkte und Musterlösungen sind einsehbar. Codeaufgaben und der Schreibtischtest besitzen eine schrittweise Nachbereitung mit Beispielwerten; SQL kann auf frischen Ausgangsdaten untersucht werden. Die bisherigen Lernaufgaben werden durch eine Prüfungsabgabe nicht als gelöst markiert.
 
@@ -59,7 +66,7 @@ Fehlt SQL bei der Bewertung, bleibt die Abgabe gesperrt gespeichert und erhält 
 
 * `Core/Exams`: gemeinsame Runden-/Ergebnismodelle.
 * `Core/Algorithms/Exams`: eigener Zehnerpool, Auswahl und fachliche Teilprüfung.
-* `Core/Sql/Exams`: drei Fallkataloge, SQL-Grenzen und Bewertung; Ausführung in `Sql/Database/TrainingDatabase.Exams.cs`.
+* `Core/Sql/Exams`: vier Prüfungsfälle, SQL-Grenzen und Bewertung; Ausführung in `Sql/Database/TrainingDatabase.Exams.cs`.
 * `Web/Exams/ExamService`: verbindet Fachmodule mit der UI.
 * `Web/Components/Pages/ExamHome.razor` und `Pages/Training/Exam.razor(.cs)`: Einstieg und Prüfungsablauf.
 * `Web/Components/Exams`: Nachbereitung und Spickzettel-Rückweg.

@@ -29,7 +29,7 @@ public sealed partial class TrainingDatabase
             using Stream stream = SqlContent.Open("workshop.sql");
             string seed = await new StreamReader(stream).ReadToEndAsync(cancellationToken);
             if (verificationData)
-                seed += " UPDATE #Artikel SET Preis=Preis+2, Bestand=Bestand+1 WHERE Id IN (1,2); INSERT #Artikel VALUES(6,N'Zusatzsensor',N'Sensoren',70.00,2,1),(7,N'Alte Hülle',N'Zubehör',8.00,0,0); UPDATE #Konten SET Guthaben=Guthaben+175 WHERE Id=1; UPDATE #Konten SET Guthaben=Guthaben+80 WHERE Id=2;";
+                seed += " UPDATE #Artikel SET Preis=Preis+2, Bestand=Bestand+1 WHERE Id IN (1,2); INSERT #Artikel VALUES(6,N'Zusatzsensor',N'Sensoren',70.04,2,1),(7,N'Alte Hülle',N'Zubehör',8.00,0,0); UPDATE #Konten SET Guthaben=Guthaben+175 WHERE Id=1; UPDATE #Konten SET Guthaben=Guthaben+80 WHERE Id=2;";
             await using (SqlCommand setup = new(seed, connection) { CommandTimeout = 4 })
                 await setup.ExecuteNonQueryAsync(cancellationToken);
             WorkshopRun run = new();

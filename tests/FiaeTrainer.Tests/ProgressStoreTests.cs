@@ -122,6 +122,7 @@ public sealed class ProgressStoreTests : IDisposable
         Assert.Equal(2, loaded.Lessons[1].HintLevel);
         Assert.True(loaded.Lessons[1].UsedAssistance);
         Assert.False(loaded.SelfTestHelpDismissed);
+        Assert.False(loaded.WorkshopCopyHelpDismissed);
     }
 
     [Fact]
@@ -130,9 +131,15 @@ public sealed class ProgressStoreTests : IDisposable
         ProgressStore store = CreateStore();
         await Task.WhenAll(
             store.SetSelfTestHelpDismissedAsync(true),
+            store.SetWorkshopCopyHelpDismissedAsync(true),
             store.SaveLessonAsync(1, new LessonProgress { ExamMode = false, Sql = "Ermittlungsentwurf" }),
             store.SaveLessonAsync(1, new LessonProgress { ExamMode = true, Completed = true }, LearningArea.Workshop));
         TrainingProgress loaded = await CreateStore().LoadAsync();
+        Assert.True(loaded.SelfTestHelpDismissed);
+        Assert.True(loaded.WorkshopCopyHelpDismissed);
+        await store.SetWorkshopCopyHelpDismissedAsync(false);
+        loaded = await store.LoadAsync();
+        Assert.False(loaded.WorkshopCopyHelpDismissed);
         Assert.True(loaded.SelfTestHelpDismissed);
         Assert.False(loaded.Lessons[1].ExamMode);
         Assert.Equal("Ermittlungsentwurf", loaded.Lessons[1].Sql);

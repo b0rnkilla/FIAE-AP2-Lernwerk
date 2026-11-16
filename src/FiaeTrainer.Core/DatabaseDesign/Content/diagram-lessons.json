@@ -8,9 +8,9 @@
     "task": "Ergänze A und B im ER-Diagramm: Jede Buchung gehört genau einem Kunden. Ein Kunde darf noch keine und beliebig viele Buchungen besitzen. Die Kardinalität an einer Seite zählt die Objekte dieser Seite je Objekt auf der Gegenseite.",
     "discovery": "Die Skizze zeigt beide Richtungen eindeutig: genau ein Kunde je Buchung, null bis viele Buchungen je Kunde.",
     "hints": [
-      "Lies jeden Zusammenhang als zwei getrennte Fragen.",
-      "Eine Buchung ohne Kunden ist nicht erlaubt; ein Kunde ohne Buchung ist dagegen möglich.",
-      "Links steht 1..1 für Kunden je Buchung, rechts 0..n für Buchungen je Kunde."
+      "Halte gedanklich genau eine Buchung fest und zähle die zugehörigen Kunden.",
+      "Wechsle den Blickpunkt zu einem frisch erfassten Kunden. Wie viele Buchungen darf er heute und später haben?",
+      "Lies beide Enden als Sätze mit „je einem …“. Stehen die Mengen an den gezählten Enden?"
     ],
     "explanation": "Kunde und Buchung sind Entitätstypen. A = 1..1, B = 0..n. Die optionale Teilnahme eines Kunden ändert nicht die Pflichtzuordnung jeder vorhandenen Buchung. Im ER-Modell stehen hier noch keine Fremdschlüssel.",
     "kind": "ErCompletion",
@@ -79,9 +79,9 @@
     "task": "Vervollständige A–D. Referenten und Programmpunkte dürfen zunächst ohne Mitwirkung erfasst werden; auf beiden Seiten sind mehrere Zuordnungen möglich. Die Beziehung heißt wirkt mit. Für jedes Paar wird ein vereinbartes Honorar geführt, das weder ein allgemeiner Referentenstammsatz noch eine Eigenschaft des Programmpunkts ist.",
     "discovery": "Das Honorar hängt an der Mitwirkung eines Referenten bei einem bestimmten Programmpunkt. Die Skizze hält diese Zuordnung als n:m-Beziehung fest.",
     "hints": [
-      "Entscheide zuerst, ob auf einer Seite höchstens ein Objekt vorkommen darf.",
-      "Das Honorar kann sich für dieselbe Person von Beitrag zu Beitrag ändern.",
-      "Beide Kardinalitäten sind 0..n; Honorar gehört an die Beziehungsraute wirkt mit."
+      "Zeichne denselben Referenten bei zwei Programmpunkten mit verschiedenen Honoraren.",
+      "Wovon hängt der Betrag ab, wenn auch der zweite Referent am selben Programmpunkt anders bezahlt wird?",
+      "Kannst du beide Stammsätze schon vor der ersten Honorarvereinbarung erfassen?"
     ],
     "explanation": "A und B sind 0..n. C ist wirkt mit, D ist Honorar. Die Beziehungsraute trägt ein eigenes Attribut. Bei der späteren Überführung in Tabellen wird dafür eine Zuordnungstabelle mit beiden Referenzen und dem Honorar benötigt.",
     "kind": "ErCompletion",
@@ -172,9 +172,9 @@
     "task": "Ergänze A–C. Jeder Programmpunkt findet in genau einem Raum statt. Ein Raum kann für keinen, einen oder mehrere Programmpunkte vorgesehen sein. Zeitliche Überschneidungen werden in diesem Ausschnitt nicht geprüft. Ergänze den Entitätstyp bei A und die Kardinalitäten B und C.",
     "discovery": "Programmpunkte sind Räumen zugeordnet. Die Mengenangaben sagen nichts über eine zeitgleiche Doppelbelegung aus; diese müsste gesondert geprüft werden.",
     "hints": [
-      "Nutze die vorhandenen Attribute als Hinweis auf den fehlenden Entitätstyp.",
-      "Die Zahl am linken Ende zählt Programmpunkte je Raum.",
-      "A ist Raum, B ist 0..n, C ist 1..1."
+      "Lies die Beschriftung der Beziehung als Satz über einen einzelnen Programmpunkt.",
+      "Welcher eigenständig verwaltete Gegenstand vervollständigt den Satz „findet statt in …“?",
+      "Teste einen ungenutzten Raum und zwei zeitlich getrennte Programmpunkte im selben Raum."
     ],
     "explanation": "Der fehlende Kasten bezeichnet Raum. Links steht 0..n für Programmpunkte je Raum, rechts 1..1 für Räume je Programmpunkt. Kardinalitäten allein verhindern keine zeitlichen Überschneidungen.",
     "kind": "ErCompletion",
@@ -253,9 +253,9 @@
     "task": "Vervollständige A–D. Ein Programmpunkt darf beliebig viele Dokumente und auch noch keines verwenden. Ein Dokument darf in beliebig vielen Programmpunkten und auch noch in keinem verwendet werden. Die Beziehung heißt verwendet. Die Position eines Dokuments in der Unterlagenliste ist je Paar aus Programmpunkt und Dokument festgelegt.",
     "discovery": "Dokumente bleiben wiederverwendbar. Ihre Position ist eine Eigenschaft der Verwendung in einem Programmpunkt und keine globale Reihenfolge aller Dateien.",
     "hints": [
-      "Ein vorhandenes Dokument muss nicht für genau einen Programmpunkt bestimmt sein.",
-      "Dasselbe Dokument kann in verschiedenen Unterlagenlisten an unterschiedlichen Stellen erscheinen.",
-      "Beide Enden erhalten 0..n; das Beziehungsattribut ist Position."
+      "Denke an dasselbe Dokument an zweiter Stelle in einem Programm und an erster Stelle in einem anderen.",
+      "Wo lässt sich diese unterschiedliche Reihenfolge beschreiben, ohne das Dokument zu verdoppeln?",
+      "Lies die Beziehung für ein frisch angelegtes Dokument, das noch nirgends eingeplant ist."
     ],
     "explanation": "A = 0..n, B = 0..n, C = verwendet, D = Position. Die n:m-Zuordnung trägt die Position. Eine spätere relationale Umsetzung benötigt eine Zuordnungstabelle; der Dokumentstammsatz wird nicht für jeden Programmpunkt kopiert.",
     "kind": "ErCompletion",
@@ -346,9 +346,9 @@
     "task": "Überführe das vorgegebene ER-Diagramm in Tabellen. Die Nummern heißen im relationalen Modell ProgrammId und MaterialId. Je Paar gibt es genau einen Materialbedarf mit Menge. Beide Stammdatentypen dürfen ohne Zuordnung existieren. Verwende einen zusammengesetzten PK für die Zuordnung; zusätzliche künstliche IDs sind in diesem Auftrag nicht vorgesehen. Verwende nur die aufgeführten Fachattribute. Alle Attribute sind Pflicht, sofern ausdrücklich anders angegeben. Ergänze keine zusätzlichen eindeutigen Schlüssel. Nicht ausdrücklich verlangte Mindestzahlen abhängiger Sätze sind 0. Tabellen- und Anzeigenamen sind frei.",
     "discovery": "Der Materialbedarf besitzt eine eigene Tabelle. Die beiden Referenzen bilden zusammen den Schlüssel; die Menge beschreibt genau dieses Paar.",
     "hints": [
-      "Übernimm zuerst die zwei Entitätstypen als Stammtabellen.",
-      "Eine n:m-Beziehung lässt sich nicht durch einen einzelnen FK in einer der beiden Stammtabellen ersetzen.",
-      "Materialbedarf enthält ProgrammId, MaterialId und Menge; beide IDs bilden den PK und jeweils einen FK."
+      "Schreibe für einen Programmpunkt zwei verschiedene Materialbedarfe auf.",
+      "Welche Nummern müssen je Bedarf erhalten bleiben, damit Programm und Material wieder auffindbar sind?",
+      "Ändere nur die benötigte Menge. Darf das einen zweiten Bedarf für dasselbe Paar ermöglichen?"
     ],
     "explanation": "Programmpunkt(ProgrammId PK, Titel), Material(MaterialId PK, Bezeichnung) und Materialbedarf(ProgrammId PK/FK, MaterialId PK/FK, Menge). Je Bedarf genau ein Programmpunkt und ein Material; beide Stammsätze können null bis viele Bedarfe besitzen.",
     "sourceDiagram": {
@@ -512,9 +512,9 @@
     "task": "Überführe das ER-Diagramm in zwei Tabellen: Auftrag mit AuftragId und Datum sowie Briefing mit BriefingId und Notiz. Jedes Briefing gehört genau einem Auftrag; ein Auftrag hat null oder ein Briefing. BriefingId bleibt eigener PK. Ergänze den erforderlichen FK AuftragId und sichere die Höchstzahl eins durch Eindeutigkeit dieses FK. Ein vorhandenes Briefing ohne Auftrag ist nicht erlaubt. Verwende nur die aufgeführten Fachattribute. Alle Attribute sind Pflicht, sofern ausdrücklich anders angegeben. Ergänze keine zusätzlichen eindeutigen Schlüssel. Nicht ausdrücklich verlangte Mindestzahlen abhängiger Sätze sind 0. Tabellen- und Anzeigenamen sind frei.",
     "discovery": "Ein Auftrag kann ohne Briefing existieren. Für ein vorhandenes Briefing bleibt die Auftragszuordnung verpflichtend und zusätzlich eindeutig.",
     "hints": [
-      "Optional ist das Vorhandensein des Briefings, nicht die Zuordnung eines bereits vorhandenen Briefings.",
-      "Der FK liegt im Briefing. Ein normaler FK allein begrenzt seine Anzahl je Auftrag noch nicht auf eins.",
-      "AuftragId ist im Briefing NOT NULL und eine eigene UQ-Gruppe; BriefingId bleibt der PK."
+      "Skizziere einen Auftrag, zu dem das Briefing erst morgen entsteht.",
+      "Trenne die eigene Identität des Briefings von der Begrenzung der Briefings je Auftrag.",
+      "Teste zwei Briefings mit verschiedenen Nummern für denselben Auftrag. Welche Regel greift?"
     ],
     "explanation": "Auftrag(AuftragId PK, Datum), Briefing(BriefingId PK, AuftragId FK/UQ, Notiz). AuftragId im Briefing darf nicht NULL sein. Je Briefing genau ein Auftrag, je Auftrag 0..1 Briefings. Es ist keine Pflicht zur Anlage eines Briefings nötig.",
     "sourceDiagram": {
@@ -639,9 +639,9 @@
     "task": "Im vorgegebenen Modell identifiziert erst das Paar (Tag, SlotNr) ein Zeitfenster eindeutig. Ergänze die unvollständige FK-Beziehung der Reservierung; Tabellen, Attribute und PK bleiben erhalten. Jede Reservierung gehört genau einem Zeitfenster. Ein Zeitfenster darf null bis viele Reservierungen haben. Die Kapazitätsprüfung ist eine zusätzliche Anwendungsregel und hier nicht Teil der Bewertung. Verwende nur die aufgeführten Fachattribute. Alle Attribute sind Pflicht, sofern ausdrücklich anders angegeben. Ergänze keine zusätzlichen eindeutigen Schlüssel. Nicht ausdrücklich verlangte Mindestzahlen abhängiger Sätze sind 0. Tabellen- und Anzeigenamen sind frei.",
     "discovery": "Die Reservierung verweist mit Tag und SlotNr gemeinsam auf ein eindeutiges Zeitfenster. Die Verbindung ist vollständig, ohne daraus schon eine Kapazitätskontrolle abzuleiten.",
     "hints": [
-      "Vergleiche die FK-Paare mit allen Bestandteilen des Zielschlüssels.",
-      "Tag allein identifiziert kein Zeitfenster, weil ein Tag mehrere Slotnummern hat.",
-      "Ergänze in derselben Beziehung das Paar Reservierung.SlotNr → Zeitfenster.SlotNr."
+      "Beschrifte zwei Zeitfenster an verschiedenen Tagen mit derselben Slotnummer.",
+      "Verfolge den vorhandenen Verweis: Welcher Teil des Zielschlüssels bleibt bisher unbestimmt?",
+      "Lässt sich die Reservierung genau einem der beiden Fenster zuordnen?"
     ],
     "explanation": "Der Ziel-PK besteht aus Tag und SlotNr. Die FK-Beziehung benötigt beide Paare in einer gemeinsamen Referenz. Eine zweite getrennte Beziehung ersetzt den zusammengesetzten Fremdschlüssel nicht.",
     "showStarter": true,
@@ -828,9 +828,9 @@
     "task": "Erweitere das vorgegebene relationale Modell um die Unterlagenzuordnung. Je Paar (ProgrammId, DokumentId) gibt es genau einen Eintrag mit Position. Ein Dokument darf mehreren Programmpunkten zugeordnet sein. Beide Stammsätze dürfen ohne Zuordnung existieren. Der PK der Zuordnung ist das ID-Paar. Verschiedene Dokumente dürfen dieselbe Position besitzen; eine zusätzliche Eindeutigkeit der Position wird nicht verlangt. Verwende nur die aufgeführten Fachattribute. Alle Attribute sind Pflicht, sofern ausdrücklich anders angegeben. Ergänze keine zusätzlichen eindeutigen Schlüssel. Nicht ausdrücklich verlangte Mindestzahlen abhängiger Sätze sind 0. Tabellen- und Anzeigenamen sind frei.",
     "discovery": "Die bestehende Dokumentverwaltung wird durch eine Zuordnung ergänzt. Weder Dateien noch Programmpunkte müssen für die Verwendung mehrfach angelegt werden.",
     "hints": [
-      "Die Stammtabellen beschreiben noch keine konkrete Verwendung eines Dokuments.",
-      "Die neue Tabelle enthält beide IDs und die Position innerhalb dieser Zuordnung.",
-      "Unterlage erhält ProgrammId und DokumentId als gemeinsamen PK sowie zwei vollständige FK-Beziehungen."
+      "Markiere im bestehenden Modell, was ein Dokument bereits unabhängig vom Programm beschreibt.",
+      "Lege dieselbe Unterlage in zwei Programmen ab. Welche Daten braucht jede dieser Zuordnungen?",
+      "Teste verschiedene Dokumente mit gleicher Position. Verbietet dein Entwurf mehr, als verlangt ist?"
     ],
     "explanation": "Unterlage(ProgrammId PK/FK, DokumentId PK/FK, Position) verbindet die bestehenden Tabellen. Je Unterlage gibt es genau einen Programmpunkt und ein Dokument; beide Stammsätze erlauben 0..n Unterlagen. Position ist hier kein zusätzlicher Schlüssel.",
     "showStarter": true,
@@ -1011,9 +1011,9 @@
     "task": "Erweitere die Vorlage um Rueckfrage mit FrageId, KundeId, ProgrammId, GestelltAm, BeantwortetAm und Zurueckgezogen. Jede Rückfrage gehört genau einem Kunden und genau einem Programmpunkt. Beide dürfen noch keine und beliebig viele Rückfragen haben. BeantwortetAm darf bis zur Beantwortung fehlen; Zurueckgezogen ist ein Pflichtwert für den Wahrheitswert. Ein Kunde darf mehrere Fragen zum selben Programmpunkt stellen. Vorhandene Tabellen bleiben erhalten. Verwende nur die aufgeführten Fachattribute. Alle Attribute sind Pflicht, sofern ausdrücklich anders angegeben. Ergänze keine zusätzlichen eindeutigen Schlüssel. Nicht ausdrücklich verlangte Mindestzahlen abhängiger Sätze sind 0. Tabellen- und Anzeigenamen sind frei.",
     "discovery": "Rückfragen sind eigenständige Vorgänge mit zwei Pflichtbezügen. Eine offene Antwort wird durch einen fehlenden Antwortzeitpunkt dargestellt; Zurückziehen löscht den Vorgang nicht.",
     "hints": [
-      "Mehrere Fragen desselben Kunden zum selben Programmpunkt brauchen eine eigene Vorgangskennung.",
-      "Es sind zwei Beziehungen nötig. Das Kunden-/Programmpaar ist ausdrücklich nicht eindeutig.",
-      "FrageId ist PK. BeantwortetAm erlaubt NULL; KundeId und ProgrammId sind Pflicht-FK."
+      "Skizziere eine frisch gestellte Frage neben einer bereits beantworteten.",
+      "Trenne die Identität der Frage von den beiden Objekten, auf die sie sich bezieht.",
+      "Kann derselbe Kunde zum selben Programmpunkt erneut fragen, während die erste Antwort noch aussteht?"
     ],
     "explanation": "Rueckfrage erhält den PK FrageId und Pflicht-FK zu Kunde und Programmpunkt. Nur BeantwortetAm erlaubt NULL. Das Paar KundeId/ProgrammId darf sich wiederholen. Das Pflichtattribut Zurueckgezogen ermöglicht die fachliche Kennzeichnung; konkrete Statuswechsel oder Löschverbote prüft dieser Strukturauftrag nicht.",
     "showStarter": true,
@@ -1221,9 +1221,9 @@
     "task": "Entwickle aus der Standliste ein relationales Modell in 3. NF. StandNr ist agenturweit eindeutig. HalleCode bestimmt Hallenname, PartnerId bestimmt Partnername und Kontaktmail. Jeder Stand gehört genau einer Halle und genau einem Partner. Hallen und Partner dürfen ohne Stand existieren. Verwende die vorhandenen Kennungen als PK; übernimm die sechs Fachattribute ohne zusätzliche IDs. Die Beispielzeilen begründen keine weiteren Eindeutigkeitsregeln. Verwende nur die aufgeführten Fachattribute. Alle Attribute sind Pflicht, sofern ausdrücklich anders angegeben. Ergänze keine zusätzlichen eindeutigen Schlüssel. Nicht ausdrücklich verlangte Mindestzahlen abhängiger Sätze sind 0. Tabellen- und Anzeigenamen sind frei.",
     "discovery": "Hallen und Partner sind von den Ständen getrennt. Namen und Kontaktmail werden damit nicht für jeden Stand erneut als Stammdaten gespeichert.",
     "hints": [
-      "Suche Angaben, die bei derselben fachlichen Kennung wiederholt werden.",
-      "Hallenname hängt von HalleCode ab, die Partnerangaben von PartnerId.",
-      "Halle(HalleCode, Hallenname), Partner(PartnerId, Partnername, Kontaktmail), Stand(StandNr, HalleCode, PartnerId)."
+      "Decke in der Standliste die Standnummer ab. Welche Angaben kannst du trotzdem aus Hallen- oder Partnerkennung ableiten?",
+      "Bearbeite die Hallen- und Partnerdaten gedanklich, bevor du die Verweise des Stands einzeichnest.",
+      "Kannst du eine neue Halle anlegen, obwohl ihr noch kein Stand zugeteilt ist?"
     ],
     "explanation": "Drei Tabellen: Halle mit PK HalleCode, Partner mit PK PartnerId und Stand mit PK StandNr. Stand referenziert beide Stammtabellen verpflichtend. Eine Halle und ein Partner können jeweils 0..n Stände besitzen. Kontaktmail wird nicht allein wegen unterschiedlicher Beispielwerte eindeutig.",
     "evidence": {
@@ -1401,9 +1401,9 @@
     "task": "Entwirf ein relationales Modell in 3. NF für beliebig viele solche Leihscheine. AusleiheId ist global eindeutig, KundeId bestimmt Kundenname und ArtikelId bestimmt Bezeichnung. Jede Ausleihe gehört genau einem Kunden. Jeder Artikel kommt auf einem Leihschein höchstens einmal vor; Menge gehört zur Position. Kunden und Artikel dürfen ohne Ausleihe bzw. Position existieren. Eine neu angelegte Ausleihe darf zunächst ohne Position existieren. Verwende vorhandene Kennungen und für Positionen den zusammengesetzten PK; keine zusätzliche Positions-ID. Verwende nur die aufgeführten Fachattribute. Alle Attribute sind Pflicht, sofern ausdrücklich anders angegeben. Ergänze keine zusätzlichen eindeutigen Schlüssel. Nicht ausdrücklich verlangte Mindestzahlen abhängiger Sätze sind 0. Tabellen- und Anzeigenamen sind frei.",
     "discovery": "Kunde und Artikel werden unabhängig gepflegt. Ein Leihschein hat einen eigenen Kopf; seine Positionen verbinden Ausleihe und Artikel mit der jeweiligen Menge.",
     "hints": [
-      "Trenne die Informationen des Belegkopfs von den wiederholbaren Artikelzeilen.",
-      "Kundenname gehört zum Kunden, Bezeichnung zum Artikel; das Datum beschreibt die Ausleihe.",
-      "Vier Tabellen: Kunde, Ausleihe, Artikel und Leihposition mit PK (AusleiheId, ArtikelId)."
+      "Trenne zuerst den Kopf des Leihscheins von seinen wiederkehrenden Zeilen.",
+      "Welche Angaben bleiben für einen Kunden oder Artikel auch beim nächsten Leihschein gleich?",
+      "Verdopple eine Artikelzeile desselben Scheins und versuche danach, eine Ausleihe ohne Position anzulegen."
     ],
     "explanation": "Kunde(KundeId PK, Kundenname), Ausleihe(AusleiheId PK, KundeId FK, Ausleihdatum), Artikel(ArtikelId PK, Bezeichnung), Leihposition(AusleiheId PK/FK, ArtikelId PK/FK, Menge). Jede Referenz ist Pflicht; die Stammsätze und der Ausleihkopf dürfen jeweils ohne abhängige Sätze existieren.",
     "evidence": {
@@ -1601,9 +1601,9 @@
     "task": "Wähle die zwei fachlich richtigen Aussagen über die ursprüngliche Standliste. Ein Stand muss immer eine StandNr, Halle und einen Partner besitzen. Hallen und Partner sollen unabhängig von einem Stand verwaltet werden können. Dieselbe Hallenbezeichnung und dieselben Partnerdaten werden in der alten Liste je Stand wiederholt.",
     "discovery": "Die Nachbereitung benennt konkrete Änderungs- und Einfügeprobleme. Das Team kann damit den Zweck der getrennten Hallen-, Partner- und Standdaten nachvollziehen.",
     "hints": [
-      "Prüfe jede Aussage gegen einen konkreten Vorgang in der Liste.",
-      "Die Forumhalle steht in mehreren Zeilen. Eine neue Halle kann noch keinen Stand besitzen.",
-      "Richtig sind die mögliche widersprüchliche Hallenumbenennung und die fehlende unabhängige Erfassung einer neuen Halle."
+      "Markiere alle Zellen, in denen die alte Standliste denselben Hallennamen wiederholt.",
+      "Spiele erst eine Umbenennung, dann das Löschen des letzten Stands einer Halle durch.",
+      "Versuche einen Partner zu erfassen, bevor eine Standnummer vorliegt. Lässt die alte Liste das zu?"
     ],
     "explanation": "Wird Hallenname nur in einer der beiden H-A-Zeilen geändert, entstehen widersprüchliche Stammdaten: Änderungsanomalie. Eine Halle ohne Stand lässt sich in der alten Standtabelle unter den Pflichtregeln nicht unabhängig erfassen: Einfügeanomalie. Redundanz erzwingt nicht automatisch einen vorhandenen Fehler. Unterschiedliche Partnerkennungen sind kein Grund, alle Partner zu einer Entität zusammenzufassen.",
     "kind": "Multiple",

@@ -1,5 +1,57 @@
 # Testprotokoll
 
+## 16.11.2026 · Stadtfest-Fall für Beta 3
+
+- Release-Build mit separater QA-LocalDB. Alle 1.247 .NET-Tests einschließlich der SQL-Integrationen und alle 31 JavaScript-Tests bestanden.
+- Alle 20 SQL-Prüfungsreferenzen erreichten je 10/10 auf Ausgangs- und zusätzlichen Prüfdaten. In der Stadtfest-Lieferliste wurden fünf beziehungsweise acht Zeilen mit je zwei Spalten unabhängig geprüft.
+- Alternative Lösungen erreichten volle Punkte, darunter vertauschte Depot-Reihenfolge, unbenannter Fremdschlüssel, korrelierte Bestandsaktualisierung, atomarer Transfer mit `DELETE … OUTPUT … INTO` und Rechtebefehle mit Objektpräfix. Gegenproben unterschieden Duplikatverlust, Löschkaskade, ungeprüfte Altdaten, 0/NULL/fehlende Zählung, unvollständige Empfangsrechte und fehlenden Transaktionsrahmen. Datenfehler beim Archivtransfer beeinflussten den Folgeversuch nicht.
+- Edge mit eigenem Profil und Port. Im Prüfungseinstieg waren alle vier Fälle auswählbar. Die Stadtfest-Runde wurde über alle fünf Editoren beantwortet und endgültig abgegeben. Vor der Abgabe waren Lösungen verborgen. Danach waren 50/50 Punkte, fünf aufgabenspezifische Erklärungen und gesperrte Antworten sichtbar. Das Ergebnis blieb nach Neuladen erhalten.
+
+## 16.11.2026 · Quellprüfung für 1.0.0-beta.3
+
+Das Webprojekt meldet die neue Version `1.0.0-beta.3`. Im Release-Build bestanden alle 1.237 .NET-Tests einschließlich der SQL-Integrationen auf der separaten QA-LocalDB sowie alle 31 JavaScript-Tests. Die Paketanleitung wurde auf 474 Lernübungen und 30 Werkstattaufgaben abgeglichen. Die Prüfung der entpackten Windows-EXE folgt nach dem Paketbau.
+
+Der Nutzer hat in **Beta 2** die SQL-Ermittlung und die bisherige Werkstatt abgeschlossen und alle drei SQL-Prüfungsfälle mehrfach bearbeitet.
+
+## 16.11.2026 · SQL-Prüfung und drei neue Werkstattfälle
+
+1.237 .NET-Tests einschließlich der SQL-Server-Integrationen und 31 JavaScript-Tests bestanden. Alle 15 Prüfungsreferenzen und alle 20 neuen Werkstattreferenzen liefen auf Ausgangs- und Zusatzdaten. Je ein gezieltes Gegenbeispiel pro neuer Aufgabe wurde abgewiesen. Abgedeckt sind unter anderem FK-Löschregeln, doppelte Schlüsselpaare, Mengen mit Duplikaten, eine Zählung von 0, fehlende Meldungen, das Backfill einer Pflichtspalte, echte Lese-/Schreibrechte und die Reihenfolge der Indexschlüssel. Zwei gleichzeitige Rollenübungen, benannte Constraints und ein Indexname mit Leerzeichen wurden gesondert geprüft.
+
+Edge auf separatem Port mit eigenem Profil und der QA-LocalDB: Aufgaben 13, 16 und 28 über die Aufgabenliste gelöst. In einer abgegebenen Veranstaltungsprüfung erhielt das UPDATE mit Zielalias und JOIN 10/10. Beim ungeschützten Alias Buchungs-Id wurden die konkrete Spalte und der Bindestrich erläutert. Die aufgeklappte Musterlösung zeigte die aufgabeneigene Erklärung.
+
+
+## Aufgabenhinweise – 16.11.2026
+
+14 eingebettete JSON-Kataloge verglichen. Alle 1.047 Hinweistexte wurden ersetzt. Geprüft wurden drei verschiedene Hinweise pro Aufgabe sowie unveränderte Aufgabenkennungen, Musterantworten und Lösungserklärungen. Der Werkstatt-Katalogtest erkennt die erneute Übernahme eines vollständigen Referenzskripts in einen Hinweis.
+
+1.226 .NET-Tests einschließlich SQL-Integration und 31 JavaScript-Tests bestanden. Werkstattaufgabe 6 zusätzlich in Edge mit eigenem Port und Lernprofil geprüft: drei einzeln geöffnete Hinweise, anschließend vollständiges Skript und zugehörige Erklärung über „Musterlösung ansehen“.
+
+## SQL-Spickzettel – 16.11.2026
+
+Beide Tests zum SQL-Spickzettel bestanden. Der gerenderte Hinweis enthält die drei SQL-Themen und die Grenze beim AP2-Prüfungsstoff. Geprüft wurden auch der Weg zurück zur Ermittlungs- oder Werkstattaufgabe und das Entfernen der veralteten Modulankündigung.
+
+## Rundung der Sensorpreise – 16.11.2026
+
+77 betroffene Tests bestanden, darunter alle zehn Werkstatt-Musterlösungen auf beiden Datenbeständen. Fehlende Rundung, Rundung vor der Erhöhung, drei Nachkommastellen, Abschneiden und ein falscher Rundungszuschlag wurden abgewiesen. Sowohl `ROUND` als auch die Umwandlung des berechneten Preises in `DECIMAL(12,2)` bestanden. In Edge mit separatem Profil und eigener SQL-Testinstanz zeigte die Vorschau für den Drucksensor 44,055. Beim Prüfen erschien der Rundungshinweis. Das gerundete UPDATE wurde mit 44,06 als richtig gewertet. Damit ist die im vorherigen Eintrag beobachtete Fehlbewertung behoben.
+
+## Syntaxhinweise der SQL-Werkstatt – 16.11.2026
+
+97 Tests zu SQL-Validierung, Syntaxhinweisen und Schreibregeln bestanden. Geprüft wurden unter anderem mehrteilige Werkstattskripte, gültige Kommas in Listen und die bisherigen SELECT-Hinweise. Im isolierten Edge-Test mit eigener SQL-Instanz und eigenem Lernprofil zeigte Aufgabe 2 „Eine allgemeine Preisregel“ sowohl beim Prüfen als auch beim Ausprobieren den Hinweis zu `1,1`. Mit `1.1` wurde das UPDATE für die Sensorpreise als richtig gewertet.
+
+## Bedienhinweis der SQL-Werkstatt – 16.11.2026
+
+21 Profilspeicher-Tests bestanden, einschließlich alter Profile und paralleler Schreibvorgänge. In Edge mit separatem Testprofil geprüft: Ausblenden in beiden Lernmodi, Aufgabenwechsel, Neuladen und erneutes Anzeigen über den Lernplan. Ein ausgeblendeter Selbsttest-Hinweis blieb beim Wiederherstellen des Arbeitskopie-Hinweises verborgen. Der gespeicherte Werkstattentwurf blieb erhalten.
+
+## Einrückung in den SQL-Lernwegen – 16.11.2026
+
+Der Release-Build lief ohne Warnungen oder Fehler. 13 JavaScript-Tests für Codeeditor und Aufgabennavigation sowie 85 .NET-Tests für SQL-Schreibregeln, Validierung und Syntaxfeedback bestanden. In Edge wurden Ermittlung 26 und Werkstatt 1 auf einem separaten Port mit eigenem Profil geprüft. Tab am Cursor, Ein- und Ausrücken markierter Zeilen, Strg+Z und beide Fokuswege mit Esc funktionierten. Die SQL-Entwürfe enthielten nach dem Neuladen dieselben Zeilenumbrüche und Leerzeichen.
+
+## Paketabnahme Beta 2 – 12.11.2026
+
+Die entpackte `AP2-Lernwerk.exe` meldete `1.0.0-beta.2+c417256aa2158510cc610dd7d13a7a615a2527e4` und den Authenticode-Status `NotSigned`. Alle neun eingebetteten Icon-Bilder (16, 20, 24, 32, 40, 48, 64, 128 und 256 Pixel) entsprachen bytegenau der ICO-Vorlage. Die aus der EXE gelesene 128-Pixel-Ansicht zeigte das weiße a² auf blauem Grund.
+
+Der Paketwechsel von Beta 1 auf Beta 2 mit separatem Profil erhielt Pseudocode-Entwurf, abgeschlossene Projektprüfung und Einstellungen. Start ohne SQL und mit Audit-LocalDB, Softwareprüfungs-Falltext sowie der Zweitstart auf belegtem Prüfport bestanden. Die ZIP-Prüfsumme, die Liste der 62 zulässigen Dateien, die Lizenzen und die enthaltenen Anleitungen wurden geprüft. Alle Paketdateien waren nach dem Lauf bitgleich. Lokaler Nachweis unter `artifacts/beta2-verification.json`.
+
 ## Optionaler Signierschritt – 12.11.2026
 
 Sechs isolierte Trockenläufe mit Testdateien prüften die Auswahl des Signiermodus. Der normale Aufruf erreichte den Prüfhalt unmittelbar vor der Archivierung, sowohl ohne Signierkonfiguration als auch bei ungültigen Werten in der Umgebung. Vier ausdrücklich angeforderte Signierläufe brachen wie erwartet bei unvollständigen Parametern oder fehlendem Zertifikat ab. Es wurde keine ZIP erstellt.

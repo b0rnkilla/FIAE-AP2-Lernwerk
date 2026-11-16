@@ -15,9 +15,9 @@
         "discovery": "",
         "explanation": "Der Vertrag verbindet Antwortzeit der Fahrradsuche, einschließlich drei Sekunden und die vereinbarten 25 Suchenden.",
         "hints": [
-          "Notiere Messgröße und Einheit getrennt.",
-          "„Höchstens“ schließt die Grenze ein.",
-          "Prüfe die Obergrenze von drei Sekunden bei 25 gleichzeitig Suchenden."
+          "Frage, welcher Vorgang für eine suchende Person zeitlich begrenzt wird.",
+          "Unterscheide Sekunden als Messgröße für die Dauer von der Zahl der gleichzeitig Suchenden.",
+          "Eine Suche endet genau auf der Grenze. Passt ihre Bewertung zu deinem Vergleich?"
         ],
         "previousContext": "",
         "material": "",
@@ -118,9 +118,9 @@
         "discovery": "",
         "explanation": "Die Maske erreicht die Bestandsdaten über den fachlich zuständigen Verleihdienst.",
         "hints": [
-          "Beginne mit den drei Fachrollen.",
-          "Ordne den Dateispeicher dem Datenzugriff zu.",
-          "Die Maske spricht den Dienst an, nicht direkt den Speicher."
+          "Verfolge das Ausleihen von der Eingabe bis zum gespeicherten Bestand.",
+          "Trenne beim Zuordnen die Bedienung von der Entscheidung über eine Ausleihe.",
+          "Lies die gezeichneten Aufrufe. Umgeht die Maske an irgendeiner Stelle die fachliche Entscheidung?"
         ],
         "previousContext": "",
         "material": "",
@@ -240,9 +240,9 @@
         "discovery": "",
         "explanation": "POST legt in der Sammlung eine Ausleihe an; der Vertrag verlangt 201 und zwei numerische Anfragefelder.",
         "hints": [
-          "Trenne Methode, Pfad, Medientyp und Ergebnisstatus.",
-          "Die beiden Mengenangaben stehen als JSON-Zahlen ohne Anführungszeichen.",
-          "Das Datum ist eine Zeichenfolge im vorgegebenen Format."
+          "Was verändert sich durch das Anlegen gegenüber dem bloßen Lesen eines Fahrrads?",
+          "Trenne Zieladresse und Angaben zu genau diesem Leihvorgang.",
+          "Prüfe die Anfrage auf Feldtypen und die Antwort darauf, ob sie das Neuanlegen ausdrückt."
         ],
         "previousContext": "",
         "material": "",
@@ -354,9 +354,9 @@
         "discovery": "",
         "explanation": "Die beiden konkreten Buchungsarten erfüllen denselben abstrakten Preisvertrag mit eigener Implementierung.",
         "hints": [
-          "Die gemeinsame Basis kann ihre Preisberechnung noch nicht selbst festlegen.",
-          "Jede konkrete Buchungsart muss die Operation anbieten.",
-          "Die Vererbungspfeile zeigen von den konkreten Buchungen zur abstrakten Buchung."
+          "Stell die Preisfrage an zwei verschiedene Kursbuchungen.",
+          "Welche Signatur muss beiden gemeinsam sein, und welche Rolle liefert die konkrete Berechnung?",
+          "Lies den Entwurf aus Sicht des Aufrufers. Könnte er beide Buchungen in gleicher Weise ansprechen?"
         ],
         "previousContext": "",
         "material": "",
@@ -618,9 +618,9 @@
         "discovery": "",
         "explanation": "Die Teiländerung überträgt nur die neue Personenzahl; Pfad, Medientyp und Erfolgsstatus sind ausdrücklich vereinbart.",
         "hints": [
-          "Die Aufgabe verlangt eine Teiländerung, keinen vollständigen Ersatz.",
-          "Der Anfragekörper enthält nur participants.",
-          "Der Erfolgsstatus ist in der Vereinbarung ausdrücklich genannt."
+          "Markiere die einzige Angabe, die am Kurs geändert werden soll.",
+          "Welche Informationen gehören in die Adresse und welche tatsächlich in den Änderungskörper?",
+          "Kontrolliere den Rückgabefall. Liefert der Dienst laut Vertrag noch eine Darstellung?"
         ],
         "previousContext": "",
         "material": "",
@@ -720,9 +720,9 @@
         "discovery": "",
         "explanation": "Die drei erforderlichen Angaben stehen vor der Aktion; ihre Eingabearten entsprechen dem vereinbarten Formularvertrag.",
         "hints": [
-          "Erstelle zuerst die drei Eingabefelder.",
-          "Datum und Personenzahl benötigen unterschiedliche Eingabearten.",
-          "Setze die Absendeaktion an das Ende."
+          "Verfolge die Anmeldung vom Auswählen eines Kurses bis zur letzten Handlung.",
+          "Ordne den einzugebenden Werten passende Bedienelemente zu.",
+          "Lies die Pflichtkennzeichnung an jeder Stelle. Gibt es eine Markierung an etwas, das gar kein Eingabewert ist?"
         ],
         "previousContext": "",
         "material": "",
@@ -849,9 +849,9 @@
         "discovery": "",
         "explanation": "Rolle, fachliche Anmeldung und Nutzen bilden die Nutzerperspektive ab.",
         "hints": [
-          "Die nutzende Person ist im Fall ausdrücklich genannt.",
-          "Beschreibe ihr Ziel statt eines technischen Arbeitsschritts.",
-          "Der Nutzen ist die Organisation einer Veranstaltung."
+          "Sprich den Wunsch laut aus Sicht der Person aus, die eine Reparatur annimmt.",
+          "Trenne die Tätigkeit von dem Grund, aus dem sie der Person hilft.",
+          "Kann jemand allein aus dem Nutzenfeld erklären, warum die Funktion gebraucht wird?"
         ],
         "previousContext": "",
         "material": "",
@@ -947,9 +947,9 @@
         "discovery": "",
         "explanation": "Kontakt und Reparaturangaben sind gruppiert; alle vereinbarten Angaben werden vor der Absendeaktion erfasst.",
         "hints": [
-          "Bearbeite erst Kontakt, dann Termin, dann die Aktion.",
-          "Telefon ist im Fall ausdrücklich freiwillig.",
-          "Die E-Mail erhält eine passende Eingabeart."
+          "Skizziere den Annahmezettel mit je einem Abschnitt für Erreichbarkeit und Reparatur.",
+          "Welche Angaben werden ausgewählt und welche frei beschrieben?",
+          "Prüfe die Lesereihenfolge bis zum Absenden und die Pflichtangaben je Gruppe."
         ],
         "previousContext": "",
         "material": "",
@@ -1076,9 +1076,9 @@
         "discovery": "",
         "explanation": "Registrierte austauschbare Empfänger einer Änderungsbenachrichtigung entsprechen hier dem Observer-Muster.",
         "hints": [
-          "Suche nach dem gemeinsamen Vertrag der Empfänger.",
-          "Die Liste angemeldeter Anzeigen kann sich ändern.",
-          "Registrierung und Benachrichtigung sind die Hinweise auf Observer."
+          "Verfolge eine Statusänderung vom Ursprung zu mehreren Anzeigen.",
+          "Welche Gemeinsamkeit müssen die Anzeigen haben, damit der Absender sie gleich ansprechen kann?",
+          "Denke dir eine zusätzliche Anzeige hinzu. Bei welchem Muster müsste der Statusgeber dafür am wenigsten geändert werden?"
         ],
         "previousContext": "",
         "material": "",

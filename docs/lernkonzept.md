@@ -8,6 +8,8 @@ Lernschritte kennzeichnen Auftrag und Editor. **Lösung prüfen** lädt zur Rüc
 
 ## Didaktischer Ablauf
 
+In den Lernbereichen 01 bis 07 lassen sich pro Aufgabe drei Hinweise einzeln öffnen. Der erste gibt einen greifbaren Einstieg, etwa zwei Ausgangszeilen zum Vergleichen. Der zweite hilft bei einer konkreten Entscheidung im Lösungsweg. Der dritte führt durch eine Gegenprobe, einen Grenzfall oder einen noch offenen Teilschritt. Die vollständige Lösung und ihre fachliche Erklärung stehen beim getrennten Aufdecken der Musterlösung zur Verfügung.
+
 Bei Aufgabenwechseln innerhalb eines SQL-Lernwegs bleibt die linke Liste mit ihrer Scrollposition erhalten. Der Ladehinweis ersetzt nur den Aufgabeninhalt. Im geführten Hilfebereich besitzen Denkanstoß, Spickzettel und Musterlösung denselben Aufbau: links Überschrift mit kurzer Beschreibung, rechts die Aktion. Hinweise öffnen weiterhin einzeln von 1 bis 3. Der Spickzettel öffnet im selben Tab; der gespeicherte Entwurf bleibt beim Zurückkehren erhalten. Bei der Musterlösung wechseln die Aktionen zwischen „Ansehen“ und „Ausblenden“. Das Schließen entfernt keine bereits protokollierte Unterstützung und macht einen Versuch nicht nachträglich selbstständig.
 
 Ein Kapitel erweitert den vorhandenen Wortschatz um wenige SQL-Bausteine. Jede Aufgabe besteht aus Geschichte, kurzer Erklärung, eindeutigem Auftrag, freiem Editor und überprüfbarem Ergebnis. Hilfen werden einzeln auf Wunsch geöffnet. Eine aufgedeckte Musterlösung wird als Unterstützung gespeichert.
@@ -59,7 +61,7 @@ Bekannte Falltabellen dürfen mit oder ohne Schemapräfix angegeben werden. Der 
 
 ## Allgemeine Oberfläche und Darstellung
 
-Die Startseite zeigt den allgemeinen AP2-Themenkompass. Der SQL-Bereich ist eine Karte unter den vorgesehenen Themen, keine dominierende Einstiegsgeschichte mehr. Der Gesamtfortschritt umfasst die 40 SQL-, 30 Algorithmus-, 42 Datenbankentwurfs- und 150 WiSo-Aufgaben, insgesamt 262. Prüfungsaufgaben bleiben von diesem Lernzähler getrennt. Die Kopfnavigation beginnt immer mit Übersicht und Lernplan; danach folgen die Links des besuchten Moduls.
+Die Startseite zeigt den allgemeinen AP2-Themenkompass. Der SQL-Bereich ist eine Karte unter den vorgesehenen Themen, keine dominierende Einstiegsgeschichte mehr. Der Gesamtfortschritt umfasst die 474 Lernaufgaben aller acht Module. Prüfungsaufgaben bleiben von diesem Lernzähler getrennt. Die Kopfnavigation beginnt immer mit Übersicht und Lernplan; danach folgen die Links des besuchten Moduls.
 
 Die Auswahl System/Hell/Dunkel wird rein im Browser angewendet. Ein früh im Dokument geladenes kleines Skript wertet die Systempräferenz und ein validiertes Präferenzcookie aus, bevor die Styles geladen werden. Explizite Auswahl überschreibt die Systempräferenz; die Option System aktiviert deren automatische Nachführung wieder. Ein neu von Blazor eingesetzter Auswahlschalter wird mit der aktuellen Auswahl synchronisiert. Das Cookie enthält ausschließlich einen der drei festgelegten Auswahlwerte.
 
@@ -67,7 +69,15 @@ Semantische CSS-Farbvariablen gestalten alle bestehenden Seiten, Ergebnis- und H
 
 ## SQL-Werkstatt
 
-Die zehn ergänzenden Aufgaben verwenden einen eigenen Kontext mit Artikel- und Kontendaten. CREATE TABLE, ALTER TABLE ADD sowie einfache Constraints und Transaktionen ergänzen die freie Abfrageeingabe. Es gibt keine Lückentexte.
+Bei „Eine allgemeine Preisregel“ muss der erhöhte Sensorpreis auf Cent gerundet sein. Die Preisspalte der Arbeitskopie speichert vier Nachkommastellen. So sieht man beim Ausprobieren am Drucksensor den Unterschied zwischen 44,055 und 44,06. Der zweite Datenbestand enthält auch einen Preis, der abgerundet werden muss. Die Bewertung akzeptiert gleichwertige Rechenwege.
+
+Bei einem Syntaxfehler erklären Vorschau und Bewertung die betroffene Anweisung im Skript. Bei einem UPDATE mit einer Schreibweise wie `Preis * 1,1` zeigt der Hinweis, wie die Dezimalzahl in T-SQL geschrieben wird. Bei einer SELECT-Anweisung hilft die Reihenfolge der Abfrageklauseln.
+
+Das × am Hinweis „Deine Arbeitskopie startet jedes Mal neu“ blendet ihn für alle Werkstattaufgaben in beiden Lernmodi aus. Unter **Lernplan → Bedienhinweise** lässt er sich mit **Hinweis zur Arbeitskopie wieder anzeigen** zurückholen. Der allgemeine Selbsttest-Hinweis hat eine eigene Einstellung.
+
+In Werkstatt und Ermittlung hat der SQL-Editor Zeilennummern. Tab fügt am Cursor vier Leerzeichen ein. Bei einer Auswahl rückt Tab die markierten Zeilen gemeinsam ein, Umschalt+Tab rückt sie aus. Mit Esc und anschließend Tab oder Umschalt+Tab wechselt der Fokus zum nächsten oder vorherigen Bedienelement.
+
+Die ersten zehn Werkstattaufgaben verwenden einen eigenen Kontext mit Artikel- und Kontendaten. CREATE TABLE, ALTER TABLE ADD sowie einfache Constraints und Transaktionen ergänzen die freie Abfrageeingabe. Es gibt keine Lückentexte.
 
 `WorkshopSqlValidator` akzeptiert ausschließlich den vorgesehenen SQL-Umfang. Objektbezüge werden im Syntaxbaum von den logischen Namen auf sitzungseigene temporäre Tabellen abgebildet. Texte und gültige Aliase bleiben erhalten. Ausführung und Tabellenanlage erfolgen unter demselben eingeschränkten Benutzer, der auch die Ermittlung ausführt. Permanente Schreibrechte werden nicht erteilt.
 
@@ -77,7 +87,9 @@ Bewertet werden sämtliche verbleibenden Tabellenzeilen, Spalten-/Typmerkmale, S
 
 Für ROLLBACK wird nicht nur der Endzustand geprüft. Der Service erfasst auch Artikel- und Kontenstände unmittelbar vor der Rücknahme und vergleicht sie mit der Referenz. Eine nicht ausgeführte oder falsch berechnete Probeänderung reicht deshalb nicht.
 
-Eine allgemeine semantische Gleichwertigkeitsprüfung sämtlicher denkbarer CHECK-Ausdrücke wird nicht behauptet. Fremdschlüssel werden in diesen temporären Tabellen von SQL Server nicht erzwungen und sind deshalb ausdrücklich nicht als ausführbare Lernaufgabe enthalten. [Microsoft: CREATE TABLE und temporäre Tabellen](https://learn.microsoft.com/en-us/sql/t-sql/statements/create-table-transact-sql?view=sql-server-ver17), [BEGIN TRANSACTION](https://learn.microsoft.com/en-us/sql/t-sql/language-elements/begin-transaction-transact-sql?view=sql-server-ver17), [ROLLBACK](https://learn.microsoft.com/en-us/sql/t-sql/language-elements/rollback-transaction-transact-sql?view=sql-server-ver17).
+Eine allgemeine semantische Gleichwertigkeitsprüfung sämtlicher denkbarer CHECK-Ausdrücke wird nicht behauptet. Für die Aufgaben 11–30 verwendet die Werkstatt deshalb echte Tabellen in einem isolierten Schema. [Microsoft: CREATE TABLE und temporäre Tabellen](https://learn.microsoft.com/en-us/sql/t-sql/statements/create-table-transact-sql?view=sql-server-ver17), [BEGIN TRANSACTION](https://learn.microsoft.com/en-us/sql/t-sql/language-elements/begin-transaction-transact-sql?view=sql-server-ver17), [ROLLBACK](https://learn.microsoft.com/en-us/sql/t-sql/language-elements/rollback-transaction-transact-sql?view=sql-server-ver17).
+
+Die Aufgaben 11–15 führen von der Bestellbeziehung über verwaiste Rückgaben bis zu zusammengesetzten Schlüsseln. In den Aufgaben 16–24 führen zwei Lager ihre Listen zusammen, archivieren Buchungen und übernehmen Zählwerte. Die Aufgaben 25–30 migrieren den Terminkalender und richten Sicht, Empfangsrechte und Suchindex ein. Jede Aufgabe beginnt mit den benötigten Daten. Drei gestufte Hinweise begleiten den eigenen Entwurf. Die Prüfung vergleicht auch Duplikate, Spaltenregeln und das Verhalten einer lesenden Rolle.
 
 Vorhandene Fortschrittsdateien werden um einen getrennten Werkstattbereich ergänzt. Das Standardprofil bleibt am bisherigen Ort; ein konfigurierbarer `Training:ProgressDirectory` erlaubt ein vollständig eigenes QA-Profil. Lesende und schreibende Aufgaben überschreiben gegenseitig weder Entwürfe noch Erfolge.
 
@@ -145,7 +157,9 @@ Der SQL-Spickzettel bietet wie der Pseudocode-Spickzettel einen Button „Zurüc
 
 ## Zeitlich begrenztes Anwenden
 
-Die neuen SQL-/Pseudocode-Prüfungen ergänzen den geführten Lernweg mit eigenen Aufgaben, fester UTC-Frist und Auswertung nach der Abgabe. Prüfungsleistungen bleiben von den bisherigen Lernabschlüssen getrennt. Nachschlagen ist möglich, pausiert und kennzeichnet den Versuch; Musterlösungen und Ausführungswerkzeuge öffnen erst in der Nachbereitung. Endliche Prüfmengen und feste Trainingspunkte ersetzen keine menschliche IHK-Korrektur. Details: [Prüfungsmodus](pruefungsmodus.md).
+Im SQL-Prüfungsfall zum Stadtfest lassen sich die Techniken der Werkstatt an neuen Daten anwenden. Ein Beispiel aus der Inventur ist der Unterschied zwischen einer gezählten Menge von null Stück und einer ganz fehlenden Zählmeldung. Die Auswertung weist dafür eigene Teilpunkte aus.
+
+Die SQL-/Pseudocode-Prüfungen ergänzen den geführten Lernweg mit eigenen Aufgaben, fester UTC-Frist und Auswertung nach der Abgabe. Prüfungsleistungen bleiben von den bisherigen Lernabschlüssen getrennt. Nachschlagen ist möglich, pausiert und kennzeichnet den Versuch; Musterlösungen und Ausführungswerkzeuge öffnen erst in der Nachbereitung. Endliche Prüfmengen und feste Trainingspunkte ersetzen keine menschliche IHK-Korrektur. Details: [Prüfungsmodus](pruefungsmodus.md).
 
 ## Datenbankentwurf
 

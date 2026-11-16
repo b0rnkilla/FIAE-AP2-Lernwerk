@@ -98,9 +98,9 @@
         "options": {},
         "correctIds": [],
         "hints": [
-          "Arbeite die genannten Entitäten heraus.",
-          "Prüfe Schlüssel und Abhängigkeiten.",
-          "Prüfe die Richtung der FK-Zuordnungen."
+          "Nimm zwei Geräte an, die derselbe Kunde an verschiedenen Tagen abgibt.",
+          "Welche Angaben gehören zur Person, welche zur einzelnen Reparatur?",
+          "Kann der zweite Auftrag denselben Kunden referenzieren, ohne dessen Stammdaten zu verdoppeln?"
         ],
         "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig."
       },
@@ -235,9 +235,9 @@
         "options": {},
         "correctIds": [],
         "hints": [
-          "Arbeite die genannten Entitäten heraus.",
-          "Prüfe Schlüssel und Abhängigkeiten.",
-          "Prüfe die Richtung der FK-Zuordnungen."
+          "Skizziere dasselbe Ersatzteil in zwei Reparaturen mit verschiedener Stückzahl.",
+          "Welche beiden Kennungen brauchst du, bevor eine Stückzahl eindeutig zugeordnet ist?",
+          "Teste den erneuten Eintrag desselben Teils bei derselben Reparatur. Bleibt die Paargrenze gewahrt?"
         ],
         "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig."
       },
@@ -265,9 +265,9 @@
           "d"
         ],
         "hints": [
-          "Prüfe die Bedeutung von Eindeutigkeit.",
-          "Trenne FK und Mindestanzahl.",
-          "Das Paar und optionale Werte haben eigene Verträge."
+          "Unterscheide Regeln aus dem Auftrag von Eigenschaften, die nur in einer Beispieltabelle auffallen.",
+          "Versuche für jede behauptete Garantie einen erlaubten Sonderfall zu finden.",
+          "Welche Aussage würde eine zusätzliche Schlüssel- oder Geschäftsregel voraussetzen?"
         ],
         "explanation": "Eine künstliche ID beseitigt weder doppelte fachliche Paare noch andere Abhängigkeiten. FK sichern vorhandene Referenzen, keine Mindestanzahl von Kindern. Optionale Zuordnungen benötigen passende NULL-Regeln."
       }
@@ -377,9 +377,9 @@
         "options": {},
         "correctIds": [],
         "hints": [
-          "Arbeite die genannten Entitäten heraus.",
-          "Prüfe Schlüssel und Abhängigkeiten.",
-          "Prüfe die Richtung der FK-Zuordnungen."
+          "Verfolge zwei Buchungen einer Besucherin bis zu ihren Stammdaten.",
+          "Welche Nummer identifiziert den Vorgang unabhängig von der buchenden Person?",
+          "Kann sich jemand bereits registrieren, ohne eine Buchungszeile zu benötigen?"
         ],
         "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig."
       },
@@ -514,9 +514,9 @@
         "options": {},
         "correctIds": [],
         "hints": [
-          "Arbeite die genannten Entitäten heraus.",
-          "Prüfe Schlüssel und Abhängigkeiten.",
-          "Prüfe die Richtung der FK-Zuordnungen."
+          "Stell dir vor, dieselbe Buchung reserviert unterschiedlich viele Plätze in zwei Workshops.",
+          "Welches Wissen brauchst du außer der Workshopnummer, um die Platzzahl anzugeben?",
+          "Prüfe die Wiederholung eines Workshops in einer anderen Buchung und im selben Vorgang."
         ],
         "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig."
       },
@@ -544,9 +544,9 @@
           "d"
         ],
         "hints": [
-          "Prüfe die Bedeutung von Eindeutigkeit.",
-          "Trenne FK und Mindestanzahl.",
-          "Das Paar und optionale Werte haben eigene Verträge."
+          "Benenne einen Workshop um und beobachte, welche Verweise bestehen bleiben müssen.",
+          "Überlege, was die Platzzahl beschreibt, wenn zwei Buchungen denselben Workshop wählen.",
+          "Teste die Behauptungen mit zwei Workshops gleichen Namens, aber unterschiedlichen Nummern."
         ],
         "explanation": "Plätze gehören zur konkreten Buchungsposition. Nummer und Name sind getrennte Eigenschaften. Eine Kapazitätsprüfung benötigt zusätzliche Regeln; eine Referenz allein genügt nicht."
       }
@@ -656,9 +656,9 @@
         "options": {},
         "correctIds": [],
         "hints": [
-          "Arbeite die genannten Entitäten heraus.",
-          "Prüfe Schlüssel und Abhängigkeiten.",
-          "Prüfe die Richtung der FK-Zuordnungen."
+          "Markiere am Auftrag die Angaben, die selbst bei demselben Besteller neu entstehen.",
+          "Verfolge die Kennung vom Fertigungsauftrag bis zu den Stammdaten.",
+          "Kann ein zweiter Auftrag denselben Besteller haben und trotzdem eine eigene Identität behalten?"
         ],
         "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig."
       },
@@ -793,9 +793,9 @@
         "options": {},
         "correctIds": [],
         "hints": [
-          "Arbeite die genannten Entitäten heraus.",
-          "Prüfe Schlüssel und Abhängigkeiten.",
-          "Prüfe die Richtung der FK-Zuordnungen."
+          "Betrachte einen Werkstoff, den zwei Aufträge in verschiedenen Mengen benötigen.",
+          "An welcher Stelle sind der konkrete Auftrag und der konkrete Werkstoff gleichzeitig bekannt?",
+          "Versuche, identischen Bedarf zweimal zu erfassen. Welche Kombination müsste das verhindern?"
         ],
         "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig."
       },
@@ -823,9 +823,9 @@
           "d"
         ],
         "hints": [
-          "Prüfe die Bedeutung von Eindeutigkeit.",
-          "Trenne FK und Mindestanzahl.",
-          "Das Paar und optionale Werte haben eigene Verträge."
+          "Spiele einen zweiten Fertigungsauftrag für denselben Werkstoff durch.",
+          "Welche Aussagen stützen sich auf eine Kennung und welche stillschweigend auf einen Namen?",
+          "Lass zwei Werkstoffe gleich heißen. Welche Folgerungen bleiben gültig?"
         ],
         "explanation": "Die Menge beschreibt die konkrete Zuordnung. Weder Name noch Besteller identifizieren hier den Vorgang beziehungsweise Werkstoff. Aktuelle und historische Preise haben verschiedene Bedeutungen."
       }

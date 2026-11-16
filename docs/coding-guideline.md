@@ -20,6 +20,8 @@ Konventionen für die Pflege und Erweiterung von AP2 Lernwerk mit C#, .NET und B
 
 ## Dokumentation
 
+Aufgabenhinweise am konkreten Auftrag formulieren. Jeder der drei Schritte soll etwas ermöglichen, das mit dem vorigen Hinweis noch offen war. Für den letzten Schritt eignen sich ein Grenzfall, ein Gegenbeispiel oder eine Kontrollfrage am eigenen Entwurf. Vollständige Befehle, Antwortkombinationen und ausgerechnete Zielwerte gehören zur Musterlösung.
+
 Committexte bestehen aus einem kurzen deutschen Titel, einer Leerzeile und knappen Beschreibungszeilen mit `FEAT:`, `FIX:`, `REF:` beziehungsweise `DOC:`. Nicht benötigte Präfixe entfallen; keine Aufzählungszeichen davor. Das verbindliche Format steht in [AGENTS.md](../AGENTS.md).
 
 Bei jedem Änderungspaket README, Entwicklungsprotokoll, Projektsteckbrief, Testprotokoll und fachlich betroffene weitere Markdown-Dateien auf den aktuellen Stand bringen. Umgesetzte Änderungen, tatsächlich durchgeführte Prüfungen und offene Punkte klar trennen. docs/verbesserungsplan.md hält die erledigten Nutzerpunkte und die lokale Release-Vorbereitung nach; AGENTS.md verankert diese Vorgabe für weitere Arbeiten.

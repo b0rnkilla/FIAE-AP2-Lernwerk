@@ -9,6 +9,10 @@ public sealed class WorkshopSqlValidator
     /// <summary> Einzige in der Werkstatt zulässige logische Tabellen. </summary>
     public static IReadOnlyList<string> TableNames { get; } = ["Artikel", "Konten", "Rueckgaben"];
 
+    /// <summary> Prüft die jeweils im Lernauftrag vorgesehene Schreib- oder Abfrageform. </summary>
+    public string? Validate(WorkshopLesson lesson, string sql) => lesson.Scenario.Length == 0
+        ? Validate(sql, lesson.Operation) : ScenarioScript.Prepare(lesson, sql, true, out _);
+
     /// <summary> Prüft Sprache und Lernziel; eine leere Eingabe ist kein erfolgreicher ROLLBACK. </summary>
     public string? Validate(string sql, WorkshopOperation? operation = null)
     {
@@ -18,7 +22,7 @@ public sealed class WorkshopSqlValidator
             return "Das Skript ist zu lang. Für die Werkstatt reichen wenige SQL-Anweisungen.";
         TSqlScript? script = Parse(sql, out IList<ParseError> errors) as TSqlScript;
         if (errors.Count > 0 || script == null)
-            return SqlSyntaxFeedback.Explain(sql, errors.FirstOrDefault());
+            return SqlSyntaxFeedback.Explain(sql, errors.FirstOrDefault(), script?.ScriptTokenStream ?? []);
         if (script.Batches.Count != 1 || script.Batches[0].Statements.Count > 30)
             return "Verwende ein zusammenhängendes Skript ohne GO und höchstens 30 Anweisungen.";
         IList<TSqlStatement> statements = script.Batches[0].Statements;
@@ -101,7 +105,7 @@ public sealed class WorkshopSqlValidator
             if (type.SqlDataTypeOption == SqlDataTypeOption.NVarChar && (type.Parameters.Count != 1 || !int.TryParse(type.Parameters[0].Value, out int length) || length is < 1 or > 500))
                 return "Gib für nvarchar eine Länge zwischen 1 und 500 an, passend zur Aufgabe.";
             if (column.Constraints.Any(x => x is not (NullableConstraintDefinition or CheckConstraintDefinition or UniqueConstraintDefinition)))
-                return "Unterstützt sind NOT NULL, PRIMARY KEY, UNIQUE und CHECK. Fremdschlüssel sind in diesen isolierten Übungen noch nicht enthalten.";
+                return "Unterstützt sind NOT NULL, PRIMARY KEY, UNIQUE und CHECK. Fremdschlüssel übst du ab Aufgabe 11 an Bestellungen und Rückgaben.";
         }
         return definition.TableConstraints.Any(x => x is not (CheckConstraintDefinition or UniqueConstraintDefinition)) ? "Verwende in dieser Werkstatt PRIMARY KEY, UNIQUE oder CHECK als Tabellenconstraint." : null;
     }

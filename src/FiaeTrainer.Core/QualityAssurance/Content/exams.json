@@ -16,9 +16,9 @@
         "explanation": "1000 Gramm gehört noch zum leichten Tarif. Express addiert drei Euro erst bei gültigen Gewichten. Andere Vertreter für die allgemeinen Klassen sind erlaubt; die ausdrücklich genannten Tarifgrenzen bleiben verbindlich.",
         "discovery": "",
         "hints": [
-          "Trenne ungültige Gewichte von der Tarifauswahl.",
-          "Bei der Tarifgrenze ist einschließlich entscheidend.",
-          "Ein schweres Expresspaket liefert 8 plus 3 Euro."
+          "Sortiere die Gewichte zuerst nach Gültigkeit und dann nach Tarifklasse.",
+          "Vergleiche bei gleichem Gewicht die Versandarten. Wo verändert nur die Versandart den Preis?",
+          "Lege an der Tarifgrenze zwei benachbarte Grammwerte nebeneinander. Würden deine Sollwerte einen verschobenen Wechsel zeigen?"
         ],
         "fields": [],
         "solutions": [
@@ -104,9 +104,9 @@
         "explanation": "Der Sollwert beträgt elf Euro. Acht Euro ist die Beobachtung des fehlerhaften Laufs, deshalb schlägt die Gleichheitsprüfung fehl.",
         "discovery": "",
         "hints": [
-          "Ein beobachteter Wert ist nicht automatisch der richtige Wert.",
-          "Addiere für den Sollwert den Expresszuschlag von 3 Euro zum Grundpreis von 8 Euro.",
-          "Die Gleichheitsassertion verlangt zwei gleiche Werte."
+          "Schließe das Protokoll und ermittle die Gebühr erst aus dem Vertrag.",
+          "Trage den tatsächlich beobachteten Betrag getrennt von dieser Erwartung ein.",
+          "Vergleiche in derselben Einheit. Welches Urteil darf eine Gleichheitsprüfung daraus ableiten?"
         ],
         "fields": [
           {
@@ -171,9 +171,9 @@
         "explanation": "Die Matrix überträgt die vereinbarte Regel vollständig. Eine allgemeine Anmeldung ersetzt keine einzelne Entscheidung; zusätzliche Rechte werden nicht stillschweigend angenommen.",
         "discovery": "",
         "hints": [
-          "Lies jede Rollenregel getrennt.",
-          "Eigene Objekte und beliebige Objekte sind unterschiedliche Reichweiten.",
-          "Gäste erhalten in dieser Matrix keine persönlichen Buchungsrechte."
+          "Lies die Matrix aus Sicht einer Person mit genau einer Rolle.",
+          "Trenne Aktionen am eigenen Vorgang von darüber hinausgehenden Rechten.",
+          "Prüfe besonders die mächtigste Aktion jeder Rolle. Steht sie ausdrücklich in der Vereinbarung?"
         ],
         "fields": [],
         "solutions": [
@@ -238,9 +238,9 @@
         "explanation": "Ungültige Dauer, gültige Ausleihe ohne Schaden und gültige Ausleihe mit Schaden decken die geforderte Struktur ab. Der erlaubte obere Rand erkennt außerdem eine fälschliche Ablehnung von 14 Tagen.",
         "discovery": "",
         "hints": [
-          "Der ungültige Fall endet vor der Gebührenberechnung.",
-          "Ein gültiger Fall muss die Schadenspauschale auslassen, ein anderer anwenden.",
-          "Nutze auch den eingeschlossenen oberen Rand, wenn dessen Fehlervariante erkannt werden soll."
+          "Markiere die Rückgabestellen des Gebührenmodells und die Entscheidungen auf dem Weg dorthin.",
+          "Plane weitere Eingaben dort, wo eine Kante noch nie genommen wurde.",
+          "Berechne pro Fall die Gebühr unabhängig. Würde ein abweichender Rechenweg wirklich auffallen?"
         ],
         "fields": [],
         "solutions": [
@@ -319,9 +319,9 @@
         "explanation": "Die gegebene UND-Freigaberegel ist durch den fehlgeschlagenen Sicherheitsschritt nicht erfüllt. Ein erfolgreicher Build und richtige Fachrückgaben beantworten andere Fragen.",
         "discovery": "",
         "hints": [
-          "Lies die drei protokollierten Ergebnisse einzeln.",
-          "Prüfe anschließend die ausdrücklich genannte Verknüpfung.",
-          "Ein anderer erfolgreicher Schritt kann die fehlgeschlagene Pflichtprüfung nicht ersetzen."
+          "Übertrage alle protokollierten Schritte auf eine Liste der vereinbarten Nachweise.",
+          "Erfasse „nicht durchgeführt“ und „fehlgeschlagen“ getrennt.",
+          "Suche für die vorgeschlagene Freigabe zu jeder Bedingung einen Beleg, der genau diese Bedingung prüft."
         ],
         "fields": [
           {
@@ -404,9 +404,9 @@
         "explanation": "Die ausdrücklich abhängigen Inkremente benötigen ihre Grundlage und Reihenfolge. Ein Sicherungslauf allein beweist keine erfolgreiche Wiederherstellung; der Zielstand wird zusätzlich geprüft.",
         "discovery": "",
         "hints": [
-          "Die Inkremente sind laut Auftrag nicht unabhängig voneinander.",
-          "Die Vollsicherung ist die Grundlage.",
-          "Der letzte Schritt beurteilt den wiederhergestellten Stand statt nur den Sicherungslauf."
+          "Zeichne die Sicherungen als Kette von Datenständen.",
+          "Prüfe für jedes Inkrement, welchen Ausgangszustand es beim Einspielen erwartet.",
+          "Stell dir vor, alle Dateien sind da. Welcher Nachweis für den fachlichen Betrieb fehlt dann noch?"
         ],
         "fields": [],
         "solutions": [
@@ -462,9 +462,9 @@
         "explanation": "Der Vorzustand steht in jedem Fall ausdrücklich dabei. Ein richtiges Passwort hebt die vereinbarte Sperre nicht auf. Unter der Sperrgrenze müssen Zulassung und Ablehnung auseinandergehalten werden.",
         "discovery": "",
         "hints": [
-          "Jeder Test beginnt mit seinem eigenen Zählerstand.",
-          "An der Schwelle hat die Sperrprüfung Vorrang vor der Passwortentscheidung.",
-          "Ein falscher Versuch unter der Grenze muss abgelehnt, aber im Modell noch nicht als gesperrt bezeichnet werden."
+          "Notiere vor jedem Versuch den Ausgangszähler und den Zustand des Kontos.",
+          "Wähle benachbarte Vorzustände, bei denen dasselbe Ereignis unterschiedliche Folgen haben muss.",
+          "Prüfe, ob ein richtiger Anmeldeversuch bei deinem Testsatz auch im relevanten Sperrzustand vorkommt."
         ],
         "fields": [],
         "solutions": [
@@ -539,9 +539,9 @@
         "explanation": "Der konkrete Ausgabekontext entscheidet über die erforderliche Behandlung. Reine Textausgabe ist von interpretiertem HTML oder JavaScript zu unterscheiden. Eine einzelne pauschale Ersetzung oder alleinige CSP ersetzt keine passende Behandlung aller Ausgabestellen.",
         "discovery": "",
         "hints": [
-          "Soll die Nachricht als Text oder als Code interpretiert werden?",
-          "HTML und JavaScript sind unterschiedliche Ausgabekontexte.",
-          "textContent setzt Text, statt ihn als HTML auszuwerten."
+          "Verfolge eine eingegangene Nachricht bis zu ihrem Ausgabefeld.",
+          "Wird sie an dieser Stelle ausschließlich als Text oder als Teil einer interpretierbaren Struktur behandelt?",
+          "Suche in jeder Aussage die konkrete Ausgabestelle. Eine Prüfung an einem anderen Feld schützt diese Stelle nicht."
         ],
         "fields": [],
         "solutions": [],
@@ -575,9 +575,9 @@
         "explanation": "Verschlüsselung, Hashvergleich und Signatur erfüllen unterschiedliche Aufgaben. Auch ein Signaturergebnis benötigt eine vertrauenswürdige Zuordnung des öffentlichen Schlüssels; eine Signatur macht den Nachrichteninhalt nicht automatisch geheim.",
         "discovery": "",
         "hints": [
-          "Unlesbarkeit und Änderungsnachweis sind unterschiedliche Ziele.",
-          "Ein Referenzhash muss selbst vertrauenswürdig bekannt sein.",
-          "Eine Signaturprüfung macht keine automatische Aussage über Geheimhaltung des Inhalts."
+          "Formuliere das Schutzziel pro Nachricht in einem kurzen Satz.",
+          "Soll der Inhalt vertraulich bleiben, eine Veränderung auffallen oder der Ursprung nachweisbar sein?",
+          "Prüfe, ob der Empfänger den Absender tatsächlich zuordnen kann, wenn er nur einen ungeschützten Prüfwert erhält."
         ],
         "fields": [
           {

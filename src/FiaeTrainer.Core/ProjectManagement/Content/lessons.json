@@ -11,9 +11,9 @@
     "explanation": "Ein konkretes zeitlich und sachlich abgegrenztes Vorhaben wird von laufenden wiederkehrenden Aufgaben unterschieden. Die verwendeten Merkmale beziehen sich auf den ausdrücklich beschriebenen Fall.",
     "discovery": "Der neue Kursbereich ist als eigener Folgeauftrag vom laufenden Betrieb abgegrenzt.",
     "hints": [
-      "Welche Tätigkeit besitzt ein neues bestimmtes Ergebnis?",
-      "Wiederholung allein macht eine Aufgabe nicht zum Entwicklungsprojekt.",
-      "Begrenzte Mittel sind eine Planungsbedingung."
+      "Vergleiche den Alltag am Empfang mit dem Auftrag, den Kursbereich neu einzuführen.",
+      "Woran könnte die Leitung erkennen, dass das Vorhaben abgeschlossen ist?",
+      "Stell dir dieselbe Arbeit nächste Woche wieder vor. Beginnt damit wirklich ein neues Projekt?"
     ],
     "fields": [],
     "solutions": [],
@@ -48,9 +48,9 @@
     "explanation": "Ein überprüfbares Projektziel benennt Ergebnis, Termin, Grenze und einen geeigneten Nachweis. Die Aufgabe verlangt die ausdrücklich vereinbarte erste Version, keine beliebigen Zusatzfunktionen.",
     "discovery": "Der Folgeauftrag besitzt ein überprüfbares Ergebnis, einen Termin und eine Budgetgrenze.",
     "hints": [
-      "Übernimm den vereinbarten Umfang.",
-      "Ein Zeitwort wie bald ist kein verbindlicher Stichtag.",
-      "Eine erfolgreiche Fachaktion ist ein besserer Nachweis als die Zahl der Besprechungen."
+      "Lies das Ziel aus Sicht der Person, die am Ende über die Abnahme entscheidet.",
+      "Trenne gewünschte Leistung, spätesten Termin und finanzielle Obergrenze.",
+      "Welcher beobachtbare Vorgang würde die Zielerreichung belegen, auch wenn das Budget eingehalten ist?"
     ],
     "fields": [
       {
@@ -127,9 +127,9 @@
     "explanation": "Stakeholder werden mit ihren konkreten Interessen betrachtet. Eine Rolle besitzt nicht automatisch in jedem Projekt dasselbe wichtigste Anliegen; hier gelten die ausdrücklich beschriebenen Interessen.",
     "discovery": "Miras Beteiligtenübersicht unterscheidet Budget, Arbeitsablauf und Nutzungssicht.",
     "hints": [
-      "Frage, wer durch das Ergebnis betroffen ist.",
-      "Übertrage die drei genannten Interessen.",
-      "Erfinde keine zusätzlichen Wünsche."
+      "Erzähle eine Probebuchung einmal aus Sicht des Empfangs und einmal aus Sicht eines Teilnehmenden.",
+      "Wer bedient den Ablauf täglich, wer nutzt das Ergebnis und wer muss die Mittel vertreten?",
+      "Prüfe jede Zuordnung an einer Frage, die diese Person nach der Einführung stellen würde."
     ],
     "fields": [
       {
@@ -210,9 +210,9 @@
     "explanation": "Eine Änderung kann Auswirkungen auf Umfang, Aufwand, Termin und Qualität besitzen. Die konkrete Entscheidung wird anhand der festgelegten Grenzen abgestimmt, nicht als kostenloser Zusatz unterstellt.",
     "discovery": "Der erste Umfang ist gegen unbemerkte Erweiterungen abgegrenzt.",
     "hints": [
-      "Welcher Wunsch wird bewusst verschoben?",
-      "Eine neue Funktion verursacht nicht automatisch null Aufwand.",
-      "Eine bewusste Entscheidung braucht Abstimmung."
+      "Zeichne das Dreieck aus Lieferumfang, Zeit und Geld.",
+      "Welche Seite ändert sich mit der Verschiebung des Wunsches tatsächlich?",
+      "Lies den Beschluss noch einmal. Wer hat der Änderung zugestimmt und für welche Lieferung gilt sie?"
     ],
     "fields": [
       {
@@ -291,9 +291,9 @@
     "explanation": "Zuständigkeiten müssen im konkreten Projekt geklärt werden. Die Aufgabe prüft das hier vereinbarte Rollenmodell, keine allgemeine Pflicht zur gleichen Rollenverteilung in jedem Betrieb.",
     "discovery": "Budgetentscheidung, Koordination und fachliche Bestätigung besitzen benannte Zuständigkeiten.",
     "hints": [
-      "Lies die drei Zuständigkeiten getrennt.",
-      "Koordination ist nicht automatisch jede Genehmigung.",
-      "Die Fallvereinbarung entscheidet."
+      "Markiere in den Rollenbeschreibungen die Verben für Entscheidung, Steuerung und Ausführung.",
+      "Wer kann Mittel freigeben, und wer koordiniert mit diesen Mitteln die Arbeit?",
+      "Spiele einen Engpass durch. Wer meldet ihn, wer organisiert und wer entscheidet gemäß Vereinbarung?"
     ],
     "fields": [
       {
@@ -374,9 +374,9 @@
     "explanation": "Unbestimmte Abschlusskriterien und unkontrollierte Umfangserweiterungen verhindern eine verlässliche Planung. Klar vereinbarte Grenzen und Nachweise helfen dagegen bei der Steuerung.",
     "discovery": "Die Auftragsprüfung macht unklare Ziele und ungeklärte Zusatzwünsche sichtbar.",
     "hints": [
-      "Welche Aussage lässt den Abschluss offen?",
-      "Ein neues Budgetversprechen darf nicht stillschweigend entstehen.",
-      "Eine spätere Version ist eine mögliche klare Abgrenzung."
+      "Lies den Auftrag wie eine Person, die das Projekt erst morgen übernimmt.",
+      "Welche Aussagen lassen die Grenze des Auftrags oder die Verantwortung offen?",
+      "Suche zu jedem markierten Befund eine Entscheidung, die mit diesen Angaben unmöglich bleibt."
     ],
     "fields": [],
     "solutions": [],
@@ -411,9 +411,9 @@
     "explanation": "Das Vorgehen wird anhand von Unsicherheit, Rückmeldungen und Rahmenbedingungen gewählt. Weder planorientiertes noch agiles Arbeiten ersetzt Qualitätsmaßstäbe oder verantwortliche Abstimmung.",
     "discovery": "Miras Methodenwahl berücksichtigt den unterschiedlichen Klärungsbedarf.",
     "hints": [
-      "Wie stabil ist der jeweilige Auftrag?",
-      "Agil bedeutet nicht planlos.",
-      "Auch Änderungen in einem vorausgeplanten Projekt können geregelt behandelt werden."
+      "Markiere, was zu Beginn bereits verlässlich bekannt ist und wo Rückmeldungen erwartet werden.",
+      "Welche Art der Planung erlaubt es, die offenen Fragen rechtzeitig zu beantworten?",
+      "Prüfe Aussagen mit „immer“ an einem Vorhaben mit genau entgegengesetzter Ausgangslage."
     ],
     "fields": [],
     "solutions": [],
@@ -448,9 +448,9 @@
     "explanation": "Die Darstellung verbindet Entwurfsgegenstand und zugehörigen Nachweis. Die konkrete hier gegebene Zuordnung zählt; nicht jedes reale V-Modell verwendet identische zusätzliche Zwischenstufen.",
     "discovery": "Der Projektplan verbindet Entwurfsgegenstände mit passenden Prüfnachweisen.",
     "hints": [
-      "Welche Ebene beschreibt den Bedarf?",
-      "Prüfe jeweils denselben Gegenstand auf der passenden Ebene.",
-      "Verwende die explizite Modellvariante."
+      "Lege die drei Prüfungen neben die Beschreibungsebenen, auf die sie sich beziehen.",
+      "Frage für jede Prüfung, wogegen ihr Ergebnis verglichen wird.",
+      "Fahre von der Prüfung zurück zu ihrem Bezugsdokument. Hast du Prüfgegenstand und Zeitpunkt verwechselt?"
     ],
     "fields": [
       {
@@ -531,9 +531,9 @@
     "explanation": "Der Product Owner verantwortet das Product Backlog. Die Developers schätzen die Arbeit ein, die sie durchführen. Der Scrum Master verantwortet die Wirksamkeit des Scrum Teams; das ist keine automatische Zuweisung aller Einzelaufgaben durch eine Führungskraft.",
     "discovery": "Die Zusammenarbeit unterscheidet Produktverantwortung, Bearbeitung und Unterstützung des Teams.",
     "hints": [
-      "Wer verantwortet den Produktwert und die Reihenfolge?",
-      "Die Bearbeitenden schätzen ihre Arbeit.",
-      "Scrum Master ist keine Bezeichnung für den alleinigen Aufgabenverteiler."
+      "Unterscheide Entscheidungen über den Produktwert von Einschätzungen zur konkreten Arbeit.",
+      "Wer verfügt jeweils über die Information, um die Entscheidung zu treffen?",
+      "Prüfe Aussagen über Unterstützung des Teams. Wird aus Unterstützung bei dir eine fachliche Weisung?"
     ],
     "fields": [
       {
@@ -614,9 +614,9 @@
     "explanation": "Review und Retrospektive verfolgen unterschiedliche Zwecke. Das Daily Scrum ist auf 15 Minuten begrenzt und dient der Anpassung des Arbeitsplans durch die Developers, nicht einer allgemeinen Pflicht zum Statusbericht an eine Führungskraft.",
     "discovery": "Die Besprechungen besitzen unterscheidbare Zwecke für Produkt, Zusammenarbeit und Tagesplan.",
     "hints": [
-      "Ergebnis und Arbeitsweise sind verschiedene Gegenstände.",
-      "Das Daily betrachtet das Sprint-Ziel.",
-      "Die Zeitbegrenzung beträgt eine Viertelstunde."
+      "Ordne jedes Gespräch seiner konkreten Frage zu: nächste Arbeit, Tagesabstimmung, Ergebnis oder Zusammenarbeit.",
+      "Überlege, was nach dem jeweiligen Gespräch klarer sein soll.",
+      "Prüfe bei der Zeitangabe die Einheit. Gefragt ist die feste Zeitbegrenzung des täglichen Events."
     ],
     "fields": [
       {
@@ -708,9 +708,9 @@
     "explanation": "Die Fallregel zählt den blockierten Vorgang weiterhin. Eine WIP-Grenze macht Überlast sichtbar; zusätzliche Arbeit wird nicht allein durch das Umbenennen eines ungelösten Vorgangs zulässig.",
     "discovery": "Das Board macht die belegte Prüfkapazität und die Blockade sichtbar.",
     "hints": [
-      "Auch der blockierte Vorgang zählt hier weiter.",
-      "Freie Plätze sind Grenze minus Belegung.",
-      "Die Blockade braucht eine Abstimmung."
+      "Zähle nur die Karten, die sich gerade in der betrachteten Spalte befinden.",
+      "Vergleiche diese Zahl mit dem Limit, bevor du einen neuen Vorgang hineinziehst.",
+      "Simuliere den geplanten Zug. Wie hoch wäre die Belegung unmittelbar danach?"
     ],
     "fields": [
       {
@@ -797,9 +797,9 @@
     "explanation": "Relative Größen und Erfahrungswerte werden nicht ohne vereinbarten Bezug zu garantierten Stunden- oder Stückzusagen. Inhalt, Kapazität und Unsicherheit müssen berücksichtigt werden.",
     "discovery": "Der Plan unterscheidet Schätzung und Erfahrung von einer unbegründeten Garantie.",
     "hints": [
-      "Sind Einträge automatisch gleich groß?",
-      "Eine relative Größe ist nicht überall dieselbe Stundenzahl.",
-      "Ein Forecast bleibt überprüfbar."
+      "Unterscheide eine Planungshilfe von einer verbindlichen Zusage.",
+      "Welche Annahmen über Umfang, Tempo oder spätere Änderungen stecken in der Aussage?",
+      "Denke dir eine neue fachliche Erkenntnis während der Arbeit. Welche Garantie hält dann nicht mehr?"
     ],
     "fields": [],
     "solutions": [],
@@ -834,9 +834,9 @@
     "explanation": "Die Gliederung trennt Planung und Umsetzung. Sie legt keine zeitliche Reihenfolge zwischen den Paketen fest.",
     "discovery": "Der Projektstrukturplan enthält die vereinbarten Gruppen und Arbeitspakete vollständig.",
     "hints": [
-      "Vergleiche Rollenmenge und Unterlage.",
-      "Budget gehört hier zur Planung.",
-      "Der Prüfschritt gehört in diesem Strukturplan zur Umsetzung."
+      "Beginne an der Wurzel und suche die in der Unterlage benannten direkten Gruppen.",
+      "Zu welchem größeren Ergebnis trägt der fehlende Teil unmittelbar bei?",
+      "Verfolge jedes Blatt genau eine Ebene nach oben. Eine indirekte Zugehörigkeit genügt hier nicht."
     ],
     "fields": [],
     "solutions": [
@@ -1077,9 +1077,9 @@
     "explanation": "Zwölf Personentage sind 96 Stunden Aufwand. Zwei Personen mit je sechs produktiven Stunden leisten zusammen zwölf Stunden pro Tag. Unter der ausdrücklich vereinbarten Teilbarkeit ergibt das acht Tage.",
     "discovery": "Die Aufwandsschätzung unterscheidet Personenstunden von der verstrichenen Bearbeitungsdauer.",
     "hints": [
-      "Wandle Personentage zuerst in Stunden um.",
-      "Addiere die produktive Tageskapazität.",
-      "Teile Aufwand durch gemeinsame Kapazität."
+      "Schreibe die Arbeit zunächst in Personenstunden auf.",
+      "Wie viele dieser Stunden lassen sich mit der gesamten Gruppe an einem Arbeitstag leisten?",
+      "Prüfe deine Einheiten beim Teilen. Bleiben Stunden oder Tage als Ergebnis?"
     ],
     "fields": [
       {
@@ -1148,9 +1148,9 @@
     "explanation": "Ein Strukturplan kann nach Ergebnissen gegliedert sein. Hier werden Buchung und Verwaltung mit ihren jeweils vereinbarten Bestandteilen getrennt; die Zeichenanordnung verändert diese Zuordnung nicht.",
     "discovery": "Die ergebnisorientierte Gliederung macht die beiden Lieferbereiche nachvollziehbar.",
     "hints": [
-      "Beginne mit der obersten Gruppe.",
-      "Lege die beiden Lieferbereiche an.",
-      "Ordne jedes Arbeitspaket seiner ausdrücklich genannten Gruppe zu."
+      "Suche im Material zuerst nach den zu liefernden Ergebnissen, dann nach deren Bestandteilen.",
+      "Ordne jede Fachrolle dort ein, wo sie direkt zum übergeordneten Ergebnis beiträgt.",
+      "Lies die Kanten als „ist Teil von“. Eine zeitliche Reihenfolge beantwortet eine andere Frage."
     ],
     "fields": [],
     "solutions": [
@@ -1335,9 +1335,9 @@
     "explanation": "Die vorgegebene Regel ergibt (4 + 4 × 7 + 16) / 6 = 8 Personentage. Der Wert bleibt eine Aufwandsschätzung; verfügbare Kapazität und Abhängigkeiten bestimmen die daraus mögliche Dauer.",
     "discovery": "Die Schätzung ist nachvollziehbar berechnet und bleibt als Annahme erkennbar.",
     "hints": [
-      "Die wahrscheinliche Schätzung erhält das Gewicht vier.",
-      "Addiere vor dem Teilen.",
-      "Personentage sind keine automatische Zusage von Kalendertagen."
+      "Markiere optimistischen, wahrscheinlichsten und pessimistischen Wert getrennt.",
+      "Übernimm das vereinbarte Gewicht für jeden Wert und beachte die Summe der Gewichte.",
+      "Liegt dein Ergebnis zwischen den Extremen? Was sagt eine Schätzung über einen garantierten Termin aus?"
     ],
     "fields": [
       {
@@ -1399,9 +1399,9 @@
     "explanation": "Die Fachrolle des Prüfschritts gehört laut Vertrag zur Umsetzung. Ein anderer Anzeigename oder eine andere Zeichenposition würde die falsche Obergruppe nicht korrigieren.",
     "discovery": "Die korrigierte Gliederung entspricht wieder dem vereinbarten Projektumfang.",
     "hints": [
-      "Prüfe direkte Obergruppen statt die Position auf der Fläche.",
-      "Alle Rollen sind bereits vorhanden.",
-      "Vergleiche besonders den Prüfschritt mit der Unterlage."
+      "Fahre in der Vorlage von jedem Arbeitspaket zu seiner direkten Obergruppe.",
+      "Vergleiche diese Beziehung mit der vereinbarten Gliederung. Eine plausible Gruppierung kann trotzdem abweichen.",
+      "Prüfe nach der Reparatur, ob jede Rolle genau einmal vorhanden ist."
     ],
     "fields": [],
     "solutions": [
@@ -1664,9 +1664,9 @@
     "explanation": "Drei mal fünf mal sechs ergeben 90 Stunden. Nach zwölf Stunden Ausfall bleiben 78; für 84 Stunden Arbeit fehlen sechs. Nicht verfügbare Zeit wird nicht durch eine unveränderte Kopfzahl ersetzt.",
     "discovery": "Der Kapazitätsplan berücksichtigt den tatsächlichen Ausfall und zeigt den Fehlbedarf.",
     "hints": [
-      "Multipliziere Personen, Tage und produktive Stunden.",
-      "Ziehe die ausdrücklich genannten Ausfälle ab.",
-      "Vergleiche verfügbare Stunden und benötigte Arbeit."
+      "Beginne mit dem Zeitangebot vor allen Abzügen.",
+      "Ziehe gebundene Zeiten ab, bevor du die Kapazität mit dem Bedarf vergleichst.",
+      "Bei Unterdeckung gefragt: Wie viele zusätzliche Stunden würden genau reichen?"
     ],
     "fields": [
       {
@@ -1735,9 +1735,9 @@
     "explanation": "Beide Entwicklungszweige beginnen fachlich nach der Auftragsklärung. Der Prüfschritt besitzt zwei direkte Vorgänger; eine einzige Verbindung würde eine notwendige Abhängigkeit auslassen.",
     "discovery": "Der Netzplan enthält die beiden parallelen Zweige und ihren gemeinsamen Nachfolger.",
     "hints": [
-      "Betrachte jeden Nachfolger getrennt.",
-      "Ein Vorgang kann zwei direkte Vorgänger besitzen.",
-      "Der Prüfschritt braucht Kursmaske und Kursdienst."
+      "Suche für jeden Vorgang den Eintrag in der Vorgängerliste.",
+      "Zeichne von der vorausgesetzten Arbeit zur Arbeit, die anschließend beginnen darf.",
+      "Wenn A über B bereits vor C liegt: Verlangt die Liste zusätzlich einen direkten Pfeil zwischen A und C?"
     ],
     "fields": [],
     "solutions": [
@@ -1946,9 +1946,9 @@
     "explanation": "FAZ ist der größte FEZ der direkten Vorgänger beziehungsweise null am Anfang. FEZ ergibt sich aus FAZ plus Dauer. Der gemeinsame Prüfschritt wartet auf den längeren Entwicklungszweig.",
     "discovery": "Die Vorwärtsrechnung liefert einen nachvollziehbaren frühesten Ablauf.",
     "hints": [
-      "Beginne bei Vorgängen ohne Vorgänger mit null.",
-      "Ein Nachfolger wartet auf alle benötigten Ergebnisse.",
-      "FEZ ist Anfang plus Dauer."
+      "Gehe ab Tag null in Pfeilrichtung durch den Plan.",
+      "Schreibe an einem Zusammenlauf alle Endzeiten der unmittelbaren Vorgänger nebeneinander.",
+      "Könnte dein Nachfolger schon starten, obwohl einer dieser Vorgänger noch arbeitet?"
     ],
     "fields": [],
     "solutions": [
@@ -2182,9 +2182,9 @@
     "explanation": "Das früheste Projektende liegt bei Tag 8. Die Rückwärtsrechnung verwendet den kleinsten SAZ direkter Nachfolger; SAZ ist SEZ minus Dauer. Gesamtpuffer ist SAZ minus FAZ. Die Kursmaske besitzt zwei Tage Gesamtpuffer.",
     "discovery": "Die Rückwärtsrechnung trennt feste Termine von verschiebbaren Vorgängen.",
     "hints": [
-      "Bestimme zunächst das gemeinsame früheste Projektende.",
-      "Rechne vom Ende gegen die Pfeilrichtung.",
-      "Gesamtpuffer vergleicht spätesten und frühesten Anfang."
+      "Markiere das gemeinsame Projektende als Ausgangspunkt der Rückwärtsrechnung.",
+      "Vergleiche bei einer Verzweigung die spätesten Starts aller direkten Nachfolger.",
+      "Schiebe einen Vorgang bis zu deinem spätesten Start. Passt seine Dauer noch vor jeden Nachfolger?"
     ],
     "fields": [],
     "solutions": [
@@ -2423,9 +2423,9 @@
     "explanation": "Beide Zweige sind gleich lang. Daher liegen alle vier Vorgänge auf mindestens einem kritischen Pfad. Ein Projekt kann mehrere kritische Pfade besitzen.",
     "discovery": "Die kritische Markierung erfasst beide gleich langen Entwicklungszweige.",
     "hints": [
-      "Vergleiche die vollständigen Wege vom Anfang zum Ende.",
-      "Gleich lange längste Wege können gleichzeitig kritisch sein.",
-      "Prüfe jeden Vorgang anhand seines Gesamtpuffers."
+      "Zeichne alle Wege bis zum gemeinsamen Ende vollständig ein.",
+      "Berechne den Spielraum je Vorgang, auch wenn ein anderer Zweig bereits kritisch aussieht.",
+      "Könnten zwei gleich lange Zweige bei Verzögerung jeweils unabhängig das Projektende verschieben?"
     ],
     "fields": [],
     "solutions": [
@@ -2578,9 +2578,9 @@
     "explanation": "Maske vorbereiten besitzt einen Tag Gesamtpuffer, aber keinen freien Puffer: Eine Verschiebung verändert sofort den frühesten Beginn der Maskenprüfung. Der gemeinsame Abschluss bleibt zunächst trotzdem möglich.",
     "discovery": "Die Pufferbetrachtung unterscheidet Auswirkungen auf direkte Nachfolger und auf das Projektende.",
     "hints": [
-      "Gesamtpuffer verwendet die Rückwärtsrechnung.",
-      "Freier Puffer betrachtet früheste Nachfolgeranfänge.",
-      "Beide Puffer müssen nicht gleich groß sein."
+      "Trenne den Endtermin des ganzen Projekts vom frühesten Start des nächsten Vorgangs.",
+      "Welcher direkte Nachfolger würde durch eine Verzögerung zuerst seinen frühen Start verlieren?",
+      "Verschiebe den Vorgang probeweise innerhalb deines freien Puffers. Muss ein Nachfolger schon umplanen?"
     ],
     "fields": [],
     "solutions": [
@@ -2884,9 +2884,9 @@
     "explanation": "Der Plan muss zuerst die richtigen direkten Abhängigkeiten besitzen. Die Auftragsklärung startet bei null, die beiden Zweige folgen danach, der Prüfschritt wartet bis Tag 7. Die Kursmaske besitzt Puffer und ist nicht kritisch.",
     "discovery": "Die reparierte Netzplankopie stimmt in Abhängigkeiten, Zeitwerten und kritischen Vorgängen überein.",
     "hints": [
-      "Vergleiche zuerst die direkten Pfeile.",
-      "Ein falscher Pfeil kann die zeitliche Logik umkehren.",
-      "Berechne danach die verlangten Felder auf Basis der Unterlage."
+      "Prüfe zuerst die Pfeile an der Vorgängerliste. Ein falscher Pfeil verfälscht die späteren Felder.",
+      "Rechne danach von vorn und vom gemeinsamen Ende zurück.",
+      "Stimmen deine Kritischmarkierungen mit dem neu berechneten Spielraum überein?"
     ],
     "fields": [],
     "solutions": [
@@ -3141,9 +3141,9 @@
     "explanation": "Auftrag klären beginnt bei null. Kursmaske und Kursdienst beginnen bei Tag 2; Zusammenspiel prüfen beginnt bei Tag 7. Die Zeitachse verwendet Intervalle statt einer zusätzlichen inklusiven Endtagzählung.",
     "discovery": "Die frühesten Vorgangstermine sind als Gantt-Plan nachvollziehbar.",
     "hints": [
-      "Ein Vorgang ohne Vorgänger beginnt bei null.",
-      "Parallele Zweige dürfen denselben Anfang besitzen.",
-      "Der gemeinsame Nachfolger wartet auf den später fertigen Zweig."
+      "Markiere die Arbeiten, die am ersten Tag keine Vorleistung benötigen.",
+      "Übertrage die Endgrenzen der Vorgänger auf die Startgrenze des jeweils nächsten Balkens.",
+      "Kontrolliere am Zusammenlauf, dass kein Balken noch in den frühesten Folgetermin hineinragt."
     ],
     "fields": [],
     "solutions": [
@@ -3362,9 +3362,9 @@
     "explanation": "Ein Nachfolger beginnt nicht vor dem Ende eines benötigten Vorgängers. Die Prüfung braucht beide Zweige. Ein nichtkritischer Vorgang darf innerhalb seines Spielraums später liegen, solange alle Vorgaben erfüllt sind.",
     "discovery": "Der korrigierte Balkenplan verletzt keine fachliche Vorgängerbedingung.",
     "hints": [
-      "Lies die Pfeile zusammen mit den Balken.",
-      "Der Kursdienst endet frühestens bei Tag 7.",
-      "Prüfe anschließend den verbindlichen Endtermin."
+      "Finde zuerst den Nachfolger, dessen Balken in den eines Vorgängers hineinragt.",
+      "Welcher früheste Ersatztermin wahrt alle direkten Beziehungen?",
+      "Prüfe nach dem Verschieben auch die letzte Endgrenze gegen den vereinbarten Abschlusstermin."
     ],
     "fields": [],
     "solutions": [
@@ -3583,9 +3583,9 @@
     "explanation": "Der Auftrag fordert einen zulässigen Plan bis Tag 10, nicht die einzige früheste Anordnung. Jede vollständige Planung mit richtigen Dauern, direkten Pfeilen, eingehaltenen Abhängigkeiten und Endtermin besteht.",
     "discovery": "Ein selbst aufgebauter Terminplan erfüllt die vertraglichen Grenzen.",
     "hints": [
-      "Baue zuerst die vier verlangten Vorgänge auf.",
-      "Füge nur die genannten direkten Beziehungen hinzu.",
-      "Nutze Spielraum, ohne den Abschluss zu verschieben."
+      "Lege erst die Arbeitspakete und ihre fachlich direkten Abhängigkeiten an.",
+      "Wähle erst danach Starttage, die jede benötigte Vorleistung abwarten.",
+      "Verfolge beide Zweige bis zum Ende. Eine Überlappung unabhängiger Arbeiten ist hier zulässig."
     ],
     "fields": [],
     "solutions": [
@@ -3738,9 +3738,9 @@
     "explanation": "Nach der zweitägigen Vorbereitung müssen die beiden dreitägigen Entwicklungszweige nacheinander liegen. Die Prüfung folgt ab Tag 8. Oberfläche zuerst oder Dienst zuerst ist bei Einhaltung aller Vorgaben gleichwertig.",
     "discovery": "Der Ressourcenplan berücksichtigt die tatsächlich verfügbare gemeinsame Entwicklungskapazität.",
     "hints": [
-      "Fachliche Parallelität bedeutet nicht automatisch verfügbares Personal.",
-      "Beide Entwicklungszweige benötigen dieselbe knappe Ressource.",
-      "Vertauschte Reihenfolgen sind hier erlaubt."
+      "Markiere die Tage, an denen beide Zweige dieselbe Entwicklungskapazität beanspruchen.",
+      "Verschiebe probeweise erst den einen, dann den anderen Zweig hinter die belegte Zeit.",
+      "Kontrolliere bei deinem gewählten Plan sowohl die Belegung je Tag als auch das gemeinsame Ende."
     ],
     "fields": [],
     "solutions": [
@@ -3965,9 +3965,9 @@
     "explanation": "Die beiden Entwicklungszweige können mit zwei verfügbaren Kapazitäten ab Tag 2 parallel laufen. Die Prüfung kann ab Tag 5 beginnen und bei Tag 6 enden. Die Aufgabe behauptet keine allgemeine Halbierung jeder Projektdauer durch doppelte Besetzung.",
     "discovery": "Die neue Terminierung nutzt die ausdrücklich verfügbare Parallelkapazität.",
     "hints": [
-      "Die Vorbereitung bleibt ein notwendiger Vorgänger.",
-      "Die Ressourcengrenze beträgt hier zwei, nicht eins.",
-      "Die Prüfung benötigt weiterhin beide Ergebnisse."
+      "Zeichne für jeden Tag zwei freie Entwicklungsplätze.",
+      "Trage die Arbeit nur für das Intervall vom Start bis vor die Endgrenze ein.",
+      "Zähle an den Tagen gleichzeitiger Arbeit nach. Wird neben der Kapazität auch jede fachliche Voraussetzung erfüllt?"
     ],
     "fields": [],
     "solutions": [
@@ -4192,9 +4192,9 @@
     "explanation": "Die Vorbereitung belegt [0, 2), die Einführung [2, 5). Der Meilenstein liegt bei Tag 5 und hat Dauer null; er verändert die Bearbeitungsdauer nicht.",
     "discovery": "Der Einführungstermin ist als nulltägiger Meilenstein richtig eingeordnet.",
     "hints": [
-      "Ein Meilenstein ist ein Zeitpunkt.",
-      "Dauer null erzeugt keinen zusätzlichen Balkentag.",
-      "Beachte das vereinbarte Intervallmodell."
+      "Stell dir einen Meilenstein als Zeitpunkt auf der Tagesgrenze vor.",
+      "Welche Dauer muss er haben, wenn er lediglich einen erreichten Zustand markiert?",
+      "Zähle die belegten Arbeitstage vor und nach dem Eintragen. Ist ein unbeabsichtigter zusätzlicher Tag entstanden?"
     ],
     "fields": [],
     "solutions": [
@@ -4363,9 +4363,9 @@
     "explanation": "Die Zeilen ergeben 20 × 85 = 1700, 60 × 70 = 4200 und 16 × 65 = 1040 Euro. Zusammen sind das 6940 Euro. Die gegebenen Kostensätze sind Fallannahmen, keine Gehalts- oder Marktpreisbehauptung.",
     "discovery": "Die Personalplanung enthält nachvollziehbare Einzelkosten und eine Gesamtsumme.",
     "hints": [
-      "Multipliziere Stunden und zugehörigen Satz.",
-      "Mische die Sätze der Tätigkeiten nicht.",
-      "Addiere die drei Einzelbeträge."
+      "Schreibe neben jede Tätigkeit ihre Stunden und ihren eigenen Stundensatz.",
+      "Bilde die Kosten pro Zeile, bevor du verschiedene Sätze zusammenführst.",
+      "Kontrolliere die Einheit des Zeilenergebnisses und addiere anschließend nur Eurobeträge."
     ],
     "fields": [
       {
@@ -4445,9 +4445,9 @@
     "explanation": "Einmalig fallen 12000 + 1500 = 13500 Euro an. Laufend entstehen 36 × 300 = 10800 Euro. Gesamtkosten sind 24300 Euro; Monatsbeträge werden nicht als Jahressummen behandelt.",
     "discovery": "Die Kostenübersicht berücksichtigt Einführung, Schulung und vollständige Betriebsdauer.",
     "hints": [
-      "Schulung ist hier einmalig.",
-      "Die laufende Gebühr wird 36-mal fällig.",
-      "Addiere erst nach gleicher Zeitraumzuordnung."
+      "Markiere jede Zahlung auf einer Zeitachse des betrachteten Zeitraums.",
+      "Welche Kosten stehen einmal am Anfang und welche fallen in jeder Periode erneut an?",
+      "Verdopple gedanklich die Laufzeit. Welcher Teil deiner Rechnung müsste sich mitverdoppeln?"
     ],
     "fields": [
       {
@@ -4516,9 +4516,9 @@
     "explanation": "Nach zwölf Monaten kostet B 5200 statt 6400 Euro. Nach 24 Monaten kostet A 8800 statt 9400 Euro. Der Betrachtungszeitraum kann die wirtschaftliche Rangfolge ändern.",
     "discovery": "Der Angebotsvergleich verwendet denselben Zeitraum und erkennt die veränderte Rangfolge.",
     "hints": [
-      "Einmaliger Preis plus Monatszahl mal Gebühr.",
-      "Berechne jeden Zeitraum getrennt.",
-      "Die niedrigere Einführungsgebühr allein entscheidet nicht."
+      "Lege für jedes Angebot eine eigene Rechnung mit demselben Startpunkt an.",
+      "Berechne zuerst den kürzeren Zeitraum. Ergänze für den längeren nur die zusätzlich anfallenden Monate.",
+      "Prüfe, ob du eine Einmalzahlung beim Verlängern versehentlich erneut angesetzt hast."
     ],
     "fields": [
       {
@@ -4626,9 +4626,9 @@
     "explanation": "Die Entwicklung kostet 8000 Euro, der zweijährige Betrieb 4000: zusammen 12000. Der Dienst kostet 5000 + 24 × 400 = 14600 Euro. Die Aussage gilt nur für die ausdrücklich vergleichbaren Leistungen und Annahmen.",
     "discovery": "Der Make-or-Buy-Vergleich umfasst Entwicklung und den vollständigen Betrachtungszeitraum.",
     "hints": [
-      "Wandle zwei Jahre in 24 Monate um.",
-      "Der eigene Betrieb kommt zur Entwicklung hinzu.",
-      "Vergleiche beide Gesamtsummen."
+      "Trenne bei der eigenen Lösung die Arbeit vor der Einführung von ihrem späteren Betrieb.",
+      "Rechne beim Fremdbezug mit exakt demselben Nutzungszeitraum.",
+      "Lege die Gesamtsummen nebeneinander. Sind auf beiden Seiten laufende Kosten berücksichtigt?"
     ],
     "fields": [
       {
@@ -4711,9 +4711,9 @@
     "explanation": "A kostet 1200 + 2 × 300 = 1800 Euro, B 1500 Euro. Gleichstand gilt bei 1200 = (5 − 2) × Menge, also 400. Das ist ein Alternativenvergleich, keine Gewinnrechnung aus Verkaufserlösen.",
     "discovery": "Die Kostenentscheidung berücksichtigt Grundbetrag und tatsächliche Nutzung.",
     "hints": [
-      "Setze dieselbe Menge in beide Kostenregeln ein.",
-      "Für den Gleichstand gleichen die zusätzlichen drei Euro je Vorgang den Grundbetrag aus.",
-      "Verwechsle den Gleichstand nicht mit der gegebenen Menge 300."
+      "Schreibe für jede Variante einen festen Teil und einen Betrag je Vorgang auf.",
+      "Für die Kostengrenze setzt du beide Ausdrücke für dieselbe unbekannte Menge gleich.",
+      "Setze die gefundene Menge in beide Rechnungen ein. Entsteht wirklich Gleichstand?"
     ],
     "fields": [
       {
@@ -4797,9 +4797,9 @@
     "explanation": "Vergleichbarkeit verlangt denselben Zeitraum und alle im konkreten Fall entscheidungsrelevanten unterschiedlichen Kosten. Ein fehlender notwendiger Posten kann die Rangfolge verfälschen.",
     "discovery": "Der Kostenreview macht unterschiedliche Zeiträume und ausgelassene notwendige Kosten sichtbar.",
     "hints": [
-      "Zählen beide Seiten gleich viele Monate?",
-      "Notwendige Zusatzleistungen verschwinden nicht durch Weglassen.",
-      "Unterschiedliche Schulungskosten können entscheidungsrelevant sein."
+      "Markiere für beide Angebote Zeitraum, Leistungsumfang und berücksichtigte Kosten.",
+      "Vergleiche nur Beträge, deren Bezugsgrößen übereinstimmen.",
+      "Überlege, ob die angeführte Ersparnis verschwinden könnte, sobald eine ausgelassene Kostenart einfließt."
     ],
     "fields": [],
     "solutions": [],
@@ -4834,9 +4834,9 @@
     "explanation": "Die Nettoeinsparung ist 1100 − 300 = 800 Euro pro Monat. 12000 / 800 = 15 Monate. Die vereinfachte Rechnung berücksichtigt keinen Zeitwert; sie beweist nicht allein die Vorteilhaftigkeit jeder denkbaren Alternative.",
     "discovery": "Die Amortisationsrechnung verwendet die Einsparung nach zusätzlichen Betriebskosten.",
     "hints": [
-      "Ziehe die zusätzlichen Monatskosten zuerst ab.",
-      "Teile die Anfangsauszahlung durch die monatliche Nettoeinsparung.",
-      "Vergleiche Monate mit Monaten."
+      "Suche den monatlichen Vorteil, der nach den neuen laufenden Kosten übrig bleibt.",
+      "Welche Einmalzahlung muss dieser Vorteil über mehrere Monate ausgleichen?",
+      "Multipliziere deine Dauer zurück mit dem Monatsvorteil. Erreichst du die Anfangsauszahlung?"
     ],
     "fields": [
       {
@@ -4908,9 +4908,9 @@
     "explanation": "Nach zwei Jahren sind 9000 Euro zugeflossen; nach drei Jahren 16000. Da die Zuflüsse ausschließlich am Jahresende eintreten, wird die Anfangsauszahlung erstmals am Ende des dritten Jahres gedeckt.",
     "discovery": "Die Rückzahlungsbetrachtung berücksichtigt die ausdrücklich vereinbarten Zahlungszeitpunkte.",
     "hints": [
-      "Addiere die Rückflüsse schrittweise.",
-      "Nach zwei Jahren fehlen noch 3000 Euro.",
-      "Die Fallannahme erlaubt keine monatliche Zwischenrechnung."
+      "Lege je Jahresende eine Zeile an und trage den tatsächlichen Zufluss des Jahres ein.",
+      "Übernimm den vorigen Gesamtstand und addiere nur den neuen Zufluss.",
+      "Suche die erste Zeile, die die Investition deckt. Darfst du ohne weitere Angaben einen früheren Zeitpunkt nennen?"
     ],
     "fields": [
       {
@@ -4990,9 +4990,9 @@
     "explanation": "Die jährliche Nettowirkung ist −500 Euro. Es entsteht kein positiver Rückfluss zur Deckung der Anfangsauszahlung. Eine negative Division liefert hier keine sinnvolle negative Amortisationsdauer.",
     "discovery": "Die Entscheidung erkennt eine fehlende Amortisation statt einer scheinbar passenden negativen Dauer.",
     "hints": [
-      "Vergleiche vermiedene und zusätzliche laufende Kosten.",
-      "Eine Anfangsauszahlung benötigt positive Rückflüsse.",
-      "Beachte das Vorzeichen."
+      "Ziehe vom jährlichen Vorteil sämtliche zusätzlichen Jahreskosten ab.",
+      "Stelle dir den offenen Investitionsbetrag nach einem weiteren Jahr vor.",
+      "Wenn die Lücke nicht kleiner wird: Hat die Division durch den Jahresbetrag eine sinnvolle Rückzahlungsdauer ergeben?"
     ],
     "fields": [
       {
@@ -5067,9 +5067,9 @@
     "explanation": "30 − 10 = 20 Euro Deckungsbeitrag. 6000 / 20 = 300 Buchungen decken die Kosten genau. Erst 301 Buchungen erzeugen unter diesen Annahmen einen positiven Gewinn.",
     "discovery": "Die Rechnung trennt Kostendeckung und tatsächlich positiven Gewinn.",
     "hints": [
-      "Ziehe variable Kosten vom Erlös ab.",
-      "Teile Fixkosten durch den Deckungsbeitrag.",
-      "Bei Gleichstand ist der Gewinn null."
+      "Bestimme, welcher Betrag pro zusätzlicher Buchung nach ihren variablen Kosten übrig bleibt.",
+      "Wie oft brauchst du diesen Beitrag, um die fixen Kosten zu decken?",
+      "Prüfe den Gewinn bei deiner Grenzmenge und bei der nächsten ganzen Buchung."
     ],
     "fields": [
       {
@@ -5138,9 +5138,9 @@
     "explanation": "Die gegebenen Faktoren liefern 5700 und 5400 Euro. Nach Abzug von 10000 Euro Anfangsauszahlung bleibt ein positiver Kapitalwert von 1100 Euro. Die Zahlungszeitpunkte und verwendeten Faktoren gehören ausdrücklich zum Vertrag.",
     "discovery": "Die Investitionsbetrachtung unterscheidet spätere Zuflüsse von ihrem vorgegebenen Barwert.",
     "hints": [
-      "Ordne jedem Jahr seinen eigenen Faktor zu.",
-      "Die Anfangsauszahlung steht schon am Bezugszeitpunkt.",
-      "Addiere Barwerte und ziehe die Anfangsauszahlung ab."
+      "Ordne jeden Rückfluss seinem Zahlungsjahr und dem passenden Faktor zu.",
+      "Rechne die Rückflüsse auf denselben Bezugszeitpunkt um, bevor du sie addierst.",
+      "Prüfe, ob die heutige Anfangsauszahlung genau einmal mit korrektem Vorzeichen in deiner Rechnung steht."
     ],
     "fields": [
       {
@@ -5224,9 +5224,9 @@
     "explanation": "Normalfall: 800 Euro und 15 Monate. Belastungsfall: 600 Euro und 20 Monate. Eine niedrigere Einsparung verändert die Entscheidung; die vorgegebene 18-Monats-Grenze wird im Belastungsfall verfehlt.",
     "discovery": "Die Entscheidung macht ihre Abhängigkeit von einer unsicheren Einsparungsannahme sichtbar.",
     "hints": [
-      "Verwende in beiden Fällen dieselben zusätzlichen Kosten.",
-      "Berechne die Dauer je Szenario getrennt.",
-      "Vergleiche den Belastungsfall mit der verbindlichen Grenze."
+      "Lege Basisfall und Belastungsfall als getrennte Spalten an.",
+      "Berechne in beiden Spalten erst den verbleibenden Vorteil pro Zeitraum.",
+      "Vergleiche den Belastungsfall direkt mit der geforderten Grenze. Der günstigere Basisfall kann diese Prüfung nicht ersetzen."
     ],
     "fields": [
       {
@@ -5320,9 +5320,9 @@
     "explanation": "Die gewichteten Teilwerte von A sind 3,20, 2,10 und 2,25, insgesamt 7,55. B erreicht 2,80, 3,15 und 1,50, insgesamt 7,45. Die Rangfolge gilt für die vorgegebenen Kriterien, Punkte und Gewichte.",
     "discovery": "Die Nutzwertentscheidung ist aus den vorgegebenen Teilwerten nachvollziehbar.",
     "hints": [
-      "Multipliziere statt ungewichtet zu addieren.",
-      "Verwende Anteile 0,40/0,35/0,25.",
-      "Addiere erst die gewichteten Teilwerte."
+      "Arbeite ein Kriterium für beide Anbieter nebeneinander durch.",
+      "Gewichte jeden Punktwert mit dem Anteil genau dieses Kriteriums.",
+      "Addiere je Anbieter die ungerundeten Beiträge. Bei Gewichten mit Summe eins liegt das Ergebnis innerhalb der Punkteskala."
     ],
     "fields": [
       {
@@ -5461,9 +5461,9 @@
     "explanation": "Die zwingende Mindestanforderung schließt A vor dem Nutzwertvergleich aus. Unter B und C besitzt C den höheren Wert. Hohe Punktzahlen ersetzen keine zwingend geforderte Eigenschaft.",
     "discovery": "Die Entscheidung trennt grundsätzliche Eignung von der anschließenden Rangfolge.",
     "hints": [
-      "Prüfe die Mindestanforderung zuerst.",
-      "Ein ausgeschlossenes Angebot gewinnt nicht über Zusatzpunkte.",
-      "Vergleiche nur die verbleibenden Angebote."
+      "Markiere das Kriterium, dessen Nichterfüllung zum Ausschluss führt.",
+      "Trenne die Zulassungsentscheidung von der Rangfolge der zugelassenen Angebote.",
+      "Können Zusatzpunkte ein verfehltes Muss-Kriterium nach der vereinbarten Regel ausgleichen?"
     ],
     "fields": [
       {
@@ -5528,9 +5528,9 @@
     "explanation": "Die gegebene Gewichtssumme muss eingehalten werden. Inhaltlich doppelte Kriterien können denselben Aspekt ungewollt mehrfach zählen. Einheitliche Skalen und vorab geprüfte Mindestanforderungen unterstützen dagegen den Vergleich.",
     "discovery": "Der Matrixreview erkennt falsche Gewichtssummen und doppelt gezählte Aspekte.",
     "hints": [
-      "Addiere die genannten Prozentwerte.",
-      "Prüfe, ob wirklich verschiedene Eigenschaften bewertet werden.",
-      "Dieselbe Skala für alle Angebote ist erwünscht."
+      "Vergleiche jede Zeile der Matrix mit der vereinbarten Skala und Gewichtung.",
+      "Wird eine Eigenschaft mehrfach berücksichtigt oder ein Maßstab nur für einen Anbieter verändert?",
+      "Rechne eine strittige Zeile unter identischen Regeln für beide Angebote nach."
     ],
     "fields": [],
     "solutions": [],
@@ -5565,9 +5565,9 @@
     "explanation": "Ursprünglich erreicht A 8,1 und B 6,2. Nach der Gewichtungsänderung sind es A 7,2 und B 7,4. Die geänderte Priorität kann bei unveränderten Angebotspunkten die Rangfolge wechseln.",
     "discovery": "Die Sensitivitätsbetrachtung zeigt den Einfluss geänderter Prioritäten.",
     "hints": [
-      "Ändere nur Gewichte, nicht die Punktzahlen.",
-      "Jedes Gewichtspaar ergibt zusammen eins.",
-      "Vergleiche jede Gewichtung separat."
+      "Lege die alte und neue Gewichtung nebeneinander. Welche Größen bleiben gleich?",
+      "Verwende je Szenario durchgehend dessen eigene Gewichte.",
+      "Ein Anbieter mit Stärken im höher gewichteten Kriterium sollte davon profitieren. Passt die Richtung deiner Änderung?"
     ],
     "fields": [
       {
@@ -5675,9 +5675,9 @@
     "explanation": "Beide Angebote erreichen die festgelegte Mindestpunktzahl. Nach der ausdrücklich vereinbarten Kostenregel gewinnt B und kostet jährlich 2000 Euro weniger. Nutzwertpunkte und Euro sind unterschiedliche Größen.",
     "discovery": "Die Entscheidung verbindet Eignung und Kosten über eine klare Regel statt über eine unzulässige Summe.",
     "hints": [
-      "Prüfe die einschließlich geltende Mindestpunktzahl.",
-      "Unter geeigneten Angeboten zählt hier der niedrigste Betrag.",
-      "Ein Punkt ist kein Euro."
+      "Schreibe für jedes Angebot zwei Angaben mit ihren Einheiten auf.",
+      "Prüfe erst die vereinbarte finanzielle Grenze, dann den Nutzen der zulässigen Angebote.",
+      "Kannst du deine Wahl begründen, ohne eine Geldsumme und eine Punktzahl miteinander zu verrechnen?"
     ],
     "fields": [
       {
@@ -5780,9 +5780,9 @@
     "explanation": "Die vorhandenen Informationen ergeben einen Gleichstand. Ein neues relevantes Kriterium muss transparent geklärt werden. Reihenfolge der Darstellung oder unbelegte Punkteänderungen sind keine vereinbarte Entscheidungshilfe.",
     "discovery": "Ein verbleibender Gleichstand wird als offene Entscheidung sichtbar gehalten.",
     "hints": [
-      "Prüfe alle genannten Vergleichsgrößen.",
-      "Ein unbekanntes Kriterium ist keine automatische Vorrangregel.",
-      "Eine Entscheidung kann weitere Abstimmung brauchen."
+      "Vergleiche zuerst alle ausdrücklich zugelassenen Auswahlkriterien.",
+      "Welche Regel wäre nötig, um bei identischem Ergebnis eine Rangfolge zu bilden?",
+      "Streiche die Anbieternamen. Bleibt ein sachlicher Grund, genau einen von beiden vorzuziehen?"
     ],
     "fields": [
       {
@@ -5847,9 +5847,9 @@
     "explanation": "Risiken verbinden mögliche Ereignisse mit Folgen für das Projekt. Vorbereitende Maßnahmen adressieren die konkrete Ursache und verbessern die Reaktionsfähigkeit; sie garantieren nicht das vollständige Ausbleiben jedes Problems.",
     "discovery": "Der Risikoplan verbindet konkrete Ursachen mit möglichen Auswirkungen und passenden Maßnahmen.",
     "hints": [
-      "Betrachte Ursache und mögliche Folge getrennt.",
-      "Eine Maßnahme muss am beschriebenen Problem ansetzen.",
-      "Ein vermiedener Nachweis ist keine Risikobehandlung."
+      "Erzähle jedes Risiko als Kette aus Auslöser und möglicher Folge für das Projekt.",
+      "Welche vorbereitende Maßnahme setzt direkt am Auslöser oder an seiner Folge an?",
+      "Überlege, ob die Maßnahme im Ernstfall verfügbar wäre, wenn du sie erst nach dem Schaden beginnst."
     ],
     "fields": [
       {
@@ -5945,9 +5945,9 @@
     "explanation": "A ergibt 0,20 × 10000 = 2000 Euro, B 0,50 × 3000 = 1500. Die Rangfolge folgt dieser vereinfachten Fallregel. Ein Erwartungswert ist keine sichere Auszahlung und keine allgemeine Vorgabe für eine ausreichende Reserve.",
     "discovery": "Die Risikorechnung bleibt mit ihren Schätzannahmen und Grenzen erkennbar.",
     "hints": [
-      "Multipliziere Anteil und Schaden.",
-      "Eine höhere Wahrscheinlichkeit allein entscheidet die gegebene Regel nicht.",
-      "Ein Erwartungswert ist nicht jeder mögliche reale Schaden."
+      "Schreibe Wahrscheinlichkeit und Schaden für jedes Risiko in dieselbe Zeile.",
+      "Rechne Prozentwerte in Anteile um, bevor du sie mit dem Schaden verknüpfst.",
+      "Vergleiche die Erwartungswerte. Welcher Betrag würde bei einem einzelnen tatsächlichen Ereignis anfallen?"
     ],
     "fields": [
       {
@@ -6034,9 +6034,9 @@
     "explanation": "Der geplante Anteil für den fachlich gemessenen Stand beträgt 4000 Euro. Tatsächlich wurden dafür 2000 Euro mehr verbraucht. Bei unverändertem Verhältnis ergibt 6000 / 0,40 eine Prognose von 15000 Euro. Ausgaben allein messen keinen fachlichen Fertigstellungsgrad.",
     "discovery": "Der Statusbericht trennt fachlichen Fortschritt, tatsächliche Kosten und eine ausdrücklich bedingte Prognose.",
     "hints": [
-      "Nutze den vorgegebenen fachlichen Fertigstellungsgrad.",
-      "Vergleiche tatsächliche Kosten mit dem geplanten Anteil derselben Arbeit.",
-      "Die Prognose verwendet das Verhältnis 6000 Euro für 40 Prozent."
+      "Bewerte zuerst nur die fertiggestellte Leistung zu geplanten Kosten.",
+      "Vergleiche diesen Betrag mit den Istkosten für genau diesen Fortschritt.",
+      "Prüfe, welche Annahme über die weitere Kostenentwicklung in der geforderten Prognose steckt."
     ],
     "fields": [
       {
@@ -6119,9 +6119,9 @@
     "explanation": "Eine Änderung wird mit ihren Auswirkungen und ihrer Entscheidung sichtbar. Ein freigegebener neuer Stand wird nachvollziehbar übernommen; eine ungenehmigte Ausweitung oder heimliche Änderung des Nachweises wäre keine verlässliche Steuerung.",
     "discovery": "Der Änderungsweg verbindet Auswirkungsprüfung, Entscheidung und einen nachvollziehbaren Planstand.",
     "hints": [
-      "Was ist vor einer belastbaren Entscheidung noch unbekannt?",
-      "Benannte Verantwortlichkeiten bleiben gültig.",
-      "Eine Planaktualisierung folgt der abgestimmten Entscheidung."
+      "Notiere, welcher vereinbarte Umfang durch den Wunsch betroffen wäre.",
+      "Welche Folgen müssen die Entscheidenden kennen, bevor sie zustimmen?",
+      "Verfolge den Weg von der Anfrage zum geänderten Plan. Ist die Entscheidung später nachvollziehbar?"
     ],
     "fields": [],
     "solutions": [],
@@ -6156,9 +6156,9 @@
     "explanation": "Der fachliche Nachweis ist bestätigt. Die Betriebsübergabe bleibt wegen der fehlenden benannten Betreuung unvollständig. Die Antwort richtet sich nach der konkreten Fallvereinbarung, nicht nach einer pauschalen juristischen Aussage über jede Abnahme.",
     "discovery": "Der Abschlussplan unterscheidet fachliche Bestätigung und vollständig vorbereiteten Betrieb.",
     "hints": [
-      "Prüfe die beiden Bedingungen getrennt.",
-      "Vorliegende Nachweise müssen nicht neu erfunden werden.",
-      "Die offene Betreuung gehört zur Betriebsübergabe."
+      "Lege zwei Listen an: Nachweise für fachliche Annahme und Unterlagen für den Betrieb.",
+      "Ordne jedes tatsächlich vorliegende Dokument der passenden Vereinbarung zu.",
+      "Kann die Fachseite die Leistung akzeptieren, obwohl im Betrieb noch etwas fehlt?"
     ],
     "fields": [
       {
@@ -6237,9 +6237,9 @@
     "explanation": "Ein geringer Budgetverbrauch ersetzt keinen vereinbarten Lieferumfang. Nicht geklärte Kosten oder Verantwortlichkeiten werden nicht als abgeschlossen behauptet. Ein ehrlicher Abschluss unterscheidet bestätigte Ergebnisse, offene Punkte und deren geregelten Umgang.",
     "discovery": "Der Projektbericht trennt nachgewiesenen Abschluss von offenen Restpunkten und bloßen Behauptungen.",
     "hints": [
-      "Ein Projekt besitzt mehr als eine Zielgröße.",
-      "Ungeklärtes wird nicht durch eine Markierung geklärt.",
-      "Ein dokumentierter Umgang mit Restarbeiten macht Grenzen sichtbar."
+      "Markiere, welche Abschlussbedingungen ausdrücklich vereinbart waren.",
+      "Trenne eine erledigte Einzelaktivität vom Nachweis des gesamten Abschlusses.",
+      "Stelle dir vor, morgen übernimmt eine andere Person. Welche noch offene Verpflichtung könnte sie aus der Aussage übersehen?"
     ],
     "fields": [],
     "solutions": [],

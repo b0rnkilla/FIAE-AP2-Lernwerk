@@ -96,7 +96,13 @@
         </section>
     }
     <section class="plan-step"><span class="eyebrow">DEINE LERNROUTINE</span><h2>Eine Aufgabe. Eine Erkenntnis. Später noch einmal.</h2><p>Löse eine Aufgabe selbst. Kläre danach gezielt die Stelle, an der du unsicher warst. Wiederhole sie später ohne Hilfe und formuliere die Lösung auch einmal auf Papier.</p><p>Halte in einer kurzen Fehlerliste fest: Was habe ich verwechselt? Woran erkenne ich es beim nächsten Mal? Plane zusätzlich eigene Zeit für Pseudocode und die übrigen AP2-Themen ein.</p><p>Die Fortschrittszahlen zeigen bearbeitete Aufgaben; sie sind keine Prüfungsnote oder Bestehensprognose.</p></section>
-    <section class="reference-section"><h2>Bedienhinweise</h2><p>Den allgemeinen Hinweis „So funktioniert dein Selbsttest“ kannst du direkt an der Aufgabe ausblenden. Hier lässt er sich für alle SQL- und Algorithmus-Aufgaben wieder einschalten.</p><button class="button secondary" disabled="@(!_progress.SelfTestHelpDismissed || _error != null)" @onclick="RestoreSelfTestHelpAsync">@(_progress.SelfTestHelpDismissed ? "Selbsttest-Hinweise wieder anzeigen" : "Selbsttest-Hinweise sind eingeblendet")</button></section>
+    <section class="reference-section">
+        <h2>Bedienhinweise</h2>
+        <p>„So funktioniert dein Selbsttest“ gilt für die SQL- und Pseudocode-Aufgaben.</p>
+        <button class="button secondary" disabled="@(!_progress.SelfTestHelpDismissed || _error != null)" @onclick="RestoreSelfTestHelpAsync">@(_progress.SelfTestHelpDismissed ? "Selbsttest-Hinweise wieder anzeigen" : "Selbsttest-Hinweise sind eingeblendet")</button>
+        <p>„Deine Arbeitskopie startet jedes Mal neu“ gilt für alle Aufgaben der SQL-Werkstatt.</p>
+        <button class="button secondary" disabled="@(!_progress.WorkshopCopyHelpDismissed || _error != null)" @onclick="RestoreWorkshopCopyHelpAsync">@(_progress.WorkshopCopyHelpDismissed ? "Hinweis zur Arbeitskopie wieder anzeigen" : "Hinweis zur Arbeitskopie ist eingeblendet")</button>
+    </section>
     <section class="reset-section"><h2>Ein frischer Start</h2><p>Der Lernstand gilt für dieses lokale Profil in allen Browsern. Ein Zurücksetzen entfernt Entwürfe, Hinweise und gelöste Aufgaben.</p>@if (!_confirmReset) { <button class="button secondary" @onclick="() => _confirmReset = true">Lernstand zurücksetzen …</button> } else { <div class="notice warning"><p>Alle gespeicherten Fortschritte dieses lokalen Profils wirklich löschen?</p><button class="button secondary" @onclick="() => _confirmReset = false">Abbrechen</button> <button class="button danger" @onclick="ResetAsync">Lernstand jetzt löschen</button></div> }</section>
 </main>
 @code {
@@ -113,6 +119,12 @@
     {
         try { await Store.SetSelfTestHelpDismissedAsync(false); _progress.SelfTestHelpDismissed = false; }
         catch (Exception exception) when (exception is IOException or System.Text.Json.JsonException or UnauthorizedAccessException) { _error = "Die Anzeigeeinstellung konnte nicht gespeichert werden. Prüfe die Schreibrechte und den gespeicherten Lernstand."; }
+    }
+
+    private async Task RestoreWorkshopCopyHelpAsync()
+    {
+        try { await Store.SetWorkshopCopyHelpDismissedAsync(false); _progress.WorkshopCopyHelpDismissed = false; }
+        catch (Exception exception) when (exception is IOException or System.Text.Json.JsonException or UnauthorizedAccessException) { _error = "Der Hinweis zur Arbeitskopie konnte nicht wieder eingeblendet werden. Prüfe die Schreibrechte für deinen Lernstand."; }
     }
 
     private async Task ResetAsync()

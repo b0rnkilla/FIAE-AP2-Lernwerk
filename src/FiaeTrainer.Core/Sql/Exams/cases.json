@@ -16,51 +16,51 @@
         "id": 1,
         "title": "Veranstaltungen eines Monats",
         "task": "Zeige Id, Titel und Beginn aller Veranstaltungen im November 2026 mit Preis <= 80. Sortiere nach Beginn aufsteigend, bei gleichem Beginn nach Id aufsteigend. Zeitanteile sind zu berücksichtigen.",
-        "referenceSql": "SELECT Id, Titel, Beginn FROM Veranstaltungen WHERE Beginn >= '2026-11-01 00:00:00' AND Beginn < '2026-12-01 00:00:00' AND Preis <= 80 ORDER BY Beginn, Id;",
+        "referenceSql": "SELECT Id, Titel, Beginn\nFROM Veranstaltungen\nWHERE Beginn >= '2026-11-01 00:00:00'\n  AND Beginn < '2026-12-01 00:00:00'\n  AND Preis <= 80\nORDER BY Beginn, Id;",
         "ordered": true,
         "operation": "Query",
         "target": "",
-        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+        "explanation": "Beide Zeitgrenzen prüfen den Beginn der Veranstaltung. Die obere Grenze liegt am ersten Dezember, sodass auch der gesamte letzte Novemberabend erfasst wird. Der Preisfilter schließt genau 80 ein. Bei gleichem Beginn entscheidet die Id über die Reihenfolge."
       },
       {
         "id": 2,
         "title": "Bestätigte Buchungen zuordnen",
         "task": "Zeige für jede bestätigte Buchung die Buchungs-Id, den Veranstaltungstitel, den Raumnamen und die Personenzahl, in dieser Reihenfolge. Statuswert: bestaetigt. Keine Sortierung erforderlich.",
-        "referenceSql": "SELECT b.Id, v.Titel, r.Name, b.Personen FROM Buchungen AS b JOIN Veranstaltungen AS v ON v.Id=b.VeranstaltungId JOIN Raeume AS r ON r.Id=v.RaumId WHERE b.Status='bestaetigt';",
+        "referenceSql": "SELECT b.Id, v.Titel, r.Name, b.Personen\nFROM Buchungen AS b\nJOIN Veranstaltungen AS v ON v.Id = b.VeranstaltungId\nJOIN Raeume AS r ON r.Id = v.RaumId\nWHERE b.Status = 'bestaetigt';",
         "ordered": false,
         "operation": "Query",
         "target": "",
-        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+        "explanation": "Jede Ergebniszeile steht für eine Buchung. Ihre VeranstaltungId führt zum Veranstaltungstitel. Erst die RaumId dieser Veranstaltung führt zum Raumnamen. Die Personenzahl stammt direkt aus der Buchung. WHERE lässt nur bestätigte Buchungen übrig."
       },
       {
         "id": 3,
         "title": "Gut gebuchte Veranstaltungen",
         "task": "Zeige Veranstaltungs-Id und Summe bestätigter Personen für Veranstaltungen mit insgesamt mindestens fünf bestätigten Personen. Sortiere nach Personensumme absteigend, bei Gleichstand nach Id aufsteigend.",
-        "referenceSql": "SELECT v.Id, SUM(b.Personen) AS Personen FROM Veranstaltungen AS v JOIN Buchungen AS b ON b.VeranstaltungId=v.Id WHERE b.Status='bestaetigt' GROUP BY v.Id HAVING SUM(b.Personen)>=5 ORDER BY SUM(b.Personen) DESC, v.Id;",
+        "referenceSql": "SELECT v.Id, SUM(b.Personen) AS Personen\nFROM Veranstaltungen AS v\nJOIN Buchungen AS b ON b.VeranstaltungId = v.Id\nWHERE b.Status = 'bestaetigt'\nGROUP BY v.Id\nHAVING SUM(b.Personen) >= 5\nORDER BY SUM(b.Personen) DESC, v.Id;",
         "ordered": true,
         "operation": "Query",
         "target": "",
-        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+        "explanation": "WHERE entfernt offene Buchungen vor dem Zählen. SUM addiert die Personen je Veranstaltung, denn eine Buchung kann mehrere Plätze belegen. HAVING prüft die Mindestzahl an der fertigen Summe. Bei gleicher Summe entscheidet die Veranstaltungs-Id."
       },
       {
         "id": 4,
         "title": "Ohne bestätigte Anmeldung",
         "task": "Zeige Id und Titel aller Veranstaltungen, für die keine bestätigte Buchung existiert. Offene Buchungen sollen nicht als Bestätigung zählen. Keine Sortierung erforderlich.",
-        "referenceSql": "SELECT v.Id, v.Titel FROM Veranstaltungen AS v WHERE NOT EXISTS (SELECT 1 FROM Buchungen AS b WHERE b.VeranstaltungId=v.Id AND b.Status='bestaetigt');",
+        "referenceSql": "SELECT v.Id, v.Titel\nFROM Veranstaltungen AS v\nWHERE NOT EXISTS (\n    SELECT 1\n    FROM Buchungen AS b\n    WHERE b.VeranstaltungId = v.Id\n      AND b.Status = 'bestaetigt'\n);",
         "ordered": false,
         "operation": "Query",
         "target": "",
-        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+        "explanation": "Die Unterabfrage sucht eine bestätigte Buchung für genau die Veranstaltung der äußeren Zeile. NOT EXISTS behält die Veranstaltung, wenn diese Suche leer bleibt. Deshalb zählen auch Veranstaltungen ohne Buchung und solche mit ausschließlich offenen Buchungen zum Ergebnis."
       },
       {
         "id": 5,
         "title": "Offene Buchungen bestätigen",
         "task": "Ändere ausschließlich den Status offener Buchungen für Veranstaltungen im November 2026 auf bestaetigt. Andere Buchungen und Tabellen unverändert lassen. Verwende eine UPDATE-Anweisung.",
-        "referenceSql": "UPDATE Buchungen SET Status='bestaetigt' WHERE Status='offen' AND VeranstaltungId IN (SELECT Id FROM Veranstaltungen WHERE Beginn>='2026-11-01 00:00:00' AND Beginn<'2026-12-01 00:00:00');",
+        "referenceSql": "UPDATE Buchungen\nSET Status = 'bestaetigt'\nWHERE Status = 'offen'\n  AND VeranstaltungId IN (\n    SELECT Id\n    FROM Veranstaltungen\n    WHERE Beginn >= '2026-11-01 00:00:00'\n      AND Beginn < '2026-12-01 00:00:00'\n);",
         "ordered": false,
         "operation": "Update",
         "target": "Buchungen",
-        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+        "explanation": "Die Unterabfrage liefert die Ids der Veranstaltungen mit Beginn im November. Das UPDATE setzt den Status nur bei offenen Buchungen aus dieser Menge. Die Grenze vor dem ersten Dezember schließt den ganzen letzten Novembertag ein. Ein UPDATE mit JOIN über VeranstaltungId und demselben Filter ist ebenfalls möglich."
       }
     ]
   },
@@ -81,51 +81,51 @@
         "id": 6,
         "title": "Offene Oktoberaufträge",
         "task": "Zeige Id und Eingang offener Aufträge (Abschluss IS NULL), die im Oktober 2026 eingegangen sind. Sortiere nach Eingang aufsteigend und bei gleichem Eingang nach Id aufsteigend.",
-        "referenceSql": "SELECT Id, Eingang FROM Auftraege WHERE Abschluss IS NULL AND Eingang>='2026-10-01' AND Eingang<'2026-11-01' ORDER BY Eingang, Id;",
+        "referenceSql": "SELECT Id, Eingang\nFROM Auftraege\nWHERE Abschluss IS NULL\n  AND Eingang >= '2026-10-01'\n  AND Eingang < '2026-11-01'\nORDER BY Eingang, Id;",
         "ordered": true,
         "operation": "Query",
         "target": "",
-        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+        "explanation": "Ein fehlendes Abschlussdatum kennzeichnet einen offenen Auftrag. IS NULL prüft diesen Zustand. Beide Zeitvergleiche beziehen sich auf den Eingang und schließen den ganzen Oktober ein. Die Id macht die Reihenfolge bei gleichem Eingang eindeutig."
       },
       {
         "id": 7,
         "title": "Kunden und ihre offenen Aufträge",
         "task": "Zeige Auftrags-Id, Kundenname und Ort für alle offenen Aufträge (Abschluss IS NULL) von Kunden aus Essen. Keine Sortierung erforderlich.",
-        "referenceSql": "SELECT a.Id, k.Name, k.Ort FROM Auftraege AS a JOIN Kunden AS k ON k.Id=a.KundeId WHERE a.Abschluss IS NULL AND k.Ort='Essen';",
+        "referenceSql": "SELECT a.Id, k.Name, k.Ort\nFROM Auftraege AS a\nJOIN Kunden AS k ON k.Id = a.KundeId\nWHERE a.Abschluss IS NULL\n  AND k.Ort = 'Essen';",
         "ordered": false,
         "operation": "Query",
         "target": "",
-        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+        "explanation": "Der Auftrag enthält die Kunden-Id, der Kundenstammsatz enthält Name und Ort. Der JOIN verbindet diese beiden Angaben. Beide Filter müssen gleichzeitig gelten: Der Kunde sitzt in Essen und beim Auftrag fehlt das Abschlussdatum."
       },
       {
         "id": 8,
         "title": "Längere Bearbeitungen",
         "task": "Zeige Auftrags-Id und Summe der Arbeitsminuten für Aufträge mit insgesamt mindestens 60 Arbeitsminuten. Sortiere nach Minutensumme absteigend, bei Gleichstand nach Id aufsteigend.",
-        "referenceSql": "SELECT a.Id, SUM(s.Minuten) AS Minuten FROM Auftraege AS a JOIN Arbeitsschritte AS s ON s.AuftragId=a.Id GROUP BY a.Id HAVING SUM(s.Minuten)>=60 ORDER BY SUM(s.Minuten) DESC, a.Id;",
+        "referenceSql": "SELECT a.Id, SUM(s.Minuten) AS Minuten\nFROM Auftraege AS a\nJOIN Arbeitsschritte AS s ON s.AuftragId = a.Id\nGROUP BY a.Id\nHAVING SUM(s.Minuten) >= 60\nORDER BY SUM(s.Minuten) DESC, a.Id;",
         "ordered": true,
         "operation": "Query",
         "target": "",
-        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+        "explanation": "Jeder Arbeitsschritt liefert Minuten für einen Auftrag. Nach dem Verbinden summiert GROUP BY diese Minuten je Auftrag. HAVING schließt die Aufträge mit genau 60 Minuten ein. Sortiert wird zuerst nach der längsten Gesamtdauer."
       },
       {
         "id": 9,
         "title": "Aufträge ohne erfasste Arbeit",
         "task": "Zeige Id und KundeId aller Aufträge, für die noch kein Arbeitsschritt existiert. Ein Arbeitsschritt mit 0 Minuten zählt als vorhandener Arbeitsschritt. Keine Sortierung erforderlich.",
-        "referenceSql": "SELECT a.Id, a.KundeId FROM Auftraege AS a WHERE NOT EXISTS(SELECT 1 FROM Arbeitsschritte AS s WHERE s.AuftragId=a.Id);",
+        "referenceSql": "SELECT a.Id, a.KundeId\nFROM Auftraege AS a\nWHERE NOT EXISTS (\n    SELECT 1\n    FROM Arbeitsschritte AS s\n    WHERE s.AuftragId = a.Id\n);",
         "ordered": false,
         "operation": "Query",
         "target": "",
-        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+        "explanation": "Für jeden Auftrag sucht die Unterabfrage nach einem Arbeitsschritt mit seiner Id als AuftragId. Schon ein einzelner Treffer schließt den Auftrag aus. NOT EXISTS lässt so nur Aufträge ohne jeglichen Arbeitsschritt übrig."
       },
       {
         "id": 10,
         "title": "Einen Arbeitsschritt ergänzen",
         "task": "Füge genau einen Arbeitsschritt ein: Id 99, AuftragId 1, Minuten 20, Satz 75.00 EUR/Stunde. Alle vorhandenen Zeilen und anderen Tabellen bleiben unverändert. Id 99 existiert noch nicht.",
-        "referenceSql": "INSERT INTO Arbeitsschritte (Id, AuftragId, Minuten, Satz) VALUES (99, 1, 20, 75.00);",
+        "referenceSql": "INSERT INTO Arbeitsschritte (Id, AuftragId, Minuten, Satz)\nVALUES (99, 1, 20, 75.00);",
         "ordered": false,
         "operation": "Insert",
         "target": "Arbeitsschritte",
-        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+        "explanation": "Die Spaltenliste ordnet die vier Werte eindeutig zu. Id bezeichnet den neuen Arbeitsschritt, AuftragId den bereits vorhandenen Auftrag. INSERT ergänzt einen Datensatz und erhält die bisherigen Arbeitsschritte."
       }
     ]
   },
@@ -146,51 +146,216 @@
         "id": 11,
         "title": "Bestandsgrenzen prüfen",
         "task": "Zeige Id, Name und die fehlende Menge (Mindestbestand minus Bestand) aller Artikel, deren Bestand echt unter dem Mindestbestand liegt. Sortiere nach fehlender Menge absteigend, bei Gleichstand nach Id aufsteigend.",
-        "referenceSql": "SELECT Id, Name, Mindestbestand-Bestand AS Fehlmenge FROM Artikel WHERE Bestand<Mindestbestand ORDER BY Mindestbestand-Bestand DESC, Id;",
+        "referenceSql": "SELECT Id, Name, Mindestbestand-Bestand AS Fehlmenge\nFROM Artikel\nWHERE Bestand < Mindestbestand\nORDER BY Mindestbestand-Bestand DESC, Id;",
         "ordered": true,
         "operation": "Query",
         "target": "",
-        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+        "explanation": "Ein Artikel fehlt nur dann, wenn sein Bestand unter dem Mindestbestand liegt. Die Differenz Mindestbestand minus Bestand gibt die fehlende Menge als positive Zahl an. Sortiert wird nach dem größten Fehlbestand, bei Gleichstand nach Id."
       },
       {
         "id": 12,
         "title": "Geplante Lieferungen",
         "task": "Zeige Lieferpositions-Id, Artikelname, Kategoriename und Menge für Liefertermine im November 2026. Keine Sortierung erforderlich.",
-        "referenceSql": "SELECT l.Id, a.Name, k.Name, l.Menge FROM Lieferpositionen AS l JOIN Artikel AS a ON a.Id=l.ArtikelId JOIN Kategorien AS k ON k.Id=a.KategorieId WHERE l.Termin>='2026-11-01' AND l.Termin<'2026-12-01';",
+        "referenceSql": "SELECT l.Id, a.Name, k.Name, l.Menge\nFROM Lieferpositionen AS l\nJOIN Artikel AS a ON a.Id = l.ArtikelId\nJOIN Kategorien AS k ON k.Id = a.KategorieId\nWHERE l.Termin >= '2026-11-01'\n  AND l.Termin < '2026-12-01';",
         "ordered": false,
         "operation": "Query",
         "target": "",
-        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+        "explanation": "Ausgangspunkt ist der einzelne Lieferposten mit Termin und Menge. Über seine ArtikelId findest du den Artikelnamen und über dessen KategorieId den Kategorienamen. Der Zeitfilter gehört zum Liefertermin und erfasst alle Novembertermine."
       },
       {
         "id": 13,
         "title": "Jede Kategorie berücksichtigen",
         "task": "Zeige Kategorien-Id und Anzahl zugehöriger Artikel für jede Kategorie, auch ohne Artikel. Sortiere nach Kategorien-Id aufsteigend. Zähle Artikel, keine Lieferpositionen.",
-        "referenceSql": "SELECT k.Id, COUNT(a.Id) AS Anzahl FROM Kategorien AS k LEFT JOIN Artikel AS a ON a.KategorieId=k.Id GROUP BY k.Id ORDER BY k.Id;",
+        "referenceSql": "SELECT k.Id, COUNT(a.Id) AS Anzahl\nFROM Kategorien AS k\nLEFT JOIN Artikel AS a ON a.KategorieId = k.Id\nGROUP BY k.Id\nORDER BY k.Id;",
         "ordered": true,
         "operation": "Query",
         "target": "",
-        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+        "explanation": "Die Kategorien stehen links, damit auch Kategorien ohne Artikel erhalten bleiben. COUNT(a.Id) zählt nur vorhandene Artikel. COUNT(*) würde bei einer leeren Kategorie die durch den LEFT JOIN erhaltene Zeile mitzählen."
       },
       {
         "id": 14,
         "title": "Preise über dem Durchschnitt",
         "task": "Zeige Id und Name aller Artikel mit einem Preis echt über dem Durchschnittspreis aller Artikel. Keine Sortierung erforderlich.",
-        "referenceSql": "SELECT Id, Name FROM Artikel WHERE Preis>(SELECT AVG(Preis) FROM Artikel);",
+        "referenceSql": "SELECT Id, Name\nFROM Artikel\nWHERE Preis > (\n    SELECT AVG(Preis)\n    FROM Artikel\n);",
         "ordered": false,
         "operation": "Query",
         "target": "",
-        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+        "explanation": "Die innere Abfrage berechnet einen einzigen Vergleichswert aus allen Artikelpreisen. Außen wird jeder einzelne Artikel mit diesem Durchschnitt verglichen. Ein Preis genau auf dem Durchschnitt erfüllt die strikte Grenze nicht."
       },
       {
         "id": 15,
         "title": "Eine optionale Notiz ergänzen",
         "task": "Ergänze Artikel um genau eine Spalte Notiz vom Typ NVARCHAR(100), die NULL erlaubt. Vorhandene Zeilen bleiben unverändert; die neue Spalte soll für alle bestehenden Zeilen NULL sein. Andere Tabellen nicht verändern.",
-        "referenceSql": "ALTER TABLE Artikel ADD Notiz NVARCHAR(100) NULL;",
+        "referenceSql": "ALTER TABLE Artikel\nADD Notiz NVARCHAR(100) NULL;",
         "ordered": false,
         "operation": "Alter",
         "target": "Artikel",
-        "explanation": "Die Musterlösung setzt die Bedingungen des Auftrags auf den Falltabellen um. Prüfe Beziehungen, Randfälle, NULL-Werte und die verlangte Ergebnisreihenfolge. Jede Aufgabe beginnt unabhängig mit denselben Ausgangsdaten."
+        "explanation": "ALTER TABLE ergänzt die vorhandene Tabelle um eine Spalte. NVARCHAR(100) begrenzt die Textlänge, NULL erlaubt einen fehlenden Eintrag. Deshalb brauchen bestehende Artikel bei der Erweiterung keine erfundene Notiz."
+      }
+    ]
+  },
+  {
+    "id": "stadtfest",
+    "title": "Materialausgabe für ein Stadtfest",
+    "scenario": "Zwei Depots beliefern die Stände am Marktplatz. Beim Schichtwechsel gleicht das Team die Zählungen ab und kontrolliert die Rückgaben. Nach dem Fest sollen abgeschlossene Ausgaben ins Archiv. Der Empfang braucht für Nachfragen eine Leseliste.",
+    "usesWorkSchema": true,
+    "tables": [
+      "DepotNord",
+      "DepotSued",
+      "Material",
+      "Zaehlliste",
+      "Ausgaben",
+      "Rueckgaben",
+      "AusgabeArchiv",
+      "Ausgabeliste"
+    ],
+    "schema": "DepotNord und DepotSued: MaterialId int, Menge int. Jede Zeile steht für eine Lieferung.\nMaterial: Id int PK, Bezeichnung nvarchar(40), Bestand int.\nZaehlliste: MaterialId int PK, Menge int NULL. Je Material höchstens eine Meldung.\nAusgaben und AusgabeArchiv: Id int PK, Stand nvarchar(40), Erledigt bit (1 = abgeschlossen).\nRueckgaben: Id int PK, AusgabeId int. Zu Beginn ist kein Fremdschlüssel eingerichtet.\nAusgabeliste: vorbereitete Sicht auf Id und Stand offener Ausgaben für die Rechteaufgabe. Empfang ist eine Rolle.\nAlle übrigen Spalten sind Pflichtfelder.\n\nBeispieldaten\nDepotNord (MaterialId, Menge): (1, 3), (1, 3), (2, 7)\nDepotSued (MaterialId, Menge): (1, 3), (3, 2)\nMaterial (Id, Bezeichnung, Bestand): (1, Kabel, 8), (2, Kiste, 5), (3, Tisch, 4), (4, Lampe, 2)\nZaehlliste (MaterialId, Menge): (1, 11), (2, 0), (3, NULL)\nAusgaben (Id, Stand, Erledigt): (10, Bühne, 1), (20, Küche, 0), (30, Infostand, 1)\nRueckgaben (Id, AusgabeId): (1, 10)\nAusgabeArchiv (Id, Stand, Erledigt): (5, Aufbau, 1)",
+    "seedSql": "CREATE TABLE DepotNord(MaterialId int NOT NULL,Menge int NOT NULL);\nCREATE TABLE DepotSued(MaterialId int NOT NULL,Menge int NOT NULL);\nCREATE TABLE Material(Id int PRIMARY KEY,Bezeichnung nvarchar(40) NOT NULL,Bestand int NOT NULL);\nCREATE TABLE Zaehlliste(MaterialId int PRIMARY KEY,Menge int NULL);\nCREATE TABLE Ausgaben(Id int PRIMARY KEY,Stand nvarchar(40) NOT NULL,Erledigt bit NOT NULL);\nCREATE TABLE Rueckgaben(Id int PRIMARY KEY,AusgabeId int NOT NULL);\nCREATE TABLE AusgabeArchiv(Id int PRIMARY KEY,Stand nvarchar(40) NOT NULL,Erledigt bit NOT NULL);\nINSERT DepotNord VALUES (1,3),(1,3),(2,7);\nINSERT DepotSued VALUES (1,3),(3,2);\nINSERT Material VALUES (1,N'Kabel',8),(2,N'Kiste',5),(3,N'Tisch',4),(4,N'Lampe',2);\nINSERT Zaehlliste VALUES (1,11),(2,0),(3,NULL);\nINSERT Ausgaben VALUES (10,N'Bühne',1),(20,N'Küche',0),(30,N'Infostand',1);\nINSERT Rueckgaben VALUES (1,10);\nINSERT AusgabeArchiv VALUES (5,N'Aufbau',1);",
+    "verificationSql": "INSERT DepotNord VALUES (4,6);\nINSERT DepotSued VALUES (4,6),(2,9);\nUPDATE Zaehlliste SET Menge=2 WHERE MaterialId=2;\nINSERT Material VALUES (6,N'Zelt',7),(7,N'Plane',8),(8,N'Bank',15);\nINSERT Zaehlliste VALUES (6,0),(7,NULL);\nINSERT Ausgaben VALUES (41,N'Chor',0),(55,N'Basteltisch',1);\nINSERT AusgabeArchiv VALUES (7,N'Verein',1);\nINSERT Rueckgaben VALUES (2,41);",
+    "tasks": [
+      {
+        "id": 16,
+        "title": "Beide Lieferscheinstapel zusammenführen",
+        "task": "Gib MaterialId und Menge aller Lieferungen aus DepotNord und DepotSued in einer gemeinsamen Liste aus. Zwei gleiche Lieferscheine stehen für zwei Lieferungen, auch wenn sie aus demselben Depot stammen. Keine Sortierung erforderlich.",
+        "operation": "Query",
+        "referenceSql": "SELECT MaterialId, Menge FROM DepotNord\nUNION ALL\nSELECT MaterialId, Menge FROM DepotSued;",
+        "explanation": "Jede Zeile ist ein Lieferschein. UNION ALL hängt die Zeilen beider Depots untereinander. So erscheint die Lieferung (1, 3) dreimal, zweimal aus Nord und einmal aus Süd. UNION würde daraus eine einzige Zeile machen."
+      },
+      {
+        "id": 17,
+        "title": "Rückgaben an eine Ausgabe binden",
+        "task": "Jede Rueckgaben.AusgabeId muss auf eine vorhandene Ausgaben.Id verweisen. Richte dafür eine dauerhafte Datenbankregel ein. Die Regel soll für bestehende und neue Rückgaben gelten. Eine Ausgabe mit Rückgaben darf nicht gelöscht werden. Eine Ausgabe ohne Rückgabe muss löschbar bleiben.",
+        "operation": "ForeignKey",
+        "referenceSql": "ALTER TABLE Rueckgaben\nADD CONSTRAINT FK_Rueckgaben_Ausgaben\n    FOREIGN KEY (AusgabeId) REFERENCES Ausgaben (Id);",
+        "explanation": "Der Fremdschlüssel verknüpft jede Rückgabe mit ihrer Ausgabe. SQL Server prüft beim Anlegen die vorhandenen Zeilen und weist später eine unbekannte AusgabeId zurück. Die Standardregel NO ACTION verhindert etwa das Löschen von Ausgabe 10, solange Rückgabe 1 darauf verweist.",
+        "criteria": [
+          {
+            "name": "Verknüpfte Spalten und geprüfte Altdaten",
+            "points": 3,
+            "sql": "SELECT COL_NAME(f.parent_object_id,c.parent_column_id),OBJECT_NAME(f.referenced_object_id),COL_NAME(f.referenced_object_id,c.referenced_column_id),f.is_disabled,f.is_not_trusted FROM sys.foreign_keys f JOIN sys.foreign_key_columns c ON c.constraint_object_id=f.object_id WHERE f.parent_object_id=OBJECT_ID('LernwerkProbe.Rueckgaben');",
+            "failure": "Prüfe beide Spalten der Beziehung und ob die Regel auch die vorhandenen Zeilen prüft."
+          },
+          {
+            "name": "Rückgabe mit unbekannter Ausgabe",
+            "points": 2,
+            "sql": "INSERT Rueckgaben VALUES (999,-1);",
+            "failure": "Eine Rückgabe für die unbekannte Ausgabe −1 muss abgewiesen werden.",
+            "probe": true
+          },
+          {
+            "name": "Gültige Rückgabe",
+            "points": 1,
+            "sql": "INSERT Rueckgaben VALUES (999,20);",
+            "failure": "Eine weitere Rückgabe zur vorhandenen Ausgabe 20 muss möglich sein.",
+            "probe": true
+          },
+          {
+            "name": "Ausgabe mit Rückgabe bleibt erhalten",
+            "points": 1,
+            "sql": "DELETE Ausgaben WHERE Id=10;",
+            "failure": "Beim Löschen von Ausgabe 10 muss die Datenbank wegen der vorhandenen Rückgabe widersprechen.",
+            "probe": true
+          },
+          {
+            "name": "Ausgabe ohne Rückgabe löschen",
+            "points": 1,
+            "sql": "DELETE Ausgaben WHERE Id=30;",
+            "failure": "Die eigenständige Ausgabe 30 muss löschbar sein.",
+            "probe": true
+          }
+        ]
+      },
+      {
+        "id": 18,
+        "title": "Zählmeldungen in den Bestand übernehmen",
+        "task": "Übernimm jede gemeldete Stückzahl aus Zaehlliste in Material.Bestand. Eine gemeldete Null Stück ist ein Zählergebnis. Bei SQL-NULL oder ganz fehlender Meldung bleibt der bisherige Bestand erhalten. Alle übrigen Angaben bleiben unverändert.",
+        "operation": "Update",
+        "referenceSql": "UPDATE m\nSET Bestand = z.Menge\nFROM Material AS m\nJOIN Zaehlliste AS z ON z.MaterialId = m.Id\nWHERE z.Menge IS NOT NULL;",
+        "explanation": "Der JOIN verbindet jede Zählmeldung über die MaterialId mit genau dem passenden Material. Der Filter lässt auch den Wert 0 durch. Eine leere Mengenangabe wird übersprungen. Material ohne Meldung findet beim JOIN keinen Partner und behält seinen Bestand.",
+        "target": "Material",
+        "criteria": [
+          {
+            "name": "Positive Zählungen",
+            "points": 3,
+            "sql": "SELECT m.Id,m.Bezeichnung,m.Bestand FROM Material m LEFT JOIN Zaehlliste z ON z.MaterialId=m.Id WHERE z.Menge>0;",
+            "failure": "Übernimm für jedes gezählte Material die dazugehörige Stückzahl. Id und Bezeichnung müssen erhalten bleiben."
+          },
+          {
+            "name": "Gemeldete null Stück",
+            "points": 2,
+            "sql": "SELECT m.Id,m.Bezeichnung,m.Bestand FROM Material m LEFT JOIN Zaehlliste z ON z.MaterialId=m.Id WHERE z.Menge=0;",
+            "failure": "Auch eine ausdrücklich gemeldete 0 ersetzt den alten Bestand."
+          },
+          {
+            "name": "Fehlender Messwert oder fehlende Meldung",
+            "points": 3,
+            "sql": "SELECT m.Id,m.Bezeichnung,m.Bestand FROM Material m LEFT JOIN Zaehlliste z ON z.MaterialId=m.Id WHERE z.Menge IS NULL;",
+            "failure": "Prüfe Material mit leerem Mengenfeld und Material ganz ohne Zählmeldung. Beide behalten ihren bisherigen Bestand."
+          }
+        ]
+      },
+      {
+        "id": 19,
+        "title": "Abgeschlossene Ausgaben archivieren",
+        "task": "Verschiebe alle abgeschlossenen Zeilen aus Ausgaben mit Id, Stand und Erledigt nach AusgabeArchiv. Offene Ausgaben und frühere Archiveinträge bleiben erhalten. Der Transfer muss als Einheit erfolgen, sodass beim Scheitern eines Teils kein halbfertiger Datenstand bestätigt wird.",
+        "operation": "Archive",
+        "referenceSql": "BEGIN TRANSACTION;\nINSERT INTO AusgabeArchiv (Id, Stand, Erledigt)\nSELECT Id, Stand, Erledigt FROM Ausgaben WHERE Erledigt = 1;\nDELETE FROM Ausgaben WHERE Erledigt = 1;\nCOMMIT;",
+        "explanation": "Das INSERT übernimmt die abgeschlossenen Ausgaben mit ihren ursprünglichen Werten. Erst danach entfernt DELETE dieselben Zeilen aus der aktiven Liste. BEGIN TRANSACTION und COMMIT fassen beide Schritte zusammen. Die Prüfungsarbeitskopie verwendet XACT_ABORT ON. Verletzt etwa das Einfügen eine Schlüsselregel, wird die Transaktion zurückgerollt. DELETE mit OUTPUT INTO kann die Verschiebung auch in einer einzelnen atomaren Anweisung ausführen.",
+        "criteria": [
+          {
+            "name": "Vollständiges Archiv",
+            "points": 3,
+            "sql": "SELECT Id,Stand,Erledigt FROM AusgabeArchiv;",
+            "failure": "Vergleiche das Archiv einschließlich aller früheren Einträge und aller Spalten."
+          },
+          {
+            "name": "Aktive Ausgaben",
+            "points": 3,
+            "sql": "SELECT Id,Stand,Erledigt FROM Ausgaben;",
+            "failure": "Nach dem Transfer müssen genau die offenen Ausgaben mit ihren ursprünglichen Werten übrig sein."
+          },
+          {
+            "name": "Gemeinsame Transaktion",
+            "atomicTransfer": true,
+            "points": 2,
+            "sql": "",
+            "failure": "Bestätige Kopieren und Entfernen gemeinsam oder verschiebe die Zeilen in einer einzigen atomaren Anweisung."
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "title": "Zugriff am Empfang berichtigen",
+        "task": "Die Rolle Empfang darf die vorbereitete Sicht Ausgabeliste lesen und versehentlich auch ändern (SELECT und UPDATE). Korrigiere ihre Rechte so, dass sie nur über die Sicht lesen kann. Direkte Rechte auf Ausgaben darf sie nicht erhalten.",
+        "operation": "Access",
+        "referenceSql": "REVOKE UPDATE ON Ausgabeliste\nFROM Empfang;",
+        "explanation": "REVOKE entzieht der Rolle genau das versehentlich gewährte UPDATE-Recht an der Sicht. Das bereits erteilte SELECT bleibt erhalten. Der Empfang sieht so die offenen Ausgaben, ohne die geschützte Basistabelle unmittelbar lesen oder bearbeiten zu dürfen.",
+        "preparation": [
+          "CREATE VIEW LernwerkProbe.Ausgabeliste AS SELECT Id, Stand FROM LernwerkProbe.Ausgaben WHERE Erledigt=0;",
+          "GRANT SELECT, UPDATE ON LernwerkProbe.Ausgabeliste TO LernwerkEmpfangRolle;"
+        ],
+        "criteria": [
+          {
+            "name": "Offene Ausgaben über die Sicht lesen",
+            "points": 3,
+            "sql": "SELECT Id,Stand FROM LernwerkProbe.Ausgabeliste;",
+            "failure": "Prüfe, ob Empfang die offenen Ausgaben über die Sicht weiterhin lesen darf.",
+            "probe": true
+          },
+          {
+            "name": "Sicht vor Änderungen schützen",
+            "points": 3,
+            "sql": "UPDATE LernwerkProbe.Ausgabeliste SET Stand=N'Probe';",
+            "failure": "Der Empfang kann über die Sicht noch einen Stand ändern.",
+            "probe": true
+          },
+          {
+            "name": "Weitere Rechte begrenzen",
+            "points": 2,
+            "sql": "SELECT COALESCE(HAS_PERMS_BY_NAME('LernwerkProbe.Ausgaben','OBJECT','SELECT'),0),COALESCE(HAS_PERMS_BY_NAME('LernwerkProbe.Ausgaben','OBJECT','UPDATE'),0),COALESCE(HAS_PERMS_BY_NAME('LernwerkProbe.Ausgaben','OBJECT','DELETE'),0),COALESCE(HAS_PERMS_BY_NAME('LernwerkProbe.Ausgaben','OBJECT','INSERT'),0),COALESCE(HAS_PERMS_BY_NAME('LernwerkProbe.Ausgabeliste','OBJECT','DELETE'),0),COALESCE(HAS_PERMS_BY_NAME('LernwerkProbe.Ausgabeliste','OBJECT','INSERT'),0);",
+            "failure": "Entferne zusätzliche Schreibrechte auf der Sicht und direkte Rechte auf der Basistabelle."
+          }
+        ]
       }
     ]
   }

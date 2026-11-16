@@ -84,9 +84,9 @@
           }
         ],
         "hints": [
-          "Trenne die Elemente.",
-          "Prüfe die Verbindungen.",
-          "Vergleiche jede Anforderung mit dem Entwurf."
+          "Erzähle die Proberaumbuchung aus Sicht des Mitglieds.",
+          "Welche Tätigkeit kommt bei jeder Buchung zwingend hinzu, obwohl sie kein eigenes Ziel des Mitglieds ist?",
+          "Lies den include-Pfeil als Satz. Kommt er bei der eingebundenen Funktion an?"
         ],
         "explanation": "Ein Akteur, zwei Anwendungsfälle und eine include-Abhängigkeit vom Buchen zur Prüfung."
       },
@@ -170,9 +170,9 @@
           }
         ],
         "hints": [
-          "Trenne die Elemente.",
-          "Prüfe die Verbindungen.",
-          "Vergleiche jede Anforderung mit dem Entwurf."
+          "Markiere Nummer und Verhalten getrennt. Zu welchem Objekt gehört jeweils das Merkmal?",
+          "Lies die Verbindung einmal für eine einzelne Raumbuchung und einmal für ein neues Mitglied.",
+          "Teste zwei Buchungen derselben Person. Sind beide bei den gewählten Multiplizitäten möglich?"
         ],
         "explanation": "1 am Mitgliedsende, 0..* am Buchungsende; nummer ist ein Attribut und bestaetigen eine Methode."
       },
@@ -307,9 +307,9 @@
           }
         ],
         "hints": [
-          "Trenne die Elemente.",
-          "Prüfe die Verbindungen.",
-          "Vergleiche jede Anforderung mit dem Entwurf."
+          "Spiele die Ausgabe für einen fehlenden Schlüssel durch.",
+          "Markiere die Bedingung an der Kante, auf der die jeweilige Nachricht erreicht wird.",
+          "Verfolge danach den vorhandenen Schlüssel. Erreicht auch dieser Weg das Ende?"
         ],
         "explanation": "Die beiden Entscheidungszweige sind unterschiedlich bedingt und führen nach ihrer Aktion zum Ende.",
         "conditions": {
@@ -396,9 +396,9 @@
           }
         ],
         "hints": [
-          "Trenne die Elemente.",
-          "Prüfe die Verbindungen.",
-          "Vergleiche jede Anforderung mit dem Entwurf."
+          "Stell dir eine Position vor, deren gesamte Ausgabe entfällt.",
+          "Welche Beziehung drückt diese Bindung aus, und an welchem Ende sitzt das Ganze?",
+          "Lies die Mindestzahlen für eine einzelne Ausgabe und für eine einzelne Position getrennt."
         ],
         "explanation": "Die Komposition zeigt den besitzenden Zusammenhang; die Raute liegt am Ganzen Ausgabe."
       },
@@ -501,9 +501,9 @@
           }
         ],
         "hints": [
-          "Trenne die Elemente.",
-          "Prüfe die Verbindungen.",
-          "Vergleiche jede Anforderung mit dem Entwurf."
+          "Halte die Seite gedanklich an, sobald der Ausgabedienst angefragt ist.",
+          "Welches Ergebnis muss der Dienst noch vom Bestand bekommen, bevor er antworten kann?",
+          "Lege Aufruf und Rückgabe paarweise nebeneinander. Stimmen Empfänger und Reihenfolge?"
         ],
         "explanation": "Die innere Abfrage wird vor dem äußeren Aufruf beantwortet.",
         "messages": {
@@ -632,9 +632,9 @@
           }
         ],
         "hints": [
-          "Trenne die Elemente.",
-          "Prüfe die Verbindungen.",
-          "Vergleiche jede Anforderung mit dem Entwurf."
+          "Markiere die stabilen Geschäftsstände zwischen den Tätigkeiten.",
+          "Lies jede Tätigkeit als Ereignis auf dem Weg zum nächsten Zustand.",
+          "Kann die zurückgegebene Sache noch abgeschlossen werden, oder endet dein Diagramm zu früh?"
         ],
         "explanation": "Drei Geschäftsstände sind vom abschließenden Finalknoten unterschieden.",
         "events": {
@@ -730,9 +730,9 @@
           }
         ],
         "hints": [
-          "Trenne die Elemente.",
-          "Prüfe die Verbindungen.",
-          "Vergleiche jede Anforderung mit dem Entwurf."
+          "Spiele die Anmeldung einmal ohne Wunsch nach einer Mail durch.",
+          "Welche Funktion erweitert das Anliegen des Gasts nur gelegentlich?",
+          "Lies die Erweiterungsbeziehung ausgehend von der Zusatzfunktion. Zeigt sie zum passenden Grundfall?"
         ],
         "explanation": "Die Erweiterung zeigt per extend auf den selbstständig nutzbaren Basisfall."
       },
@@ -889,9 +889,9 @@
           }
         ],
         "hints": [
-          "Trenne die Elemente.",
-          "Prüfe die Verbindungen.",
-          "Vergleiche jede Anforderung mit dem Entwurf."
+          "Plane zwei Teams ein, die nach dem Start unabhängig arbeiten dürfen.",
+          "An welcher Stelle ist das frühere Fertigwerden nur eines Teams noch unzureichend?",
+          "Spiele eine Verzögerung beim Einlass durch. Wartet der Abschluss auf beide Vorbereitungen?"
         ],
         "explanation": "Der Fork eröffnet parallele Arbeit, der Join synchronisiert vor dem Abschluss."
       },
@@ -979,9 +979,9 @@
           }
         ],
         "hints": [
-          "Trenne die Elemente.",
-          "Prüfe die Verbindungen.",
-          "Vergleiche jede Anforderung mit dem Entwurf."
+          "Unterstreiche, was die Einlassseite bei jeder Prüfung sendet.",
+          "Teile die möglichen Antworten nach dem Ergebnis der Ticketprüfung auf.",
+          "Verfolge nur ein einziges Ticket. Kann es in deinem Diagramm versehentlich beide Antworten erhalten?"
         ],
         "explanation": "Die Rückgaben stehen als bedingte Alternativen im alt-Fragment.",
         "conditions": {

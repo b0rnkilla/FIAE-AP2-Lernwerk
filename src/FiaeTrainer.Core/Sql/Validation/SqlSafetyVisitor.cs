@@ -15,6 +15,13 @@ internal sealed class SqlSafetyVisitor(Func<SchemaObjectName, bool> tableAllowed
         base.ExplicitVisit(node);
     }
 
+    public override void ExplicitVisit(ForeignKeyConstraintDefinition node)
+    {
+        if (!tableAllowed(node.ReferenceTableName))
+            Error ??= tableHint;
+        base.ExplicitVisit(node);
+    }
+
     public override void ExplicitVisit(FunctionCall node)
     {
         string[] allowed = ["COUNT", "SUM", "AVG", "MIN", "MAX", "ROUND", "ABS", "LEN", "LOWER", "UPPER", "ISNULL", "YEAR", "MONTH", "DAY", "DATEDIFF", "DATEADD"];
@@ -25,6 +32,7 @@ internal sealed class SqlSafetyVisitor(Func<SchemaObjectName, bool> tableAllowed
 
     public override void ExplicitVisit(VariableReference node) => Error ??= "Variablen sind in diesen Aufgaben nicht erforderlich.";
     public override void ExplicitVisit(GlobalVariableExpression node) => Error ??= "Servervariablen sind in diesen Aufgaben nicht erforderlich.";
+    public override void ExplicitVisit(NextValueForExpression node) => Error ??= "Sequenzen gehören nicht zu den Falltabellen dieser Aufgabe.";
     public override void ExplicitVisit(SelectSetVariable node) => Error ??= "Variablenzuweisungen sind hier nicht erlaubt.";
     public override void ExplicitVisit(OpenRowsetTableReference node) => RejectExternal();
     public override void ExplicitVisit(OpenQueryTableReference node) => RejectExternal();

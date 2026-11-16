@@ -1,0 +1,419 @@
+[
+  {
+    "id": 11,
+    "chapter": "04 · Von der Bestellung zur Rückgabe",
+    "scenario": "Orders",
+    "technique": "ForeignKey",
+    "title": "Welche Rückgabe gehört wohin?",
+    "topic": "Fremdschlüssel",
+    "story": "Der Reklamationsdienst möchte jede Rückgabe bis zu ihrer Bestellung zurückverfolgen können.",
+    "briefing": "Ein Fremdschlüssel verbindet die Werte in einer Kindtabelle mit einem eindeutigen Schlüssel der Elterntabelle. Prüfe auch, wie sich die Beziehung bei späteren Änderungen verhält.",
+    "task": "Ergänze einen Fremdschlüssel von Rueckgaben.BestellungId auf Bestellungen.Id. Eine Bestellung mit Rückgaben muss beim Löschversuch erhalten bleiben.",
+    "referenceSql": "ALTER TABLE Rueckgaben ADD FOREIGN KEY (BestellungId) REFERENCES Bestellungen(Id);",
+    "hints": [
+      "Finde zu Rückgabe 100 den zugehörigen Beleg.",
+      "In welcher der beiden Tabellen kann dieselbe Bestellnummer mehrmals stehen? Dort sitzt der Fremdschlüssel.",
+      "Prüfe zwei Löschfälle im Kopf. Bestellung 10 hat Rückgaben, Bestellung 30 hat keine."
+    ],
+    "explanation": "Der Schlüssel prüft beim Schreiben jede Bestellnummer. SQL Server verweigert standardmäßig das Löschen eines noch referenzierten Belegs. Eine Bestellung ohne Rückgabe lässt sich weiterhin löschen.",
+    "discovery": "Jede Rückgabe verweist auf einen vorhandenen Beleg.",
+    "resultHint": "Prüfe die Richtung des Verweises und ob SQL Server das Löschen einer belegten Bestellung verweigert."
+  },
+  {
+    "id": 12,
+    "chapter": "04 · Von der Bestellung zur Rückgabe",
+    "scenario": "Orders",
+    "technique": "ForeignKey",
+    "preparation": [
+      "INSERT Rueckgaben SELECT Id+300,BestellungId,Id+900 FROM Rueckgaben WHERE Id>=102;"
+    ],
+    "title": "Einen verwaisten Verweis reparieren",
+    "topic": "Bestandsdaten migrieren",
+    "story": "Beim Import sind Rückgaben mit Artikelnummern aus einem alten Katalog eingegangen.",
+    "briefing": "Ein Fremdschlüssel verbindet die Werte in einer Kindtabelle mit einem eindeutigen Schlüssel der Elterntabelle. Prüfe auch, wie sich die Beziehung bei späteren Änderungen verhält.",
+    "task": "Ordne jede Rückgabe ohne passenden Artikel dem Ersatzartikel 3 zu. Erhalte gültige Zuordnungen und ergänze anschließend einen geprüften Fremdschlüssel von ArtikelId auf Artikel.Id.",
+    "referenceSql": "UPDATE Rueckgaben SET ArtikelId = 3\nWHERE NOT EXISTS (SELECT 1 FROM Artikel WHERE Artikel.Id = Rueckgaben.ArtikelId);\nALTER TABLE Rueckgaben ADD FOREIGN KEY (ArtikelId) REFERENCES Artikel(Id);",
+    "hints": [
+      "Suche für jede Artikelnummer der Rückgaben eine Zeile im Katalog.",
+      "Eine korrelierte Unterabfrage kann feststellen, ob der Katalogeintrag fehlt.",
+      "Ein neuer Schlüssel wird bereits an den vorhandenen Daten geprüft. Welcher Arbeitsschritt muss zuerst fertig sein?"
+    ],
+    "explanation": "NOT EXISTS erfasst die verwaisten Verweise unabhängig von ihrer Nummer. Nach der Reparatur kann SQL Server den gesamten Bestand prüfen und künftige Fehleingaben abweisen.",
+    "discovery": "Der Altdatenimport erfüllt dieselbe Regel wie neue Rückgaben.",
+    "resultHint": "Vergleiche gültige und verwaiste Artikelnummern vor und nach der Reparatur. Ist der Fremdschlüssel anschließend aktiv?"
+  },
+  {
+    "id": 13,
+    "chapter": "04 · Von der Bestellung zur Rückgabe",
+    "scenario": "Orders",
+    "technique": "ForeignKey",
+    "title": "Abhängige Zeilen gemeinsam löschen",
+    "topic": "ON DELETE CASCADE",
+    "story": "Für eine kurzlebige Testbestellung sollen ihre Rückgabezeilen beim Aufräumen automatisch verschwinden.",
+    "briefing": "Ein Fremdschlüssel verbindet die Werte in einer Kindtabelle mit einem eindeutigen Schlüssel der Elterntabelle. Prüfe auch, wie sich die Beziehung bei späteren Änderungen verhält.",
+    "task": "Verknüpfe Rueckgaben.BestellungId mit Bestellungen.Id. Beim Löschen einer Bestellung sollen ausschließlich ihre zugehörigen Rückgaben automatisch mitgelöscht werden. Lass die Startdaten stehen.",
+    "referenceSql": "ALTER TABLE Rueckgaben ADD FOREIGN KEY (BestellungId) REFERENCES Bestellungen(Id) ON DELETE CASCADE;",
+    "hints": [
+      "Betrachte Bestellung 10 und ihre beiden Rückgaben.",
+      "Die Löschregel gehört an die Beziehung. Eine einmalige Löschanweisung würde zukünftige Bestellungen nicht erfassen.",
+      "Was muss mit Rückgabe 102 geschehen, wenn Bestellung 10 später gelöscht wird?"
+    ],
+    "explanation": "Die Kaskade wirkt vom gelöschten Elternsatz zu genau seinen Kindzeilen. Zwei Rückgaben können deshalb gemeinsam verschwinden, während die Rückgabe einer anderen Bestellung erhalten bleibt.",
+    "discovery": "Die automatische Bereinigung folgt der Bestellnummer.",
+    "resultHint": "Prüfe die Löschregel an einer Bestellung mit zwei Rückgaben. Die Rückgaben der anderen Bestellung müssen erhalten bleiben."
+  },
+  {
+    "id": 14,
+    "chapter": "04 · Von der Bestellung zur Rückgabe",
+    "scenario": "Orders",
+    "technique": "Create",
+    "title": "Bestellpositionen anlegen",
+    "topic": "n:m und zusammengesetzter Schlüssel",
+    "story": "Eine Bestellung kann jetzt mehrere Artikel enthalten. Derselbe Artikel taucht in vielen Bestellungen auf.",
+    "briefing": "Eine Zuordnungstabelle kann dieselbe Einzelnummer in mehreren Zeilen enthalten. Die gewählten Schlüssel bestimmen, welche Kombinationen gültig sind.",
+    "task": "Erstelle Positionen mit BestellungId und ArtikelId (je int NOT NULL). Verwende beide Spalten in dieser Reihenfolge als gemeinsamen Primärschlüssel und verweise auf Bestellungen.Id und Artikel.Id. Verwende die normalen Löschregeln.",
+    "referenceSql": "CREATE TABLE Positionen (\n    BestellungId int NOT NULL REFERENCES Bestellungen(Id),\n    ArtikelId int NOT NULL REFERENCES Artikel(Id),\n    PRIMARY KEY (BestellungId, ArtikelId)\n);",
+    "hints": [
+      "Zeichne zwei Bestellungen mit demselben Artikel.",
+      "Welche einzelne Nummer dürfte sich wiederholen, welche Kombination nur einmal vorkommen?",
+      "Eine eindeutige Kombination kann trotzdem eine unbekannte Artikelnummer enthalten. Welche Regel deckt das ab?"
+    ],
+    "explanation": "Der gemeinsame Schlüssel erlaubt mehrere Artikel je Bestellung und mehrere Bestellungen je Artikel. Die beiden Fremdschlüssel sichern zusätzlich ab, dass beide Seiten der Zuordnung existieren.",
+    "discovery": "Die Bestellposition bildet die Beziehung zwischen Bestellung und Artikel ab.",
+    "resultHint": "Prüfe die beiden Fremdschlüssel und die Zusammensetzung des Primärschlüssels. Eine Bestellung kann mehrere Artikel enthalten."
+  },
+  {
+    "id": 15,
+    "chapter": "04 · Von der Bestellung zur Rückgabe",
+    "scenario": "Orders",
+    "technique": "Unique",
+    "preparation": [
+      "CREATE TABLE Positionen(Id int PRIMARY KEY, BestellungId int NOT NULL REFERENCES Bestellungen(Id), ArtikelId int NOT NULL REFERENCES Artikel(Id));",
+      "INSERT Positionen VALUES (1,10,1),(2,10,2),(3,20,1);"
+    ],
+    "title": "Doppelte Positionen verhindern",
+    "topic": "UNIQUE über zwei Spalten",
+    "story": "Die Kasse hat bereits Positionsnummern vergeben. Zwei verschiedene Nummern können bislang dasselbe Artikelpaar verdecken.",
+    "briefing": "Zusätzliche Eindeutigkeitsregeln können mehrere Spalten umfassen. Betrachte für die Regel vollständige Wertepaare.",
+    "task": "Positionen hat schon Id als Primärschlüssel. Ergänze eine UNIQUE-Regel für (BestellungId, ArtikelId) in dieser Reihenfolge und erhalte alle Daten und Fremdschlüssel.",
+    "referenceSql": "ALTER TABLE Positionen ADD UNIQUE (BestellungId, ArtikelId);",
+    "hints": [
+      "Vergleiche die Bedeutung der technischen Nummer mit der fachlichen Identität einer Position.",
+      "Würde eine eindeutige BestellungId allein mehrere Artikel je Einkauf zulassen?",
+      "Teste gedanklich eine neue Id mit einem bereits verwendeten Paar."
+    ],
+    "explanation": "Die Id bleibt als technischer Schlüssel erhalten. Die zusätzliche Eindeutigkeit schützt das fachliche Paar auch dann, wenn eine neue Id vergeben wurde.",
+    "discovery": "Die Kasse kann denselben Artikel je Bestellung nur einmal als Position führen.",
+    "resultHint": "Prüfe eine neue Positionsnummer mit einem bereits vorhandenen Wertepaar. Dieselbe Bestellung darf weiterhin andere Artikel enthalten."
+  },
+  {
+    "id": 16,
+    "chapter": "05 · Zwei Lager werden zusammengeführt",
+    "scenario": "Stock",
+    "technique": "UnionAll",
+    "title": "Jede Lagerbuchung mitzählen",
+    "topic": "UNION ALL",
+    "story": "Nord- und Südlager liefern ihre Buchungen getrennt. Zwei identische Meldungen können zwei echte Lieferungen sein.",
+    "briefing": "Mengenoperatoren verbinden die Ergebnisse zweier Abfragen mit gleich vielen, typverträglichen Spalten.",
+    "task": "Gib alle Buchungen aus Nord und Sued gemeinsam als ArtikelId, Menge aus. Verwende einen Mengenoperator, erhalte jede Wiederholung. Die Reihenfolge ist frei.",
+    "referenceSql": "SELECT ArtikelId, Menge FROM Nord\nUNION ALL\nSELECT ArtikelId, Menge FROM Sued;",
+    "hints": [
+      "Zähle, wie oft das Wertepaar (1, 4) in beiden Listen zusammen vorkommt.",
+      "Ein JOIN würde passende Zeilen nebeneinanderlegen. Hier sollen beide Listen untereinanderstehen.",
+      "Zähle auch die zwei identischen Buchungen innerhalb des Nordlagers mit."
+    ],
+    "explanation": "Beide SELECT-Teile liefern die gleichen zwei Spalten. UNION ALL hängt ihre Zeilen aneinander und erhält sowohl Wiederholungen innerhalb eines Lagers als auch lagerübergreifende Doppelungen.",
+    "discovery": "Die Liste enthält jede einzelne Buchung.",
+    "resultHint": "Vergleiche die Anzahl der Buchungen je Wertepaar in Quelle und Ergebnis. Achte auch auf Wiederholungen innerhalb eines Lagers."
+  },
+  {
+    "id": 17,
+    "chapter": "05 · Zwei Lager werden zusammengeführt",
+    "scenario": "Stock",
+    "technique": "Union",
+    "title": "Einen gemeinsamen Artikelkatalog bilden",
+    "topic": "UNION",
+    "story": "Für die Inventurliste braucht der Einkauf nur die vertretenen Artikelnummern.",
+    "briefing": "Vergleiche die Ergebnisspalten beider Teillisten. Der Mengenoperator entscheidet über Wiederholungen.",
+    "task": "Gib mit einer Mengenvereinigung jede ArtikelId aus Nord oder Sued genau einmal aus. Die Reihenfolge ist frei.",
+    "referenceSql": "SELECT ArtikelId FROM Nord\nUNION\nSELECT ArtikelId FROM Sued;",
+    "hints": [
+      "Artikel 2 kommt mehrmals und in beiden Lagern vor. Wie viele Katalogeinträge braucht er?",
+      "Wähle in beiden Teilergebnissen ausschließlich das gewünschte Identitätsmerkmal aus.",
+      "Wenn du die Menge mit auswählst, gelten zwei Zeilen mit verschiedenen Mengen noch als identisch?"
+    ],
+    "explanation": "UNION vergleicht vollständige Ergebniszeilen. Die Projektion auf die Artikelnummer sorgt dafür, dass verschiedene Mengen keine zusätzlichen Katalogeinträge erzeugen.",
+    "discovery": "Der Einkauf sieht jede geführte Nummer einmal.",
+    "resultHint": "Kontrolliere eine Artikelnummer, die in beiden Lagern vorkommt, und eine, die nur im Süden liegt."
+  },
+  {
+    "id": 18,
+    "chapter": "05 · Zwei Lager werden zusammengeführt",
+    "scenario": "Stock",
+    "technique": "Except",
+    "title": "Nur im Norden gelistet",
+    "topic": "EXCEPT",
+    "story": "Vor der Zusammenlegung sollen die Lager ihre abweichenden Sortimente abstimmen.",
+    "briefing": "Bei einer Mengendifferenz zählt die Richtung des Vergleichs.",
+    "task": "Gib mit EXCEPT die ArtikelId aus, die in Nord vorkommen und in Sued fehlen. Jede Nummer einmal, Reihenfolge frei.",
+    "referenceSql": "SELECT ArtikelId FROM Nord\nEXCEPT\nSELECT ArtikelId FROM Sued;",
+    "hints": [
+      "Markiere eine Nummer, die nur im Süden vorkommt. Gehört sie zur gesuchten Liste?",
+      "Die linke Seite ist der Ausgangsbestand, von dem du Treffer entfernst.",
+      "Tausche die Lagernamen gedanklich. Bleibt die fachliche Frage dieselbe?"
+    ],
+    "explanation": "EXCEPT bildet die gerichtete Differenz. Übrig bleiben verschiedene Nord-Artikelnummern ohne Gegenstück in Sued.",
+    "discovery": "Die offenen Sortimentslücken im Süden sind bekannt.",
+    "resultHint": "Prüfe die Richtung der Differenz. Ein reiner Südartikel gehört nicht ins Ergebnis."
+  },
+  {
+    "id": 19,
+    "chapter": "05 · Zwei Lager werden zusammengeführt",
+    "scenario": "Stock",
+    "technique": "Intersect",
+    "title": "Die Schnittmenge finden",
+    "topic": "INTERSECT",
+    "story": "Eine gemeinsame Zählrunde lohnt sich für Artikel, die beide Teams führen.",
+    "briefing": "Die Schnittmenge vergleicht alle ausgegebenen Spalten der beiden Abfragen.",
+    "task": "Gib mit INTERSECT jede ArtikelId aus, die sowohl in Nord als auch in Sued vorkommt. Reihenfolge frei.",
+    "referenceSql": "SELECT ArtikelId FROM Nord\nINTERSECT\nSELECT ArtikelId FROM Sued;",
+    "hints": [
+      "Prüfe Artikel 2. Seine Mengen müssen für die gemeinsame Zählrunde nicht übereinstimmen.",
+      "Beide SELECT-Listen müssen dieselbe fachliche Frage stellen.",
+      "Würde ein zusätzlich ausgewählter Mengenwert die Schnittmenge verkleinern?"
+    ],
+    "explanation": "INTERSECT liefert jede gemeinsame Ergebniszeile einmal. Der Vergleich nur der ArtikelId berücksichtigt auch Artikel mit unterschiedlichen Mengen in den beiden Lagern.",
+    "discovery": "Die gemeinsame Zählrunde hat eine eindeutige Artikelliste.",
+    "resultHint": "Kontrolliere die Zugehörigkeit in beiden Lagern unabhängig von der Menge."
+  },
+  {
+    "id": 20,
+    "chapter": "05 · Zwei Lager werden zusammengeführt",
+    "scenario": "Stock",
+    "technique": "InsertSelect",
+    "preparation": [
+      "INSERT Archiv VALUES (99,1);"
+    ],
+    "title": "Buchungen ins Archiv kopieren",
+    "topic": "INSERT … SELECT",
+    "story": "Das Nordlager will positive Mengen sichern und seine Arbeitsliste weiter benutzen.",
+    "briefing": "Eine SELECT-Abfrage kann die Eingabe für eine Einfügung liefern. Die Reihenfolge der Werte richtet sich nach der Zielspaltenliste.",
+    "task": "Kopiere mit INSERT … SELECT alle Nord-Zeilen mit positiver Menge in Archiv (ArtikelId, Menge). Erhalte Wiederholungen, vorhandene Archivinhalte und alle Quelldaten.",
+    "referenceSql": "INSERT INTO Archiv (ArtikelId, Menge)\nSELECT ArtikelId, Menge FROM Nord WHERE Menge > 0;",
+    "hints": [
+      "Suche im Nordlager nach einer Buchung, die nicht kopiert werden darf.",
+      "Die SELECT-Liste liefert die Werte für die Zielspalten an derselben Position.",
+      "Was passiert mit zwei identischen positiven Buchungen, wenn du DISTINCT verwendest?"
+    ],
+    "explanation": "Der SELECT-Teil bestimmt die zu kopierenden Zeilen. INSERT ergänzt sie im Archiv. Durch den Filter bleibt die Nullbuchung draußen und Wiederholungen bleiben erhalten.",
+    "discovery": "Die positiven Buchungen liegen zusätzlich im Archiv.",
+    "resultHint": "Vergleiche Archiv und Quelle vor und nach dem Kopieren. Zwei gleiche positive Buchungen ergeben auch zwei Archivzeilen."
+  },
+  {
+    "id": 21,
+    "chapter": "05 · Zwei Lager werden zusammengeführt",
+    "scenario": "Stock",
+    "technique": "Archive",
+    "preparation": [
+      "INSERT Archiv VALUES (99,1);"
+    ],
+    "title": "Archivieren und ausbuchen",
+    "topic": "Transaktion mit zwei Schreibschritten",
+    "story": "Nach dem Probelauf soll das Nordlager seine erledigten Buchungen vollständig verschieben.",
+    "briefing": "Eine Transaktion verbindet mehrere zusammengehörige Änderungen zu einem gemeinsamen Abschluss.",
+    "task": "Verschiebe alle positiven Nord-Buchungen nach Archiv. Umschließe Kopieren und anschließendes Löschen mit einer gemeinsamen Transaktion und bestätige sie. Behalte Nord-Zeilen mit Menge 0 und bisherige Archivinhalte.",
+    "referenceSql": "BEGIN TRANSACTION;\nINSERT INTO Archiv (ArtikelId, Menge)\nSELECT ArtikelId, Menge FROM Nord WHERE Menge > 0;\nDELETE FROM Nord WHERE Menge > 0;\nCOMMIT;",
+    "hints": [
+      "Lege fest, welche Zeilen nach dem Verschieben nur noch im Archiv stehen dürfen.",
+      "Kopiere zuerst. Nach dem Löschen stehen dir die Quelldaten nicht mehr für die Kopie zur Verfügung.",
+      "Welche beiden Änderungen müssen vor demselben COMMIT liegen?"
+    ],
+    "explanation": "Die Transaktion hält Kopie und Löschung zusammen. Der gleiche Filter auf beiden Seiten verhindert, dass eine Buchung verloren geht oder im Arbeitsbestand zurückbleibt.",
+    "discovery": "Ein bestätigter Archivlauf hinterlässt genau die offenen Buchungen.",
+    "resultHint": "Prüfe Quelle und Archiv für eine positive Buchung und eine Nullbuchung. Beide Schreibschritte brauchen eine gemeinsame Transaktion."
+  },
+  {
+    "id": 22,
+    "chapter": "05 · Zwei Lager werden zusammengeführt",
+    "scenario": "Stock",
+    "technique": "UpdateJoin",
+    "title": "Gezählte Bestände übernehmen",
+    "topic": "UPDATE mit JOIN",
+    "story": "Beim Zählen bedeutet 0 ein leeres Fach. Ein leeres Eingabefeld bedeutet, dass die Zählung noch fehlt.",
+    "briefing": "In T-SQL kannst du das Änderungsziel über einen Alias im FROM-Teil mit der Datenquelle verbinden.",
+    "task": "Übernimm Meldungen.Gezaehlt mit UPDATE und JOIN nach Artikel.Bestand für dieselbe Artikelnummer. Eine gemeldete 0 ist gültig. Bei NULL oder fehlender Meldung bleibt der alte Bestand erhalten.",
+    "referenceSql": "UPDATE a SET Bestand = m.Gezaehlt\nFROM Artikel AS a JOIN Meldungen AS m ON m.ArtikelId = a.Id\nWHERE m.Gezaehlt IS NOT NULL;",
+    "hints": [
+      "Vergleiche die Meldungen zu Artikel 2, 3 und 4. Welche davon enthält einen gültigen Messwert?",
+      "Verbinde die Artikelnummern. Der Alias der zu ändernden Tabelle darf direkt hinter UPDATE stehen.",
+      "Prüfe deinen Filter mit dem Messwert 0. Auch dann muss eine Änderung stattfinden."
+    ],
+    "explanation": "Der JOIN erreicht nur Artikel mit Meldung. IS NOT NULL lässt die echte Nullzählung 0 zu und schützt den alten Bestand bei ausstehender Zählung.",
+    "discovery": "Der Bestand unterscheidet leere Fächer von fehlenden Meldungen.",
+    "resultHint": "Vergleiche einen Zählwert von 0, einen fehlenden Zählwert und einen Artikel ohne Meldung."
+  },
+  {
+    "id": 23,
+    "chapter": "05 · Zwei Lager werden zusammengeführt",
+    "scenario": "Stock",
+    "technique": "Query",
+    "title": "Die Zählliste erläutern",
+    "topic": "CASE und COALESCE",
+    "story": "Die Schichtleitung möchte den verwendbaren Bestand und seine Herkunft gemeinsam sehen.",
+    "briefing": "Ein äußerer Verbund erhält auch Datensätze ohne passenden Partner. Prüfe bei der Auswertung die Bedeutung von NULL.",
+    "task": "Zeige für jeden Artikel Id, verwendbare Menge und Herkunft. Nutze den Zählwert, falls vorhanden, sonst den alten Bestand. Gib bei verwendbarem Zählwert 'gezaehlt', sonst 'Bestand' aus. Reihenfolge frei.",
+    "referenceSql": "SELECT a.Id, COALESCE(m.Gezaehlt, a.Bestand),\n       CASE WHEN m.Gezaehlt IS NULL THEN 'Bestand' ELSE 'gezaehlt' END\nFROM Artikel AS a LEFT JOIN Meldungen AS m ON a.Id = m.ArtikelId;",
+    "hints": [
+      "Auch Artikel ohne Meldung sollen in der Ausgabe stehen.",
+      "Welche Spalte bleibt nach dem äußeren JOIN bei fehlendem Zählwert leer?",
+      "Prüfe den Herkunftstext bei einer ausdrücklich gezählten Menge von 0."
+    ],
+    "explanation": "Der LEFT JOIN bewahrt die Artikelliste. COALESCE wählt den ersten vorhandenen Wert. CASE beschreibt dieselbe Entscheidung als Text, sodass auch eine Zählung von 0 ihren Ursprung behält.",
+    "discovery": "Neben jeder Menge steht ihre Herkunft.",
+    "resultHint": "Prüfe für jede Artikelnummer Menge und Herkunft. Eine gemeldete 0 trägt den Herkunftstext für eine erfolgte Zählung."
+  },
+  {
+    "id": 24,
+    "chapter": "05 · Zwei Lager werden zusammengeführt",
+    "scenario": "Stock",
+    "technique": "Query",
+    "title": "Den größten Gesamtposten ermitteln",
+    "topic": "Aggregation in zwei Stufen",
+    "story": "Vor dem Transport muss ein Fahrzeug für den größten zusammengefassten Artikelposten eingeplant werden.",
+    "briefing": "Eine abgeleitete Tabelle stellt ein Zwischenergebnis als Quelle für die nächste Abfrage bereit.",
+    "task": "Gib genau eine Zahl aus. Gesucht ist die größte Gesamtmenge eines einzelnen Artikels über alle Buchungen beider Lager. Zähle gleiche Buchungen einzeln.",
+    "referenceSql": "SELECT MAX(s.Gesamt)\nFROM (\n    SELECT b.ArtikelId, SUM(b.Menge) AS Gesamt\n    FROM (SELECT ArtikelId, Menge FROM Nord UNION ALL SELECT ArtikelId, Menge FROM Sued) AS b\n    GROUP BY b.ArtikelId\n) AS s;",
+    "hints": [
+      "Die größte einzelne Buchung und der größte Gesamtposten können zu verschiedenen Artikeln gehören.",
+      "Erstelle zunächst ein Zwischenergebnis mit einer Summe je Artikel.",
+      "Auf welcher Ebene liegt nur noch eine Zahl je Artikel vor, aus der du das Maximum bilden kannst?"
+    ],
+    "explanation": "Die innere Vereinigung bewahrt alle Buchungen. GROUP BY bildet daraus die Summe je Artikel. Das äußere MAX vergleicht anschließend die Summen der verschiedenen Artikel.",
+    "discovery": "Die Disposition kennt die benötigte Spitzenkapazität.",
+    "resultHint": "Bilde für einen Artikel die Summe beider Lager von Hand. Vergleiche danach die Summen der verschiedenen Artikel."
+  },
+  {
+    "id": 25,
+    "chapter": "06 · Der Empfang bekommt Zugriff",
+    "scenario": "Reception",
+    "technique": "Migration",
+    "title": "Bestehende Termine migrieren",
+    "topic": "Migration und NOT NULL",
+    "story": "Der Empfang übernimmt einen gefüllten Terminkalender. Bestätigte Termine brauchen eine andere Freigabestufe als Entwürfe.",
+    "briefing": "Bei einer befüllten Tabelle muss eine neue Pflichtregel zu jeder vorhandenen Zeile passen.",
+    "task": "Ergänze Termine.Freigabe als int. Trage für bestätigte Termine 2, sonst 1 ein. Schließe die Migration mit einer Pflichtspalte ohne Standardwert ab. Erhalte alle bisherigen Daten.",
+    "referenceSql": "ALTER TABLE Termine ADD Freigabe int NULL;\nUPDATE Termine SET Freigabe = CASE WHEN Bestaetigt=1 THEN 2 ELSE 1 END;\nALTER TABLE Termine ALTER COLUMN Freigabe int NOT NULL;",
+    "hints": [
+      "Überlege, welchen Wert bestehende Termine beim Anlegen einer leeren Spalte erhalten.",
+      "Nutze das Bestätigungsfeld, um jede vorhandene Zeile einzustufen.",
+      "Zu welchem Zeitpunkt kann SQL Server die Pflichtfeldregel für den ganzen Bestand prüfen?"
+    ],
+    "explanation": "Die neue Spalte lässt während der Migration leere Werte zu. Nach dem differenzierten Nachtragen kann ALTER COLUMN die Regel auch für künftige Termine verbindlich machen.",
+    "discovery": "Jeder Termin hat eine geprüfte Freigabestufe.",
+    "resultHint": "Prüfe Freigabe für einen bestätigten und einen offenen Termin sowie die NULL-Regel der fertigen Spalte."
+  },
+  {
+    "id": 26,
+    "chapter": "06 · Der Empfang bekommt Zugriff",
+    "scenario": "Reception",
+    "technique": "Default",
+    "preparation": [
+      "ALTER TABLE Termine ADD Stufe int NULL;",
+      "UPDATE Termine SET Stufe=3 WHERE Bestaetigt=1;"
+    ],
+    "title": "Einen Standard für neue Termine setzen",
+    "topic": "DEFAULT und Altbestand",
+    "story": "Für die Bearbeitungsstufe gibt es historische Einträge. Neue Termine sollen mit Stufe 1 beginnen.",
+    "briefing": "Prüfe den Unterschied zwischen einem ausgelassenen Wert beim Einfügen und einem ausdrücklich übergebenen NULL.",
+    "task": "Die bestehende Spalte Termine.Stufe (int NULL) soll bei neuen Terminen den Standardwert 1 erhalten, wenn die Spalte beim Einfügen fehlt. Vorhandene Werte einschließlich NULL und ausdrücklich eingefügtes NULL bleiben erlaubt.",
+    "referenceSql": "ALTER TABLE Termine ADD DEFAULT (1) FOR Stufe;",
+    "hints": [
+      "Vergleiche einen alten Termin ohne Eintrag mit einem neu angelegten Termin.",
+      "Ein Standardwert greift, wenn eine Spalte beim Einfügen ausgelassen wird.",
+      "Überlege, warum ein UPDATE aller leeren Werte den Auftrag verletzen würde."
+    ],
+    "explanation": "DEFAULT liefert einen Wert für künftige Einfügungen ohne Stufenangabe. Bestehende Zeilen behalten ihren Inhalt. Ein ausdrücklich angegebenes NULL bleibt bei dieser optionalen Spalte möglich.",
+    "discovery": "Die nächste Erfassung startet mit der vorgesehenen Stufe.",
+    "resultHint": "Vergleiche einen bestehenden NULL-Wert mit der Stufe nach einer neuen Einfügung ohne Angabe."
+  },
+  {
+    "id": 27,
+    "chapter": "06 · Der Empfang bekommt Zugriff",
+    "scenario": "Reception",
+    "technique": "View",
+    "title": "Eine Sicht für den Empfang",
+    "topic": "CREATE VIEW",
+    "story": "Die Rezeption braucht einen Tagesplan. Interne Notizen dürfen auf dem Ausdruck nicht erscheinen.",
+    "briefing": "Eine Sicht stellt eine gespeicherte Abfrage wie eine Tabelle zum Lesen bereit.",
+    "task": "Erstelle die Sicht Tagesplan. Sie liefert ausschließlich Id und Titel in dieser Reihenfolge für bestätigte Termine. Die Ausgabespalten heißen Id und Titel.",
+    "referenceSql": "CREATE VIEW Tagesplan AS\nSELECT Id, Titel FROM Termine WHERE Bestaetigt = 1;",
+    "hints": [
+      "Welche Termine gehören überhaupt auf den Ausdruck?",
+      "Prüfe die Spaltenliste unabhängig vom Zeilenfilter.",
+      "Was passiert mit einem später bestätigten Termin, wenn du die heutige Auswahl nur kopierst?"
+    ],
+    "explanation": "Eine Sicht speichert die Abfragedefinition. Beim Lesen greift der Tagesplan auf den aktuellen Terminbestand zu und zeigt die internen Notizen in keiner seiner Spalten.",
+    "discovery": "Die Rezeption kann den aktuellen Tagesplan abrufen.",
+    "resultHint": "Lies die Sicht als Empfangskraft. Stimmen Spaltennamen, Spaltenreihenfolge und die Auswahl bestätigter Termine?"
+  },
+  {
+    "id": 28,
+    "chapter": "06 · Der Empfang bekommt Zugriff",
+    "scenario": "Reception",
+    "technique": "Grant",
+    "title": "Leserecht für die Rezeption",
+    "topic": "GRANT",
+    "story": "Der Tagesplan ist bereit. Eine Kollegin der Rolle Empfang erhält bislang beim Lesen eine Zugriffsfehlermeldung.",
+    "briefing": "Ein Objektprivileg verbindet eine Aktion und ein Datenbankobjekt mit einer Rolle.",
+    "task": "Erteile der vorhandenen Rolle Empfang ausschließlich SELECT auf die Sicht Tagesplan. Termine und die Schreibrechte bleiben geschützt.",
+    "referenceSql": "GRANT SELECT ON Tagesplan TO Empfang;",
+    "hints": [
+      "Der Empfang benötigt zwei Festlegungen. Welches Objekt soll er lesen und welche Aktion ist nötig?",
+      "Die Sicht schränkt bereits Zeilen und Spalten ein. Eine Freigabe der Basistabelle wäre weiter gefasst.",
+      "Probiere gedanklich neben dem Lesen eine Änderung durch dieselbe Rolle."
+    ],
+    "explanation": "Die Rolle erhält ein Objektprivileg auf der Sicht. SQL Server kann wegen des gemeinsamen Eigentümers die gefilterten Daten liefern. Direkter Tabellenzugriff und Änderungen bleiben gesperrt.",
+    "discovery": "Die Rezeption sieht ausschließlich die freigegebenen Informationen.",
+    "resultHint": "Prüfe Lesen und Ändern jeweils auf Sicht und Basistabelle. Allein der Tagesplan soll lesbar sein."
+  },
+  {
+    "id": 29,
+    "chapter": "06 · Der Empfang bekommt Zugriff",
+    "scenario": "Reception",
+    "technique": "Revoke",
+    "title": "Ein zu weit gehendes Recht entziehen",
+    "topic": "REVOKE",
+    "story": "Bei einer Aushilfe ist die Lesefreigabe korrekt, aber die Rolle darf den Tagesplan auch ändern.",
+    "briefing": "Mehrere Berechtigungen auf demselben Objekt lassen sich unabhängig voneinander vergeben und entziehen.",
+    "task": "Entziehe der Rolle Empfang das vorhandene UPDATE-Recht auf Tagesplan mit REVOKE. Das SELECT-Recht auf die Sicht soll weiter funktionieren. Direkte Tabellenrechte sind nicht vorgesehen.",
+    "referenceSql": "REVOKE UPDATE ON Tagesplan FROM Empfang;",
+    "hints": [
+      "Prüfe, welche Handlung heute möglich ist und künftig entfallen soll.",
+      "Ein bestehendes Recht kannst du einzeln zurücknehmen. Die Lesefreigabe wird weiterhin gebraucht.",
+      "Wie würdest du mit zwei unterschiedlichen Aktionen prüfen, dass nur die gewünschte Freigabe entfallen ist?"
+    ],
+    "explanation": "REVOKE entfernt hier die zuvor direkt erteilte Änderungsberechtigung. Das unabhängig vergebene SELECT bleibt bei der Rolle und erlaubt weiter den Tagesplan.",
+    "discovery": "Die Rolle behält den Tagesplan als lesende Ansicht.",
+    "resultHint": "Prüfe nach dem Entzug beide Aktionen. Der Tagesplan muss lesbar bleiben und Änderungen müssen scheitern."
+  },
+  {
+    "id": 30,
+    "chapter": "06 · Der Empfang bekommt Zugriff",
+    "scenario": "Reception",
+    "technique": "Index",
+    "title": "Einen Suchindex anlegen",
+    "topic": "Zusammengesetzter Index",
+    "story": "Die Rezeption filtert regelmäßig nach Bestätigung und sucht dann innerhalb dieser Gruppe nach dem Titel.",
+    "briefing": "Die Reihenfolge der Indexschlüssel beeinflusst, für welche Suchbedingungen sich ein Index eignet.",
+    "task": "Lege auf Termine einen zusätzlichen nicht eindeutigen, nicht gruppierten Index über Bestaetigt und Titel an, beide aufsteigend und in dieser Reihenfolge. Der Indexname ist frei. Behalte den bisherigen Primärschlüssel.",
+    "referenceSql": "CREATE NONCLUSTERED INDEX IX_Termine_Suche ON Termine (Bestaetigt, Titel);",
+    "hints": [
+      "Welche Bedingung grenzt die Liste zuerst ein?",
+      "Vergleiche die Schlüsselreihenfolgen (Titel, Bestaetigt) und (Bestaetigt, Titel) für diesen Suchweg.",
+      "Zwei bestätigte Termine dürfen denselben Titel tragen. Welche Indexoption würde das verhindern?"
+    ],
+    "explanation": "Der erste Schlüssel ordnet die Bestätigungsgruppen, der zweite die Titel innerhalb jeder Gruppe. Der Index benötigt Speicher und zusätzliche Arbeit bei Änderungen. Ob SQL Server ihn für eine konkrete Abfrage nutzt, entscheidet der Optimierer.",
+    "discovery": "Für die Suche steht ein passender zusätzlicher Zugriffspfad bereit.",
+    "resultHint": "Prüfe die Reihenfolge der beiden Indexschlüssel und ob ein gleicher Titel mehrfach vorkommen darf."
+  }
+]

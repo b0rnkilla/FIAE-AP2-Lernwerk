@@ -9,7 +9,7 @@ public sealed class SqlExamTask
     public string Title { get; init; } = "";
     /// <summary> Expliziter Antwortvertrag und Spaltenreihenfolge. </summary>
     public string Task { get; init; } = "";
-    /// <summary> Query, Update, Insert oder Alter; nur die angegebene Anweisungsart ist erlaubt. </summary>
+    /// <summary> Arbeitsform, die die zulässigen Anweisungen für diesen Auftrag festlegt. </summary>
     public string Operation { get; init; } = "Query";
     /// <summary> Feste zusätzliche Tabelle für eine Schreibaufgabe. </summary>
     public string Target { get; init; } = "";
@@ -17,6 +17,10 @@ public sealed class SqlExamTask
     public string ReferenceSql { get; init; } = "";
     /// <summary> Erläuterung der Musterlösung. </summary>
     public string Explanation { get; init; } = "";
+    /// <summary> Fallinterne Einrichtung vor einem einzelnen Auftrag. </summary>
+    public string[] Preparation { get; init; } = [];
+    /// <summary> Unabhängige fachliche Prüfungen zusätzlich zu den zwei Formpunkten. </summary>
+    public SqlExamCriterion[] Criteria { get; init; } = [];
     /// <summary> Nur bei ausdrücklich verlangter Sortierung relevant. </summary>
     public bool Ordered { get; init; }
 }

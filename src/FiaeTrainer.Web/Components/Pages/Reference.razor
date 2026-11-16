@@ -35,7 +35,21 @@ DELETE FROM Artikel WHERE Aktiv = 0;</code></pre><p>UPDATE ändert vorhandene Ze
 UPDATE Konten SET Guthaben = Guthaben - 50 WHERE Id = 1;
 UPDATE Konten SET Guthaben = Guthaben + 50 WHERE Id = 2;
 COMMIT;</code></pre><p>COMMIT bestätigt die zusammengehörigen Änderungen, ROLLBACK nimmt sie zurück. In einer echten Anwendung gehört eine passende Fehlerbehandlung dazu. In der Werkstatt zeigt der Zwischenstand vor ROLLBACK auch den versuchsweisen Abzug.</p></section>
-    <section class="notice"><strong>Was diese Version noch nicht vollständig abdeckt</strong><p>Fremdschlüssel als ausführbare Strukturaufgabe, Berechtigungen, UNION und weitere SQL-Themen fehlen noch. UML und die übrigen Module sind in Vorbereitung. Die App ist kein vollständiger SQL- oder AP2-Prüfungskatalog.</p></section>
+    <section class="reference-section"><h2>Tabellen verbinden und Werte übernehmen</h2>
+        <p>Bei einem UPDATE mit JOIN steht der Zielalias direkt hinter UPDATE. FROM führt die Tabelle mit diesem Alias ein. JOIN und ON verbinden die Quelle, WHERE grenzt die Änderung ein.</p>
+        <pre><code>UPDATE p SET Preis = n.NeuerPreis
+FROM Produkte AS p
+JOIN Preisliste AS n ON n.ProduktId = p.Id
+WHERE n.NeuerPreis IS NOT NULL;</code></pre>
+        <p>Für einen Anzeigenamen mit Bindestrich verwende eckige Klammern, etwa <code>AS [Produkt-Id]</code>. Für den Vergleich mit einem Textwert gibt es <code>=</code> und <code>&lt;&gt;</code>.</p></section>
+    <section class="reference-section"><h2>Mengen, Schlüssel und Berechtigungen</h2>
+        <dl><dt>UNION und UNION ALL</dt><dd>Beide hängen Ergebnislisten untereinander. UNION fasst gleiche Ergebniszeilen zusammen. UNION ALL erhält jede Wiederholung. EXCEPT liefert die Differenz, INTERSECT die Schnittmenge.</dd>
+        <dt>FOREIGN KEY und REFERENCES</dt><dd>Der Fremdschlüssel sichert den Verweis auf einen vorhandenen Schlüssel. Bei NO ACTION blockieren Kindzeilen das Löschen des Elternsatzes. ON DELETE CASCADE löscht die zugehörigen Kindzeilen mit.</dd>
+        <dt>CREATE VIEW, GRANT und REVOKE</dt><dd>Eine Sicht kann Zeilen und Spalten begrenzen. Ein Leserecht auf die Sicht lässt sich einer Rolle gezielt erteilen und wieder entziehen.</dd></dl></section>
+    <section class="notice">
+        <strong>Umfang der SQL-Übungen</strong>
+        <p>Die Werkstatt übt diese Techniken an drei Fällen. Weitere Themen wie Fensterfunktionen und gespeicherte Prozeduren liegen außerhalb der Aufgaben. Das Lernwerk deckt nur einen Teil von SQL und des AP2-Prüfungsstoffs ab.</p>
+    </section>
 </main>
 
 @code {

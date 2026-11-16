@@ -5,7 +5,8 @@ CREATE TABLE #Artikel (
     Id int NOT NULL PRIMARY KEY,
     Name nvarchar(60) NOT NULL,
     Kategorie nvarchar(30) NOT NULL,
-    Preis decimal(10,2) NOT NULL CHECK (Preis >= 0),
+    -- Zusätzliche Stellen machen in der Preisaufgabe eine ausgelassene Rundung sichtbar.
+    Preis decimal(12,4) NOT NULL CHECK (Preis >= 0),
     Bestand int NOT NULL,
     Aktiv bit NOT NULL
 );
@@ -16,7 +17,7 @@ CREATE TABLE #Konten (
 );
 INSERT INTO #Artikel (Id,Name,Kategorie,Preis,Bestand,Aktiv) VALUES
 (1,N'Temperatursensor',N'Sensoren',25.00,3,1),
-(2,N'Drucksensor',N'Sensoren',40.00,12,1),
+(2,N'Drucksensor',N'Sensoren',40.05,12,1),
 (3,N'Transportbox',N'Zubehör',12.50,0,1),
 (4,N'Altadapter',N'Zubehör',5.00,1,0),
 (5,N'Prüfgerät',N'Geräte',180.00,6,1);

@@ -4,13 +4,19 @@
 | --- | --- |
 | Anwendung | AP2 Lernwerk |
 | Projektmappe | FIAE_AP2_Trainer.sln |
-| Entwicklungsfassung | 1.0.0-beta.1 mit allen acht Lernbereichen und den sechs Korrekturen aus dem Abschlusscheck |
-| Zuletzt veröffentlichtes Windows-Paket | 1.0.0-beta.1 aus Commit `ab00d03`, am 11.11.2026 aus der entpackten ZIP geprüft, noch ohne Herausgebersignatur |
+| Entwicklungsfassung | 1.0.0-beta.3 mit 474 Übungen in acht Lernbereichen |
+| Im Quellstand nach Beta 2 | SQL-Ermittlung und SQL-Werkstatt mit Zeilennummern und Blockeinrückung per Tastatur |
+| Bedienhinweise im Lernplan | Selbsttest-Hinweis und Werkstatthinweis zur Arbeitskopie einzeln wieder einblendbar |
+| Aufgabenhilfen | Drei einzeln aufdeckbare Denkanstöße je Lernaufgabe in Abschnitt 01–07. Die fachliche Erklärung gehört zur Musterlösung. |
+| SQL-Prüfung | Vier Fälle mit je fünf Aufgaben. Der Stadtfest-Fall verbindet Lieferlisten, Fremdschlüssel, Inventur, Archivierung und Rechte. |
+| SQL-Werkstatt | Hinweise zur betroffenen SQL-Anweisung. Die Sensorpreis-Aufgabe prüft die Rundung auf Cent anhand der berechneten Werte. |
+| Zuletzt geprüftes Windows-Paket | 1.0.0-beta.2 aus Anwendungscode `c417256`, unsigniert, mit geprüftem a²-Icon |
+| Nutzererprobung | In Beta 2 SQL-Ermittlung und Werkstatt abgeschlossen und alle drei SQL-Prüfungsfälle mehrfach bearbeitet. Als Nächstes folgt Pseudocode. |
 | Windows-Build nach Beta 1 | EXE mit eingebettetem a²-App-Symbol. GitHub-ZIP standardmäßig unsigniert, Authenticode optional |
 | Alpha-16-Freigabe | Nach Nutzer-Commit/Push ausdrücklich beauftragt, ZIP und native Prüfung erfolgreich; Tag v0.1.1-alpha.16 auf 1dbcb12, Veröffentlichung durch Nutzer |
 | Plattform | Windows, lokale Browseroberfläche |
 | Technik | C#, .NET 10, ASP.NET Core, Blazor, Microsoft SQL Server |
-| Verfügbar im Quellstand | 40 SQL-, 30 Algorithmus-, 36 UML-, 42 Datenbankentwurfs-, 48 Softwareplanungs-, 54 Qualitäts-, 54 Projekt- und 150 WiSo-Aufgaben: 454 Lernübungen in acht Modulen; zusätzlich 25 SQL-/Pseudocode-Prüfungsaufgaben sowie je drei Entwurfs-, UML-, Softwareplanungs-, Qualitäts- und Projektprüfungen mit je neun Teilen |
+| Verfügbar im Quellstand | 60 SQL-, 30 Algorithmus-, 36 UML-, 42 Datenbankentwurfs-, 48 Softwareplanungs-, 54 Qualitäts-, 54 Projekt- und 150 WiSo-Aufgaben: 474 Lernübungen in acht Modulen; zusätzlich 30 SQL-/Pseudocode-Prüfungsaufgaben sowie je drei Entwurfs-, UML-, Softwareplanungs-, Qualitäts- und Projektprüfungen mit je neun Teilen |
 | Inhalt Windows-Paket Alpha 16 | 454 Lernübungen in acht Modulen, 25 SQL-/Pseudocode-Prüfungsaufgaben und je drei Datenbankentwurfs-, UML-, Softwareplanungs-, Qualitäts- und Projektprüfungsfälle |
 | Historischer Inhalt Windows-Paket Alpha 15 | 400 Lernübungen in sieben Modulen, 25 SQL-/Pseudocode-Prüfungsaufgaben und je drei Datenbankentwurfs-, UML-, Softwareplanungs- und Qualitätsprüfungsfälle |
 | Historischer Inhalt Windows-Paket Alpha 14 | 346 Lernübungen in sechs Modulen, 25 SQL-/Pseudocode-Prüfungsaufgaben und jeweils drei Datenbankentwurfs-, UML- und Softwareplanungs-Prüfungsfälle |
@@ -70,7 +76,7 @@ Der Pseudocode-Basisumfang ist mit 30 Aufgaben abgeschlossen. Die sechs Ergänzu
 
 ## Abgrenzung
 
-Onlinekonten, Registrierung und öffentlicher Serverbetrieb sind nicht geplant. Seit Alpha 12 lässt sich die optionale Heimnetz-Freigabe in derselben EXE unter **Heimnetz** einschalten und beenden. Windows-Diagnose, bei Bedarf erhöhte Einrichtung der appbezogenen Firewall-Regel, Kopieradresse und lokal erzeugter QR-Code ersetzen für Anwender die Quellprojektstarter. Alle verbundenen Geräte teilen einen Lernstand. Es gibt keine KI-Anbindung. Eine ausführbare Fremdschlüsselübung und weitere SQL-Themen fehlen noch.
+Onlinekonten, Registrierung und öffentlicher Serverbetrieb sind nicht geplant. Seit Alpha 12 lässt sich die optionale Heimnetz-Freigabe in derselben EXE unter **Heimnetz** einschalten und beenden. Windows-Diagnose, bei Bedarf erhöhte Einrichtung der appbezogenen Firewall-Regel, Kopieradresse und lokal erzeugter QR-Code ersetzen für Anwender die Quellprojektstarter. Alle verbundenen Geräte teilen einen Lernstand. Es gibt keine KI-Anbindung. Die SQL-Werkstatt enthält ausführbare Fremdschlüssel-, Mengen- und Rechteaufgaben.
 
 Der Heimnetzzugriff wurde vom Nutzer auch mit einem Samsung-Handy bestätigt. Chrome benötigte dafür seine Android-Berechtigung für lokale Netzwerkzugriffe unter „Geräte in der Nähe“. Die einmalige Windows-Subnetzfreigabe blieb unverändert; Einzelheiten stehen in der [Heimnetz-Anleitung](heimnetz-und-serverbetrieb.md).
 
@@ -92,7 +98,7 @@ Mehrfachauswahl in WiSo zeigt die erforderliche Anzahl nun ausgeschrieben und fe
 
 ## Prüfungsrunden in Alpha 9
 
-SQL und Pseudocode bieten zusätzlich eigene 45-Minuten-Prüfungen mit 50 Trainingspunkten, gespeicherten Entwürfen, Pause, Kontrollmarkierung, Nachschlagen und Auswertung nach Abgabe. Pseudocode wählt drei Aufgaben aus einem neuen Zehnerpool, SQL fünf Aufgaben aus einem von drei neuen Fällen. Historie und Prüfungsstände bleiben von den Lernaufgaben getrennt. Die Ausgabe ist keine amtliche IHK-Note; bei technischen SQL-Störungen bleibt die Abgabe unbenotet gespeichert. Der Aufgabenwechsel über die linke Liste erhält nun auch die Gesamtseitenposition. Einzelheiten und Grenzen: [Prüfungsmodus](pruefungsmodus.md).
+SQL und Pseudocode bieten zusätzlich eigene 45-Minuten-Prüfungen mit 50 Trainingspunkten, gespeicherten Entwürfen, Pause, Kontrollmarkierung, Nachschlagen und Auswertung nach Abgabe. Pseudocode wählt drei Aufgaben aus einem neuen Zehnerpool, SQL fünf Aufgaben aus einem von vier Fällen. Historie und Prüfungsstände bleiben von den Lernaufgaben getrennt. Die Ausgabe ist keine amtliche IHK-Note; bei technischen SQL-Störungen bleibt die Abgabe unbenotet gespeichert. Der Aufgabenwechsel über die linke Liste erhält nun auch die Gesamtseitenposition. Einzelheiten und Grenzen: [Prüfungsmodus](pruefungsmodus.md).
 
 ## Einheitlicher Prüfungseinstieg in Alpha 10
 

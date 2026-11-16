@@ -10,9 +10,9 @@
     "discovery": "Nutzerfunktionen und messbare Qualitätsanforderungen sind im Auftrag getrennt.",
     "explanation": "Funktionale Anforderungen beschreiben angebotene Leistungen. Nichtfunktionale Anforderungen begrenzen deren Qualität oder die Bedingungen ihrer Bereitstellung.",
     "hints": [
-      "Frage zuerst, welche Leistung angeboten wird.",
-      "Eine Zeitgrenze beschreibt die Qualität der Leistung.",
-      "Ordne Suche der Funktion und Antwortzeit dem Qualitätsziel zu."
+      "Was möchte jemand mit der Anwendung erledigen?",
+      "Unterstreiche getrennt die angebotene Leistung und die Bedingungen, unter denen sie gut genug ist.",
+      "Stell dir eine langsame, aber fachlich korrekte Suche vor. Welche der Aussagen trennt diese beiden Eigenschaften?"
     ],
     "previousContext": "",
     "material": "",
@@ -58,9 +58,9 @@
     "discovery": "Die Suchgeschwindigkeit hat eine messbare Grenze und eine definierte Nutzungssituation.",
     "explanation": "Eine Zeitgrenze wird erst zusammen mit Messgegenstand und Randbedingungen überprüfbar. Hier sind zwei Sekunden eingeschlossen; die Lastannahme wird nicht aus der Luft gegriffen.",
     "hints": [
-      "Notiere Messgröße und Einheit getrennt.",
-      "„Höchstens“ schließt die Grenze ein.",
-      "Die zwei vorgegebenen Zahlen sind 2 Sekunden und 50 Personen."
+      "Lege fest, welchen Vorgang eine Stoppuhr messen würde.",
+      "Eine Zeitgrenze lässt sich nur unter einer festgelegten Belastung vergleichen. Wo steht diese im Auftrag?",
+      "Spiele eine Messung exakt auf der Zeitgrenze durch. Würde deine Vereinbarung sie richtig einstufen?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Nutzerfunktionen und messbare Qualitätsanforderungen sind im Auftrag getrennt.",
     "material": "",
@@ -161,9 +161,9 @@
     "discovery": "Bedarf und vereinbarte Umsetzung lassen sich getrennt abstimmen.",
     "explanation": "Die Aufgaben verwenden eine ausdrücklich definierte Dokumententrennung. Ein konkreter Lösungsweg ersetzt nicht die Beschreibung dessen, was fachlich gebraucht wird.",
     "hints": [
-      "Suche nach dem Unterschied zwischen Ziel und Lösungsweg.",
-      "Die Leitung tritt hier als Auftraggeber auf.",
-      "Die konkrete Schnittstelle gehört zur vereinbarten Umsetzung."
+      "Lies jeden Satz aus Sicht der Person, die ihn unterschreiben würde.",
+      "Frage, ob er einen Bedarf festhält oder den vereinbarten Weg zu seiner Erfüllung beschreibt.",
+      "Könnte man die technische Lösung austauschen, ohne diesen Satz ändern zu müssen?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Suchgeschwindigkeit hat eine messbare Grenze und eine definierte Nutzungssituation.",
     "material": "",
@@ -257,9 +257,9 @@
     "discovery": "Die erste User Story verbindet eine Nutzerrolle mit Funktion und Nutzen.",
     "explanation": "Der Nutzen erklärt, weshalb die Funktion benötigt wird. Die technische Umsetzung gehört nicht automatisch in die Nutzerperspektive.",
     "hints": [
-      "Die nutzende Person ist im Fall ausdrücklich genannt.",
-      "Beschreibe ihr Ziel statt eines technischen Arbeitsschritts.",
-      "Der Nutzen ist die Organisation einer Veranstaltung."
+      "Lass die betroffene Person den Wunsch in eigenen Worten äußern.",
+      "Trenne, was sie tun möchte, von dem Vorteil, den sie dadurch hat.",
+      "Lies nur das Nutzenfeld. Erklärt es ein Warum oder wiederholt es bloß die Funktion?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Bedarf und vereinbarte Umsetzung lassen sich getrennt abstimmen.",
     "material": "",
@@ -355,9 +355,9 @@
     "discovery": "Die Kapazitätsregel besitzt nachvollziehbare Annahme- und Ablehnungsgrenzen.",
     "explanation": "Ein Akzeptanzkriterium beschreibt beobachtbares Verhalten. Null ist hier ausdrücklich unzulässig, die maximale Kapazität hingegen eingeschlossen. Die Testdurchführung folgt später im Qualitätsbereich.",
     "hints": [
-      "Prüfe zuerst die geforderte positive Anzahl.",
-      "Die obere Grenze ist eingeschlossen.",
-      "Direkt oberhalb der Kapazität muss abgelehnt werden."
+      "Markiere im Zahlenbereich Anfang und Ende der zulässigen Gruppengröße.",
+      "Halte alle anderen Angaben konstant, damit jeder Test nur die Personenzahl prüft.",
+      "Vergleiche die beiden Randwerte mit ihren unmittelbaren Nachbarn außerhalb des Bereichs."
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die erste User Story verbindet eine Nutzerrolle mit Funktion und Nutzen.",
     "material": "",
@@ -462,9 +462,9 @@
     "discovery": "Vereinbarter Umfang, spätere Wünsche und offene Fragen sind sichtbar getrennt.",
     "explanation": "Die Zuordnung folgt der Kundenvereinbarung. Eine unklare Anforderung wird durch Nachfragen präzisiert; sie wird nicht stillschweigend als fertige Zusage behandelt.",
     "hints": [
-      "Lies die Entscheidungen der Besprechung als Vertrag.",
-      "Kartenverkauf wurde ausdrücklich verschoben.",
-      "Für die Statistik fehlen zunächst die gewünschten Kennzahlen."
+      "Suche im Gespräch nach ausdrücklich getroffenen Lieferentscheidungen.",
+      "Unterscheide eine Zusage für die erste Lieferung von einem Wunsch für später.",
+      "Belege jede Einstufung mit einer konkreten Vereinbarung. Persönliche Vorlieben helfen bei Zweifeln nicht weiter."
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Kapazitätsregel besitzt nachvollziehbare Annahme- und Ablehnungsgrenzen.",
     "material": "",
@@ -560,9 +560,9 @@
     "discovery": "Identität und Zustand gehören zur einzelnen Reservierung.",
     "explanation": "Eine Klasse beschreibt gemeinsame Struktur und Verhalten. Die konkreten Instanzen behalten hier jeweils Nummer und Status; ein gemeinsam verwendeter Status würde die Vorgänge vermischen.",
     "hints": [
-      "Unterscheide Bauplan und konkreten Vorgang.",
-      "Zwei Vorgänge dürfen sich nicht gegenseitig ihren Status ersetzen.",
-      "Die Nummer und der Status gehören jeweils zum Objekt."
+      "Gib zwei Buchungen verschiedene Nummern und lege für jede einen eigenen Zettel an.",
+      "Welche Beschreibung gilt für beide und welche Angaben gehören nur auf einen der Zettel?",
+      "Ändere den Status einer Buchung. Muss sich die andere dadurch ebenfalls ändern?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Vereinbarter Umfang, spätere Wünsche und offene Fragen sind sichtbar getrennt.",
     "material": "",
@@ -608,9 +608,9 @@
     "discovery": "Beide erzeugten Reservierungen besitzen unabhängig initialisierte Zustände.",
     "explanation": "Konstruktoren richten neue Objekte ein. Der zweite Aufruf ersetzt weder Nummer noch Status des ersten Objekts.",
     "hints": [
-      "Ordne jeden Aufruf seiner eigenen Variablen zu.",
-      "Beide Aufrufe verwenden denselben Startstatus.",
-      "a erhält 41, b erhält 42."
+      "Schreibe neben jeden Konstruktoraufruf die übergebenen Werte.",
+      "Verfolge jede Zuweisung bis zum Feld genau des gerade erzeugten Objekts.",
+      "Lies nach der zweiten Erzeugung noch einmal den ersten Objektzettel. Welche Anweisung hätte ihn ändern können?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Identität und Zustand gehören zur einzelnen Reservierung.",
     "material": "a = NEU Reservierung(41)\nb = NEU Reservierung(42)\nKonstruktor: eigene Nummer übernehmen; eigenen Status auf \"angefragt\" setzen.",
@@ -711,9 +711,9 @@
     "discovery": "Der gemeinsame Zähler und die individuellen Nummern haben getrennte Aufgaben.",
     "explanation": "Statische Daten werden von allen Instanzen geteilt. Eine Änderung am Instanzfeld a.number verändert b.number und den Erzeugungszähler nicht.",
     "hints": [
-      "Zähle nur die beiden Konstruktoraufrufe.",
-      "Die spätere Nummernänderung wirkt ausschließlich auf a.",
-      "Am Ende sind die Nummern 99 und 42 bei Zählerstand 2."
+      "Zeichne je ein Kästchen pro Objekt und daneben Platz für gemeinsam genutzte Daten.",
+      "Mache beim tatsächlichen Erzeugen einen Strich am gemeinsamen Zähler.",
+      "Vergleiche nach dem letzten Aufruf, welche Werte nur einem Objekt und welche allen gehören."
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Beide erzeugten Reservierungen besitzen unabhängig initialisierte Zustände.",
     "material": "a = NEU Reservierung(41)\nb = NEU Reservierung(42)\na.number = 99\nJeder Konstruktor erhöht createdCount um 1. Nummernänderungen erhöhen ihn nicht.",
@@ -797,9 +797,9 @@
     "discovery": "Die Statusänderung wird über einen öffentlichen Fachaufruf gekapselt.",
     "explanation": "Der private Zustand ist von außen nicht direkt schreibbar. Der öffentliche Fachaufruf kann die Geschäftsregel kontrollieren; sein konkreter Methodenrumpf ist nicht Teil dieser Diagrammaufgabe.",
     "hints": [
-      "Der Zustand selbst soll nicht von außen beschreibbar sein.",
-      "Die angebotene Operation muss von außen aufrufbar sein.",
-      "Verwende ein privates String-Attribut und eine öffentliche Boolean-Methode."
+      "Welche Information soll ein fremder Aufrufer ändern können, ohne direkt ein Feld zu setzen?",
+      "Markiere in deiner Klasse gespeicherten Zustand und erlaubte Aktion getrennt.",
+      "Spiele den Aufruf von außerhalb durch. Ist die Methode erreichbar und der Zustand geschützt?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der gemeinsame Zähler und die individuellen Nummern haben getrennte Aufgaben.",
     "material": "",
@@ -948,9 +948,9 @@
     "discovery": "Ungültige Eingaben verändern den gültigen Raumzustand nicht.",
     "explanation": "Ein kontrollierter Änderungsaufruf verbindet Vorbedingung und Zustandsübergang. Die erfolglose Änderung auf null lässt zwölf Plätze bestehen; erst 18 wird übernommen.",
     "hints": [
-      "Prüfe zuerst die Vorbedingung neu > 0.",
-      "Bei false bleibt der alte Wert erhalten.",
-      "Die Zustände sind erst 12, dann 18."
+      "Schreibe den Anfangszustand vor den ersten Aufruf.",
+      "Notiere für jeden Schritt zwei Dinge getrennt: Was meldet die Methode, und welchen Wert speichert sie?",
+      "Beginne den zweiten Aufruf mit dem tatsächlich verbliebenen Zustand des ersten."
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Statusänderung wird über einen öffentlichen Fachaufruf gekapselt.",
     "material": "setCapacity(neu):\n  WENN neu > 0: capacity = neu; RÜCKGABE true\n  SONST: RÜCKGABE false\nAnfang: capacity = 12",
@@ -1049,9 +1049,9 @@
     "discovery": "Raum und Reservierung besitzen getrennte, fachlich nachvollziehbare Verantwortungen.",
     "explanation": "Die Kapazitätsauskunft gehört zum Raum. Nummer, Status und Bestätigung betreffen die Reservierung. Die Aufgabe bewertet ausdrücklich diesen Ausschnitt, nicht einen vollständigen Systementwurf.",
     "hints": [
-      "Ordne jedes Merkmal dem Objekt zu, dessen Zustand es beschreibt.",
-      "fits benötigt eine Personenzahl als Parameter.",
-      "Alle Zustandsattribute sind privat; die zwei Fachoperationen öffentlich."
+      "Lege zwei Karten an und schreibe jeweils nur die Daten darauf, die das Objekt selbst besitzt.",
+      "Ordne eine Methode dort ein, wo die Entscheidung mit diesen Daten getroffen werden kann.",
+      "Lies Parameter, Rückgabe und Sichtbarkeit einzeln. Hast du eine zusätzliche Beziehung erfunden?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Ungültige Eingaben verändern den gültigen Raumzustand nicht.",
     "material": "",
@@ -1290,9 +1290,9 @@
     "discovery": "Gemeinsamer Aufrufvertrag und geerbte Implementierung sind bewusst unterschieden.",
     "explanation": "Ein Interface legt hier die angebotenen Operationen fest. Eine abstrakte Klasse kann darüber hinaus eigene Implementierung und Zustand beitragen. Private Implementierungsdetails sind nicht durch den Interface-Vertrag vorgeschrieben.",
     "hints": [
-      "Unterscheide angebotene Operationen von gemeinsamem Innenleben.",
-      "Eine abstrakte Klasse bleibt als direkte Objektart unvollständig.",
-      "Ein Vertrag schreibt keine identischen privaten Felder vor."
+      "Suche nach dem Verhalten, das alle beteiligten Typen versprechen sollen.",
+      "Überlege, ob zusätzlich gemeinsamer Zustand oder gemeinsame Implementierung verlangt wird.",
+      "Stelle dir zwei sehr verschieden gebaute Klassen mit demselben Verhalten vor. Welche Aussage gilt weiterhin?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Raum und Reservierung besitzen getrennte, fachlich nachvollziehbare Verantwortungen.",
     "material": "",
@@ -1338,9 +1338,9 @@
     "discovery": "Die Buchungsarten bieten denselben Preisaufruf mit eigener Implementierung an.",
     "explanation": "Die Basisklasse beschreibt den abstrakten Vertrag. Beide konkreten Unterklassen stellen eine eigene Implementierung bereit; die Generalisierung zeigt jeweils zur gemeinsamen Basis.",
     "hints": [
-      "Die gemeinsame Basis kann ihre Preisberechnung noch nicht selbst festlegen.",
-      "Jede konkrete Buchungsart muss die Operation anbieten.",
-      "Die Vererbungspfeile zeigen von den konkreten Buchungen zur abstrakten Buchung."
+      "Starte mit der Preisfrage, die der Aufrufer bei jeder Buchungsart stellen kann.",
+      "Unterscheide das Versprechen der Basis von der konkreten Antwort der jeweiligen Buchungsart.",
+      "Lies die Signaturen nebeneinander. Würde derselbe Aufruf für beide konkreten Objekte passen?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Gemeinsamer Aufrufvertrag und geerbte Implementierung sind bewusst unterschieden.",
     "material": "",
@@ -1602,9 +1602,9 @@
     "discovery": "Der gleiche Aufruf erreicht die jeweils konkrete Preisimplementierung.",
     "explanation": "Polymorphie trennt verwendeten Vertrag und tatsächliche Implementierung. a verweist auf eine Standardbuchung, b auf eine Vereinsbuchung; deshalb entstehen 30 und 24.",
     "hints": [
-      "Lies den Typ des jeweils erzeugten Objekts.",
-      "Die Referenzen verwenden zwar denselben Vertrag, enthalten aber verschiedene konkrete Objekte.",
-      "Für b zählt die Implementierung der Vereinsbuchung."
+      "Schreibe neben jede Referenz, welches Objekt tatsächlich zugewiesen wurde.",
+      "Folge beim Methodenaufruf der konkreten Implementierung dieses Objekts.",
+      "Betrachte zwei gleich deklarierte Referenzen mit verschiedenen Objekten. Müssen ihre Aufrufe denselben Preis liefern?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Buchungsarten bieten denselben Preisaufruf mit eigener Implementierung an.",
     "material": "Standardbuchung.price() liefert 30.\nVereinsbuchung.price() liefert 24.\na: Buchung = NEU Standardbuchung()\nb: Buchung = NEU Vereinsbuchung()",
@@ -1692,9 +1692,9 @@
     "discovery": "Die Reservierung verwendet einen austauschbaren Tarif über dessen Vertrag.",
     "explanation": "Die Reservierung besitzt einen Partner, statt selbst Tarif zu sein. Die Multiplizitäten beschreiben hier den ausdrücklich vereinbarten gemeinsam nutzbaren Tarif.",
     "hints": [
-      "Eine Reservierung ist kein Tarif.",
-      "Der Aufrufvertrag liegt im Interface.",
-      "Ein Tarif je Reservierung steht am Tarifende; viele Reservierungen am Reservierungsende."
+      "Welche Entscheidung soll ausgetauscht werden können, während die Reservierung bestehen bleibt?",
+      "Ziehe eine Grenze zwischen dem Aufruf der Preisberechnung und ihrer konkreten Ausführung.",
+      "Stelle dir einen weiteren Tarif vor. Muss die Reservierung dafür eine neue Unterklasse bekommen?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der gleiche Aufruf erreicht die jeweils konkrete Preisimplementierung.",
     "material": "",
@@ -1913,9 +1913,9 @@
     "discovery": "Unterschiedliche Parameter und ersetzte geerbte Implementierung werden getrennt beurteilt.",
     "explanation": "Überladen unterscheidet in dieser Notation Parametertypen beziehungsweise Parameterzahl. Überschreiben ersetzt die dafür vorgesehene geerbte Operation. Der Rückgabetyp allein ist hier kein Unterscheidungsmerkmal einer Überladung.",
     "hints": [
-      "Vergleiche die Parameterlisten.",
-      "Achte auf den Fall mit einer Unterklasse.",
-      "Die dritte Variante verändert nur den Rückgabetyp."
+      "Lege die Methodenköpfe nebeneinander und markiere die Parameter.",
+      "Prüfe bei gleicher Parameterliste zusätzlich die Beziehung zwischen den deklarierenden Klassen.",
+      "Verändere gedanklich nur den Rückgabetyp. Kann der Aufrufer die Varianten anhand seiner Argumente unterscheiden?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Reservierung verwendet einen austauschbaren Tarif über dessen Vertrag.",
     "material": "",
@@ -2011,9 +2011,9 @@
     "discovery": "Der Buchungsdienst arbeitet gegen einen Speichervertrag statt gegen eine Dateiklasse.",
     "explanation": "Der konkrete Speicher realisiert das Interface. Der Dienst hält den vereinbarten Vertrag; ein anderer vertragskonformer Speicher kann ihn ersetzen, ohne die angebotene Dienstoperation umzubenennen.",
     "hints": [
-      "Trenne Fachaufruf und technische Speicherimplementierung.",
-      "Das leere Dreieck der Realisierung zeigt zum Interface.",
-      "Im Dienst hat das store-Attribut den Interface-Typ."
+      "Beschreibe das Speichern aus Sicht des Buchungsdiensts, ohne ein Dateiformat zu nennen.",
+      "Welche Rolle verspricht das Speichern und welche übernimmt die konkrete Arbeit?",
+      "Tausche den Dateispeicher gedanklich aus. Welche Verbindung des Dienstes sollte dabei bestehen bleiben?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Unterschiedliche Parameter und ersetzte geerbte Implementierung werden getrennt beurteilt.",
     "material": "",
@@ -2299,9 +2299,9 @@
     "discovery": "Die Statusverteilung hat einen konkreten Anlass für Observer.",
     "explanation": "Die Aufgabe beschreibt Registrierung und Benachrichtigung mehrerer austauschbarer Empfänger. Ein Mustername wird aus dieser Absicht abgeleitet, nicht aus der Anzahl beliebiger Klassen.",
     "hints": [
-      "Suche nach dem gemeinsamen Vertrag der Empfänger.",
-      "Die Liste angemeldeter Anzeigen kann sich ändern.",
-      "Registrierung und Benachrichtigung sind die Hinweise auf Observer."
+      "Spiele eine einzige Statusänderung mit drei angemeldeten Anzeigen durch.",
+      "Was muss der Absender über eine Anzeige wissen, um ihr eine Änderung mitzuteilen?",
+      "Eine vierte Anzeige kommt hinzu. Welcher Entwurf erlaubt das, ohne den Änderungsablauf für jede Anzeige umzuschreiben?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der Buchungsdienst arbeitet gegen einen Speichervertrag statt gegen eine Dateiklasse.",
     "material": "",
@@ -2346,9 +2346,9 @@
     "discovery": "Der Statusgeber erreicht beliebig viele vertragskonforme Anzeigen.",
     "explanation": "Das Interface macht die konkrete Anzeige austauschbar. Das Diagramm zeigt den verlangten Ausschnitt; die Registrierung und Iteration über die Empfänger werden hier nicht als Methodenrumpf bewertet.",
     "hints": [
-      "Der Statusgeber kennt den Beobachtervertrag.",
-      "Die konkrete Anzeige implementiert update.",
-      "Die Anzahl 0..* steht beim Beobachter."
+      "Zeichne zuerst einen Statuswechsel und zwei Interessenten auf Papier.",
+      "Über welche gemeinsame Operation können unterschiedliche Empfänger angesprochen werden?",
+      "Lies die Beziehung aus Sicht des Statusgebers. Bindet sie ihn versehentlich an eine bestimmte Anzeige?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Statusverteilung hat einen konkreten Anlass für Observer.",
     "material": "",
@@ -2611,9 +2611,9 @@
     "discovery": "Die Musterauswahl folgt fünf unterschiedlichen Entwurfsabsichten.",
     "explanation": "Observer verteilt Änderungen, Strategy kapselt austauschbares Verhalten, Factory Method verlagert die Produkterzeugung in überschreibbare Erzeuger, Adapter vermittelt zwischen Schnittstellen und Singleton adressiert eine globale Einzelinstanz. Ein Singleton kann zugleich problematische globale Abhängigkeiten erzeugen.",
     "hints": [
-      "Markiere für jedes Feld das eigentliche Ziel.",
-      "Erzeugung und Anpassung sind verschiedene Aufgaben.",
-      "Wähle Singleton nur für die ausdrücklich verlangte globale Einzelinstanz."
+      "Unterstreiche in jedem Fall den Grund für die Entwurfsentscheidung.",
+      "Vergleiche das Austauschen von Verhalten mit dem Verteilen einer Meldung an mehrere Empfänger.",
+      "Prüfe, ob die Zahl der erlaubten Instanzen in diesem Fall wirklich gefordert ist oder nur zufällig eins beträgt."
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der Statusgeber erreicht beliebig viele vertragskonforme Anzeigen.",
     "material": "",
@@ -2745,9 +2745,9 @@
     "discovery": "Der Preiskontext kann seine Berechnungsstrategie über einen gemeinsamen Vertrag wechseln.",
     "explanation": "Die unterschiedlichen Berechnungen befinden sich in austauschbaren Strategien. Der Kontext benötigt nur deren Interface; die mathematischen Methodenrümpfe gehören nicht zu diesem Strukturausschnitt.",
     "hints": [
-      "Der Kontext verwendet die Strategie, statt von ihr zu erben.",
-      "Beide konkreten Strategien bieten dieselbe Signatur.",
-      "Die Realisierungen enden am gemeinsamen Interface."
+      "Berechne einen Preis gedanklich einmal als Pauschale und einmal abhängig von Stunden.",
+      "Welche Angaben muss der gemeinsame Aufruf unabhängig vom Verfahren transportieren?",
+      "Verfolge vom Kontext aus beide möglichen Berechnungen. Muss er einen konkreten Tarif beim Namen kennen?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Musterauswahl folgt fünf unterschiedlichen Entwurfsabsichten.",
     "material": "",
@@ -3100,9 +3100,9 @@
     "discovery": "Erzeugungsmuster und globale Einzelinstanzen werden anhand ihrer tatsächlichen Folgen beurteilt.",
     "explanation": "Eine statische Fabrik ist nicht schon durch ihren Namen die GoF Factory Method. Deren Erzeugungspunkt ist in diesem Fall überschreibbar. Globale veränderliche Einzelinstanzen können austauschbare Abhängigkeiten und isolierte Prüfungen erschweren.",
     "hints": [
-      "Achte auf das Vorhandensein überschreibbarer Erzeuger.",
-      "Ein Methodenname allein definiert kein Muster.",
-      "Globaler veränderlicher Zustand kann Aufrufer miteinander koppeln."
+      "Frage zuerst, ob ein Satz die Erzeugung oder die Anzahl möglicher Objekte regelt.",
+      "Kann ein zentraler Erzeugungsort auch zwei verschiedene Objekte liefern?",
+      "Suche bei Aussagen über Einzigartigkeit nach einer tatsächlichen Garantie für die Instanzzahl."
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der Preiskontext kann seine Berechnungsstrategie über einen gemeinsamen Vertrag wechseln.",
     "material": "",
@@ -3198,9 +3198,9 @@
     "discovery": "Der gemeinsame Erzeuger lässt die konkrete Produkterzeugung überschreiben.",
     "explanation": "Factory Method trennt den gemeinsamen Erzeuger vom konkreten Produkt. Der hier geprüfte Ausschnitt beschreibt die überschreibbare Operation und Produktverträge; im ergänzenden Ablauftext erzeugt MailErzeuger eine MailNachricht.",
     "hints": [
-      "Die abstrakte Basis stellt den offenen Erzeugungspunkt bereit.",
-      "MailErzeuger erfüllt ihn konkret mit dem Rückgabetyp Nachricht.",
-      "Die Realisierung zeigt von MailNachricht auf das Interface Nachricht."
+      "Markiere Erzeuger und erzeugtes Produkt als getrennte Rollen.",
+      "Lies am Rückgabetyp, was jeder Erzeuger verspricht. Wo wird die Produktwahl konkret?",
+      "Verfolge den Aufruf über die Basissicht. Passt das Ergebnis des konkreten Erzeugers noch zum Vertrag?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Erzeugungsmuster und globale Einzelinstanzen werden anhand ihrer tatsächlichen Folgen beurteilt.",
     "material": "MailErzeuger.create():\n  RÜCKGABE NEU MailNachricht()\nDie Auswahl des konkreten Produkts liegt in dieser überschriebenen Erzeugeroperation.",
@@ -3726,9 +3726,9 @@
     "discovery": "Darstellung, Fachentscheidung und Speicherung besitzen getrennte Aufgaben.",
     "explanation": "Die Aufgabe verwendet eine ausdrücklich vereinbarte Schichtentrennung. Sie erleichtert Änderungen, weil Oberflächendetails und Speichertechnik die Fachregel nicht ersetzen.",
     "hints": [
-      "Frage bei jeder Aufgabe nach ihrer Verantwortung.",
-      "Eine Fachregel beschreibt keine Farbe und keinen Dateipfad.",
-      "Dauerhafte Speicherung ist die Aufgabe des Datenzugriffs."
+      "Denke den Buchungsvorgang vom Klick bis zum dauerhaften Speichern durch.",
+      "Welche Entscheidung bliebe gleich, wenn morgen eine andere Oberfläche verwendet würde?",
+      "Tausche die Speichertechnik aus. Welche der vorgeschlagenen Zuständigkeiten wären davon betroffen?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der gemeinsame Erzeuger lässt die konkrete Produkterzeugung überschreiben.",
     "material": "",
@@ -3774,9 +3774,9 @@
     "discovery": "Die drei Bausteine folgen einer klaren Aufrufkette vom Bildschirm zur Speicherung.",
     "explanation": "Die Fachentscheidung bleibt im Dienst. Die Anordnung auf dem Bildschirm wird nicht bewertet; Rollen, Schichten und gerichtete Aufrufe zählen.",
     "hints": [
-      "Beginne mit den drei Fachrollen.",
-      "Ordne den Dateispeicher dem Datenzugriff zu.",
-      "Die Maske spricht den Dienst an, nicht direkt den Speicher."
+      "Lege Maske, Entscheidung und Speicherung zunächst als einzelne Stationen aus.",
+      "Ordne jeder Station eine Schicht zu und folge dann dem Aufruf vom Klick aus.",
+      "Suche eine Abkürzung von der Maske zum Speicher. Gehört sie zum vereinbarten Entwurf?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Darstellung, Fachentscheidung und Speicherung besitzen getrennte Aufgaben.",
     "material": "",
@@ -3896,9 +3896,9 @@
     "discovery": "Die konkrete Speicherung hängt vom fachlich vereinbarten Speichervertrag ab.",
     "explanation": "Beide Bausteine kennen den Vertrag. Der konkrete Speicher implementiert ihn; die Fachlogik benötigt keine Abhängigkeit auf die Dateiklasse. Der Laufzeitaufruf ist eine andere Betrachtung als die hier verlangte Entwurfsabhängigkeit.",
     "hints": [
-      "Lies ausdrücklich „Abhängigkeit im Entwurf“.",
-      "Beide Pfeile enden am Speichervertrag.",
-      "Der konkrete Dateispeicher gehört zum Datenzugriff."
+      "Wer legt fest, was ein Buchungsdienst vom Speicher benötigt?",
+      "Unterscheide die Richtung eines Aufrufs zur Laufzeit von der Abhängigkeit im Entwurf.",
+      "Ersetze die Datei durch eine andere Umsetzung. Welche Rolle bleibt der gemeinsame Bezugspunkt?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die drei Bausteine folgen einer klaren Aufrufkette vom Bildschirm zur Speicherung.",
     "material": "",
@@ -4058,9 +4058,9 @@
     "discovery": "Das MVC-Team kann Darstellung, Koordination und Fachzustand getrennt besprechen.",
     "explanation": "Die Aufgabe beschreibt eine konkrete MVC-Rollenverteilung. Die View zeigt Daten, der Controller koordiniert Eingaben, das Model trägt den fachlichen Zustand und die dazugehörigen Regeln.",
     "hints": [
-      "Trenne Sichtbarkeit von fachlichem Zustand.",
-      "Die Koordination einer Eingabe ist eine eigene Verantwortung.",
-      "Model verwaltet, View zeigt, Controller vermittelt Eingaben."
+      "Trenne die sichtbare Darstellung von den fachlichen Daten.",
+      "Verfolge eine Benutzereingabe bis zu der Stelle, die sie in eine Aktion übersetzt.",
+      "Frage bei jeder Zuordnung, wer sich ändern müsste, wenn nur das Aussehen wechselt."
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die konkrete Speicherung hängt vom fachlich vereinbarten Speichervertrag ab.",
     "material": "",
@@ -4156,9 +4156,9 @@
     "discovery": "Eingabe und Änderungsbenachrichtigung besitzen einen ausdrücklich vereinbarten Weg.",
     "explanation": "Die drei Pfeile beschreiben die hier gewählte Variante. Eine Benachrichtigung des Models ist fachlich von dem Aufruf des Controllers zu unterscheiden; nicht jede MVC-Umsetzung muss denselben Weg verwenden.",
     "hints": [
-      "Lege zuerst die Rollen der drei Komponenten fest.",
-      "Die Änderung läuft vom Controller zum Model.",
-      "Der letzte Pfeil ist eine Benachrichtigung an die View."
+      "Zeichne zuerst den Weg der Eingabe durch die drei Komponenten.",
+      "Die Meldung über eine Änderung hat einen anderen Anlass als der ursprüngliche Aufruf.",
+      "Lies jede Kante als „ruft auf“ oder „benachrichtigt“. Passen Richtung und Zweck zum vereinbarten Ablauf?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Das MVC-Team kann Darstellung, Koordination und Fachzustand getrennt besprechen.",
     "material": "",
@@ -4284,9 +4284,9 @@
     "discovery": "Die Systemgrenze trennt die Browseransicht von den serverseitigen Integrationen.",
     "explanation": "Die Aufgabe benennt die erlaubten Zugriffe ausdrücklich. Sie bewertet die logische Aufteilung und behauptet keine vollständige Netzwerksicherheitsprüfung.",
     "hints": [
-      "Die Maske bleibt im Browser.",
-      "Der Buchungsdienst vermittelt beide weiteren Zugriffe.",
-      "Ein Fremdsystem und der eigene Datenspeicher erhalten unterschiedliche Elementarten."
+      "Markiere, welche Teile im Browser, auf dem Server und außerhalb eurer Anwendung laufen.",
+      "Verfolge einen Buchungswunsch bis zur dauerhaften Ablage und separat zum Versand.",
+      "Prüfe aus Sicht der Maske, ob sie versehentlich direkt auf Speicher oder Fremdsystem zugreift."
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Eingabe und Änderungsbenachrichtigung besitzen einen ausdrücklich vereinbarten Weg.",
     "material": "",
@@ -4423,9 +4423,9 @@
     "discovery": "Ressource, Operation und Ergebnis der HTTP-Kommunikation sind getrennt erkennbar.",
     "explanation": "Methode und Ressourcenadresse gehören zum Anfragevertrag. JSON ist ein Datenformat. Der Statuscode ordnet das Ergebnis der Antwort ein.",
     "hints": [
-      "Unterscheide Operation und Datenformat.",
-      "Die Antwort enthält die Statusinformation.",
-      "GET beschreibt hier das Abrufen einer Ressourcendarstellung."
+      "Trenne, was der Client sendet, von dem, was der Server zurückliefert.",
+      "Welche Angabe benennt die Ressource, und woran erkennt der Client den Ausgang des Vorgangs?",
+      "Lies eine Antwort ohne ihren Inhalt. Welche Information kann ihr Status trotzdem vermitteln?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Systemgrenze trennt die Browseransicht von den serverseitigen Integrationen.",
     "material": "",
@@ -4471,9 +4471,9 @@
     "discovery": "Der erste Anlegeaufruf besitzt einen vollständigen und eindeutig benannten Nachrichtenvertrag.",
     "explanation": "Die Sammlung erhält per POST eine neue Ressource. Der hier fest vereinbarte Erfolgsstatus ist 201. Zahlen und Zeichenfolgen bleiben im JSON-Vertrag unterschiedliche Typen.",
     "hints": [
-      "Trenne Methode, Pfad, Medientyp und Ergebnisstatus.",
-      "Die beiden Mengenangaben stehen als JSON-Zahlen ohne Anführungszeichen.",
-      "Das Datum ist eine Zeichenfolge im vorgegebenen Format."
+      "Schreibe zuerst auf, was nach erfolgreichem Anlegen neu existiert.",
+      "Ordne Ziel, Aktion und Nutzdaten verschiedenen Teilen der Anfrage zu.",
+      "Lies den JSON-Körper Feld für Feld. Sind Mengen und Kennungen wirklich Zahlen und das Datum ein Text?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Ressource, Operation und Ergebnis der HTTP-Kommunikation sind getrennt erkennbar.",
     "material": "",
@@ -4573,9 +4573,9 @@
     "discovery": "Eine fehlende Reservierung liefert den vereinbarten Fehlerstatus und eine typgerechte Fehlernachricht.",
     "explanation": "Der fehlende Datensatz ist im beschriebenen Vertrag kein erfolgreicher Fund. Die Nummer bleibt eine Zahl. Die Aufgabe prüft den ausdrücklich vereinbarten Nachrichtentext, keine beliebige natürlichsprachliche Fehlerbeschreibung.",
     "hints": [
-      "Ein fehlender Fund bekommt hier Status 404.",
-      "Lies den vereinbarten Typ der id.",
-      "Die Reihenfolge von error und id darfst du frei wählen."
+      "Gehe die Vorlage zuerst so durch, als würde der Client einen vorhandenen Eintrag lesen wollen.",
+      "An welchem Teil der Antwort erkennt er, dass die Ressource diesmal fehlt?",
+      "Prüfe anschließend die Fehlerdaten. Hat die gesuchte Kennung auch ohne Anführungszeichen den vereinbarten Typ?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der erste Anlegeaufruf besitzt einen vollständigen und eindeutig benannten Nachrichtenvertrag.",
     "material": "",
@@ -4670,9 +4670,9 @@
     "discovery": "Die Raumantwort unterscheidet Sammlung, einzelne Objekte und deren Datentypen.",
     "explanation": "Das äußere Objekt enthält eine geordnete Sammlung. true/false sind hier keine Zeichenfolgen. Die Reihenfolge der Felder eines Objekts ist frei, die vorgegebene Arrayreihenfolge bleibt erhalten.",
     "hints": [
-      "rooms ist eine Sammlung mehrerer Objekte.",
-      "Verwende eckige Klammern für das Array.",
-      "Schreibe true und false ohne Anführungszeichen."
+      "Skizziere außen den Namen der Sammlung und innen zwei separate Raumkarten.",
+      "Unterscheide eine geordnete Liste von den benannten Eigenschaften eines einzelnen Raums.",
+      "Lies jede Kennung und jede freie/belegte Angabe als JSON-Wert. Würden Anführungszeichen ihren Typ verändern?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Eine fehlende Reservierung liefert den vereinbarten Fehlerstatus und eine typgerechte Fehlernachricht.",
     "material": "",
@@ -4728,9 +4728,9 @@
     "discovery": "Der Partner erhält einen XML-Beleg mit eindeutiger Hierarchie und vereinbarten Namen.",
     "explanation": "Attribute und Kinderelemente sind unterschiedliche Teile der Struktur. Einrückung und XML-Deklaration ändern die Nutzdaten nicht; Elementreihenfolge, Namen und Texte sind ausdrücklich vorgegeben.",
     "hints": [
-      "id ist ein Attribut der Wurzel.",
-      "Die drei Werte stehen in Kinderelementen.",
-      "Schließe jedes geöffnete Element in der richtigen Verschachtelung."
+      "Zeichne zuerst den Baum des Belegs.",
+      "Welche Angabe steht direkt am Wurzelelement und welche Angaben bilden eigene Kinder?",
+      "Fahre die Kindelemente in Leserichtung ab. Stimmen Verschachtelung, Reihenfolge und Abschluss?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Raumantwort unterscheidet Sammlung, einzelne Objekte und deren Datentypen.",
     "material": "",
@@ -4786,9 +4786,9 @@
     "discovery": "Die Teiländerung besitzt einen eigenen Vertrag und lässt andere Eigenschaften unberührt.",
     "explanation": "PATCH passt zum hier ausdrücklich vereinbarten partiellen Änderungsauftrag. Der festgelegte Rückgabevertrag enthält eine Ressourcendarstellung und deshalb in dieser Aufgabe Status 200. Andere API-Verträge können abweichen.",
     "hints": [
-      "Die Aufgabe verlangt eine Teiländerung, keinen vollständigen Ersatz.",
-      "Der Anfragekörper enthält nur participants.",
-      "Der Erfolgsstatus ist in der Vereinbarung ausdrücklich genannt."
+      "Markiere am bestehenden Datensatz nur das Feld, dessen Inhalt sich ändern soll.",
+      "Stimme die Änderungsart mit einem Körper ab, der genau diese Teiländerung ausdrückt.",
+      "Prüfe den Erfolgsfall. Soll die Antwort nur Erfolg melden oder eine aktualisierte Darstellung enthalten?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der Partner erhält einen XML-Beleg mit eindeutiger Hierarchie und vereinbarten Namen.",
     "material": "",
@@ -4888,9 +4888,9 @@
     "discovery": "Die Oberfläche hält Feldzweck und Fehler auch während der Bearbeitung erkennbar.",
     "explanation": "Dauerhafte Beschriftungen und konkrete Rückmeldungen unterstützen die Bedienung. Farbe allein vermittelt nicht zuverlässig, was zu korrigieren ist. Eine nachvollziehbare Tastaturreihenfolge gehört zum Entwurf.",
     "hints": [
-      "Betrachte den Zustand nach einer bereits erfolgten Eingabe.",
-      "Ein Fehler muss verständlich erklärt werden.",
-      "Hilfreiche Rückmeldungen sollen gültige Angaben nicht unnötig löschen."
+      "Stell dir vor, du füllst das Formular zum ersten Mal nur mit der Tastatur aus.",
+      "Welche Orientierung bleibt erhalten, nachdem du bereits einen Wert eingetippt hast?",
+      "Teste einen Eingabefehler. Erkennst du am betroffenen Feld, was du korrigieren kannst?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Teiländerung besitzt einen eigenen Vertrag und lässt andere Eigenschaften unberührt.",
     "material": "",
@@ -4936,9 +4936,9 @@
     "discovery": "Eine eigene Eingabemaske führt von Raum und Datum zur Personenzahl und Absendeaktion.",
     "explanation": "Die Elementarten geben passende Eingabemöglichkeiten vor. Pflichtmarkierungen betreffen Eingaben, nicht die Schaltfläche. Die Aufgabe bewertet Struktur, Typen, Gruppen und die ausdrücklich vorgegebene Reihenfolge.",
     "hints": [
-      "Erstelle zuerst die drei Eingabefelder.",
-      "Datum und Personenzahl benötigen unterschiedliche Eingabearten.",
-      "Setze die Absendeaktion an das Ende."
+      "Gehe die Buchung als Nutzer vom ersten Feld bis zum Absenden durch.",
+      "Wähle für jedes Datum, jede Anzahl und jede vorgegebene Auswahl eine passende Eingabeart.",
+      "Lies die Pflichtmarkierungen am Ende durch. Ist versehentlich auch eine Handlung als Eingabewert markiert?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Oberfläche hält Feldzweck und Fehler auch während der Bearbeitung erkennbar.",
     "material": "",
@@ -5053,9 +5053,9 @@
     "discovery": "Die Vorlage besitzt wieder passende Eingaben, sichtbare Beschriftungen und eine klare Aktion.",
     "explanation": "Ein leerer Anzeigename ersetzt keine sichtbare Beschriftung. Die Auswahl verhindert beliebige Raumnamen; die Schaltfläche führt eine Aktion aus und ist selbst keine erforderliche Angabe.",
     "hints": [
-      "Prüfe Elementart und Pflichtmarkierung unabhängig voneinander.",
-      "Das Datum braucht einen sichtbaren Namen.",
-      "Die Aktion bleibt als letztes Element ohne Pflichtmarkierung."
+      "Suche an der bestehenden Maske die Stelle, an der ein Nutzer beim Ausfüllen raten müsste.",
+      "Trenne bei jeder Korrektur Beschriftung, Feldtyp und Pflichtstatus.",
+      "Verfolge die Reihenfolge mit der Tabulatortaste in Gedanken bis zum Absenden."
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Eine eigene Eingabemaske führt von Raum und Datum zur Personenzahl und Absendeaktion.",
     "material": "",
@@ -5188,9 +5188,9 @@
     "discovery": "Zusammengehörige Angaben sind gruppiert, freiwillige Daten bleiben als solche erkennbar.",
     "explanation": "Die vorgeschriebene Reihenfolge bildet einen verständlichen Bearbeitungsweg. Telefonnummer und E-Mail werden aufgrund der vereinbarten Anforderungen unterschiedlich behandelt. Die Vorschau zeigt die tatsächlich gewählten Gruppen.",
     "hints": [
-      "Bearbeite erst Kontakt, dann Termin, dann die Aktion.",
-      "Telefon ist im Fall ausdrücklich freiwillig.",
-      "Die E-Mail erhält eine passende Eingabeart."
+      "Sortiere die Felder gedanklich auf zwei Zettel. Auf einen kommen die Kontaktangaben, auf den anderen die Angaben zum Termin.",
+      "Wähle die Feldart nach der erwarteten Eingabe, auch bei ähnlich aussehenden Kontaktangaben.",
+      "Spiele eine vollständige Anfrage ohne freiwillige Telefonnummer durch."
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Vorlage besitzt wieder passende Eingaben, sichtbare Beschriftungen und eine klare Aktion.",
     "material": "",
@@ -5327,9 +5327,9 @@
     "discovery": "Der Entwurf enthält sowohl eine Eingabehilfe als auch einen Platz für konkrete Rückmeldung.",
     "explanation": "Die automatische Prüfung erkennt Hilfetext, Rolle, Eingabeart und Reihenfolge. Ob deine eigene Formulierung den Nutzenden wirklich hilft, bleibt eine ausdrücklich getrennte Selbstkontrolle. Die Vorschau prüft einfache Pflichtangaben, keine vollständige fachliche Terminverfügbarkeit.",
     "hints": [
-      "Ein Hilfetext gehört an das Eingabefeld.",
-      "Die Rückmeldung ist ein eigenes Anzeigeelement.",
-      "Beschreibe im Hilfetext, welche Eingabe erwartet wird."
+      "Stell dir die Maske erst vor der Eingabe und dann nach einem ungültigen Datum vor.",
+      "Welche Hilfe unterstützt schon beim Ausfüllen, und auf welches Ereignis reagiert die Rückmeldung?",
+      "Gehe die Termin-Gruppe durch. Wird nur an tatsächlich auszufüllenden Feldern eine Pflicht angezeigt?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Zusammengehörige Angaben sind gruppiert, freiwillige Daten bleiben als solche erkennbar.",
     "material": "",
@@ -5434,9 +5434,9 @@
     "discovery": "Der kleine Prototyp macht eine konkrete Bedienfrage vor der vollständigen Umsetzung besprechbar.",
     "explanation": "Ein Prototyp kann einen Ausschnitt bewusst vereinfachen. Hier geht es um erkennbare Eingabe, Aktion und Ergebnisplatz; die funktionierende Suche wird damit nicht bereits nachgewiesen.",
     "hints": [
-      "Begrenze die Maske auf die drei genannten Rollen.",
-      "Die Suche darf hier ohne Suchbegriff gestartet werden.",
-      "Das Ergebnis ist eine Anzeige, kein zweites Textfeld."
+      "Welche Frage soll eine Person mit dem kleinen Suchprototyp beantworten können?",
+      "Trenne Eingabe, Auslösen und Lesen des Ergebnisses zeitlich.",
+      "Probiere den Weg mit einem leeren Suchfeld. Widerspricht eine Pflichtmarkierung dem Auftrag?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der Entwurf enthält sowohl eine Eingabehilfe als auch einen Platz für konkrete Rückmeldung.",
     "material": "",
@@ -5541,9 +5541,9 @@
     "discovery": "Werkzeugunterstützung, Übersetzung und tatsächliches Programmverhalten sind getrennt eingeordnet.",
     "explanation": "Eine IDE bündelt Hilfsmittel. Compiler können etwa Maschinen- oder Zwischencode erzeugen; reale Laufzeiten können Übersetzung und Interpretation kombinieren. Weder Farben noch erfolgreiche Übersetzung beweisen die Fachlogik.",
     "hints": [
-      "Unterscheide Bearbeiten und Übersetzen.",
-      "Betrachte Compiler nicht nur als Erzeuger einer bestimmten Dateiendung.",
-      "Eine Werkzeugmeldung ersetzt keine fachliche Prüfung."
+      "Verfolge einen geschriebenen Ausdruck vom Quelltext bis zu seiner Ausführung.",
+      "Welche Werkzeuge bearbeiten Text, welche übersetzen und welche führen aus?",
+      "Ein syntaktisch korrektes Programm liefert Unsinn. Welche Behauptung über den Erfolg der Übersetzung wäre zu weitgehend?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der kleine Prototyp macht eine konkrete Bedienfrage vor der vollständigen Umsetzung besprechbar.",
     "material": "",
@@ -5589,9 +5589,9 @@
     "discovery": "Konkrete Entwicklungsfragen sind passenden Hilfsmitteln zugeordnet.",
     "explanation": "Der Debugger zeigt einen angehaltenen Lauf, Dokumentation beschreibt Verträge, Versionsverwaltung hält Änderungen fest und ein Formatter vereinheitlicht Darstellung. Keines dieser Werkzeuge erledigt automatisch alle anderen Aufgaben.",
     "hints": [
-      "Suche nach dem Zweck der jeweiligen Frage.",
-      "Eine Methodensignatur ist ein dokumentierter Vertrag.",
-      "Historie und Einrückung sind unterschiedliche Probleme."
+      "Formuliere für jede Alltagssituation eine konkrete Frage an das Werkzeug.",
+      "Brauchst du den Zustand eines laufenden Programms oder eine Beschreibung dessen, was ein Aufruf erwartet?",
+      "Trenne zuletzt das Nachvollziehen früherer Änderungen vom bloßen Vereinheitlichen der Darstellung."
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Werkzeugunterstützung, Übersetzung und tatsächliches Programmverhalten sind getrennt eingeordnet.",
     "material": "",
@@ -5704,9 +5704,9 @@
     "discovery": "Der Einfluss eines Bausteins auf Aufrufe und Anwendungsablauf ist vor der Auswahl erkennbar.",
     "explanation": "Die Beispiele verdeutlichen unterschiedliche Integrationsrollen. Die Abhängigkeit muss trotzdem zu Funktionsbedarf, kompatiblen Versionen und vereinbarten Nutzungsvorgaben passen.",
     "hints": [
-      "Betrachte, wer wen aufruft.",
-      "Achte auf die vorgegebenen Erweiterungspunkte.",
-      "Fremder Code ersetzt keine Prüfung der eigenen Anforderungen."
+      "Verfolge, wer nach dem Start die Kontrolle über den Ablauf besitzt.",
+      "Ein Stück Code kann von deiner Anwendung gerufen werden oder selbst deinen Code aufrufen.",
+      "Teste jede Aussage an einem einzelnen Hilfsaufruf und an einer vom System ausgelösten Rückruffunktion."
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Konkrete Entwicklungsfragen sind passenden Hilfsmitteln zugeordnet.",
     "material": "",
@@ -5752,9 +5752,9 @@
     "discovery": "Die Auswahl unterscheidet erfüllte Vorgaben, bekannte Ausschlüsse und fehlende Informationen.",
     "explanation": "A erfüllt alle drei vorgegebenen Bedingungen. B verlangt eine Online-Verbindung und widerspricht deshalb dem Offline-Ziel. Bei C ist die Laufzeitunterstützung noch offen; Unsicherheit wird nicht als bestätigte Eignung behandelt.",
     "hints": [
-      "Prüfe alle drei Bedingungen, nicht nur eine.",
-      "Online-Pflicht widerspricht dem vorgegebenen Offline-Ziel.",
-      "Fehlende Informationen müssen zunächst geklärt werden."
+      "Markiere in der Tabelle zuerst die verbindlichen Ausschlusskriterien.",
+      "Vergleiche nur danach die verbleibenden Kandidaten nach den weiteren Vorgaben.",
+      "Kannst du jede Auswahl mit einer Tabellenzelle belegen, ohne eine fehlende Freigabe zu unterstellen?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Der Einfluss eines Bausteins auf Aufrufe und Anwendungsablauf ist vor der Auswahl erkennbar.",
     "material": "Kandidat A: offline ja; Laufzeit unterstützt ja; Projektfreigabe ja.\nKandidat B: offline nein; Laufzeit unterstützt ja; Projektfreigabe ja.\nKandidat C: offline ja; Laufzeitunterstützung ungeklärt; Projektfreigabe ja.",
@@ -5850,9 +5850,9 @@
     "discovery": "Die Zusammenarbeit hat einen nachvollziehbaren Änderungs- und Abstimmungsweg.",
     "explanation": "Commits und Branches unterstützen Historie und getrennte Arbeit. Konflikte verlangen eine fachliche Entscheidung. Diese Lernaufgabe führt keine Git-Aktionen am echten Projekt aus.",
     "hints": [
-      "Achte auf nachvollziehbare, zusammengehörige Änderungen.",
-      "Vor dem Zusammenführen kann eine gemeinsame Prüfung sinnvoll sein.",
-      "Ein Zeitstempel entscheidet keinen fachlichen Konflikt."
+      "Stell dir vor, ein Teammitglied sucht nächste Woche den Grund für eine Änderung.",
+      "Welche Information verbindet eine überschaubare Änderung mit ihrer Absicht?",
+      "Spiele das Rückverfolgen einer einzigen Entscheidung durch. Hilft der vorgeschlagene Arbeitsschritt dabei?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Auswahl unterscheidet erfüllte Vorgaben, bekannte Ausschlüsse und fehlende Informationen.",
     "material": "",
@@ -5898,9 +5898,9 @@
     "discovery": "Die Übergabe hält Verträge und Entscheidungen nachvollziehbar und ohne private Zugangsdaten fest.",
     "explanation": "Weiterarbeit benötigt überprüfbare Informationen und kennt die Grenzen des Entwurfs. Eine verständliche Dokumentation ergänzt die Diagramme, statt sie nur mit unbegründeten Aussagen zu wiederholen.",
     "hints": [
-      "Überlege, was eine andere Person tatsächlich zum Weiterarbeiten braucht.",
-      "Beispiele sollen keine privaten Zugangsdaten enthalten.",
-      "Eine Entscheidung wird durch Anlass und Abwägung nachvollziehbar."
+      "Nimm die Sicht einer Person ein, die den Entwurf morgen übernehmen soll.",
+      "Welche Information braucht sie, um die Entscheidung und ihre Grenzen nachzuvollziehen?",
+      "Unterscheide bei jedem Übergabepunkt belegte Vereinbarungen von Arbeiten, die erst später erfolgen."
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Zusammenarbeit hat einen nachvollziehbaren Änderungs- und Abstimmungsweg.",
     "material": "",

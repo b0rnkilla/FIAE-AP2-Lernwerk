@@ -1,8 +1,30 @@
 # Stand und weitere Entwicklung
 
-Die Quellfassung **1.0.0-beta.1** umfasst acht Lernbereiche mit 454 Übungen. Die sechs Befunde aus dem Abschlusscheck sind behoben und nachgeprüft. Alpha 16 aus Commit `1dbcb12` ist auf GitHub veröffentlicht. [Entwicklungsprotokoll](entwicklungsprotokoll.md), [Testprotokoll](testprotokoll.md).
+## Vierter SQL-Prüfungsfall für Beta 3
+
+„Materialausgabe für ein Stadtfest“ ist im Quellstand umgesetzt. Der neue Fall überträgt fünf Themen der erweiterten Werkstatt auf eine eigenständige Prüfung. Die praktische Nutzererprobung folgt im veröffentlichten Paket.
+
+## SQL-Erprobung vom 16.11.2026
+
+Der Nutzer hat die Ermittlung und die Werkstatt der veröffentlichten Beta 2 abgeschlossen und alle drei SQL-Prüfungsfälle mehrfach durchgespielt. Er setzt seine Erprobung mit Pseudocode fort. Die 20 neuen Werkstattaufgaben und die überarbeitete Prüfungsauswertung sind für die nächste Erprobung ab Beta 3 vorgesehen.
+
+Im Quellstand umgesetzt: verständliche Fehlerstellen und 15 einzelne Lösungserklärungen im Prüfungsmodus, UPDATE mit JOIN und drei neue Werkstattfälle mit insgesamt 20 Aufgaben. Die vorhandenen zehn Aufgaben behalten ihre Kennungen und Lernstände.
+
+Die veröffentlichte **1.0.0-beta.1** enthielt acht Lernbereiche mit 454 Übungen. Die sechs Befunde aus dem Abschlusscheck sind behoben und nachgeprüft. Alpha 16 aus Commit `1dbcb12` ist auf GitHub veröffentlicht. [Entwicklungsprotokoll](entwicklungsprotokoll.md), [Testprotokoll](testprotokoll.md).
 
 ## Umgesetzte Rückmeldungen
+
+Alle 304 Lernaufgaben mit aufklappbaren Hinweisen haben drei überarbeitete, aufgabenspezifische Denkanstöße. Beim Modellieren helfen etwa zwei gegensätzliche Beispieldatensätze, bei Berechnungen ein unabhängig gewählter Grenzwert. Musterlösungen und ihre Erklärungen lassen sich weiterhin separat ansehen.
+
+Der SQL-Spickzettel nennt am Ende die Grenzen des Übungsangebots. Der veraltete Hinweis auf geplante Module ist entfernt.
+
+Werkstattaufgabe 2 prüft die geforderte Rundung des erhöhten Preises auf Cent mit Fällen zum Auf- und Abrunden.
+
+Die gelbe Syntaxrückmeldung der SQL-Werkstatt gibt Hinweise zum fehlerhaften Befehl. Bei der Sensorpreis-Aufgabe erklärt sie den Dezimalpunkt.
+
+Der wiederkehrende Hinweis zur Arbeitskopie in der SQL-Werkstatt lässt sich schließen und unter **Lernplan → Bedienhinweise** wieder einschalten.
+
+Im Quellstand nach Beta 2 lassen sich Unterabfragen und mehrzeilige Skripte auch in SQL-Ermittlung und SQL-Werkstatt mit Tab und Umschalt+Tab einrücken und ausrücken.
 
 Nach Beta 1 trägt die Windows-EXE das eingebettete a²-Symbol. Die GitHub-ZIP bleibt vorerst unsigniert. Die README erklärt den SmartScreen-Dialog beim ersten Start. Für die stabile 1.0.0 soll der Microsoft Store als zusätzlicher Vertriebsweg geprüft werden. [Paketbau](lokale-releases.md#für-die-veröffentlichung-vorbereiten).
 
