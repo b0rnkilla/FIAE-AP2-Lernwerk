@@ -20,7 +20,7 @@ public sealed partial class ProgressStore
             progress.Completed |= old?.Completed ?? false;
             progress.Independent |= old?.Independent ?? false;
             DesignEvaluation? result = check ? DesignEvaluator.Evaluate(task, progress.Answer) : null;
-            if (result != null) { progress.Attempts++; progress.Completed |= result.Correct; progress.Independent |= result.Correct && progress.IndependentMode && !progress.Assisted; }
+            if (result != null) progress.RecordEvaluation(result.Correct);
             progress.Revision++;
             state.DesignLessons[id] = progress;
             state.LastDesignLessonId = id;

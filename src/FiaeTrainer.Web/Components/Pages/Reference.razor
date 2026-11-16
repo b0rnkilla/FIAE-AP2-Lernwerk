@@ -1,7 +1,7 @@
 @page "/nachschlagen"
 @inject LearningNavigation LearningNavigation
 <PageTitle>SQL-Spickzettel · AP2 Lernwerk</PageTitle>
-<main class="page reading-page"><div class="eyebrow">VERSTEHEN STATT ABSCHREIBEN</div><h1>Dein SQL-Spickzettel.</h1><p class="lead">Ein kurzer Überblick für die Ermittlungsakte. Die Beispiele verwenden die Falltabellen und den SQL-Server-Dialekt T-SQL.</p>
+<main class="page reading-page"><div class="eyebrow">VERSTEHEN STATT ABSCHREIBEN</div><h1>Dein SQL-Spickzettel.</h1><p class="lead">Regeln und Beispiele für SQL-Ermittlung und SQL-Werkstatt mit dem SQL-Server-Dialekt T-SQL.</p>
     @if (FromExam) { <ExamReferenceNote Module="FiaeTrainer.Core.Exams.ExamModule.Sql" /> }
     else { <a class="button secondary" href="@LearningNavigation.SqlReturnPath(ReturnTo)">Zurück zu deiner Aufgabe →</a> }
     <section class="reference-section"><h2>Schreibregeln im Trainer</h2><p>Schreibe SQL-Schlüsselwörter und Funktionen groß, zum Beispiel SELECT, FROM, WHERE und COUNT. Jede vollständige Anweisung endet mit einem Semikolon. Tabellen, Spalten, Aliase und Textwerte behalten ihre Schreibweise. Innerhalb einer Unterabfrage steht kein zusätzliches Semikolon.</p></section>
@@ -42,10 +42,17 @@ FROM Produkte AS p
 JOIN Preisliste AS n ON n.ProduktId = p.Id
 WHERE n.NeuerPreis IS NOT NULL;</code></pre>
         <p>Für einen Anzeigenamen mit Bindestrich verwende eckige Klammern, etwa <code>AS [Produkt-Id]</code>. Für den Vergleich mit einem Textwert gibt es <code>=</code> und <code>&lt;&gt;</code>.</p></section>
-    <section class="reference-section"><h2>Mengen, Schlüssel und Berechtigungen</h2>
-        <dl><dt>UNION und UNION ALL</dt><dd>Beide hängen Ergebnislisten untereinander. UNION fasst gleiche Ergebniszeilen zusammen. UNION ALL erhält jede Wiederholung. EXCEPT liefert die Differenz, INTERSECT die Schnittmenge.</dd>
-        <dt>FOREIGN KEY und REFERENCES</dt><dd>Der Fremdschlüssel sichert den Verweis auf einen vorhandenen Schlüssel. Bei NO ACTION blockieren Kindzeilen das Löschen des Elternsatzes. ON DELETE CASCADE löscht die zugehörigen Kindzeilen mit.</dd>
-        <dt>CREATE VIEW, GRANT und REVOKE</dt><dd>Eine Sicht kann Zeilen und Spalten begrenzen. Ein Leserecht auf die Sicht lässt sich einer Rolle gezielt erteilen und wieder entziehen.</dd></dl></section>
+    <section class="reference-section"><h2>Werkstattbeispiele zum Nachschlagen</h2>
+        <nav aria-label="Werkstattbeispiele">@foreach (var group in Examples.GroupBy(x => x.Chapter)) {
+            <p><strong>@group.Key</strong></p><ul>@foreach (var lesson in group) { <li><a href="@($"#werkstatt-{lesson.Id}")">@lesson.ReferenceHeading</a></li> }</ul>
+        }</nav>
+    </section>
+    @foreach (var lesson in Examples)
+    {
+        <section class="reference-section" id="@($"werkstatt-{lesson.Id}")">
+            <h2>@lesson.ReferenceHeading</h2><WorkshopExample Lesson="lesson" />
+        </section>
+    }
     <section class="notice">
         <strong>Umfang der SQL-Übungen</strong>
         <p>Die Werkstatt übt diese Techniken an drei Fällen. Weitere Themen wie Fensterfunktionen und gespeicherte Prozeduren liegen außerhalb der Aufgaben. Das Lernwerk deckt nur einen Teil von SQL und des AP2-Prüfungsstoffs ab.</p>
@@ -53,6 +60,8 @@ WHERE n.NeuerPreis IS NOT NULL;</code></pre>
 </main>
 
 @code {
+    [Inject] public WorkshopCatalog Workshop { get; set; } = default!;
+    private IEnumerable<WorkshopLesson> Examples => Workshop.Lessons.Where(x => x.ExampleSql.Length > 0);
     /// <summary> Rücksprungziel aus der Adresse; vor Verwendung auf lokale SQL-Aufgabenseiten begrenzt. </summary>
     [SupplyParameterFromQuery(Name = "zurueck")] public string? ReturnTo { get; set; }
     /// <summary> Fester Rückweg zur SQL-Prüfung statt eines frei gewählten Ziels. </summary>

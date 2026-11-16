@@ -42,8 +42,14 @@ public sealed partial class TrainingDatabase
                         foreach (string table in new[] { "Artikel", "Konten" })
                             run.BeforeRollback[table] = await ReadWorkshopTableAsync(connection, $"SELECT * FROM [#{table}] ORDER BY Id", cancellationToken);
                     new Sql160ScriptGenerator().GenerateScript(statement, out string sql);
-                    await using SqlCommand command = new(sql, connection) { CommandTimeout = 4 };
-                    await command.ExecuteNonQueryAsync(cancellationToken);
+                    if (statement is SelectStatement)
+                        run.Statements.Add(new("SELECT", await ReadWorkshopTableAsync(connection, sql, cancellationToken)));
+                    else
+                    {
+                        await using SqlCommand command = new(sql, connection) { CommandTimeout = 4 };
+                        int affected = await command.ExecuteNonQueryAsync(cancellationToken);
+                        run.Statements.Add(new(statement.ScriptTokenStream[statement.FirstTokenIndex].Text.ToUpperInvariant(), Affected: affected));
+                    }
                 }
             }
             await using (SqlCommand transactions = new("SELECT @@TRANCOUNT", connection))

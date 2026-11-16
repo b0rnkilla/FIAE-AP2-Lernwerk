@@ -81,6 +81,7 @@ public partial class DatabaseDesign
             _error = null;
             _showSolution = false;
             _progress = task == null ? null : state.DesignLessons.GetValueOrDefault(id) ?? new() { Answer = task.InitialAnswer() };
+            _progress?.OpenSavedAnswer();
             if (task == null) _error = "Diese Entwurfsaufgabe existiert nicht.";
             else if (_progress!.ContentVersion != DesignCatalog.CONTENT_VERSION) _error = "Der gespeicherte Entwurf gehört zu einem älteren Inhaltsvertrag und wird nicht überschrieben.";
         }
@@ -98,7 +99,7 @@ public partial class DatabaseDesign
     /// <summary> Bindet auch noch laufende Speichervorgänge an ihre ursprüngliche Aufgabe. </summary>
     private async Task SaveAsync()
     {
-        if (_error != null || _progress == null || _loading) return;
+        if (_error != null || _progress == null || _progress.IsReading || _loading) return;
         int id = _loaded;
         DesignProgress progress = _progress;
         await _actions.WaitAsync();
@@ -117,7 +118,7 @@ public partial class DatabaseDesign
     /// <summary> Zählt Doppelklicks nicht mehrfach und ordnet verspätete Ergebnisse keiner neuen Aufgabe zu. </summary>
     private async Task CheckAsync()
     {
-        if (!CanEdit || !HasAnswer) return;
+        if (!CanEdit || !HasAnswer || _progress!.ShowingSavedAnswer) return;
         int id = _loaded;
         int revision = _loadRevision;
         DesignProgress progress = _progress!;
@@ -125,7 +126,9 @@ public partial class DatabaseDesign
         await _actions.WaitAsync();
         try
         {
-            var result = await Store.SaveDesignAsync(id, progress, Catalog, check: true);
+            var result = progress.IsReading
+                ? DesignEvaluator.Evaluate(_task!, progress.Answer)
+                : await Store.SaveDesignAsync(id, progress, Catalog, check: true);
             _state.DesignLessons[id] = progress;
             if (revision == _loadRevision)
             {
@@ -164,19 +167,21 @@ public partial class DatabaseDesign
         _focusFeedback = false;
         if (independent)
         {
-            _progress!.Answer = _task!.InitialAnswer();
-            _progress.IndependentMode = true;
-            _progress.Assisted = false;
-            _progress.HintLevel = 0;
-            _progress.SolutionViewed = false;
+            _progress!.StartAgain(_task!.InitialAnswer());
             _showSolution = false;
         }
         else
-        {
-            _progress!.IndependentMode = false;
-            _progress.Assisted = true;
-        }
+            _progress!.UseGuidance();
         await SaveAsync();
+    }
+
+    private void ReturnToAnswer()
+    {
+        if (!CanEdit || !_progress!.IsReading) return;
+        _progress.ResumeAnswer();
+        _showSolution = false;
+        _result = null;
+        _focusFeedback = false;
     }
 
     private async Task HintAsync()

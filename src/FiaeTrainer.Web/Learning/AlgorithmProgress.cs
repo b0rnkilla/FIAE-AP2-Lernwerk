@@ -1,7 +1,8 @@
+using FiaeTrainer.Core.Learning;
 namespace FiaeTrainer.Web.Learning;
 
 /// <summary> Getrennter Entwurf und Lernversuch einer Pseudocode-Aufgabe ohne SQL-Eigenschaften. </summary>
-public sealed class AlgorithmProgress
+public sealed class AlgorithmProgress : ReviewableProgress<string>
 {
     /// <summary> Eigener Code, vorhergesagte Ausgaben oder Testfälle; null kennzeichnet einen noch nicht angelegten Reparaturentwurf. </summary>
     public string? Draft { get; set; }
@@ -11,8 +12,6 @@ public sealed class AlgorithmProgress
     public bool AttemptAssisted { get; set; }
     /// <summary> Mindestens eine fachlich korrekte Abgabe. </summary>
     public bool Completed { get; set; }
-    /// <summary> Mindestens ein korrekter Versuch ohne Hilfen. </summary>
-    public bool Independent { get; set; }
     /// <summary> Anzahl abgegebener Antworten. </summary>
     public int Attempts { get; set; }
     /// <summary> Höchster geöffneter Hinweis dieses Versuchs. </summary>

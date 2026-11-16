@@ -1,60 +1,101 @@
 [
   {
-    "id": 1, "chapter": "01 · Wieder handlungsfähig", "title": "Was passt noch hinein?", "kind": "Write",
-    "story": "Es ist 05:40 Uhr in der Leitstelle. Nach einem fehlerhaften Softwareupdate sind die Berechnungen der Einsatzplanung unzuverlässig. Gemeinsam mit Entwicklerin Nora Seidel stellst du die Abläufe Schritt für Schritt wieder her. Zuerst braucht die Disposition eine verlässliche Restkapazität für jedes Fahrzeug.",
+    "id": 1,
+    "chapter": "01 · Wieder handlungsfähig",
+    "title": "Reicht der Platz für den Auftrag?",
+    "kind": "Write",
+    "story": "05:40 Uhr. Seit dem letzten Softwareupdate meldet die Leitstelle zu viel freien Platz. Auf dem Hof wartet ein Wagen mit 420 kg freier Ladekapazität. Davon sind 80 kg für eilige Nachlieferungen reserviert. Ein Fahrer hat 340 kg angemeldet und fragt, ob er noch eine Kiste mitnehmen kann. Entwicklerin Nora Seidel gibt dir die Annahmeregel zur Prüfung.",
     "previousContext": "",
-    "task": "Die Zahlen kapazitaet und beladen sind bereits als Eingaben vorhanden. Berechne die verbleibende Kapazität und gib ausschließlich diese Zahl mit AUSGABE aus. Du darfst annehmen: 0 ≤ beladen ≤ kapazitaet. Beispiel: kapazitaet = 1000, beladen = 350 ergibt 650. Schreibe einen eigenen Ablauf; Eingaben nicht durch feste Zahlen ersetzen.",
-    "exampleInputs": { "kapazitaet": 1000, "beladen": 350 },
-    "briefing": "Eingabevariablen enthalten schon die Werte des jeweiligen Testfalls. Mit = weist du einer neuen Variablen einen berechneten Wert zu. AUSGABE macht das Ergebnis sichtbar. Du kannst die Berechnung auch direkt ausgeben.",
-    "hints": ["Skizziere die Ladefläche als Balken und markiere den schon belegten Teil.", "Welche der beiden Eingaben ist die Obergrenze, welche verbraucht Platz?", "Teste einen leeren und einen ganz vollen Wagen. Passt das Vorzeichen deines Ergebnisses in beiden Fällen?"],
-    "referenceCode": "rest = kapazitaet - beladen\nAUSGABE rest", "referenceAnswer": "",
-    "explanation": "Die Restkapazität ist Gesamtkapazität minus vorhandene Ladung. Die Namen beziehen sich auf wechselnde Eingaben. Deshalb funktioniert der Ablauf auch bei einem ganz leeren oder vollständig beladenen Fahrzeug.",
-    "discovery": "Der erste Baustein der Einsatzplanung liefert die freie Kapazität wieder korrekt, auch bei leeren und vollen Fahrzeugen.",
+    "task": "Entscheide, ob der Wagen den Auftrag annehmen kann. Der Auftrag wiegt `gewicht` kg, der Wagen hat noch `frei` kg Ladekapazität. Bei einer normalen Lieferung müssen danach mindestens `reserve` kg frei bleiben. Ein Eilauftrag (`eilauftrag` ist `WAHR`) darf die Reserve nutzen, solange die Ladung in den Wagen passt. Alle Gewichte sind ganze Kilogramm. Die Reserve liegt zwischen null und der freien Kapazität, das Auftragsgewicht ist positiv. Gib genau einmal `WAHR` oder `FALSCH` aus.",
+    "exampleInputs": {"frei":420,"reserve":80,"gewicht":340,"eilauftrag":false},
+    "briefing": "Zeichne die 420 kg als Balken und markiere die letzten 80 kg als Reserve. Trage denselben Auftrag zweimal ein, einmal als normale Lieferung und einmal als Eilauftrag. Welcher Teil des Balkens steht jeweils zur Verfügung?",
+    "hints": [
+      "Überlege zuerst, wie viel Platz nach dem Laden übrig wäre. Was verrät ein negativer Rest bei jeder Auftragsart?",
+      "Prüfe für einen normalen Auftrag, ob der verbleibende Platz die volle Reserve deckt. Was ändert das Eilkennzeichen an dieser Prüfung?",
+      "Spiele mit 420 kg freiem Platz und 80 kg Reserve die Gewichte 340, 341 und 421 kg durch. Bei welchem Gewicht darf das Eilkennzeichen die Entscheidung ändern?"
+    ],
+    "referenceCode": "grenze = frei\nWENN NICHT eilauftrag DANN\n    grenze = frei - reserve\nENDE WENN\nAUSGABE gewicht <= grenze",
+    "referenceAnswer": "",
+    "explanation": "Beim normalen Auftrag liegt die Grenze bei 420 − 80 = 340 kg. Mit 340 kg bleiben genau 80 kg frei. Ein weiteres Kilogramm wäre nur beim Eilauftrag zulässig. Dessen Grenze liegt bei 420 kg. Das Eilkennzeichen gibt also die Reserve frei, zusätzliche Ladekapazität entsteht dadurch keine.",
+    "discovery": "Die Disposition gibt die angemeldeten 340 kg frei. Die zusätzliche Kiste bleibt für die nächste Fahrt auf dem Hof. Dieselbe Annahmeregel gilt jetzt auch für Fahrzeuge mit einer anderen Reserve.",
     "tests": [
-      { "name": "Teilweise beladen", "inputs": { "kapazitaet": 1000, "beladen": 350 }, "output": ["650"] },
-      { "name": "Noch leer", "inputs": { "kapazitaet": 800, "beladen": 0 }, "output": ["800"] },
-      { "name": "Ganz voll", "inputs": { "kapazitaet": 500, "beladen": 500 }, "output": ["0"] },
-      { "name": "Andere Kapazität", "inputs": { "kapazitaet": 1240, "beladen": 1239 }, "output": ["1"] }
+      {"name": "Die Reserve bleibt genau frei", "inputs": {"frei": 420, "reserve": 80, "gewicht": 340, "eilauftrag": false}, "output": ["WAHR"]},
+      {"name": "Ein Kilogramm der Reserve wäre belegt", "inputs": {"frei": 420, "reserve": 80, "gewicht": 341, "eilauftrag": false}, "output": ["FALSCH"]},
+      {"name": "Ein Eilauftrag greift auf die Reserve zu", "inputs": {"frei": 420, "reserve": 80, "gewicht": 341, "eilauftrag": true}, "output": ["WAHR"]},
+      {"name": "Ein Eilauftrag füllt den Wagen", "inputs": {"frei": 420, "reserve": 80, "gewicht": 420, "eilauftrag": true}, "output": ["WAHR"]},
+      {"name": "Auch für einen Eilauftrag fehlt Platz", "inputs": {"frei": 420, "reserve": 80, "gewicht": 421, "eilauftrag": true}, "output": ["FALSCH"]},
+      {"name": "Anderes Fahrzeug, kleiner Auftrag", "inputs": {"frei": 190, "reserve": 50, "gewicht": 75, "eilauftrag": false}, "output": ["WAHR"]},
+      {"name": "Die ganze Restkapazität ist reserviert", "inputs": {"frei": 17, "reserve": 17, "gewicht": 1, "eilauftrag": false}, "output": ["FALSCH"]},
+      {"name": "Ein Wagen ohne Reserve", "inputs": {"frei": 65, "reserve": 0, "gewicht": 65, "eilauftrag": false}, "output": ["WAHR"]},
+      {"name": "Der Wagen ist bereits voll", "inputs": {"frei": 0, "reserve": 0, "gewicht": 1, "eilauftrag": true}, "output": ["FALSCH"]}
     ]
   },
   {
-    "id": 2, "chapter": "01 · Wieder handlungsfähig", "title": "Ein Wert verändert sich", "kind": "Trace",
-    "story": "Im nächsten Baustein wird ein Auftrag nach dem anderen eingeplant. Nora hat einen kurzen Ablauf aus dem Update isoliert. Bevor ihr ihn weiterverwendet, möchtest du nachvollziehen, wann sich die freie Kapazität verändert und welcher Wert tatsächlich ausgegeben wird.",
-    "previousContext": "Deine Restkapazitätsberechnung aus Aufgabe 1 ist geprüft. Jetzt untersuchst du, wie die Planung diese freie Kapazität schrittweise vermindert.",
-    "task": "Führe den vorgegebenen Ablauf gedanklich aus. Welche drei Ausgaben entstehen in welcher Reihenfolge? Trage ausschließlich die drei Zahlen ein, je eine Zahl pro Zeile. Eine Zuweisung wie frei = frei - 250 verwendet rechts den bisherigen Wert und ersetzt ihn danach links.",
-    "givenCode": "frei = 900\nfrei = frei - 250\nAUSGABE frei\nfrei = frei - 300\nAUSGABE frei\nfrei = frei + 50\nAUSGABE frei",
+    "id": 2,
+    "chapter": "01 · Wieder handlungsfähig",
+    "title": "Warum fehlt der letzte Funkversuch?",
+    "kind": "Trace",
+    "story": "Der Wagen wartet auf die Freigabe per Funk. Das Gerät versucht es ab 06:00 Uhr wiederholt, bis einschließlich 06:14 Uhr. Eine Antwort bleibt aus. Im handschriftlichen Protokoll fehlt der Eintrag von 06:14 Uhr. Nora legt dir den Ablauf aus dem Funkgerät hin. Lässt der Code den letzten Versuch tatsächlich aus?",
+    "previousContext": "Die Ladefreigabe steht. Jetzt soll sie den Fahrer erreichen, bevor er vom Hof fährt.",
+    "task": "Führe einen Schreibtischtest durch. Gib für jede ausgeführte `AUSGABE` genau eine Zahl pro Zeile an. Innerhalb der Schleife protokolliert das Gerät die Minuten seit 06:00 Uhr. Nach der Schleife meldet es die Gesamtzahl der Versuche.",
+    "givenCode": "minute = 0\nwartezeit = 2\nversuche = 0\nSOLANGE minute <= 14\n    AUSGABE minute\n    versuche = versuche + 1\n    minute = minute + wartezeit\n    wartezeit = wartezeit * 2\nENDE SOLANGE\nAUSGABE versuche",
     "exampleInputs": {},
-    "briefing": "Bei einem Schreibtischtest verfolgst du die Werte Zeile für Zeile. Eine AUSGABE verändert die Variable nicht. Im geführten Modus kannst du den Ablauf starten und mit „Nächster Schritt“ jeden Zustand betrachten.",
-    "hints": ["Lege zwei Spalten an: aktueller Wert und sichtbare Ausgabe.", "Nach jeder Zuweisung streichst du den alten Wert. Nur eine Ausgabe erzeugt eine Ergebniszeile.", "Lies deine Notizen von oben nach unten. Hast du eine Änderung als zusätzliche Ausgabe gezählt?"],
-    "referenceCode": "frei = 900\nfrei = frei - 250\nAUSGABE frei\nfrei = frei - 300\nAUSGABE frei\nfrei = frei + 50\nAUSGABE frei", "referenceAnswer": "650\n350\n400",
-    "explanation": "900 - 250 ergibt 650. Von diesen 650 werden 300 abgezogen: 350. Durch die anschließende Korrektur um +50 entstehen 400. AUSGABE zeigt immer den zu diesem Zeitpunkt aktuellen Wert.",
-    "discovery": "Die Reihenfolge der Zuweisungen ist nachvollzogen: Spätere Berechnungen arbeiten mit dem zuletzt gespeicherten Wert.",
-    "tests": [{ "name": "Drei Ausgaben", "inputs": {}, "output": ["650", "350", "400"] }]
+    "briefing": "Eine Zeile auf deinem Schmierblatt entspricht einem Funkversuch. Notiere jeweils die aktuelle Minute, die Wartezeit bis zum nächsten Versuch und den Versuchszähler. Markiere, welche der drei Zahlen an der jeweiligen AUSGABE steht.",
+    "hints": [
+      "Beginne mit dem Zustand direkt vor der ersten Prüfung. Muss das Gerät vor dem ersten Senden überhaupt warten?",
+      "Berechne die nächste Minute mit der Wartezeit, die in dieser Runde gilt. Erst danach verdoppelt der Code die Wartezeit.",
+      "Prüfe den Zeitpunkt genau am Ende des Fensters. Verfolge beim anschließenden Verlassen der Schleife, welche Variable die letzte Ausgabe liefert."
+    ],
+    "referenceCode": "minute = 0\nwartezeit = 2\nversuche = 0\nSOLANGE minute <= 14\n    AUSGABE minute\n    versuche = versuche + 1\n    minute = minute + wartezeit\n    wartezeit = wartezeit * 2\nENDE SOLANGE\nAUSGABE versuche",
+    "referenceAnswer": "0\n2\n6\n14\n4",
+    "explanation": "Das Gerät sendet sofort in Minute 0. Danach wartet es zunächst 2, dann 4 und dann 8 Minuten. So sendet es auch in den Minuten 2, 6 und 14. Die Grenze schließt Minute 14 ein. Der nächste geplante Versuch in Minute 30 liegt außerhalb. Die letzte Ausgabe 4 ist der Zähler für die vier gesendeten Rufe.",
+    "discovery": "Im Ablauf ist der vierte Ruf um 06:14 Uhr enthalten. Nora vermerkt die Lücke im handschriftlichen Protokoll und prüft als Nächstes, wer die ausgebliebene Rückmeldung übernehmen soll.",
+    "tests": [
+      {"name": "Sendezeitpunkte und abschließender Zähler", "inputs": {}, "output": ["0", "2", "6", "14", "4"]}
+    ]
   },
   {
-    "id": 3, "chapter": "02 · Entscheidungen absichern", "title": "Die letzte freie Einheit", "kind": "Repair",
-    "story": "Die Werte sind nachvollziehbar, doch die Disposition meldet einen merkwürdigen Fehler: Ein Auftrag wird abgelehnt, obwohl er genau in die freie Kapazität passen würde. Du bekommst den betroffenen Entscheidungsschritt zur Reparatur.",
-    "previousContext": "Du hast in Aufgabe 2 die Veränderungen der freien Kapazität verfolgt. Nun prüfst du, wie diese Zahl über die Annahme eines Auftrags entscheidet.",
-    "task": "Repariere den vorgegebenen Ablauf. Die Eingaben frei und gewicht sind nichtnegative Zahlen. Wenn der Auftrag vollständig hineinpasst, auch bei exakt gleicher Kapazität, gib passt aus. Andernfalls gib zu schwer aus. Bearbeite den Code im Editor; die Texte müssen genau so geschrieben sein.",
-    "givenCode": "WENN gewicht < frei DANN\n    AUSGABE \"passt\"\nSONST\n    AUSGABE \"zu schwer\"\nENDE WENN",
-    "exampleInputs": { "frei": 500, "gewicht": 500 },
-    "briefing": "Ein Vergleich ergibt WAHR oder FALSCH. WENN wählt genau einen Zweig. < schließt Gleichheit aus; ≤ wird im Editor als <= geschrieben. Solche Grenzfälle sind besonders geeignet, um einen fast richtigen Ablauf zu prüfen.",
-    "hints": ["Suche den Fall, bei dem das Paket genau so schwer ist wie der freie Platz.", "Vergleiche diesen Fall mit einem Paket, das nur eine Einheit schwerer ist. An welcher Bedingung trennen sich ihre Wege?", "Verfolge beide Pakete bis zum ausgegebenen Text. Erreicht jedes genau einen Zweig?"],
-    "referenceCode": "WENN gewicht <= frei DANN\n    AUSGABE \"passt\"\nSONST\n    AUSGABE \"zu schwer\"\nENDE WENN", "referenceAnswer": "",
-    "explanation": "Die erlaubten Gewichte reichen bis einschließlich frei. <= berücksichtigt die Gleichheit. Ein Gewicht oberhalb der Grenze landet im SONST-Zweig.",
-    "discovery": "Die Annahmeprüfung berücksichtigt jetzt auch Aufträge, die die freie Kapazität exakt ausnutzen.",
+    "id": 3,
+    "chapter": "02 · Entscheidungen absichern",
+    "title": "Wer hat um Mitternacht Bereitschaft?",
+    "kind": "Repair",
+    "story": "Beim Nachsehen im Dienstplan entdeckt Nora einen zweiten Vorfall. Um 00:10 Uhr ging ein Ruf an die Nachtschicht ins Leere, obwohl ihre Bereitschaft von 22:00 bis 06:00 Uhr eingetragen war. Am Nachmittag beantwortet derselbe Baustein die Dienstanfrage korrekt.",
+    "previousContext": "Du hast die Wiederholungen des Funkgeräts nachvollzogen. Nora schaut jetzt auf die andere Seite der Verbindung und prüft, wann das eingeteilte Team erreichbar sein soll.",
+    "task": "Repariere den Dienstplan. Die Eingaben `dienstbeginn`, `dienstende` und `jetzt` sind ganze Minuten seit 00:00 Uhr von 0 bis 1439. Jede Bereitschaft dauert weniger als 24 Stunden. `dienstbeginn` und `dienstende` sind verschieden. Die Startminute gehört zum Dienst, die Endminute bereits zur Ablösung. Gib genau einmal `WAHR` aus, wenn `jetzt` in die Bereitschaft fällt, sonst `FALSCH`. Der Ablauf muss auch für Schichten über Mitternacht gelten.",
+    "givenCode": "imDienst = jetzt >= dienstbeginn UND jetzt < dienstende\nAUSGABE imDienst",
+    "exampleInputs": {"dienstbeginn":1320,"dienstende":360,"jetzt":10},
+    "briefing": "Zeichne einen Zeitstrahl von 00:00 bis 24:00 Uhr. Markiere erst einen Tagesdienst und dann den Dienst von 22:00 bis 06:00 Uhr. Wo liegt die unbesetzte Zeit bei der Nachtschicht?",
+    "hints": [
+      "Markiere 23:00, 01:00 und 12:00 Uhr auf deiner Skizze. Welche dieser Zeiten müsste derselbe Nachtdienst abdecken?",
+      "Vergleiche dienstbeginn mit dienstende. Woran kannst du allein an diesen Zahlen erkennen, ob das Intervall über den Tageswechsel läuft?",
+      "Probiere genau 22:00 und genau 06:00 Uhr. Prüfe danach einen Dienst von 08:00 bis 16:00 Uhr mit einer Anfrage mitten in der Nacht."
+    ],
+    "referenceCode": "WENN dienstbeginn < dienstende DANN\n    imDienst = jetzt >= dienstbeginn UND jetzt < dienstende\nSONST\n    imDienst = jetzt >= dienstbeginn ODER jetzt < dienstende\nENDE WENN\nAUSGABE imDienst",
+    "referenceAnswer": "",
+    "explanation": "Beim Tagesdienst muss die Uhrzeit beide Grenzen gleichzeitig erfüllen. Ein Nachtdienst belegt auf dem Zeitstrahl zwei Stücke. Ab 22:00 Uhr gehört der späte Abend dazu, vor 06:00 Uhr der frühe Morgen. Deshalb genügt dort eine der beiden Bedingungen. Um genau 06:00 Uhr ist die Ablösung zuständig.",
+    "discovery": "Der Ruf um 00:10 Uhr lässt sich dem Nachtdienst zuordnen. Am Schichtwechsel erhält nur das übernehmende Team den nächsten Ruf.",
     "tests": [
-      { "name": "Exakt passend", "inputs": { "frei": 500, "gewicht": 500 }, "output": ["passt"] },
-      { "name": "Etwas leichter", "inputs": { "frei": 500, "gewicht": 499 }, "output": ["passt"] },
-      { "name": "Zu schwer", "inputs": { "frei": 500, "gewicht": 501 }, "output": ["zu schwer"] },
-      { "name": "Keine Kapazität, kein Gewicht", "inputs": { "frei": 0, "gewicht": 0 }, "output": ["passt"] }
+      {"name": "Nach Mitternacht", "inputs": {"dienstbeginn": 1320, "dienstende": 360, "jetzt": 10}, "output": ["WAHR"]},
+      {"name": "Erste Minute des Nachtdiensts", "inputs": {"dienstbeginn": 1320, "dienstende": 360, "jetzt": 1320}, "output": ["WAHR"]},
+      {"name": "Später Abend", "inputs": {"dienstbeginn": 1320, "dienstende": 360, "jetzt": 1439}, "output": ["WAHR"]},
+      {"name": "Um Mitternacht", "inputs": {"dienstbeginn": 1320, "dienstende": 360, "jetzt": 0}, "output": ["WAHR"]},
+      {"name": "Letzte Minute vor der Ablösung", "inputs": {"dienstbeginn": 1320, "dienstende": 360, "jetzt": 359}, "output": ["WAHR"]},
+      {"name": "Genau zur Ablösung", "inputs": {"dienstbeginn": 1320, "dienstende": 360, "jetzt": 360}, "output": ["FALSCH"]},
+      {"name": "Mittags zwischen zwei Nachtdiensten", "inputs": {"dienstbeginn": 1320, "dienstende": 360, "jetzt": 720}, "output": ["FALSCH"]},
+      {"name": "Andere Nacht, kurz vor Dienstbeginn", "inputs": {"dienstbeginn": 1230, "dienstende": 180, "jetzt": 1229}, "output": ["FALSCH"]},
+      {"name": "Start eines Tagesdiensts", "inputs": {"dienstbeginn": 480, "dienstende": 960, "jetzt": 480}, "output": ["WAHR"]},
+      {"name": "Mitten im Tagesdienst", "inputs": {"dienstbeginn": 480, "dienstende": 960, "jetzt": 600}, "output": ["WAHR"]},
+      {"name": "Nach dem Tagesdienst", "inputs": {"dienstbeginn": 480, "dienstende": 960, "jetzt": 1080}, "output": ["FALSCH"]},
+      {"name": "Genau zum Ende des Tagesdiensts", "inputs": {"dienstbeginn": 480, "dienstende": 960, "jetzt": 960}, "output": ["FALSCH"]},
+      {"name": "Vor dem Tagesdienst", "inputs": {"dienstbeginn": 480, "dienstende": 960, "jetzt": 5}, "output": ["FALSCH"]},
+      {"name": "Kurzer Dienst endet um Mitternacht", "inputs": {"dienstbeginn": 1439, "dienstende": 0, "jetzt": 0}, "output": ["FALSCH"]}
     ]
   },
   {
     "id": 4, "chapter": "02 · Entscheidungen absichern", "title": "Wer muss zuerst los?", "kind": "Write",
     "story": "Als Nächstes braucht die Leitstelle eine eindeutige Priorität für jeden Auftrag. Ein Expressauftrag ist dringend. Das gilt auch für Aufträge mit höchstens 30 Minuten Restzeit. Ein bereits erledigter Auftrag darf unabhängig davon nicht erneut eingeplant werden.",
-    "previousContext": "Die Kapazitätsentscheidung aus Aufgabe 3 ist abgesichert. Jetzt ergänzt du davor die Entscheidung, welche noch offenen Aufträge Vorrang bekommen.",
-    "task": "Die Eingaben erledigt und express sind Wahrheitswerte, minuten ist eine nichtnegative ganze Zahl. Gib erledigt aus, wenn erledigt == WAHR ist. Sonst gib dringend aus, wenn express == WAHR ODER minuten <= 30 gilt. Für alle übrigen Fälle gib normal aus. Pro Auftrag darf genau eine Ausgabe entstehen.",
+    "previousContext": "Die Bereitschaft lässt sich zur richtigen Zeit erreichen. Für das eingeteilte Team ordnest du nun die offenen Aufträge nach Dringlichkeit.",
+    "task": "Die Eingaben `erledigt` und `express` sind Wahrheitswerte, `minuten` ist eine nichtnegative ganze Zahl. Gib den Text `erledigt` aus, wenn `erledigt == WAHR` ist. Sonst gib `dringend` aus, wenn `express == WAHR ODER minuten <= 30` gilt. Für alle übrigen Fälle gib `normal` aus. Pro Auftrag darf genau eine Ausgabe entstehen.",
     "exampleInputs": { "erledigt": false, "express": false, "minuten": 30 },
     "briefing": "Prüfe zuerst den Ausschlussfall erledigt. Im SONST-Zweig kannst du mit einer weiteren WENN-Anweisung zwischen dringend und normal unterscheiden. UND verlangt beide Bedingungen, ODER mindestens eine. NICHT kehrt einen Wahrheitswert um.",
     "hints": ["Was soll bei einem Auftrag passieren, der zugleich erledigt und dringend ist?", "Ordne die Entscheidungen so, dass eine endgültige Einstufung weitere Ausgaben ausschließt.", "Teste einen offenen Auftrag ohne Expresskennzeichen mit genau 30 Minuten Restzeit."],
@@ -74,7 +115,7 @@
     "id": 5, "chapter": "03 · Mehrere Schritte verarbeiten", "title": "Ein Paket fehlt", "kind": "Repair",
     "story": "Die nächste Störung steckt im Ladeprotokoll. Beim wiederholten Verarbeiten gleich schwerer Pakete erscheint die Gesamtladung zu klein. Nora vermutet, dass die Wiederholung einen Auftrag überspringt. Du untersuchst den Zähler.",
     "previousContext": "Du hast in Aufgabe 4 die Prioritäten einzelner Aufträge formuliert. Jetzt geht es darum, einen Verarbeitungsschritt für mehrere Pakete vollständig zu wiederholen.",
-    "task": "Repariere den Ablauf so, dass genau anzahl Pakete mit jeweils einzelgewicht addiert werden. anzahl ist eine nichtnegative ganze Zahl, einzelgewicht ist nichtnegativ. Gib am Ende genau einmal das Gesamtgewicht aus. Auch anzahl = 0 muss funktionieren. FÜR i VON a BIS b schließt beide Grenzen ein und zählt jeweils um 1 hoch; bei a > b läuft der Schleifenrumpf nicht.",
+    "task": "Repariere den Ablauf so, dass er für genau `anzahl` Pakete das jeweilige Gewicht `einzelgewicht` addiert. Die Paketanzahl ist eine nichtnegative ganze Zahl, das Einzelgewicht ist ebenfalls nichtnegativ. Gib am Ende genau einmal das Gesamtgewicht aus. Auch `anzahl = 0` muss funktionieren. Die Schleife `FÜR i VON a BIS b` schließt beide Grenzen ein und zählt jeweils um 1 hoch. Bei `a > b` läuft der Schleifenrumpf nicht.",
     "givenCode": "gesamt = 0\nFÜR i VON 1 BIS anzahl - 1\n    gesamt = gesamt + einzelgewicht\nENDE FÜR\nAUSGABE gesamt",
     "exampleInputs": { "anzahl": 3, "einzelgewicht": 20 },
     "briefing": "Eine Zählschleife wiederholt ihren Rumpf für jeden Wert zwischen Anfang und Ende einschließlich. Der Akkumulator gesamt beginnt bei 0. Er wird im Rumpf erhöht und erst nach der Schleife ausgegeben.",
@@ -93,7 +134,7 @@
     "id": 6, "chapter": "03 · Mehrere Schritte verarbeiten", "title": "Wann endet der Ladevorgang?", "kind": "Trace",
     "story": "Im Ladeprotokoll taucht neben der festen Paketanzahl ein anderer Ablauf auf: Solange Platz vorhanden ist, sollen Pakete eingeladen werden. Der neue Baustein prüft aber eine andere Bedingung. Bevor jemand den Ablauf einsetzt, bestimmst du seine tatsächlichen Ausgaben.",
     "previousContext": "Die feste Anzahl der Wiederholungen aus Aufgabe 5 ist geklärt. Jetzt vergleichst du damit eine SOLANGE-Schleife, deren Bedingung vor jedem Durchlauf erneut geprüft wird.",
-    "task": "Welche vier Ausgaben erzeugt der vorgegebene Ablauf? Trage je eine Zahl pro Zeile ein. Die letzte AUSGABE steht außerhalb der Schleife. Bewerte hier den tatsächlich geschriebenen Ablauf, auch wenn er für die Ladeplanung ungeeignet ist.",
+    "task": "Welche vier Ausgaben erzeugt der vorgegebene Ablauf? Trage je eine Zahl pro Zeile ein. Die letzte `AUSGABE` steht außerhalb der Schleife. Bewerte hier den tatsächlich geschriebenen Ablauf, auch wenn er für die Ladeplanung ungeeignet ist.",
     "givenCode": "rest = 70\ngeladen = 0\nSOLANGE rest > 0\n    rest = rest - 30\n    geladen = geladen + 1\n    AUSGABE rest\nENDE SOLANGE\nAUSGABE geladen",
     "exampleInputs": {},
     "briefing": "SOLANGE prüft die Bedingung vor dem Schleifenrumpf. Wenn rest noch positiv ist, kann der nächste Abzug trotzdem zu einem negativen Wert führen. Unterscheide sorgfältig zwischen dem Verhalten des Codes und dem gewünschten Fachverhalten.",
@@ -107,7 +148,7 @@
     "id": 7, "chapter": "04 · Prüfen und zusammenführen", "title": "Die Grenze gezielt testen", "kind": "TestCases",
     "story": "Bevor weitere Ladeentscheidungen freigegeben werden, möchte Nora die Gewichtsprüfung gezielt absichern. Zufällig gewählte Normalwerte reichen nicht aus: Der vorherige Schleifenfehler zeigte, wie wichtig die genaue Grenze ist. Du entwirfst einen kleinen Satz aussagekräftiger Tests.",
     "previousContext": "Der Schreibtischtest aus Aufgabe 6 hat eine übersehene Kapazitätsgrenze sichtbar gemacht. Jetzt wählst du bewusst Testdaten, die solche Fehler aufdecken können.",
-    "task": "Entwirf mindestens vier Testfälle für folgende Regel: Ein ganzzahliges gewicht < 0 ergibt ungültig, von 0 bis einschließlich 100 ergibt zulässig, oberhalb von 100 ergibt zu schwer. Decke diese vier Gruppen ab: negatives Gewicht, genau 0, genau 100 und ein Gewicht über 100. Schreibe pro Zeile: Zahl => erwartete Ausgabe. Beispiel für das Format: 50 => zulässig. Dieser Normalfall allein deckt noch keine der vier geforderten Gruppen ab.",
+    "task": "Entwirf mindestens vier Testfälle für die ganzzahlige Eingabe `gewicht`. Negative Werte ergeben `ungültig`, Werte von 0 bis einschließlich 100 ergeben `zulässig`, höhere Werte ergeben `zu schwer`. Decke ein negatives Gewicht, genau 0, genau 100 und ein Gewicht über 100 ab. Schreibe pro Zeile `Zahl => erwartete Ausgabe`. Ein Formatbeispiel ist `50 => zulässig`. Dieser Normalfall allein deckt noch keine der vier geforderten Gruppen ab.",
     "exampleInputs": { "gewicht": 50 },
     "briefing": "Grenzwerttests prüfen die Stellen, an denen sich die Entscheidung ändert. Neben den Grenzen 0 und 100 brauchst du ungültige negative Eingaben und einen Wert oberhalb der Kapazität. Die App prüft jede Sollausgabe und danach die Abdeckung der geforderten Gruppen.",
     "hints": ["Zeichne die Gewichtsbereiche auf einen Zahlenstrahl.", "Trenne die beiden Randwerte von Beispielen weit innen im gültigen Bereich.", "Decke deine Ausgaben ab und ordne jeden Testwert noch einmal nur anhand der Regel ein."],
@@ -126,7 +167,7 @@
     "id": 8, "chapter": "04 · Prüfen und zusammenführen", "title": "Die nächste Ladung im Überblick", "kind": "Write",
     "story": "Für den ersten wieder nutzbaren Planungsstand fehlt eine Übersicht über die wartenden Pakete. Einige überschreiten das erlaubte Einzelgewicht. Die Disposition braucht deshalb eine Auswertung, die nur zulässige Pakete zählt und deren Gesamtgewicht bestimmt. Hier führst du Berechnung, Entscheidung und Wiederholung zusammen.",
     "previousContext": "Die Testgruppen aus Aufgabe 7 sichern die Einzelgewichtsprüfung ab. Jetzt wendest du genau diese Regel auf eine ganze Liste wartender Pakete an.",
-    "task": "Die Eingabeliste gewichte enthält ganze Zahlen. Berücksichtige nur Werte von 0 bis einschließlich 100; negative Werte und Werte über 100 werden ignoriert. Gib zuerst die Anzahl zulässiger Pakete aus und danach deren Gesamtgewicht, jeweils mit AUSGABE in einer eigenen Zeile. Bei einer leeren Liste lauten beide Ausgaben 0. Beispiel: [20, 110, 0, -5, 100] ergibt zuerst 3 und danach 120. Mit FÜR JEDES gewicht IN gewichte durchläufst du jeden Eintrag; abgeschlossen wird der Block mit ENDE FÜR.",
+    "task": "Die Eingabeliste `gewichte` enthält ganze Zahlen. Berücksichtige nur Werte von 0 bis einschließlich 100. Gib zuerst die Anzahl zulässiger Pakete aus und danach deren Gesamtgewicht, jeweils mit `AUSGABE` in einer eigenen Zeile. Bei einer leeren Liste lauten beide Ausgaben 0. Die Liste `[20, 110, 0, -5, 100]` ergibt zuerst 3 und danach 120. Mit `FÜR JEDES gewicht IN gewichte` durchläufst du jeden Eintrag. Abgeschlossen wird der Block mit `ENDE FÜR`.",
     "exampleInputs": { "gewichte": [20, 110, 0, -5, 100] },
     "briefing": "Initialisiere einen Zähler und eine Summe vor der Schleife. Prüfe jeden Listeneintrag mit UND auf beide Grenzen. Nur im gültigen Zweig veränderst du Zähler und Summe. Die beiden Ausgaben stehen nach der Schleife, damit auch eine leere Liste ein Ergebnis liefert.",
     "hints": ["Nutze beim Durchgehen der Liste zwei Notizzettel: einen für Stücke und einen für Gewicht.", "Entscheide für jeden Eintrag zuerst über die Zulässigkeit. Erst dann änderst du die Zettel.", "Verfolge ein Paket mit Gewicht null. Welche der beiden Größen muss sich dabei ändern?"],
@@ -149,7 +190,7 @@
     "kind": "Write",
     "story": "Die Leitstelle möchte Verzögerungen nicht nur als Summe sehen. Für die nächste Lagebesprechung braucht Nora den höchsten gemeldeten Zeitunterschied. Negative Werte bedeuten, dass ein Fahrzeug früher als geplant ankommt. Auch eine noch leere Meldeliste muss verständlich behandelt werden.",
     "previousContext": "Die Auswertung aus Aufgabe 8 zählt und summiert passende Pakete. Jetzt erweiterst du die Listenverarbeitung um die Suche nach einem Extremwert.",
-    "task": "Die Liste abweichungen enthält ganze Zahlen, auch negative. Gib ihren größten Wert aus. Ist sie leer, gib ausschließlich den Text leer aus. Ein Maximum darf nicht pauschal bei 0 beginnen: Bei [-7, -2, -9] ist das Ergebnis -2.",
+    "task": "Die Liste `abweichungen` enthält ganze Zahlen, auch negative. Gib ihren größten Wert aus. Ist sie leer, gib ausschließlich den Text `leer` aus. Ein Maximum darf nicht pauschal bei 0 beginnen. Bei `[-7, -2, -9]` ist das Ergebnis -2.",
     "exampleInputs": {
       "abweichungen": [
         -7,
@@ -247,7 +288,7 @@
     "kind": "Repair",
     "story": "Für dieselbe Lagebesprechung soll außerdem die durchschnittliche Bearbeitungszeit erscheinen. Die Anzeige rundet aber scheinbar immer ab. Nora gibt dir den betroffenen Ablauf; die Berechnung darf vorhandene Nachkommastellen nicht verlieren.",
     "previousContext": "Aufgabe 9 liefert den höchsten Messwert. Daneben braucht die Übersicht einen korrekt berechneten Durchschnitt.",
-    "task": "Die Liste zeiten enthält nichtnegative ganze Zahlen. Repariere die Berechnung des arithmetischen Mittels. Gib den ungerundeten Durchschnitt aus; bei einer leeren Liste den Text leer. Beispiel: [10, 11] ergibt 10.5. Alle Prüffälle besitzen einen endlichen Dezimalwert.",
+    "task": "Die Liste `zeiten` enthält nichtnegative ganze Zahlen. Repariere die Berechnung des arithmetischen Mittels. Gib den ungerundeten Durchschnitt aus, bei einer leeren Liste den Text `leer`. Für `[10, 11]` ergibt sich `10.5`. Alle Prüffälle besitzen einen endlichen Dezimalwert.",
     "exampleInputs": {
       "zeiten": [
         10,
@@ -346,7 +387,7 @@
     "kind": "Write",
     "story": "Während der Besprechung meldet sich ein Fahrer mit einer Auftragsnummer. Die Disposition möchte sofort die erste passende Position in der Warteliste finden. Die Liste ist unsortiert und kann wiederholte Nummern enthalten.",
     "previousContext": "Nach den Kennzahlen aus Aufgabe 10 folgt der Zugriff auf einen konkreten Auftrag in derselben Warteliste.",
-    "task": "Die Liste nummern und die Zahl gesucht sind gegeben. Gib den Index des ersten passenden Eintrags aus, beginnend bei 0. Falls gesucht nicht vorkommt oder die Liste leer ist, gib -1 aus. Bei [42, 17, 42] und gesucht = 42 lautet die Ausgabe 0. Die Liste ist nicht sortiert.",
+    "task": "Die Liste `nummern` und die Zahl `gesucht` sind gegeben. Gib den Index des ersten passenden Eintrags aus, beginnend bei 0. Falls `gesucht` nicht vorkommt oder die Liste leer ist, gib -1 aus. Bei `[42, 17, 42]` und `gesucht = 42` lautet die Ausgabe 0. Die Liste ist nicht sortiert.",
     "exampleInputs": {
       "nummern": [
         42,
@@ -450,113 +491,35 @@
   {
     "id": 12,
     "chapter": "06 · Aufträge wiederfinden",
-    "title": "Ein Treffer ist nicht genug",
+    "title": "Darf Nora den Wartungstermin eintragen?",
     "kind": "Write",
-    "story": "Ein Auftrag kann durch mehrere Statusmeldungen in der Protokollliste stehen. Die Leitstelle braucht deshalb neben der ersten Position auch eine Häufigkeit: Wie oft wurde die gesuchte Nummer tatsächlich gemeldet?",
-    "previousContext": "Die erste Trefferposition aus Aufgabe 11 beantwortet, wo ein Auftrag steht. Jetzt zählst du alle Vorkommen statt beim ersten Treffer aufzuhören.",
-    "task": "Die Liste nummern und die Zahl gesucht sind gegeben. Gib aus, wie oft gesucht in nummern vorkommt. Mehrere gleiche Einträge zählen jeweils einzeln. Keine Treffer und eine leere Liste ergeben 0. Beispiel: [7, 2, 7, 7] mit gesucht = 7 ergibt 3.",
-    "exampleInputs": {
-      "nummern": [
-        7,
-        2,
-        7,
-        7
-      ],
-      "gesucht": 7
-    },
-    "briefing": "Ein Suchzähler beginnt bei 0. Für die Häufigkeit muss die gesamte Liste untersucht werden; die Abbruchbedingung des ersten Treffers passt hier nicht.",
+    "story": "Auf einem Werkstattauftrag steht „29. Februar“. Im Wartungskalender lässt sich dieser Tag für jedes Jahr auswählen. Nora braucht eine Entscheidung, die sowohl die Terminmaske als auch der Import alter Wartungsaufträge verwenden können.",
+    "previousContext": "Die Auftragsnummer lässt sich jetzt in der Warteliste finden. Bevor die Disposition den Termin übernimmt, muss sie das Datum auf dem Auftrag prüfen.",
+    "task": "Schreibe die Funktion `istSchaltjahr(jahr)` für positive ganzzahlige Jahreszahlen. Verwende die gregorianische Regel für alle Eingaben. Ein durch 4 teilbares Jahr ist ein Schaltjahr. Volle Jahrhunderte bilden eine Ausnahme. Bei ihnen gibt es den 29. Februar nur, wenn das Jahr auch durch 400 teilbar ist. Gib den Wahrheitswert `WAHR` oder `FALSCH` mit `RÜCKGABE` zurück.",
+    "exampleInputs": {"jahr":2100},
+    "briefing": "Die Terminmaske übergibt die Jahreszahl und erwartet einen Wahrheitswert für ihre eigene Entscheidung. Mit MOD erhältst du den Rest einer ganzzahligen Division. Ein Rest von 0 bedeutet, dass die Teilung aufgeht.",
     "hints": [
-      "Setze für jeden passenden Eintrag einen Strich neben die Liste.",
-      "Prüfe, wann dein Zähler verändert wird und wann die Suche enden darf.",
-      "Lege einen weiteren Treffer ganz ans Listenende. Wird er noch erfasst?"
+      "Notiere getrennt ein gewöhnliches Jahr, ein durch 4 teilbares Jahr und ein volles Jahrhundert. Bei welcher Gruppe brauchst du noch eine weitere Information?",
+      "Ein Vielfaches von 400 ist zugleich durch 100 und 4 teilbar. Prüfe an deinem Entwurf, welche Entscheidung für diesen Fall zuerst wirksam wird.",
+      "Spiele die Funktion für 1900 und 2000 auf Papier durch. Erreicht jeder Aufruf eine Rückgabe, und kann dein Code die zwei Jahre unterscheiden?"
     ],
-    "referenceCode": "anzahl = 0\nFÜR JEDES nummer IN nummern\n    WENN nummer == gesucht DANN\n        anzahl = anzahl + 1\n    ENDE WENN\nENDE FÜR\nAUSGABE anzahl",
+    "referenceCode": "FUNKTION istSchaltjahr(jahr)\n    WENN jahr MOD 100 == 0 DANN\n        RÜCKGABE jahr MOD 400 == 0\n    ENDE WENN\n    RÜCKGABE jahr MOD 4 == 0\nENDE FUNKTION",
     "referenceAnswer": "",
-    "explanation": "Jeder passende Eintrag erhöht den Zähler um genau 1. Es wird weder nach dem ersten Treffer abgebrochen noch eine Menge eindeutiger Nummern gebildet. So werden auch mehrere Meldungen desselben Auftrags erfasst.",
-    "discovery": "Die Leitstelle kann einen einzelnen Fund von wiederholten Meldungen unterscheiden und gezielt nach auffälligen Häufigkeiten fragen.",
+    "functionName": "istSchaltjahr",
+    "functionInputs": ["jahr"],
+    "requiresBooleanReturn": true,
+    "explanation": "Bei einem vollen Jahrhundert entscheidet nur noch die Teilbarkeit durch 400. Für 1900 liefert die Funktion deshalb FALSCH, für 2000 WAHR. Alle anderen Jahre erreichen die zweite Rückgabe. Dort genügt die Viererregel, etwa für 2024. Die Terminmaske kann das Ergebnis direkt in einer WENN-Bedingung verwenden.",
+    "discovery": "Die Terminmaske kann den 29. Februar jetzt vor dem Speichern prüfen. Beim Einlesen alter Wartungsaufträge verwendet Nora dieselbe Kalenderregel.",
     "tests": [
-      {
-        "name": "Drei Meldungen",
-        "inputs": {
-          "nummern": [
-            7,
-            2,
-            7,
-            7
-          ],
-          "gesucht": 7
-        },
-        "output": [
-          "3"
-        ]
-      },
-      {
-        "name": "Keine Meldung",
-        "inputs": {
-          "nummern": [
-            1,
-            2
-          ],
-          "gesucht": 9
-        },
-        "output": [
-          "0"
-        ]
-      },
-      {
-        "name": "Leeres Protokoll",
-        "inputs": {
-          "nummern": [],
-          "gesucht": 7
-        },
-        "output": [
-          "0"
-        ]
-      },
-      {
-        "name": "Alle gleich",
-        "inputs": {
-          "nummern": [
-            0,
-            0,
-            0,
-            0
-          ],
-          "gesucht": 0
-        },
-        "output": [
-          "4"
-        ]
-      },
-      {
-        "name": "Einzelne Meldung",
-        "inputs": {
-          "nummern": [
-            5
-          ],
-          "gesucht": 5
-        },
-        "output": [
-          "1"
-        ]
-      },
-      {
-        "name": "Getrennte Treffer",
-        "inputs": {
-          "nummern": [
-            4,
-            8,
-            4,
-            1,
-            4,
-            4
-          ],
-          "gesucht": 4
-        },
-        "output": [
-          "4"
-        ]
-      }
+      {"name": "Wartung im Jahr 2025", "inputs": {"jahr": 2025}, "output": ["FALSCH"]},
+      {"name": "Wartung im Jahr 2024", "inputs": {"jahr": 2024}, "output": ["WAHR"]},
+      {"name": "Wartung im Jahr 1900", "inputs": {"jahr": 1900}, "output": ["FALSCH"]},
+      {"name": "Wartung im Jahr 2000", "inputs": {"jahr": 2000}, "output": ["WAHR"]},
+      {"name": "Wartung im Jahr 2100", "inputs": {"jahr": 2100}, "output": ["FALSCH"]},
+      {"name": "Wartung im Jahr 2400", "inputs": {"jahr": 2400}, "output": ["WAHR"]},
+      {"name": "Wartung im Jahr 96", "inputs": {"jahr": 96}, "output": ["WAHR"]},
+      {"name": "Wartung im Jahr 1", "inputs": {"jahr": 1}, "output": ["FALSCH"]},
+      {"name": "Wartung im Jahr 100", "inputs": {"jahr": 100}, "output": ["FALSCH"]}
     ]
   },
   {
@@ -565,8 +528,8 @@
     "title": "Immer die halbe Warteliste",
     "kind": "Trace",
     "story": "Für ein bereits aufsteigend sortiertes Archiv schlägt Nora eine andere Suchstrategie vor: Prüfe die Mitte und verwerfe die Hälfte, in der die Nummer nicht liegen kann. Bevor die Strategie eingesetzt wird, verfolgst du die Suchgrenzen.",
-    "previousContext": "Aufgabe 12 zählt alle Meldungen. Für den gezielten Zugriff auf das sortierte Archiv wechselst du nun zur binären Suche.",
-    "task": "Untersuche den gegebenen Ablauf für nummern = [10, 20, 30, 40, 50, 60, 70] und gesucht = 50. Trage alle vier Ausgaben in ihrer Reihenfolge ein, je eine Zahl pro Zeile. Die ersten Ausgaben zeigen den jeweils geprüften Index mitte; die letzte Ausgabe ist die gefundene Position. DIV berechnet hier einen ganzzahligen mittleren Index.",
+    "previousContext": "Der Wartungstermin lässt sich prüfen. Für Rückfragen zu älteren Aufträgen braucht Nora jetzt einen schnellen Zugriff auf das sortierte Archiv.",
+    "task": "Untersuche den gegebenen Ablauf für `nummern = [10, 20, 30, 40, 50, 60, 70]` und `gesucht = 50`. Trage alle vier Ausgaben in ihrer Reihenfolge ein, je eine Zahl pro Zeile. Die ersten Ausgaben zeigen den jeweils geprüften Index `mitte`, die letzte Ausgabe ist die gefundene Position. `DIV` berechnet hier einen ganzzahligen mittleren Index.",
     "exampleInputs": {
       "nummern": [
         10,
@@ -617,132 +580,138 @@
   {
     "id": 14,
     "chapter": "06 · Aufträge wiederfinden",
-    "title": "Die Suche muss kleiner werden",
+    "title": "Wo liegt der Abholschein?",
     "kind": "Repair",
-    "story": "Im Suchbaustein des Updates sitzt ein Grenzfehler: Bei bestimmten Nummern bleibt derselbe Bereich immer wieder übrig. Nora möchte eine Reparatur, die auch beim erfolglosen Suchen zuverlässig endet.",
-    "previousContext": "Du hast in Aufgabe 13 das Halbieren der Suchgrenzen verfolgt. Jetzt prüfst du, ob der gegebene Baustein diese Grenzen korrekt verschiebt.",
-    "task": "Die Liste nummern ist aufsteigend sortiert und enthält unterschiedliche ganze Zahlen. Repariere die binäre Suche. Gib den Index von gesucht aus, sonst -1, auch bei leerer Liste. Der bereits geprüfte mittlere Eintrag muss bei einer weiteren Suche aus dem möglichen Bereich verschwinden.",
+    "story": "Am Ausgabefenster wartet ein Fahrer auf seinen unterschriebenen Abholschein. Das digitale Archiv liefert die Fachnummer. Die Weganzeige schickt Nora aber bei manchen Nummern in die falsche Reihe, bei anderen ans falsche Ende des Regals.",
+    "previousContext": "Du hast die Auftragsnummer im sortierten Archiv aufgespürt. Jetzt muss Nora mit der hinterlegten Fachnummer auch den Papierbeleg finden.",
+    "task": "Repariere die Weganzeige. Jede Regalreihe hat `breite` Fächer. Fach 1 liegt oben links. Die Nummerierung läuft in der ersten Reihe nach rechts, in der zweiten nach links und wechselt danach mit jeder Reihe die Richtung. Bei vier Fächern pro Reihe stehen von links nach rechts oben die Nummern 1, 2, 3, 4 und darunter 8, 7, 6, 5. Gib für `fachnummer` zuerst die Reihe von oben und dann die Spalte von links aus, je eine Zahl pro Zeile. Beide Positionen zählen ab 1. `fachnummer` und `breite` sind positive ganze Zahlen.",
+    "givenCode": "reihe = fachnummer DIV breite + 1\nspalte = fachnummer MOD breite\nWENN spalte == 0 DANN\n    spalte = breite\nENDE WENN\nAUSGABE reihe\nAUSGABE spalte",
     "exampleInputs": {
-      "nummern": [
-        10,
-        20,
-        30,
-        40,
-        50,
-        60,
-        70
-      ],
-      "gesucht": 10
+      "fachnummer": 7,
+      "breite": 4
     },
-    "briefing": "Eine Schleife muss Fortschritt machen. Wenn die Mitte zu groß ist, kann weder sie selbst noch ein Eintrag rechts von ihr passen. Die rechte Grenze muss dann links von mitte liegen.",
+    "briefing": "Skizziere drei Reihen mit je vier Kästchen und trage die Fachnummern ein. Schreibe die Spaltennummern nur einmal über die Skizze. Sie gelten aus Noras Blickrichtung für jede Reihe.",
     "hints": [
-      "Zeichne einen Suchbereich mit nur noch einem erfolglos geprüften Element.",
-      "Wie müssen sich die Grenzen verändern, damit dieses Element nicht wieder die Mitte wird?",
-      "Teste einen gesuchten Wert zwischen zwei vorhandenen Zahlen. Endet deine Suche?"
+      "Verfolge die Weganzeige für Fach 4 und Fach 5 bei einer Breite von vier. In welcher Reihe liegt jeweils der Schein, und in welche Reihe schickt dich der Code?",
+      "Zähle, wie viele Fächer vor dem gesuchten Fach liegen. Teile diese Anzahl in volle Reihen und die restlichen Schritte innerhalb der nächsten Reihe auf.",
+      "Vergleiche bei vier Fächern pro Reihe die Nummern 6 und 10. Beide sind das zweite Fach in Laufrichtung. Liegen sie von links gesehen auch in derselben Spalte?"
     ],
-    "referenceCode": "links = 0\nrechts = LÄNGE(nummern) - 1\nposition = -1\nSOLANGE links <= rechts UND position == -1\n    mitte = (links + rechts) DIV 2\n    WENN nummern[mitte] == gesucht DANN\n        position = mitte\n    SONST\n        WENN nummern[mitte] < gesucht DANN\n            links = mitte + 1\n        SONST\n            rechts = mitte - 1\n        ENDE WENN\n    ENDE WENN\nENDE SOLANGE\nAUSGABE position",
+    "referenceCode": "davor = fachnummer - 1\nreihe = davor DIV breite + 1\nversatz = davor MOD breite\nWENN reihe MOD 2 == 0 DANN\n    spalte = breite - versatz\nSONST\n    spalte = versatz + 1\nENDE WENN\nAUSGABE reihe\nAUSGABE spalte",
     "referenceAnswer": "",
-    "explanation": "Nach einem zu großen Mittelwert endet der mögliche Bereich unmittelbar davor. mitte + 1 würde die falsche Richtung wählen und kann zu einer Endlosschleife führen. Leere Listen starten mit rechts = -1 und liefern ohne Zugriff -1.",
-    "discovery": "Der Suchbaustein verkleinert seinen Bereich korrekt und kann auch eine nicht vorhandene Nummer mit -1 beantworten.",
+    "explanation": "Vor Fach 7 liegen sechs Fächer. Bei vier Fächern pro Reihe ist die erste Reihe voll, zwei weitere Fächer liegen vor dem Ziel. In Reihe 2 beginnt Nora rechts in Spalte 4. Zwei Schritte nach links bringen sie in Spalte 2. Vor Fach 4 liegen dagegen erst drei Fächer. Deshalb gehört das letzte Fach einer Reihe noch zu genau dieser Reihe.",
+    "discovery": "Nora findet den unterschriebenen Abholschein im angezeigten Fach. Die Weganzeige beschreibt jede Position so, wie sie jemand vor dem Regal sieht.",
     "tests": [
       {
-        "name": "Ganz links",
+        "name": "Erstes Fach",
         "inputs": {
-          "nummern": [
-            10,
-            20,
-            30,
-            40,
-            50,
-            60,
-            70
-          ],
-          "gesucht": 10
+          "fachnummer": 1,
+          "breite": 4
         },
         "output": [
-          "0"
+          "1",
+          "1"
         ]
       },
       {
-        "name": "Ganz rechts",
+        "name": "Letztes Fach der ersten Reihe",
         "inputs": {
-          "nummern": [
-            10,
-            20,
-            30
-          ],
-          "gesucht": 30
+          "fachnummer": 4,
+          "breite": 4
         },
         "output": [
+          "1",
+          "4"
+        ]
+      },
+      {
+        "name": "Zweite Reihe beginnt rechts",
+        "inputs": {
+          "fachnummer": 5,
+          "breite": 4
+        },
+        "output": [
+          "2",
+          "4"
+        ]
+      },
+      {
+        "name": "Inneres Fach auf dem Rückweg",
+        "inputs": {
+          "fachnummer": 7,
+          "breite": 4
+        },
+        "output": [
+          "2",
           "2"
         ]
       },
       {
-        "name": "Lücke",
+        "name": "Zweite Reihe endet links",
         "inputs": {
-          "nummern": [
-            10,
-            20,
-            30
-          ],
-          "gesucht": 15
+          "fachnummer": 8,
+          "breite": 4
         },
         "output": [
-          "-1"
+          "2",
+          "1"
         ]
       },
       {
-        "name": "Kleiner als alle",
+        "name": "Dritte Reihe beginnt wieder links",
         "inputs": {
-          "nummern": [
-            10
-          ],
-          "gesucht": 5
+          "fachnummer": 9,
+          "breite": 4
         },
         "output": [
-          "-1"
+          "3",
+          "1"
         ]
       },
       {
-        "name": "Leeres Archiv",
+        "name": "In der dritten Reihe",
         "inputs": {
-          "nummern": [],
-          "gesucht": 5
+          "fachnummer": 10,
+          "breite": 4
         },
         "output": [
-          "-1"
-        ]
-      },
-      {
-        "name": "Ein Treffer",
-        "inputs": {
-          "nummern": [
-            8
-          ],
-          "gesucht": 8
-        },
-        "output": [
-          "0"
-        ]
-      },
-      {
-        "name": "In der Mitte",
-        "inputs": {
-          "nummern": [
-            -5,
-            0,
-            4,
-            9,
-            12
-          ],
-          "gesucht": 4
-        },
-        "output": [
+          "3",
           "2"
+        ]
+      },
+      {
+        "name": "Ungerade Breite, vierte Reihe",
+        "inputs": {
+          "fachnummer": 17,
+          "breite": 5
+        },
+        "output": [
+          "4",
+          "4"
+        ]
+      },
+      {
+        "name": "Nur eine Spalte",
+        "inputs": {
+          "fachnummer": 6,
+          "breite": 1
+        },
+        "output": [
+          "6",
+          "1"
+        ]
+      },
+      {
+        "name": "Ein einzelnes Fach",
+        "inputs": {
+          "fachnummer": 1,
+          "breite": 1
+        },
+        "output": [
+          "1",
+          "1"
         ]
       }
-    ],
-    "givenCode": "links = 0\nrechts = LÄNGE(nummern) - 1\nposition = -1\nSOLANGE links <= rechts UND position == -1\n    mitte = (links + rechts) DIV 2\n    WENN nummern[mitte] == gesucht DANN\n        position = mitte\n    SONST\n        WENN nummern[mitte] < gesucht DANN\n            links = mitte + 1\n        SONST\n            rechts = mitte + 1\n        ENDE WENN\n    ENDE WENN\nENDE SOLANGE\nAUSGABE position"
+    ]
   },
   {
     "id": 15,
@@ -750,8 +719,8 @@
     "title": "Tauschen ohne Verlust",
     "kind": "Repair",
     "story": "Die schnelle Suche setzt eine geordnete Liste voraus. Als ersten Baustein für das Herstellen einer Reihenfolge untersucht Nora einen Tausch. Dabei verschwindet jedoch einer der beiden Werte, weil er zu früh überschrieben wird.",
-    "previousContext": "Die binäre Suche aus Aufgabe 14 benötigt ein sortiertes Archiv. Bevor du selbst sortierst, sicherst du das dafür nötige Vertauschen von Listeneinträgen ab.",
-    "task": "Gegeben sind die nichtleere Liste werte und zwei gültige Indizes links und rechts. Repariere den Tausch und gib die gesamte Liste mit AUSGABE werte aus. Alle anderen Positionen bleiben gleich. Die beiden Indizes dürfen auch gleich sein. Einzelne Einträge weist du mit werte[index] = wert zu.",
+    "previousContext": "Mit der Fachnummer findet Nora den Papierbeleg. Im digitalen Archiv untersucht ihr als Nächstes, wie sich Einträge beim Sortieren sicher vertauschen lassen.",
+    "task": "Gegeben sind die nichtleere Liste `werte` und zwei gültige Indizes `links` und `rechts`. Repariere den Tausch und gib die gesamte Liste mit `AUSGABE werte` aus. Alle anderen Positionen bleiben gleich. Die beiden Indizes dürfen auch gleich sein. Einzelne Einträge weist du mit `werte[index] = wert` zu.",
     "exampleInputs": {
       "werte": [
         10,
@@ -854,7 +823,7 @@
     "kind": "Trace",
     "story": "Nora verbindet mehrere benachbarte Tausche zu einem ersten Sortierdurchlauf. Jeder Vergleich sieht die bereits veränderte Liste. Du prüfst, wie weit ein einzelner Durchlauf die Reihenfolge tatsächlich verbessert.",
     "previousContext": "Der Tausch aus Aufgabe 15 ist verlustfrei. Jetzt verfolgst du mehrere solche Tausche hintereinander.",
-    "task": "Führe den gegebenen Ablauf gedanklich aus. Gib zuerst die Liste nach genau diesem einen Durchlauf und danach die Anzahl der Tausche an, jeweils in einer eigenen Zeile. Schreibe die Liste mit eckigen Klammern und Komma plus Leerzeichen, zum Beispiel [1, 2, 3]. Es finden keine weiteren Durchläufe statt.",
+    "task": "Führe den gegebenen Ablauf gedanklich aus. Gib zuerst die Liste nach genau diesem einen Durchlauf und danach die Anzahl der Tausche an, jeweils in einer eigenen Zeile. Schreibe die Liste mit eckigen Klammern und Komma plus Leerzeichen, zum Beispiel `[1, 2, 3]`. Es finden keine weiteren Durchläufe statt.",
     "exampleInputs": {},
     "briefing": "Ein Bubble-Sort-Durchlauf vergleicht Nachbarn von links nach rechts und tauscht bei falscher Reihenfolge. Der größte Wert wandert dadurch bis nach rechts. Die übrige Liste ist danach noch nicht zwingend sortiert.",
     "hints": [
@@ -885,7 +854,7 @@
     "kind": "Write",
     "story": "Für den Archivzugriff reicht ein einzelner Sortierdurchlauf nicht. Die Leitstelle benötigt eine vollständig aufsteigende Reihenfolge, ohne Nummern zu verlieren oder doppelte Werte zu entfernen.",
     "previousContext": "Aufgabe 16 zeigt die Grenze eines einzelnen Durchlaufs. Jetzt wiederholst du die notwendigen Vergleiche bis zur vollständigen Sortierung.",
-    "task": "Sortiere die Eingabeliste werte aufsteigend und gib ausschließlich die gesamte sortierte Liste aus. Alle Werte müssen mit derselben Häufigkeit erhalten bleiben. Negative Zahlen, gleiche Werte, eine leere Liste und ein einzelner Wert sind möglich. Bubble Sort mit verschachtelten Schleifen ist ein möglicher Weg; andere korrekte Sortierverfahren sind ebenfalls erlaubt. Eine eingebaute Sortierfunktion gibt es nicht.",
+    "task": "Sortiere die Eingabeliste `werte` aufsteigend und gib ausschließlich die gesamte sortierte Liste aus. Alle Werte müssen mit derselben Häufigkeit erhalten bleiben. Negative Zahlen, gleiche Werte, eine leere Liste und ein einzelner Wert sind möglich. Bubble Sort mit verschachtelten Schleifen ist ein möglicher Weg. Andere korrekte Sortierverfahren sind ebenfalls erlaubt. Eine eingebaute Sortierfunktion gibt es nicht.",
     "exampleInputs": {
       "werte": [
         4,
@@ -1007,7 +976,7 @@
     "kind": "Write",
     "story": "Neben dem Archiv wartet die Übersicht der Ladehalle. Sie besteht aus Reihen mit unterschiedlich vielen Stellplätzen. Nora braucht die gesamte Belegung und die erste Reihe mit der höchsten Belegung, auch wenn einzelne Reihen noch leer sind.",
     "previousContext": "In Aufgabe 17 hast du verschachtelte Schleifen für eine flache Liste eingesetzt. Jetzt verwendest du sie für eine Liste von Reihen.",
-    "task": "belegung ist eine Liste von Listen nichtnegativer ganzer Zahlen. Berechne die Summe aller Werte und den Index der Reihe mit der größten Reihensumme. Gib zuerst die Gesamtsumme und dann den Reihenindex aus. Bei Gleichstand gilt die erste Reihe. Eine leere äußere Liste ergibt 0 und -1. Leere innere Reihen sind erlaubt und haben Summe 0. Beispiel: [[2, 3], [7], [1, 1, 1]] ergibt 15 und 1.",
+    "task": "Die Liste `belegung` enthält Listen nichtnegativer ganzer Zahlen. Berechne die Summe aller Werte und den Index der Reihe mit der größten Reihensumme. Gib zuerst die Gesamtsumme und dann den Reihenindex aus. Bei Gleichstand gilt die erste Reihe. Eine leere äußere Liste ergibt 0 und -1. Leere innere Reihen sind erlaubt und haben Summe 0. Die Belegung `[[2, 3], [7], [1, 1, 1]]` ergibt 15 und 1.",
     "exampleInputs": {
       "belegung": [
         [
@@ -1143,7 +1112,7 @@
     "kind": "Trace",
     "story": "Nora möchte wiederkehrende Berechnungen in Funktionen zusammenfassen. Dabei darf eine lokale Variable nicht versehentlich einen Wert im aufrufenden Ablauf verändern. Du untersuchst zwei Aufrufe derselben Funktion.",
     "previousContext": "Aufgabe 18 fasst mehrere Berechnungen zusammen. Bevor diese Bausteine wiederverwendet werden, klärst du Parameter, lokale Werte und Rückgaben.",
-    "task": "Welche drei Ausgaben entstehen im gegebenen Ablauf? Trage nur die drei Zahlen ein, jeweils in einer eigenen Zeile. Die Parameter einer Funktion besitzen eigene Werte. RÜCKGABE beendet den Aufruf und liefert einen Wert an die Aufrufstelle zurück; die Definition selbst wird nicht wie ein normaler Ablauf ausgeführt.",
+    "task": "Welche drei Ausgaben entstehen im gegebenen Ablauf? Trage nur die drei Zahlen ein, jeweils in einer eigenen Zeile. Die Parameter einer Funktion besitzen eigene Werte. `RÜCKGABE` beendet den Aufruf und liefert einen Wert an die Aufrufstelle zurück. Die Definition selbst wird nicht wie ein normaler Ablauf ausgeführt.",
     "exampleInputs": {},
     "briefing": "Eine Funktion wird mit FUNKTION name(parameter) begonnen und mit ENDE FUNKTION abgeschlossen. Erst ein Aufruf führt ihren Rumpf aus. Jeder Aufruf hat eigene Parameter und lokale Variablen. Gleichnamige Variablen außerhalb der Funktion bleiben unverändert.",
     "hints": [
@@ -1175,7 +1144,7 @@
     "kind": "Repair",
     "story": "Die Restkapazität soll als wiederverwendbare Funktion in mehrere Ansichten eingehen. Im fehlerhaften Baustein fehlt jedoch bei Überladung ein Ergebnis. Die Anzeige braucht für jeden zulässigen Eingabesatz einen definierten Wert.",
     "previousContext": "In Aufgabe 19 hast du lokale Aufrufe verfolgt. Jetzt reparierst du den Rückgabevertrag einer Funktion.",
-    "task": "Repariere die Funktion restkapazitaet(kapazitaet, beladen). Beide Eingaben sind nichtnegative Zahlen. Sie soll kapazitaet - beladen zurückgeben, bei einem negativen Ergebnis jedoch 0. Reiche ausschließlich Funktionsdefinitionen ein. Die App ruft restkapazitaet mit verschiedenen Eingaben auf und prüft ihren Rückgabewert; schreibe keinen zusätzlichen Hauptablauf.",
+    "task": "Repariere die Funktion `restkapazitaet(kapazitaet, beladen)`. Beide Eingaben sind nichtnegative Zahlen. Sie soll `kapazitaet - beladen` zurückgeben, bei einem negativen Ergebnis jedoch 0. Reiche ausschließlich Funktionsdefinitionen ein. Die App ruft `restkapazitaet` mit verschiedenen Eingaben auf und prüft ihren Rückgabewert.",
     "exampleInputs": {
       "kapazitaet": 100,
       "beladen": 130
@@ -1266,7 +1235,7 @@
     "kind": "Write",
     "story": "Die Gewichtsregel taucht in mehreren Teilen der Einsatzplanung auf. Nora möchte die Entscheidung an einer Stelle bündeln, damit Anzeigen und weitere Funktionen dieselben Grenzwerte verwenden.",
     "previousContext": "Aufgabe 20 sichert eine Funktion mit einem Ergebnis auf jedem Pfad ab. Jetzt formulierst du selbst einen solchen Entscheidungsbaustein.",
-    "task": "Schreibe die Funktion pruefeGewicht(gewicht). Die Eingabe ist eine ganze Zahl. Gib für negative Werte den Text ungültig zurück, für 0 bis einschließlich 100 den Text zulässig und darüber den Text zu schwer. Verwende RÜCKGABE, keine AUSGABE und keinen Hauptablauf. Der Funktionsname ist vorgegeben; deine internen Parameternamen darfst du frei wählen.",
+    "task": "Schreibe die Funktion `pruefeGewicht(gewicht)`. Die Eingabe ist eine ganze Zahl. Gib für negative Werte den Text `ungültig` zurück, für 0 bis einschließlich 100 den Text `zulässig` und darüber den Text `zu schwer`. Verwende `RÜCKGABE`, keine `AUSGABE` und keinen Hauptablauf. Der Funktionsname ist vorgegeben. Deine internen Parameternamen darfst du frei wählen.",
     "exampleInputs": {
       "gewicht": 100
     },
@@ -1357,7 +1326,7 @@
     "kind": "Write",
     "story": "Für die Tagesübersicht soll ein Baustein die Summe aller zulässigen Einzelgewichte liefern. Statt einer einzelnen Zahl erhält die Funktion diesmal eine ganze Liste. Nora schlägt vor, eine kleine Hilfsfunktion für die Gültigkeit zu verwenden.",
     "previousContext": "Die Entscheidung aus Aufgabe 21 behandelt ein Gewicht. Nun wendest du eine solche Regel innerhalb einer Funktion auf eine ganze Liste an.",
-    "task": "Schreibe die Funktion summeGueltig(gewichte). Sie erhält eine Liste ganzer Zahlen und gibt die Summe aller Werte von 0 bis einschließlich 100 zurück. Andere Werte werden ignoriert; eine leere Liste ergibt 0. Zusätzliche eigene Hilfsfunktionen sind erlaubt, aber nicht nötig. Reiche nur Funktionsdefinitionen ein; Eingaben werden automatisch übergeben.",
+    "task": "Schreibe die Funktion `summeGueltig(gewichte)`. Sie erhält eine Liste ganzer Zahlen und gibt die Summe aller Werte von 0 bis einschließlich 100 zurück. Andere Werte werden ignoriert. Eine leere Liste ergibt 0. Zusätzliche eigene Hilfsfunktionen sind erlaubt, aber nicht nötig. Reiche nur Funktionsdefinitionen ein. Eingaben werden automatisch übergeben.",
     "exampleInputs": {
       "gewichte": [
         20,
@@ -1464,7 +1433,7 @@
     "kind": "Repair",
     "story": "Bevor das Archiv die binäre Suche verwenden darf, soll eine Funktion die aufsteigende Reihenfolge prüfen. Der neue Kontrollbaustein beanstandet aber auch gleiche Nachbarn, obwohl doppelte Nummern ausdrücklich erlaubt sind.",
     "previousContext": "Aufgabe 22 verbindet Liste und Funktion. Jetzt verwendest du einen solchen Baustein, um die Voraussetzung für den geordneten Archivzugriff zu kontrollieren.",
-    "task": "Repariere istSortiert(werte). Die Funktion muss WAHR zurückgeben, wenn die Zahlenliste nicht absteigend sortiert ist, also jeder Eintrag höchstens so groß wie sein Nachfolger ist. Gleiche Werte sind erlaubt. Leere und einstellige Listen gelten als sortiert. Bei mindestens einem fallenden Nachbarpaar gib FALSCH zurück. Reiche nur Funktionsdefinitionen ein.",
+    "task": "Repariere `istSortiert(werte)`. Die Funktion muss `WAHR` zurückgeben, wenn die Zahlenliste nicht absteigend sortiert ist, also jeder Eintrag höchstens so groß wie sein Nachfolger ist. Gleiche Werte sind erlaubt. Leere und einstellige Listen gelten als sortiert. Bei mindestens einem fallenden Nachbarpaar gib `FALSCH` zurück. Reiche nur Funktionsdefinitionen ein.",
     "exampleInputs": {
       "werte": [
         1,
@@ -1582,7 +1551,7 @@
     "kind": "Write",
     "story": "Für die Abnahme braucht die Leitstelle einen letzten zusammenhängenden Planungsbaustein. Die Disposition hat die Reihenfolge der Pakete bereits festgelegt. Deine Funktion soll diese Reihenfolge respektieren, unzulässige Gewichte ignorieren und nach jedem angenommenen Paket die freie Kapazität fortschreiben.",
     "previousContext": "In Aufgabe 23 hast du einen Listenvertrag abgesichert. Die Abschlussaufgabe verbindet nun geprüfte Grenzen, lokale Funktionen und einen vollständigen Listendurchlauf.",
-    "task": "Schreibe planeLadung(gewichte, kapazitaet). gewichte enthält ganze Zahlen, kapazitaet ist eine nichtnegative ganze Zahl. Bearbeite die Pakete in genau der gegebenen Reihenfolge. Ein Paket wird angenommen, wenn 0 <= gewicht <= 100 gilt und es vollständig in die aktuelle Restkapazität passt. Sonst wird es übersprungen; die Suche geht mit dem nächsten Paket weiter. Auch Gewicht 0 zählt als angenommen. Gib die Liste [anzahlAngenommen, restkapazitaet] mit RÜCKGABE zurück. Nicht sortieren und keine optimale Packung suchen. Beispiel: [60, 50, 40] bei Kapazität 100 ergibt [2, 0]. Reiche nur Funktionsdefinitionen ein.",
+    "task": "Schreibe `planeLadung(gewichte, kapazitaet)`. Die Liste `gewichte` enthält ganze Zahlen, `kapazitaet` ist eine nichtnegative ganze Zahl. Bearbeite die Pakete in genau der gegebenen Reihenfolge. Ein Paket wird angenommen, wenn sein Gewicht zwischen 0 und 100 einschließlich liegt und es vollständig in die aktuelle Restkapazität passt. Sonst wird es übersprungen und die Suche geht mit dem nächsten Paket weiter. Auch Gewicht 0 zählt als angenommen. Gib die Liste `[anzahlAngenommen, restkapazitaet]` mit `RÜCKGABE` zurück. Nicht sortieren und keine optimale Packung suchen. Die Liste `[60, 50, 40]` ergibt bei Kapazität 100 die Rückgabe `[2, 0]`. Reiche nur Funktionsdefinitionen ein.",
     "exampleInputs": {
       "gewichte": [
         60,
@@ -1725,7 +1694,7 @@
     "kind": "Write",
     "story": "Der Planungsbaustein geht in die Abnahme. Zuvor möchte Nora auch fehlerhafte Kennungen erkennen können. Für eine einfache Kontrollziffer soll die Anwendung die Ziffern einer Nummer einzeln auswerten, ohne sie als Text bearbeiten zu müssen.",
     "previousContext": "Die Ladungsplanung aus Aufgabe 24 respektiert Reihenfolge und Kapazität. Die zusätzlichen Abnahmeprüfungen beginnen nun bei den verwendeten Kennungen.",
-    "task": "Schreibe pruefziffer(nummer). nummer ist eine ganze Zahl von 0 bis 2147483647. Addiere alle Dezimalziffern und gib den Rest dieser Summe bei Division durch 10 zurück. Beispiel: 12345 hat Ziffernsumme 15 und Prüfziffer 5. Für 0 ist das Ergebnis 0. Diese einfache Übungsregel ist kein vollständiges reales Prüfzifferverfahren. Reiche nur Funktionsdefinitionen ein.",
+    "task": "Schreibe `pruefziffer(nummer)`. Die Eingabe `nummer` ist eine ganze Zahl von 0 bis 2147483647. Addiere alle Dezimalziffern und gib den Rest dieser Summe bei Division durch 10 zurück. Für 12345 sind die Ziffernsumme 15 und die Prüfziffer 5. Für 0 ist das Ergebnis 0. Diese einfache Übungsregel ist kein vollständiges reales Prüfzifferverfahren. Reiche nur Funktionsdefinitionen ein.",
     "exampleInputs": {
       "nummer": 12345
     },
@@ -1816,7 +1785,7 @@
     "kind": "Trace",
     "story": "Die Abnahme prüft nicht nur einzelne Ergebnisse. Nora möchte wissen, wie stark ein Baustein bei größeren Datenmengen wächst. Der folgende Zähler steht stellvertretend für eine Prüfung jeder Kombination aus zwei Datenreihen.",
     "previousContext": "Aufgabe 25 verarbeitet jede Ziffer einer Kennung. Jetzt untersuchst du dagegen zwei vollständig verschachtelte Schleifen und deren Aufwand.",
-    "task": "Welche zwei Zahlen gibt der Ablauf aus? Trage nur die beiden Zahlen ein, je eine pro Zeile. Zähle ausschließlich die Ausführungen von anzahl = anzahl + 1, nicht interne Rechenschritte des Trainers. Vergleiche anschließend gedanklich: Was passiert mit dieser Anzahl, wenn n von 4 auf 8 verdoppelt wird?",
+    "task": "Welche zwei Zahlen gibt der Ablauf aus? Trage nur die beiden Zahlen ein, je eine pro Zeile. Zähle ausschließlich die Ausführungen von `anzahl = anzahl + 1`, nicht interne Rechenschritte des Trainers. Wie verändert sich diese Anzahl, wenn `n` von 4 auf 8 verdoppelt wird?",
     "exampleInputs": {},
     "briefing": "Die äußere Schleife läuft n-mal. Für jeden dieser Durchläufe läuft die innere erneut n-mal. Die Anzahl der Zählererhöhungen ist deshalb n * n. Das wird als quadratisches Wachstum beziehungsweise O(n²) bezeichnet; Konstanten und kleinere Terme werden bei dieser Einordnung nicht betrachtet.",
     "hints": [
@@ -1847,7 +1816,7 @@
     "kind": "TestCases",
     "story": "Für eine Mengenstaffel meldet die Abnahme einen weiteren Grenzfall. Ein normaler Test in der Mitte eines Bereichs reicht nicht: Direkt vor und auf jeder Grenze muss sich die Ausgabe an der richtigen Stelle ändern.",
     "previousContext": "Der Aufwand aus Aufgabe 26 ist nachvollzogen. Nun ergänzt du die funktionale Abnahme durch bewusst gewählte Grenzwerte statt zufälliger Normalfälle.",
-    "task": "Entwirf Testfälle für die Eingabe anzahl, eine ganze Zahl. Die Regel lautet: negativ ergibt ungültig, 0 bis 9 ergibt 0, 10 bis 49 ergibt 5, ab 50 ergibt 10. Schreibe je Zeile anzahl => erwartete Ausgabe. Abdecken musst du einen beliebigen negativen Wert sowie genau 0, 9, 10, 49 und 50. Nur korrekte Sollausgaben zählen zur Abdeckung. Es werden Testdaten abgegeben, kein Pseudocode.",
+    "task": "Entwirf Testfälle für die ganzzahlige Eingabe `anzahl`. Negative Werte ergeben `ungültig`, 0 bis 9 ergibt 0, 10 bis 49 ergibt 5, ab 50 ergibt sich 10. Schreibe je Zeile `anzahl => erwartete Ausgabe`. Decke einen beliebigen negativen Wert sowie genau 0, 9, 10, 49 und 50 ab. Nur korrekte Sollausgaben zählen zur Abdeckung. Es werden Testdaten abgegeben, kein Pseudocode.",
     "exampleInputs": {
       "anzahl": 10
     },
@@ -1967,7 +1936,7 @@
     "kind": "Trace",
     "story": "Zum Schluss der Abnahme untersucht Nora einen rekursiven Baustein. Jeder Aufruf wartet auf das Ergebnis seines kleineren Teilproblems. Erst beim Rückweg entstehen die sichtbaren Zwischenergebnisse.",
     "previousContext": "Die Grenztests aus Aufgabe 27 prüfen, wo Entscheidungen umschlagen. Bei Rekursion suchst du nun die Bedingung, die weitere Aufrufe beendet.",
-    "task": "Welche vier Ausgaben entstehen beim Aufruf summeBis(3)? Trage sie in der tatsächlichen Reihenfolge ein, jeweils eine Zahl pro Zeile. Der Aufruf mit n = 0 gibt einen Wert zurück, führt aber keine AUSGABE aus. Beachte auch die letzte AUSGABE im Hauptablauf.",
+    "task": "Welche vier Ausgaben entstehen beim Aufruf `summeBis(3)`? Trage sie in der tatsächlichen Reihenfolge ein, jeweils eine Zahl pro Zeile. Der Aufruf mit `n = 0` gibt einen Wert zurück, führt aber keine `AUSGABE` aus. Beachte auch die letzte `AUSGABE` im Hauptablauf.",
     "exampleInputs": {},
     "briefing": "Rekursion ist ein Selbstaufruf mit einem kleineren Teilproblem. Der Basisfall beendet die Kette. Jeder Aufruf hat eigene Parameter und lokale Werte. Beim Rückweg verarbeitet der wartende Aufrufer den Rückgabewert des Kindes weiter. Die Ablaufanzeige unterscheidet die Aufrufe durch ihre Aufrufebene.",
     "hints": [
@@ -2000,7 +1969,7 @@
     "kind": "Repair",
     "story": "Die Abnahme findet eine Funktion, deren Basisfall zwar richtig formuliert ist, aber von größeren Eingaben nie erreicht wird. Nora möchte den Fortschritt im rekursiven Aufruf reparieren.",
     "previousContext": "Aufgabe 28 zeigt einen funktionierenden rekursiven Rückweg. Jetzt prüfst du den Weg zum Basisfall und reparierst ein unverändertes Argument.",
-    "task": "Repariere fakultaet(n) für ganze Zahlen von 0 bis 10. Die Funktion soll n! zurückgeben: 0! = 1, 1! = 1 und für n > 1 gilt n! = n * (n - 1)!. Die gegebene Funktion erreicht bei größeren Eingaben die Aufrufgrenze. Reiche nur Funktionsdefinitionen ein. Ein iterativ korrekt berechnetes Ergebnis ist ebenfalls zulässig.",
+    "task": "Repariere `fakultaet(n)` für ganze Zahlen von 0 bis 10. Die Funktion soll `n!` zurückgeben. Es gilt `0! = 1`, `1! = 1` und für `n > 1` gilt `n! = n * (n - 1)!`. Die gegebene Funktion erreicht bei größeren Eingaben die Aufrufgrenze. Reiche nur Funktionsdefinitionen ein. Ein iterativ korrekt berechnetes Ergebnis ist ebenfalls zulässig.",
     "exampleInputs": {
       "n": 5
     },
@@ -2083,7 +2052,7 @@
     "kind": "Write",
     "story": "Die letzte Abnahmeprüfung sucht doppelte Meldungen. Diesmal genügt die Häufigkeit einer einzelnen Nummer nicht: Die Leitstelle möchte wissen, wie viele verschiedene Paare von Positionen dieselbe Nummer enthalten. Eine Meldung darf mit jeder späteren Position genau einmal verglichen werden.",
     "previousContext": "Nach der abgesicherten Aufrufkette aus Aufgabe 29 formulierst du die letzte Auswertung wieder selbst und verbindest Funktionsvertrag, Listen und verschachtelte Schleifen.",
-    "task": "Schreibe doppeltePaare(nummern). Die Liste enthält höchstens 20 ganze Zahlen, auch negative. Zähle alle Positionspaare i < j, für die nummern[i] == nummern[j] gilt, und gib diese Anzahl zurück. Dasselbe Paar darf nicht rückwärts erneut gezählt werden; eine Position mit sich selbst zählt nicht. Beispiele: [7, 7, 7] ergibt 3, [1, 2, 1, 2] ergibt 2, eine leere Liste ergibt 0. Reiche nur Funktionsdefinitionen ein.",
+    "task": "Schreibe `doppeltePaare(nummern)`. Die Liste enthält höchstens 20 ganze Zahlen, auch negative. Zähle alle Positionspaare `i < j`, für die `nummern[i] == nummern[j]` gilt, und gib diese Anzahl zurück. Dasselbe Paar darf nicht rückwärts erneut gezählt werden. Eine Position mit sich selbst zählt nicht. Beispiele sind `[7, 7, 7]` mit Ergebnis 3 und `[1, 2, 1, 2]` mit Ergebnis 2. Eine leere Liste ergibt 0. Reiche nur Funktionsdefinitionen ein.",
     "exampleInputs": {
       "nummern": [
         7,

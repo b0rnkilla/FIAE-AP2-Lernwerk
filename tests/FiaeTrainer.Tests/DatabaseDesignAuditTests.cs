@@ -167,8 +167,15 @@ public sealed class DatabaseDesignAuditTests : IDisposable
         await InvokeAsync(page, "SetModeAsync", false);
         Assert.Null(PrivateField(page, "_result").GetValue(page));
         var saved = (await store.LoadAsync()).DesignLessons[1];
-        Assert.True(saved.Completed && saved.Independent && saved.Assisted);
-        Assert.False(saved.IndependentMode);
+        Assert.True(saved.Completed && saved.Independent && saved.IndependentMode);
+        Assert.False(saved.Assisted);
+        Assert.Equal(_catalog.Lessons[0].CorrectIds, saved.IndependentSolution!.SelectedIds);
+        var scratch = Field<DesignProgress>(page, "_progress");
+        scratch.Answer.SelectedIds.Clear();
+        await InvokeAsync(page, "EditorChangedAsync");
+        Assert.Equal(_catalog.Lessons[0].CorrectIds, (await store.LoadAsync()).DesignLessons[1].Answer.SelectedIds);
+        typeof(DatabaseDesign).GetMethod("ReturnToAnswer", BindingFlags.Instance | BindingFlags.NonPublic)!.Invoke(page, null);
+        Assert.Equal(_catalog.Lessons[0].CorrectIds, scratch.Answer.SelectedIds);
     }
 
     private static T Configure<T>(T component, Dictionary<string, object?> parameters) where T : IComponent { ParameterView.FromDictionary(parameters).SetParameterProperties(component); return component; }

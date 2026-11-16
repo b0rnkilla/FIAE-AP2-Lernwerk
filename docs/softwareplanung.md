@@ -23,6 +23,8 @@ Sechs Arbeitsformen: zehn Auswahlaufgaben, 16 Ausarbeitungen, acht Klassenentwü
 
 Gemeinsame linke TaskRail, LearningModePicker, mittiger Auftrag/Arbeitsbereich und rechte Planungsschritte entsprechen den vorhandenen Modulen. Ohne Hilfe ist der Standard. Geführtes Lernen bietet drei Hinweise, Spickzettel mit lokalem Rückweg und eine bewusst aufgedeckte Lösung. Ein neuer Selbsttest verlangt bei eigenem Entwurf die gemeinsame Bestätigung. Historische Erfolge bleiben erhalten. Leere Antworten sperren die Prüftaste.
 
+Nach selbstständigem Erfolg öffnet die Moduswahl die geprüfte Antwort zum Nachlesen. Geführte Experimente verwenden eine Kopie. Für einen frischen Versuch gibt es **Neu üben**. [Moduswechsel und ältere Profile](lernkonzept.md#bedienung-und-lernmodus).
+
 Klassenentwürfe verwenden die bestehenden UML-Darstellungs- und Bearbeitungskomponenten mit eigenen Aufträgen und eigenen Antworten. Architektur und Formulare verwenden einen eigenen Baukasten mit stabilen Fachrollen und freien Anzeigenamen. Hinzufügen, Auswählen, Verbinden, Entfernen sowie Früher/Später sind ohne Ziehen möglich. Diagramme besitzen eine Textalternative, Vergrößerung und einen begrenzten seitlichen Scrollbereich. Lange Rückverbindungen werden unter den Kästen geführt; Verbindungsbeschriftungen liegen außerhalb der Elemente.
 
 Die Formularvorschau zeigt die wirklich gewählten Feldarten, Reihenfolge, Gruppen und eigenen Hilfen. Lokale Beispieleingaben und Pflichtfeldmeldungen können ausprobiert werden. Diese Vorschauwerte werden nicht als Lernantwort gespeichert; der Entwurf wird gespeichert. Die Vorschau ist keine echte Buchung und prüft keine vollständige Terminverfügbarkeit oder alle denkbaren Feldvalidierungen.

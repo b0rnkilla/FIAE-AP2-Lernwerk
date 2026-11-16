@@ -56,6 +56,81 @@ public sealed class AlgorithmProgressTests : IDisposable
     }
 
     [Fact]
+    public async Task Beta3ReplacementsArchiveOldAttemptsOnceAndKeepOtherLessonsActive()
+    {
+        Directory.CreateDirectory(_directory);
+        await File.WriteAllTextAsync(Path.Combine(_directory, "progress.json"), """
+            {
+              "LastAlgorithmLessonId": 12,
+              "AlgorithmLessons": {
+                "1": {"Draft": "AUSGABE 650", "Completed": true, "Independent": true, "Attempts": 2},
+                "2": {"Draft": "650\n350", "ExamMode": false, "AttemptAssisted": true, "HintLevel": 2},
+                "3": {"Draft": "AUSGABE 'passt'"},
+                "7": {"Draft": "0 => zulässig", "Completed": true},
+                "12": {"Completed": true, "SolutionViewed": true},
+                "14": {"Draft": "AUSGABE position", "Completed": true, "Independent": true}
+              }
+            }
+            """);
+        ProgressStore store = Store();
+        TrainingProgress loaded = await store.LoadAsync();
+        Assert.Equal(12, loaded.LastAlgorithmLessonId);
+        Assert.Equal(7, Assert.Single(loaded.AlgorithmLessons).Key);
+        Assert.True(loaded.AlgorithmLessons[7].Completed);
+        Assert.Equal("0 => zulässig", loaded.AlgorithmLessons[7].Draft);
+        Assert.Equal(5, loaded.Beta3AlgorithmArchive?.Count);
+        await store.SetSelfTestHelpDismissedAsync(true);
+        await store.SaveAlgorithmAsync(1, new() { Draft = "AUSGABE gewicht", Attempts = 1 });
+        await store.SaveAlgorithmAsync(3, new() { Completed = true });
+        TrainingProgress restored = await Store().LoadAsync();
+        Assert.False(restored.AlgorithmLessons[1].Completed);
+        Assert.Equal("AUSGABE gewicht", restored.AlgorithmLessons[1].Draft);
+        Assert.True(restored.AlgorithmLessons[3].Completed);
+        var archive = Assert.IsType<Dictionary<int, AlgorithmProgress>>(restored.Beta3AlgorithmArchive);
+        Assert.True(archive[1].Independent);
+        Assert.Equal(2, archive[1].Attempts);
+        Assert.Equal("AUSGABE 650", archive[1].Draft);
+        Assert.Equal("650\n350", archive[2].Draft);
+        Assert.Equal(2, archive[2].HintLevel);
+        Assert.True(archive[2].AttemptAssisted);
+        Assert.True(archive[12].SolutionViewed);
+        Assert.True(archive[14].Independent);
+        Assert.Equal("AUSGABE position", archive[14].Draft);
+    }
+
+    [Fact]
+    public async Task InterimProfileKeepsRevisedLessonsAndArchivesOnlyTheOldSearch()
+    {
+        Directory.CreateDirectory(_directory);
+        await File.WriteAllTextAsync(Path.Combine(_directory, "progress.json"), """
+            {
+              "LastAlgorithmLessonId": 14,
+              "AlgorithmLessons": {
+                "1": {"Draft": "AUSGABE gewicht", "Completed": true},
+                "13": {"Draft": "3", "HintLevel": 1},
+                "14": {"Draft": "AUSGABE position", "Independent": true, "Completed": true}
+              },
+              "Beta3AlgorithmArchive": {"1": {"Draft": "AUSGABE rest"}}
+            }
+            """);
+        ProgressStore store = Store();
+        TrainingProgress migrated = await store.LoadAsync();
+        Assert.DoesNotContain(14, migrated.AlgorithmLessons.Keys);
+        Assert.Equal(14, migrated.LastAlgorithmLessonId);
+        await store.SaveAlgorithmAsync(14, new() { Draft = "AUSGABE reihe" });
+        TrainingProgress restored = await Store().LoadAsync();
+        var archive = Assert.IsType<Dictionary<int, AlgorithmProgress>>(restored.Beta3AlgorithmArchive);
+        Assert.Equal("AUSGABE rest", archive[1].Draft);
+        Assert.True(archive[14].Independent);
+        Assert.Equal("AUSGABE position", archive[14].Draft);
+        Assert.True(restored.AlgorithmLessons[1].Completed);
+        Assert.Equal("AUSGABE gewicht", restored.AlgorithmLessons[1].Draft);
+        Assert.Equal(1, restored.AlgorithmLessons[13].HintLevel);
+        Assert.False(restored.AlgorithmLessons[14].Completed);
+        Assert.Equal("AUSGABE reihe", restored.AlgorithmLessons[14].Draft);
+    }
+
+    [Fact]
     public async Task SavingDifferentAreasRetainsAchievementsAndSettings()
     {
         ProgressStore store = Store();

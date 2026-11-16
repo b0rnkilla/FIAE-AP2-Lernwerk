@@ -11,14 +11,14 @@ public sealed class AlgorithmInterpreter
 {
     /// <summary> Prüft und startet einen vollständig isolierten Ablauf; normale Lernfehler werden als Ergebnis zurückgegeben. </summary>
     public AlgorithmRun Run(string code, IReadOnlyDictionary<string, JsonElement>? inputs = null, bool trace = false)
-        => RunCore(code, inputs, trace, null, []);
+        => RunCore(code, inputs, trace, null, [], false);
 
     /// <summary> Prüft eine benannte Funktion mit isolierten Argumenten; nur ihr Rückgabewert ist die erwartete Ausgabe. </summary>
-    public AlgorithmRun RunFunction(string code, string name, IReadOnlyList<JsonElement> arguments, bool trace = false)
-        => RunCore(code, null, trace, name, arguments);
+    public AlgorithmRun RunFunction(string code, string name, IReadOnlyList<JsonElement> arguments, bool trace = false, bool requiresBooleanReturn = false)
+        => RunCore(code, null, trace, name, arguments, requiresBooleanReturn);
 
     /// <summary> Beide Bewertungswege teilen Parser, Ausführungsbudgets und deutsche Fehlerbehandlung. </summary>
-    private static AlgorithmRun RunCore(string code, IReadOnlyDictionary<string, JsonElement>? inputs, bool trace, string? function, IReadOnlyList<JsonElement> arguments)
+    private static AlgorithmRun RunCore(string code, IReadOnlyDictionary<string, JsonElement>? inputs, bool trace, string? function, IReadOnlyList<JsonElement> arguments, bool requiresBooleanReturn)
     {
         if (string.IsNullOrWhiteSpace(code)) return new([], [], "Schreibe zuerst deinen Ablauf in den Editor.");
         if (code.Length > 12000) return new([], [], "Dein Ablauf ist zu lang. Maximal 12.000 Zeichen sind möglich.");
@@ -34,7 +34,10 @@ public sealed class AlgorithmInterpreter
             {
                 if (program.Statements.Count > 0)
                     throw new AlgorithmException(program.Statements[0].Line, "Diese Aufgabe erwartet nur Funktionsdefinitionen. Die Testfälle rufen deine Funktion automatisch auf; ein Hauptablauf mit AUSGABE gehört hier nicht dazu.");
-                machine.PrintResult(machine.Invoke(function, arguments.Select(FromJson).ToArray()), false);
+                object result = machine.Invoke(function, arguments.Select(FromJson).ToArray());
+                if (requiresBooleanReturn && result is not bool)
+                    return new(machine.Output, machine.Steps, $"Die Funktion {function} muss einen Wahrheitswert zurückgeben. Verwende WAHR oder FALSCH ohne Anführungszeichen oder gib einen Vergleich zurück.", machine.TraceTruncated);
+                machine.PrintResult(result, false);
             }
             return new(machine.Output, machine.Steps, TraceTruncated: machine.TraceTruncated);
         }

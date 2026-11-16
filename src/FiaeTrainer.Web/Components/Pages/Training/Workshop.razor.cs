@@ -1,3 +1,4 @@
+using FiaeTrainer.Web.Components.Learning;
 using Microsoft.AspNetCore.Components;
 using FiaeTrainer.Core.Sql.Workshop;
 using FiaeTrainer.Web.Learning;
@@ -18,6 +19,9 @@ public partial class Workshop : IAsyncDisposable
     private LessonProgress _current = new();
     /// <summary> Inhalt des freien Editors. </summary>
     private string _sql = "";
+    private CodeEditor? _editor;
+    private ElementReference _output;
+    private bool _focusOutput;
     /// <summary> Blendet Unterstützung und Probeausführung aus. </summary>
     private bool _examMode = true;
     /// <summary> Klappt die Lösung unabhängig von der bereits gespeicherten Hilfenutzung auf und zu. </summary>
@@ -81,7 +85,14 @@ public partial class Workshop : IAsyncDisposable
         _examMode = _current.ExamMode;
         _current.AttemptAssisted = _current.UsedAssistance || !_examMode;
         _sql = _current.Sql;
+        if (_current.CanReview)
+        {
+            _examMode = _current.ExamMode = true;
+            _sql = _current.IndependentSolution ?? _sql;
+            _showSolution = false;
+        }
         _loading = false;
+        _focusOutput = false;
         _run = null;
         _evaluation = null;
         _initial = null;
@@ -109,12 +120,17 @@ public partial class Workshop : IAsyncDisposable
         _current.ExamMode = examMode;
         if (examMode)
         {
+            _current.RepeatInProgress = _current.Independent;
             _current.StartIndependentAttempt();
             _sql = "";
         }
         else
+        {
+            if (_current.CanReview) _current.BeginReading(_sql);
             _current.AttemptAssisted = true;
+        }
         _showSolution = _current.SolutionViewed;
+        _focusOutput = false;
         _run = null;
         _evaluation = null;
         await SaveAsync();
@@ -123,7 +139,7 @@ public partial class Workshop : IAsyncDisposable
     /// <summary> Führt das Skript als Probe oder bewertete Lösung aus; überholte Ergebnisse werden keiner anderen Aufgabe zugeordnet. </summary>
     private async Task RunAsync(bool grade)
     {
-        if (_busy || _lesson == null || _examMode && !grade)
+        if (_busy || _lesson == null || _current.ShowingSavedAnswer || _examMode && !grade)
             return;
         _busy = true;
         _evaluation = null;
@@ -135,6 +151,12 @@ public partial class Workshop : IAsyncDisposable
         CancellationToken token = _queryCancellation.Token;
         try
         {
+            if (!grade && _editor != null)
+            {
+                string selection = await _editor.SelectedTextAsync();
+                if (selection.Length > 0) sql = selection;
+            }
+            if (revision != _revision) return;
             await SaveAsync();
             if (grade)
             {
@@ -143,21 +165,48 @@ public partial class Workshop : IAsyncDisposable
                     return;
                 _evaluation = evaluation;
                 _run = evaluation.Run;
+                if (_current.IsReading) return;
                 if (!evaluation.TechnicalFailure)
                     _current.Attempts++;
                 _current.Completed |= evaluation.Correct;
-                _current.Independent |= evaluation.Correct && _examMode && !_current.UsedAssistance;
-                await SaveAsync();
+                bool independentSuccess = evaluation.Correct && _examMode && !_current.UsedAssistance;
+                if (independentSuccess) _current.RememberIndependentSolution(sql);
+                await PersistAsync(independentSuccess ? sql : null);
             }
             else
             {
                 WorkshopRun run = await Evaluator.PreviewAsync(lesson, sql, token);
                 if (revision == _revision)
+                {
                     _run = run;
+                    _focusOutput = true;
+                }
             }
         }
         catch (OperationCanceledException) when (token.IsCancellationRequested) { }
         finally { if (revision == _revision) _busy = false; }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!_focusOutput || _run == null) return;
+        _focusOutput = false;
+        try { await _output.FocusAsync(); }
+        catch (Microsoft.JSInterop.JSDisconnectedException) { }
+    }
+
+    private void ReturnToAnswer()
+    {
+        if (_busy || !_current.IsReading) return;
+        _sql = _current.ReturnFromReading(_sql);
+        _examMode = true;
+        _current.ExamMode = true;
+        _current.HintLevel = 0;
+        _current.SolutionViewed = _showSolution = false;
+        _current.AttemptAssisted = false;
+        _focusOutput = false;
+        _run = null;
+        _evaluation = null;
     }
 
     private async Task ShowHintAsync()
@@ -178,14 +227,16 @@ public partial class Workshop : IAsyncDisposable
     }
 
     /// <summary> Sichert nur den Werkstattbereich und vermeidet weitere Schreibversuche nach einem bekannten Speicherfehler. </summary>
-    private async Task SaveAsync()
+    private Task SaveAsync() => PersistAsync(null);
+
+    private async Task PersistAsync(string? verifiedAnswer)
     {
-        if (_lesson == null || _storageError != null)
+        if (_lesson == null || _storageError != null || _current.IsReading)
             return;
         _current.Sql = _sql;
         _current.ExamMode = _examMode;
         _progress.WorkshopLessons[_lesson.Id] = _current;
-        try { await Store.SaveLessonAsync(_lesson.Id, _current, LearningArea.Workshop); }
+        try { await Store.SaveLessonAsync(_lesson.Id, _current, LearningArea.Workshop, verifiedAnswer); }
         catch (Exception exception) when (IsStorageError(exception))
         {
             _storageError = "Der Lernstand konnte nicht gespeichert werden. Kopiere dein Skript vor dem Schließen und prüfe die Hinweise in der Anleitung.";

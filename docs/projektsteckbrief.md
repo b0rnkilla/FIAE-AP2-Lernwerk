@@ -4,14 +4,16 @@
 | --- | --- |
 | Anwendung | AP2 Lernwerk |
 | Projektmappe | FIAE_AP2_Trainer.sln |
-| Entwicklungsfassung | 1.0.0-beta.3 mit 474 Übungen in acht Lernbereichen |
+| Entwicklungsfassung | 1.0.0-beta.4 mit 474 Übungen in acht Lernbereichen |
+| Im Quellstand nach Beta 3 | Fünf erneuerte Leitstellenaufgaben zu Reserve, Funkprotokoll, Schichtwechsel, Schaltjahren und Archivfächern. Frühere Entwürfe und Abschlüsse sind einsehbar. Variablen und Ausdrücke stehen in den Pseudocode-Aufträgen in Codeschrift. |
+| Ergänzungen nach Beta 3 | SQL-Werkstatt mit 20 erklärten Beispielen, sichtbaren Abfrageergebnissen und markierter Probeausführung. Geschütztes Nachlesen eigener Lösungen in acht Lernansichten. |
 | Im Quellstand nach Beta 2 | SQL-Ermittlung und SQL-Werkstatt mit Zeilennummern und Blockeinrückung per Tastatur |
 | Bedienhinweise im Lernplan | Selbsttest-Hinweis und Werkstatthinweis zur Arbeitskopie einzeln wieder einblendbar |
 | Aufgabenhilfen | Drei einzeln aufdeckbare Denkanstöße je Lernaufgabe in Abschnitt 01–07. Die fachliche Erklärung gehört zur Musterlösung. |
 | SQL-Prüfung | Vier Fälle mit je fünf Aufgaben. Der Stadtfest-Fall verbindet Lieferlisten, Fremdschlüssel, Inventur, Archivierung und Rechte. |
 | SQL-Werkstatt | Hinweise zur betroffenen SQL-Anweisung. Die Sensorpreis-Aufgabe prüft die Rundung auf Cent anhand der berechneten Werte. |
-| Zuletzt geprüftes Windows-Paket | 1.0.0-beta.2 aus Anwendungscode `c417256`, unsigniert, mit geprüftem a²-Icon |
-| Nutzererprobung | In Beta 2 SQL-Ermittlung und Werkstatt abgeschlossen und alle drei SQL-Prüfungsfälle mehrfach bearbeitet. Als Nächstes folgt Pseudocode. |
+| Zuletzt geprüftes Windows-Paket | 1.0.0-beta.3 aus Commit `e4c7cf5`, unsigniert, mit geprüftem a²-Icon und Paketwechsel von Beta 2 |
+| Nutzererprobung | In Beta 2 SQL-Ermittlung und Werkstatt abgeschlossen und alle drei SQL-Prüfungsfälle mehrfach bearbeitet. Pseudocode wird mit der veröffentlichten Beta 3 praktisch erprobt. |
 | Windows-Build nach Beta 1 | EXE mit eingebettetem a²-App-Symbol. GitHub-ZIP standardmäßig unsigniert, Authenticode optional |
 | Alpha-16-Freigabe | Nach Nutzer-Commit/Push ausdrücklich beauftragt, ZIP und native Prüfung erfolgreich; Tag v0.1.1-alpha.16 auf 1dbcb12, Veröffentlichung durch Nutzer |
 | Plattform | Windows, lokale Browseroberfläche |

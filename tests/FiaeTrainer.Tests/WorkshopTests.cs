@@ -39,6 +39,23 @@ public sealed class WorkshopValidatorTests
     }
 
     [Fact]
+    public void AllAdvancedLessonsTeachWithParseableExamplesSeparateFromTheSolution()
+    {
+        var lessons = new WorkshopCatalog().Lessons.Where(lesson => lesson.Id >= 11).ToList();
+        Assert.Equal(20, lessons.Select(lesson => lesson.Briefing).Distinct().Count());
+        foreach (var lesson in lessons)
+        {
+            Assert.False(string.IsNullOrWhiteSpace(lesson.ReferenceHeading));
+            Assert.False(string.IsNullOrWhiteSpace(lesson.ExampleEffect));
+            Assert.False(string.IsNullOrWhiteSpace(lesson.ExampleSql));
+            Assert.NotEqual(lesson.ReferenceSql, lesson.ExampleSql);
+            new Microsoft.SqlServer.TransactSql.ScriptDom.TSql160Parser(true)
+                .Parse(new StringReader(lesson.ExampleSql), out var errors);
+            Assert.Empty(errors);
+        }
+    }
+
+    [Fact]
     public void RewritingPreservesTextAndAliases()
     {
         WorkshopSqlValidator validator = new();

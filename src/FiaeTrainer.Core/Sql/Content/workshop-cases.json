@@ -5,9 +5,9 @@
     "scenario": "Orders",
     "technique": "ForeignKey",
     "title": "Welche Rückgabe gehört wohin?",
-    "topic": "Fremdschlüssel",
+    "topic": "ALTER TABLE · FOREIGN KEY · REFERENCES",
     "story": "Der Reklamationsdienst möchte jede Rückgabe bis zu ihrer Bestellung zurückverfolgen können.",
-    "briefing": "Ein Fremdschlüssel verbindet die Werte in einer Kindtabelle mit einem eindeutigen Schlüssel der Elterntabelle. Prüfe auch, wie sich die Beziehung bei späteren Änderungen verhält.",
+    "briefing": "Suche die Tabelle, die auf eine andere zeigt. In dieser Kindtabelle ergänzt du die Regel. Hinter REFERENCES steht der eindeutige Schlüssel, dessen Wert vorhanden sein muss.",
     "task": "Ergänze einen Fremdschlüssel von Rueckgaben.BestellungId auf Bestellungen.Id. Eine Bestellung mit Rückgaben muss beim Löschversuch erhalten bleiben.",
     "referenceSql": "ALTER TABLE Rueckgaben ADD FOREIGN KEY (BestellungId) REFERENCES Bestellungen(Id);",
     "hints": [
@@ -17,7 +17,10 @@
     ],
     "explanation": "Der Schlüssel prüft beim Schreiben jede Bestellnummer. SQL Server verweigert standardmäßig das Löschen eines noch referenzierten Belegs. Eine Bestellung ohne Rückgabe lässt sich weiterhin löschen.",
     "discovery": "Jede Rückgabe verweist auf einen vorhandenen Beleg.",
-    "resultHint": "Prüfe die Richtung des Verweises und ob SQL Server das Löschen einer belegten Bestellung verweigert."
+    "resultHint": "Prüfe die Richtung des Verweises und ob SQL Server das Löschen einer belegten Bestellung verweigert.",
+    "exampleSql": "ALTER TABLE Ausleihen\nADD FOREIGN KEY (BuchId) REFERENCES Buecher(Id);",
+    "exampleEffect": "Gibt es Buch 7, darf eine Ausleihe darauf verweisen. Solange diese Ausleihe besteht, scheitert das Löschen von Buch 7. Dieses Verhalten heißt NO ACTION und gilt in SQL Server standardmäßig.",
+    "referenceHeading": "Einen Fremdschlüssel ergänzen"
   },
   {
     "id": 12,
@@ -28,9 +31,9 @@
       "INSERT Rueckgaben SELECT Id+300,BestellungId,Id+900 FROM Rueckgaben WHERE Id>=102;"
     ],
     "title": "Einen verwaisten Verweis reparieren",
-    "topic": "Bestandsdaten migrieren",
+    "topic": "NOT EXISTS · UPDATE · FOREIGN KEY",
     "story": "Beim Import sind Rückgaben mit Artikelnummern aus einem alten Katalog eingegangen.",
-    "briefing": "Ein Fremdschlüssel verbindet die Werte in einer Kindtabelle mit einem eindeutigen Schlüssel der Elterntabelle. Prüfe auch, wie sich die Beziehung bei späteren Änderungen verhält.",
+    "briefing": "Prüfe die vorhandenen Zeilen, bevor du den Fremdschlüssel anlegst. Die innere Abfrage sucht zu jeder Kindzeile genau ihren Elternsatz. Bleibt die Suche leer, hast du einen Reparaturkandidaten.",
     "task": "Ordne jede Rückgabe ohne passenden Artikel dem Ersatzartikel 3 zu. Erhalte gültige Zuordnungen und ergänze anschließend einen geprüften Fremdschlüssel von ArtikelId auf Artikel.Id.",
     "referenceSql": "UPDATE Rueckgaben SET ArtikelId = 3\nWHERE NOT EXISTS (SELECT 1 FROM Artikel WHERE Artikel.Id = Rueckgaben.ArtikelId);\nALTER TABLE Rueckgaben ADD FOREIGN KEY (ArtikelId) REFERENCES Artikel(Id);",
     "hints": [
@@ -40,7 +43,10 @@
     ],
     "explanation": "NOT EXISTS erfasst die verwaisten Verweise unabhängig von ihrer Nummer. Nach der Reparatur kann SQL Server den gesamten Bestand prüfen und künftige Fehleingaben abweisen.",
     "discovery": "Der Altdatenimport erfüllt dieselbe Regel wie neue Rückgaben.",
-    "resultHint": "Vergleiche gültige und verwaiste Artikelnummern vor und nach der Reparatur. Ist der Fremdschlüssel anschließend aktiv?"
+    "resultHint": "Vergleiche gültige und verwaiste Artikelnummern vor und nach der Reparatur. Ist der Fremdschlüssel anschließend aktiv?",
+    "exampleSql": "SELECT a.Id, a.BuchId\nFROM Ausleihen AS a\nWHERE NOT EXISTS (\n    SELECT 1 FROM Buecher AS b WHERE b.Id = a.BuchId\n);",
+    "exampleEffect": "Bei Verweisen auf 7 und 99 und einem einzigen Buch 7 erscheint nur die Ausleihe zu 99. Übertrage dieselbe Bedingung auf dein UPDATE. Erst wenn die Kontrollabfrage leer bleibt, lässt sich der geprüfte Fremdschlüssel ergänzen.",
+    "referenceHeading": "Verwaiste Verweise vor der Migration finden"
   },
   {
     "id": 13,
@@ -48,9 +54,9 @@
     "scenario": "Orders",
     "technique": "ForeignKey",
     "title": "Abhängige Zeilen gemeinsam löschen",
-    "topic": "ON DELETE CASCADE",
+    "topic": "FOREIGN KEY · ON DELETE CASCADE",
     "story": "Für eine kurzlebige Testbestellung sollen ihre Rückgabezeilen beim Aufräumen automatisch verschwinden.",
-    "briefing": "Ein Fremdschlüssel verbindet die Werte in einer Kindtabelle mit einem eindeutigen Schlüssel der Elterntabelle. Prüfe auch, wie sich die Beziehung bei späteren Änderungen verhält.",
+    "briefing": "Entscheide, welche Zeilen nur zusammen mit ihrem Elternsatz sinnvoll sind. Die Löschregel steht am Fremdschlüssel der abhängigen Tabelle, ausgelöst wird sie durch das Löschen des Elternsatzes.",
     "task": "Verknüpfe Rueckgaben.BestellungId mit Bestellungen.Id. Beim Löschen einer Bestellung sollen ausschließlich ihre zugehörigen Rückgaben automatisch mitgelöscht werden. Lass die Startdaten stehen.",
     "referenceSql": "ALTER TABLE Rueckgaben ADD FOREIGN KEY (BestellungId) REFERENCES Bestellungen(Id) ON DELETE CASCADE;",
     "hints": [
@@ -60,7 +66,10 @@
     ],
     "explanation": "Die Kaskade wirkt vom gelöschten Elternsatz zu genau seinen Kindzeilen. Zwei Rückgaben können deshalb gemeinsam verschwinden, während die Rückgabe einer anderen Bestellung erhalten bleibt.",
     "discovery": "Die automatische Bereinigung folgt der Bestellnummer.",
-    "resultHint": "Prüfe die Löschregel an einer Bestellung mit zwei Rückgaben. Die Rückgaben der anderen Bestellung müssen erhalten bleiben."
+    "resultHint": "Prüfe die Löschregel an einer Bestellung mit zwei Rückgaben. Die Rückgaben der anderen Bestellung müssen erhalten bleiben.",
+    "exampleSql": "ALTER TABLE Eintraege\nADD FOREIGN KEY (HeftId) REFERENCES Hefte(Id)\n    ON DELETE CASCADE;",
+    "exampleEffect": "Wird Heft 4 gelöscht, verschwinden seine Einträge. Einträge zu Heft 5 bleiben bestehen. Das Anlegen der Regel allein löscht keine Zeile.",
+    "referenceHeading": "Abhängige Zeilen beim Löschen mitnehmen"
   },
   {
     "id": 14,
@@ -68,9 +77,9 @@
     "scenario": "Orders",
     "technique": "Create",
     "title": "Bestellpositionen anlegen",
-    "topic": "n:m und zusammengesetzter Schlüssel",
+    "topic": "CREATE TABLE · PRIMARY KEY · FOREIGN KEY",
     "story": "Eine Bestellung kann jetzt mehrere Artikel enthalten. Derselbe Artikel taucht in vielen Bestellungen auf.",
-    "briefing": "Eine Zuordnungstabelle kann dieselbe Einzelnummer in mehreren Zeilen enthalten. Die gewählten Schlüssel bestimmen, welche Kombinationen gültig sind.",
+    "briefing": "Bei einer Zuordnung darf jede Seite mehrfach vorkommen. Lege die gemeinsamen Schlüsselspalten einmal in Klammern hinter PRIMARY KEY fest. Sichere außerdem beide Verweise einzeln ab.",
     "task": "Erstelle Positionen mit BestellungId und ArtikelId (je int NOT NULL). Verwende beide Spalten in dieser Reihenfolge als gemeinsamen Primärschlüssel und verweise auf Bestellungen.Id und Artikel.Id. Verwende die normalen Löschregeln.",
     "referenceSql": "CREATE TABLE Positionen (\n    BestellungId int NOT NULL REFERENCES Bestellungen(Id),\n    ArtikelId int NOT NULL REFERENCES Artikel(Id),\n    PRIMARY KEY (BestellungId, ArtikelId)\n);",
     "hints": [
@@ -80,7 +89,10 @@
     ],
     "explanation": "Der gemeinsame Schlüssel erlaubt mehrere Artikel je Bestellung und mehrere Bestellungen je Artikel. Die beiden Fremdschlüssel sichern zusätzlich ab, dass beide Seiten der Zuordnung existieren.",
     "discovery": "Die Bestellposition bildet die Beziehung zwischen Bestellung und Artikel ab.",
-    "resultHint": "Prüfe die beiden Fremdschlüssel und die Zusammensetzung des Primärschlüssels. Eine Bestellung kann mehrere Artikel enthalten."
+    "resultHint": "Prüfe die beiden Fremdschlüssel und die Zusammensetzung des Primärschlüssels. Eine Bestellung kann mehrere Artikel enthalten.",
+    "exampleSql": "CREATE TABLE Teilnahme (\n    KursId int NOT NULL REFERENCES Kurse(Id),\n    PersonId int NOT NULL REFERENCES Personen(Id),\n    PRIMARY KEY (KursId, PersonId)\n);",
+    "exampleEffect": "Die Paare (1, 7) und (1, 8) sind erlaubt. Ein zweites (1, 7) wird abgewiesen. Zwei einzelne Primärschlüssel würden diese gemeinsame Identität nicht ausdrücken.",
+    "referenceHeading": "Eine Zuordnung durch ein Spaltenpaar identifizieren"
   },
   {
     "id": 15,
@@ -92,9 +104,9 @@
       "INSERT Positionen VALUES (1,10,1),(2,10,2),(3,20,1);"
     ],
     "title": "Doppelte Positionen verhindern",
-    "topic": "UNIQUE über zwei Spalten",
+    "topic": "ALTER TABLE · ADD UNIQUE",
     "story": "Die Kasse hat bereits Positionsnummern vergeben. Zwei verschiedene Nummern können bislang dasselbe Artikelpaar verdecken.",
-    "briefing": "Zusätzliche Eindeutigkeitsregeln können mehrere Spalten umfassen. Betrachte für die Regel vollständige Wertepaare.",
+    "briefing": "Ein technischer Primärschlüssel schützt nur seine eigene Nummer. Soll außerdem eine fachliche Kombination eindeutig sein, kannst du die Regel an der bestehenden Tabelle ergänzen.",
     "task": "Positionen hat schon Id als Primärschlüssel. Ergänze eine UNIQUE-Regel für (BestellungId, ArtikelId) in dieser Reihenfolge und erhalte alle Daten und Fremdschlüssel.",
     "referenceSql": "ALTER TABLE Positionen ADD UNIQUE (BestellungId, ArtikelId);",
     "hints": [
@@ -104,7 +116,10 @@
     ],
     "explanation": "Die Id bleibt als technischer Schlüssel erhalten. Die zusätzliche Eindeutigkeit schützt das fachliche Paar auch dann, wenn eine neue Id vergeben wurde.",
     "discovery": "Die Kasse kann denselben Artikel je Bestellung nur einmal als Position führen.",
-    "resultHint": "Prüfe eine neue Positionsnummer mit einem bereits vorhandenen Wertepaar. Dieselbe Bestellung darf weiterhin andere Artikel enthalten."
+    "resultHint": "Prüfe eine neue Positionsnummer mit einem bereits vorhandenen Wertepaar. Dieselbe Bestellung darf weiterhin andere Artikel enthalten.",
+    "exampleSql": "ALTER TABLE Sitzplaetze\nADD UNIQUE (SaalId, PlatzNr);",
+    "exampleEffect": "Platz 4 darf in zwei Sälen vorkommen. Im selben Saal darf er nur einmal vorkommen, selbst wenn beide Datensätze unterschiedliche IDs haben.",
+    "referenceHeading": "Zusätzliche Eindeutigkeit eines Paars"
   },
   {
     "id": 16,
@@ -112,9 +127,9 @@
     "scenario": "Stock",
     "technique": "UnionAll",
     "title": "Jede Lagerbuchung mitzählen",
-    "topic": "UNION ALL",
+    "topic": "SELECT · UNION ALL",
     "story": "Nord- und Südlager liefern ihre Buchungen getrennt. Zwei identische Meldungen können zwei echte Lieferungen sein.",
-    "briefing": "Mengenoperatoren verbinden die Ergebnisse zweier Abfragen mit gleich vielen, typverträglichen Spalten.",
+    "briefing": "Schreibe zuerst zwei einzelne Abfragen. Ihre Ausgabespalten müssen in derselben Reihenfolge zusammenpassen und verträgliche Datentypen haben. Setze den Mengenoperator zwischen die Abfragen.",
     "task": "Gib alle Buchungen aus Nord und Sued gemeinsam als ArtikelId, Menge aus. Verwende einen Mengenoperator, erhalte jede Wiederholung. Die Reihenfolge ist frei.",
     "referenceSql": "SELECT ArtikelId, Menge FROM Nord\nUNION ALL\nSELECT ArtikelId, Menge FROM Sued;",
     "hints": [
@@ -124,7 +139,10 @@
     ],
     "explanation": "Beide SELECT-Teile liefern die gleichen zwei Spalten. UNION ALL hängt ihre Zeilen aneinander und erhält sowohl Wiederholungen innerhalb eines Lagers als auch lagerübergreifende Doppelungen.",
     "discovery": "Die Liste enthält jede einzelne Buchung.",
-    "resultHint": "Vergleiche die Anzahl der Buchungen je Wertepaar in Quelle und Ergebnis. Achte auch auf Wiederholungen innerhalb eines Lagers."
+    "resultHint": "Vergleiche die Anzahl der Buchungen je Wertepaar in Quelle und Ergebnis. Achte auch auf Wiederholungen innerhalb eines Lagers.",
+    "exampleSql": "SELECT Code FROM EingangA\nUNION ALL\nSELECT Code FROM EingangB;",
+    "exampleEffect": "Liefert A die Werte 2, 2, 5 und B die Werte 2, 7, enthält das Ergebnis fünf Zeilen. Jede der drei Meldungen mit Code 2 zählt. Die Reihenfolge ist offen.",
+    "referenceHeading": "Listen mit allen Wiederholungen zusammenführen"
   },
   {
     "id": 17,
@@ -132,9 +150,9 @@
     "scenario": "Stock",
     "technique": "Union",
     "title": "Einen gemeinsamen Artikelkatalog bilden",
-    "topic": "UNION",
+    "topic": "SELECT · UNION",
     "story": "Für die Inventurliste braucht der Einkauf nur die vertretenen Artikelnummern.",
-    "briefing": "Vergleiche die Ergebnisspalten beider Teillisten. Der Mengenoperator entscheidet über Wiederholungen.",
+    "briefing": "Wähle zuerst genau die Spalten, die zwei Ergebnisse fachlich gleich machen. UNION entfernt doppelte vollständige Ausgabezeilen, auch innerhalb einer Quelle.",
     "task": "Gib mit einer Mengenvereinigung jede ArtikelId aus Nord oder Sued genau einmal aus. Die Reihenfolge ist frei.",
     "referenceSql": "SELECT ArtikelId FROM Nord\nUNION\nSELECT ArtikelId FROM Sued;",
     "hints": [
@@ -144,7 +162,10 @@
     ],
     "explanation": "UNION vergleicht vollständige Ergebniszeilen. Die Projektion auf die Artikelnummer sorgt dafür, dass verschiedene Mengen keine zusätzlichen Katalogeinträge erzeugen.",
     "discovery": "Der Einkauf sieht jede geführte Nummer einmal.",
-    "resultHint": "Kontrolliere eine Artikelnummer, die in beiden Lagern vorkommt, und eine, die nur im Süden liegt."
+    "resultHint": "Kontrolliere eine Artikelnummer, die in beiden Lagern vorkommt, und eine, die nur im Süden liegt.",
+    "exampleSql": "SELECT Code FROM EingangA\nUNION\nSELECT Code FROM EingangB;",
+    "exampleEffect": "Bei A mit 2, 2, 5 und B mit 2, 7 erscheinen die drei Codes 2, 5 und 7 je einmal. Eine zusätzlich ausgegebene Belegnummer könnte die Zeilen wieder unterscheidbar machen.",
+    "referenceHeading": "Gleiche Ergebniszeilen zusammenfassen"
   },
   {
     "id": 18,
@@ -152,9 +173,9 @@
     "scenario": "Stock",
     "technique": "Except",
     "title": "Nur im Norden gelistet",
-    "topic": "EXCEPT",
+    "topic": "SELECT · EXCEPT",
     "story": "Vor der Zusammenlegung sollen die Lager ihre abweichenden Sortimente abstimmen.",
-    "briefing": "Bei einer Mengendifferenz zählt die Richtung des Vergleichs.",
+    "briefing": "Stelle links die Menge auf, aus der du Werte behalten möchtest. Rechts stehen die Werte, die du davon ausschließt. Verglichen werden die ausgegebenen Spalten.",
     "task": "Gib mit EXCEPT die ArtikelId aus, die in Nord vorkommen und in Sued fehlen. Jede Nummer einmal, Reihenfolge frei.",
     "referenceSql": "SELECT ArtikelId FROM Nord\nEXCEPT\nSELECT ArtikelId FROM Sued;",
     "hints": [
@@ -164,7 +185,10 @@
     ],
     "explanation": "EXCEPT bildet die gerichtete Differenz. Übrig bleiben verschiedene Nord-Artikelnummern ohne Gegenstück in Sued.",
     "discovery": "Die offenen Sortimentslücken im Süden sind bekannt.",
-    "resultHint": "Prüfe die Richtung der Differenz. Ein reiner Südartikel gehört nicht ins Ergebnis."
+    "resultHint": "Prüfe die Richtung der Differenz. Ein reiner Südartikel gehört nicht ins Ergebnis.",
+    "exampleSql": "SELECT Code FROM SollListe\nEXCEPT\nSELECT Code FROM IstListe;",
+    "exampleEffect": "Soll enthält 2, 2, 5 und Ist enthält 2, 7. Übrig bleibt 5. Vertauschst du die Abfragen, erhältst du stattdessen 7.",
+    "referenceHeading": "Eine gerichtete Differenz bilden"
   },
   {
     "id": 19,
@@ -172,9 +196,9 @@
     "scenario": "Stock",
     "technique": "Intersect",
     "title": "Die Schnittmenge finden",
-    "topic": "INTERSECT",
+    "topic": "SELECT · INTERSECT",
     "story": "Eine gemeinsame Zählrunde lohnt sich für Artikel, die beide Teams führen.",
-    "briefing": "Die Schnittmenge vergleicht alle ausgegebenen Spalten der beiden Abfragen.",
+    "briefing": "Schreibe für beide Quellen dieselbe fachliche Projektion. INTERSECT behält vollständige Ergebniszeilen, die auf beiden Seiten vorkommen, und gibt jede davon einmal aus.",
     "task": "Gib mit INTERSECT jede ArtikelId aus, die sowohl in Nord als auch in Sued vorkommt. Reihenfolge frei.",
     "referenceSql": "SELECT ArtikelId FROM Nord\nINTERSECT\nSELECT ArtikelId FROM Sued;",
     "hints": [
@@ -184,7 +208,10 @@
     ],
     "explanation": "INTERSECT liefert jede gemeinsame Ergebniszeile einmal. Der Vergleich nur der ArtikelId berücksichtigt auch Artikel mit unterschiedlichen Mengen in den beiden Lagern.",
     "discovery": "Die gemeinsame Zählrunde hat eine eindeutige Artikelliste.",
-    "resultHint": "Kontrolliere die Zugehörigkeit in beiden Lagern unabhängig von der Menge."
+    "resultHint": "Kontrolliere die Zugehörigkeit in beiden Lagern unabhängig von der Menge.",
+    "exampleSql": "SELECT Code FROM SollListe\nINTERSECT\nSELECT Code FROM IstListe;",
+    "exampleEffect": "Bei Soll mit 2, 2, 5 und Ist mit 2, 7 bleibt genau eine 2. Wenn du zusätzlich eine Menge ausgibst, müssen Code und Menge auf beiden Seiten übereinstimmen.",
+    "referenceHeading": "Gemeinsame Werte zweier Listen bestimmen"
   },
   {
     "id": 20,
@@ -195,9 +222,9 @@
       "INSERT Archiv VALUES (99,1);"
     ],
     "title": "Buchungen ins Archiv kopieren",
-    "topic": "INSERT … SELECT",
+    "topic": "INSERT INTO · SELECT · WHERE",
     "story": "Das Nordlager will positive Mengen sichern und seine Arbeitsliste weiter benutzen.",
-    "briefing": "Eine SELECT-Abfrage kann die Eingabe für eine Einfügung liefern. Die Reihenfolge der Werte richtet sich nach der Zielspaltenliste.",
+    "briefing": "Entwickle zuerst ein SELECT, das genau die zu kopierenden Zeilen und Werte zeigt. Setze dann INSERT mit der Zielspaltenliste davor. Die Zuordnung richtet sich nach der Position.",
     "task": "Kopiere mit INSERT … SELECT alle Nord-Zeilen mit positiver Menge in Archiv (ArtikelId, Menge). Erhalte Wiederholungen, vorhandene Archivinhalte und alle Quelldaten.",
     "referenceSql": "INSERT INTO Archiv (ArtikelId, Menge)\nSELECT ArtikelId, Menge FROM Nord WHERE Menge > 0;",
     "hints": [
@@ -207,7 +234,10 @@
     ],
     "explanation": "Der SELECT-Teil bestimmt die zu kopierenden Zeilen. INSERT ergänzt sie im Archiv. Durch den Filter bleibt die Nullbuchung draußen und Wiederholungen bleiben erhalten.",
     "discovery": "Die positiven Buchungen liegen zusätzlich im Archiv.",
-    "resultHint": "Vergleiche Archiv und Quelle vor und nach dem Kopieren. Zwei gleiche positive Buchungen ergeben auch zwei Archivzeilen."
+    "resultHint": "Vergleiche Archiv und Quelle vor und nach dem Kopieren. Zwei gleiche positive Buchungen ergeben auch zwei Archivzeilen.",
+    "exampleSql": "INSERT INTO Versand (Ziel, Gewicht)\nSELECT Ort, Kilo FROM Freigaben\nWHERE Bereit = 1;",
+    "exampleEffect": "Ein Treffer mit Ort Bonn und Kilo 4 erzeugt eine neue Versandzeile (Bonn, 4). Zwei passende Quellzeilen ergeben zwei neue Zeilen. Die Quelle bleibt erhalten.",
+    "referenceHeading": "Das Ergebnis einer Abfrage einfügen"
   },
   {
     "id": 21,
@@ -218,9 +248,9 @@
       "INSERT Archiv VALUES (99,1);"
     ],
     "title": "Archivieren und ausbuchen",
-    "topic": "Transaktion mit zwei Schreibschritten",
+    "topic": "BEGIN TRANSACTION · INSERT · DELETE · COMMIT",
     "story": "Nach dem Probelauf soll das Nordlager seine erledigten Buchungen vollständig verschieben.",
-    "briefing": "Eine Transaktion verbindet mehrere zusammengehörige Änderungen zu einem gemeinsamen Abschluss.",
+    "briefing": "Zum Verschieben gehört erst die Kopie ins Ziel und dann das Entfernen aus der Quelle. Verwende dieselbe Auswahlbedingung für beide Schritte und schließe den gemeinsamen Vorgang ab.",
     "task": "Verschiebe alle positiven Nord-Buchungen nach Archiv. Umschließe Kopieren und anschließendes Löschen mit einer gemeinsamen Transaktion und bestätige sie. Behalte Nord-Zeilen mit Menge 0 und bisherige Archivinhalte.",
     "referenceSql": "BEGIN TRANSACTION;\nINSERT INTO Archiv (ArtikelId, Menge)\nSELECT ArtikelId, Menge FROM Nord WHERE Menge > 0;\nDELETE FROM Nord WHERE Menge > 0;\nCOMMIT;",
     "hints": [
@@ -230,7 +260,10 @@
     ],
     "explanation": "Die Transaktion hält Kopie und Löschung zusammen. Der gleiche Filter auf beiden Seiten verhindert, dass eine Buchung verloren geht oder im Arbeitsbestand zurückbleibt.",
     "discovery": "Ein bestätigter Archivlauf hinterlässt genau die offenen Buchungen.",
-    "resultHint": "Prüfe Quelle und Archiv für eine positive Buchung und eine Nullbuchung. Beide Schreibschritte brauchen eine gemeinsame Transaktion."
+    "resultHint": "Prüfe Quelle und Archiv für eine positive Buchung und eine Nullbuchung. Beide Schreibschritte brauchen eine gemeinsame Transaktion.",
+    "exampleSql": "BEGIN TRANSACTION;\nINSERT INTO Ablage (Nr) SELECT Nr FROM Post WHERE Gelesen = 1;\nDELETE FROM Post WHERE Gelesen = 1;\nCOMMIT;",
+    "exampleEffect": "Gelesene Post steht anschließend in der Ablage. Ungelesene Post bleibt im Eingang. Würdest du zuerst löschen, könnte das anschließende SELECT die gelesenen Zeilen nicht mehr finden.",
+    "referenceHeading": "Zeilen in einer Transaktion verschieben"
   },
   {
     "id": 22,
@@ -238,9 +271,9 @@
     "scenario": "Stock",
     "technique": "UpdateJoin",
     "title": "Gezählte Bestände übernehmen",
-    "topic": "UPDATE mit JOIN",
+    "topic": "UPDATE · FROM · JOIN · IS NOT NULL",
     "story": "Beim Zählen bedeutet 0 ein leeres Fach. Ein leeres Eingabefeld bedeutet, dass die Zählung noch fehlt.",
-    "briefing": "In T-SQL kannst du das Änderungsziel über einen Alias im FROM-Teil mit der Datenquelle verbinden.",
+    "briefing": "Verbinde Quelle und Ziel testweise mit SELECT. Zeige den alten und den neuen Wert nebeneinander. Beim UPDATE bezeichnet der Alias hinter UPDATE die Tabelle, die du ändern willst.",
     "task": "Übernimm Meldungen.Gezaehlt mit UPDATE und JOIN nach Artikel.Bestand für dieselbe Artikelnummer. Eine gemeldete 0 ist gültig. Bei NULL oder fehlender Meldung bleibt der alte Bestand erhalten.",
     "referenceSql": "UPDATE a SET Bestand = m.Gezaehlt\nFROM Artikel AS a JOIN Meldungen AS m ON m.ArtikelId = a.Id\nWHERE m.Gezaehlt IS NOT NULL;",
     "hints": [
@@ -250,7 +283,10 @@
     ],
     "explanation": "Der JOIN erreicht nur Artikel mit Meldung. IS NOT NULL lässt die echte Nullzählung 0 zu und schützt den alten Bestand bei ausstehender Zählung.",
     "discovery": "Der Bestand unterscheidet leere Fächer von fehlenden Meldungen.",
-    "resultHint": "Vergleiche einen Zählwert von 0, einen fehlenden Zählwert und einen Artikel ohne Meldung."
+    "resultHint": "Vergleiche einen Zählwert von 0, einen fehlenden Zählwert und einen Artikel ohne Meldung.",
+    "exampleSql": "UPDATE p SET Preis = n.Neu\nFROM Produkte AS p\nJOIN Preisliste AS n ON n.ProduktId = p.Id\nWHERE n.Neu IS NOT NULL;",
+    "exampleEffect": "Ein neuer Preis von 0 wird übernommen. Bei NULL oder fehlendem Preislisteneintrag bleibt der alte Preis erhalten. Prüfe, dass jeder Zielzeile höchstens ein Quellwert zugeordnet ist.",
+    "referenceHeading": "Werte aus einer zweiten Tabelle übernehmen"
   },
   {
     "id": 23,
@@ -258,9 +294,9 @@
     "scenario": "Stock",
     "technique": "Query",
     "title": "Die Zählliste erläutern",
-    "topic": "CASE und COALESCE",
+    "topic": "LEFT JOIN · COALESCE · CASE",
     "story": "Die Schichtleitung möchte den verwendbaren Bestand und seine Herkunft gemeinsam sehen.",
-    "briefing": "Ein äußerer Verbund erhält auch Datensätze ohne passenden Partner. Prüfe bei der Auswertung die Bedeutung von NULL.",
+    "briefing": "Beginne bei der Tabelle, deren Zeilen vollständig erscheinen sollen. Ein LEFT JOIN erhält auch Zeilen ohne Treffer. COALESCE wählt den ersten vorhandenen Wert, CASE kann passend dazu die Herkunft benennen.",
     "task": "Zeige für jeden Artikel Id, verwendbare Menge und Herkunft. Nutze den Zählwert, falls vorhanden, sonst den alten Bestand. Gib bei verwendbarem Zählwert 'gezaehlt', sonst 'Bestand' aus. Reihenfolge frei.",
     "referenceSql": "SELECT a.Id, COALESCE(m.Gezaehlt, a.Bestand),\n       CASE WHEN m.Gezaehlt IS NULL THEN 'Bestand' ELSE 'gezaehlt' END\nFROM Artikel AS a LEFT JOIN Meldungen AS m ON a.Id = m.ArtikelId;",
     "hints": [
@@ -270,7 +306,10 @@
     ],
     "explanation": "Der LEFT JOIN bewahrt die Artikelliste. COALESCE wählt den ersten vorhandenen Wert. CASE beschreibt dieselbe Entscheidung als Text, sodass auch eine Zählung von 0 ihren Ursprung behält.",
     "discovery": "Neben jeder Menge steht ihre Herkunft.",
-    "resultHint": "Prüfe für jede Artikelnummer Menge und Herkunft. Eine gemeldete 0 trägt den Herkunftstext für eine erfolgte Zählung."
+    "resultHint": "Prüfe für jede Artikelnummer Menge und Herkunft. Eine gemeldete 0 trägt den Herkunftstext für eine erfolgte Zählung.",
+    "exampleSql": "SELECT p.Id, COALESCE(m.Neu, p.Preis),\n       CASE WHEN m.Neu IS NULL THEN 'Liste' ELSE 'Meldung' END\nFROM Produkte AS p\nLEFT JOIN Meldungen AS m ON m.ProduktId = p.Id;",
+    "exampleEffect": "Bei Listenpreis 8 und Meldung 0 lautet das Ergebnis 0 und Meldung. Ohne Meldung oder bei gemeldetem NULL lautet es 8 und Liste.",
+    "referenceHeading": "Ersatzwert und Herkunft gemeinsam ausgeben"
   },
   {
     "id": 24,
@@ -278,9 +317,9 @@
     "scenario": "Stock",
     "technique": "Query",
     "title": "Den größten Gesamtposten ermitteln",
-    "topic": "Aggregation in zwei Stufen",
+    "topic": "UNION ALL · GROUP BY · SUM · MAX",
     "story": "Vor dem Transport muss ein Fahrzeug für den größten zusammengefassten Artikelposten eingeplant werden.",
-    "briefing": "Eine abgeleitete Tabelle stellt ein Zwischenergebnis als Quelle für die nächste Abfrage bereit.",
+    "briefing": "Bestimme zuerst, was eine Zeile im Zwischenergebnis bedeutet. Wenn du den größten Gruppenwert suchst, braucht die äußere Abfrage bereits berechnete Werte pro Gruppe. Teste die innere Abfrage separat.",
     "task": "Gib genau eine Zahl aus. Gesucht ist die größte Gesamtmenge eines einzelnen Artikels über alle Buchungen beider Lager. Zähle gleiche Buchungen einzeln.",
     "referenceSql": "SELECT MAX(s.Gesamt)\nFROM (\n    SELECT b.ArtikelId, SUM(b.Menge) AS Gesamt\n    FROM (SELECT ArtikelId, Menge FROM Nord UNION ALL SELECT ArtikelId, Menge FROM Sued) AS b\n    GROUP BY b.ArtikelId\n) AS s;",
     "hints": [
@@ -290,7 +329,10 @@
     ],
     "explanation": "Die innere Vereinigung bewahrt alle Buchungen. GROUP BY bildet daraus die Summe je Artikel. Das äußere MAX vergleicht anschließend die Summen der verschiedenen Artikel.",
     "discovery": "Die Disposition kennt die benötigte Spitzenkapazität.",
-    "resultHint": "Bilde für einen Artikel die Summe beider Lager von Hand. Vergleiche danach die Summen der verschiedenen Artikel."
+    "resultHint": "Bilde für einen Artikel die Summe beider Lager von Hand. Vergleiche danach die Summen der verschiedenen Artikel.",
+    "exampleSql": "SELECT MAX(g.Stunden)\nFROM (\n    SELECT TeamId, SUM(Dauer) AS Stunden\n    FROM Einsaetze GROUP BY TeamId\n) AS g;",
+    "exampleEffect": "Für Team A mit 3 und 4 Stunden sowie Team B mit 6 Stunden liefert die innere Abfrage 7 und 6. Die äußere liefert 7. Liegen die Einsätze in zwei Listen, führe die Einzelzeilen vor dem Gruppieren zusammen.",
+    "referenceHeading": "Eine Auswertung in zwei Stufen aufbauen"
   },
   {
     "id": 25,
@@ -298,9 +340,9 @@
     "scenario": "Reception",
     "technique": "Migration",
     "title": "Bestehende Termine migrieren",
-    "topic": "Migration und NOT NULL",
+    "topic": "ALTER TABLE · UPDATE · ALTER COLUMN",
     "story": "Der Empfang übernimmt einen gefüllten Terminkalender. Bestätigte Termine brauchen eine andere Freigabestufe als Entwürfe.",
-    "briefing": "Bei einer befüllten Tabelle muss eine neue Pflichtregel zu jeder vorhandenen Zeile passen.",
+    "briefing": "Plane drei Schritte. Lege zunächst Platz für den Wert an, befülle alle vorhandenen Zeilen nach der Fachregel und verschärfe erst danach die Spaltenregel.",
     "task": "Ergänze Termine.Freigabe als int. Trage für bestätigte Termine 2, sonst 1 ein. Schließe die Migration mit einer Pflichtspalte ohne Standardwert ab. Erhalte alle bisherigen Daten.",
     "referenceSql": "ALTER TABLE Termine ADD Freigabe int NULL;\nUPDATE Termine SET Freigabe = CASE WHEN Bestaetigt=1 THEN 2 ELSE 1 END;\nALTER TABLE Termine ALTER COLUMN Freigabe int NOT NULL;",
     "hints": [
@@ -310,7 +352,10 @@
     ],
     "explanation": "Die neue Spalte lässt während der Migration leere Werte zu. Nach dem differenzierten Nachtragen kann ALTER COLUMN die Regel auch für künftige Termine verbindlich machen.",
     "discovery": "Jeder Termin hat eine geprüfte Freigabestufe.",
-    "resultHint": "Prüfe Freigabe für einen bestätigten und einen offenen Termin sowie die NULL-Regel der fertigen Spalte."
+    "resultHint": "Prüfe Freigabe für einen bestätigten und einen offenen Termin sowie die NULL-Regel der fertigen Spalte.",
+    "exampleSql": "ALTER TABLE Karten ADD Tarif int NULL;\nUPDATE Karten SET Tarif = CASE WHEN Ermaessigt = 1 THEN 5 ELSE 8 END;\nALTER TABLE Karten ALTER COLUMN Tarif int NOT NULL;",
+    "exampleEffect": "Auch schon vorhandene Karten haben jetzt einen Tarif. Bleibt vor dem letzten Schritt ein NULL stehen, scheitert das Umschalten auf NOT NULL.",
+    "referenceHeading": "Eine Pflichtspalte in einer befüllten Tabelle einführen"
   },
   {
     "id": 26,
@@ -322,9 +367,9 @@
       "UPDATE Termine SET Stufe=3 WHERE Bestaetigt=1;"
     ],
     "title": "Einen Standard für neue Termine setzen",
-    "topic": "DEFAULT und Altbestand",
+    "topic": "ALTER TABLE · DEFAULT · FOR",
     "story": "Für die Bearbeitungsstufe gibt es historische Einträge. Neue Termine sollen mit Stufe 1 beginnen.",
-    "briefing": "Prüfe den Unterschied zwischen einem ausgelassenen Wert beim Einfügen und einem ausdrücklich übergebenen NULL.",
+    "briefing": "Bei einer bestehenden Spalte gehört FOR mit dem Spaltennamen zum neuen Standard. Unterscheide drei Fälle: ein vorhandener Datensatz, eine neue Zeile ohne Angabe und eine neue Zeile mit ausdrücklich angegebenem NULL.",
     "task": "Die bestehende Spalte Termine.Stufe (int NULL) soll bei neuen Terminen den Standardwert 1 erhalten, wenn die Spalte beim Einfügen fehlt. Vorhandene Werte einschließlich NULL und ausdrücklich eingefügtes NULL bleiben erlaubt.",
     "referenceSql": "ALTER TABLE Termine ADD DEFAULT (1) FOR Stufe;",
     "hints": [
@@ -334,7 +379,10 @@
     ],
     "explanation": "DEFAULT liefert einen Wert für künftige Einfügungen ohne Stufenangabe. Bestehende Zeilen behalten ihren Inhalt. Ein ausdrücklich angegebenes NULL bleibt bei dieser optionalen Spalte möglich.",
     "discovery": "Die nächste Erfassung startet mit der vorgesehenen Stufe.",
-    "resultHint": "Vergleiche einen bestehenden NULL-Wert mit der Stufe nach einer neuen Einfügung ohne Angabe."
+    "resultHint": "Vergleiche einen bestehenden NULL-Wert mit der Stufe nach einer neuen Einfügung ohne Angabe.",
+    "exampleSql": "ALTER TABLE Karten\nADD CONSTRAINT DF_Karten_Prioritaet DEFAULT 5 FOR Prioritaet;",
+    "exampleEffect": "Ein INSERT ohne Prioritaet verwendet 5. Ein alter NULL-Wert bleibt NULL. Bei einer Spalte, die NULL zulässt, darfst du auch nach dem Anlegen ausdrücklich NULL einfügen.",
+    "referenceHeading": "Einen Standardwert für neue Zeilen setzen"
   },
   {
     "id": 27,
@@ -342,9 +390,9 @@
     "scenario": "Reception",
     "technique": "View",
     "title": "Eine Sicht für den Empfang",
-    "topic": "CREATE VIEW",
+    "topic": "CREATE VIEW · AS · SELECT",
     "story": "Die Rezeption braucht einen Tagesplan. Interne Notizen dürfen auf dem Ausdruck nicht erscheinen.",
-    "briefing": "Eine Sicht stellt eine gespeicherte Abfrage wie eine Tabelle zum Lesen bereit.",
+    "briefing": "Entwirf zuerst das SELECT. Seine Spalten bestimmen, was sichtbar wird, seine WHERE-Bedingung, welche Zeilen dazugehören. Gib dieser Abfrage anschließend einen Namen.",
     "task": "Erstelle die Sicht Tagesplan. Sie liefert ausschließlich Id und Titel in dieser Reihenfolge für bestätigte Termine. Die Ausgabespalten heißen Id und Titel.",
     "referenceSql": "CREATE VIEW Tagesplan AS\nSELECT Id, Titel FROM Termine WHERE Bestaetigt = 1;",
     "hints": [
@@ -354,7 +402,10 @@
     ],
     "explanation": "Eine Sicht speichert die Abfragedefinition. Beim Lesen greift der Tagesplan auf den aktuellen Terminbestand zu und zeigt die internen Notizen in keiner seiner Spalten.",
     "discovery": "Die Rezeption kann den aktuellen Tagesplan abrufen.",
-    "resultHint": "Lies die Sicht als Empfangskraft. Stimmen Spaltennamen, Spaltenreihenfolge und die Auswahl bestätigter Termine?"
+    "resultHint": "Lies die Sicht als Empfangskraft. Stimmen Spaltennamen, Spaltenreihenfolge und die Auswahl bestätigter Termine?",
+    "exampleSql": "CREATE VIEW FreiePlaetze AS\nSELECT Nr, Saal FROM Plaetze WHERE Belegt = 0;",
+    "exampleEffect": "SELECT * FROM FreiePlaetze liefert nur Nr und Saal freier Plätze. Ändert sich die Belegung eines Platzes, ändert sich das Ergebnis beim nächsten Lesen der Sicht.",
+    "referenceHeading": "Eine Sicht aus einer geprüften Abfrage erstellen"
   },
   {
     "id": 28,
@@ -362,9 +413,9 @@
     "scenario": "Reception",
     "technique": "Grant",
     "title": "Leserecht für die Rezeption",
-    "topic": "GRANT",
+    "topic": "GRANT SELECT · ON · TO",
     "story": "Der Tagesplan ist bereit. Eine Kollegin der Rolle Empfang erhält bislang beim Lesen eine Zugriffsfehlermeldung.",
-    "briefing": "Ein Objektprivileg verbindet eine Aktion und ein Datenbankobjekt mit einer Rolle.",
+    "briefing": "Triff drei Entscheidungen: Welche Aktion wird gebraucht, welches Objekt soll sichtbar sein und wer erhält das Recht? Eine Sicht kann die zugänglichen Daten bereits eingrenzen.",
     "task": "Erteile der vorhandenen Rolle Empfang ausschließlich SELECT auf die Sicht Tagesplan. Termine und die Schreibrechte bleiben geschützt.",
     "referenceSql": "GRANT SELECT ON Tagesplan TO Empfang;",
     "hints": [
@@ -374,7 +425,10 @@
     ],
     "explanation": "Die Rolle erhält ein Objektprivileg auf der Sicht. SQL Server kann wegen des gemeinsamen Eigentümers die gefilterten Daten liefern. Direkter Tabellenzugriff und Änderungen bleiben gesperrt.",
     "discovery": "Die Rezeption sieht ausschließlich die freigegebenen Informationen.",
-    "resultHint": "Prüfe Lesen und Ändern jeweils auf Sicht und Basistabelle. Allein der Tagesplan soll lesbar sein."
+    "resultHint": "Prüfe Lesen und Ändern jeweils auf Sicht und Basistabelle. Allein der Tagesplan soll lesbar sein.",
+    "exampleSql": "GRANT SELECT ON FreiePlaetze TO Auskunft;",
+    "exampleEffect": "Die Rolle Auskunft darf die Sicht lesen. Durch dieses GRANT erhält sie weder UPDATE auf die Sicht noch ein direktes Leserecht auf die zugrunde liegende Tabelle.",
+    "referenceHeading": "Einer Rolle ein gezieltes Leserecht geben"
   },
   {
     "id": 29,
@@ -382,9 +436,9 @@
     "scenario": "Reception",
     "technique": "Revoke",
     "title": "Ein zu weit gehendes Recht entziehen",
-    "topic": "REVOKE",
+    "topic": "REVOKE · ON · FROM",
     "story": "Bei einer Aushilfe ist die Lesefreigabe korrekt, aber die Rolle darf den Tagesplan auch ändern.",
-    "briefing": "Mehrere Berechtigungen auf demselben Objekt lassen sich unabhängig voneinander vergeben und entziehen.",
+    "briefing": "Nenne genau das zuvor erteilte Recht, dasselbe Objekt und denselben Empfänger. Mit REVOKE nimmst du diese Erteilung zurück. Andere Rechte müssen separat betrachtet werden.",
     "task": "Entziehe der Rolle Empfang das vorhandene UPDATE-Recht auf Tagesplan mit REVOKE. Das SELECT-Recht auf die Sicht soll weiter funktionieren. Direkte Tabellenrechte sind nicht vorgesehen.",
     "referenceSql": "REVOKE UPDATE ON Tagesplan FROM Empfang;",
     "hints": [
@@ -394,7 +448,10 @@
     ],
     "explanation": "REVOKE entfernt hier die zuvor direkt erteilte Änderungsberechtigung. Das unabhängig vergebene SELECT bleibt bei der Rolle und erlaubt weiter den Tagesplan.",
     "discovery": "Die Rolle behält den Tagesplan als lesende Ansicht.",
-    "resultHint": "Prüfe nach dem Entzug beide Aktionen. Der Tagesplan muss lesbar bleiben und Änderungen müssen scheitern."
+    "resultHint": "Prüfe nach dem Entzug beide Aktionen. Der Tagesplan muss lesbar bleiben und Änderungen müssen scheitern.",
+    "exampleSql": "REVOKE UPDATE ON FreiePlaetze FROM Auskunft;",
+    "exampleEffect": "Bei zuvor direkt erteiltem SELECT und UPDATE bleibt SELECT bestehen. Ob die Rolle über einen anderen Weg weiterhin schreiben darf, ist eine eigene Berechtigungsfrage.",
+    "referenceHeading": "Ein einzelnes Recht zurücknehmen"
   },
   {
     "id": 30,
@@ -402,9 +459,9 @@
     "scenario": "Reception",
     "technique": "Index",
     "title": "Einen Suchindex anlegen",
-    "topic": "Zusammengesetzter Index",
+    "topic": "CREATE NONCLUSTERED INDEX · ON · ASC",
     "story": "Die Rezeption filtert regelmäßig nach Bestätigung und sucht dann innerhalb dieser Gruppe nach dem Titel.",
-    "briefing": "Die Reihenfolge der Indexschlüssel beeinflusst, für welche Suchbedingungen sich ein Index eignet.",
+    "briefing": "Lege fest, nach welchen Spalten gesucht wird und welche davon im Index zuerst stehen soll. Nenne hinter ON die Tabelle und die Schlüsselspalten in der gewünschten Reihenfolge.",
     "task": "Lege auf Termine einen zusätzlichen nicht eindeutigen, nicht gruppierten Index über Bestaetigt und Titel an, beide aufsteigend und in dieser Reihenfolge. Der Indexname ist frei. Behalte den bisherigen Primärschlüssel.",
     "referenceSql": "CREATE NONCLUSTERED INDEX IX_Termine_Suche ON Termine (Bestaetigt, Titel);",
     "hints": [
@@ -414,6 +471,9 @@
     ],
     "explanation": "Der erste Schlüssel ordnet die Bestätigungsgruppen, der zweite die Titel innerhalb jeder Gruppe. Der Index benötigt Speicher und zusätzliche Arbeit bei Änderungen. Ob SQL Server ihn für eine konkrete Abfrage nutzt, entscheidet der Optimierer.",
     "discovery": "Für die Suche steht ein passender zusätzlicher Zugriffspfad bereit.",
-    "resultHint": "Prüfe die Reihenfolge der beiden Indexschlüssel und ob ein gleicher Titel mehrfach vorkommen darf."
+    "resultHint": "Prüfe die Reihenfolge der beiden Indexschlüssel und ob ein gleicher Titel mehrfach vorkommen darf.",
+    "exampleSql": "CREATE NONCLUSTERED INDEX IX_Plaetze_Saal_Nr\nON Plaetze (Saal ASC, Nr ASC);",
+    "exampleEffect": "Die Indexeinträge sind zuerst nach Saal und innerhalb des Saals nach Nr geordnet. Mehrere passende Zeilen sind erlaubt. Für eine garantierte Ausgabereihenfolge braucht ein SELECT weiterhin ORDER BY.",
+    "referenceHeading": "Einen zusammengesetzten Index anlegen"
   }
 ]

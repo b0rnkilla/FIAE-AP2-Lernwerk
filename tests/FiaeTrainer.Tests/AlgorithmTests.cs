@@ -182,11 +182,55 @@ public sealed class AlgorithmTests
     public void ValidAlternativesPassAndHardcodedExampleFails()
     {
         AlgorithmEvaluator evaluator = new(_interpreter);
-        Assert.True(evaluator.Evaluate(_catalog.Lessons[0], "AUSGABE kapazitaet - beladen").Correct);
-        Assert.False(evaluator.Evaluate(_catalog.Lessons[0], "AUSGABE 650").Correct);
+        Assert.True(evaluator.Evaluate(_catalog.Lessons[0], "AUSGABE gewicht <= frei UND (eilauftrag ODER frei - gewicht >= reserve)").Correct);
+        Assert.False(evaluator.Evaluate(_catalog.Lessons[0], "AUSGABE WAHR").Correct);
         Assert.True(evaluator.Evaluate(_catalog.Lessons[4], "AUSGABE anzahl * einzelgewicht").Correct);
         string indexed = "anzahl ← 0\ngesamt ← 0\nFÜR i VON 0 BIS LÄNGE(gewichte) - 1\nWENN gewichte[i] >= 0 UND gewichte[i] <= 100 DANN\nanzahl ← anzahl + 1\ngesamt ← gesamt + gewichte[i]\nENDE WENN\nENDE FÜR\nAUSGABE anzahl\nAUSGABE gesamt";
         Assert.True(evaluator.Evaluate(_catalog.Lessons[7], indexed).Correct);
+    }
+
+    [Fact]
+    public void RadioTraceIncludesTheWindowEndAndPrintsTheAttemptCountLast()
+    {
+        AlgorithmLesson lesson = _catalog.Lessons[1];
+        AlgorithmEvaluator evaluator = new(_interpreter);
+        Assert.True(evaluator.Evaluate(lesson, "0\n2\n6\n14\n4").Correct);
+        Assert.False(evaluator.Evaluate(lesson, "0\n2\n6\n3").Correct);
+        Assert.False(evaluator.Evaluate(lesson, "0\n2\n6\n14\n30").Correct);
+    }
+
+    [Theory]
+    [InlineData("AUSGABE eilauftrag ODER gewicht <= frei - reserve")]
+    [InlineData("AUSGABE gewicht <= frei")]
+    [InlineData("AUSGABE gewicht < frei UND (eilauftrag ODER gewicht < frei - reserve)")]
+    public void DispatchRejectsWrongReserveAndCapacityRules(string answer) =>
+        Assert.False(new AlgorithmEvaluator(_interpreter).Evaluate(_catalog.Lessons[0], answer).Correct);
+
+    [Fact]
+    public void ShiftCanBeSolvedByElapsedMinutesButMustExcludeTheEnd()
+    {
+        AlgorithmLesson lesson = _catalog.Lessons[2];
+        AlgorithmEvaluator evaluator = new(_interpreter);
+        const string elapsed = "dauer = (dienstende - dienstbeginn + 1440) MOD 1440\nverstrichen = (jetzt - dienstbeginn + 1440) MOD 1440\nAUSGABE verstrichen < dauer";
+        Assert.True(evaluator.Evaluate(lesson, elapsed).Correct);
+        Assert.False(evaluator.Evaluate(lesson, elapsed.Replace("<", "<=")).Correct);
+        Assert.False(evaluator.Evaluate(lesson, "AUSGABE jetzt >= dienstbeginn ODER jetzt < dienstende").Correct);
+    }
+
+    [Fact]
+    public void LeapYearAcceptsAlternativeFunctionAndRejectsMissingExceptionsAndText()
+    {
+        AlgorithmLesson lesson = _catalog.Lessons[11];
+        AlgorithmEvaluator evaluator = new(_interpreter);
+        const string predicate = "y MOD 400 == 0 ODER (y MOD 4 == 0 UND y MOD 100 != 0)";
+        const string prefix = "FUNKTION istSchaltjahr(y)\n";
+        const string end = "\nENDE FUNKTION";
+        Assert.True(evaluator.Evaluate(lesson, prefix + "RÜCKGABE " + predicate + end).Correct);
+        Assert.False(evaluator.Evaluate(lesson, prefix + "RÜCKGABE y MOD 4 == 0" + end).Correct);
+        Assert.False(evaluator.Evaluate(lesson, prefix + "RÜCKGABE y MOD 4 == 0 UND y MOD 100 != 0" + end).Correct);
+        Assert.False(evaluator.Evaluate(lesson, "AUSGABE WAHR").Correct);
+        string textAnswer = prefix + "WENN " + predicate + " DANN\nRÜCKGABE 'WAHR'\nSONST\nRÜCKGABE 'FALSCH'\nENDE WENN" + end;
+        Assert.Contains("Wahrheitswert", evaluator.Evaluate(lesson, textAnswer).Message);
     }
 
     [Theory]

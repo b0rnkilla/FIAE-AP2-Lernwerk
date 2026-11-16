@@ -13,6 +13,37 @@ public sealed class WorkshopCaseTests : IAsyncLifetime
     public Task DisposeAsync() => Task.CompletedTask;
 
     [SqlFact]
+    public async Task ForeignKeyPreviewReportsTheActualReferenceAndDeleteProbe()
+    {
+        var evaluator = new WorkshopEvaluator(_database, new());
+        var lesson = _catalog.Lessons.Single(x => x.Id == 11);
+        var initial = await evaluator.GetInitialStateAsync(lesson);
+        var changed = await evaluator.PreviewAsync(lesson, lesson.ReferenceSql);
+        Assert.Null(initial.Error);
+        Assert.Null(changed.Error);
+        var effects = WorkshopChanges.Describe(initial, changed).ToList();
+        Assert.Contains("Fremdschlüssel angelegt: Rueckgaben.BestellungId → Bestellungen.Id.", effects);
+        Assert.Contains(effects, text => text.Contains("Löschversuch für Bestellung 10 blockiert"));
+        Assert.Empty(WorkshopChanges.Describe(initial, await evaluator.PreviewAsync(lesson, "SELECT * FROM Rueckgaben;")));
+    }
+
+    [SqlFact]
+    public async Task PreviewKeepsEverySelectionIncludingEmptyResultsInBothWorkshops()
+    {
+        var evaluator = new WorkshopEvaluator(_database, new());
+        foreach (var id in new[] { 6, 11 })
+        {
+            var lesson = _catalog.Lessons.Single(x => x.Id == id);
+            var run = await evaluator.PreviewAsync(lesson,
+                "SELECT Id FROM Artikel WHERE Id < 0; SELECT Name FROM Artikel WHERE Id = 1;");
+            Assert.Null(run.Error);
+            Assert.Collection(run.Statements,
+                first => { Assert.Equal("Id", Assert.Single(first.Result!.Columns)); Assert.Empty(first.Result.Rows); },
+                second => { Assert.Equal("Name", Assert.Single(second.Result!.Columns)); Assert.Single(second.Result.Rows); });
+        }
+    }
+
+    [SqlFact]
     public async Task AllTwentySolutionsPassAndLeaveFreshTablesAndPermissions()
     {
         WorkshopEvaluator evaluator = new(_database,new());

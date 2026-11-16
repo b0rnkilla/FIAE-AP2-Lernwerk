@@ -4,7 +4,7 @@
     @if (Result.Correct)
     {
         <p class="discovery">@Task.Discovery</p>
-        <AttemptOutcomeNote ExamMode="IndependentMode" AssistedAttempt="Assisted" />
+        <AttemptOutcomeNote Reading="Reading" ExamMode="IndependentMode" AssistedAttempt="Assisted" />
     }
 </section>
 @if (!Result.Correct || Task.Kind == "Model")
@@ -22,6 +22,7 @@
 }
 
 @code {
+    [Parameter] public bool Reading { get; set; }
     /// <summary> Fachliches Ergebnis; Lernrückmeldungen zeigen keine Prüfungspunkte. </summary>
     [Parameter, EditorRequired] public DesignEvaluation Result { get; set; } = new();
     /// <summary> Liefert ausschließlich die nach richtiger Lösung freigeschaltete Erkenntnis. </summary>

@@ -1,5 +1,11 @@
 # Entwicklung und Projektstruktur
 
+## Lernstände und Werkstattvorschau nach Beta 3
+
+Die Daten in `IndependentSolution` entstehen bei erfolgreicher selbstständiger Abgabe. Strukturierte Antworten werden tief kopiert. Ein geführter Leseversuch arbeitet vorübergehend im Speicher. `RepeatInProgress` kennzeichnet den explizit neu begonnenen Versuch. Profilpfade und Inhaltsversionen sind unabhängig davon. Das Quellprojekt verwendet standardmäßig `Data/progress` unter dem Web-Projekt, der Windows-Release `%LOCALAPPDATA%/AP2-Lernwerk/progress`. Die in der Einrichtung angezeigte `appsettings.Local.json` speichert Verbindungseinstellungen.
+
+`WorkshopRun.Statements` führt die Ausgaben in Ausführungsreihenfolge. Die Bewertung vergleicht weiterhin die verlangten Ergebnisse sowie Tabellen, Regeln und Zusatzdaten. Die Anzeige vergleicht den sichtbaren Lauf mit dem Ausgangsstand derselben Aufgabe. Die Auswahl im SQL-Editor wird ausschließlich für die Probe ausgelesen.
+
 ## SQL-Werkstatt ab Aufgabe 11
 
 Beim ersten Aufruf der neuen Fälle richtet der Trainer in der markierten Trainingsdatenbank das leere Schema LernwerkProbe, zwei Datenbankbenutzer ohne Login und eine Rolle ein. Die Ausgangstabellen, Sichten und Lernrechte entstehen in einer neuen ungepoolten Verbindung innerhalb einer zurückgerollten Transaktion. Eine Datenbanksperre trennt gleichzeitige Versuche. Lernskripte laufen unter dem eingeschränkten Schemaeigentümer, Zugriffsproben unter dem Empfangsbenutzer. Der Prüfungsfall „Materialausgabe für ein Stadtfest“ nutzt dasselbe Arbeitsschema und dieselbe Sperre. Die SQL-Ermittlung, die ersten drei Prüfungsfälle und die ersten zehn Werkstattaufgaben verwenden ihren bisherigen Ausführungsweg.

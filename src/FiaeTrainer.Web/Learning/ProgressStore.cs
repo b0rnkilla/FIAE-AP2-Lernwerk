@@ -5,6 +5,9 @@ namespace FiaeTrainer.Web.Learning;
 /// <summary> Speichert den lokalen Einzelbenutzer-Lernstand atomar in einer JSON-Datei. </summary>
 public sealed partial class ProgressStore(IWebHostEnvironment environment, IConfiguration? configuration = null)
 {
+    /// <summary> Zweiter Aufgabenwechsel seit Beta 3, nach den ersten vier Ersetzungen folgt Aufgabe 14. </summary>
+    private const int ALGORITHM_LESSON_REVISION = 2;
+
     /// <summary> Serialisiert Schreibzugriffe aus mehreren Browserfenstern. </summary>
     private readonly SemaphoreSlim _gate = new(1, 1);
     /// <summary> Lokaler Speicherort außerhalb der Versionsverwaltung. </summary>
@@ -22,7 +25,7 @@ public sealed partial class ProgressStore(IWebHostEnvironment environment, IConf
     }
 
     /// <summary> Aktualisiert eine Aufgabe, ohne zwischenzeitliche Änderungen anderer Aufgaben zu verlieren. </summary>
-    public async Task SaveLessonAsync(int id, LessonProgress progress, LearningArea area = LearningArea.Investigation)
+    public async Task SaveLessonAsync(int id, LessonProgress progress, LearningArea area = LearningArea.Investigation, string? verifiedAnswer = null)
     {
         await _gate.WaitAsync();
         try
@@ -33,6 +36,7 @@ public sealed partial class ProgressStore(IWebHostEnvironment environment, IConf
             {
                 progress.Completed |= saved.Completed;
                 progress.Independent |= saved.Independent;
+                progress.IndependentSolution = verifiedAnswer ?? saved.IndependentSolution ?? progress.IndependentSolution;
             }
             lessons[id] = progress;
             if (area == LearningArea.Investigation)
@@ -45,7 +49,7 @@ public sealed partial class ProgressStore(IWebHostEnvironment environment, IConf
     }
 
     /// <summary> Ergänzt Algorithmus-Fortschritte, ohne SQL-Stände oder Anzeigeeinstellungen zu überschreiben. </summary>
-    public async Task SaveAlgorithmAsync(int id, AlgorithmProgress progress)
+    public async Task SaveAlgorithmAsync(int id, AlgorithmProgress progress, string? verifiedAnswer = null)
     {
         await _gate.WaitAsync();
         try
@@ -55,6 +59,7 @@ public sealed partial class ProgressStore(IWebHostEnvironment environment, IConf
             {
                 progress.Completed |= saved.Completed;
                 progress.Independent |= saved.Independent;
+                progress.IndependentSolution = verifiedAnswer ?? saved.IndependentSolution ?? progress.IndependentSolution;
             }
             state.AlgorithmLessons[id] = progress;
             state.LastAlgorithmLessonId = id;
@@ -92,9 +97,20 @@ public sealed partial class ProgressStore(IWebHostEnvironment environment, IConf
     private async Task<TrainingProgress> ReadFileAsync()
     {
         if (!File.Exists(_path))
-            return new TrainingProgress();
+            return new TrainingProgress { Beta3AlgorithmArchive = [], AlgorithmLessonRevision = ALGORITHM_LESSON_REVISION };
         await using FileStream stream = File.OpenRead(_path);
-        return Validate(await JsonSerializer.DeserializeAsync<TrainingProgress>(stream));
+        TrainingProgress state = Validate(await JsonSerializer.DeserializeAsync<TrainingProgress>(stream));
+        if (state.AlgorithmLessonRevision < ALGORITHM_LESSON_REVISION)
+        {
+            // Die erste Entwicklungsfassung nach Beta 3 führte das Archiv noch ohne Revisionsnummer ein.
+            int[] replacedIds = state.Beta3AlgorithmArchive == null ? [1, 2, 3, 12, 14] : [14];
+            state.Beta3AlgorithmArchive ??= [];
+            foreach (int id in replacedIds)
+                if (state.AlgorithmLessons.Remove(id, out AlgorithmProgress? previous))
+                    state.Beta3AlgorithmArchive.Add(id, previous);
+            state.AlgorithmLessonRevision = ALGORITHM_LESSON_REVISION;
+        }
+        return state;
     }
 
     /// <summary> Schreibt das gesamte Profil atomar unter der vom Aufrufer gehaltenen Dateisperre. </summary>
@@ -115,7 +131,7 @@ public sealed partial class ProgressStore(IWebHostEnvironment environment, IConf
         foreach (var entry in progress.Lessons.Concat(progress.WorkshopLessons))
             if (entry.Key < 1 || entry.Value == null || entry.Value.Sql == null || entry.Value.HintLevel is < 0 or > 3 || entry.Value.Attempts < 0 || entry.Value.Independent && !entry.Value.Completed)
                 throw new InvalidDataException("Ein Aufgabeneintrag ist beschädigt und wird nicht überschrieben.");
-        foreach (var entry in progress.AlgorithmLessons)
+        foreach (var entry in progress.AlgorithmLessons.Concat(progress.Beta3AlgorithmArchive ?? []))
             if (entry.Key < 1 || entry.Value == null || entry.Value.HintLevel is < 0 or > 3 || entry.Value.Attempts < 0 || entry.Value.Independent && !entry.Value.Completed)
                 throw new InvalidDataException("Ein Algorithmus-Eintrag ist beschädigt und wird nicht überschrieben.");
         ValidateBusinessProgress(progress);

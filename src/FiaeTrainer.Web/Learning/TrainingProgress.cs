@@ -25,6 +25,10 @@ public sealed class TrainingProgress
     public int LastAlgorithmLessonId { get; set; } = 1;
     /// <summary> Eigene Entwürfe und Erfolge des Pseudocode-Lernwegs. </summary>
     public Dictionary<int, AlgorithmProgress> AlgorithmLessons { get; set; } = [];
+    /// <summary> Stand der inhaltlichen Aufgabenwechsel für die Übernahme älterer Lernversuche. </summary>
+    public int AlgorithmLessonRevision { get; set; }
+    /// <summary> Stände der seit Beta 3 ersetzten Pseudocode-Aufgaben. </summary>
+    public Dictionary<int, AlgorithmProgress>? Beta3AlgorithmArchive { get; set; }
 
     /// <summary> Getrennte WiSo-Erfolge; ältere Profile beginnen mit einem leeren Bereich. </summary>
     public Dictionary<int, BusinessProgress> BusinessQuestions { get; set; } = [];

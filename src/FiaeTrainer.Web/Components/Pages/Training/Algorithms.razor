@@ -34,7 +34,7 @@ else
                 <TaskNavigationPosition Path="@($"/algorithmen/{_lesson.Id}")" />
                 <div class="mission-topline"><span class="eyebrow">AUFGABE @_lesson.Id.ToString("D2") / @Catalog.Lessons.Count</span><span class="badge">@KindLabel</span></div>
                 <h1>@_lesson.Title</h1>
-                <LearningModePicker @key="_lesson.Id" ExamMode="_current.ExamMode" Busy="_busy" HasDraft="@HasOwnDraft" AssistedAttempt="_current.AttemptAssisted" ModeChanged="SetModeAsync" />
+                <LearningModePicker @key="_lesson.Id" ExamMode="_current.ExamMode" Busy="_busy" HasDraft="@HasOwnDraft" AssistedAttempt="_current.AttemptAssisted" CanReview="_current.CanReview" HasSavedSolution="@(_current.IndependentSolution != null)" ReturnToAnswer="ReturnToAnswer" ModeChanged="SetModeAsync" />
                 <section class="story-note" aria-label="Aktueller Stand in der Leitstelle"><div class="avatar" aria-hidden="true">NS</div><div><span>Entwicklerin Nora Seidel · Leitstelle</span>
                     @if (_lesson.Id > 1)
                     {
@@ -46,21 +46,32 @@ else
                 {
                     <SelfTestHelp Hidden="_progress.SelfTestHelpDismissed" HiddenChanged="SetHelpHiddenAsync" Busy="_busy"><strong>So funktioniert dein Selbsttest:</strong> Lies den Auftrag und trage deine Lösung ein. „Lösung prüfen“ zeigt dir passende Testfälle und Abweichungen. Im geführten Lernen kannst du zusätzlich den Ablauf schrittweise untersuchen.</SelfTestHelp>
                 }
-                <section class="task-card"><div class="eyebrow">01 · AUFGABE VERSTEHEN</div><p>@_lesson.Task</p>
-                    @if (_lesson.ExampleInputs.Count > 0) { <div class="algorithm-inputs"><strong>Beispieleingaben für die Vorschau</strong><dl>@foreach (var input in _lesson.ExampleInputs) { <div><dt>@input.Key</dt><dd><code>@AlgorithmDisplay.Input(input.Value)</code></dd></div> }</dl></div> }
+                <section class="task-card"><div class="eyebrow">01 · AUFGABE VERSTEHEN</div><p class="algorithm-task-text"><InlineCodeText Text="@_lesson.Task" /></p>
+                    @if (_lesson.ExampleInputs.Count > 0) { <div class="algorithm-inputs"><strong>Beispieleingaben für die Vorschau</strong><dl>@foreach (var input in _lesson.ExampleInputs) { <div><dt><code>@input.Key</code></dt><dd><code>@AlgorithmDisplay.Input(input.Value)</code></dd></div> }</dl></div> }
                     @if (_lesson.FunctionName.Length > 0) { <p class="function-contract"><strong>Deine Funktion:</strong> <code>@(_lesson.FunctionName + "(" + string.Join(", ", _lesson.FunctionInputs) + ")")</code><br />Die Prüfung ruft sie automatisch auf. Gib das Ergebnis mit <code>RÜCKGABE</code> zurück; ein Hauptablauf mit AUSGABE ist hier nicht nötig.</p> }
                     @if (_lesson.Kind == AlgorithmTaskKind.Trace) { <pre class="given-algorithm"><code>@_lesson.GivenCode</code></pre> }
                 </section>
+                @if (_progress.Beta3AlgorithmArchive?.TryGetValue(_lesson.Id, out var previousAttempt) == true)
+                {
+                    <details class="setup-details" @key="previousAttempt">
+                        <summary>Dein früherer Stand zu Aufgabe @_lesson.Id (bis Beta 3)</summary>
+                        <p>Diese Aufgabe hat einen neuen Arbeitsauftrag. @(previousAttempt.Independent ? "Die frühere Aufgabe hast du ohne Hilfe gelöst." : previousAttempt.Completed ? "Du hast die frühere Aufgabe gelöst." : "Die frühere Aufgabe war noch offen.")</p>
+                        @if (!string.IsNullOrWhiteSpace(previousAttempt.Draft))
+                        {
+                            <pre><code>@previousAttempt.Draft</code></pre>
+                        }
+                    </details>
+                }
                 <section class="editor-card" aria-label="Pseudocode-Arbeitsbereich">
                     <div class="editor-toolbar"><label for="algorithm-editor">02 · @EditorLabel</label><span>@(_lesson.Kind is AlgorithmTaskKind.Trace or AlgorithmTaskKind.TestCases ? "Eine Antwort pro Zeile" : "Deutscher Pseudocode")</span></div>
-                    <CodeEditor Id="algorithm-editor" Placeholder="@EditorPlaceholder" Value="@_draft" ValueChanged="@(value => { _draft = value; ClearFeedback(); })" Blur="SaveAsync" ReadOnly="@_busy" CodeMode="@(_lesson.Kind is AlgorithmTaskKind.Write or AlgorithmTaskKind.Repair)" />
-                    <div class="editor-actions"><div>@if (!_current.ExamMode) { <button class="button secondary" disabled="@_busy" @onclick="PreviewAsync">Ablauf untersuchen</button> }<button class="button primary" disabled="@(_busy || string.IsNullOrWhiteSpace(_draft))" @onclick="EvaluateAsync">@(_busy ? "Wird geprüft …" : "Lösung prüfen") →</button></div></div>
+                    <CodeEditor Id="algorithm-editor" Placeholder="@EditorPlaceholder" Value="@_draft" ValueChanged="@(value => { _draft = value; ClearFeedback(); })" Blur="SaveAsync" ReadOnly="@(_busy || _current.ShowingSavedAnswer)" CodeMode="@(_lesson.Kind is AlgorithmTaskKind.Write or AlgorithmTaskKind.Repair)" />
+                    <div class="editor-actions"><div>@if (!_current.ExamMode) { <button class="button secondary" disabled="@_busy" @onclick="PreviewAsync">Ablauf untersuchen</button> }<button class="button primary" disabled="@(_busy || _current.ShowingSavedAnswer || string.IsNullOrWhiteSpace(_draft))" @onclick="EvaluateAsync">@(_busy ? "Wird geprüft …" : "Lösung prüfen") →</button></div></div>
                 </section>
                 @if (_storageError != null) { <p class="notice warning" role="alert">@_storageError</p> }
                 @if (_evaluation != null)
                 {
                     <section class="feedback @(_evaluation.Correct ? "correct" : "retry")" role="status"><strong>@(_evaluation.Correct ? "Dieser Schritt funktioniert." : "Schau dir diesen Fall an.")</strong><p>@_evaluation.Message</p>
-                        @if (_evaluation.Correct) { <p class="discovery">@_lesson.Discovery</p><AttemptOutcomeNote ExamMode="_current.ExamMode" AssistedAttempt="_current.AttemptAssisted" /> }
+                        @if (_evaluation.Correct) { <p class="discovery">@_lesson.Discovery</p><AttemptOutcomeNote Reading="_current.IsReading" ExamMode="_current.ExamMode" AssistedAttempt="_current.AttemptAssisted" /> }
                     </section>
                     <section class="algorithm-checks" aria-label="Prüfergebnisse">
                         @foreach (AlgorithmCheck check in _evaluation.Checks)

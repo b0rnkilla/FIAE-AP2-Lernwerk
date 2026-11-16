@@ -1,0 +1,40 @@
+@if (Run.Error != null)
+{
+    <p class="notice warning" role="alert">@Run.Error</p>
+}
+else
+{
+    @for (int i = 0; i < Run.Statements.Count; i++)
+    {
+        var statement = Run.Statements[i];
+        if (statement.Result is {} result)
+        {
+            <section class="workshop-query-result"><ResultTable Result="result" Title="@(Run.Statements.Count == 1 ? "Dein Abfrageergebnis" : $"Abfrageergebnis · Anweisung {i + 1}")" /></section>
+        }
+        else
+        {
+            <p class="workshop-command"><strong>@(Run.Statements.Count > 1 ? $"{i + 1} · " : "")@statement.Command ausgeführt</strong>
+                @if (statement.Affected >= 0) { <span> · @statement.Affected @(statement.Affected == 1 ? "Zeile betroffen" : "Zeilen betroffen")</span> }
+            </p>
+        }
+    }
+    @if (Initial is { Error: null } && Run.Statements.Any(x => x.Result == null))
+    {
+        <section class="workshop-changes"><h3>Wirkung deines Skripts</h3>
+            @if (_changes.Count == 0) { <p>Der Endstand entspricht den Ausgangsdaten und den bisherigen Tabellenregeln.</p> }
+            else { <ul>@foreach (var change in _changes) { <li>@change</li> }</ul> }
+            @foreach (var table in Run.BeforeRollback) {
+                <details><summary>@table.Key vor dem Zurücknehmen ansehen</summary><ResultTable Result="table.Value" Title="@table.Key" /></details>
+            }
+        </section>
+    }
+    <details class="workshop-detail"><summary>Stand aller Tabellen ansehen</summary><WorkshopResults Run="Run" /></details>
+}
+
+@code {
+    [Parameter, EditorRequired] public WorkshopRun Run { get; set; } = new();
+    [Parameter] public WorkshopRun? Initial { get; set; }
+    private List<string> _changes = [];
+    protected override void OnParametersSet() => _changes = Initial is { Error: null } && Run.Error == null && Run.Statements.Any(x => x.Result == null)
+        ? WorkshopChanges.Describe(Initial, Run).ToList() : [];
+}

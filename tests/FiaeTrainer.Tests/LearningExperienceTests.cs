@@ -2,6 +2,7 @@ using FiaeTrainer.Core.Sql;
 using FiaeTrainer.Core.Sql.Investigation;
 using FiaeTrainer.Core.Sql.Results;
 using FiaeTrainer.Core.Sql.Workshop;
+using FiaeTrainer.Web.Components.Learning;
 using FiaeTrainer.Web.Components.Pages;
 using FiaeTrainer.Web.Components.Sql;
 using FiaeTrainer.Web.Components.Sql.Investigation;
@@ -27,7 +28,7 @@ public sealed class LearningExperienceTests : IDisposable
     public async Task SqlReferenceOffersTheSameReturnButtonForInvestigationAndWorkshop()
     {
         LearningNavigation navigation = new();
-        using ServiceProvider services = new ServiceCollection().AddLogging().AddSingleton(navigation).BuildServiceProvider();
+        using ServiceProvider services = new ServiceCollection().AddLogging().AddSingleton<WorkshopCatalog>().AddSingleton(navigation).BuildServiceProvider();
         navigation.Visit("sql/17");
         string investigation = await RenderAsync<Reference>([], services);
         Assert.Contains("href=\"/sql/17\"", investigation);
@@ -38,9 +39,18 @@ public sealed class LearningExperienceTests : IDisposable
         Assert.DoesNotContain("UML", workshop);
         Assert.DoesNotContain("in Vorbereitung", workshop);
         Assert.Contains("FOREIGN KEY", workshop);
-        Assert.Contains("Berechtigungen", workshop);
+        Assert.Contains("REVOKE UPDATE", workshop);
+        Assert.Contains("werkstatt-30", workshop);
         Assert.Contains("UNION", workshop);
         Assert.Contains("AP2-Prüfungsstoffs", workshop);
+    }
+
+    [Fact]
+    public async Task InlineCodeDistinguishesIdentifiersFromOrdinaryWords()
+    {
+        const string task = "Am Ende müssen `reserve` kg frei bleiben. Prüfe `gewicht <= frei`.";
+        string html = await RenderAsync<InlineCodeText>(new() { [nameof(InlineCodeText.Text)] = task });
+        Assert.Equal("Am Ende müssen <code>reserve</code> kg frei bleiben. Prüfe <code>gewicht <= frei</code>.", html);
     }
 
     [Fact]

@@ -1,5 +1,27 @@
 # Entwicklungsprotokoll
 
+## 16.11.2026 · Beta 4 zum Commit vorbereitet
+
+Die Quellversion `1.0.0-beta.4` bündelt die Werkstattvorschau, das Nachlesen eigener Lösungen und die fünf überarbeiteten Leitstellenaufgaben. Die [Versionshinweise](../release/Versionshinweise-1.0.0-beta.4.md) liegen für den Paketbau nach dem Push bereit.
+
+## 16.11.2026 · SQL ausprobieren und eigene Lösungen nachlesen
+
+Alle 20 Werkstattaufgaben ab 11 erläutern die benötigten Befehle an anderen Daten. Der Spickzettel öffnet das jeweilige Beispiel. Markierte Anweisungen lassen sich einzeln ausführen. Beide Werkstatt-Ausführungswege liefern die Ergebnissätze in Skriptreihenfolge. Die Vorschau zeigt beobachtete Daten- und Regeländerungen. Ausgangslage und Auftrag stehen in derselben Karte.
+
+In sieben Lernabschnitten schützen acht Lernansichten geprüfte Antworten beim Nachlesen. Die Entwicklungsfassung und die entpackte Windows-App verwenden weiterhin ihre jeweiligen Profilpfade.
+
+## 16.11.2026 · Archivfach statt wiederholter binärer Suche
+
+In Aufgabe 14 repariert man Noras Weganzeige für ein Regal mit abwechselnder Nummerierungsrichtung. Die frühere Suche bleibt im persönlichen Aufgabenarchiv einsehbar, wenn ein alter Versuch vorliegt. Alle Pseudocode-Arbeitsaufträge im Lern- und Prüfungsmodus kennzeichnen Variablennamen und Ausdrücke in Codeschrift. Für normale Wörter wie „frei“ entscheidet der Zusammenhang über die Auszeichnung. [Aufgabenkatalog](pseudocode.md).
+
+## 16.11.2026 · Vier neue Aufträge in der Leitstelle
+
+Die Aufgaben 1, 2, 3 und 12 behandeln jetzt Ladereserve, Funkversuche, Bereitschaft über Mitternacht und die Schaltjahrregel für Wartungstermine. Die Story knüpft bei den Aufgaben 4 und 13 an die neuen Ereignisse an. Die Schaltjahrfunktion wird mit wechselnden Jahren aufgerufen und muss einen Wahrheitswert zurückgeben. Frühere Aufgabenstände sind im jeweiligen Auftrag aufklappbar. [Aufgabenkatalog und Profilwechsel](pseudocode.md).
+
+## 16.11.2026 · Windows-Paket für Beta 3
+
+Das Windows-x64-Paket wurde aus dem bestätigten GitHub-Stand `e4c7cf5` gebaut. Aus der entpackten EXE wurden der Wechsel von Beta 2 und die neue Stadtfest-Prüfung mit 50/50 Punkten geprüft. Für die nächste Pseudocode-Überarbeitung sind natürliche Varianten der Listenschleife vorgemerkt. [Paketdetails](lokale-releases.md) · [Verbesserungsplan](verbesserungsplan.md).
+
 ## 16.11.2026 · Vierter SQL-Prüfungsfall
 
 „Materialausgabe für ein Stadtfest“ ergänzt die bisherigen Fälle um die Aufgaben 16 bis 20. Lernende führen Lieferlisten zusammen, verknüpfen Rückgaben mit Ausgaben, übernehmen gezählte Bestände, archivieren abgeschlossene Ausgaben und korrigieren Empfangsrechte. Für Schlüssel, Inventur, Transfer und Rechte gibt es nach Abgabe getrennte Teilpunkte. Die drei bestehenden Fälle behalten ihre Aufgabenkennungen und ihre Bewertung. [Prüfungsmodus](pruefungsmodus.md).

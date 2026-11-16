@@ -2377,6 +2377,8 @@ h1:focus {
 
 /* Algorithmus-Lernweg: Prüffälle, Ausführung und Einsatzbericht. */
 .algorithm-inputs { border-top: 1px solid var(--line); margin-top: 20px; padding-top: 16px; }
+.algorithm-task-text code { overflow-wrap: anywhere; }
+.algorithm-inputs dt code { background: transparent; padding: 0; font-size: 1em; }
 .algorithm-inputs strong { font-size: 12px; }
 .algorithm-inputs dl, .trace-values { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-bottom: 0; }
 .algorithm-inputs dt, .trace-values dt { font-size: 12px; color: var(--muted); }
@@ -2846,3 +2848,20 @@ h1:focus {
     margin: 14px 0;
     color: var(--muted);
 }
+
+/* Eigene Abfragen und deren beobachtete Wirkung stehen vor dem optionalen Gesamtstand. */
+.workshop-query-result, .workshop-changes {
+    background: var(--story-bg);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--accent);
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 14px;
+    overflow-wrap: anywhere;
+}
+.workshop-query-result .table-scroll, .workshop-example { overflow-x: auto; }
+.workshop-example { padding: 16px; background: var(--hint-bg); border-radius: 10px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.workshop-context { border-bottom: 1px solid var(--line); padding-bottom: 14px; margin-bottom: 14px; }
+.task-card .workshop-context p { margin-top: 4px; }
+.workshop-changes li { margin-block: 6px; }
+.workshop-command { margin-block: 10px; }

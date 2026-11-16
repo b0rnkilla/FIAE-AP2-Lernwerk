@@ -154,10 +154,34 @@ public sealed class AdvancedAlgorithmTests
             Assert.Equal([Array.IndexOf(values, wanted).ToString()], linear.Output);
             int[] unique = values.Distinct().Order().ToArray();
             inputs["nummern"] = JsonSerializer.SerializeToElement(unique);
-            AlgorithmRun binary = _interpreter.Run(_catalog.Lessons[13].ReferenceCode, inputs);
+            AlgorithmRun binary = _interpreter.Run(_catalog.Lessons[12].GivenCode, inputs);
             Assert.Null(binary.Error);
-            Assert.Equal([Array.IndexOf(unique, wanted).ToString()], binary.Output);
+            Assert.Equal(Array.IndexOf(unique, wanted).ToString(), binary.Output.Last());
         }
+    }
+
+    [Fact]
+    public void ArchiveShelfAcceptsRowByRowSolutionAndRejectsPartialRepairs()
+    {
+        AlgorithmLesson lesson = _catalog.Lessons[13];
+        AlgorithmEvaluator evaluator = new(_interpreter);
+        const string alternative = """
+            reihe = 1
+            rest = fachnummer
+            SOLANGE rest > breite
+                rest = rest - breite
+                reihe = reihe + 1
+            ENDE SOLANGE
+            AUSGABE reihe
+            WENN reihe MOD 2 == 1 DANN
+                AUSGABE rest
+            SONST
+                AUSGABE breite + 1 - rest
+            ENDE WENN
+            """;
+        Assert.True(evaluator.Evaluate(lesson, alternative).Correct);
+        Assert.False(evaluator.Evaluate(lesson, alternative.Replace("rest > breite", "rest >= breite")).Correct);
+        Assert.False(evaluator.Evaluate(lesson, alternative.Replace("breite + 1 - rest", "rest")).Correct);
     }
 
     [Fact]

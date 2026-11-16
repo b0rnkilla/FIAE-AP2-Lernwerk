@@ -23,7 +23,7 @@ else
             {
                 <TaskNavigationPosition Path="@($"/sql-werkstatt/{_lesson.Id}")" />
                 <div class="mission-topline"><span class="eyebrow">WERKSTATT @_lesson.Id.ToString("D2") / @Catalog.Lessons.Count</span><span class="badge">@_lesson.Topic</span></div><h1>@_lesson.Title</h1>
-                <LearningModePicker @key="_lesson.Id" ExamMode="_examMode" Busy="_busy" HasDraft="@(!string.IsNullOrWhiteSpace(_sql))" AssistedAttempt="_current.UsedAssistance" ModeChanged="SetModeAsync" />
+                <LearningModePicker @key="_lesson.Id" ExamMode="_examMode" Busy="_busy" HasDraft="@(!string.IsNullOrWhiteSpace(_sql))" AssistedAttempt="_current.UsedAssistance" CanReview="_current.CanReview" HasSavedSolution="@(_current.IndependentSolution != null)" ReturnToAnswer="ReturnToAnswer" ModeChanged="SetModeAsync" />
                 @if (!_progress.WorkshopCopyHelpDismissed)
                 {
                     <aside class="workshop-safety dismissible-note" aria-label="Hinweis zur Arbeitskopie">
@@ -32,27 +32,34 @@ else
                     </aside>
                 }
                 @if (_examMode) { <SelfTestHelp Hidden="_progress.SelfTestHelpDismissed" Busy="_busy" HiddenChanged="SetSelfTestHelpHiddenAsync"><strong>So funktioniert dein Selbsttest:</strong> Lies den Auftrag und die Ausgangsdaten. Schreibe dein Skript und klicke auf „Lösung prüfen“. Danach siehst du die Bewertung und den Zustand deiner Tabellen.</SelfTestHelp> }
-                @if (_lesson.Scenario.Length > 0) { <p class="story">@_lesson.Story</p> }
-                <section class="task-card"><div class="eyebrow">01 · AUFGABE VERSTEHEN</div><p>@_lesson.Task</p></section>
+                <section class="task-card"><div class="eyebrow">01 · AUFGABE VERSTEHEN</div>
+                    @if (_lesson.Story.Length > 0 && _lesson.Scenario.Length > 0)
+                    {
+                        <div class="workshop-context"><strong>Ausgangslage</strong><p>@_lesson.Story</p></div>
+                        <strong>Dein Auftrag</strong>
+                    }
+                    <p>@_lesson.Task</p>
+                </section>
                 <details class="workshop-detail initial-data"><summary>Ausgangsdaten ansehen</summary>@if (!Database.Ready) { <p>Verbinde zuerst den SQL Server unter <a href="/einrichtung#sql">SQL einrichten</a>.</p> } else if (_initial == null) { <p>Die Ausgangsdaten werden geladen …</p> } else { <WorkshopResults Run="_initial" /> }</details>
                 @if (!Database.Ready) { <p class="notice warning">@Database.Error <a href="/einrichtung#sql">SQL-Verbindung einrichten</a></p> }
                 <section class="editor-card" aria-busy="@(_busy ? "true" : "false")">
                     <div class="editor-toolbar"><label for="workshop-editor">02 · Dein SQL-Skript</label><span>T-SQL · Microsoft SQL Server</span></div>
-                    <CodeEditor @key="_lesson.Id" Id="workshop-editor" @bind-Value="_sql" Blur="SaveAsync" ReadOnly="@_busy" CodeMode="true" Placeholder="Schreibe hier deine SQL-Anweisungen …" />
-                    <div class="editor-actions"><div>@if (!_examMode) { <button class="button secondary" disabled="@(_busy || !Database.Ready)" @onclick="() => RunAsync(false)">Skript ausprobieren</button> }<button class="button primary" disabled="@(_busy || !Database.Ready || string.IsNullOrWhiteSpace(_sql))" @onclick="() => RunAsync(true)">@(_busy ? "Wird geprüft …" : "Lösung prüfen") →</button></div></div>
+                    <CodeEditor @ref="_editor" @key="_lesson.Id" Id="workshop-editor" @bind-Value="_sql" Blur="SaveAsync" ReadOnly="@(_busy || _current.ShowingSavedAnswer)" CodeMode="true" Placeholder="Schreibe hier deine SQL-Anweisungen …" />
+                    @if (!_examMode) { <p class="code-editor-keys">Zum Ausprobieren kannst du einzelne Anweisungen markieren. Ohne Markierung läuft das ganze Skript.</p> }
+                    <div class="editor-actions"><div>@if (!_examMode) { <button class="button secondary" disabled="@(_busy || !Database.Ready)" @onclick="() => RunAsync(false)" title="Führt die Markierung oder das ganze Skript aus">Skript ausprobieren</button> }<button class="button primary" disabled="@(_busy || !Database.Ready || _current.ShowingSavedAnswer || string.IsNullOrWhiteSpace(_sql))" @onclick="() => RunAsync(true)">@(_busy ? "Wird geprüft …" : "Lösung prüfen") →</button></div></div>
                 </section>
                 @if (_storageError != null) { <p class="notice warning" role="alert">@_storageError</p> }
-                @if (_evaluation != null) { <section class="feedback @(_evaluation.Correct ? "correct" : "retry")" role="status"><strong>@(_evaluation.TechnicalFailure ? "Technische Unterbrechung" : _evaluation.Correct ? (_evaluation.Run.Selection != null ? "Dein Skript stimmt." : "Die Änderung stimmt.") : "Prüfe dein Skript noch einmal.")</strong><p>@_evaluation.Message</p>@if (_evaluation.Correct) { <p class="discovery">@_lesson.Discovery</p><AttemptOutcomeNote ExamMode="_examMode" AssistedAttempt="_current.UsedAssistance" /> }</section> }
-                @if (_run != null && (_evaluation == null || _run.Error != _evaluation.Message)) { <div class="workshop-output"><h2>Stand nach deinem Skript</h2><WorkshopResults Run="_run" /></div> }
+                @if (_evaluation != null) { <section class="feedback @(_evaluation.Correct ? "correct" : "retry")" role="status"><strong>@(_evaluation.TechnicalFailure ? "Technische Unterbrechung" : _evaluation.Correct ? (_evaluation.Run.Selection != null ? "Dein Skript stimmt." : "Die Änderung stimmt.") : "Prüfe dein Skript noch einmal.")</strong><p>@_evaluation.Message</p>@if (_evaluation.Correct) { <p class="discovery">@_lesson.Discovery</p><AttemptOutcomeNote Reading="_current.IsReading" ExamMode="_examMode" AssistedAttempt="_current.UsedAssistance" /> }</section> }
+                @if (_run != null && (_evaluation == null || _run.Error != _evaluation.Message)) { <div class="workshop-output" @ref="_output" tabindex="-1" aria-label="Ergebnis der Skriptausführung"><WorkshopOutput Run="_run" Initial="_initial" /></div> }
                 @if (!_examMode)
                 {
-                    <section class="briefing"><h2>Das brauchst du für diese Aufgabe</h2><p>@_lesson.Briefing</p></section>
+                    <section class="briefing"><h2>Das brauchst du für diese Aufgabe</h2><WorkshopExample Lesson="_lesson" /></section>
                     <section class="help-card">
                         <div class="help-row"><div><h2>Ein Denkanstoß für dein Skript</h2><p>Öffne nur so viel Hilfe, wie du gerade brauchst.</p></div><button class="button secondary" disabled="@(_busy || _current.HintLevel >= 3)" @onclick="ShowHintAsync">@(_current.HintLevel >= 3 ? "Alle Hinweise geöffnet" : $"Hinweis {_current.HintLevel + 1} von 3 öffnen")</button></div>
                         @for (int i = 0; i < _current.HintLevel; i++) { <div class="hint"><span>@(i + 1)</span><p>@_lesson.Hints[i]</p></div> }
                         <div class="help-row">
                             <div><h2>Syntax gerade nicht im Kopf?</h2><p>Im SQL-Spickzettel findest du Regeln und Beispiele.</p></div>
-                            <a href="@($"/nachschlagen?zurueck=/sql-werkstatt/{_lesson.Id}")" class="button secondary">SQL-Spickzettel öffnen</a>
+                            <a href="@($"/nachschlagen?zurueck=/sql-werkstatt/{_lesson.Id}{(_lesson.ExampleSql.Length > 0 ? $"#werkstatt-{_lesson.Id}" : "")}")" class="button secondary">SQL-Spickzettel öffnen</a>
                         </div>
                         <div class="help-row">
                             <div><h2>Musterlösung</h2><p>Eine aufgedeckte Lösung zählt nicht als selbstständiger Versuch.</p></div>

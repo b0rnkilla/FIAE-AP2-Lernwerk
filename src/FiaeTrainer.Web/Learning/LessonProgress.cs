@@ -1,7 +1,8 @@
+using FiaeTrainer.Core.Learning;
 namespace FiaeTrainer.Web.Learning;
 
 /// <summary> Unterscheidet Abschluss, eigenständigen Erfolg und Unterstützung im aktuellen Versuch. </summary>
-public sealed class LessonProgress
+public sealed class LessonProgress : ReviewableProgress<string>
 {
     /// <summary> Individueller Lernmodus dieser Aufgabe; neue und ältere Einträge beginnen ohne Hilfe. </summary>
     public bool ExamMode { get; set; } = true;
@@ -14,8 +15,6 @@ public sealed class LessonProgress
     public bool UsedAssistance => AttemptAssisted ?? (!string.IsNullOrWhiteSpace(Sql) || HintLevel > 0 || SolutionViewed);
     /// <summary> Mindestens eine korrekte Abgabe. </summary>
     public bool Completed { get; set; }
-    /// <summary> Mindestens eine korrekte Abgabe im Modus ohne Hilfen. </summary>
-    public bool Independent { get; set; }
     /// <summary> Höchste im laufenden Lernversuch angezeigte Hilfestufe. </summary>
     public int HintLevel { get; set; }
     /// <summary> Gibt an, ob die Musterlösung im laufenden Versuch aufgedeckt wurde. </summary>

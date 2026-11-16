@@ -25,7 +25,7 @@
     {
         <div class="mission-topline"><span class="eyebrow">AUFGABE @CurrentId.ToString("D2") / @Catalog.Lessons.Count</span><span class="badge">@UmlKinds.Diagrams[_task.DiagramType] · @(_task.Format == "Read" ? "Lesen" : _task.Format == "Repair" ? "Reparieren" : "Selbst erstellen")</span></div>
         <h1>@_task.Title</h1>
-        <LearningModePicker @key="CurrentId" ExamMode="_progress.IndependentMode" Busy="@(!CanEdit)" HasDraft="HasOwnDraft" AssistedAttempt="_progress.Assisted" ModeChanged="SetModeAsync" />
+        <LearningModePicker @key="CurrentId" ExamMode="_progress.IndependentMode" Busy="@(!CanEdit)" HasDraft="HasOwnDraft" AssistedAttempt="_progress.Assisted" CanReview="_progress.CanReview" HasSavedSolution="@(_progress.IndependentSolution != null)" ReturnToAnswer="ReturnToAnswer" ModeChanged="SetModeAsync" />
         <section class="story-note" aria-label="Stand der Planung bei Nordhafen">
             <div class="avatar" aria-hidden="true">MK</div>
             <div>
@@ -42,12 +42,12 @@
         @if (_task.Format == "Repair") { <section class="design-material"><h2>Vorgegebener Entwurf</h2><p>Diese Vorlage bleibt zum Vergleichen erhalten. Bearbeite darunter deine eigene Kopie.</p><UmlDiagram Task="_task" Model="_task.Starter" /></section> }
         <section class="editor-card design-answer" aria-label="Arbeitsbereich in UML und Modellierung">
             <div class="editor-toolbar"><strong>02 · @(_task.Format == "Read" ? "Deine Antwort" : "Dein Diagramm")</strong><span>@UmlKinds.Diagrams[_task.DiagramType]</span></div>
-            <div class="design-answer-content"><UmlEditor @key="CurrentId" Task="_task" Answer="_progress.Answer" Changed="EditorChangedAsync" ReadOnly="@(!CanEdit)" Evaluation="_result" /></div>
-            <div class="editor-actions"><div><button class="button primary" disabled="@(!CanEdit || !HasAnswer)" @onclick="CheckAsync">@(_busy ? "Wird geprüft …" : "Lösung prüfen") →</button></div></div>
+            <div class="design-answer-content"><UmlEditor @key="CurrentId" Task="_task" Answer="_progress.Answer" Changed="EditorChangedAsync" ReadOnly="@(!CanEdit || _progress.ShowingSavedAnswer)" Evaluation="_result" /></div>
+            <div class="editor-actions"><div><button class="button primary" disabled="@(!CanEdit || !HasAnswer || _progress.ShowingSavedAnswer)" @onclick="CheckAsync">@(_busy ? "Wird geprüft …" : "Lösung prüfen") →</button></div></div>
         </section>
         @if (_result != null)
         {
-            <div @ref="_feedback" tabindex="-1"><UmlLearningFeedback Result="_result" Task="_task" IndependentMode="_progress.IndependentMode" Assisted="_progress.Assisted" /></div>
+            <div @ref="_feedback" tabindex="-1"><UmlLearningFeedback Reading="_progress.IsReading" Result="_result" Task="_task" IndependentMode="_progress.IndependentMode" Assisted="_progress.Assisted" /></div>
         }
         @if (!_progress.IndependentMode)
         {

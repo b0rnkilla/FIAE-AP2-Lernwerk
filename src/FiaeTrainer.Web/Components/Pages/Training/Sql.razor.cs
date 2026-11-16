@@ -85,6 +85,12 @@ public partial class Sql : IAsyncDisposable
         _examMode = _current.ExamMode;
         _current.AttemptAssisted = _current.UsedAssistance || !_examMode;
         _sql = _current.Sql;
+        if (_current.CanReview)
+        {
+            _examMode = _current.ExamMode = true;
+            _sql = _current.IndependentSolution ?? _sql;
+            _showSolution = false;
+        }
         _loading = false;
     }
 
@@ -97,11 +103,15 @@ public partial class Sql : IAsyncDisposable
         _current.ExamMode = examMode;
         if (examMode)
         {
+            _current.RepeatInProgress = _current.Independent;
             _current.StartIndependentAttempt();
             _sql = "";
         }
         else
+        {
+            if (_current.CanReview) _current.BeginReading(_sql);
             _current.AttemptAssisted = true;
+        }
         _showSolution = _current.SolutionViewed;
         _result = null;
         _evaluation = null;
@@ -134,7 +144,7 @@ public partial class Sql : IAsyncDisposable
     /// <summary> Bewertet die aktuelle Antwort und speichert Abschlüsse nur für die weiterhin ausgewählte Aufgabe. </summary>
     private async Task EvaluateAsync()
     {
-        if (_busy || _lesson == null)
+        if (_busy || _lesson == null || _current.ShowingSavedAnswer)
             return;
         _busy = true;
         int revision = _revision;
@@ -151,14 +161,29 @@ public partial class Sql : IAsyncDisposable
                 return;
             _evaluation = evaluation;
             _result = _evaluation.Result;
+            if (_current.IsReading) return;
             if (!_evaluation.TechnicalFailure)
                 _current.Attempts++;
             _current.Completed |= _evaluation.Correct;
-            _current.Independent |= _evaluation.Correct && _examMode && !_current.UsedAssistance;
-            await SaveAsync();
+            bool independentSuccess = _evaluation.Correct && _examMode && !_current.UsedAssistance;
+            if (independentSuccess) _current.RememberIndependentSolution(sql);
+            await PersistAsync(independentSuccess ? sql : null);
         }
         catch (OperationCanceledException) when (token.IsCancellationRequested) { }
         finally { if (revision == _revision) _busy = false; }
+    }
+
+    private void ReturnToAnswer()
+    {
+        if (_busy || !_current.IsReading) return;
+        _sql = _current.ReturnFromReading(_sql);
+        _examMode = true;
+        _current.ExamMode = true;
+        _current.HintLevel = 0;
+        _current.SolutionViewed = _showSolution = false;
+        _current.AttemptAssisted = false;
+        _result = null;
+        _evaluation = null;
     }
 
     private async Task ShowHintAsync()
@@ -179,14 +204,16 @@ public partial class Sql : IAsyncDisposable
     }
 
     /// <summary> Sichert Entwurf und Aufgabenmodus; nach einem Speicherfehler bleibt das vorhandene Profil vor weiteren Schreibversuchen geschützt. </summary>
-    private async Task SaveAsync()
+    private Task SaveAsync() => PersistAsync(null);
+
+    private async Task PersistAsync(string? verifiedAnswer)
     {
-        if (_lesson == null || _storageError != null)
+        if (_lesson == null || _storageError != null || _current.IsReading)
             return;
         _current.Sql = _sql;
         _current.ExamMode = _examMode;
         _progress.Lessons[_lesson.Id] = _current;
-        try { await Store.SaveLessonAsync(_lesson.Id, _current); }
+        try { await Store.SaveLessonAsync(_lesson.Id, _current, verifiedAnswer: verifiedAnswer); }
         catch (Exception exception) when (exception is IOException or System.Text.Json.JsonException or UnauthorizedAccessException)
         {
             _storageError = "Dein Lernstand konnte nicht gespeichert werden. Kopiere deine Abfrage vor dem Schließen und prüfe die Schreibrechte des Projektordners.";

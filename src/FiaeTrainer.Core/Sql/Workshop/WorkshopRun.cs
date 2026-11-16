@@ -14,9 +14,14 @@ public sealed class WorkshopRun
     /// <summary> Ergebnisse gezielter Einfügeversuche zur Prüfung von Constraints. </summary>
     public QueryResult ConstraintChecks { get; init; } = new();
     /// <summary> Ausgabe der eigenen Mengenabfrage. </summary>
-    public QueryResult? Selection { get; set; }
+    public QueryResult? Selection => Statements.LastOrDefault(x => x.Result != null)?.Result;
+    /// <summary> Ausgaben in Skriptreihenfolge, unabhängig vom abschließenden Tabellenstand. </summary>
+    public List<WorkshopStatementResult> Statements { get; } = [];
     /// <summary> Verständlicher Fehler statt eines bewertbaren Endzustands. </summary>
     public string? Error { get; init; }
     /// <summary> Infrastrukturfehler ohne fachliche Wertung. </summary>
     public bool TechnicalFailure { get; init; }
 }
+
+/// <summary> Tatsächliche Ausgabe einer Anweisung in der Arbeitskopie. </summary>
+public sealed record WorkshopStatementResult(string Command, QueryResult? Result = null, int Affected = -1);

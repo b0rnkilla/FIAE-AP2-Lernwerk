@@ -104,6 +104,10 @@
     }
 
     window.fiaeCodeEditor = {
+        selectedText(root) {
+            const input = root.querySelector("textarea");
+            return input.value.slice(input.selectionStart, input.selectionEnd);
+        },
         refresh(root) {
             if (!editors.has(root)) editors.set(root, connect(root));
             editors.get(root).refresh();

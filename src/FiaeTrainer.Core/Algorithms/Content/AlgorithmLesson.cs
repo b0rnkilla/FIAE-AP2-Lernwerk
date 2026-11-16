@@ -33,6 +33,8 @@ public sealed class AlgorithmLesson
     public string ReferenceAnswer { get; init; } = "";
     /// <summary> Optionaler Funktionsvertrag: Die Bewertung ruft diese Funktion statt eines Hauptablaufs auf. </summary>
     public string FunctionName { get; init; } = "";
+    /// <summary> Die aufrufende Anwendung benötigt einen echten Wahrheitswert als Rückgabe. </summary>
+    public bool RequiresBooleanReturn { get; init; }
     /// <summary> Reihenfolge der Testeingaben für den Funktionsaufruf; eigene Parameternamen sind frei wählbar. </summary>
     public string[] FunctionInputs { get; init; } = [];
     /// <summary> Erläutert die fachliche Entscheidung in der Musterlösung. </summary>

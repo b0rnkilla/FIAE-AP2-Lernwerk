@@ -1,6 +1,6 @@
 # Pseudocode und Algorithmen
 
-Fachlicher Stand: 04.11.2026, seit 0.1.1-alpha.7 mit 30 Aufgaben. In der aktuellen Quellfassung 0.1.1-alpha.9 bleibt dieser Lernweg unverändert. Das zuletzt gebaute und am 05.11.2026 aus dem ZIP geprüfte Alpha-8-Paket enthält ebenfalls alle 30 Aufgaben mit Zeilennummern, Tab-Einrückung und großen Schlüsselwörtern. Das ältere Alpha-4-ZIP mit acht Algorithmus-Aufgaben und Alpha 3 mit ausschließlich SQL bleiben unverändert.
+Stand vom 16.11.2026. Die Entwicklungsfassung nach Beta 3 ersetzt fünf der 30 Leitstellenaufgaben. Die veröffentlichte Beta 3 enthält noch die früheren Aufgaben.
 
 ## Lernweg und Aufgaben
 
@@ -8,9 +8,9 @@ Fachlicher Stand: 04.11.2026, seit 0.1.1-alpha.7 mit 30 Aufgaben. In der aktuell
 
 | Nr. | Aufgabe | Form | Schwerpunkt |
 | --- | --- | --- | --- |
-| 1 | Was passt noch hinein? | Eigene Lösung | Variablen, Subtraktion, Ausgabe |
-| 2 | Ein Wert verändert sich | Schreibtischtest | Zuweisungen und Ausgabereihenfolge |
-| 3 | Die letzte freie Einheit | Fehlersuche | Vergleich einschließlich Gleichheit |
+| 1 | Reicht der Platz für den Auftrag? | Eigene Lösung | Zuladung und Reserve für normale und eilige Aufträge |
+| 2 | Warum fehlt der letzte Funkversuch? | Schreibtischtest | Wachsende Wartezeiten, Zeitgrenze und Versuchszähler |
+| 3 | Wer hat um Mitternacht Bereitschaft? | Fehlersuche | Tages- und Nachtschichten mit genauer Übergabeminute |
 | 4 | Wer muss zuerst los? | Eigene Lösung | Verschachtelte Bedingungen und ODER |
 | 5 | Ein Paket fehlt | Fehlersuche | Inklusive Zählschleife, Akkumulator, Nullfall |
 | 6 | Wann endet der Ladevorgang? | Schreibtischtest | SOLANGE, Abbruchbedingung und Überladung |
@@ -19,9 +19,9 @@ Fachlicher Stand: 04.11.2026, seit 0.1.1-alpha.7 mit 30 Aufgaben. In der aktuell
 | 9 | Der höchste Messwert | Eigene Lösung | Maximum, negative Werte und Leerfall |
 | 10 | Der verschwundene halbe Wert | Fehlersuche | Durchschnitt, / statt DIV, Division durch 0 vermeiden |
 | 11 | Wo steht der Auftrag? | Eigene Lösung | Lineare Suche, erster Treffer und -1 |
-| 12 | Ein Treffer ist nicht genug | Eigene Lösung | Alle Treffer zählen statt früh abbrechen |
+| 12 | Darf Nora den Wartungstermin eintragen? | Eigene Funktion | Schaltjahre, Jahrhundertausnahmen und boolesche Rückgabe |
 | 13 | Immer die halbe Warteliste | Schreibtischtest | Binäre Suche, Index und Wert unterscheiden |
-| 14 | Die Suche muss kleiner werden | Fehlersuche | Suchgrenzen und Terminierung |
+| 14 | Wo liegt der Abholschein? | Fehlersuche | Fachnummer auf Regalreihe und Spalte abbilden, Richtungswechsel und Reihengrenzen |
 | 15 | Tauschen ohne Verlust | Fehlersuche | Indexzuweisung und Hilfsvariable |
 | 16 | Ein Durchlauf ist noch keine Sortierung | Schreibtischtest | Ein Bubble-Durchlauf und Anzahl der Tausche |
 | 17 | Die ganze Liste in Ordnung bringen | Eigene Lösung | Sortierung, verschachtelte Schleifen, Duplikate |
@@ -39,11 +39,15 @@ Fachlicher Stand: 04.11.2026, seit 0.1.1-alpha.7 mit 30 Aufgaben. In der aktuell
 | 29 | Der Aufruf muss dem Basisfall näherkommen | Fehlersuche | Rekursionsfortschritt und Fakultät |
 | 30 | Doppelte Meldungen paarweise prüfen | Eigene Funktion | Positionspaare, Schleifengrenzen und Vermeidung von Doppelzählungen |
 
-Der ursprüngliche Zielumfang von 24 Aufgaben ist mit sechs zusätzlichen Abnahmeaufgaben abgeschlossen: insgesamt 13 freie Lösungen, acht Reparaturen, sieben Schreibtischtests und zwei Testfallaufgaben. Aus der bisherigen Planung sind damit keine weiteren Aufgaben offen. Beliebige weitere Algorithmen, Textverarbeitung oder Programmiersprachenfunktionen sind dadurch nicht vollständig abgedeckt. Grafische Darstellungen werden dem späteren UML-Bereich zugeordnet; diese Fassung behauptet keine vollständige AP2-Katalogabdeckung.
+Der ursprüngliche Zielumfang von 24 Aufgaben ist mit sechs zusätzlichen Abnahmeaufgaben abgeschlossen: insgesamt 13 freie Lösungen, acht Reparaturen, sieben Schreibtischtests und zwei Testfallaufgaben. Aus der bisherigen Planung sind damit keine weiteren Aufgaben offen. Beliebige weitere Algorithmen, Textverarbeitung oder Programmiersprachenfunktionen sind dadurch nicht vollständig abgedeckt. Grafische Modellierung hat ihren eigenen Lernbereich in Abschnitt 03.
 
 ## Bedienung
 
 Die Reihenfolge lautet Lernmodus, Story, Aufgabe und Editor. Neue Aufgaben beginnen in „Ohne Hilfe lösen“. Der Modus bleibt je Aufgabe gespeichert. „Geführt lernen“ ergänzt Erklärungen, drei einzeln aufdeckbare Hinweise, einen internen Spickzettel und die Musterlösung mit Ansehen/Ausblenden.
+
+Nach selbstständigem Erfolg öffnet die Moduswahl die geprüfte Antwort zum Nachlesen. Geführte Experimente verwenden eine Kopie. Für einen frischen Versuch gibt es **Neu üben**. [Moduswechsel und ältere Profile](lernkonzept.md#bedienung-und-lernmodus).
+
+In den Arbeitsaufträgen der 30 Lern- und zehn Prüfungsaufgaben kennzeichnet Codeschrift Variablen, Funktionsaufrufe und konkrete Ausdrücke. Das gilt auch für zweideutige Wörter wie `frei`, wenn sie als Eingabename gemeint sind. Beispieleingaben sind unter denselben Namen beschriftet.
 
 Der Editor zeigt physische Zeilennummern einschließlich Leerzeilen, passend zu Fehlern und Ablaufspur. Lange Zeilen scrollen im Editor und in der nummerierten Schrittansicht waagerecht, statt die Zuordnung durch Umbruch zu verändern; im Editor folgen die Nummern dem senkrechten Scrollen. In Code- und Reparaturaufgaben fügt Tab vier Leerzeichen ein. Markierte Zeilen werden gemeinsam eingerückt; Umschalt+Tab entfernt bis zu vier führende Leerzeichen oder einen Tab je Zeile. **Esc, anschließend Tab** verlässt das Feld vorwärts, **Esc, anschließend Umschalt+Tab** rückwärts. Der kurze Tastaturhinweis steht am Editor. Strg+Tab bleibt für den Browser reserviert. Reine Antwortfelder für Ausgaben und Testfälle behalten die normale Tab-Navigation.
 
@@ -81,11 +85,13 @@ Codeaufgaben werden auf mehreren festgelegten Eingaben ausgeführt. Die Sollausg
 
 Funktionsaufgaben prüfen den benannten Einstieg tatsächlich mit neuen Argumenten, nicht den Wortlaut der Musterlösung. Eigene Parameternamen und zusätzliche Hilfsfunktionen sind erlaubt. Geprüft wird das zurückgegebene Ergebnis; zusätzliche AUSGABE-Zeilen innerhalb der Funktion zählen als zusätzliche Ausgaben und erfüllen den Vertrag nicht. Ein Name oder eine passende Ausgabe im Hauptablauf ersetzt die verlangte Funktion nicht.
 
-Bei Suche und Sortierung wird funktionales Verhalten bewertet, keine garantierte Laufzeitklasse oder Identität eines Algorithmus. Selection Sort besteht die Sortieraufgabe ebenfalls. Lineare und binäre Suchreferenzen sowie die Sortierreferenz sind zusätzlich mit 100 deterministisch erzeugten Listen gegen unabhängige Bibliotheksergebnisse geprüft. Die Abschlussaufgabe arbeitet ausdrücklich in Eingabereihenfolge; sie fordert keine optimale Packung und erlaubt kein Umsortieren als Ersatz für diese Regel.
+Bei Suche und Sortierung wird funktionales Verhalten bewertet, keine garantierte Laufzeitklasse oder Identität eines Algorithmus. Selection Sort besteht die Sortieraufgabe ebenfalls. Die lineare Suche, der abschließend gemeldete Index im Schreibtischtest zur binären Suche und die Sortierreferenz werden mit 100 deterministisch erzeugten Listen gegen unabhängige Bibliotheksergebnisse geprüft. Für Aufgabe 14 decken die Prüffälle Reihenanfänge und -enden, innere Fächer in beiden Laufrichtungen, wechselnde Regalbreiten und ein einspaltiges Regal ab. Die Abschlussaufgabe arbeitet ausdrücklich in Eingabereihenfolge; sie fordert keine optimale Packung und erlaubt kein Umsortieren als Ersatz für diese Regel.
 
 Beide Testfallaufgaben prüfen zuerst jede selbst gewählte Eingabe samt Sollausgabe gegen die beschriebene Regel. Nur korrekte Testfälle tragen zur Abdeckung bei. Aufgabe 7 verlangt negatives ganzzahliges Gewicht, genau 0, genau 100 und einen Wert über 100. Aufgabe 27 verlangt eine negative Menge sowie genau 0, 9, 10, 49 und 50. Gleichartige Normalfälle oder falsche Sollausgaben genügen nicht. Andere passende negative beziehungsweise übergroße Werte als in der Musterlösung sind erlaubt, wenn kein einzelner Grenzwert ausdrücklich verlangt wird. Das Format bleibt skalare ganze Zahl => Ausgabe; mehrere Eingabevariablen oder strukturierte Fälle werden hier nicht eingelesen.
 
 Aufgabe 26 zählt eine ausdrücklich benannte Anweisung für zwei Eingabegrößen und erklärt den Zusammenhang zum quadratischen Wachstum. Diese konkrete Zählaufgabe bewertet keine allgemeine Big-O-Klassifikation beliebigen Codes. Die Prüfziffer in Aufgabe 25 ist eine eigens beschriebene Übungsregel und kein behauptetes reales Standardverfahren. Rekursionsaufgaben unterscheiden Aufrufweg, Basisfall und Rückweg; eine iterative Alternative mit korrektem Ergebnis bleibt zulässig.
+
+Die Funktion `istSchaltjahr` in Aufgabe 12 benötigt einen booleschen Rückgabewert. Die Prüfung unterscheidet `WAHR` vom Text `"WAHR"` und akzeptiert gleichwertige Formulierungen der Kalenderregel.
 
 Eine endliche Prüfmenge beweist keine allgemeine Korrektheit. Es gibt keine offizielle IHK-Punktevergabe und keine KI-Bewertung. Alle Ausführungen sind lokal, isoliert und ohne Zugriff auf Dateien, Netzwerk, Prozesse oder .NET-Aufrufe. Eine Interpreter-Instanz behält zwischen Aufrufen keine Variablen.
 
@@ -105,7 +111,7 @@ Eine Reparatur beginnt mit dem gegebenen fehlerhaften Code. Ein gespeicherter le
 
 Ältere Profile ohne `AlgorithmLessons` bleiben lesbar; fehlende Eigenschaften erhalten leere Vorgaben und die letzte Aufgabennummer 1. Beschädigte Algorithmus-Einträge werden ebenso wie beschädigte SQL-Einträge nicht still überschrieben. Normale Nutzerprofile dürfen für Bearbeitungstests nicht verwendet werden.
 
-Die IDs der bisherigen Aufgaben bleiben gleich. Der Ausbau benötigt keine Profilmigration und überschreibt weder deren Entwürfe, Modi und Erfolge noch SQL-Stände. Neue Aufgaben beginnen ohne Hilfe; die Anzahl im Lernplan und auf der Übersicht wächst dynamisch auf 30 Algorithmus- beziehungsweise 70 Gesamtaufgaben.
+Die Aufgaben-IDs 1–30 bleiben stabil. Bei den fünf ausgetauschten Aufgaben 1, 2, 3, 12 und 14 beginnt ein neuer Versuch. Beim Einlesen eines älteren Profils trennt der Speicher die früheren Entwürfe, Erfolge, Versuche und Hilfestände in `Beta3AlgorithmArchive` ab. Hat ein Profil die ersten vier Aufgabenwechsel bereits mitgemacht, wird nur die frühere Aufgabe 14 ins Archiv übernommen. Die nächste reguläre Speicherung schreibt Archiv und aktuellen Stand zusammen. Der frühere Abschlussstatus und der damalige Entwurf lassen sich in der jeweiligen Aufgabe aufklappen. Übersicht, Lernplan und Einsatzbericht beziehen sich auf die aktuelle Aufgabenfassung.
 
 ## Fachliche Orientierung
 
@@ -115,4 +121,4 @@ Zur Abgrenzung: Der Prüfungsbereich umfasst neben Codeverständnis, eigener Pro
 
 ## Zusätzlicher Prüfungsbereich seit Alpha 9
 
-Neben den unveränderten 30 Lernaufgaben existiert ein eigener Zehnerpool ausschließlich für Prüfungen. Eine 45-Minuten-Runde wählt zwei Funktions-/Korrekturaufgaben und eine Analyseaufgabe für insgesamt 50 Trainingspunkte. Kein neuer Interpreterdialekt; bestehende Schreibregeln, Wertsemantik und Budgets gelten weiter. Bewertung, Teilpunkte, Speicherung und Grenzen stehen unter [Prüfungsmodus](pruefungsmodus.md).
+Neben den 30 Lernaufgaben existiert ein eigener Zehnerpool ausschließlich für Prüfungen. Eine 45-Minuten-Runde wählt zwei Funktions-/Korrekturaufgaben und eine Analyseaufgabe für insgesamt 50 Trainingspunkte. Kein neuer Interpreterdialekt; bestehende Schreibregeln, Wertsemantik und Budgets gelten weiter. Bewertung, Teilpunkte, Speicherung und Grenzen stehen unter [Prüfungsmodus](pruefungsmodus.md).

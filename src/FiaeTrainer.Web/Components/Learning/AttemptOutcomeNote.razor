@@ -1,4 +1,8 @@
-@if (!ExamMode)
+@if (Reading)
+{
+    <small>Deine Arbeitskopie erfüllt den Auftrag. Dein früherer selbstständiger Erfolg bleibt im Lernplan erhalten.</small>
+}
+else if (!ExamMode)
 {
     <small>Du hast diese Aufgabe im geführten Lernen gelöst. Für einen frischen Selbsttest wähle „Ohne Hilfe lösen“.</small>
 }
@@ -12,6 +16,7 @@ else
 }
 
 @code {
+    [Parameter] public bool Reading { get; set; }
     /// <summary> Aktuell sichtbarer Lernmodus. </summary>
     [Parameter] public bool ExamMode { get; set; }
     /// <summary> Unterscheidet einen übernommenen oder unterstützten Versuch von einem frischen Selbsttest. </summary>

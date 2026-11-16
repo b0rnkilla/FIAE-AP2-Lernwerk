@@ -1,5 +1,35 @@
 # Testprotokoll
 
+## 16.11.2026 · Versionsprüfung vor dem Beta-4-Commit
+
+Die Projektmappe wurde nach dem Versionswechsel im Release-Modus mit null Warnungen und null Fehlern gebaut. Die Produktversion der gebauten Webanwendung weist `1.0.0-beta.4` aus. Die fachlichen Tests des Änderungspakets sind im folgenden Eintrag dokumentiert.
+
+## 16.11.2026 · Werkstattvorschau und Nachlesen nach selbstständigem Erfolg
+
+- Alle 1.260 .NET-Tests einschließlich der SQL-Integrationen und alle 31 JavaScript-Tests bestanden. Die Beispiele der Werkstattaufgaben 11–30 wurden auf gültige T-SQL-Syntax geprüft.
+- Edge mit eigenem Port, separater QA-LocalDB und synthetischem Profil. Für Aufgabe 11 wurden der Fremdschlüssel und die tatsächliche Löschsperre geprüft. Zwei SELECT-Ergebnisse einschließlich einer leeren Treffermenge, das Ausführen einer Markierung, die Änderungen zwischen zwei SELECTs mit dazwischenliegendem UPDATE und der Rückweg vom Spickzettel wurden kontrolliert. Die Ergebnisse blieben auch bei 390 Pixeln Breite lesbar.
+- In SQL-Ermittlung, SQL-Werkstatt, Pseudocode, UML, Datenbankentwurf, Softwareplanung, Qualität und Projekten wurden selbstständig gelöste Aufgaben erneut geöffnet und Hilfen nachgelesen. In UML blieben der selbst gewählte Modellname und die Verbindung nach einer Änderung und Fehlprüfung in der Kopie auch beim Neuladen erhalten. Eine ältere Werkstattlösung blieb als früherer Erfolg mit letztem Entwurf erkennbar. Für SQL-Ermittlung und Pseudocode wurde auch der absichtlich begonnene neue Versuch geprüft.
+- In einer eigenen WiSo-Themenrunde blieb beim erneuten Lesen einer geprüften Antwort die Runde erhalten. Versuchszahl, Korrektheit und Unsicherheitskennzeichnung blieben gleich.
+
+## 16.11.2026 · Fachsuche im Regal und Codeschrift in Arbeitsaufträgen
+
+- Alle 1.257 .NET-Tests einschließlich der SQL-Integrationen und alle 31 JavaScript-Tests bestanden. Die zehn Prüffälle der neuen Aufgabe 14 akzeptierten auch eine zeilenweise Lösung ohne Division. Zwei Teilreparaturen mit falscher Reihengrenze oder fehlender Richtungsumkehr wurden abgelehnt.
+- Profilwechsel aus Beta 3 und aus der zwischenzeitlichen Entwicklungsfassung geprüft. Der alte Suchentwurf und sein Abschluss sind im Archiv einsehbar. Nach der ersten Bearbeitung der neuen Aufgabe bleibt deren Entwurf beim Neuladen aktiv.
+- In Edge wurden die sichtbaren Aufträge und Codefragmente aller 30 Lernaufgaben mit dem Katalog abgeglichen. Die Vorgabe für Aufgabe 14 scheiterte an den erwarteten Grenzfällen, die korrigierte Fassung bestand. Drei Prüfungsaufträge wurden über eine laufende Pseudocode-Runde kontrolliert. Bei 390 Pixeln Breite blieben auch lange Ausdrücke im hellen und dunklen Design innerhalb der Aufgabenkarte. Alle Browserprüfungen liefen mit separatem Port und Testprofil.
+
+## 16.11.2026 · Vier Leitstellenaufgaben nach Beta 3
+
+- Alle 1.254 .NET-Tests einschließlich SQL-Integrationen und alle 31 JavaScript-Tests bestanden. Die Referenzabläufe aller 30 Lernaufgaben wurden gegen die hinterlegten Sollausgaben geprüft.
+- Gezielte Gegenproben für eine überbuchte Ladereserve, den Funkversuch genau am Ende des Zeitfensters, die Ablösung zur Endminute sowie Jahrhundertjahre. Eine alternative Schichtberechnung über verstrichene Minuten und eine Schaltjahrfunktion mit eigenem Parameternamen bestanden. Eine als Text zurückgegebene Kalenderentscheidung wurde abgelehnt.
+- Edge mit separatem Port und synthetischem Beta-3-Profil. In den Aufgaben 1, 2, 3 und 12 jeweils Altentwurf geöffnet, einen Fehlversuch abgegeben und den neuen Auftrag gelöst. Bei Aufgabe 12 zusätzlich drei Hinweise und die Funktionsvorschau geprüft. Nach dem Neuladen waren der neue Entwurf, der Abschluss ohne beziehungsweise mit Hilfe und der vorhandene unabhängige Erfolg in Aufgabe 7 erhalten. Die Fortschrittsanzeige zählte nur die fünf aktuellen Abschlüsse.
+
+## 16.11.2026 · Beta 3 aus der entpackten Windows-ZIP
+
+- Der Commit `e4c7cf5b8dfb787d62a7eaf0abe5dd46a27cfa2b` stimmte mit GitHub-master und der Produktversion der entpackten EXE überein. SHA256-Datei, Umfang von 62 freigegebenen Dateien, Anleitung, Versionshinweise, Drittanbieterlizenzen und Standardkonfiguration geprüft. Die neun eingebetteten a²-Iconbilder (16 bis 256 Pixel) stimmten bytegenau mit der Vorlage überein. Authenticode-Status `NotSigned`.
+- Native EXE mit separatem Profil und Port gestartet. Beim Wechsel von Beta 2 blieben der Pseudocode-Entwurf, die abgeschlossene Projektprüfung und die Einstellungen erhalten. Offline-Einstieg und Zweitstart bei belegtem Port geprüft. Nach den Testläufen waren alle Programmdateien bitgleich.
+- Mit separater SQL-Testinstanz wurden die Werkstattaufgaben 13, 16 und 28 in Edge gelöst. Für den Stadtfest-Fall wurden alle fünf Antworten über die Oberfläche abgegeben. 50/50 Punkte, fünf Erklärungen, gesperrte Antworten und Ergebnis nach Neuladen bestätigt.
+- Auf dem Paketstand bestanden alle 1.247 .NET-Tests einschließlich der SQL-Integrationen sowie 31 JavaScript-Tests. Der beim Publish zunächst nicht erreichbare NuGet-Sicherheitsabgleich wurde online einschließlich transitiver Pakete nachgeholt. Die Quelle meldete für keines der drei Projekte bekannte anfällige Pakete.
+
 ## 16.11.2026 · Stadtfest-Fall für Beta 3
 
 - Release-Build mit separater QA-LocalDB. Alle 1.247 .NET-Tests einschließlich der SQL-Integrationen und alle 31 JavaScript-Tests bestanden.

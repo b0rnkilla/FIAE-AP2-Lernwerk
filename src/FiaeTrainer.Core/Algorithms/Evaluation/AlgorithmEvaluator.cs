@@ -27,7 +27,7 @@ public sealed class AlgorithmEvaluator(AlgorithmInterpreter interpreter)
             {
                 AlgorithmRun run = lesson.FunctionName.Length == 0
                     ? interpreter.Run(answer, test.Inputs)
-                    : interpreter.RunFunction(answer, lesson.FunctionName, lesson.FunctionInputs.Select(name => test.Inputs[name]).ToArray());
+                    : interpreter.RunFunction(answer, lesson.FunctionName, lesson.FunctionInputs.Select(name => test.Inputs[name]).ToArray(), requiresBooleanReturn: lesson.RequiresBooleanReturn);
                 checks.Add(new(test.Name, Inputs(test.Inputs), string.Join(" → ", test.Output), run.Error ?? (run.Output.Count == 0 ? "Keine Ausgabe" : string.Join(" → ", run.Output)), run.Error == null && Same(test.Output, run.Output)));
                 if (run.Error != null) return new(false, run.Error, checks);
             }

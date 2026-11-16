@@ -27,6 +27,8 @@ Routen: `/datenbankentwurf` beziehungsweise `/datenbankentwurf/{id}`, Spickzette
 
 Neue Aufgaben beginnen mit **Ohne Hilfe lösen**. Modus und Entwurf bleiben je Aufgabe gespeichert. Geführt lernen kennzeichnet den Versuch als unterstützt; Hinweise, Musterlösung und Spickzettel bleiben ebenfalls als Unterstützung vermerkt. Ein neuer selbstständiger Versuch ersetzt nur den aktuellen Entwurf, frühere Abschlüsse bleiben erhalten. Bei unverändertem Ausgangsentwurf entfällt die Nachfrage. Bei einem bearbeiteten Entwurf ist die Ersetzung zu bestätigen.
 
+Nach selbstständigem Erfolg öffnet die Moduswahl die geprüfte Antwort zum Nachlesen. Geführte Experimente verwenden eine Kopie. Für einen frischen Versuch gibt es **Neu üben**. [Moduswechsel und ältere Profile](lernkonzept.md#bedienung-und-lernmodus).
+
 Der Baukasten bietet Tabellen, Attribute, PK-Markierungen, NULL-Erlaubnis und zusätzliche eindeutige Schlüssel. Tabellen- und Anzeigenamen sind frei. Ein Fachattribut wird aus dem ausdrücklich bereitgestellten Vokabular ausgewählt; seine technische Kennung bleibt bei eigener Beschriftung unverändert. Das ist strukturierte Modellierung, keine freie Sprach- oder KI-Auswertung.
 
 Alle PK-Häkchen einer Tabelle bilden einen gemeinsamen Primärschlüssel. Attribute mit derselben UQ-Gruppe bilden zusammen einen zusätzlichen eindeutigen Schlüssel. Verschiedene UQ-Gruppen sind unabhängige Schlüssel. Eine FK-Beziehung nennt abhängige und referenzierte Tabelle sowie alle Attributpaare; auch zusammengesetzte Referenzen sind möglich. Minima und Maximum der abhängigen Sätze sind separat auswählbar. Ein Selbstbezug ist zulässig, wenn der konkrete Auftrag ihn verlangt.

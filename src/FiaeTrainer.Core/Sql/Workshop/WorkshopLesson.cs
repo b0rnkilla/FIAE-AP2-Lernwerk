@@ -17,4 +17,9 @@ public sealed class WorkshopLesson : Lesson
     public string[] Preparation { get; init; } = [];
     /// <summary> Erwartete Arbeitstechnik bei Aufgaben, die ausdrücklich eine Methode verlangen. </summary>
     public string Technique { get; init; } = "";
+
+    /// <summary> Übertragbares T-SQL-Beispiel mit eigenen Tabellen und beobachtbarem Ergebnis. </summary>
+    public string ExampleSql { get; init; } = "";
+    public string ExampleEffect { get; init; } = "";
+    public string ReferenceHeading { get; init; } = "";
 }

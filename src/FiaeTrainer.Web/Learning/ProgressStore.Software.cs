@@ -21,7 +21,7 @@ public sealed partial class ProgressStore
             progress.Independent = old?.Independent ?? false;
             progress.Attempts = old?.Attempts ?? 0;
             SoftwareEvaluation? result = check ? SoftwareEvaluator.Evaluate(task, progress.Answer) : null;
-            if (result != null) { progress.Attempts++; progress.Completed |= result.Correct; progress.Independent |= result.Correct && progress.IndependentMode && !progress.Assisted; }
+            if (result != null) progress.RecordEvaluation(result.Correct);
             progress.Revision++;
             state.SoftwareLessons[id] = progress;
             state.LastSoftwareLessonId = id;

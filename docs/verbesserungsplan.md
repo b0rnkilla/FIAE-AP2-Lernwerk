@@ -1,5 +1,25 @@
 # Stand und weitere Entwicklung
 
+## Umgesetzt nach Beta 3 · SQL-Werkstatt und Nachlesen
+
+Die Aufgaben 11–30 haben übertragbare SQL-Beispiele mit erklärtem Ergebnis und direktem Rückweg aus dem Spickzettel. Probe, Tabellenstand und Bewertung sind im Lernweg unterscheidbar. Wer eine Aufgabe selbstständig gelöst hat, kann in den Abschnitten 01–07 die Hilfen öffnen, experimentieren und zur eigenen Antwort zurückgehen. Nutzererprobung mit der nächsten veröffentlichten Version steht aus.
+
+## Umgesetzt nach Beta 3 · Neue Fehlersuche und lesbarere Pseudocode-Aufträge
+
+Auf den Schreibtischtest zur binären Suche folgt jetzt eine andere Aufgabe. Die Weganzeige im Papierarchiv verlangt eine Reparatur für Reihenwechsel und rückwärts nummerierte Fächer. Variablen und Ausdrücke im Arbeitsauftrag sind im Lern- und Prüfungsmodus als Code erkennbar.
+
+## Umgesetzt nach Beta 3 · Vier Leitstellenaufgaben ersetzt
+
+Die Aufgaben 1–3 und 12 verlangen Entscheidungen an Kapazitäts- und Zeitgrenzen, einen Schreibtischtest mit wachsender Wartezeit sowie eine eigene Kalenderfunktion. Die vier Aufträge sind Teil des regulären Lernwegs. Die Lernaufgaben 7, 9 und 11 sowie der Prüfungspool dienen weiterhin als Bezugspunkte für die Nutzererprobung. [Katalog](pseudocode.md).
+
+## Vorgemerkt nach Beta 3 · Natürliche Schreibweisen für die Listenschleife
+
+In Pseudocode-Aufgabe 9 „Der höchste Messwert“ lautet die Musterlösung `FÜR JEDES wert IN abweichungen`. Für die nächste Pseudocode-Überarbeitung sollen `FÜR JEDEN wert`, `FÜR JEDE meldung` und `FÜR JEDES element` gleichwertig sein. Auch `FÜR ALLE x IN liste` soll als alternative Eingabe gelten. Bei jeder Form erhält die Laufvariable pro Durchlauf genau einen Eintrag. In Musterlösungen die zum Variablennamen passende Singularform bevorzugen.
+
+Die bereitgestellte Sommerprüfung 2023, Entwicklung und Umsetzung von Algorithmen, zeigt in der Abbildung zu Aufgabe 3 auf Seite 7 eine englische `foreach`-Schleife. Die deutsche Wortwahl ist eine Entscheidung für den Trainer. Ein deutschsprachiger Beleg für die Variante „für alle“ findet sich in Algorithmus 3.1 zur Breitensuche. [§ 14 FIAusbV](https://www.gesetze-im-internet.de/fiausbv/__14.html) · [Universität Kiel, Algorithmus 3.1](https://rtsys.informatik.uni-kiel.de/~biblio/downloads/theses/cku-bt.pdf)
+
+Bei der Umsetzung auch `FUER`, Spickzettel und Musterlösungen berücksichtigen. Die neuen Wörter nur im Schleifenkopf erkennen. Bestehende Entwürfe, Großschreibung der Befehle, Listenreihenfolge, Wertkopie und `ENDE FÜR` beibehalten. Mit leerer Liste, Duplikaten und verschachtelten Schleifen prüfen. Beta 3 verwendet weiterhin `FÜR JEDES`.
+
 ## Vierter SQL-Prüfungsfall für Beta 3
 
 „Materialausgabe für ein Stadtfest“ ist im Quellstand umgesetzt. Der neue Fall überträgt fünf Themen der erweiterten Werkstatt auf eine eigenständige Prüfung. Die praktische Nutzererprobung folgt im veröffentlichten Paket.

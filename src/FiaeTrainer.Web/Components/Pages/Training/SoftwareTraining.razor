@@ -25,7 +25,7 @@
     {
         <div class="mission-topline"><span class="eyebrow">AUFGABE @CurrentId.ToString("D2") / @Catalog.Lessons.Count</span><span class="badge">@SoftwareCatalog.Kinds[_task.Kind] · @(_task.Kind == "Choice" ? "Lesen" : _task.Format == "Repair" ? "Reparieren" : "Selbst erstellen")</span></div>
         <h1>@_task.Title</h1>
-        <LearningModePicker @key="CurrentId" ExamMode="_progress.IndependentMode" Busy="@(!CanEdit)" HasDraft="HasOwnDraft" AssistedAttempt="_progress.Assisted" ModeChanged="SetModeAsync" />
+        <LearningModePicker @key="CurrentId" ExamMode="_progress.IndependentMode" Busy="@(!CanEdit)" HasDraft="HasOwnDraft" AssistedAttempt="_progress.Assisted" CanReview="_progress.CanReview" HasSavedSolution="@(_progress.IndependentSolution != null)" ReturnToAnswer="ReturnToAnswer" ModeChanged="SetModeAsync" />
         <section class="story-note" aria-label="Stand der Planung bei Nordhafen">
             <div class="avatar" aria-hidden="true">MK</div>
             <div>
@@ -43,12 +43,12 @@
         @if (_task.Format == "Repair") { <section class="design-material"><h2>Vorgegebener Entwurf</h2><p>Diese Vorlage bleibt zum Vergleichen erhalten. Bearbeite darunter deine eigene Kopie.</p><SoftwareSolution Task="_task" Answer="_task.Starter" /></section> }
         <section class="editor-card design-answer" aria-label="Arbeitsbereich in Softwareplanung und OOP">
             <div class="editor-toolbar"><strong>02 · @(_task.Kind switch { "Choice" => "Deine Antwort", "Worksheet" => "Deine Ausarbeitung", "Diagram" => "Dein Klassenentwurf", "Architecture" => "Deine Architektur", "Api" => "Dein Schnittstellenvertrag", _ => "Dein Formular" })</strong><span>@SoftwareCatalog.Kinds[_task.Kind]</span></div>
-            <div class="design-answer-content"><SoftwareEditor @key="CurrentId" Task="_task" Answer="_progress.Answer" Changed="EditorChangedAsync" ReadOnly="@(!CanEdit)" /></div>
-            <div class="editor-actions"><div><button class="button primary" disabled="@(!CanEdit || !HasAnswer)" @onclick="CheckAsync">@(_busy ? "Wird geprüft …" : "Lösung prüfen") →</button></div></div>
+            <div class="design-answer-content"><SoftwareEditor @key="CurrentId" Task="_task" Answer="_progress.Answer" Changed="EditorChangedAsync" ReadOnly="@(!CanEdit || _progress.ShowingSavedAnswer)" /></div>
+            <div class="editor-actions"><div><button class="button primary" disabled="@(!CanEdit || !HasAnswer || _progress.ShowingSavedAnswer)" @onclick="CheckAsync">@(_busy ? "Wird geprüft …" : "Lösung prüfen") →</button></div></div>
         </section>
         @if (_result != null)
         {
-            <div @ref="_feedback" tabindex="-1"><SoftwareLearningFeedback Result="_result" Task="_task" IndependentMode="_progress.IndependentMode" Assisted="_progress.Assisted" /></div>
+            <div @ref="_feedback" tabindex="-1"><SoftwareLearningFeedback Reading="_progress.IsReading" Result="_result" Task="_task" IndependentMode="_progress.IndependentMode" Assisted="_progress.Assisted" /></div>
         }
         @if (!_progress.IndependentMode)
         {

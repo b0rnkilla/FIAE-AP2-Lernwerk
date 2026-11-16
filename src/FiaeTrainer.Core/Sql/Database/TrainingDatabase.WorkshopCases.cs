@@ -40,9 +40,12 @@ public sealed partial class TrainingDatabase
                 // Der geprüfte BEGIN/COMMIT-Rahmen der Archivaufgabe ist in die Schutztransaktion geschachtelt.
                 new Sql160ScriptGenerator().GenerateScript(statement, out string sql);
                 if (statement is SelectStatement)
-                    run.Selection = await ReadWorkshopTableAsync(connection, sql, token);
+                    run.Statements.Add(new("SELECT", await ReadWorkshopTableAsync(connection, sql, token)));
                 else
-                    await ExecuteAsync(statement is GrantStatement or RevokeStatement ? ScenarioScript.PermissionCommand(statement)! : sql);
+                {
+                    int affected = await ExecuteWorkCommandAsync(connection, statement is GrantStatement or RevokeStatement ? ScenarioScript.PermissionCommand(statement)! : sql, token);
+                    run.Statements.Add(new(statement.ScriptTokenStream[statement.FirstTokenIndex].Text.ToUpperInvariant(), Affected: affected));
+                }
             }
 
             foreach (string name in scenario.Objects)
@@ -67,7 +70,7 @@ public sealed partial class TrainingDatabase
                 WHERE OBJECT_SCHEMA_NAME(i.object_id)='LernwerkProbe' AND ic.key_ordinal>0
                 GROUP BY i.object_id,i.index_id,i.type_desc,i.is_primary_key,i.is_unique_constraint,i.is_unique
                 UNION ALL
-                SELECT OBJECT_NAME(f.parent_object_id), CONCAT('FK ',COL_NAME(f.parent_object_id,c.parent_column_id),' → ',OBJECT_NAME(f.referenced_object_id),'.',
+                SELECT OBJECT_NAME(f.parent_object_id), CONCAT('FK ',COL_NAME(f.parent_object_id,c.parent_column_id),N' → ',OBJECT_NAME(f.referenced_object_id),'.',
                     COL_NAME(f.referenced_object_id,c.referenced_column_id),' ',f.delete_referential_action_desc,' ',f.update_referential_action_desc,' geprüft=',1-f.is_not_trusted)
                 FROM sys.foreign_keys f JOIN sys.foreign_key_columns c ON c.constraint_object_id=f.object_id
                 WHERE OBJECT_SCHEMA_NAME(f.parent_object_id)='LernwerkProbe'
@@ -150,9 +153,9 @@ public sealed partial class TrainingDatabase
         await ExecuteWorkCommandAsync(connection, "EXECUTE AS USER='LernwerkWerkautor' WITH NO REVERT; SET LOCK_TIMEOUT 2500; SET ROWCOUNT 201;", token);
     }
 
-    private static async Task ExecuteWorkCommandAsync(SqlConnection connection, string sql, CancellationToken token)
+    private static async Task<int> ExecuteWorkCommandAsync(SqlConnection connection, string sql, CancellationToken token)
     {
         await using SqlCommand command = new(sql, connection) { CommandTimeout = 8 };
-        await command.ExecuteNonQueryAsync(token);
+        return await command.ExecuteNonQueryAsync(token);
     }
 }

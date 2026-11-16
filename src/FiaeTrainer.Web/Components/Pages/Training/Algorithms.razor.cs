@@ -81,7 +81,12 @@ public partial class Algorithms : IAsyncDisposable
         _lesson = Catalog.Lessons.FirstOrDefault(x => x.Id == (requested == 0 ? loaded.LastAlgorithmLessonId : requested));
         _current = _lesson != null && loaded.AlgorithmLessons.TryGetValue(_lesson.Id, out AlgorithmProgress? saved) ? saved : new();
         _draft = _current.Draft ?? InitialDraft;
-        _showSolution = _current.SolutionViewed;
+        if (_current.CanReview)
+        {
+            _current.ExamMode = true;
+            _draft = _current.IndependentSolution ?? _draft;
+        }
+        _showSolution = !_current.CanReview && _current.SolutionViewed;
         _busy = false;
         ClearFeedback();
         _loading = false;
@@ -93,7 +98,13 @@ public partial class Algorithms : IAsyncDisposable
     private async Task SetModeAsync(bool examMode)
     {
         if (_busy) return;
-        if (examMode) { _current.StartIndependentAttempt(InitialDraft); _draft = InitialDraft; }
+        if (!examMode && _current.CanReview) _current.BeginReading(_draft);
+        if (examMode)
+        {
+            _current.RepeatInProgress = _current.Independent;
+            _current.StartIndependentAttempt(InitialDraft);
+            _draft = InitialDraft;
+        }
         else { _current.ExamMode = false; _current.AttemptAssisted = true; }
         _showSolution = _current.SolutionViewed;
         ClearFeedback();
@@ -109,7 +120,7 @@ public partial class Algorithms : IAsyncDisposable
         _previewLines = _previewCode.Replace("\r", "").Split('\n');
         AlgorithmRun run = _lesson.FunctionName.Length == 0
             ? Interpreter.Run(_previewCode, _lesson.ExampleInputs, true)
-            : Interpreter.RunFunction(_previewCode, _lesson.FunctionName, _lesson.FunctionInputs.Select(name => _lesson.ExampleInputs[name]).ToArray(), true);
+            : Interpreter.RunFunction(_previewCode, _lesson.FunctionName, _lesson.FunctionInputs.Select(name => _lesson.ExampleInputs[name]).ToArray(), trace: true, requiresBooleanReturn: _lesson.RequiresBooleanReturn);
         _run = run;
         _step = 0;
         _evaluation = null;
@@ -118,7 +129,7 @@ public partial class Algorithms : IAsyncDisposable
 
     private async Task EvaluateAsync()
     {
-        if (_busy || _lesson == null) return;
+        if (_busy || _lesson == null || _current.ShowingSavedAnswer) return;
         _busy = true;
         int revision = _revision;
         AlgorithmLesson lesson = _lesson;
@@ -129,12 +140,25 @@ public partial class Algorithms : IAsyncDisposable
             if (revision != _revision) return;
             _evaluation = Evaluator.Evaluate(lesson, draft);
             _run = null;
+            if (_current.IsReading) return;
             _current.Attempts++;
             _current.Completed |= _evaluation.Correct;
-            _current.Independent |= _evaluation.Correct && _current.ExamMode && !_current.AttemptAssisted;
-            await SaveAsync();
+            bool independentSuccess = _evaluation.Correct && _current.ExamMode && !_current.AttemptAssisted;
+            if (independentSuccess) _current.RememberIndependentSolution(draft);
+            await PersistAsync(independentSuccess ? draft : null);
         }
         finally { if (revision == _revision) _busy = false; }
+    }
+
+    private void ReturnToAnswer()
+    {
+        if (_busy || !_current.IsReading) return;
+        _draft = _current.ReturnFromReading(_draft);
+        _current.ExamMode = true;
+        _current.HintLevel = 0;
+        _current.SolutionViewed = _showSolution = false;
+        _current.AttemptAssisted = false;
+        ClearFeedback();
     }
 
     private async Task ShowHintAsync()
@@ -155,14 +179,16 @@ public partial class Algorithms : IAsyncDisposable
     }
 
     /// <summary> Schützt bei beschädigten Dateien den vorhandenen Lernstand vor weiterem Überschreiben. </summary>
-    private async Task SaveAsync()
+    private Task SaveAsync() => PersistAsync(null);
+
+    private async Task PersistAsync(string? verifiedAnswer)
     {
-        if (_lesson == null || _storageError != null) return;
+        if (_lesson == null || _storageError != null || _current.IsReading) return;
         int id = _lesson.Id;
         AlgorithmProgress current = _current;
         current.Draft = _draft;
         _progress.AlgorithmLessons[id] = current;
-        try { await Store.SaveAlgorithmAsync(id, current); }
+        try { await Store.SaveAlgorithmAsync(id, current, verifiedAnswer); }
         catch (Exception exception) when (IsStorageError(exception)) { _storageError = "Deine Eingabe konnte nicht gespeichert werden. Kopiere sie vor dem Schließen und prüfe den gespeicherten Lernstand und die Schreibrechte."; }
     }
 

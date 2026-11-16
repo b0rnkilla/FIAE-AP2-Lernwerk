@@ -4,10 +4,6 @@
 }
 else
 {
-    @if (Run.Selection is {} selection)
-    {
-        <section class="result-card"><ResultTable Result="selection" Title="Dein Abfrageergebnis" /></section>
-    }
     @foreach (var table in Run.Tables)
     {
         <section class="result-card"><ResultTable Result="table.Value" Title="@table.Key" EmptyMessage="Diese Tabelle enthält nach deinem Skript keine Zeilen." /></section>

@@ -23,11 +23,13 @@ Sechs Arbeitsformen: drei Auswahl-, fünf Review-, 31 strukturierte Tabellen-/Fe
 ## Bedienung
 
 - Gewohnte linke `TaskRail`, gemeinsame `LearningModePicker`, Auftrag und Arbeitsbereich in der Mitte, Projektbericht rechts beziehungsweise mobil darunter.
-- **Ohne Hilfe lösen** als Standard. Geführtes Lernen behält den Entwurf und öffnet drei Hinweise, Spickzettel oder Musterlösung. Ein Wechsel zurück verlangt bei eigener Bearbeitung die gemeinsame Neustartbestätigung. Erfolge bleiben erhalten.
+- **Ohne Hilfe lösen** als Standard. Geführtes Lernen behält den Entwurf und öffnet drei Hinweise, Spickzettel oder Musterlösung. Ein Wechsel zurück im offenen, unterstützten Versuch verlangt bei eigener Bearbeitung die gemeinsame Neustartbestätigung. Erfolge bleiben erhalten.
 - Tabellen verwenden ausdrücklich benannte Rechenzellen und Einheiten. Dezimalkomma oder Punkt, keine Tausendertrennzeichen/Einheiten im Zahlenfeld. Eigene Eingaben werden bei jeder Änderung gespeichert.
 - Pläne werden mit Hinzufügen/Entfernen, Fachrollen, eigenen Anzeigenamen, Obergruppen oder direkten Vorgängern aufgebaut. Kein Ziehen erforderlich. Löschen eines Elements entfernt seine Verbindungen und löst verwaiste Obergruppen.
 - Eigene SVG-Vorschau mit Vergrößerung, seitlicher Tastatur-/Scrollbedienung und vollständiger Textalternative. Die Vorschau zeichnet **ausschließlich eigene Angaben**; keine automatische Ergänzung gesuchter Netzplanwerte oder kritischer Markierungen. Auch unvollständige und zyklische Zwischenstände bleiben bearbeitbar.
 - Genau eine Lernrückmeldung ohne Punkte, Prozent oder IHK-Zusatz. Offene Kriterien nennen betroffene Zellen/Planbedingungen, ohne ihre gesuchten Zahlen vorwegzunehmen. Fachliche Erklärung und Muster erst auf ausdrücklichen Hilfenabruf. Keine zusätzlichen Begründungs-, Notiz- oder Reflexionsfelder.
+
+Nach selbstständigem Erfolg öffnet die Moduswahl die geprüfte Antwort zum Nachlesen. Geführte Experimente verwenden eine Kopie. Für einen frischen Versuch gibt es **Neu üben**. [Moduswechsel und ältere Profile](lernkonzept.md#bedienung-und-lernmodus).
 
 ## Fachlicher Planvertrag
 

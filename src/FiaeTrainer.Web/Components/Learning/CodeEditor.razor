@@ -34,6 +34,9 @@
     /// <summary> Speichert den Entwurf beim Verlassen des Eingabefelds. </summary>
     [Parameter] public EventCallback<FocusEventArgs> Blur { get; set; }
 
+    /// <summary> Liefert ausschließlich den im Editor markierten Text für die Probeausführung. </summary>
+    public ValueTask<string> SelectedTextAsync() => JavaScript.InvokeAsync<string>("fiaeCodeEditor.selectedText", _root);
+
     private Task InputAsync(ChangeEventArgs args) => ValueChanged.InvokeAsync(args.Value?.ToString() ?? "");
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

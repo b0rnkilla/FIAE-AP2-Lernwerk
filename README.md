@@ -10,9 +10,9 @@ Ermittle mit SQL, entwickle eigene Algorithmen und UML-Diagramme, entwirf relati
 
 ## Dein Lernraum für die Prüfung
 
-**474 Lernübungen in acht Lernbereichen** im Quellstand für Beta 3 – dazu eigene Prüfungsrunden.
+**474 Lernübungen in acht Lernbereichen** und eigene Prüfungsrunden.
 
-Die veröffentlichten Windows-Betas findest du unter **Releases**.
+In der SQL-Werkstatt kannst du einzelne Abfragen ausführen und ihre Ergebnisse vergleichen. Selbstständig gelöste Aufgaben kannst du zum Nachlesen mit einer Arbeitskopie öffnen.
 
 <table>
   <thead><tr>
@@ -24,7 +24,7 @@ Die veröffentlichten Windows-Betas findest du unter **Releases**.
   <tbody>
     <tr valign="top">
       <td>Löse einen Fall mit eigenen Abfragen. Übe JOINs, Mengenoperationen, Fremdschlüssel und Rollenrechte.</td>
-      <td>Schreibe eigene Abläufe, finde Fehler und untersuche deine Lösung Schritt für Schritt.</td>
+      <td>Prüfe Grenzfälle in der Leitstelle, verfolge Schleifen auf Papier und schreibe eigene Funktionen.</td>
       <td>Lies, repariere und erstelle eigene Diagramme in fünf UML-Notationen.</td>
       <td>Ergänze ER-Diagramme und Tabellenmodelle. Entwirf aus Unterlagen normalisierte Tabellen.</td>
     </tr>

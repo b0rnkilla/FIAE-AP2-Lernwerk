@@ -1,0 +1,11 @@
+<p>@Lesson.Briefing</p>
+@if (Lesson.ExampleSql.Length > 0)
+{
+    <strong>Beispiel mit anderen Tabellen</strong>
+    <pre class="workshop-example"><code>@Lesson.ExampleSql</code></pre>
+    <p>@Lesson.ExampleEffect</p>
+}
+
+@code {
+    [Parameter, EditorRequired] public WorkshopLesson Lesson { get; set; } = default!;
+}

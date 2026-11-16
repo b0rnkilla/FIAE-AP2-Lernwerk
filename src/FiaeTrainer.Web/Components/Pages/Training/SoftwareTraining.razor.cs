@@ -90,6 +90,7 @@ public partial class SoftwareTraining
             _error = null;
             _showSolution = false;
             _progress = task == null ? null : state.SoftwareLessons.GetValueOrDefault(id) ?? new() { Answer = task.InitialAnswer() };
+            _progress?.OpenSavedAnswer();
             if (task == null) _error = "Diese Softwareplanungsaufgabe existiert nicht.";
             else if (_progress!.ContentVersion != SoftwareCatalog.CONTENT_VERSION) _error = "Der gespeicherte Entwurf gehört zu einem älteren Inhaltsvertrag und wird nicht überschrieben.";
         }
@@ -107,7 +108,7 @@ public partial class SoftwareTraining
     /// <summary> Bindet auch noch laufende Speichervorgänge an ihre ursprüngliche Aufgabe. </summary>
     private async Task SaveAsync()
     {
-        if (_error != null || _progress == null || _loading) return;
+        if (_error != null || _progress == null || _progress.IsReading || _loading) return;
         int id = _loaded;
         SoftwareProgress progress = _progress;
         await _actions.WaitAsync();
@@ -126,7 +127,7 @@ public partial class SoftwareTraining
     /// <summary> Zählt Doppelklicks nicht mehrfach und ordnet verspätete Ergebnisse keiner neuen Aufgabe zu. </summary>
     private async Task CheckAsync()
     {
-        if (!CanEdit || !HasAnswer) return;
+        if (!CanEdit || !HasAnswer || _progress!.ShowingSavedAnswer) return;
         int id = _loaded;
         int revision = _loadRevision;
         SoftwareProgress progress = _progress!;
@@ -134,7 +135,9 @@ public partial class SoftwareTraining
         await _actions.WaitAsync();
         try
         {
-            var result = await Store.SaveSoftwareAsync(id, progress, Catalog, check: true);
+            var result = progress.IsReading
+                ? SoftwareEvaluator.Evaluate(_task!, progress.Answer)
+                : await Store.SaveSoftwareAsync(id, progress, Catalog, check: true);
             _state.SoftwareLessons[id] = progress;
             if (revision == _loadRevision)
             {
@@ -173,19 +176,21 @@ public partial class SoftwareTraining
         _focusFeedback = false;
         if (independent)
         {
-            _progress!.Answer = _task!.InitialAnswer();
-            _progress.IndependentMode = true;
-            _progress.Assisted = false;
-            _progress.HintLevel = 0;
-            _progress.SolutionViewed = false;
+            _progress!.StartAgain(_task!.InitialAnswer());
             _showSolution = false;
         }
         else
-        {
-            _progress!.IndependentMode = false;
-            _progress.Assisted = true;
-        }
+            _progress!.UseGuidance();
         await SaveAsync();
+    }
+
+    private void ReturnToAnswer()
+    {
+        if (!CanEdit || !_progress!.IsReading) return;
+        _progress.ResumeAnswer();
+        _showSolution = false;
+        _result = null;
+        _focusFeedback = false;
     }
 
     private async Task HintAsync()

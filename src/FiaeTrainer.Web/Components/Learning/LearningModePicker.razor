@@ -12,6 +12,12 @@
             <div><button class="button primary" disabled="@Busy" @onclick="StartIndependentAsync">Neuen Versuch starten</button><button class="button secondary" disabled="@Busy" @onclick="() => _confirmRestart = false">Entwurf behalten</button></div>
         </div>
     }
+    else if (CanReview)
+    {
+        <p class="mode-description">@(ExamMode ? (HasSavedSolution ? "Ohne Hilfe gelöst · Deine geprüfte Lösung" : "Früher ohne Hilfe gelöst · Zuletzt gespeicherter Entwurf") : "Nachlesen · Hier kannst du mit einer Kopie experimentieren.")
+            @if (ExamMode) { <button class="inline-button" disabled="@Busy" @onclick="RequestRestartAsync">Neu üben</button> }
+        </p>
+    }
     else if (ExamMode && AssistedAttempt)
     {
         <p class="mode-description">Übernommener Versuch · <button class="inline-button" disabled="@Busy" @onclick="RequestRestartAsync">Neu ohne Hilfe starten</button></p>
@@ -32,11 +38,18 @@
     /// <summary> Zeigt vor dem Leeren des aktuellen Versuchs eine ausdrückliche Auswahl. </summary>
     private bool _confirmRestart;
 
+    [Parameter] public bool CanReview { get; set; }
+    [Parameter] public bool HasSavedSolution { get; set; }
+    [Parameter] public EventCallback ReturnToAnswer { get; set; }
+
     private async Task RequestIndependentAsync()
     {
         if (Busy || ExamMode)
             return;
-        await RequestRestartAsync();
+        if (CanReview)
+            await ReturnToAnswer.InvokeAsync();
+        else
+            await RequestRestartAsync();
     }
 
     /// <summary> Bestätigt nur das Verwerfen eines vorhandenen Entwurfs; bei leerem Editor beginnt der Selbsttest direkt. </summary>

@@ -25,7 +25,7 @@
     {
         <div class="mission-topline"><span class="eyebrow">AUFGABE @CurrentId.ToString("D2") / @Catalog.Lessons.Count</span><span class="badge">@(_task.Kind == "Model" ? "Relationales Modell" : _task.Kind == "ErCompletion" ? "ER-Diagramm ergänzen" : "Verständnisfrage")</span></div>
         <h1>@_task.Title</h1>
-        <LearningModePicker @key="CurrentId" ExamMode="_progress.IndependentMode" Busy="@(!CanEdit)" HasDraft="HasOwnDraft" AssistedAttempt="_progress.Assisted" ModeChanged="SetModeAsync" />
+        <LearningModePicker @key="CurrentId" ExamMode="_progress.IndependentMode" Busy="@(!CanEdit)" HasDraft="HasOwnDraft" AssistedAttempt="_progress.Assisted" CanReview="_progress.CanReview" HasSavedSolution="@(_progress.IndependentSolution != null)" ReturnToAnswer="ReturnToAnswer" ModeChanged="SetModeAsync" />
         <section class="story-note" aria-label="Stand der Planung bei Lichtblick">
             <div class="avatar" aria-hidden="true">LB</div>
             <div>
@@ -42,12 +42,12 @@
         <DesignMaterial Task="_task" />
         <section class="editor-card design-answer" aria-label="Arbeitsbereich im Datenbankentwurf">
             <div class="editor-toolbar"><strong>02 · @(_task.Kind == "Model" ? "Dein Datenmodell" : _task.Kind == "ErCompletion" ? "Dein ER-Diagramm" : "Deine Antwort")</strong><span>@(_task.Kind == "Model" ? "Tabellen & Beziehungen" : _task.Kind == "ErCompletion" ? "Entitäten & Beziehungen" : "Fachliche Entscheidung")</span></div>
-            <div class="design-answer-content"><DesignAnswerEditor @key="CurrentId" Task="_task" Answer="_progress.Answer" Changed="EditorChangedAsync" ReadOnly="@(!CanEdit)" /></div>
-            <div class="editor-actions"><div><button class="button primary" disabled="@(!CanEdit || !HasAnswer)" @onclick="CheckAsync">@(_busy ? "Wird geprüft …" : "Lösung prüfen") →</button></div></div>
+            <div class="design-answer-content"><DesignAnswerEditor @key="CurrentId" Task="_task" Answer="_progress.Answer" Changed="EditorChangedAsync" ReadOnly="@(!CanEdit || _progress.ShowingSavedAnswer)" /></div>
+            <div class="editor-actions"><div><button class="button primary" disabled="@(!CanEdit || !HasAnswer || _progress.ShowingSavedAnswer)" @onclick="CheckAsync">@(_busy ? "Wird geprüft …" : "Lösung prüfen") →</button></div></div>
         </section>
         @if (_result != null)
         {
-            <div @ref="_feedback" tabindex="-1"><DesignLearningFeedback Result="_result" Task="_task" IndependentMode="_progress.IndependentMode" Assisted="_progress.Assisted" /></div>
+            <div @ref="_feedback" tabindex="-1"><DesignLearningFeedback Reading="_progress.IsReading" Result="_result" Task="_task" IndependentMode="_progress.IndependentMode" Assisted="_progress.Assisted" /></div>
         }
         @if (!_progress.IndependentMode)
         {
