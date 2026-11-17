@@ -47,8 +47,8 @@ else
                     <SelfTestHelp Hidden="_progress.SelfTestHelpDismissed" HiddenChanged="SetHelpHiddenAsync" Busy="_busy"><strong>So funktioniert dein Selbsttest:</strong> Lies den Auftrag und trage deine Lösung ein. „Lösung prüfen“ zeigt dir passende Testfälle und Abweichungen. Im geführten Lernen kannst du zusätzlich den Ablauf schrittweise untersuchen.</SelfTestHelp>
                 }
                 <section class="task-card"><div class="eyebrow">01 · AUFGABE VERSTEHEN</div><p class="algorithm-task-text"><InlineCodeText Text="@_lesson.Task" /></p>
+                    <AlgorithmFunctionContract Lesson="_lesson" RequireTypes="_lesson.RequiresTypedSignature" />
                     @if (_lesson.ExampleInputs.Count > 0) { <div class="algorithm-inputs"><strong>Beispieleingaben für die Vorschau</strong><dl>@foreach (var input in _lesson.ExampleInputs) { <div><dt><code>@input.Key</code></dt><dd><code>@AlgorithmDisplay.Input(input.Value)</code></dd></div> }</dl></div> }
-                    @if (_lesson.FunctionName.Length > 0) { <p class="function-contract"><strong>Deine Funktion:</strong> <code>@(_lesson.FunctionName + "(" + string.Join(", ", _lesson.FunctionInputs) + ")")</code><br />Die Prüfung ruft sie automatisch auf. Gib das Ergebnis mit <code>RÜCKGABE</code> zurück; ein Hauptablauf mit AUSGABE ist hier nicht nötig.</p> }
                     @if (_lesson.Kind == AlgorithmTaskKind.Trace) { <pre class="given-algorithm"><code>@_lesson.GivenCode</code></pre> }
                 </section>
                 @if (_progress.Beta3AlgorithmArchive?.TryGetValue(_lesson.Id, out var previousAttempt) == true)
@@ -100,7 +100,7 @@ else
                             }
                         </section>
                     }
-                    <section class="briefing"><h2>Das brauchst du für diesen Schritt</h2><p>@_lesson.Briefing</p></section>
+                    <section class="briefing"><h2>Das brauchst du für diesen Schritt</h2><p><InlineCodeText Text="@_lesson.Briefing" /></p></section>
                     <section class="help-card">
                         <div class="help-row"><div><h2>Ein kleiner Denkanstoß?</h2><p>Du entscheidest, wie viel Unterstützung du brauchst.</p></div><button class="button secondary" disabled="@(_busy || _current.HintLevel == 3)" @onclick="ShowHintAsync">@(_current.HintLevel == 3 ? "Alle Hinweise geöffnet" : $"Hinweis {_current.HintLevel + 1} von 3 öffnen")</button></div>
                         @for (int i = 0; i < _current.HintLevel; i++) { <div class="hint"><span>@(i + 1)</span><p>@_lesson.Hints[i]</p></div> }

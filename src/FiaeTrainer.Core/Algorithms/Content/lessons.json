@@ -198,13 +198,13 @@
         -9
       ]
     },
-    "briefing": "Ein Maximum wird mit jedem größeren Wert aktualisiert. Für eine nichtleere Liste ist der erste Eintrag ein geeigneter Anfangswert. Prüfe die Länge, bevor du abweichungen[0] liest.",
+    "briefing": "Bei FÜR JEDEN wert IN abweichungen nimmt wert für die Liste [4, -2, 4] nacheinander die Werte 4, -2 und 4 an. Ein Maximum wird mit jedem größeren Wert aktualisiert. Für eine nichtleere Liste ist der erste Eintrag ein geeigneter Anfangswert. Prüfe die Länge, bevor du abweichungen[0] liest.",
     "hints": [
       "Wähle eine Liste, deren Werte sämtlich unter null liegen.",
       "Suche für den bisher größten Wert einen Start, der zu den tatsächlichen Messwerten passt.",
       "Überlege vor dem ersten Listenzugriff, was bei einer leeren Liste passieren würde."
     ],
-    "referenceCode": "WENN LÄNGE(abweichungen) == 0 DANN\n    AUSGABE \"leer\"\nSONST\n    maximum = abweichungen[0]\n    FÜR JEDES wert IN abweichungen\n        WENN wert > maximum DANN\n            maximum = wert\n        ENDE WENN\n    ENDE FÜR\n    AUSGABE maximum\nENDE WENN",
+    "referenceCode": "WENN LÄNGE(abweichungen) == 0 DANN\n    AUSGABE \"leer\"\nSONST\n    maximum = abweichungen[0]\n    FÜR JEDEN wert IN abweichungen\n        WENN wert > maximum DANN\n            maximum = wert\n        ENDE WENN\n    ENDE FÜR\n    AUSGABE maximum\nENDE WENN",
     "referenceAnswer": "",
     "explanation": "Der erste vorhandene Messwert ist ein gültiger Kandidat. Die Schleife ersetzt ihn nur durch größere Werte. Dadurch funktionieren negative Zahlen, gleiche Werte und ein einzelner Eintrag. Der Leerfall verhindert einen ungültigen Indexzugriff.",
     "discovery": "Die Lagebesprechung kann den höchsten Zeitunterschied auch dann korrekt anzeigen, wenn alle Fahrzeuge früher kommen oder noch keine Meldung vorliegt.",
@@ -301,7 +301,7 @@
       "Vergleiche die Wirkung der beiden Divisionsarten auf den Rest.",
       "Spiele die leere Liste durch. Erreichst du dort eine Division?"
     ],
-    "referenceCode": "WENN LÄNGE(zeiten) == 0 DANN\n    AUSGABE \"leer\"\nSONST\n    summe = 0\n    FÜR JEDES zeit IN zeiten\n        summe = summe + zeit\n    ENDE FÜR\n    AUSGABE summe / LÄNGE(zeiten)\nENDE WENN",
+    "referenceCode": "WENN LÄNGE(zeiten) == 0 DANN\n    AUSGABE \"leer\"\nSONST\n    summe = 0\n    FÜR JEDE zeit IN zeiten\n        summe = summe + zeit\n    ENDE FÜR\n    AUSGABE summe / LÄNGE(zeiten)\nENDE WENN",
     "referenceAnswer": "",
     "explanation": "Das arithmetische Mittel ist Summe geteilt durch Anzahl. DIV wäre eine Ganzzahldivision und verwirft beispielsweise die .5 aus 21 / 2. Der Leerzweig verhindert eine Division durch 0.",
     "discovery": "Die Übersicht unterscheidet nun Spitzenwerte und Durchschnittswerte; halbe Minuten gehen bei der Berechnung nicht mehr verloren.",
@@ -378,7 +378,7 @@
         ]
       }
     ],
-    "givenCode": "WENN LÄNGE(zeiten) == 0 DANN\n    AUSGABE \"leer\"\nSONST\n    summe = 0\n    FÜR JEDES zeit IN zeiten\n        summe = summe + zeit\n    ENDE FÜR\n    AUSGABE summe DIV LÄNGE(zeiten)\nENDE WENN"
+    "givenCode": "WENN LÄNGE(zeiten) == 0 DANN\n    AUSGABE \"leer\"\nSONST\n    summe = 0\n    FÜR JEDE zeit IN zeiten\n        summe = summe + zeit\n    ENDE FÜR\n    AUSGABE summe DIV LÄNGE(zeiten)\nENDE WENN"
   },
   {
     "id": 11,
@@ -497,15 +497,17 @@
     "previousContext": "Die Auftragsnummer lässt sich jetzt in der Warteliste finden. Bevor die Disposition den Termin übernimmt, muss sie das Datum auf dem Auftrag prüfen.",
     "task": "Schreibe die Funktion `istSchaltjahr(jahr)` für positive ganzzahlige Jahreszahlen. Verwende die gregorianische Regel für alle Eingaben. Ein durch 4 teilbares Jahr ist ein Schaltjahr. Volle Jahrhunderte bilden eine Ausnahme. Bei ihnen gibt es den 29. Februar nur, wenn das Jahr auch durch 400 teilbar ist. Gib den Wahrheitswert `WAHR` oder `FALSCH` mit `RÜCKGABE` zurück.",
     "exampleInputs": {"jahr":2100},
-    "briefing": "Die Terminmaske übergibt die Jahreszahl und erwartet einen Wahrheitswert für ihre eigene Entscheidung. Mit MOD erhältst du den Rest einer ganzzahligen Division. Ein Rest von 0 bedeutet, dass die Teilung aufgeht.",
+    "briefing": "Lies den Beispielkopf `FUNKTION hatReserve(frei: Integer): Boolean`. Beim Aufruf `hatReserve(8)` ist 8 das Argument. Gibt die Funktion `WAHR` zurück, ist `WAHR` der konkrete Wert und `Boolean` sein Typ. Auch die Terminmaske braucht einen Wahrheitswert für ihre Entscheidung. Mit `MOD` erhältst du den Rest einer ganzzahligen Division. Ein Rest von 0 bedeutet, dass die Teilung aufgeht.",
     "hints": [
       "Notiere getrennt ein gewöhnliches Jahr, ein durch 4 teilbares Jahr und ein volles Jahrhundert. Bei welcher Gruppe brauchst du noch eine weitere Information?",
       "Ein Vielfaches von 400 ist zugleich durch 100 und 4 teilbar. Prüfe an deinem Entwurf, welche Entscheidung für diesen Fall zuerst wirksam wird.",
       "Spiele die Funktion für 1900 und 2000 auf Papier durch. Erreicht jeder Aufruf eine Rückgabe, und kann dein Code die zwei Jahre unterscheiden?"
     ],
-    "referenceCode": "FUNKTION istSchaltjahr(jahr)\n    WENN jahr MOD 100 == 0 DANN\n        RÜCKGABE jahr MOD 400 == 0\n    ENDE WENN\n    RÜCKGABE jahr MOD 4 == 0\nENDE FUNKTION",
+    "referenceCode": "FUNKTION istSchaltjahr(jahr: Integer): Boolean\n    WENN jahr MOD 100 == 0 DANN\n        RÜCKGABE jahr MOD 400 == 0\n    ENDE WENN\n    RÜCKGABE jahr MOD 4 == 0\nENDE FUNKTION",
     "referenceAnswer": "",
     "functionName": "istSchaltjahr",
+    "parameterTypes": ["Integer"],
+    "returnType": "Boolean",
     "functionInputs": ["jahr"],
     "requiresBooleanReturn": true,
     "explanation": "Bei einem vollen Jahrhundert entscheidet nur noch die Teilbarkeit durch 400. Für 1900 liefert die Funktion deshalb FALSCH, für 2000 WAHR. Alle anderen Jahre erreichen die zweite Rückgabe. Dort genügt die Viererregel, etwa für 2024. Die Terminmaske kann das Ergebnis direkt in einer WENN-Bedingung verwenden.",
@@ -999,7 +1001,7 @@
       "Entscheide am Ende einer Reihe, ob sie die bisher beste Reihe verdrängt.",
       "Teste zwei gleich starke Reihen und eine leere äußere Liste. Welcher Index gilt jeweils?"
     ],
-    "referenceCode": "gesamt = 0\nbesteReihe = -1\nmaximum = -1\nFÜR i VON 0 BIS LÄNGE(belegung) - 1\n    reihensumme = 0\n    FÜR JEDES wert IN belegung[i]\n        reihensumme = reihensumme + wert\n    ENDE FÜR\n    gesamt = gesamt + reihensumme\n    WENN reihensumme > maximum DANN\n        maximum = reihensumme\n        besteReihe = i\n    ENDE WENN\nENDE FÜR\nAUSGABE gesamt\nAUSGABE besteReihe",
+    "referenceCode": "gesamt = 0\nbesteReihe = -1\nmaximum = -1\nFÜR i VON 0 BIS LÄNGE(belegung) - 1\n    reihensumme = 0\n    FÜR JEDEN wert IN belegung[i]\n        reihensumme = reihensumme + wert\n    ENDE FÜR\n    gesamt = gesamt + reihensumme\n    WENN reihensumme > maximum DANN\n        maximum = reihensumme\n        besteReihe = i\n    ENDE WENN\nENDE FÜR\nAUSGABE gesamt\nAUSGABE besteReihe",
     "referenceAnswer": "",
     "explanation": "Jede innere Schleife bildet genau eine Reihensumme. Die Gesamtsumme addiert diese Teilergebnisse. Ein strenger Vergleich erhält bei Gleichstand die zuerst gefundene Reihe. Der Anfangswert -1 lässt auch eine leere erste Reihe mit Summe 0 zum Kandidaten werden.",
     "discovery": "Die Ladehallenübersicht kann unterschiedlich lange und leere Reihen auswerten und bei gleicher Auslastung eindeutig die erste Reihe nennen.",
@@ -1155,7 +1157,7 @@
       "Verfolge beide Wege bis ans Funktionsende. Wo fehlt dem Aufrufer ein Wert?",
       "Teste volle Auslastung und ein Paket darüber. Kann dein Ergebnis negativ werden?"
     ],
-    "referenceCode": "FUNKTION restkapazitaet(kapazitaet, beladen)\n    rest = kapazitaet - beladen\n    WENN rest < 0 DANN\n        RÜCKGABE 0\n    ENDE WENN\n    RÜCKGABE rest\nENDE FUNKTION",
+    "referenceCode": "FUNKTION restkapazitaet(kapazitaet: Double, beladen: Double): Double\n    rest = kapazitaet - beladen\n    WENN rest < 0 DANN\n        RÜCKGABE 0\n    ENDE WENN\n    RÜCKGABE rest\nENDE FUNKTION",
     "referenceAnswer": "",
     "explanation": "Der frühe Rückgabepfad fängt Überladung ab. Alle anderen Eingaben erreichen die abschließende Rückgabe der Differenz. Auch exakt volle und leere Fahrzeuge liefern einen definierten Wert.",
     "discovery": "Der Restkapazitätsbaustein erfüllt seinen Vertrag auf allen Pfaden und lässt sich zuverlässig aus anderen Abläufen aufrufen.",
@@ -1222,11 +1224,13 @@
       }
     ],
     "functionName": "restkapazitaet",
+    "parameterTypes": ["Double", "Double"],
+    "returnType": "Double",
     "functionInputs": [
       "kapazitaet",
       "beladen"
     ],
-    "givenCode": "FUNKTION restkapazitaet(kapazitaet, beladen)\n    WENN kapazitaet >= beladen DANN\n        RÜCKGABE kapazitaet - beladen\n    ENDE WENN\nENDE FUNKTION"
+    "givenCode": "FUNKTION restkapazitaet(kapazitaet: Double, beladen: Double): Double\n    WENN kapazitaet >= beladen DANN\n        RÜCKGABE kapazitaet - beladen\n    ENDE WENN\nENDE FUNKTION"
   },
   {
     "id": 21,
@@ -1245,7 +1249,7 @@
       "Verfolge jede Verzweigung bis zum Wert, den der Aufrufer bekommt.",
       "Prüfe beide exakten Grenzen und ihre äußeren Nachbarn. Liefert jeder Aufruf genau einen Text zurück?"
     ],
-    "referenceCode": "FUNKTION pruefeGewicht(gewicht)\n    WENN gewicht < 0 DANN\n        RÜCKGABE \"ungültig\"\n    ENDE WENN\n    WENN gewicht <= 100 DANN\n        RÜCKGABE \"zulässig\"\n    ENDE WENN\n    RÜCKGABE \"zu schwer\"\nENDE FUNKTION",
+    "referenceCode": "FUNKTION pruefeGewicht(gewicht: Integer): String\n    WENN gewicht < 0 DANN\n        RÜCKGABE \"ungültig\"\n    ENDE WENN\n    WENN gewicht <= 100 DANN\n        RÜCKGABE \"zulässig\"\n    ENDE WENN\n    RÜCKGABE \"zu schwer\"\nENDE FUNKTION",
     "referenceAnswer": "",
     "explanation": "Die Sonderfälle werden von oben nach unten abgefangen. 0 und 100 gehören ausdrücklich zum zulässigen Bereich. Die verbleibenden Eingaben sind größer als 100 und erreichen den letzten Rückgabewert.",
     "discovery": "Die Gewichtsentscheidung liegt nun als einzeln prüfbare Funktion vor, statt an jeder Aufrufstelle neu formuliert werden zu müssen.",
@@ -1315,6 +1319,8 @@
       }
     ],
     "functionName": "pruefeGewicht",
+    "parameterTypes": ["Integer"],
+    "returnType": "String",
     "functionInputs": [
       "gewicht"
     ]
@@ -1336,13 +1342,13 @@
         100
       ]
     },
-    "briefing": "Ein Listenparameter ist im Trainer eine eigene Wertkopie. Du kannst ihn mit FÜR JEDES durchlaufen. Eine Hilfsfunktion kann ebenfalls als Ausdruck aufgerufen werden, zum Beispiel WENN istGueltig(gewicht) DANN. Alle Definitionen gehören außerhalb anderer Funktionen.",
+    "briefing": "Ein Listenparameter ist im Trainer eine eigene Wertkopie. Mit FÜR JEDES gewicht IN gewichte erhältst du bei [8, 3] zuerst 8 und dann 3. Eine Hilfsfunktion kann ebenfalls als Ausdruck aufgerufen werden, zum Beispiel WENN istGueltig(gewicht) DANN. Alle Definitionen gehören außerhalb anderer Funktionen.",
     "hints": [
       "Gehe eine gemischte Liste durch und markiere nur Gewichte im zulässigen Bereich.",
       "Führe eine Zwischensumme über die markierten Einträge. Wann steht der endgültige Rückgabewert fest?",
       "Teste eine Liste, die ausschließlich unzulässige Gewichte enthält."
     ],
-    "referenceCode": "FUNKTION istGueltig(gewicht)\n    RÜCKGABE gewicht >= 0 UND gewicht <= 100\nENDE FUNKTION\nFUNKTION summeGueltig(gewichte)\n    summe = 0\n    FÜR JEDES gewicht IN gewichte\n        WENN istGueltig(gewicht) DANN\n            summe = summe + gewicht\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE summe\nENDE FUNKTION",
+    "referenceCode": "FUNKTION istGueltig(gewicht: Integer): Boolean\n    RÜCKGABE gewicht >= 0 UND gewicht <= 100\nENDE FUNKTION\nFUNKTION summeGueltig(gewichte: Integer[]): Integer\n    summe = 0\n    FÜR JEDES gewicht IN gewichte\n        WENN istGueltig(gewicht) DANN\n            summe = summe + gewicht\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE summe\nENDE FUNKTION",
     "referenceAnswer": "",
     "explanation": "Die Hilfsfunktion bündelt die beiden Grenzen. Der aufrufende Baustein addiert nur passende Werte und gibt erst nach dem vollständigen Durchlauf die Summe zurück. Jeder Aufruf besitzt eigene lokale Variablen; eine globale Summe wird nicht vorausgesetzt.",
     "discovery": "Die Tagesübersicht kann ganze Listen an einen wiederverwendbaren Baustein übergeben und darin weitere Funktionen aufrufen.",
@@ -1422,6 +1428,8 @@
       }
     ],
     "functionName": "summeGueltig",
+    "parameterTypes": ["Integer[]"],
+    "returnType": "Integer",
     "functionInputs": [
       "gewichte"
     ]
@@ -1447,7 +1455,7 @@
       "Suche nach einem einzigen Gegenbeispiel zur Ordnung. Welche Richtung des Vergleichs entdeckt es?",
       "Prüfe eine Liste mit weniger als zwei Werten. Wie viele Nachbarvergleiche sind dort möglich?"
     ],
-    "referenceCode": "FUNKTION istSortiert(werte)\n    FÜR i VON 0 BIS LÄNGE(werte) - 2\n        WENN werte[i] > werte[i + 1] DANN\n            RÜCKGABE FALSCH\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE WAHR\nENDE FUNKTION",
+    "referenceCode": "FUNKTION istSortiert(werte: Double[]): Boolean\n    FÜR i VON 0 BIS LÄNGE(werte) - 2\n        WENN werte[i] > werte[i + 1] DANN\n            RÜCKGABE FALSCH\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE WAHR\nENDE FUNKTION",
     "referenceAnswer": "",
     "explanation": "Nur ein tatsächlich größerer Vorgänger verletzt die nicht absteigende Reihenfolge. Ein >= würde auch gleiche Nachbarn zurückweisen. Für Listen mit weniger als zwei Einträgen findet die Schleife kein Gegenbeispiel und liefert WAHR.",
     "discovery": "Die Ordnungskontrolle erlaubt doppelte Nummern und weist echte fallende Nachbarpaare zurück. Leere Listen bleiben ein gültiger Sonderfall.",
@@ -1539,10 +1547,12 @@
       }
     ],
     "functionName": "istSortiert",
+    "parameterTypes": ["Double[]"],
+    "returnType": "Boolean",
     "functionInputs": [
       "werte"
     ],
-    "givenCode": "FUNKTION istSortiert(werte)\n    FÜR i VON 0 BIS LÄNGE(werte) - 2\n        WENN werte[i] >= werte[i + 1] DANN\n            RÜCKGABE FALSCH\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE WAHR\nENDE FUNKTION"
+    "givenCode": "FUNKTION istSortiert(werte: Double[]): Boolean\n    FÜR i VON 0 BIS LÄNGE(werte) - 2\n        WENN werte[i] >= werte[i + 1] DANN\n            RÜCKGABE FALSCH\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE WAHR\nENDE FUNKTION"
   },
   {
     "id": 24,
@@ -1566,7 +1576,7 @@
       "Prüfe erst das einzelne Paket, dann seinen Platzbedarf. Ein abgelehntes Paket verbraucht keinen Platz.",
       "Setze nach einem zu schweren Paket ein leichtes und ein schwereloses Paket in die Liste. Werden beide noch geprüft?"
     ],
-    "referenceCode": "FUNKTION planeLadung(gewichte, kapazitaet)\n    anzahl = 0\n    rest = kapazitaet\n    FÜR JEDES gewicht IN gewichte\n        WENN gewicht >= 0 UND gewicht <= 100 UND gewicht <= rest DANN\n            rest = rest - gewicht\n            anzahl = anzahl + 1\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE [anzahl, rest]\nENDE FUNKTION",
+    "referenceCode": "FUNKTION planeLadung(gewichte: Integer[], kapazitaet: Integer): Integer[]\n    anzahl = 0\n    rest = kapazitaet\n    FÜR JEDES gewicht IN gewichte\n        WENN gewicht >= 0 UND gewicht <= 100 UND gewicht <= rest DANN\n            rest = rest - gewicht\n            anzahl = anzahl + 1\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE [anzahl, rest]\nENDE FUNKTION",
     "referenceAnswer": "",
     "explanation": "Die Funktion verarbeitet jeden Eintrag genau in der vorgegebenen Reihenfolge. Nur passende, einzeln zulässige Pakete verändern Zähler und Rest. Ein übersprungenes Paket beendet die Verarbeitung nicht. Gewicht 0 erhöht den Zähler, lässt die Restkapazität aber gleich. Diese Regel ist bewusst keine Optimierung der maximal möglichen Paketanzahl.",
     "discovery": "Die Leitstelle hat einen geprüften Planungsbaustein: Grenzen, Restkapazität, Reihenfolge und Rückgabevertrag greifen zusammen. Vor der endgültigen Freigabe untersucht Nora noch Kennungen, Prüfdaten und das Verhalten verschachtelter Aufrufe.",
@@ -1682,6 +1692,8 @@
       }
     ],
     "functionName": "planeLadung",
+    "parameterTypes": ["Integer[]", "Integer"],
+    "returnType": "Integer[]",
     "functionInputs": [
       "gewichte",
       "kapazitaet"
@@ -1704,7 +1716,7 @@
       "Welche ganzzahligen Rechenoperationen liefern die letzte Ziffer und den verbleibenden Zahlenteil?",
       "Unterscheide den Rest beim Zerlegen der Kennung vom Rest, den du am Ende zurückgeben sollst."
     ],
-    "referenceCode": "FUNKTION pruefziffer(nummer)\n    summe = 0\n    SOLANGE nummer > 0\n        summe = summe + nummer MOD 10\n        nummer = nummer DIV 10\n    ENDE SOLANGE\n    RÜCKGABE summe MOD 10\nENDE FUNKTION",
+    "referenceCode": "FUNKTION pruefziffer(nummer: Integer): Integer\n    summe = 0\n    SOLANGE nummer > 0\n        summe = summe + nummer MOD 10\n        nummer = nummer DIV 10\n    ENDE SOLANGE\n    RÜCKGABE summe MOD 10\nENDE FUNKTION",
     "referenceAnswer": "",
     "explanation": "MOD gewinnt die letzte Ziffer, DIV entfernt sie. Die Summe wird erst nach dem Durchlauf auf eine einzelne Prüfziffer reduziert. Die leere Schleife bei nummer = 0 lässt summe bei 0. Der Trainer rechnet mit Zahlen, nicht mit einzelnen Textzeichen.",
     "discovery": "Die Kontrollziffer lässt sich aus den Ziffern der Kennung berechnen. DIV und MOD übernehmen dabei unterschiedliche Aufgaben.",
@@ -1774,6 +1786,8 @@
       }
     ],
     "functionName": "pruefziffer",
+    "parameterTypes": ["Integer"],
+    "returnType": "Integer",
     "functionInputs": [
       "nummer"
     ]
@@ -1979,7 +1993,7 @@
       "Bewegt sich die Folge in Richtung eines Basisfalls? Prüfe die Änderung zwischen zwei Aufrufen.",
       "Verfolge auch den Rückweg. Wie wird das Ergebnis des kleineren Problems im größeren verwendet?"
     ],
-    "referenceCode": "FUNKTION fakultaet(n)\n    WENN n <= 1 DANN\n        RÜCKGABE 1\n    ENDE WENN\n    RÜCKGABE n * fakultaet(n - 1)\nENDE FUNKTION",
+    "referenceCode": "FUNKTION fakultaet(n: Integer): Integer\n    WENN n <= 1 DANN\n        RÜCKGABE 1\n    ENDE WENN\n    RÜCKGABE n * fakultaet(n - 1)\nENDE FUNKTION",
     "referenceAnswer": "",
     "explanation": "n - 1 nähert sich bei jeder Wiederholung dem Basisfall. Die wartenden Aufrufe multiplizieren beim Rückweg ihre jeweiligen Faktoren. Für 0 und 1 beendet schon die erste Bedingung den Aufruf mit 1.",
     "discovery": "Die Rekursion besitzt jetzt sowohl einen Basisfall als auch echten Fortschritt. Fehlerhafte Selbstaufrufe enden im Trainer mit einem Hinweis statt einer unkontrollierten Aufrufkette.",
@@ -2040,10 +2054,12 @@
       }
     ],
     "functionName": "fakultaet",
+    "parameterTypes": ["Integer"],
+    "returnType": "Integer",
     "functionInputs": [
       "n"
     ],
-    "givenCode": "FUNKTION fakultaet(n)\n    WENN n <= 1 DANN\n        RÜCKGABE 1\n    ENDE WENN\n    RÜCKGABE n * fakultaet(n)\nENDE FUNKTION"
+    "givenCode": "FUNKTION fakultaet(n: Integer): Integer\n    WENN n <= 1 DANN\n        RÜCKGABE 1\n    ENDE WENN\n    RÜCKGABE n * fakultaet(n)\nENDE FUNKTION"
   },
   {
     "id": 30,
@@ -2066,7 +2082,7 @@
       "Fixiere eine Position. Welche Partner darfst du noch betrachten, wenn jedes Paar nur einmal zählen soll?",
       "Skizziere drei gleiche Werte als Punkte und verbinde verschiedene Positionen paarweise. Entspricht dein Zähler den Verbindungslinien?"
     ],
-    "referenceCode": "FUNKTION doppeltePaare(nummern)\n    paare = 0\n    FÜR i VON 0 BIS LÄNGE(nummern) - 2\n        FÜR j VON i + 1 BIS LÄNGE(nummern) - 1\n            WENN nummern[i] == nummern[j] DANN\n                paare = paare + 1\n            ENDE WENN\n        ENDE FÜR\n    ENDE FÜR\n    RÜCKGABE paare\nENDE FUNKTION",
+    "referenceCode": "FUNKTION doppeltePaare(nummern: Integer[]): Integer\n    paare = 0\n    FÜR i VON 0 BIS LÄNGE(nummern) - 2\n        FÜR j VON i + 1 BIS LÄNGE(nummern) - 1\n            WENN nummern[i] == nummern[j] DANN\n                paare = paare + 1\n            ENDE WENN\n        ENDE FÜR\n    ENDE FÜR\n    RÜCKGABE paare\nENDE FUNKTION",
     "referenceAnswer": "",
     "explanation": "Jedes Paar wird genau in der Reihenfolge i < j betrachtet. Drei gleiche Einträge bilden die Paare (0,1), (0,2) und (1,2). Vier gleiche Einträge ergeben sechs Paare. Der Leerfall und ein einzelner Eintrag führen zu keinem Vergleich. Auch mit verkürzter innerer Schleife wächst die Zahl möglicher Vergleiche quadratisch.",
     "discovery": "Die zusätzlichen Abnahmeprüfungen sind abgeschlossen: Kennungen, Grenzwerte, Aufwand und Aufrufverhalten sind nachvollziehbar. Die Leitstelle verbindet nun berechenbare Ergebnisse mit gezielten Tests und verständlichen Algorithmen.",
@@ -2177,6 +2193,8 @@
       }
     ],
     "functionName": "doppeltePaare",
+    "parameterTypes": ["Integer[]"],
+    "returnType": "Integer",
     "functionInputs": [
       "nummern"
     ]

@@ -1,8 +1,14 @@
 # AP2 Lernwerk lokal starten
 
-## Beta 4 in Vorbereitung
+## Beta 5 vorbereitet
 
-Die Projektversion und [Versionshinweise](../release/Versionshinweise-1.0.0-beta.4.md) sind auf `1.0.0-beta.4` vorbereitet. Paketbau und Prüfung der entpackten EXE folgen nach dem Push.
+Die Quellversion `1.0.0-beta.5` und die [Versionshinweise](../release/Versionshinweise-1.0.0-beta.5.md) sind für den Nutzer-Commit vorbereitet. Der Windows-Paketbau ist für danach beauftragt. Nach dem bestätigten Push den Zielcommit abgleichen, das ZIP mit separatem Port und Profil prüfen und Prüfsumme sowie Paketdaten ergänzen. Noch kein Beta-5-ZIP erstellt.
+
+Vorgesehene GitHub-Angaben: Tag `v1.0.0-beta.5`, Titel **AP2 Lernwerk 1.0.0-beta.5**, **Pre-release**. Als Assets das geprüfte Windows-x64-ZIP und seine `.zip.sha256` anhängen. Der Zielcommit steht erst nach dem Nutzer-Commit fest.
+
+## Beta 4 für Windows
+
+Das geprüfte Windows-x64-Paket stammt aus dem gepushten Commit `1dffa97b3fe6beb015550be2358e61e4e4e3f9a0`. Die ZIP enthält 62 Dateien und umfasst 51.831.047 Bytes. SHA256 `e866407810f1f5247f04e65e4d06b15e468bc2c1cdf22b9a0652d72a79ab007c`. Für GitHub den Tag `v1.0.0-beta.4` auf diesen Commit setzen, als Pre-release kennzeichnen und ZIP sowie Prüfsummendatei anhängen. [Versionshinweise](../release/Versionshinweise-1.0.0-beta.4.md) · [Paketprüfung](testprotokoll.md).
 
 ## Beta 3 für Windows
 

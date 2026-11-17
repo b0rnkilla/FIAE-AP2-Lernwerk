@@ -48,10 +48,10 @@ public sealed class ExamContentTests
     public void AlternativeFunctionParametersAndHelperAreAcceptedButConstantAnswersFail()
     {
         AlgorithmExamTask task = _algorithms.Tasks.Single(task => task.Lesson.Id == 2);
-        string alternative = "FUNKTION nutzungspreis(m, e)\nWENN m < 0 DANN\nRÜCKGABE -1\nENDE WENN\nWENN m == 0 DANN\nRÜCKGABE 0\nENDE WENN\nn = m DIV 15\nWENN m MOD 15 > 0 DANN\nn = n + 1\nENDE WENN\np = 5 + 3 * n\nWENN e DANN\np = p + p / 5\nENDE WENN\nRÜCKGABE p\nENDE FUNKTION";
+        string alternative = "Kommazahl nutzungspreis(Ganzzahl m, Wahrheitswert e)\nWENN m < 0 DANN\nRÜCKGABE -1\nENDE WENN\nWENN m == 0 DANN\nRÜCKGABE 0\nENDE WENN\nn = m DIV 15\nWENN m MOD 15 > 0 DANN\nn = n + 1\nENDE WENN\np = 5 + 3 * n\nWENN e DANN\np = p + p / 5\nENDE WENN\nRÜCKGABE p\nENDE FUNKTION";
         AlgorithmExamEvaluator evaluator = new(_interpreter);
         Assert.Equal(20, evaluator.Evaluate(task, alternative).Earned);
-        Assert.InRange(evaluator.Evaluate(task, "FUNKTION nutzungspreis(a, b)\nRÜCKGABE 11\nENDE FUNKTION").Earned, 1, 19);
+        Assert.InRange(evaluator.Evaluate(task, "FUNKTION nutzungspreis(a: int, b: bool): Double\nRÜCKGABE 11\nENDE FUNKTION").Earned, 1, 19);
         Assert.Equal(0, evaluator.Evaluate(task, "AUSGABE 11").Earned);
     }
 

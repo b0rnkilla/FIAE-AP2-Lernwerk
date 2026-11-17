@@ -25,6 +25,16 @@ public sealed class LearningExperienceTests : IDisposable
     private readonly string _directory = Path.Combine(Path.GetTempPath(), "FiaeTrainer-Experience", Guid.NewGuid().ToString("N"));
 
     [Fact]
+    public async Task AlgorithmReferenceShowsTypeAliasesAndEquivalentHeaders()
+    {
+        string html = await RenderAsync<AlgorithmReference>([]);
+        Assert.Contains("Datentypen und Funktionsköpfe", html);
+        foreach (string spelling in new[] { "Integer", "int", "Ganzzahl", "Double", "Kommazahl", "Dezimalzahl", "Boolean", "bool", "Wahrheitswert", "String", "Text", "Zeichenkette", "List<Integer>", "Liste<Ganzzahl>", "int[]" })
+            Assert.Contains($"<code>{spelling}</code>", html);
+        Assert.Contains("Boolean istGerade(int zahl)", html);
+    }
+
+    [Fact]
     public async Task SqlReferenceOffersTheSameReturnButtonForInvestigationAndWorkshop()
     {
         LearningNavigation navigation = new();

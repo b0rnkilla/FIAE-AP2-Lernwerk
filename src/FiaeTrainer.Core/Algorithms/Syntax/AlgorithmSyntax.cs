@@ -23,10 +23,11 @@ internal static class AlgorithmSyntax
     internal sealed record ListIndex(Expression Array, Expression Position) : Expression;
     internal sealed record Length(Expression Array) : Expression;
     internal sealed record Call(string Name, IReadOnlyList<Expression> Arguments) : Expression;
-    internal sealed record Function(int Line, string Name, IReadOnlyList<string> Parameters, IReadOnlyList<Statement> Body);
+    internal sealed record Binding(string Name, AlgorithmType? Type);
+    internal sealed record Function(int Line, string Name, IReadOnlyList<Binding> Parameters, AlgorithmType? ReturnType, IReadOnlyList<Statement> Body);
     internal sealed record AlgorithmProgram(IReadOnlyList<Statement> Statements, IReadOnlyList<Function> Functions);
     internal abstract record Statement(int Line);
-    internal sealed record Assignment(int Line, string Name, Expression Value) : Statement(Line);
+    internal sealed record Assignment(int Line, string Name, Expression Value, AlgorithmType? Type) : Statement(Line);
     internal sealed record IndexedAssignment(int Line, string Name, IReadOnlyList<Expression> Indices, Expression Value) : Statement(Line);
     internal sealed record Return(int Line, Expression Value) : Statement(Line);
     internal sealed record Print(int Line, Expression Value) : Statement(Line);
@@ -62,8 +63,7 @@ internal static class AlgorithmSyntax
                 int start = i++;
                 while (i < code.Length && (char.IsLetterOrDigit(code[i]) || code[i] == '_')) i++;
                 string word = code[start..i];
-                if (KEYWORDS.Contains(word) && word != word.ToUpperInvariant())
-                    throw new AlgorithmException(line, $"Schreibe Schlüsselwörter groß: „{word}“ muss „{word.ToUpperInvariant()}“ heißen. Variablennamen und Texte bleiben unverändert.");
+                if (KEYWORDS.Contains(word)) RequireUppercase(word, line);
                 tokens.Add(new(word, line));
             }
             else if (char.IsDigit(c))
@@ -79,7 +79,7 @@ internal static class AlgorithmSyntax
             {
                 string pair = i + 1 < code.Length ? code.Substring(i, 2) : "";
                 if (pair is "<-" or ":=" or "<=" or ">=" or "<>" or "!=" or "==") { tokens.Add(new(pair, line)); i += 2; }
-                else if ("←+-*/%=<>()[],".Contains(c)) { tokens.Add(new(c.ToString(), line)); i++; }
+                else if ("←+-*/%=<>()[],:".Contains(c)) { tokens.Add(new(c.ToString(), line)); i++; }
                 else throw new AlgorithmException(line, $"Das Zeichen „{c}“ gehört nicht zur unterstützten Schreibweise. Der Spickzettel zeigt passende Beispiele.");
             }
             if (tokens.Count > 4000)
@@ -88,5 +88,13 @@ internal static class AlgorithmSyntax
         tokens.Add(new("\n", line));
         tokens.Add(new("<EOF>", line));
         return tokens;
+    }
+
+    /// <summary> Nennt die Originalzeile und die passende Schreibweise des Schlüsselworts. </summary>
+    internal static void RequireUppercase(string word, int line)
+    {
+        string uppercase = word.ToUpperInvariant();
+        if (word != uppercase)
+            throw new AlgorithmException(line, $"Schreibe Schlüsselwörter groß: „{word}“ muss „{uppercase}“ heißen. Variablennamen und Texte bleiben unverändert.");
     }
 }

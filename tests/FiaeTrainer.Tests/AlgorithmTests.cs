@@ -69,6 +69,63 @@ public sealed class AlgorithmTests
     }
 
     [Theory]
+    [InlineData("FÜR", "JEDEN")]
+    [InlineData("FUER", "JEDEN")]
+    [InlineData("FÜR", "JEDE")]
+    [InlineData("FUER", "JEDE")]
+    [InlineData("FÜR", "JEDES")]
+    [InlineData("FUER", "JEDES")]
+    [InlineData("FÜR", "ALLE")]
+    [InlineData("FUER", "ALLE")]
+    public void EachLoopVisitsNestedListsInOrderAndCopiesTheirItems(string keyword, string quantifier)
+    {
+        string code = $"""
+            reihen = [[], [4, 2, 4]]
+            {keyword} {quantifier} reihe IN reihen
+                FUER JEDES element IN reihe
+                    AUSGABE element
+                    reihe[0] = 99
+                ENDE FUER
+            ENDE {keyword}
+            AUSGABE reihen
+            """;
+        AlgorithmRun run = _interpreter.Run(code, trace: true);
+        Assert.Null(run.Error);
+        Assert.Equal(["4", "2", "4", "[[], [4, 2, 4]]"], run.Output);
+    }
+
+    [Theory]
+    [InlineData("jeden", "JEDEN")]
+    [InlineData("Jede", "JEDE")]
+    [InlineData("alle", "ALLE")]
+    public void NewLoopWordsRequireUppercaseOnlyAsQuantifiers(string name, string keyword)
+    {
+        string code = $"// {name}\nFÜR {name} eintrag IN [1]\nAUSGABE eintrag\nENDE FÜR";
+        Assert.Contains($"Zeile 2: Schreibe Schlüsselwörter groß: „{name}“ muss „{keyword}“ heißen", _interpreter.Run(code).Error);
+
+        string compatible = $"FUNKTION probe({name})\nFÜR {name} VON 2 BIS 3\nAUSGABE {name}\nENDE FÜR\nRÜCKGABE {name}\nENDE FUNKTION\n{keyword} = 5\nAUSGABE probe({name})\nAUSGABE '{name}'";
+        AlgorithmRun run = _interpreter.Run(compatible);
+        Assert.Null(run.Error);
+        Assert.Equal(["2", "3", "3", name], run.Output);
+    }
+
+    [Theory]
+    [InlineData("FÜR JEDES")]
+    [InlineData("FÜR JEDEN")]
+    [InlineData("FUER JEDE")]
+    [InlineData("FUER ALLE")]
+    public void MaximumLessonAcceptsEachSpellingAndRejectsInvalidLoopHeaders(string header)
+    {
+        AlgorithmLesson lesson = _catalog.Lessons.Single(x => x.Id == 9);
+        AlgorithmEvaluator evaluator = new(_interpreter);
+        string answer = lesson.ReferenceCode.Replace("FÜR JEDEN wert", $"{header} wert");
+        Assert.Contains($"{header} wert IN abweichungen", answer);
+        Assert.True(evaluator.Evaluate(lesson, answer).Correct);
+        Assert.Contains("„IN“", evaluator.Evaluate(lesson, answer.Replace("wert IN abweichungen", "wert abweichungen")).Message);
+        Assert.Contains("Liste", evaluator.Evaluate(lesson, answer.Replace("IN abweichungen", "IN 42")).Message);
+    }
+
+    [Theory]
     [InlineData("WENN")]
     [InlineData("DANN")]
     [InlineData("SONST")]

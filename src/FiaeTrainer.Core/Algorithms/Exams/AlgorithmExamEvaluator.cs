@@ -10,7 +10,7 @@ namespace FiaeTrainer.Core.Algorithms.Exams;
 public sealed class AlgorithmExamEvaluator(AlgorithmInterpreter interpreter)
 {
     /// <summary> Bewertet erst die abgegebene Antwort; Syntaxfehler erhalten keine erfundenen Ansatzpunkte. </summary>
-    public ExamTaskResult Evaluate(AlgorithmExamTask task, string answer)
+    public ExamTaskResult Evaluate(AlgorithmExamTask task, string answer, string contentVersion = AlgorithmExamCatalog.TYPED_VERSION)
     {
         AlgorithmLesson lesson = task.Lesson;
         List<(string Name, bool Passed, string Detail)> checks = [];
@@ -41,7 +41,7 @@ public sealed class AlgorithmExamEvaluator(AlgorithmInterpreter interpreter)
         {
             foreach (AlgorithmTest test in lesson.Tests)
             {
-                AlgorithmRun run = interpreter.RunFunction(answer, lesson.FunctionName, lesson.FunctionInputs.Select(name => test.Inputs[name]).ToArray());
+                AlgorithmRun run = task.RunFunction(interpreter, answer, test.Inputs, contentVersion);
                 bool passed = run.Error == null && run.Output.SequenceEqual(test.Output);
                 checks.Add((test.Name, passed, $"Eingaben: {JsonSerializer.Serialize(test.Inputs)} · Erwartet: {string.Join(" → ", test.Output)} · Deine Lösung: {run.Error ?? string.Join(" → ", run.Output)}"));
             }

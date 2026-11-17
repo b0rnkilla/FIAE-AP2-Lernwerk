@@ -1,6 +1,6 @@
 # Pseudocode und Algorithmen
 
-Stand vom 16.11.2026. Die Entwicklungsfassung nach Beta 3 ersetzt fünf der 30 Leitstellenaufgaben. Die veröffentlichte Beta 3 enthält noch die früheren Aufgaben.
+Stand vom 16.11.2026. Die veröffentlichte Beta 4 enthält fünf erneuerte Leitstellenaufgaben. Die anschließende Quellfassung erweitert die Listenschleife und unterstützt Typangaben für Funktionsköpfe und Variablen.
 
 ## Lernweg und Aufgaben
 
@@ -71,13 +71,36 @@ Pseudocode besitzt keine universell verbindliche Grammatik. Der Trainer führt e
 * `WENN bedingung DANN`, optional `SONST`, abgeschlossen mit `ENDE WENN`. Verschachtelte WENN-Blöcke besitzen jeweils einen eigenen Abschluss.
 * `SOLANGE bedingung`, optional `TUE`, und `ENDE SOLANGE`. Die Bedingung wird vor jedem Durchlauf geprüft.
 * `FÜR i VON start BIS ende`, optional `TUE`, und `ENDE FÜR`. Ganzzahlige Grenzen einmal beim Eintritt ausgewertet, beide eingeschlossen, Schrittweite +1; bei start > ende kein Durchlauf. Die interne Steuerung ist unabhängig von einer Zuweisung an i im Rumpf. i soll nicht im Rumpf verändert werden. Nach einer nichtleeren Schleife behält i den zuletzt im Rumpf gespeicherten Wert; bei einer leeren Schleife entsteht dadurch keine neue Variable.
-* `FÜR JEDES wert IN liste` und `ENDE FÜR`. `FUER` ist statt `FÜR` möglich. Durchlaufen werden die beim Eintritt vorhandenen Einträge; Änderungen der ursprünglichen Liste im Rumpf verändern nicht nachträglich diese Folge.
-* Listenliterale wie `[10, 20]`, Lesezugriff `liste[0]`, Länge `LÄNGE(liste)` oder `LAENGE(liste)`. Indexbeginn 0. Schreibzugriff mit `liste[i] = wert`, auch verschachtelt `matrix[i][j] = wert`; der Index muss bereits existieren und ganzzahlig sein. Kein automatisches Vergrößern einer Liste. Eine Zuweisung erstellt im Trainer eine unabhängige Wertkopie einschließlich verschachtelter Listen. Auch FÜR JEDES arbeitet mit einer Wertkopie des jeweiligen Eintrags; zum Ändern der Ursprungsliste ihren Index verwenden.
+* `FÜR JEDEN wert IN werte`, `FÜR JEDE meldung IN meldungen`, `FÜR JEDES gewicht IN gewichte` und `FÜR ALLE wert IN werte` sind gleichwertig. `FUER` ist im Kopf und in `ENDE FÜR` möglich. Die neuen Wörter sind nur an der Stelle des Mengenworts großzuschreiben. Durchlaufen werden die beim Eintritt vorhandenen Einträge; Änderungen der ursprünglichen Liste im Rumpf verändern nicht nachträglich diese Folge.
+* Listenliterale wie `[10, 20]`, Lesezugriff `liste[0]`, Länge `LÄNGE(liste)` oder `LAENGE(liste)`. Indexbeginn 0. Schreibzugriff mit `liste[i] = wert`, auch verschachtelt `matrix[i][j] = wert`; der Index muss bereits existieren und ganzzahlig sein. Kein automatisches Vergrößern einer Liste. Eine Zuweisung erstellt im Trainer eine unabhängige Wertkopie einschließlich verschachtelter Listen. Auch die Listenschleife arbeitet mit einer Wertkopie des jeweiligen Eintrags; zum Ändern der Ursprungsliste ihren Index verwenden.
 * Funktionen mit `FUNKTION name(parameter, ...)` und `ENDE FUNKTION`. Definitionen stehen nur auf oberster Ebene, vor oder nach dem Hauptablauf. Aufrufe sind Ausdrücke: `ergebnis = name(wert)`. Namen sind unabhängig von Groß-/Kleinschreibung; Schlüsselwörter wie FUNKTION bleiben groß. Argumente werden links nach rechts ausgewertet, dann nach Position zugeordnet. Doppelte Funktionsnamen oder Parameter derselben Definition sind ungültig.
 * `RÜCKGABE ausdruck` beziehungsweise `RUECKGABE ausdruck` beendet nur den aktuellen Aufruf, auch aus verschachtelten Bedingungen und Schleifen. Rückgaben können Zahlen, Texte, Wahrheitswerte und Listen sein. Jeder ausgeführte Pfad braucht einen Rückgabewert. AUSGABE ersetzt keine Rückgabe; im Hauptablauf ist RÜCKGABE unzulässig.
-* Jeder Aufruf besitzt einen eigenen lokalen Variablenbereich ohne Zugriff auf Hauptablaufvariablen. Parameter und Rückgaben verwenden Wertkopien von Listen. Andere selbst definierte Funktionen und rekursive Selbstaufrufe sind erlaubt, auch indirekte Rekursion. Gemeinsam maximal 16 gleichzeitig aktive Aufrufebenen und 16 Parameter/Argumente je Aufruf. Basisfall und Fortschritt müssen zur erlaubten Eingabedomäne passen. Die Tiefen- und Rechengrenzen werden nicht je Selbstaufruf zurückgesetzt. Keine Prozeduren ohne Rückgabe, Typdeklarationen, Klassen, externen Funktionen oder Ein-/Ausgabeschnittstellen. Abwärtszählen erfolgt bei Bedarf mit einer SOLANGE-Schleife.
+* Jeder Aufruf besitzt einen eigenen lokalen Variablenbereich ohne Zugriff auf Hauptablaufvariablen. Parameter und Rückgaben verwenden Wertkopien von Listen. Andere selbst definierte Funktionen und rekursive Selbstaufrufe sind erlaubt, auch indirekte Rekursion. Gemeinsam maximal 16 gleichzeitig aktive Aufrufebenen und 16 Parameter/Argumente je Aufruf. Basisfall und Fortschritt müssen zur erlaubten Eingabedomäne passen. Die Tiefen- und Rechengrenzen werden nicht je Selbstaufruf zurückgesetzt. Keine Prozeduren ohne Rückgabe, Klassen, externen Funktionen oder Ein-/Ausgabeschnittstellen. Abwärtszählen erfolgt bei Bedarf mit einer SOLANGE-Schleife.
 
 Die Beispiele und Regeln stehen zusätzlich direkt in der App unter `/algorithmen/spickzettel`. Beim Schreibtischtest enthält die Antwort ausschließlich die Ausgaben, eine pro Zeile. Die Testfallaufgabe erwartet je Zeile `gewicht => erwartete Ausgabe`; Gewichte sind ganze Zahlen. Texte und Ausgabezahlen werden nach Entfernung äußerer Leerzeichen exakt verglichen; keine automatische fachliche Auslegung zusätzlicher Beschreibungen.
+
+## Datentypen und Funktionsköpfe
+
+Im Lernweg sind Typangaben bei allen neun Funktionsaufgaben freiwillig. In jeder neuen Pseudocode-Prüfung verlangt der erste Auftrag den vollständigen typisierten Kopf. Direkt am Arbeitsauftrag steht **Typangaben erforderlich** oder **Typangaben freiwillig**. Der Hinweis ist in beiden Lernmodi sichtbar und verbraucht keine Hilfe. Früher begonnene Prüfungen behalten ihren bisherigen Vertrag.
+
+| Wert | Gleichwertige Schreibweisen | Beispiel |
+| --- | --- | --- |
+| Ganze Zahl | `Integer`, `int`, `Ganzzahl` | `-2` |
+| Zahl mit möglichem Nachkommateil | `Double`, `Kommazahl`, `Dezimalzahl` | `2.5` |
+| Wahrheitswert | `Boolean`, `bool`, `Wahrheitswert` | `FALSCH` |
+| Text | `String`, `Text`, `Zeichenkette` | `"bereit"` |
+| Liste mit Elementtyp | `List<Integer>`, `Liste<Ganzzahl>`, `int[]` | `[2, 4]` |
+
+Typnamen sind unabhängig von ihrer Großschreibung und bleiben außerhalb von Typangaben als Bezeichner nutzbar. Die Befehle behalten ihre bisherige Großschreibung. Der Trainer rechnet intern weiterhin mit Dezimalzahlen. Bei `Integer` muss der Wert ganzzahlig sein, `Double` erlaubt auch ganze Zahlen. Eine leere Liste ist für jeden Elementtyp zulässig. Bei einem typisierten Funktionskopf zählt dennoch der deklarierte Elementtyp. `Integer[][]` entspricht `Liste<Liste<int>>`. Es gelten höchstens 16 Listenebenen und die bisherigen Grenzen für Listenwerte.
+
+```text
+FUNKTION istGerade(zahl: Integer): Boolean
+    rest: Ganzzahl = zahl MOD 2
+    RÜCKGABE rest == 0
+ENDE FUNKTION
+```
+
+`Boolean istGerade(int zahl)` ist ein gleichwertiger Kopf. `Integer rest = zahl MOD 2` ist eine gleichwertige lokale Deklaration. Bei `istGerade(6)` ist 6 das Argument, Boolean der Rückgabetyp und WAHR der konkrete Wert. Angegebene Typen am Einstieg müssen zum Arbeitsauftrag passen. Die Prüfung vergleicht die Parameter in ihrer Aufrufreihenfolge. Die Ausführung prüft übergebene Werte, Rückgaben sowie spätere Schreibzugriffe auf deklarierte Variablen und Listen. Auch bei freiwilligen Angaben muss der tatsächliche Rückgabewert zum Auftrag passen. Der Text `"42"` ersetzt keine Zahl. Eine Deklaration braucht einen Startwert. Typbindungen gelten nur im jeweiligen Funktionsaufruf bzw. Hauptablauf. Die Ablaufvorschau nutzt dieselben Regeln wie die Bewertung.
 
 ## Bewertung und Grenzen
 

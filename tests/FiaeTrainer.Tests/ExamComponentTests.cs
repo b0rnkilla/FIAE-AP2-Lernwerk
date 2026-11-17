@@ -43,6 +43,47 @@ public sealed class ExamComponentTests : IDisposable
         Assert.DoesNotContain("DEINE PRÜFUNGSAUSWERTUNG", html);
     }
 
+    [Theory]
+    [InlineData(0, AlgorithmExamCatalog.TYPED_VERSION, "Typangaben erforderlich")]
+    [InlineData(1, AlgorithmExamCatalog.TYPED_VERSION, "Typangaben freiwillig")]
+    [InlineData(0, "2026-11-05", "Typangaben freiwillig")]
+    public async Task FunctionContractAppearsInsideAssignmentBeforeEditor(int index, string version, string label)
+    {
+        using var services = Services(false);
+        ExamRound round = _algorithms.CreateRound();
+        round.ContentVersion = version;
+        round.TaskIds = [2, 5, 9];
+        round.Index = index;
+        await services.GetRequiredService<ProgressStore>().StartExamAsync(round);
+        string html = await RenderAsync(services);
+        int card = html.IndexOf("class=\"task-card\"", StringComparison.Ordinal);
+        int notice = html.IndexOf(label, StringComparison.Ordinal);
+        Assert.True(card >= 0 && notice > card && notice < html.IndexOf("class=\"editor-card\"", StringComparison.Ordinal));
+        Assert.Contains(_algorithms.Tasks.Single(x => x.Lesson.Id == round.TaskIds[index]).Lesson.Signature, html);
+        Assert.DoesNotContain("Musterlösung", html);
+    }
+
+    [Theory]
+    [InlineData("2026-11-05", 20)]
+    [InlineData(AlgorithmExamCatalog.TYPED_VERSION, 0)]
+    public async Task RestoredExamUsesItsOriginalSignatureRuleWhenSubmitting(string version, int points)
+    {
+        using var services = Services(false);
+        var store = services.GetRequiredService<ProgressStore>();
+        var exams = services.GetRequiredService<ExamService>();
+        var round = _algorithms.CreateRound();
+        round.ContentVersion = version;
+        round.TaskIds = [2, 5, 9];
+        var lesson = _algorithms.Tasks.Single(x => x.Lesson.Id == 2).Lesson;
+        round.Drafts[2] = lesson.ReferenceCode.Replace(lesson.Signature, "FUNKTION nutzungspreis(minuten, express)");
+        await store.StartExamAsync(round);
+        ExamRound restored = (await store.LoadAsync()).ExamRounds[ExamModule.Algorithms];
+        Assert.True(exams.IsCompatible(restored));
+        restored = await store.SaveExamAsync(restored, true);
+        var results = await exams.EvaluateAsync(restored);
+        Assert.Equal(points, results.Single(x => x.TaskId == 2).Earned);
+    }
+
     [Fact]
     public async Task PauseConcealsAssignmentAndEditor()
     {

@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
+using FiaeTrainer.Core.Algorithms.Content;
 using FiaeTrainer.Core.Algorithms.Syntax;
 using static FiaeTrainer.Core.Algorithms.Syntax.AlgorithmSyntax;
 
@@ -17,8 +18,12 @@ public sealed class AlgorithmInterpreter
     public AlgorithmRun RunFunction(string code, string name, IReadOnlyList<JsonElement> arguments, bool trace = false, bool requiresBooleanReturn = false)
         => RunCore(code, null, trace, name, arguments, requiresBooleanReturn);
 
+    /// <summary> Vorschau und Bewertung verwenden denselben Vertrag; Typenpflicht gilt nur im angekündigten Auftrag. </summary>
+    public AlgorithmRun RunFunction(string code, AlgorithmLesson lesson, IReadOnlyDictionary<string, JsonElement> inputs, bool trace = false, bool requireTypes = false)
+        => RunCore(code, null, trace, lesson.FunctionName, lesson.FunctionInputs.Select(name => inputs[name]).ToArray(), lesson.RequiresBooleanReturn, lesson, requireTypes);
+
     /// <summary> Beide Bewertungswege teilen Parser, Ausführungsbudgets und deutsche Fehlerbehandlung. </summary>
-    private static AlgorithmRun RunCore(string code, IReadOnlyDictionary<string, JsonElement>? inputs, bool trace, string? function, IReadOnlyList<JsonElement> arguments, bool requiresBooleanReturn)
+    private static AlgorithmRun RunCore(string code, IReadOnlyDictionary<string, JsonElement>? inputs, bool trace, string? function, IReadOnlyList<JsonElement> arguments, bool requiresBooleanReturn, AlgorithmLesson? lesson = null, bool requireTypes = false)
     {
         if (string.IsNullOrWhiteSpace(code)) return new([], [], "Schreibe zuerst deinen Ablauf in den Editor.");
         if (code.Length > 12000) return new([], [], "Dein Ablauf ist zu lang. Maximal 12.000 Zeichen sind möglich.");
@@ -34,7 +39,7 @@ public sealed class AlgorithmInterpreter
             {
                 if (program.Statements.Count > 0)
                     throw new AlgorithmException(program.Statements[0].Line, "Diese Aufgabe erwartet nur Funktionsdefinitionen. Die Testfälle rufen deine Funktion automatisch auf; ein Hauptablauf mit AUSGABE gehört hier nicht dazu.");
-                object result = machine.Invoke(function, arguments.Select(FromJson).ToArray());
+                object result = machine.Invoke(function, arguments.Select(FromJson).ToArray(), lesson, requireTypes);
                 if (requiresBooleanReturn && result is not bool)
                     return new(machine.Output, machine.Steps, $"Die Funktion {function} muss einen Wahrheitswert zurückgeben. Verwende WAHR oder FALSCH ohne Anführungszeichen oder gib einen Vergleich zurück.", machine.TraceTruncated);
                 machine.PrintResult(result, false);
@@ -76,6 +81,8 @@ public sealed class AlgorithmInterpreter
         private readonly Dictionary<string, Function> _functions = new(StringComparer.OrdinalIgnoreCase);
         /// <summary> Aktive Aufrufe für Bereichsanzeige und gemeinsame Tiefengrenze einschließlich rekursiver Aufrufe. </summary>
         private readonly Stack<string> _calls = new();
+        /// <summary> Deklarierte Variablen und Parameter des gerade aktiven lokalen Bereichs. </summary>
+        private Dictionary<string, AlgorithmType> _types = new(StringComparer.OrdinalIgnoreCase);
 
         #endregion
 
@@ -104,7 +111,7 @@ public sealed class AlgorithmInterpreter
                 switch (statement)
                 {
                     case Assignment assignment:
-                        Variables[assignment.Name] = CopyValue(Evaluate(assignment.Value)); Snapshot($"{assignment.Name} zuweisen"); break;
+                        StoreValue(assignment.Name, CopyValue(Evaluate(assignment.Value)), assignment.Type); Snapshot($"{assignment.Name} zuweisen"); break;
                     case IndexedAssignment assignment:
                         AssignIndex(assignment); Snapshot($"{assignment.Name}: Listeneintrag zuweisen"); break;
                     case Return result:
@@ -129,7 +136,7 @@ public sealed class AlgorithmInterpreter
                         decimal start = Integer(Evaluate(loop.Start)), end = Integer(Evaluate(loop.End));
                         for (decimal i = start; i <= end; i++)
                         {
-                            _line = loop.Line; Tick(); Variables[loop.Name] = i; Snapshot($"Schleifendurchlauf: {loop.Name}");
+                            _line = loop.Line; Tick(); StoreValue(loop.Name, i); Snapshot($"Schleifendurchlauf: {loop.Name}");
                             object? forResult = Execute(loop.Body);
                             if (forResult != null) return forResult;
                         }
@@ -137,7 +144,7 @@ public sealed class AlgorithmInterpreter
                     case Each loop:
                         foreach (object item in Array(Evaluate(loop.Array)))
                         {
-                            _line = loop.Line; Tick(); Variables[loop.Name] = CopyValue(item); Snapshot($"Nächster Eintrag: {loop.Name}");
+                            _line = loop.Line; Tick(); StoreValue(loop.Name, CopyValue(item)); Snapshot($"Nächster Eintrag: {loop.Name}");
                             object? eachResult = Execute(loop.Body);
                             if (eachResult != null) return eachResult;
                         }
@@ -164,25 +171,60 @@ public sealed class AlgorithmInterpreter
         }
 
         /// <summary> Ein Aufruf besitzt eigene Variablen und Wertkopien der Argumente; Rückgabe beendet auch verschachtelte Blöcke. </summary>
-        internal object Invoke(string name, IReadOnlyList<object> arguments)
+        internal object Invoke(string name, IReadOnlyList<object> arguments, AlgorithmLesson? lesson = null, bool requireTypes = false)
         {
             Tick();
             if (!_functions.TryGetValue(name, out Function? function)) throw new AlgorithmException(_line, $"Die Funktion „{name}“ ist nicht definiert. Prüfe ihren Namen und FUNKTION … ENDE FUNKTION.");
             if (arguments.Count != function.Parameters.Count) Fail($"„{name}“ erwartet {function.Parameters.Count} Argumente, übergeben wurden {arguments.Count}.");
             if (_calls.Count >= 16) Fail("Zu viele verschachtelte Funktionsaufrufe. Verwende höchstens 16 Aufrufebenen. Prüfe bei Rekursion den Basisfall und ob sich das Argument diesem Fall nähert.");
             Dictionary<string, object> caller = Variables;
+            Dictionary<string, AlgorithmType> callerTypes = _types;
             int callerLine = _line;
             Variables = new(StringComparer.OrdinalIgnoreCase);
+            _types = new(StringComparer.OrdinalIgnoreCase);
             _calls.Push(function.Name);
             try
             {
-                for (int i = 0; i < arguments.Count; i++) Variables[function.Parameters[i]] = CopyValue(arguments[i]);
-                _line = function.Line; Snapshot($"Funktion {function.Name} aufrufen");
+                _line = function.Line;
+                if (lesson?.ReturnType.Length > 0)
+                {
+                    for (int i = 0; i < function.Parameters.Count; i++)
+                        CheckSignatureType(function.Parameters[i].Type, lesson.ParameterTypes[i], $"Parameter „{function.Parameters[i].Name}“", requireTypes);
+                    CheckSignatureType(function.ReturnType, lesson.ReturnType, "Rückgabetyp", requireTypes);
+                }
+                for (int i = 0; i < arguments.Count; i++)
+                    StoreValue(function.Parameters[i].Name, CopyValue(arguments[i]), function.Parameters[i].Type);
+                Snapshot($"Funktion {function.Name} aufrufen");
                 object? result = Execute(function.Body);
                 if (result == null) Fail($"Die Funktion „{function.Name}“ endet ohne RÜCKGABE. Jeder ausgeführte Pfad braucht einen Rückgabewert.");
+                AlgorithmType? returnType = function.ReturnType;
+                if (returnType == null && lesson?.ReturnType.Length > 0) returnType = AlgorithmType.FromCatalog(lesson.ReturnType);
+                if (returnType != null && !returnType.Accepts(result))
+                {
+                    string expected = returnType is { Scalar: "Boolean", Depth: 0 } ? "Boolean (Wahrheitswert)" : returnType.ToString();
+                    Fail($"Die Rückgabe von „{function.Name}“ erwartet {expected}. Der Wert ist {AlgorithmType.Describe(result)}. Prüfe den Ausdruck hinter RÜCKGABE und bei Listen die Elementtypen.");
+                }
                 return result;
             }
-            finally { _calls.Pop(); Variables = caller; _line = callerLine; }
+            finally { _calls.Pop(); Variables = caller; _types = callerTypes; _line = callerLine; }
+        }
+
+        /// <summary> Vergleicht Typen unabhängig von Schreibweise und Parameternamen mit dem Auftrag. </summary>
+        private void CheckSignatureType(AlgorithmType? actual, string expected, string part, bool required)
+        {
+            if (actual == null && required) Fail($"Typangabe erforderlich: {part} braucht im Funktionskopf den Typ {expected}.");
+            if (actual != null && actual.ToString() != expected) Fail($"{part}: Im Auftrag wird {expected} erwartet. Dein Funktionskopf nennt {actual}.");
+        }
+
+        /// <summary> Auch spätere Zuweisungen, Schleifenzähler und geänderte Listeneinträge beachten die Deklaration. </summary>
+        private void StoreValue(string name, object value, AlgorithmType? declared = null)
+        {
+            _types.TryGetValue(name, out AlgorithmType? existing);
+            if (existing != null && declared != null && existing != declared) Fail($"„{name}“ wurde in diesem Aufruf bereits als {existing} deklariert.");
+            AlgorithmType? type = declared ?? existing;
+            if (type != null && !type.Accepts(value)) Fail($"„{name}“ erwartet den Typ {type}. Prüfe den zugewiesenen Wert und bei Listen auch die Einträge.");
+            if (declared != null) _types[name] = declared;
+            Variables[name] = value;
         }
 
         /// <summary> Ersetzt Einträge auf einer Wertkopie, damit Aliase und zyklische Listen keine Nebenwirkungen erzeugen. </summary>
@@ -198,7 +240,7 @@ public sealed class AlgorithmInterpreter
                 else target[position] = CopyValue(Evaluate(assignment.Value));
             }
             int size = 0; CheckValue(root, 0, ref size);
-            Variables[assignment.Name] = root;
+            StoreValue(assignment.Name, root);
         }
 
         /// <summary> Listen besitzen Wertsemantik, auch bei Parametern, Rückgaben und verschachtelten Einträgen. </summary>

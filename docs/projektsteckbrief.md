@@ -4,7 +4,10 @@
 | --- | --- |
 | Anwendung | AP2 Lernwerk |
 | Projektmappe | FIAE_AP2_Trainer.sln |
-| Entwicklungsfassung | 1.0.0-beta.4 mit 474 Übungen in acht Lernbereichen |
+| Entwicklungsfassung | 1.0.0-beta.5 mit 474 Übungen in acht Lernbereichen |
+| Nächster Paketbau | Beta 5 nach Nutzer-Commit und Push beauftragt; Versionshinweise vorbereitet, ZIP und Paketprüfung stehen aus. |
+| Typisierte Funktionsköpfe nach Beta 4 | Neun Lern- und acht Prüfungsaufgaben zeigen Parametertypen und Rückgabetyp. Die erste Aufgabe neuer Pseudocode-Prüfungen kennzeichnet die Typenpflicht direkt im Auftrag. |
+| Quelländerung nach Beta 4 | Pseudocode-Listenschleifen akzeptieren `FÜR JEDEN`, `FÜR JEDE`, `FÜR JEDES` und `FÜR ALLE`. Aufgabe 9 und der Spickzettel zeigen Beispiele. |
 | Im Quellstand nach Beta 3 | Fünf erneuerte Leitstellenaufgaben zu Reserve, Funkprotokoll, Schichtwechsel, Schaltjahren und Archivfächern. Frühere Entwürfe und Abschlüsse sind einsehbar. Variablen und Ausdrücke stehen in den Pseudocode-Aufträgen in Codeschrift. |
 | Ergänzungen nach Beta 3 | SQL-Werkstatt mit 20 erklärten Beispielen, sichtbaren Abfrageergebnissen und markierter Probeausführung. Geschütztes Nachlesen eigener Lösungen in acht Lernansichten. |
 | Im Quellstand nach Beta 2 | SQL-Ermittlung und SQL-Werkstatt mit Zeilennummern und Blockeinrückung per Tastatur |
@@ -12,8 +15,8 @@
 | Aufgabenhilfen | Drei einzeln aufdeckbare Denkanstöße je Lernaufgabe in Abschnitt 01–07. Die fachliche Erklärung gehört zur Musterlösung. |
 | SQL-Prüfung | Vier Fälle mit je fünf Aufgaben. Der Stadtfest-Fall verbindet Lieferlisten, Fremdschlüssel, Inventur, Archivierung und Rechte. |
 | SQL-Werkstatt | Hinweise zur betroffenen SQL-Anweisung. Die Sensorpreis-Aufgabe prüft die Rundung auf Cent anhand der berechneten Werte. |
-| Zuletzt geprüftes Windows-Paket | 1.0.0-beta.3 aus Commit `e4c7cf5`, unsigniert, mit geprüftem a²-Icon und Paketwechsel von Beta 2 |
-| Nutzererprobung | In Beta 2 SQL-Ermittlung und Werkstatt abgeschlossen und alle drei SQL-Prüfungsfälle mehrfach bearbeitet. Pseudocode wird mit der veröffentlichten Beta 3 praktisch erprobt. |
+| Zuletzt geprüftes Windows-Paket | 1.0.0-beta.4 aus Commit `1dffa97`, unsigniert, mit geprüftem a²-Icon und Paketwechsel von Beta 3 |
+| Nutzererprobung | In Beta 2 SQL-Ermittlung und Werkstatt abgeschlossen und alle drei SQL-Prüfungsfälle mehrfach bearbeitet. Die praktische Erprobung der überarbeiteten Pseudocode-Aufgaben läuft mit der veröffentlichten Beta 4. |
 | Windows-Build nach Beta 1 | EXE mit eingebettetem a²-App-Symbol. GitHub-ZIP standardmäßig unsigniert, Authenticode optional |
 | Alpha-16-Freigabe | Nach Nutzer-Commit/Push ausdrücklich beauftragt, ZIP und native Prüfung erfolgreich; Tag v0.1.1-alpha.16 auf 1dbcb12, Veröffentlichung durch Nutzer |
 | Plattform | Windows, lokale Browseroberfläche |

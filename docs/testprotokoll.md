@@ -1,5 +1,28 @@
 # Testprotokoll
 
+## 17.11.2026 · Versionsprüfung vor dem Beta-5-Commit
+
+Die Projektmappe wurde nach dem Versionswechsel im Release-Modus seriell und ohne gemeinsam genutzten Compiler mit null Warnungen und null Fehlern gebaut. Die Produktversion der Webanwendung weist `1.0.0-beta.5` aus. Der erste Buildversuch wurde beim Compilerstart abgebrochen. `git diff --check` bestand. README und Paketanleitung wurden abgeglichen; die fachlichen Prüfungen stehen im folgenden Eintrag. ZIP und native Paketprüfung folgen nach Nutzer-Commit und Push.
+
+## 16.11.2026 · Typangaben für Pseudocode nach Beta 4
+
+- Quellbuild ohne Warnungen oder Fehler. 195 fachbezogene xUnit-Fälle für Interpreter, Lern- und Prüfungskatalog, Prüfungsansicht und Typentabelle im Testprozess bestanden. Alle 31 JavaScript-Fälle bestanden.
+- Deutsche und englische Namen, vor- und nachgestellte Typen, lokale Deklarationen, leere und verschachtelte Listen, falsche Elementtypen und die ursprüngliche Fehlerzeile geprüft. Ein Text mit gleichem Druckbild ersetzt im aktuellen Auftrag keinen numerischen oder booleschen Rückgabewert. Eigene Parameternamen und frühere typfreie Lernantworten wurden überprüft.
+- Neue und alte Prüfungsrunde mit demselben typfreien Entwurf gespeichert, neu geladen und abgegeben. Pflichtvermerk und Bewertung folgten der gespeicherten Inhaltsversion. Im erweiterten seriellen Lauf bestanden 219 von 220 Tests. Windows verweigerte beim Aufbau des vollständigen synthetischen Lernplans das atomare Ersetzen der Profildatei. In anderen Läufen trat derselbe Dateizugriffsfehler zeitweise auch bei anderen Profiltests auf.
+- Gerenderte Original-Prüfungsseite und Spickzettel in Chrome bei 390 und 1180 Pixeln geprüft. Der Pflichtvermerk stand im Aufgabenbereich vor dem Editor, die Typentabelle war bei beiden Breiten lesbar und ihr Bereich blieb innerhalb der Ansichtsbreite. Der Quellhost startete separat auf Port 5391 mit eigenem Profil. Der interaktive Seitenaufruf wurde durch `ERR_NETWORK_ACCESS_DENIED` blockiert.
+
+## 16.11.2026 · Natürliche Listenschleifen im Quellstand nach Beta 4
+
+- Quellprojekt und Testassembly ohne Warnungen gebaut. 160 xUnit-Fälle für Interpreter, Lernkatalog und Prüfungskatalog bestanden, darunter 15 neue Fälle. Geprüft wurden die acht Kombinationen aus `FÜR`/`FUER` und vier Mengenwörtern, leere innere Liste, Reihenfolge, Duplikate und Wertkopien. Aufgabe 9 akzeptierte auch die frühere Schreibweise. Ungültige Schleifenköpfe und eine Zahl anstelle einer Liste lösten Fehlermeldungen aus.
+- Groß-/Kleinschreibung im Listenschleifenkopf und Weiterverwendung der neuen Wörter als freie Namen geprüft. Neun Profil-/Navigationstests bestanden im separaten Lauf. In den ersten Profilläufen meldete Windows beim Ersetzen einzelner synthetischer Profildateien zeitweise „Zugriff verweigert“.
+- xUnit direkt im Testprozess ausgeführt, da VSTest die lokale Verbindung zum Testhost nicht aufbauen konnte. Der Quellhost startete auf Port 5389 mit eigenem Profil. Chrome meldete beim Aufruf der lokalen Seite `ERR_NETWORK_ACCESS_DENIED`. Der interaktive Browsertest ist offen.
+
+## 16.11.2026 · Entpackte Windows-Beta 4
+
+- GitHub-master und Produktversion der unsignierten EXE stimmten mit Commit `1dffa97` überein. Archiv, Prüfsummendatei, Versionshinweise, Lizenz und Dateiliste geprüft. Alle neun in der EXE eingebetteten a²-Iconbilder stimmen byteweise mit der ICO-Vorlage überein. Nach dem Starttest waren alle 62 Programmdateien unverändert.
+- In Edge einen eigenen Entwurf in Aufgabe 14 der entpackten Beta 3 gespeichert. Beta 4 mit demselben isolierten Lernprofil gestartet, alten Entwurf im Archiv nachgewiesen und neue Regalaufgabe gelöst. Mit der separaten SQL-Testinstanz Fremdschlüssel, Löschsperre, markierte Ausführung, mehrere Ergebnissätze und den Rückweg aus dem Spickzettel geprüft.
+- Nachlesen in den acht Lernansichten geprüft, darunter ein selbst benanntes UML-Modell nach einer Fehlprüfung in der Kopie. WiSo-Runde nach Neuladen und Werkstatt bei 390 Pixeln Breite geprüft. Auf dem Release-Commit bestanden alle 1.260 .NET-Tests einschließlich SQL sowie alle 31 JavaScript-Tests.
+
 ## 16.11.2026 · Versionsprüfung vor dem Beta-4-Commit
 
 Die Projektmappe wurde nach dem Versionswechsel im Release-Modus mit null Warnungen und null Fehlern gebaut. Die Produktversion der gebauten Webanwendung weist `1.0.0-beta.4` aus. Die fachlichen Tests des Änderungspakets sind im folgenden Eintrag dokumentiert.

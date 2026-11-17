@@ -2378,6 +2378,8 @@ h1:focus {
 /* Algorithmus-Lernweg: Prüffälle, Ausführung und Einsatzbericht. */
 .algorithm-inputs { border-top: 1px solid var(--line); margin-top: 20px; padding-top: 16px; }
 .algorithm-task-text code { overflow-wrap: anywhere; }
+.function-contract { margin-top: 16px; }
+.function-contract > code { display: block; margin-top: 8px; overflow-wrap: anywhere; }
 .algorithm-inputs dt code { background: transparent; padding: 0; font-size: 1em; }
 .algorithm-inputs strong { font-size: 12px; }
 .algorithm-inputs dl, .trace-values { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-bottom: 0; }

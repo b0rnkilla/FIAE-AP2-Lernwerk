@@ -33,12 +33,12 @@ FÜR JEDES gewicht IN gewichte
         anzahl = anzahl + 1
     ENDE WENN
 ENDE FÜR
-AUSGABE anzahl</code></pre><p>Eine Liste kann auch direkt geschrieben werden: <code>werte = [10, 20, 30]</code>. Der erste Index ist 0, also liefert <code>werte[0]</code> die Zahl 10. <code>LÄNGE(werte)</code> beziehungsweise <code>LAENGE(werte)</code> ergibt 3. Der letzte gültige Index ist LÄNGE(werte) - 1. Eine Indexschleife kann daher von 0 bis LÄNGE(werte) - 1 laufen.</p></section>
+AUSGABE anzahl</code></pre><p>Auch <code>FÜR JEDEN wert IN werte</code>, <code>FÜR JEDE meldung IN meldungen</code> und <code>FÜR ALLE wert IN werte</code> sind gültig. Bei <code>werte = [3, 1, 3]</code> erhält <code>wert</code> nacheinander 3, 1 und 3. Eine leere Liste überspringt den Schleifenrumpf. Für alle vier Formen ist auch <code>FUER</code> möglich.</p><p>Eine Liste kann auch direkt geschrieben werden: <code>werte = [10, 20, 30]</code>. Der erste Index ist 0, also liefert <code>werte[0]</code> die Zahl 10. <code>LÄNGE(werte)</code> beziehungsweise <code>LAENGE(werte)</code> ergibt 3. Der letzte gültige Index ist LÄNGE(werte) - 1. Eine Indexschleife kann daher von 0 bis LÄNGE(werte) - 1 laufen.</p></section>
     <section class="reference-section"><h2>Einträge ändern und vertauschen</h2><pre><code>werte = [10, 20, 30]
 hilfe = werte[0]
 werte[0] = werte[2]
 werte[2] = hilfe
-AUSGABE werte</code></pre><p>Das Ergebnis ist <code>[30, 20, 10]</code>. Sichere einen Wert vor dem Überschreiben, sonst geht er verloren. Ein Schreibzugriff benötigt denselben gültigen Index wie ein Lesezugriff; die Liste wächst dadurch nicht. Im Trainer haben Listen Wertsemantik: <code>kopie = werte</code> erstellt eine unabhängige Kopie, auch bei verschachtelten Listen. Änderungen an kopie verändern werte nicht. FÜR JEDES durchläuft die beim Schleifenbeginn vorhandenen Werte; die Laufvariable ist eine Kopie des jeweiligen Eintrags. Ändere die ursprüngliche Liste bei Bedarf über ihren Index. Diese Regeln sind Konventionen dieses Trainers.</p></section>
+AUSGABE werte</code></pre><p>Das Ergebnis ist <code>[30, 20, 10]</code>. Sichere einen Wert vor dem Überschreiben, sonst geht er verloren. Ein Schreibzugriff benötigt denselben gültigen Index wie ein Lesezugriff; die Liste wächst dadurch nicht. Im Trainer haben Listen Wertsemantik: <code>kopie = werte</code> erstellt eine unabhängige Kopie, auch bei verschachtelten Listen. Änderungen an kopie verändern werte nicht. Die Listenschleife durchläuft die beim Schleifenbeginn vorhandenen Werte; die Laufvariable ist eine Kopie des jeweiligen Eintrags. Ändere die ursprüngliche Liste bei Bedarf über ihren Index. Diese Regeln sind Konventionen dieses Trainers.</p></section>
     <section class="reference-section"><h2>Maximum, Durchschnitt und Suche</h2><p>Ein Maximum einer nichtleeren Liste beginnt mit ihrem ersten Eintrag, damit auch ausschließlich negative Werte funktionieren. Den Leerfall prüfst du davor. Ein Durchschnitt benötigt Summe und Anzahl; teile erst, wenn die Anzahl größer als 0 ist. <code>/</code> erhält den Dezimalanteil, <code>DIV</code> schneidet ihn ab.</p><pre><code>position = -1
 i = 0
 SOLANGE i &lt; LÄNGE(nummern) UND position == -1
@@ -51,12 +51,35 @@ AUSGABE position</code></pre><p>Die lineare Suche prüft der Reihe nach und lief
     <section class="reference-section"><h2>Sortieren durch Nachbarvergleiche</h2><p>Bubble Sort vergleicht von links nach rechts benachbarte Einträge und tauscht sie, wenn der linke größer ist. Nach einem vollständigen Durchlauf steht der größte Wert ganz rechts. Weitere Durchläufe ordnen den Rest; der schon geordnete rechte Bereich kann ausgelassen werden. Für den Zugriff <code>werte[j + 1]</code> muss j höchstens LÄNGE(werte) - 2 sein. Ein einzelner Durchlauf sortiert die gesamte Liste im Allgemeinen noch nicht. Gleiche Werte sind bei aufsteigender Reihenfolge erlaubt und dürfen nicht verloren gehen.</p></section>
     <section class="reference-section"><h2>Verschachtelte Listen</h2><pre><code>reihen = [[2, 3], [1]]
 gesamt = 0
-FÜR JEDES reihe IN reihen
-    FÜR JEDES wert IN reihe
+FÜR JEDE reihe IN reihen
+    FÜR JEDEN wert IN reihe
         gesamt = gesamt + wert
     ENDE FÜR
 ENDE FÜR
 AUSGABE gesamt</code></pre><p>Die Ausgabe ist 6. <code>reihen[0]</code> ist die erste innere Liste, <code>reihen[0][1]</code> die Zahl 3. Innere Listen können unterschiedlich lang oder leer sein. Verwende für jede Ebene deren eigene Länge. Eine Summe je Reihe muss am Anfang jeder äußeren Wiederholung neu initialisiert werden.</p></section>
+    <section class="reference-section" id="datentypen">
+        <h2>Datentypen und Funktionsköpfe</h2>
+        <p>Der Auftrag zeigt dir direkt, ob Typangaben freiwillig oder erforderlich sind. Bei einer Pflichtaufgabe brauchen alle Parameter und die Rückgabe der verlangten Funktion einen Typ. Bei Hilfsfunktionen kannst du die Typen selbst wählen oder weglassen.</p>
+        <div class="business-table-wrap"><table>
+            <caption>Gleichwertige Schreibweisen im Trainer</caption>
+            <thead><tr><th scope="col">Bedeutung</th><th scope="col">Schreibweisen</th><th scope="col">Beispielwert</th></tr></thead>
+            <tbody>
+                <tr><th scope="row">Ganze Zahl</th><td><code>Integer</code>, <code>int</code>, <code>Ganzzahl</code></td><td><code>-3</code></td></tr>
+                <tr><th scope="row">Zahl mit möglichem Nachkommateil</th><td><code>Double</code>, <code>Kommazahl</code>, <code>Dezimalzahl</code></td><td><code>2.5</code> oder <code>2</code></td></tr>
+                <tr><th scope="row">Wahrheitswert</th><td><code>Boolean</code>, <code>bool</code>, <code>Wahrheitswert</code></td><td><code>WAHR</code></td></tr>
+                <tr><th scope="row">Text</th><td><code>String</code>, <code>Text</code>, <code>Zeichenkette</code></td><td><code>"bereit"</code></td></tr>
+                <tr><th scope="row">Liste ganzer Zahlen</th><td><code>List&lt;Integer&gt;</code>, <code>Liste&lt;Ganzzahl&gt;</code>, <code>int[]</code></td><td><code>[4, 7]</code> oder <code>[]</code></td></tr>
+            </tbody>
+        </table></div>
+        <p>Groß- und Kleinschreibung sind bei Typnamen frei. In <code>werte: Liste&lt;Integer&gt;</code> ist <code>werte</code> der Parametername, <code>Integer</code> der Elementtyp. Für Listen von Listen kannst du etwa <code>Integer[][]</code> oder <code>Liste&lt;Liste&lt;int&gt;&gt;</code> schreiben.</p>
+        <p>Beispiel für eine Liste als Eingabe: <code>FUNKTION anzahlMeldungen(meldungen: Liste&lt;Text&gt;): Integer</code>. Für <code>["frei", "belegt"]</code> soll die Funktion die Zahl <code>2</code> zurückgeben. Soll eine Funktion eine Liste von Meldungen zurückgeben, steht <code>: Liste&lt;Text&gt;</code> hinter der schließenden Klammer.</p>
+        <pre><code>FUNKTION istGerade(zahl: Integer): Boolean
+    RÜCKGABE zahl MOD 2 == 0
+ENDE FUNKTION</code></pre>
+        <p>Beim Aufruf <code>istGerade(6)</code> ist 6 das Argument, <code>Boolean</code> der vereinbarte Rückgabetyp und <code>WAHR</code> das Ergebnis. Die Anführungszeichen in <code>"WAHR"</code> würden daraus einen Text machen.</p>
+        <p>Den gleichen Kopf kannst du auch als <code>Boolean istGerade(int zahl)</code> schreiben. Der Block endet in beiden Formen mit <code>ENDE FUNKTION</code>. Im Rumpf kannst du eine Variable mit Startwert deklarieren, etwa <code>Integer anzahl = 0</code> oder <code>anzahl: Ganzzahl = 0</code>. Spätere Zuweisungen müssen zu ihrem Typ passen.</p>
+        <p>In Prüfungsunterlagen bezeichnet <code>void</code> eine Methode ohne Rückgabewert. Ein Klassenname als Typ bezeichnet ein Objekt dieser Klasse. Die ausführbaren Funktionsaufgaben im Trainer arbeiten mit den Typen aus der Tabelle und geben einen Wert zurück.</p>
+    </section>
     <section class="reference-section"><h2>Funktionen, Parameter und Rückgabe</h2><pre><code>FUNKTION istGerade(zahl)
     RÜCKGABE zahl MOD 2 == 0
 ENDE FUNKTION

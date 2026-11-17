@@ -120,7 +120,7 @@ public partial class Algorithms : IAsyncDisposable
         _previewLines = _previewCode.Replace("\r", "").Split('\n');
         AlgorithmRun run = _lesson.FunctionName.Length == 0
             ? Interpreter.Run(_previewCode, _lesson.ExampleInputs, true)
-            : Interpreter.RunFunction(_previewCode, _lesson.FunctionName, _lesson.FunctionInputs.Select(name => _lesson.ExampleInputs[name]).ToArray(), trace: true, requiresBooleanReturn: _lesson.RequiresBooleanReturn);
+            : Interpreter.RunFunction(_previewCode, _lesson, _lesson.ExampleInputs, trace: true, requireTypes: _lesson.RequiresTypedSignature);
         _run = run;
         _step = 0;
         _evaluation = null;

@@ -36,7 +36,12 @@
             }
             else
             {
-                <section class="business-scenario"><h2>Dein Prüfungsauftrag</h2><p>@AlgorithmTask.Story</p></section><section class="task-card"><p class="algorithm-task-text"><InlineCodeText Text="@AlgorithmTask.Task" /></p>@if (AlgorithmTask.FunctionName.Length > 0) { <p><strong>Funktionsvertrag:</strong> <code>@(AlgorithmTask.FunctionName + "(" + string.Join(", ", AlgorithmTask.FunctionInputs) + ")")</code>. Rückgabe statt Hauptausgabe.</p> }@if (AlgorithmTask.GivenCode.Length > 0) { <pre class="given-algorithm"><code>@AlgorithmTask.GivenCode</code></pre> }</section>
+                <section class="business-scenario"><h2>Dein Prüfungsauftrag</h2><p>@AlgorithmTask.Story</p></section>
+                <section class="task-card">
+                    <p class="algorithm-task-text"><InlineCodeText Text="@AlgorithmTask.Task" /></p>
+                    <AlgorithmFunctionContract Lesson="AlgorithmTask" RequireTypes="@Exams.AlgorithmTask(CurrentId).RequiresTypes(_round.ContentVersion)" />
+                    @if (AlgorithmTask.GivenCode.Length > 0) { <pre class="given-algorithm"><code>@AlgorithmTask.GivenCode</code></pre> }
+                </section>
             }
             <section class="editor-card"><div class="editor-toolbar"><label for="exam-editor">Deine @(Module == ExamModule.Sql ? "SQL-Antwort" : "Pseudocode-Antwort")</label><span>@(_round.Submitted ? "Abgegebener Entwurf" : "Deine eigene Lösung")</span></div><CodeEditor @key="CurrentId" Id="exam-editor" Value="@_draft" ValueChanged="SetDraft" Blur="SaveDraftAsync" ReadOnly="@(_busy || _stale || _round.Submitted)" CodeMode="@(Module == ExamModule.Sql || AlgorithmTask.Kind is AlgorithmTaskKind.Write or AlgorithmTaskKind.Repair)" Placeholder="Schreibe hier deine Lösung …" /></section>
             @if (_round.EvaluatedUtc != null)

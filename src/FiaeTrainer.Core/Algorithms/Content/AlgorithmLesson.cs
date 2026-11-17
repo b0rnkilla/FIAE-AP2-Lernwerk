@@ -1,4 +1,5 @@
 using System.Text.Json;
+using FiaeTrainer.Core.Algorithms.Syntax;
 
 namespace FiaeTrainer.Core.Algorithms.Content;
 
@@ -37,6 +38,24 @@ public sealed class AlgorithmLesson
     public bool RequiresBooleanReturn { get; init; }
     /// <summary> Reihenfolge der Testeingaben für den Funktionsaufruf; eigene Parameternamen sind frei wählbar. </summary>
     public string[] FunctionInputs { get; init; } = [];
+    /// <summary> Fachlich vorgegebene Parametertypen in Aufrufreihenfolge, in der Kurzform Integer[] für Listen. </summary>
+    public string[] ParameterTypes { get; init; } = [];
+    /// <summary> Ergebnistyp des Funktionsauftrags. </summary>
+    public string ReturnType { get; init; } = "";
+    /// <summary> Die Aufgabe verlangt bei aktueller Inhaltsversion einen vollständig typisierten Einstieg. </summary>
+    public bool RequiresTypedSignature { get; init; }
+    /// <summary> Lesbare Signatur für den Hinweis am Auftrag; eigene Parameternamen bleiben möglich. </summary>
+    public string Signature => $"FUNKTION {FunctionName}({string.Join(", ", FunctionInputs.Zip(ParameterTypes, (name, type) => $"{name}: {type}"))}): {ReturnType}";
+
+    /// <summary> Beide Kataloge benötigen einen vollständigen, ausführbaren Vertrag für jede Funktionsaufgabe. </summary>
+    internal void ValidateSignature()
+    {
+        if (FunctionName.Length == 0) return;
+        if (FunctionInputs.Length != ParameterTypes.Length || ReturnType.Length == 0)
+            throw new InvalidDataException($"Die Typangaben für {FunctionName} sind unvollständig.");
+        foreach (string type in ParameterTypes) AlgorithmType.FromCatalog(type);
+        AlgorithmType.FromCatalog(ReturnType);
+    }
     /// <summary> Erläutert die fachliche Entscheidung in der Musterlösung. </summary>
     public string Explanation { get; init; } = "";
     /// <summary> Erkenntnis, die erst nach erfolgreicher Bearbeitung freigeschaltet wird. </summary>

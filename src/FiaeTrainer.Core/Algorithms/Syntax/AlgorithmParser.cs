@@ -34,28 +34,32 @@ internal sealed class AlgorithmParser(List<Token> tokens)
         SkipLines();
         while (!Is("<EOF>"))
         {
-            if (Take("FUNKTION"))
+            int line = Current.Line;
+            bool functionKeyword = Take("FUNKTION");
+            AlgorithmType? prefix = ReadPrefixType();
+            if (functionKeyword || (IsName(Current) && tokens[_position + 1] is { Quoted: false, Text: "(" }))
             {
-                int line = tokens[_position - 1].Line;
                 string name = Name(); Require("(");
-                List<string> parameters = [];
+                List<Binding> parameters = [];
                 if (!Is(")"))
                     do
                     {
-                        string parameter = Name();
-                        if (parameters.Contains(parameter, StringComparer.OrdinalIgnoreCase)) throw Error("Ein Parametername darf in einer Funktion nur einmal vorkommen.");
+                        Binding parameter = ReadBinding(ReadPrefixType());
+                        if (parameters.Any(p => p.Name.Equals(parameter.Name, StringComparison.OrdinalIgnoreCase))) throw Error("Ein Parametername darf in einer Funktion nur einmal vorkommen.");
                         if (parameters.Count >= 16) throw Error("Verwende höchstens 16 Parameter je Funktion.");
                         parameters.Add(parameter);
                     } while (Take(","));
-                Require(")"); EndLine();
+                Require(")");
+                AlgorithmType? returnType = ReadSuffixType(prefix);
+                EndLine();
                 _insideFunction = true;
                 IReadOnlyList<Statement> body = Block();
                 _insideFunction = false;
                 Require("ENDE"); Require("FUNKTION");
                 if (functions.Any(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase))) throw Error($"Die Funktion „{name}“ ist mehrfach definiert.");
-                functions.Add(new(line, name, parameters, body));
+                functions.Add(new(line, name, parameters, returnType, body));
             }
-            else statements.Add(ReadStatement());
+            else statements.Add(ReadStatement(prefix));
             EndLine();
         }
         return new(statements, functions);
@@ -76,7 +80,7 @@ internal sealed class AlgorithmParser(List<Token> tokens)
         return statements;
     }
 
-    private Statement ReadStatement()
+    private Statement ReadStatement(AlgorithmType? prefix = null)
     {
         int line = Current.Line;
         if (Is("FUNKTION")) throw Error("Definiere Funktionen außerhalb von Bedingungen, Schleifen und anderen Funktionen.");
@@ -103,7 +107,7 @@ internal sealed class AlgorithmParser(List<Token> tokens)
         }
         if (Take("FÜR") || Take("FUER"))
         {
-            bool each = Take("JEDES");
+            bool each = TakeEachQuantifier();
             string name = Name();
             if (each)
             {
@@ -115,13 +119,14 @@ internal sealed class AlgorithmParser(List<Token> tokens)
             IReadOnlyList<Statement> loop = Block(); Require("ENDE"); RequireFor();
             return new For(line, name, start, end, loop);
         }
-        string variable = Name();
+        Binding binding = ReadBinding(prefix ?? ReadPrefixType());
         List<Expression> indices = [];
+        if (binding.Type != null && Is("[")) throw Error("Deklariere die ganze Variable mit einem Startwert. Einzelne Einträge erhalten den Elementtyp der Liste.");
         while (Take("[")) { indices.Add(ReadExpression()); Require("]"); }
         if (!(Take("←") || Take("<-") || Take(":=") || Take("=")))
             throw Error("Nach dem Variablennamen fehlt eine Zuweisung, zum Beispiel „anzahl = 0“.");
         Expression value = ReadExpression();
-        return indices.Count == 0 ? new Assignment(line, variable, value) : new IndexedAssignment(line, variable, indices, value);
+        return indices.Count == 0 ? new Assignment(line, binding.Name, value, binding.Type) : new IndexedAssignment(line, binding.Name, indices, value);
     }
 
     /// <summary> Prioritäten: ODER, UND, Vergleiche, Addition, Multiplikation, unäre Operatoren. </summary>
@@ -190,10 +195,58 @@ internal sealed class AlgorithmParser(List<Token> tokens)
         "ODER" => 1, "UND" => 2, "=" or "==" or "<>" or "!=" or "<" or ">" or "<=" or ">=" => 3,
         "+" or "-" => 4, "*" or "/" or "%" or "MOD" or "DIV" => 5, _ => 0
     };
+    /// <summary> Typnamen bleiben in bisherigen Programmen als Variablen-, Parameter- und Funktionsnamen zulässig. </summary>
+    private AlgorithmType? ReadPrefixType()
+    {
+        if (!IsName(Current)) return null;
+        Token next = tokens[_position + 1];
+        bool list = Is("List") || Is("Liste");
+        if (!list && AlgorithmType.ScalarName(Current.Text) == null) return null;
+        bool arraySuffix = next is { Quoted: false, Text: "[" } && tokens[_position + 2] is { Quoted: false, Text: "]" };
+        return IsName(next) || arraySuffix || (list && next is { Quoted: false, Text: "<" or "<>" }) ? ReadType() : null;
+    }
+
+    private Binding ReadBinding(AlgorithmType? prefix) => new(Name(), ReadSuffixType(prefix));
+
+    private AlgorithmType? ReadSuffixType(AlgorithmType? prefix)
+    {
+        if (!Take(":")) return prefix;
+        if (prefix != null) throw Error("Gib den Datentyp nur einmal an, vor dem Namen oder nach dem Doppelpunkt.");
+        return ReadType();
+    }
+
+    /// <summary> Normalisiert generische Listen und Arrayklammern mit derselben Verschachtelungsgrenze wie Listenwerte. </summary>
+    private AlgorithmType ReadType(int nesting = 0)
+    {
+        if (nesting > AlgorithmType.MAX_DEPTH) throw Error("Der Listentyp ist zu tief verschachtelt.");
+        AlgorithmType type;
+        if (Take("List") || Take("Liste"))
+        {
+            if (!Take("<")) throw Error("Eine Liste braucht einen Elementtyp, zum Beispiel Liste<Ganzzahl>.");
+            type = ReadType(nesting + 1);
+            // Nach einem generischen Typ darf ohne Leerzeichen die Zuweisung folgen.
+            if (Is(">=")) tokens[_position] = new("=", Current.Line);
+            else Require(">");
+            type = type with { Depth = type.Depth + 1 };
+        }
+        else
+        {
+            string? scalar = Current.Quoted ? null : AlgorithmType.ScalarName(Current.Text);
+            if (scalar == null) throw Error($"Unbekannter Datentyp „{Current.Text.Trim()}“. Verwende etwa Integer, Double, Boolean, String oder List<Integer>.");
+            _position++;
+            type = new(scalar);
+        }
+        while (Take("[")) { Require("]"); type = type with { Depth = type.Depth + 1 }; }
+        if (type.Depth > AlgorithmType.MAX_DEPTH) throw Error("Der Listentyp ist zu tief verschachtelt.");
+        return type;
+    }
+
+    private static bool IsName(Token token) => !token.Quoted && token.Text.Length > 0 && (char.IsLetter(token.Text[0]) || token.Text[0] == '_') && !KEYWORDS.Contains(token.Text);
+
     private string Name()
     {
         Token token = Current;
-        if (token.Quoted || token.Text.Length == 0 || !(char.IsLetter(token.Text[0]) || token.Text[0] == '_') || KEYWORDS.Contains(token.Text))
+        if (!IsName(token))
             throw Error("Hier fehlt ein Variablenname oder ein Wert. Prüfe auch Klammern und das Ende der vorherigen Anweisung.");
         _position++;
         return token.Text;
@@ -202,6 +255,19 @@ internal sealed class AlgorithmParser(List<Token> tokens)
     private bool Take(string text) { if (!Is(text)) return false; _position++; return true; }
     private void Require(string text) { if (!Take(text)) throw Error($"Hier fehlt „{text}“. Prüfe den Beginn und das Ende dieses Ausdrucks oder Blocks."); }
     private void RequireFor() { if (!Take("FÜR")) Require("FUER"); }
+
+    /// <summary> Die zusätzlichen Formen sind nur im Listenschleifenkopf Schlüsselwörter. </summary>
+    private bool TakeEachQuantifier()
+    {
+        if (Take("JEDES")) return true;
+        if (!Is("JEDEN") && !Is("JEDE") && !Is("ALLE")) return false;
+        // In „FÜR alle VON …“ bleibt alle der frei gewählte Name des Zählers.
+        if (tokens[_position + 1] is { Quoted: false, Text: "VON" }) return false;
+        RequireUppercase(Current.Text, Current.Line);
+        _position++;
+        return true;
+    }
+
     private void SkipLines() { while (Take("\n")) { } }
     private void EndLine()
     {

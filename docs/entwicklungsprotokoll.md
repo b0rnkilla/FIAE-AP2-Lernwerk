@@ -1,5 +1,23 @@
 # Entwicklungsprotokoll
 
+## 17.11.2026 · Beta 5 zum Commit vorbereitet
+
+Die Quellversion `1.0.0-beta.5` bündelt die natürlichen Listenschleifen, typisierten Funktionsköpfe und den erweiterten Pseudocode-Spickzettel. Die [Versionshinweise](../release/Versionshinweise-1.0.0-beta.5.md) liegen bereit. Der Nutzer hat das Windows-ZIP nach seinem Commit und Push beauftragt; Zielcommit und Paketprüfung folgen danach. Das veröffentlichte Beta-4-Paket bleibt unverändert.
+
+## 16.11.2026 · Typisierte Pseudocode-Aufträge nach Beta 4
+
+Alle neun Funktionsaufgaben im Lernweg und acht im Prüfungspool zeigen eine Signatur. Aufgabe 12 erklärt Parameter, Rückgabetyp und konkreten Wert an einem zweiten Beispiel. Der Spickzettel vergleicht Schreibweisen und zeigt lokale Deklarationen. Der Interpreter prüft angegebene Typen im jeweiligen Aufruf, einschließlich späterer Zuweisungen und verschachtelter Listeneinträge.
+
+In neuen Pseudocode-Prüfungen verlangt die erste Aufgabe einen vollständigen typisierten Einstieg. Hinweis, Bewertung und nachträgliche Vorschau verwenden dieselbe Inhaltsversion. Bisherige Lernantworten und laufende Beta-4-Prüfungen können weiterhin typfrei bearbeitet werden. [Fachvertrag](pseudocode.md) · [Prüfungsmodus](pruefungsmodus.md).
+
+## 16.11.2026 · Listenschleifen nach Beta 4
+
+Die zusätzlichen Formen `JEDEN`, `JEDE` und `ALLE` führen denselben Schleifenrumpf wie `JEDES` aus. Der Parser unterscheidet Mengenwörter von bisherigen Zählvariablen wie `alle`. Lern- und Prüfungsbeispiele verwenden zum Namen passende Singularformen. Die geführte Einführung zu Aufgabe 9 zeigt die einzelnen Werte eines Durchlaufs. Datentypen sind im [Verbesserungsplan](verbesserungsplan.md) als Konzept zur Abstimmung beschrieben.
+
+## 16.11.2026 · Windows-Paket für Beta 4
+
+Das unsignierte Windows-Paket wurde aus Commit `1dffa97` gebaut und mit einem separaten Profil aus der entpackten EXE geprüft. Ein in Beta 3 erstellter Entwurf für Aufgabe 14 war nach dem Wechsel im Aufgabenarchiv erhalten. [Testergebnisse](testprotokoll.md) · [Paketdaten](lokale-releases.md).
+
 ## 16.11.2026 · Beta 4 zum Commit vorbereitet
 
 Die Quellversion `1.0.0-beta.4` bündelt die Werkstattvorschau, das Nachlesen eigener Lösungen und die fünf überarbeiteten Leitstellenaufgaben. Die [Versionshinweise](../release/Versionshinweise-1.0.0-beta.4.md) liegen für den Paketbau nach dem Push bereit.

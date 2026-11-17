@@ -20,6 +20,7 @@ public sealed class AlgorithmCatalog
             throw new InvalidDataException("Die Algorithmus-Aufgaben sind unvollständig oder falsch nummeriert.");
         foreach (AlgorithmLesson lesson in Lessons.Where(x => x.FunctionName.Length > 0))
         {
+            lesson.ValidateSignature();
             bool missingInputs = lesson.FunctionInputs.Any(name => !lesson.ExampleInputs.ContainsKey(name) || lesson.Tests.Any(test => !test.Inputs.ContainsKey(name)));
             bool duplicateInputs = lesson.FunctionInputs.Distinct(StringComparer.OrdinalIgnoreCase).Count() != lesson.FunctionInputs.Length;
             if (lesson.Kind is AlgorithmTaskKind.Trace or AlgorithmTaskKind.TestCases || missingInputs || duplicateInputs)

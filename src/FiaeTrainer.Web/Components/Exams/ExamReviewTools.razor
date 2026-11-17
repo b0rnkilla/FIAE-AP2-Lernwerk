@@ -52,9 +52,10 @@
             }
             else
             {
-                var lesson = Exams.AlgorithmTask(TaskId).Lesson;
+                var task = Exams.AlgorithmTask(TaskId);
+                var lesson = task.Lesson;
                 if (lesson.Kind == AlgorithmTaskKind.TestCases) { _error = "Für diese Testfallaufgabe findest du die Auflösung in den Teilprüfungen und der Musterlösung."; return; }
-                _run = lesson.Kind == AlgorithmTaskKind.Trace ? Interpreter.Run(lesson.GivenCode, lesson.ExampleInputs, true) : Interpreter.RunFunction(answer, lesson.FunctionName, lesson.FunctionInputs.Select(name => lesson.ExampleInputs[name]).ToArray(), true);
+                _run = lesson.Kind == AlgorithmTaskKind.Trace ? Interpreter.Run(lesson.GivenCode, lesson.ExampleInputs, true) : task.RunFunction(Interpreter, answer, lesson.ExampleInputs, Round.ContentVersion, trace: true);
                 _step = 0;
             }
         }

@@ -19,9 +19,9 @@ public sealed class ExamService(AlgorithmExamCatalog algorithms, AlgorithmExamEv
     /// <summary> Eindeutiger Titel, ohne Bewertungsdaten an die Oberfläche einer offenen Prüfung zu geben. </summary>
     public string Title(ExamRound round, int id) => round.Module == ExamModule.Sql ? SqlCase(round).Tasks.Single(task => task.Id == id).Title : AlgorithmTask(id).Lesson.Title;
     /// <summary> Verhindert die Fortsetzung mit unpassendem oder verändertem Aufgabenbestand. </summary>
-    public bool IsCompatible(ExamRound round) => round.ContentVersion == "2026-11-05" && (round.Module == ExamModule.Sql
-        ? sql.Cases.Any(item => item.Id == round.CaseId && item.Tasks.Select(task => task.Id).SequenceEqual(round.TaskIds))
-        : round.CaseId.Length == 0 && round.TaskIds.Count == 3 && round.TaskIds[0] is >= 1 and <= 3 && round.TaskIds[1] is >= 4 and <= 8 && round.TaskIds[2] is 9 or 10);
+    public bool IsCompatible(ExamRound round) => round.Module == ExamModule.Sql
+        ? round.ContentVersion == "2026-11-05" && sql.Cases.Any(item => item.Id == round.CaseId && item.Tasks.Select(task => task.Id).SequenceEqual(round.TaskIds))
+        : round.ContentVersion is "2026-11-05" or AlgorithmExamCatalog.TYPED_VERSION && round.CaseId.Length == 0 && round.TaskIds.Count == 3 && round.TaskIds[0] is >= 1 and <= 3 && round.TaskIds[1] is >= 4 and <= 8 && round.TaskIds[2] is 9 or 10;
     /// <summary> Bewertet nur eine gesperrte Abgabe; technische SQL-Störungen liefern keine Nullpunkte. </summary>
     public async Task<List<ExamTaskResult>> EvaluateAsync(ExamRound round)
     {
@@ -33,7 +33,7 @@ public sealed class ExamService(AlgorithmExamCatalog algorithms, AlgorithmExamEv
             string answer = round.Drafts.GetValueOrDefault(id, "");
             results.Add(round.Module == ExamModule.Sql
                 ? await new SqlExamEvaluator(database.Database).EvaluateAsync(SqlCase(round), SqlCase(round).Tasks.Single(task => task.Id == id), answer)
-                : algorithmEvaluator.Evaluate(AlgorithmTask(id), answer));
+                : algorithmEvaluator.Evaluate(AlgorithmTask(id), answer, round.ContentVersion));
         }
         return results;
     }

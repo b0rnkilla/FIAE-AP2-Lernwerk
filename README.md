@@ -24,7 +24,7 @@ In der SQL-Werkstatt kannst du einzelne Abfragen ausführen und ihre Ergebnisse 
   <tbody>
     <tr valign="top">
       <td>Löse einen Fall mit eigenen Abfragen. Übe JOINs, Mengenoperationen, Fremdschlüssel und Rollenrechte.</td>
-      <td>Prüfe Grenzfälle in der Leitstelle, verfolge Schleifen auf Papier und schreibe eigene Funktionen.</td>
+      <td>Prüfe Grenzfälle in der Leitstelle, verfolge Schleifen auf Papier und übe Funktionsköpfe mit Parametern und Rückgabetyp.</td>
       <td>Lies, repariere und erstelle eigene Diagramme in fünf UML-Notationen.</td>
       <td>Ergänze ER-Diagramme und Tabellenmodelle. Entwirf aus Unterlagen normalisierte Tabellen.</td>
     </tr>

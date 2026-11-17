@@ -18,6 +18,10 @@ Bei SQL-Syntaxfehlern nennt die Auswertung Zeile und Spalte des abgegebenen Entw
 
 ## Pseudocode: zehn eigene Aufgaben
 
+Neue Pseudocode-Runden der Quellfassung nach Beta 4 speichern die Inhaltsversion `2026-11-16`. Der erste gezogene Programmierauftrag (Pool-ID 1, 2 oder 3) zeigt **Typangaben erforderlich** direkt beim Arbeitsauftrag. Jeder Prüffall setzt passende Typangaben für alle Parameter und den Rückgabetyp am benannten Einstieg voraus. Die Anzeige nennt die Signatur. Eigene Parameternamen, gleichwertige Typnamen, unterschiedliche Positionen der Typangabe und typfreie Hilfsfunktionen sind zulässig. Beim zweiten Auftrag sind Typangaben freiwillig. Die dritte Aufgabe prüft Ausgaben oder Testfälle.
+
+Gespeicherte Pseudocode-Runden mit Inhaltsversion `2026-11-05` behalten freiwillige Typangaben, auch bei Abgabe oder Untersuchung nach dem Paketwechsel. SQL verwendet weiterhin seine bisherige Inhaltsversion. [Unterstützte Typen](pseudocode.md#datentypen-und-funktionsköpfe).
+
 Aus dem separaten Pool werden zwei Funktions-/Korrekturaufgaben zu je 20 Punkten und eine Analyseaufgabe mit zehn Punkten gewählt. Die erste Aufgabe stammt aus 1–3, die zweite aus 4–8, die Analyse aus 9–10. Auswahl und Reihenfolge bleiben nach dem Start erhalten. Wiederholungen bei späteren Runden sind möglich. Die bisherigen 30 Lernaufgaben behalten ihre IDs und Entwürfe.
 
 | ID | Aufgabe | Schwerpunkt |

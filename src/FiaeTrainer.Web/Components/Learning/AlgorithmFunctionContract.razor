@@ -1,0 +1,15 @@
+@if (Lesson.FunctionName.Length > 0)
+{
+    <div class="function-contract @(RequireTypes ? "notice" : "")">
+        <strong>@(RequireTypes ? "Typangaben erforderlich" : "Typangaben freiwillig")</strong>
+        <p>@(RequireTypes ? "Die Prüffälle setzen den vollständigen Funktionskopf voraus. Gib den Typ jedes Parameters und den Rückgabetyp an. Gleichwertige Schreibweisen sind erlaubt." : "Du kannst den Funktionskopf mit oder ohne Datentypen schreiben.")</p>
+        <code>@Lesson.Signature</code>
+        <p>Die App ruft deine Funktion auf. Gib das Ergebnis mit <code>RÜCKGABE</code> zurück.</p>
+    </div>
+}
+@code {
+    /// <summary> Zeigt nur den vorgegebenen Vertrag, ohne die Lösung anzuzeigen. </summary>
+    [Parameter, EditorRequired] public AlgorithmLesson Lesson { get; set; } = default!;
+    /// <summary> Entspricht der Bewertungsregel für den aktuell sichtbaren Auftrag. </summary>
+    [Parameter] public bool RequireTypes { get; set; }
+}

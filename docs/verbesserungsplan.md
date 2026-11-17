@@ -1,5 +1,9 @@
 # Stand und weitere Entwicklung
 
+## Beta 5 zur Veröffentlichung vorbereiten
+
+Am 17.11.2026 hat der Nutzer Committext, anschließend Windows-ZIP und Release-Informationen beauftragt. Version und [Versionshinweise](../release/Versionshinweise-1.0.0-beta.5.md) sind vorbereitet. Nach Nutzer-Commit und Push folgen der Abgleich des Zielcommits und die isolierte Prüfung des Pakets. Die praktische Erprobung der Pseudocode-Erweiterungen folgt mit Beta 5.
+
 ## Umgesetzt nach Beta 3 · SQL-Werkstatt und Nachlesen
 
 Die Aufgaben 11–30 haben übertragbare SQL-Beispiele mit erklärtem Ergebnis und direktem Rückweg aus dem Spickzettel. Probe, Tabellenstand und Bewertung sind im Lernweg unterscheidbar. Wer eine Aufgabe selbstständig gelöst hat, kann in den Abschnitten 01–07 die Hilfen öffnen, experimentieren und zur eigenen Antwort zurückgehen. Nutzererprobung mit der nächsten veröffentlichten Version steht aus.
@@ -12,13 +16,19 @@ Auf den Schreibtischtest zur binären Suche folgt jetzt eine andere Aufgabe. Die
 
 Die Aufgaben 1–3 und 12 verlangen Entscheidungen an Kapazitäts- und Zeitgrenzen, einen Schreibtischtest mit wachsender Wartezeit sowie eine eigene Kalenderfunktion. Die vier Aufträge sind Teil des regulären Lernwegs. Die Lernaufgaben 7, 9 und 11 sowie der Prüfungspool dienen weiterhin als Bezugspunkte für die Nutzererprobung. [Katalog](pseudocode.md).
 
-## Vorgemerkt nach Beta 3 · Natürliche Schreibweisen für die Listenschleife
+## Umgesetzt nach Beta 4 · Natürliche Schreibweisen für die Listenschleife
 
-In Pseudocode-Aufgabe 9 „Der höchste Messwert“ lautet die Musterlösung `FÜR JEDES wert IN abweichungen`. Für die nächste Pseudocode-Überarbeitung sollen `FÜR JEDEN wert`, `FÜR JEDE meldung` und `FÜR JEDES element` gleichwertig sein. Auch `FÜR ALLE x IN liste` soll als alternative Eingabe gelten. Bei jeder Form erhält die Laufvariable pro Durchlauf genau einen Eintrag. In Musterlösungen die zum Variablennamen passende Singularform bevorzugen.
+Die veröffentlichte Beta 4 verwendet in Aufgabe 9 noch `FÜR JEDES wert IN abweichungen`. Die Quellfassung akzeptiert `JEDEN`, `JEDE`, `JEDES` und `ALLE` mit `FÜR` oder `FUER`. Die Musterlösung verwendet jetzt `FÜR JEDEN wert IN abweichungen`. Alle Formen liefern pro Durchlauf einen Eintrag in Listenreihenfolge. Der Spickzettel zeigt auch Leerfall und Duplikate.
 
 Die bereitgestellte Sommerprüfung 2023, Entwicklung und Umsetzung von Algorithmen, zeigt in der Abbildung zu Aufgabe 3 auf Seite 7 eine englische `foreach`-Schleife. Die deutsche Wortwahl ist eine Entscheidung für den Trainer. Ein deutschsprachiger Beleg für die Variante „für alle“ findet sich in Algorithmus 3.1 zur Breitensuche. [§ 14 FIAusbV](https://www.gesetze-im-internet.de/fiausbv/__14.html) · [Universität Kiel, Algorithmus 3.1](https://rtsys.informatik.uni-kiel.de/~biblio/downloads/theses/cku-bt.pdf)
 
-Bei der Umsetzung auch `FUER`, Spickzettel und Musterlösungen berücksichtigen. Die neuen Wörter nur im Schleifenkopf erkennen. Bestehende Entwürfe, Großschreibung der Befehle, Listenreihenfolge, Wertkopie und `ENDE FÜR` beibehalten. Mit leerer Liste, Duplikaten und verschachtelten Schleifen prüfen. Beta 3 verwendet weiterhin `FÜR JEDES`.
+Die neuen Mengenwörter gelten nur im Listenschleifenkopf. Auch eine ältere Zählschleife mit dem Variablennamen `alle` bleibt gültig. [Syntax und Wertkopien](pseudocode.md) · [Prüfungen](testprotokoll.md).
+
+## Umgesetzt nach Beta 4 · Datentypen in Pseudocode
+
+Die alten Aufgaben im Bereich „Entwicklung und Umsetzung von Algorithmen“ verwenden mehrere Schreibweisen. Im Winter 2021/22 (Aufgabe 2, S. 4) stehen die Parametertypen hinter dem jeweiligen Namen und der Rückgabetyp hinter der Klammer. Im Winter 2024/25 (Aufgabe 1, S. 2–3) steht der Arraytyp vor dem Parameter, der Rückgabetyp wieder hinter der Klammer. Im Winter 2025/26 (Aufgabe 1a, S. 2–3) sind generische Listen und ein vorangestellter Rückgabetyp vorgegeben. Im Sommer 2022 (Aufgabe 1, S. 2) sind die ganzzahlige Matrix und die erwartete Ergebnisobjektklasse ausdrücklich benannt. Daraus folgt die Bedeutung des konkreten Auftrags. Eine durchgehend verbindliche Zeichenfolge für alle Prüfungsaufgaben lässt sich daraus nicht ableiten.
+
+Die freigegebene Quelländerung zeigt in neun Lern- und acht Prüfungsaufgaben typisierte Köpfe. Aufgabe 12 erklärt die Schreibweise an einer anderen Entscheidung. Beim ersten Programmierauftrag jeder neuen Prüfung sind vollständige Typangaben Pflicht. Der Hinweis steht neben der verlangten Signatur. Alte Runden bleiben mit freiwilligen Typangaben fortsetzbar. Der Spickzettel führt deutsche und englische Typnamen, die Schreibweisen für Listen und beide Positionen der Typangaben auf. Der ergänzende Abgleich mit den vier Unterrichtsunterlagen `Tag4_Pseudocode` bleibt offen. [Typregeln](pseudocode.md#datentypen-und-funktionsköpfe) · [Prüfungsbewertung](pruefungsmodus.md).
 
 ## Vierter SQL-Prüfungsfall für Beta 3
 
