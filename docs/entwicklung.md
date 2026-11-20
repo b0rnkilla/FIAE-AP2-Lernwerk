@@ -1,5 +1,13 @@
 # Entwicklung und Projektstruktur
 
+## Direkte Diagrammbearbeitung ab Beta 6
+
+`Core/Diagrams` enthält die gemeinsame Namensnormalisierung und unbenotete Zeichenpositionen. `Web/Components/Diagrams` bündelt Zeichenfläche, Gestenvertrag und lokalen Rückgängig-Verlauf. Die fachlichen UML-/Entwurfskomponenten bleiben für Symbole, Eigenschaften und Bewertung zuständig. `wwwroot/js/diagram-canvas.js` übergibt Browsergesten an die schreibgeschützten Blazor-Handler; es benötigt keine externen Dienste. `wwwroot/diagrams.css` gestaltet Arbeitsfläche und Auswahlbereich. [Bedienung, Kompatibilität und Grenzen](diagramme.md).
+
+UML-/Entwurfsprüfungen dürfen beim Autospeichern sichtbare Antwortobjekte nicht durch gespeicherte Kopien ersetzen. Revisions-/Zeitmetadaten werden übernommen; eine endgültig gespeicherte Abgabe ersetzt weiterhin die offene Runde. Das erhält unmittelbar folgende Eingaben und den Verlauf. Positionen bleiben beim Laden erhalten, ohne fachliche Punkte zu beeinflussen.
+
+Der Pseudocode-Katalog enthält weiterhin zehn gemischte Aufgaben und zusätzlich den festen Fall `kulturfest-ausleihe` mit IDs 11–13. Fallauswahl und Kompatibilitätsprüfung unterscheiden diese Wege ausdrücklich. Keine Umnummerierung oder Änderung alter Runden.
+
 ## Lernstände und Werkstattvorschau nach Beta 3
 
 Die Daten in `IndependentSolution` entstehen bei erfolgreicher selbstständiger Abgabe. Strukturierte Antworten werden tief kopiert. Ein geführter Leseversuch arbeitet vorübergehend im Speicher. `RepeatInProgress` kennzeichnet den explizit neu begonnenen Versuch. Profilpfade und Inhaltsversionen sind unabhängig davon. Das Quellprojekt verwendet standardmäßig `Data/progress` unter dem Web-Projekt, der Windows-Release `%LOCALAPPDATA%/AP2-Lernwerk/progress`. Die in der Einrichtung angezeigte `appsettings.Local.json` speichert Verbindungseinstellungen.
@@ -47,7 +55,7 @@ src/
       Syntax/           Tokenisierung und begrenzte deutsche Grammatik
       Execution/        Isolierter Interpreter und Ablaufspur
       Evaluation/       Code-, Ausgabe- und Testfallprüfung
-      Exams/            Zehn eigene Prüfungsaufgaben, Auswahl und Teilpunkte
+      Exams/            Zehn gemischte Aufgaben und ein fester Fall mit drei Teilen
     BusinessStudies/
       Content/          150 eigene Fragen, acht Themen, Quellen und Katalog
       Evaluation/       Strukturierte Antworten und deterministische Teilprüfung

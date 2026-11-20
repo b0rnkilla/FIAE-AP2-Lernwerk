@@ -5,10 +5,11 @@
 @inject FiaeTrainer.Web.Exams.ExamService Exams
 @inject DatabaseState Database
 @using FiaeTrainer.Core.Exams
+@using FiaeTrainer.Core.Algorithms.Exams
 <PageTitle>@Label-Prüfung · AP2 Lernwerk</PageTitle>
 <main class="page exam-home">
     <div class="eyebrow">DEIN WISSEN SELBSTSTÄNDIG ANWENDEN</div><h1>@Label unter Prüfungsbedingungen.</h1>
-    <p class="lead">45 Minuten · @(Module == ExamModule.Sql ? "fünf Aufgaben an neuen Falltabellen" : "drei Aufgaben aus zehn eigenen Prüfungsaufgaben") · 50 Trainingspunkte</p>
+    <p class="lead">45 Minuten · @(Module == ExamModule.Sql ? "fünf Aufgaben an neuen Falltabellen" : "drei Aufgaben – gemischt oder als zusammenhängender Fall") · 50 Trainingspunkte</p>
     <ExamIntroduction Module="@(Module == ExamModule.Sql ? LearningModule.Sql : LearningModule.Algorithms)" />
     @if (_error != null) { <p class="notice warning" role="alert">@_error</p> }
     @if (Module == ExamModule.Sql && !Database.Ready) { <p class="notice warning">Für SQL brauchst du eine eingerichtete Verbindung. <a href="/einrichtung#sql">SQL einrichten</a></p> }
@@ -17,6 +18,11 @@
         <section class="business-resume"><div><h2>@(_existing.Submitted ? "Deine letzte Abgabe" : "Deine Prüfung wartet auf dich.")</h2><p>@(_existing.EvaluatedUtc != null ? $"{_existing.Earned} von 50 Trainingspunkten" : _existing.Submitted ? "Die Abgabe ist gespeichert und wartet auf die Auswertung." : "Entwürfe und Restzeit sind gespeichert.")</p></div><a class="button primary" href="@RoundPath">@(_existing.Submitted ? "Zur Auswertung →" : "Prüfung fortsetzen →")</a></section>
     }
     @if (Module == ExamModule.Sql) { <label class="exam-case-choice">Prüfungsfall<select @bind="_case"><option value="">Zufälliger Fall</option>@foreach (var item in Exams.SqlCases) { <option value="@item.Id">@item.Title</option> }</select></label> }
+    else
+    {
+        <label class="exam-case-choice">Prüfungsfall<select @bind="_case"><option value="">Gemischte Aufgaben aus dem bisherigen Pool</option><option value="@AlgorithmExamCatalog.EQUIPMENT_CASE">@AlgorithmExamCatalog.EQUIPMENT_TITLE</option></select></label>
+        @if (_case == AlgorithmExamCatalog.EQUIPMENT_CASE) { <p>@AlgorithmExamCatalog.EQUIPMENT_SCENARIO</p> }
+    }
     @if (_confirm)
     {
         <section class="notice warning" role="alert"><strong>Offene Prüfung ersetzen?</strong><p>Die Entwürfe des offenen Versuchs werden verworfen. Frühere bewertete Prüfungen und deine Lernaufgaben bleiben erhalten.</p><button class="button secondary" @onclick="() => _confirm = false">Abbrechen</button> <button class="button primary" disabled="@_busy" @onclick="StartAsync">Neuen Versuch starten</button></section>

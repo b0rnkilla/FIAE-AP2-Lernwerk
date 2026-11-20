@@ -104,7 +104,7 @@ public sealed class AlgorithmTypeTests
             Assert.NotEqual(old, lesson.ReferenceCode);
             Assert.Equal(task.Points, grading.Evaluate(task, old, "2026-11-05").Earned);
             Assert.Equal(task.Points, grading.Evaluate(task, lesson.ReferenceCode, current).Earned);
-            Assert.Equal(lesson.Id <= 3 ? 0 : task.Points, grading.Evaluate(task, old, current).Earned);
+            Assert.Equal(task.RequiresTypes(current) ? 0 : task.Points, grading.Evaluate(task, old, current).Earned);
         }
     }
 }

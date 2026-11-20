@@ -112,7 +112,7 @@ public sealed class UmlComponentTests : IDisposable
         await store.SaveUmlExamAsync(round, _catalog, true);
         string html = await RenderAsync<UmlExam>(services);
         Assert.Contains("50 / 50 Punkte", html); Assert.Contains("Musterlösung mit Erklärung", html);
-        Assert.Contains("<fieldset class=\"uml-node-editor\" disabled", html); Assert.DoesNotContain("Jetzt abgeben", html);
+        Assert.Contains("data-readonly=\"true\"", html); Assert.DoesNotContain("Jetzt abgeben", html);
     }
 
     [Fact]
@@ -132,6 +132,26 @@ public sealed class UmlComponentTests : IDisposable
             ("AddFragmentAsync", []), ("RemoveFragmentAsync", [fragment]), ("MoveAsync", [link, 1]), ("SelectAsync", ["x"]) })
             await (Task)typeof(UmlEditor).GetMethod(name, BindingFlags.Instance | BindingFlags.NonPublic)!.Invoke(editor, arguments)!;
         Assert.Equal(before, System.Text.Json.JsonSerializer.Serialize(answer));
+    }
+
+    [Fact]
+    public async Task AutosaveKeepsTheVisibleAnswerAndItsDiagramIdentity()
+    {
+        using var services = Services(); var store = services.GetRequiredService<ProgressStore>();
+        var round = new UmlExamRound { CaseId = "proberaum" };
+        round.Answers[1] = new() { Model = _catalog.Cases[0].Tasks[0].Solutions[0].Copy() };
+        await store.StartUmlExamAsync(round);
+        var page = new UmlExam();
+        const BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
+        typeof(UmlExam).GetProperty("Store", flags)!.SetValue(page, store);
+        typeof(UmlExam).GetProperty("Catalog", flags)!.SetValue(page, _catalog);
+        typeof(UmlExam).GetField("_round", flags)!.SetValue(page, round);
+        var answer = round.Answers[1]; var model = answer.Model;
+        model.Positions[model.Nodes[0].Id] = new(850, 450);
+        await (Task)typeof(UmlExam).GetMethod("SaveAsync", flags)!.Invoke(page, null)!;
+        Assert.Same(round, typeof(UmlExam).GetField("_round", flags)!.GetValue(page));
+        Assert.Same(answer, round.Answers[1]); Assert.Same(model, answer.Model);
+        Assert.Equal(new(850, 450), (await store.LoadAsync()).UmlExam!.Answers[1].Model.Positions[model.Nodes[0].Id]);
     }
 
     private ServiceProvider Services()

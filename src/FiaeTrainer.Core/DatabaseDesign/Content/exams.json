@@ -9,7 +9,7 @@
         "chapter": "Prüfung",
         "title": "Stammdaten und Vorgänge",
         "story": "Eine Reparaturwerkstatt organisiert Material. Die Teilaufgaben sind unabhängig und verwenden jeweils den beschriebenen Ausschnitt.",
-        "task": "Erstelle Werkstattkunde mit KundenNr (eindeutig) und Kontaktname, sowie Reparatur mit ReparaturNr (eindeutig) und Abgabetag. Jeder Reparatur-Datensatz gehört genau einem Werkstattkunde-Datensatz; umgekehrt sind viele Vorgänge möglich. Alle Attribute sind Pflicht. Elternobjekte dürfen ohne abhängige Sätze existieren. Nicht genannte Zusatzattribute oder Eindeutigkeitsregeln sind nicht erforderlich. Tabellen- und Anzeigenamen sind frei.",
+        "task": "Für Werkstattkunde werden eine eindeutige KundenNr und Kontaktname gespeichert. Zu Reparatur gehören eine eindeutige ReparaturNr und Abgabetag. Jeder Eintrag in Reparatur ist genau einem Eintrag in Werkstattkunde zugeordnet. Zu einem Eintrag in Werkstattkunde kann es noch keinen, einen oder mehrere Einträge in Reparatur geben. Entwickle daraus den relationalen Ausschnitt.\nAlle Werte sind erforderlich. Kennzeichne Primärschlüssel, vollständige Fremdschlüssel und Kardinalitäten. Weitere Eindeutigkeiten werden nicht angenommen. Tabellennamen sind frei.",
         "kind": "Model",
         "attributes": {
           "KundenNr": "KundenNr",
@@ -102,14 +102,15 @@
           "Welche Angaben gehören zur Person, welche zur einzelnen Reparatur?",
           "Kann der zweite Auftrag denselben Kunden referenzieren, ohne dessen Stammdaten zu verdoppeln?"
         ],
-        "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig."
+        "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig.\n\nWerkstattkunde enthält KundenNr, Kontaktname. Die Kennung KundenNr identifiziert einen Eintrag eindeutig.\n\nReparatur enthält ReparaturNr, Abgabetag, KundenNr. Die Kennung ReparaturNr identifiziert einen Eintrag eindeutig.\n\nReparatur: KundenNr verweist vollständig auf Werkstattkunde: KundenNr. Pro Eintrag in Reparatur sind 1..1 Einträge aus Werkstattkunde erlaubt; pro Eintrag in Werkstattkunde sind es 0..n Einträge aus Reparatur.",
+        "fundamentals": "Ein relationales Modell zeigt Tabellen mit einzelnen Attributen. PK markiert den Primärschlüssel; mehrere PK-Markierungen in derselben Tabelle bilden zusammen einen Schlüssel. Ein FK verbindet eine vollständige Spaltenmenge mit einem eindeutigen Schlüssel einer anderen Tabelle. Gleiche UQ-Gruppen bilden zusammen einen zusätzlichen eindeutigen Schlüssel.\nBeispiel: Eine Fahrt gehört genau einem Fahrzeug, ein Fahrzeug kann noch ohne Fahrten erfasst sein. Im Diagramm steht 1 am Fahrzeugende und 0..n am Fahrtende. Die Fahrzeugnummer wird in Fahrt als Fremdschlüssel benötigt. Liest du vom Fahrzeug aus, sagt die Zahl am anderen Ende, wie viele Fahrten zu einem Fahrzeug gehören können.\nBei Normalisierung frage: Was bestimmt welches Attribut? Ein Feld soll beim Gegenstand liegen, von dessen vollständigem Schlüssel es abhängt. Eine neue künstliche ID allein beseitigt keine solchen Abhängigkeiten."
       },
       {
         "id": 2,
         "chapter": "Prüfung",
         "title": "Eine Zuordnung mit eigener Eigenschaft",
         "story": "Eine Reparaturwerkstatt organisiert Material. Die Teilaufgaben sind unabhängig und verwenden jeweils den beschriebenen Ausschnitt.",
-        "task": "Betrachte unabhängig den Ausschnitt Reparatur(ReparaturNr, Abgabetag) und Ersatzteil(TeilNr, Teilname); die jeweils erste Nummer ist PK. Materialeinsatz ordnet beide zu und enthält Stueckzahl. Pro Paar darf nur ein Datensatz existieren. Modelliere den zusammengesetzten PK und beide FKs. Alle Attribute sind Pflicht. Elternobjekte dürfen ohne abhängige Sätze existieren. Nicht genannte Zusatzattribute oder Eindeutigkeitsregeln sind nicht erforderlich. Tabellen- und Anzeigenamen sind frei.",
+        "task": "Betrachte unabhängig den folgenden Ausschnitt: Reparatur besitzt eine eindeutige ReparaturNr und Abgabetag; Ersatzteil eine eindeutige TeilNr und Teilname. Zwischen beiden sind auf jeder Seite mehrere Zuordnungen möglich. Pro Paar wird genau einmal Stueckzahl gespeichert; diese Angabe beschreibt den Materialeinsatz. Beide Arten von Stammdaten können ohne Zuordnung existieren. Entwickle ein relationales Modell ohne zusätzliche künstliche Kennungen.\nAlle Werte sind erforderlich. Kennzeichne Primärschlüssel, vollständige Fremdschlüssel und Kardinalitäten. Weitere Eindeutigkeiten werden nicht angenommen. Tabellennamen sind frei.",
         "kind": "Model",
         "attributes": {
           "ReparaturNr": "ReparaturNr",
@@ -239,7 +240,8 @@
           "Welche beiden Kennungen brauchst du, bevor eine Stückzahl eindeutig zugeordnet ist?",
           "Teste den erneuten Eintrag desselben Teils bei derselben Reparatur. Bleibt die Paargrenze gewahrt?"
         ],
-        "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig."
+        "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig.\n\nReparatur enthält ReparaturNr, Abgabetag. Die Kennung ReparaturNr identifiziert einen Eintrag eindeutig.\n\nErsatzteil enthält TeilNr, Teilname. Die Kennung TeilNr identifiziert einen Eintrag eindeutig.\n\nMaterialeinsatz enthält ReparaturNr, TeilNr, Stueckzahl. Erst das Paar beziehungsweise die gesamte Kombination ReparaturNr + TeilNr identifiziert einen Eintrag eindeutig.\n\nMaterialeinsatz: ReparaturNr verweist vollständig auf Reparatur: ReparaturNr. Pro Eintrag in Materialeinsatz sind 1..1 Einträge aus Reparatur erlaubt; pro Eintrag in Reparatur sind es 0..n Einträge aus Materialeinsatz.\n\nMaterialeinsatz: TeilNr verweist vollständig auf Ersatzteil: TeilNr. Pro Eintrag in Materialeinsatz sind 1..1 Einträge aus Ersatzteil erlaubt; pro Eintrag in Ersatzteil sind es 0..n Einträge aus Materialeinsatz.\n\nKontrolle: Nur eine der beteiligten Nummern als Schlüssel würde zulässige Wiederholungen auf der anderen Seite verbieten. Die gemeinsame Kennung schützt genau die Einmaligkeit des Paars.",
+        "fundamentals": "Ein relationales Modell zeigt Tabellen mit einzelnen Attributen. PK markiert den Primärschlüssel; mehrere PK-Markierungen in derselben Tabelle bilden zusammen einen Schlüssel. Ein FK verbindet eine vollständige Spaltenmenge mit einem eindeutigen Schlüssel einer anderen Tabelle. Gleiche UQ-Gruppen bilden zusammen einen zusätzlichen eindeutigen Schlüssel.\nBeispiel: Eine Fahrt gehört genau einem Fahrzeug, ein Fahrzeug kann noch ohne Fahrten erfasst sein. Im Diagramm steht 1 am Fahrzeugende und 0..n am Fahrtende. Die Fahrzeugnummer wird in Fahrt als Fremdschlüssel benötigt. Liest du vom Fahrzeug aus, sagt die Zahl am anderen Ende, wie viele Fahrten zu einem Fahrzeug gehören können.\nBei Normalisierung frage: Was bestimmt welches Attribut? Ein Feld soll beim Gegenstand liegen, von dessen vollständigem Schlüssel es abhängt. Eine neue künstliche ID allein beseitigt keine solchen Abhängigkeiten."
       },
       {
         "id": 3,
@@ -269,7 +271,8 @@
           "Versuche für jede behauptete Garantie einen erlaubten Sonderfall zu finden.",
           "Welche Aussage würde eine zusätzliche Schlüssel- oder Geschäftsregel voraussetzen?"
         ],
-        "explanation": "Eine künstliche ID beseitigt weder doppelte fachliche Paare noch andere Abhängigkeiten. FK sichern vorhandene Referenzen, keine Mindestanzahl von Kindern. Optionale Zuordnungen benötigen passende NULL-Regeln."
+        "explanation": "Eine künstliche ID beseitigt weder doppelte fachliche Paare noch andere Abhängigkeiten. FK sichern vorhandene Referenzen, keine Mindestanzahl von Kindern. Optionale Zuordnungen benötigen passende NULL-Regeln.",
+        "fundamentals": "Ein relationales Modell zeigt Tabellen mit einzelnen Attributen. PK markiert den Primärschlüssel; mehrere PK-Markierungen in derselben Tabelle bilden zusammen einen Schlüssel. Ein FK verbindet eine vollständige Spaltenmenge mit einem eindeutigen Schlüssel einer anderen Tabelle. Gleiche UQ-Gruppen bilden zusammen einen zusätzlichen eindeutigen Schlüssel.\nBeispiel: Eine Fahrt gehört genau einem Fahrzeug, ein Fahrzeug kann noch ohne Fahrten erfasst sein. Im Diagramm steht 1 am Fahrzeugende und 0..n am Fahrtende. Die Fahrzeugnummer wird in Fahrt als Fremdschlüssel benötigt. Liest du vom Fahrzeug aus, sagt die Zahl am anderen Ende, wie viele Fahrten zu einem Fahrzeug gehören können.\nBei Normalisierung frage: Was bestimmt welches Attribut? Ein Feld soll beim Gegenstand liegen, von dessen vollständigem Schlüssel es abhängt. Eine neue künstliche ID allein beseitigt keine solchen Abhängigkeiten."
       }
     ],
     "points": [
@@ -288,7 +291,7 @@
         "chapter": "Prüfung",
         "title": "Stammdaten und Vorgänge",
         "story": "Ein Medienhaus plant Veranstaltungsbuchungen. Die Teilaufgaben sind unabhängig und verwenden jeweils den beschriebenen Ausschnitt.",
-        "task": "Erstelle Besucher mit BesucherNr (eindeutig) und Besuchername, sowie Buchung mit BuchungsNr (eindeutig) und Buchungstag. Jeder Buchung-Datensatz gehört genau einem Besucher-Datensatz; umgekehrt sind viele Vorgänge möglich. Alle Attribute sind Pflicht. Elternobjekte dürfen ohne abhängige Sätze existieren. Nicht genannte Zusatzattribute oder Eindeutigkeitsregeln sind nicht erforderlich. Tabellen- und Anzeigenamen sind frei.",
+        "task": "Für Besucher werden eine eindeutige BesucherNr und Besuchername gespeichert. Zu Buchung gehören eine eindeutige BuchungsNr und Buchungstag. Jeder Eintrag in Buchung ist genau einem Eintrag in Besucher zugeordnet. Zu einem Eintrag in Besucher kann es noch keinen, einen oder mehrere Einträge in Buchung geben. Entwickle daraus den relationalen Ausschnitt.\nAlle Werte sind erforderlich. Kennzeichne Primärschlüssel, vollständige Fremdschlüssel und Kardinalitäten. Weitere Eindeutigkeiten werden nicht angenommen. Tabellennamen sind frei.",
         "kind": "Model",
         "attributes": {
           "BesucherNr": "BesucherNr",
@@ -381,14 +384,15 @@
           "Welche Nummer identifiziert den Vorgang unabhängig von der buchenden Person?",
           "Kann sich jemand bereits registrieren, ohne eine Buchungszeile zu benötigen?"
         ],
-        "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig."
+        "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig.\n\nBesucher enthält BesucherNr, Besuchername. Die Kennung BesucherNr identifiziert einen Eintrag eindeutig.\n\nBuchung enthält BuchungsNr, Buchungstag, BesucherNr. Die Kennung BuchungsNr identifiziert einen Eintrag eindeutig.\n\nBuchung: BesucherNr verweist vollständig auf Besucher: BesucherNr. Pro Eintrag in Buchung sind 1..1 Einträge aus Besucher erlaubt; pro Eintrag in Besucher sind es 0..n Einträge aus Buchung.",
+        "fundamentals": "Ein relationales Modell zeigt Tabellen mit einzelnen Attributen. PK markiert den Primärschlüssel; mehrere PK-Markierungen in derselben Tabelle bilden zusammen einen Schlüssel. Ein FK verbindet eine vollständige Spaltenmenge mit einem eindeutigen Schlüssel einer anderen Tabelle. Gleiche UQ-Gruppen bilden zusammen einen zusätzlichen eindeutigen Schlüssel.\nBeispiel: Eine Fahrt gehört genau einem Fahrzeug, ein Fahrzeug kann noch ohne Fahrten erfasst sein. Im Diagramm steht 1 am Fahrzeugende und 0..n am Fahrtende. Die Fahrzeugnummer wird in Fahrt als Fremdschlüssel benötigt. Liest du vom Fahrzeug aus, sagt die Zahl am anderen Ende, wie viele Fahrten zu einem Fahrzeug gehören können.\nBei Normalisierung frage: Was bestimmt welches Attribut? Ein Feld soll beim Gegenstand liegen, von dessen vollständigem Schlüssel es abhängt. Eine neue künstliche ID allein beseitigt keine solchen Abhängigkeiten."
       },
       {
         "id": 2,
         "chapter": "Prüfung",
         "title": "Eine Zuordnung mit eigener Eigenschaft",
         "story": "Ein Medienhaus plant Veranstaltungsbuchungen. Die Teilaufgaben sind unabhängig und verwenden jeweils den beschriebenen Ausschnitt.",
-        "task": "Betrachte unabhängig den Ausschnitt Buchung(BuchungsNr, Buchungstag) und Workshop(WorkshopNr, Workshopname); die jeweils erste Nummer ist PK. Buchungsposition ordnet beide zu und enthält Plaetze. Pro Paar darf nur ein Datensatz existieren. Modelliere den zusammengesetzten PK und beide FKs. Alle Attribute sind Pflicht. Elternobjekte dürfen ohne abhängige Sätze existieren. Nicht genannte Zusatzattribute oder Eindeutigkeitsregeln sind nicht erforderlich. Tabellen- und Anzeigenamen sind frei.",
+        "task": "Betrachte unabhängig den folgenden Ausschnitt: Buchung besitzt eine eindeutige BuchungsNr und Buchungstag; Workshop eine eindeutige WorkshopNr und Workshopname. Zwischen beiden sind auf jeder Seite mehrere Zuordnungen möglich. Pro Paar wird genau einmal Plaetze gespeichert; diese Angabe beschreibt den Buchungsposition. Beide Arten von Stammdaten können ohne Zuordnung existieren. Entwickle ein relationales Modell ohne zusätzliche künstliche Kennungen.\nAlle Werte sind erforderlich. Kennzeichne Primärschlüssel, vollständige Fremdschlüssel und Kardinalitäten. Weitere Eindeutigkeiten werden nicht angenommen. Tabellennamen sind frei.",
         "kind": "Model",
         "attributes": {
           "BuchungsNr": "BuchungsNr",
@@ -518,7 +522,8 @@
           "Welches Wissen brauchst du außer der Workshopnummer, um die Platzzahl anzugeben?",
           "Prüfe die Wiederholung eines Workshops in einer anderen Buchung und im selben Vorgang."
         ],
-        "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig."
+        "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig.\n\nBuchung enthält BuchungsNr, Buchungstag. Die Kennung BuchungsNr identifiziert einen Eintrag eindeutig.\n\nWorkshop enthält WorkshopNr, Workshopname. Die Kennung WorkshopNr identifiziert einen Eintrag eindeutig.\n\nBuchungsposition enthält BuchungsNr, WorkshopNr, Plaetze. Erst das Paar beziehungsweise die gesamte Kombination BuchungsNr + WorkshopNr identifiziert einen Eintrag eindeutig.\n\nBuchungsposition: BuchungsNr verweist vollständig auf Buchung: BuchungsNr. Pro Eintrag in Buchungsposition sind 1..1 Einträge aus Buchung erlaubt; pro Eintrag in Buchung sind es 0..n Einträge aus Buchungsposition.\n\nBuchungsposition: WorkshopNr verweist vollständig auf Workshop: WorkshopNr. Pro Eintrag in Buchungsposition sind 1..1 Einträge aus Workshop erlaubt; pro Eintrag in Workshop sind es 0..n Einträge aus Buchungsposition.\n\nKontrolle: Nur eine der beteiligten Nummern als Schlüssel würde zulässige Wiederholungen auf der anderen Seite verbieten. Die gemeinsame Kennung schützt genau die Einmaligkeit des Paars.",
+        "fundamentals": "Ein relationales Modell zeigt Tabellen mit einzelnen Attributen. PK markiert den Primärschlüssel; mehrere PK-Markierungen in derselben Tabelle bilden zusammen einen Schlüssel. Ein FK verbindet eine vollständige Spaltenmenge mit einem eindeutigen Schlüssel einer anderen Tabelle. Gleiche UQ-Gruppen bilden zusammen einen zusätzlichen eindeutigen Schlüssel.\nBeispiel: Eine Fahrt gehört genau einem Fahrzeug, ein Fahrzeug kann noch ohne Fahrten erfasst sein. Im Diagramm steht 1 am Fahrzeugende und 0..n am Fahrtende. Die Fahrzeugnummer wird in Fahrt als Fremdschlüssel benötigt. Liest du vom Fahrzeug aus, sagt die Zahl am anderen Ende, wie viele Fahrten zu einem Fahrzeug gehören können.\nBei Normalisierung frage: Was bestimmt welches Attribut? Ein Feld soll beim Gegenstand liegen, von dessen vollständigem Schlüssel es abhängt. Eine neue künstliche ID allein beseitigt keine solchen Abhängigkeiten."
       },
       {
         "id": 3,
@@ -548,7 +553,8 @@
           "Überlege, was die Platzzahl beschreibt, wenn zwei Buchungen denselben Workshop wählen.",
           "Teste die Behauptungen mit zwei Workshops gleichen Namens, aber unterschiedlichen Nummern."
         ],
-        "explanation": "Plätze gehören zur konkreten Buchungsposition. Nummer und Name sind getrennte Eigenschaften. Eine Kapazitätsprüfung benötigt zusätzliche Regeln; eine Referenz allein genügt nicht."
+        "explanation": "Plätze gehören zur konkreten Buchungsposition. Nummer und Name sind getrennte Eigenschaften. Eine Kapazitätsprüfung benötigt zusätzliche Regeln; eine Referenz allein genügt nicht.",
+        "fundamentals": "Ein relationales Modell zeigt Tabellen mit einzelnen Attributen. PK markiert den Primärschlüssel; mehrere PK-Markierungen in derselben Tabelle bilden zusammen einen Schlüssel. Ein FK verbindet eine vollständige Spaltenmenge mit einem eindeutigen Schlüssel einer anderen Tabelle. Gleiche UQ-Gruppen bilden zusammen einen zusätzlichen eindeutigen Schlüssel.\nBeispiel: Eine Fahrt gehört genau einem Fahrzeug, ein Fahrzeug kann noch ohne Fahrten erfasst sein. Im Diagramm steht 1 am Fahrzeugende und 0..n am Fahrtende. Die Fahrzeugnummer wird in Fahrt als Fremdschlüssel benötigt. Liest du vom Fahrzeug aus, sagt die Zahl am anderen Ende, wie viele Fahrten zu einem Fahrzeug gehören können.\nBei Normalisierung frage: Was bestimmt welches Attribut? Ein Feld soll beim Gegenstand liegen, von dessen vollständigem Schlüssel es abhängt. Eine neue künstliche ID allein beseitigt keine solchen Abhängigkeiten."
       }
     ],
     "points": [
@@ -567,7 +573,7 @@
         "chapter": "Prüfung",
         "title": "Stammdaten und Vorgänge",
         "story": "Eine Manufaktur dokumentiert Produktionsaufträge. Die Teilaufgaben sind unabhängig und verwenden jeweils den beschriebenen Ausschnitt.",
-        "task": "Erstelle Besteller mit BestellerNr (eindeutig) und Bestellername, sowie Fertigungsauftrag mit FertigungsNr (eindeutig) und Starttag. Jeder Fertigungsauftrag-Datensatz gehört genau einem Besteller-Datensatz; umgekehrt sind viele Vorgänge möglich. Alle Attribute sind Pflicht. Elternobjekte dürfen ohne abhängige Sätze existieren. Nicht genannte Zusatzattribute oder Eindeutigkeitsregeln sind nicht erforderlich. Tabellen- und Anzeigenamen sind frei.",
+        "task": "Für Besteller werden eine eindeutige BestellerNr und Bestellername gespeichert. Zu Fertigungsauftrag gehören eine eindeutige FertigungsNr und Starttag. Jeder Eintrag in Fertigungsauftrag ist genau einem Eintrag in Besteller zugeordnet. Zu einem Eintrag in Besteller kann es noch keinen, einen oder mehrere Einträge in Fertigungsauftrag geben. Entwickle daraus den relationalen Ausschnitt.\nAlle Werte sind erforderlich. Kennzeichne Primärschlüssel, vollständige Fremdschlüssel und Kardinalitäten. Weitere Eindeutigkeiten werden nicht angenommen. Tabellennamen sind frei.",
         "kind": "Model",
         "attributes": {
           "BestellerNr": "BestellerNr",
@@ -660,14 +666,15 @@
           "Verfolge die Kennung vom Fertigungsauftrag bis zu den Stammdaten.",
           "Kann ein zweiter Auftrag denselben Besteller haben und trotzdem eine eigene Identität behalten?"
         ],
-        "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig."
+        "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig.\n\nBesteller enthält BestellerNr, Bestellername. Die Kennung BestellerNr identifiziert einen Eintrag eindeutig.\n\nFertigungsauftrag enthält FertigungsNr, Starttag, BestellerNr. Die Kennung FertigungsNr identifiziert einen Eintrag eindeutig.\n\nFertigungsauftrag: BestellerNr verweist vollständig auf Besteller: BestellerNr. Pro Eintrag in Fertigungsauftrag sind 1..1 Einträge aus Besteller erlaubt; pro Eintrag in Besteller sind es 0..n Einträge aus Fertigungsauftrag.",
+        "fundamentals": "Ein relationales Modell zeigt Tabellen mit einzelnen Attributen. PK markiert den Primärschlüssel; mehrere PK-Markierungen in derselben Tabelle bilden zusammen einen Schlüssel. Ein FK verbindet eine vollständige Spaltenmenge mit einem eindeutigen Schlüssel einer anderen Tabelle. Gleiche UQ-Gruppen bilden zusammen einen zusätzlichen eindeutigen Schlüssel.\nBeispiel: Eine Fahrt gehört genau einem Fahrzeug, ein Fahrzeug kann noch ohne Fahrten erfasst sein. Im Diagramm steht 1 am Fahrzeugende und 0..n am Fahrtende. Die Fahrzeugnummer wird in Fahrt als Fremdschlüssel benötigt. Liest du vom Fahrzeug aus, sagt die Zahl am anderen Ende, wie viele Fahrten zu einem Fahrzeug gehören können.\nBei Normalisierung frage: Was bestimmt welches Attribut? Ein Feld soll beim Gegenstand liegen, von dessen vollständigem Schlüssel es abhängt. Eine neue künstliche ID allein beseitigt keine solchen Abhängigkeiten."
       },
       {
         "id": 2,
         "chapter": "Prüfung",
         "title": "Eine Zuordnung mit eigener Eigenschaft",
         "story": "Eine Manufaktur dokumentiert Produktionsaufträge. Die Teilaufgaben sind unabhängig und verwenden jeweils den beschriebenen Ausschnitt.",
-        "task": "Betrachte unabhängig den Ausschnitt Fertigungsauftrag(FertigungsNr, Starttag) und Werkstoff(WerkstoffNr, Werkstoffname); die jeweils erste Nummer ist PK. Bedarf ordnet beide zu und enthält Bedarfsmenge. Pro Paar darf nur ein Datensatz existieren. Modelliere den zusammengesetzten PK und beide FKs. Alle Attribute sind Pflicht. Elternobjekte dürfen ohne abhängige Sätze existieren. Nicht genannte Zusatzattribute oder Eindeutigkeitsregeln sind nicht erforderlich. Tabellen- und Anzeigenamen sind frei.",
+        "task": "Betrachte unabhängig den folgenden Ausschnitt: Fertigungsauftrag besitzt eine eindeutige FertigungsNr und Starttag; Werkstoff eine eindeutige WerkstoffNr und Werkstoffname. Zwischen beiden sind auf jeder Seite mehrere Zuordnungen möglich. Pro Paar wird genau einmal Bedarfsmenge gespeichert; diese Angabe beschreibt den Bedarf. Beide Arten von Stammdaten können ohne Zuordnung existieren. Entwickle ein relationales Modell ohne zusätzliche künstliche Kennungen.\nAlle Werte sind erforderlich. Kennzeichne Primärschlüssel, vollständige Fremdschlüssel und Kardinalitäten. Weitere Eindeutigkeiten werden nicht angenommen. Tabellennamen sind frei.",
         "kind": "Model",
         "attributes": {
           "FertigungsNr": "FertigungsNr",
@@ -797,7 +804,8 @@
           "An welcher Stelle sind der konkrete Auftrag und der konkrete Werkstoff gleichzeitig bekannt?",
           "Versuche, identischen Bedarf zweimal zu erfassen. Welche Kombination müsste das verhindern?"
         ],
-        "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig."
+        "explanation": "Die Lösung bildet die ausdrücklich vorgegebenen Entitäten und Zuordnungen ab. PK identifizieren Datensätze, FK referenzieren vollständige Schlüssel. Die beiden Teilmodelle sind unabhängig.\n\nFertigungsauftrag enthält FertigungsNr, Starttag. Die Kennung FertigungsNr identifiziert einen Eintrag eindeutig.\n\nWerkstoff enthält WerkstoffNr, Werkstoffname. Die Kennung WerkstoffNr identifiziert einen Eintrag eindeutig.\n\nBedarf enthält FertigungsNr, WerkstoffNr, Bedarfsmenge. Erst das Paar beziehungsweise die gesamte Kombination FertigungsNr + WerkstoffNr identifiziert einen Eintrag eindeutig.\n\nBedarf: FertigungsNr verweist vollständig auf Fertigungsauftrag: FertigungsNr. Pro Eintrag in Bedarf sind 1..1 Einträge aus Fertigungsauftrag erlaubt; pro Eintrag in Fertigungsauftrag sind es 0..n Einträge aus Bedarf.\n\nBedarf: WerkstoffNr verweist vollständig auf Werkstoff: WerkstoffNr. Pro Eintrag in Bedarf sind 1..1 Einträge aus Werkstoff erlaubt; pro Eintrag in Werkstoff sind es 0..n Einträge aus Bedarf.\n\nKontrolle: Nur eine der beteiligten Nummern als Schlüssel würde zulässige Wiederholungen auf der anderen Seite verbieten. Die gemeinsame Kennung schützt genau die Einmaligkeit des Paars.",
+        "fundamentals": "Ein relationales Modell zeigt Tabellen mit einzelnen Attributen. PK markiert den Primärschlüssel; mehrere PK-Markierungen in derselben Tabelle bilden zusammen einen Schlüssel. Ein FK verbindet eine vollständige Spaltenmenge mit einem eindeutigen Schlüssel einer anderen Tabelle. Gleiche UQ-Gruppen bilden zusammen einen zusätzlichen eindeutigen Schlüssel.\nBeispiel: Eine Fahrt gehört genau einem Fahrzeug, ein Fahrzeug kann noch ohne Fahrten erfasst sein. Im Diagramm steht 1 am Fahrzeugende und 0..n am Fahrtende. Die Fahrzeugnummer wird in Fahrt als Fremdschlüssel benötigt. Liest du vom Fahrzeug aus, sagt die Zahl am anderen Ende, wie viele Fahrten zu einem Fahrzeug gehören können.\nBei Normalisierung frage: Was bestimmt welches Attribut? Ein Feld soll beim Gegenstand liegen, von dessen vollständigem Schlüssel es abhängt. Eine neue künstliche ID allein beseitigt keine solchen Abhängigkeiten."
       },
       {
         "id": 3,
@@ -827,7 +835,8 @@
           "Welche Aussagen stützen sich auf eine Kennung und welche stillschweigend auf einen Namen?",
           "Lass zwei Werkstoffe gleich heißen. Welche Folgerungen bleiben gültig?"
         ],
-        "explanation": "Die Menge beschreibt die konkrete Zuordnung. Weder Name noch Besteller identifizieren hier den Vorgang beziehungsweise Werkstoff. Aktuelle und historische Preise haben verschiedene Bedeutungen."
+        "explanation": "Die Menge beschreibt die konkrete Zuordnung. Weder Name noch Besteller identifizieren hier den Vorgang beziehungsweise Werkstoff. Aktuelle und historische Preise haben verschiedene Bedeutungen.",
+        "fundamentals": "Ein relationales Modell zeigt Tabellen mit einzelnen Attributen. PK markiert den Primärschlüssel; mehrere PK-Markierungen in derselben Tabelle bilden zusammen einen Schlüssel. Ein FK verbindet eine vollständige Spaltenmenge mit einem eindeutigen Schlüssel einer anderen Tabelle. Gleiche UQ-Gruppen bilden zusammen einen zusätzlichen eindeutigen Schlüssel.\nBeispiel: Eine Fahrt gehört genau einem Fahrzeug, ein Fahrzeug kann noch ohne Fahrten erfasst sein. Im Diagramm steht 1 am Fahrzeugende und 0..n am Fahrtende. Die Fahrzeugnummer wird in Fahrt als Fremdschlüssel benötigt. Liest du vom Fahrzeug aus, sagt die Zahl am anderen Ende, wie viele Fahrten zu einem Fahrzeug gehören können.\nBei Normalisierung frage: Was bestimmt welches Attribut? Ein Feld soll beim Gegenstand liegen, von dessen vollständigem Schlüssel es abhängt. Eine neue künstliche ID allein beseitigt keine solchen Abhängigkeiten."
       }
     ],
     "points": [

@@ -1,10 +1,12 @@
 # AP2 Lernwerk lokal starten
 
-## Beta 5 vorbereitet
+## Beta 5 für Windows
 
-Die Quellversion `1.0.0-beta.5` und die [Versionshinweise](../release/Versionshinweise-1.0.0-beta.5.md) sind für den Nutzer-Commit vorbereitet. Der Windows-Paketbau ist für danach beauftragt. Nach dem bestätigten Push den Zielcommit abgleichen, das ZIP mit separatem Port und Profil prüfen und Prüfsumme sowie Paketdaten ergänzen. Noch kein Beta-5-ZIP erstellt.
+Das unsignierte Windows-x64-Paket wurde am 17.11.2026 nach bestätigtem Nutzer-Push aus dem sauberen Commit `75f2791f9319c209f72a6892fe1558c9317d1d2f` gebaut. Der lokale Verweis `origin/master` stimmt überein; ein direkter GitHub-Abgleich war wegen der Netzwerkauflösung nicht möglich. Anwendungscode, Anleitung und [Versionshinweise](../release/Versionshinweise-1.0.0-beta.5.md) stammen aus diesem Commit.
 
-Vorgesehene GitHub-Angaben: Tag `v1.0.0-beta.5`, Titel **AP2 Lernwerk 1.0.0-beta.5**, **Pre-release**. Als Assets das geprüfte Windows-x64-ZIP und seine `.zip.sha256` anhängen. Der Zielcommit steht erst nach dem Nutzer-Commit fest.
+`AP2-Lernwerk-1.0.0-beta.5-win-x64.zip`: 62 Dateien, 51.840.058 Bytes, SHA256 `3e70716caaf2d03e50b25f51b1cee5131211ac220aaf9d9efb97f27a164194be`. Dateiumfang, private Dateiausschlüsse, Lizenzen, Icon, Produktversion und nativer EXE-Start auf Port 5393 mit separatem Profil geprüft. Die interaktive Prüfung des Pakets blieb durch die Socket-Sperre der Testumgebung blockiert. Auch der NuGet-Sicherheitsabgleich war nicht erreichbar. Einzelheiten im [Testprotokoll](testprotokoll.md); Nachweis `artifacts/beta5-verification.json`.
+
+GitHub: Tag `v1.0.0-beta.5` auf `75f2791`, Titel **AP2 Lernwerk 1.0.0-beta.5**, **Pre-release**. ZIP und `.zip.sha256` anhängen. Veröffentlichung durch den Nutzer; ZIP, Prüfsumme und ältere Pakete unverändert erhalten. Nachträgliche Prüfdokumentation separat committen.
 
 ## Beta 4 für Windows
 

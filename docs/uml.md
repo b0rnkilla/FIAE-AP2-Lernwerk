@@ -1,6 +1,6 @@
 # UML und Modellierung – Abschnitt 03
 
-Die Quellfassung **1.0.0-beta.1** enthält 36 Lernaufgaben und drei Prüfungsfälle. Der Lernweg ist seit Alpha 13 im Windows-Paket enthalten. Die Beta akzeptiert bei Klassenbeziehungen auch die Kurzschreibweise `*` für `0..*`.
+Die Quellfassung **1.0.0-beta.6** enthält 36 Lernaufgaben und drei Prüfungsfälle mit überarbeiteten Geschäftsaufträgen, konkreten Grundlagenbeispielen und ausführlicheren Mustererklärungen. Die gemeinsame direkte Zeichenfläche ersetzt die langen Formularlisten. Das vorhandene Beta-5-Paket bleibt unverändert.
 
 ## Lernweg und Geschichte
 
@@ -11,7 +11,7 @@ Die Quellfassung **1.0.0-beta.1** enthält 36 Lernaufgaben und drei Prüfungsfä
 | 1–4 | Diagrammsprache verstehen | Vier Leseaufgaben zu Funktion, Klasse/Objekt, Kontrollfluss und Ereignis |
 | 5–10 | Anwendungsfälle | Sechs Aufgaben: Akteure, beschriftete Systemgrenze, Assoziation, include, extend, Generalisierung |
 | 11–18 | Klassen | Acht Aufgaben: Attribute/Methoden, Sichtbarkeit, Parameter und Rückgabe, Multiplizitäten, Aggregation/Komposition, abstrakte Klasse, Interface und Realisierung |
-| 19–24 | Aktivitäten | Sechs Aufgaben: Start/Ende, Aktionen, Entscheidung/Merge, Fork/Join und Verantwortungsbereiche |
+| 19–24 | Aktivitäten | Sechs Aufgaben: Start/Ende, Aktionen, Entscheidung/Zusammenführung, Parallelisierung/Synchronisation und Verantwortungsbereiche |
 | 25–30 | Sequenzen | Sechs Aufgaben: Lebenslinien, synchrone Aufrufe/Rückgaben, Reihenfolge sowie alt/loop/opt |
 | 31–36 | Zustände | Sechs Aufgaben: Zustände, Ereignisse, Bedingungen, entry/do/exit, Stornierung und Finalknoten |
 
@@ -19,13 +19,13 @@ Sieben Lese-, sechs Reparatur- und 23 eigene Modellierungsaufgaben. Modellierung
 
 ## Eigene Diagramme bedienen
 
-Die gemeinsame TaskRail, LearningModePicker und der bestehende Lernrahmen bleiben erhalten: Aufgaben links, Geschichte/Auftrag/Baukasten/Hilfen mittig, bestätigte Planungsschritte rechts beziehungsweise mobil darunter. Neue Versuche beginnen ohne Hilfe. Ein Wechsel zum geführten Lernen erhält den Entwurf und kennzeichnet Unterstützung. Ein frischer Selbsttest verlangt bei tatsächlich geändertem Entwurf die gemeinsame Neustartbestätigung. Frühere Erfolge bleiben erhalten.
+TaskRail und LearningModePicker bleiben erhalten. Geschichte und bestätigte Planungsschritte sind aufklappbar. Auf breiten Bildschirmen bleibt der Auftrag neben der Zeichenfläche sichtbar; bei mittlerer Breite bleibt er darüber angeheftet. Eigenschaften stehen kompakt bei der aktuellen Auswahl, auf schmalen Geräten darunter. Neue Versuche beginnen ohne Hilfe. Ein Wechsel zum geführten Lernen erhält den Entwurf und kennzeichnet Unterstützung. Ein frischer Selbsttest verlangt bei tatsächlich geändertem Entwurf die gemeinsame Neustartbestätigung. Frühere Erfolge bleiben erhalten.
 
 Nach selbstständigem Erfolg öffnet die Moduswahl die geprüfte Antwort zum Nachlesen. Geführte Experimente verwenden eine Kopie. Für einen frischen Versuch gibt es **Neu üben**. [Moduswechsel und ältere Profile](lernkonzept.md#bedienung-und-lernmodus).
 
-Elemente lassen sich hinzufügen, entfernen, einer Fachrolle zuordnen und frei beschriften. Die Elementart wird ausdrücklich ausgewählt. Klassen erhalten Attribute, Methoden, Parameter, Datentypen, Sichtbarkeit und statische/abstrakte Merkmale. Zustände erhalten entry-/do-/exit-Aktionen. Verbindungen besitzen gewählte Endpunkte, passende UML-Arten und gegebenenfalls Mengenangaben, Ereignisse oder Bedingungen. Sequenznachrichten werden mit Früher/Später zeitlich geordnet und einfachen alt-/opt-/loop-Gruppen zugeordnet.
+Elementarten werden allgemein ausgewählt; Namen werden frei eingegeben. Ein separates Fachrollen-Dropdown entfällt. Vorhandene Fachkennungen bleiben für Altentwürfe gültig, beim erneuten Bearbeiten eines Namens wird dieser anhand des Auftragswortschatzes aufgelöst. Klassen erhalten Attribute, Methoden, Parameter, Datentypen, Sichtbarkeit und statische/abstrakte Merkmale. Zustände erhalten entry-/do-/exit-Aktionen. Verbindungen besitzen gewählte Endpunkte, passende UML-Arten und gegebenenfalls Mengenangaben, Ereignisse oder Bedingungen. Sequenznachrichten werden durch senkrechtes Verschieben oder mit Früher/Später zeitlich geordnet und einfachen alt-/opt-/loop-Gruppen zugeordnet.
 
-Die automatische SVG-Anordnung verlangt kein Ziehen. Klasseneigenschaften und Operationen stehen in getrennten Fächern. Synchrone Aufrufe haben eine gefüllte Pfeilspitze, Rückgaben eine gestrichelte Linie mit offener Spitze. Aktivierungen werden aus den Aufruf-/Rückgabepaaren abgeleitet; sie sind keine zusätzlichen Antwortfelder. Aktivitätsenden stehen bei verschieden langen Zweigen hinter allen Vorgängern. Vergrößerung und eine ausgeschriebene Textdarstellung ergänzen das Diagramm. Auf schmalen Bildschirmen scrollt die Zeichenfläche intern; Eingabefelder umbrechen.
+Elemente können direkt ausgewählt, verschoben und per Doppelklick/F2 umbenannt werden. Verbindungen entstehen durch Ziehen eines Anschlusses oder durch Anklicken von Ausgang und Ziel. Einpassen, Zoom, Verschieben der Ansicht sowie Rückgängig/Wiederholen ergänzen die automatische SVG-Anordnung; Ziehen ist nicht zwingend erforderlich. Klasseneigenschaften und Operationen stehen in getrennten Fächern. Synchrone Aufrufe haben eine gefüllte Pfeilspitze, Rückgaben eine gestrichelte Linie mit offener Spitze. Aktivierungen werden aus den Aufruf-/Rückgabepaaren abgeleitet; sie sind keine zusätzlichen Antwortfelder. Aktivitätsenden stehen bei verschieden langen Zweigen hinter allen Vorgängern. Vergrößerung und eine ausgeschriebene Textdarstellung ergänzen das Diagramm. Auf schmalen Bildschirmen liegt die Eigenschaftenleiste unter der Zeichenfläche. Die Ansicht wird eingepasst und lässt sich verschieben/vergrößern.
 
 ## Fachliche Bewertung
 
@@ -37,7 +37,7 @@ Bei Klassenbeziehungen bedeuten `*` und `0..*` jeweils „null bis beliebig viel
 - Beziehungen mit ihren fachlichen Endpunkten, Richtungen, Multiplizitäten, Nachrichten-/Ereignisrollen, Bedingungen und Sequenzgruppen. Bei Sequenzen zählt die Nachrichtenreihenfolge.
 - Beschriftete Systemgrenze sowie Arten/Bedingungen der benötigten Fragmente.
 
-Anzeigenamen, interne Elementkennungen, Parameternamen und Zeichenkoordinaten sind frei. Die Erstellreihenfolge von Elementen/Merkmalen und die Reihenfolge nicht zeitlicher Beziehungen werden nicht bewertet. Ungerichtete Assoziationen dürfen mit vertauschten Enden und entsprechend mitgetauschten Multiplizitäten entstehen. Aggregation und Komposition zeigen im Baukasten vom Teil zum Ganzen; die Raute liegt am Ziel. Generalisierung zeigt zur allgemeineren Klasse/Rolle, Realisierung zum Interface, include zur eingebundenen Funktion und extend zur Basis.
+Neue Element-, Merkmal-, Ereignis- und Nachrichtennamen beziehen sich auf die Bezeichnungen im Auftrag; Großschreibung, Leerzeichen und deutsche Umlautumschriften sind gleichwertig. Zusätzlich sind ausdrücklich hinterlegte `NameAliases` zulässig. Methoden dürfen mit oder ohne leeres Klammerpaar benannt werden. Es gibt keine unscharfe oder KI-gestützte Bedeutungszuordnung. Start/Ende und technische Balken beziehungsweise Zusammenführungen benötigen keine künstlichen Namen; eindeutige Strukturarten werden intern zugeordnet. Alte eigene Anzeigenamen mit gültiger Fachkennung bleiben akzeptiert. Interne Elementkennungen, Parameternamen und Zeichenkoordinaten sind weiterhin frei. Die Erstellreihenfolge von Elementen/Merkmalen und die Reihenfolge nicht zeitlicher Beziehungen werden nicht bewertet. Ungerichtete Assoziationen dürfen mit vertauschten Enden und entsprechend mitgetauschten Multiplizitäten entstehen. Aggregation und Komposition zeigen im Baukasten vom Teil zum Ganzen; die Raute liegt am Ziel. Generalisierung zeigt zur allgemeineren Klasse/Rolle, Realisierung zum Interface, include zur eingebundenen Funktion und extend zur Basis.
 
 Integer/Ganzzahl/int, Boolean/Wahrheitswert/bool, Text/Zeichenkette/String und Void/Nichts werden vereinheitlicht. Double und Decimal bleiben verschiedene Typen. Mengenangaben erlauben 1, 0..1, 0..*, 1..*, 2..* sowie die Schreibvarianten 1..1 und n. Ein Interface-Methodenvertrag wird auch mit zusätzlicher abstrakt-Markierung akzeptiert. Aufgabe 20 erlaubt ausdrücklich sowohl direkte Endpfade als auch einen vorgeschalteten Merge; andere Alternativen werden nur akzeptiert, wenn sie als geprüfte Variante hinterlegt sind.
 
@@ -63,7 +63,7 @@ Additive Felder `UmlLessons`, `LastUmlLessonId`, `UmlExam` und `UmlHistory` lieg
 
 `ProgressStore.Uml.cs` benutzt die gemeinsame atomare Dateisperre. Lernversuche und Prüfungsrunden besitzen eigene Revisionen. Erfolge/Versuchszahlen werden aus dem gespeicherten Stand übernommen; vom Editor übergebene Erfolgsflags gelten nicht als Nachweis. Eine einmalige Unterstützung bleibt bis zum frischen Versuch erhalten. Prüfungen speichern Kopien; während eines Schreibens eintreffende Eingaben bleiben im Arbeitsentwurf und werden anschließend mit der aktuellen Revision gespeichert. Historie auf 20 Ergebnisse begrenzt.
 
-Alle Schreibhandler beachten ReadOnly und Grenzen: 16 Elemente, 32 Verbindungen, vier Sequenzgruppen, 16 Merkmale je Element; Texte höchstens 80, Parameter 250 und Mengenangaben zwölf Zeichen. Entfernen eines Elements entfernt seine Verbindungen, Entfernen einer Gruppe löst deren Nachrichtenzuordnungen. Unvollständige Fachzuordnungen bleiben als Entwurf speicherbar.
+Alle Schreibhandler beachten ReadOnly und Grenzen: 16 Elemente, 32 Verbindungen, vier Sequenzgruppen, 16 Merkmale je Element; Texte höchstens 80, Parameter 250 und Mengenangaben zwölf Zeichen. Entfernen eines Elements entfernt seine Verbindungen, Entfernen einer Gruppe löst deren Nachrichtenzuordnungen. Unvollständige Namenszuordnungen bleiben als Entwurf speicherbar. `Positions` ist additiv und begrenzt; es verändert keine Bewertung. Der Verlauf hält höchstens 40 Bearbeitungsstände während der geöffneten Aufgabe. Autospeichern offener Prüfungen erhält die sichtbaren Antwortobjekte; Abgabe ersetzt sie durch die gesperrte Speicherung. [Gemeinsamer Diagrammvertrag](diagramme.md).
 
 ## Grenzen und Quellen
 

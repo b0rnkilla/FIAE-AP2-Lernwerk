@@ -1,6 +1,6 @@
 # Datenbankentwurf
 
-Abschnitt 04 umfasst in **1.0.0-beta.1** 42 Lernaufgaben und drei Prüfungsfälle. Lernende ergänzen ER-Diagramme, arbeiten mit Unterlagen und entwerfen im Modellbaukasten relationale Modelle. Der Spickzettel unterstützt beim Nachschlagen.
+Abschnitt 04 umfasst in der Quellfassung **1.0.0-beta.6** 42 Lernaufgaben und drei Prüfungsfälle. Lernende ergänzen ER-Diagramme, arbeiten mit Unterlagen und entwerfen im Modellbaukasten relationale Modelle. Der Spickzettel unterstützt beim Nachschlagen.
 
 ## Lernweg und Inhalt
 
@@ -19,7 +19,7 @@ Die Eventagentur Lichtblick entwickelt aus verstreuten Unterlagen einen Datenent
 | 37–39 | Vorgegebene Modelle ergänzen | vollständiger zusammengesetzter FK, neue Zuordnung, eigenständiger Rückfragevorgang |
 | 40–42 | Aus Unterlagen entwerfen | 3. NF aus Standliste und Leihschein, konkrete Anomalien |
 
-30 Aufgaben verwenden relationale Modelle, vier ergänzen fachliche ER-Abbildungen über markierte Beschriftungsfelder und acht prüfen Entscheidungen durch Einfach-/Mehrfachauswahl. Die ER-Ergänzung verwendet angebotene Fachbegriffe; sie ist kein frei zeichnender ER-Editor. Jede Aufgabe besitzt drei freiwillige Hinweise und eine erklärte Musterlösung. Eigene Formulierungen, keine mitgelieferten Originalprüfungen oder Abbildungen. Die bereits ausgewerteten alten Prüfungen dienen nur der Aufgabenform- und Anspruchsorientierung.
+30 Aufgaben verwenden relationale Modelle, vier ergänzen fachliche ER-Abbildungen über markierte Beschriftungsfelder und acht prüfen Entscheidungen durch Einfach-/Mehrfachauswahl. Die ER-Ergänzung erfolgt durch freie Eingabe an den angeklickten Lücken; sie ist kein frei zeichnender ER-Editor. Gleichwertige Kardinalitäten wie 1/1..1 und 0..n/0..* werden erkannt. Jede Aufgabe besitzt drei freiwillige Hinweise und eine erklärte Musterlösung. Eigene Formulierungen, keine mitgelieferten Originalprüfungen oder Abbildungen. Die bereits ausgewerteten alten Prüfungen dienen nur der Aufgabenform- und Anspruchsorientierung.
 
 ## Bedienung
 
@@ -29,17 +29,17 @@ Neue Aufgaben beginnen mit **Ohne Hilfe lösen**. Modus und Entwurf bleiben je A
 
 Nach selbstständigem Erfolg öffnet die Moduswahl die geprüfte Antwort zum Nachlesen. Geführte Experimente verwenden eine Kopie. Für einen frischen Versuch gibt es **Neu üben**. [Moduswechsel und ältere Profile](lernkonzept.md#bedienung-und-lernmodus).
 
-Der Baukasten bietet Tabellen, Attribute, PK-Markierungen, NULL-Erlaubnis und zusätzliche eindeutige Schlüssel. Tabellen- und Anzeigenamen sind frei. Ein Fachattribut wird aus dem ausdrücklich bereitgestellten Vokabular ausgewählt; seine technische Kennung bleibt bei eigener Beschriftung unverändert. Das ist strukturierte Modellierung, keine freie Sprach- oder KI-Auswertung.
+Die direkte Zeichenfläche bietet Tabellen, Attribute, PK-Markierungen, NULL-Erlaubnis und zusätzliche eindeutige Schlüssel. Tabellennamen sind frei. Attributnamen werden anhand der Bezeichnungen im Auftrag eingegeben; das doppelte Feld Fachattribut/Anzeigename entfällt. Großschreibung, Leerzeichen und Umlautumschriften sind gleichwertig, weitere Varianten müssen ausdrücklich hinterlegt sein. Alte Fachkennungen bleiben bis zur Namensbearbeitung erhalten. Die Bewertung löst Namen nur auf einer Kopie auf und verändert den Entwurf nicht.
 
 Alle PK-Häkchen einer Tabelle bilden einen gemeinsamen Primärschlüssel. Attribute mit derselben UQ-Gruppe bilden zusammen einen zusätzlichen eindeutigen Schlüssel. Verschiedene UQ-Gruppen sind unabhängige Schlüssel. Eine FK-Beziehung nennt abhängige und referenzierte Tabelle sowie alle Attributpaare; auch zusammengesetzte Referenzen sind möglich. Minima und Maximum der abhängigen Sätze sind separat auswählbar. Ein Selbstbezug ist zulässig, wenn der konkrete Auftrag ihn verlangt.
 
-Das Diagramm zeichnet Tabellen, PK/FK/UQ-Markierungen und gerichtete Verbindungslinien automatisch. Eine ausgeschriebene Beziehungsliste nennt die vollständigen Attributpaare und Kardinalitäten. Vergrößern und Verkleinern betreffen nur die Darstellung. Auf schmalen Geräten scrollt ausschließlich die Diagrammfläche horizontal; die Tabellenkarten bleiben untereinander bedienbar. Alle Bearbeitungsaktionen sind normale beschriftete Eingaben und Buttons, ohne notwendiges Ziehen mit der Maus.
+Das Diagramm ordnet referenzierte Tabellen über ihren Zuordnungen an und verwendet rechtwinklige Linien mit Kardinalitäten an beiden Enden. Eigene Positionen bleiben gespeichert. Verbindungen werden vom FK zur referenzierten Tabelle gezogen oder mit zwei Klicks angelegt; die FK-Paare und Mengen bestimmt weiterhin der Lernende. Doppelklick/F2 bearbeitet den Namen. Die Eigenschaftenleiste zeigt nur die Auswahl. Einpassen, Zoom, Ansicht verschieben und Rückgängig/Wiederholen sind lokal verfügbar. Die Textdarstellung nennt vollständige Attributpaare und beide Leserichtungen. [Bedienung und Grenzen](diagramme.md).
 
 ## Bewertungsvertrag und Grenzen
 
 Die Referenzen beschreiben konkrete Attributgruppen, funktionale Abhängigkeiten und Geschäftsregeln. Es handelt sich **nicht um einen allgemeinen Normalformbeweiser** oder die perfekte automatische Bewertung jedes beliebigen freien Entwurfs.
 
-Namen, technische IDs, Tabellen-/Attributreihenfolge, Gruppennamen von UQ-Schlüsseln und Zeichenpositionen sind nicht die fachliche Lösung. Verglichen werden:
+Nach der ausdrücklichen Namenszuordnung sind technische IDs, Tabellennamen, Tabellen-/Attributreihenfolge, Gruppennamen von UQ-Schlüsseln und Zeichenpositionen nicht die fachliche Lösung. Verglichen werden:
 
 | Gruppe | Interne Gewichtung |
 | --- | ---: |
@@ -59,7 +59,7 @@ Die Prüfung begrenzt Entwürfe auf acht Tabellen, 20 Attribute je Tabelle, 16 B
 
 ## Prüfungsrunden
 
-Drei eigene Fälle: Reparaturwerkstatt, Medienhaus und Manufaktur. Jeder Fall enthält zwei unabhängig beschriebene Modellaufträge zu je 20 Punkten und eine fachliche Mehrfachauswahl zu zehn Punkten. Die drei Fälle besitzen insgesamt neun Teilaufgaben außerhalb der 30 Lernaufgaben.
+Drei eigene Fälle: Reparaturwerkstatt, Medienhaus und Manufaktur. Jeder Fall enthält zwei unabhängig beschriebene Modellaufträge zu je 20 Punkten und eine fachliche Mehrfachauswahl zu zehn Punkten. Die drei Fälle besitzen insgesamt neun Teilaufgaben außerhalb der 42 Lernaufgaben.
 
 45 Minuten und 50 Trainingspunkte je Runde. Einstieg liest nur; erst Prüfung starten erzeugt eine Runde und Uhr. Ein offener Versuch wird nur mit dessen bestätigter Kennung ersetzt. Wechseln und Kontrollmarkierung sind vor Abgabe möglich. Es gibt keine vorzeitige Bewertung, Hinweise oder Musterlösung.
 

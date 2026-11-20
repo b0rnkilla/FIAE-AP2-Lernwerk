@@ -31,7 +31,7 @@ public sealed class ExamContentTests
     public void ExamPoolStaysSeparateAndRoundsKeepBalancedFiftyPoints()
     {
         Assert.Equal(30, new AlgorithmCatalog().Lessons.Count);
-        Assert.Equal(10, _algorithms.Tasks.Count);
+        Assert.Equal(13, _algorithms.Tasks.Count);
         for (int i = 0; i < 100; i++)
         {
             ExamRound round = _algorithms.CreateRound();

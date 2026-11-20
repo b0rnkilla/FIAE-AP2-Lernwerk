@@ -793,7 +793,7 @@
     "kind": "Diagram",
     "format": "Build",
     "story": "Ein öffentlicher Status erlaubt es jeder aufrufenden Stelle, beliebige Zeichenfolgen zu speichern. Mira möchte stattdessen die Zustandsänderung über eine klar benannte Operation anbieten. Du entwirfst den dafür benötigten Klassenausschnitt.",
-    "task": "Erstelle die konkrete Klasse Reservierung mit privatem Attribut status: String und öffentlicher Methode bestaetigen(): Boolean. Weitere Merkmale und Beziehungen gehören nicht zum Ausschnitt. Verwende nur die beschriebenen Fachrollen und Merkmale. Anzeigenamen und Parameternamen sind frei; alle Methoden sind ohne statisch-Markierung, sofern nichts anderes angegeben ist.",
+    "task": "Erstelle die konkrete Klasse Reservierung mit privatem Attribut status: String und öffentlicher Methode bestaetigen(): Boolean. Weitere Merkmale und Beziehungen gehören nicht zum Ausschnitt. Verwende die im Auftrag genannten Namen und Merkmale. Parameternamen sind frei; alle Methoden sind ohne statisch-Markierung, sofern nichts anderes angegeben ist.",
     "discovery": "Die Statusänderung wird über einen öffentlichen Fachaufruf gekapselt.",
     "explanation": "Der private Zustand ist von außen nicht direkt schreibbar. Der öffentliche Fachaufruf kann die Geschäftsregel kontrollieren; sein konkreter Methodenrumpf ist nicht Teil dieser Diagrammaufgabe.",
     "hints": [
@@ -953,15 +953,15 @@
       "Beginne den zweiten Aufruf mit dem tatsächlich verbliebenen Zustand des ersten."
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Die Statusänderung wird über einen öffentlichen Fachaufruf gekapselt.",
-    "material": "setCapacity(neu):\n  WENN neu > 0: capacity = neu; RÜCKGABE true\n  SONST: RÜCKGABE false\nAnfang: capacity = 12",
+    "material": "// Methode desselben Objekts; capacity ist sein gespeichertes Attribut.\nFUNKTION setCapacity(neu: Integer): Boolean\n    WENN neu > 0 DANN\n        capacity = neu\n        RÜCKGABE WAHR\n    SONST\n        RÜCKGABE FALSCH\n    ENDE WENN\nENDE FUNKTION\n\n// Anfangszustand vor dem ersten Aufruf:\ncapacity = 12",
     "fields": [
       {
         "key": "first",
         "label": "Rückgabe bei setCapacity(0)",
         "kind": "Select",
         "options": {
-          "1": "true",
-          "2": "false"
+          "1": "WAHR",
+          "2": "FALSCH"
         },
         "comparison": "Exact",
         "help": ""
@@ -979,8 +979,8 @@
         "label": "Rückgabe bei setCapacity(18)",
         "kind": "Select",
         "options": {
-          "1": "true",
-          "2": "false"
+          "1": "WAHR",
+          "2": "FALSCH"
         },
         "comparison": "Exact",
         "help": ""
@@ -1045,7 +1045,7 @@
     "kind": "Diagram",
     "format": "Build",
     "story": "Eine bisherige Sammelklasse enthält Raumkapazität, Reservierungsnummer und Buchungsstatus. Mira möchte die beiden fachlichen Objekte getrennt weiterentwickeln. Du verteilst ihre Merkmale anhand der vereinbarten Verantwortlichkeiten.",
-    "task": "Erstelle zwei konkrete Klassen ohne Beziehung in diesem Ausschnitt: Raum mit privater capacity: Integer und öffentlicher fits(count: Integer): Boolean; Reservierung mit privater number: Integer, privatem status: String und öffentlicher confirm(): Boolean. Verwende nur die beschriebenen Fachrollen und Merkmale. Anzeigenamen und Parameternamen sind frei; alle Methoden sind ohne statisch-Markierung, sofern nichts anderes angegeben ist.",
+    "task": "Erstelle zwei konkrete Klassen ohne Beziehung in diesem Ausschnitt: Raum mit privater capacity: Integer und öffentlicher fits(count: Integer): Boolean; Reservierung mit privater number: Integer, privatem status: String und öffentlicher confirm(): Boolean. Verwende die im Auftrag genannten Namen und Merkmale. Parameternamen sind frei; alle Methoden sind ohne statisch-Markierung, sofern nichts anderes angegeben ist.",
     "discovery": "Raum und Reservierung besitzen getrennte, fachlich nachvollziehbare Verantwortungen.",
     "explanation": "Die Kapazitätsauskunft gehört zum Raum. Nummer, Status und Bestätigung betreffen die Reservierung. Die Aufgabe bewertet ausdrücklich diesen Ausschnitt, nicht einen vollständigen Systementwurf.",
     "hints": [
@@ -1334,7 +1334,7 @@
     "kind": "Diagram",
     "format": "Build",
     "story": "Mira soll neben normalen Reservierungen auch Vereinsreservierungen berücksichtigen. Jede Buchungsart liefert ihren Preis selbst. Du erstellst den gemeinsamen strukturellen Vertrag für die Preisabfrage.",
-    "task": "Modelliere die abstrakte Klasse Buchung mit öffentlicher abstrakter price(): Double. Standardbuchung und Vereinsbuchung sind konkret, erben beide von Buchung und überschreiben price(): Double jeweils öffentlich und konkret. Weitere Merkmale sind nicht verlangt. Verwende nur die beschriebenen Fachrollen und Merkmale. Anzeigenamen und Parameternamen sind frei; alle Methoden sind ohne statisch-Markierung, sofern nichts anderes angegeben ist.",
+    "task": "Modelliere die abstrakte Klasse Buchung mit öffentlicher abstrakter price(): Double. Standardbuchung und Vereinsbuchung sind konkret, erben beide von Buchung und überschreiben price(): Double jeweils öffentlich und konkret. Weitere Merkmale sind nicht verlangt. Verwende die im Auftrag genannten Namen und Merkmale. Parameternamen sind frei; alle Methoden sind ohne statisch-Markierung, sofern nichts anderes angegeben ist.",
     "discovery": "Die Buchungsarten bieten denselben Preisaufruf mit eigener Implementierung an.",
     "explanation": "Die Basisklasse beschreibt den abstrakten Vertrag. Beide konkreten Unterklassen stellen eine eigene Implementierung bereit; die Generalisierung zeigt jeweils zur gemeinsamen Basis.",
     "hints": [
@@ -1688,7 +1688,7 @@
     "kind": "Diagram",
     "format": "Build",
     "story": "Bei einer Reservierung soll der Tarif später wechselbar bleiben. Mira entscheidet ausdrücklich, das Tarifverhalten als austauschbaren Partner zu verwenden. Eine Reservierung soll deshalb nicht selbst eine Art von Tarif sein.",
-    "task": "Erstelle die konkrete Reservierung mit privatem tariff: Tarif und öffentlicher price(): Double. Tarif ist ein Interface mit öffentlicher calculate(): Double. Verbinde Reservierung und Tarif als Assoziation mit genau einem Tarif je Reservierung und 0..* Reservierungen je Tarif. Keine Vererbung zwischen beiden. Verwende nur die beschriebenen Fachrollen und Merkmale. Anzeigenamen und Parameternamen sind frei; alle Methoden sind ohne statisch-Markierung, sofern nichts anderes angegeben ist.",
+    "task": "Erstelle die konkrete Reservierung mit privatem tariff: Tarif und öffentlicher price(): Double. Tarif ist ein Interface mit öffentlicher calculate(): Double. Verbinde Reservierung und Tarif als Assoziation mit genau einem Tarif je Reservierung und 0..* Reservierungen je Tarif. Keine Vererbung zwischen beiden. Verwende die im Auftrag genannten Namen und Merkmale. Parameternamen sind frei; alle Methoden sind ohne statisch-Markierung, sofern nichts anderes angegeben ist.",
     "discovery": "Die Reservierung verwendet einen austauschbaren Tarif über dessen Vertrag.",
     "explanation": "Die Reservierung besitzt einen Partner, statt selbst Tarif zu sein. Die Multiplizitäten beschreiben hier den ausdrücklich vereinbarten gemeinsam nutzbaren Tarif.",
     "hints": [
@@ -2007,7 +2007,7 @@
     "kind": "Diagram",
     "format": "Build",
     "story": "Für einen späteren Speicherwechsel möchte Mira den Buchungsdienst vom Dateiformat lösen. Der Dienst soll nur wissen, wie eine Reservierung gespeichert wird. Die konkrete Dateispeicherung übernimmt ein anderer Baustein.",
-    "task": "Erstelle den konkreten Buchungsdienst mit privatem store: Buchungsspeicher und öffentlicher reserve(): Boolean. Buchungsspeicher ist ein Interface mit öffentlicher save(number: Integer): Void. Dateispeicher ist konkret, bietet dieselbe save-Operation und realisiert das Interface. Assoziation: genau ein Buchungsspeicher je Dienst, 0..* Dienste je Speicher. Weitere Beziehungen werden nicht verlangt. Verwende nur die beschriebenen Fachrollen und Merkmale. Anzeigenamen und Parameternamen sind frei; alle Methoden sind ohne statisch-Markierung, sofern nichts anderes angegeben ist.",
+    "task": "Erstelle den konkreten Buchungsdienst mit privatem store: Buchungsspeicher und öffentlicher reserve(): Boolean. Buchungsspeicher ist ein Interface mit öffentlicher save(number: Integer): Void. Dateispeicher ist konkret, bietet dieselbe save-Operation und realisiert das Interface. Assoziation: genau ein Buchungsspeicher je Dienst, 0..* Dienste je Speicher. Weitere Beziehungen werden nicht verlangt. Verwende die im Auftrag genannten Namen und Merkmale. Parameternamen sind frei; alle Methoden sind ohne statisch-Markierung, sofern nichts anderes angegeben ist.",
     "discovery": "Der Buchungsdienst arbeitet gegen einen Speichervertrag statt gegen eine Dateiklasse.",
     "explanation": "Der konkrete Speicher realisiert das Interface. Der Dienst hält den vereinbarten Vertrag; ein anderer vertragskonformer Speicher kann ihn ersetzen, ohne die angebotene Dienstoperation umzubenennen.",
     "hints": [
@@ -2342,7 +2342,7 @@
     "kind": "Diagram",
     "format": "Build",
     "story": "Mira zeichnet den Vertrag zwischen Statusgeber und Empfangsanzeige. Der Statusgeber soll mehrere Beobachter über update(status) erreichen können. Die Empfangsanzeige übernimmt eine konkrete Darstellung.",
-    "task": "Erstelle Statusgeber mit öffentlicher notify(): Void. Beobachter ist ein Interface mit öffentlicher update(status: String): Void. Empfangsanzeige ist konkret, bietet dieselbe update-Operation und realisiert Beobachter. Assoziation Statusgeber–Beobachter: genau ein Statusgeber je Beobachter, 0..* Beobachter je Statusgeber. Verwende nur die beschriebenen Fachrollen und Merkmale. Anzeigenamen und Parameternamen sind frei; alle Methoden sind ohne statisch-Markierung, sofern nichts anderes angegeben ist.",
+    "task": "Erstelle Statusgeber mit öffentlicher notify(): Void. Beobachter ist ein Interface mit öffentlicher update(status: String): Void. Empfangsanzeige ist konkret, bietet dieselbe update-Operation und realisiert Beobachter. Assoziation Statusgeber–Beobachter: genau ein Statusgeber je Beobachter, 0..* Beobachter je Statusgeber. Verwende die im Auftrag genannten Namen und Merkmale. Parameternamen sind frei; alle Methoden sind ohne statisch-Markierung, sofern nichts anderes angegeben ist.",
     "discovery": "Der Statusgeber erreicht beliebig viele vertragskonforme Anzeigen.",
     "explanation": "Das Interface macht die konkrete Anzeige austauschbar. Das Diagramm zeigt den verlangten Ausschnitt; die Registrierung und Iteration über die Empfänger werden hier nicht als Methodenrumpf bewertet.",
     "hints": [
@@ -2741,7 +2741,7 @@
     "kind": "Diagram",
     "format": "Build",
     "story": "Nach dem ersten Tarifentwurf benötigt Nordhafen einen Festpreis und einen Stundentarif. Mira möchte die Wahl im Preiskontext austauschen können. Du ergänzt die Partner hinter einem gemeinsamen Berechnungsaufruf.",
-    "task": "Preiskontext ist konkret und besitzt privat strategy: Preisstrategie sowie öffentlich price(): Double. Preisstrategie ist ein Interface mit calculate(hours: Integer): Double. Festpreis und Stundentarif sind konkret und realisieren dieses Interface mit derselben öffentlichen calculate-Operation. Assoziation: genau eine Preisstrategie je Kontext, 0..* Kontexte je Strategie. Verwende nur die beschriebenen Fachrollen und Merkmale. Anzeigenamen und Parameternamen sind frei; alle Methoden sind ohne statisch-Markierung, sofern nichts anderes angegeben ist.",
+    "task": "Preiskontext ist konkret und besitzt privat strategy: Preisstrategie sowie öffentlich price(): Double. Preisstrategie ist ein Interface mit calculate(hours: Integer): Double. Festpreis und Stundentarif sind konkret und realisieren dieses Interface mit derselben öffentlichen calculate-Operation. Assoziation: genau eine Preisstrategie je Kontext, 0..* Kontexte je Strategie. Verwende die im Auftrag genannten Namen und Merkmale. Parameternamen sind frei; alle Methoden sind ohne statisch-Markierung, sofern nichts anderes angegeben ist.",
     "discovery": "Der Preiskontext kann seine Berechnungsstrategie über einen gemeinsamen Vertrag wechseln.",
     "explanation": "Die unterschiedlichen Berechnungen befinden sich in austauschbaren Strategien. Der Kontext benötigt nur deren Interface; die mathematischen Methodenrümpfe gehören nicht zu diesem Strukturausschnitt.",
     "hints": [
@@ -3194,7 +3194,7 @@
     "kind": "Diagram",
     "format": "Repair",
     "story": "Für Benachrichtigungen möchte Mira einen gemeinsamen Erzeugerablauf verwenden. Nur die Produkterzeugung variiert. Der vorgelegte Entwurf besitzt eine falsche Realisierungsrichtung und eine versehentlich konkrete Basismethode.",
-    "task": "Korrigiere den Ausschnitt: Erzeuger ist abstrakt mit öffentlicher abstrakter create(): Nachricht. MailErzeuger ist konkret, erbt von Erzeuger und überschreibt create(): Nachricht öffentlich und konkret. Nachricht ist ein Interface mit öffentlicher send(): Void. MailNachricht realisiert Nachricht und bietet dieselbe öffentliche send-Operation. Sonst keine Merkmale oder Beziehungen. Verwende nur die beschriebenen Fachrollen und Merkmale. Anzeigenamen und Parameternamen sind frei; alle Methoden sind ohne statisch-Markierung, sofern nichts anderes angegeben ist.",
+    "task": "Korrigiere den Ausschnitt: Erzeuger ist abstrakt mit öffentlicher abstrakter create(): Nachricht. MailErzeuger ist konkret, erbt von Erzeuger und überschreibt create(): Nachricht öffentlich und konkret. Nachricht ist ein Interface mit öffentlicher send(): Void. MailNachricht realisiert Nachricht und bietet dieselbe öffentliche send-Operation. Sonst keine Merkmale oder Beziehungen. Verwende die im Auftrag genannten Namen und Merkmale. Parameternamen sind frei; alle Methoden sind ohne statisch-Markierung, sofern nichts anderes angegeben ist.",
     "discovery": "Der gemeinsame Erzeuger lässt die konkrete Produkterzeugung überschreiben.",
     "explanation": "Factory Method trennt den gemeinsamen Erzeuger vom konkreten Produkt. Der hier geprüfte Ausschnitt beschreibt die überschreibbare Operation und Produktverträge; im ergänzenden Ablauftext erzeugt MailErzeuger eine MailNachricht.",
     "hints": [
@@ -3203,7 +3203,7 @@
       "Verfolge den Aufruf über die Basissicht. Passt das Ergebnis des konkreten Erzeugers noch zum Vertrag?"
     ],
     "previousContext": "Der vorige Schritt ist bestätigt: Erzeugungsmuster und globale Einzelinstanzen werden anhand ihrer tatsächlichen Folgen beurteilt.",
-    "material": "MailErzeuger.create():\n  RÜCKGABE NEU MailNachricht()\nDie Auswahl des konkreten Produkts liegt in dieser überschriebenen Erzeugeroperation.",
+    "material": "// OOP-Skizze: überschriebene Methode der Klasse MailErzeuger.\nFUNKTION create(): Nachricht\n    RÜCKGABE NEU MailNachricht()\nENDE FUNKTION\n\nDie Auswahl des konkreten Nachrichtentyps erfolgt in der überschriebenen Erzeugungsmethode. NEU bezeichnet hier das Anlegen eines Objekts; diese OOP-Skizze wird nicht im Pseudocode-Interpreter ausgeführt.",
     "fields": [],
     "solutions": [
       {

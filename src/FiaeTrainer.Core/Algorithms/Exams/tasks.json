@@ -8,7 +8,9 @@
     "referenceCode": "FUNKTION berechneRechnung(positionen: Double[][]): Double[]\n    summe = 0\n    anzahl = 0\n    FÜR JEDE position IN positionen\n        WENN position[2] == 1 UND position[0] > 0 UND position[1] >= 0 DANN\n            summe = summe + position[0] * position[1]\n            anzahl = anzahl + 1\n        ENDE WENN\n    ENDE FÜR\n    WENN summe >= 200 DANN\n        summe = summe * 0.9\n    ENDE WENN\n    RÜCKGABE [anzahl, summe]\nENDE FUNKTION",
     "givenCode": "",
     "functionName": "berechneRechnung",
-    "parameterTypes": ["Double[][]"],
+    "parameterTypes": [
+      "Double[][]"
+    ],
     "returnType": "Double[]",
     "requiresTypedSignature": true,
     "functionInputs": [
@@ -140,7 +142,10 @@
     "referenceCode": "FUNKTION nutzungspreis(minuten: Integer, express: Boolean): Double\n    WENN minuten < 0 DANN\n        RÜCKGABE -1\n    ENDE WENN\n    WENN minuten == 0 DANN\n        RÜCKGABE 0\n    ENDE WENN\n    bloecke = (minuten + 14) DIV 15\n    preis = 5 + bloecke * 3\n    WENN express DANN\n        preis = preis * 1.2\n    ENDE WENN\n    RÜCKGABE preis\nENDE FUNKTION",
     "givenCode": "",
     "functionName": "nutzungspreis",
-    "parameterTypes": ["Integer", "Boolean"],
+    "parameterTypes": [
+      "Integer",
+      "Boolean"
+    ],
     "returnType": "Double",
     "requiresTypedSignature": true,
     "functionInputs": [
@@ -224,7 +229,10 @@
     "referenceCode": "FUNKTION findeBlock(belegung: Integer[][], anzahl: Integer): Integer[]\n    WENN anzahl <= 0 DANN\n        RÜCKGABE [-1, -1]\n    ENDE WENN\n    FÜR r VON 0 BIS LÄNGE(belegung) - 1\n        frei = 0\n        FÜR s VON 0 BIS LÄNGE(belegung[r]) - 1\n            WENN belegung[r][s] == 0 DANN\n                frei = frei + 1\n                WENN frei == anzahl DANN\n                    RÜCKGABE [r, s - anzahl + 1]\n                ENDE WENN\n            SONST\n                frei = 0\n            ENDE WENN\n        ENDE FÜR\n    ENDE FÜR\n    RÜCKGABE [-1, -1]\nENDE FUNKTION",
     "givenCode": "",
     "functionName": "findeBlock",
-    "parameterTypes": ["Integer[][]", "Integer"],
+    "parameterTypes": [
+      "Integer[][]",
+      "Integer"
+    ],
     "returnType": "Integer[]",
     "requiresTypedSignature": true,
     "functionInputs": [
@@ -356,7 +364,10 @@
     "referenceCode": "FUNKTION waehleAngebot(angebote: Double[][], bedarf: Integer): Integer\n    besteId = -1\n    besterPreis = 0\n    FÜR JEDES angebot IN angebote\n        WENN angebot[3] == 1 UND angebot[1] >= bedarf DANN\n            WENN besteId == -1 ODER angebot[2] < besterPreis ODER (angebot[2] == besterPreis UND angebot[0] < besteId) DANN\n                besteId = angebot[0]\n                besterPreis = angebot[2]\n            ENDE WENN\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE besteId\nENDE FUNKTION",
     "givenCode": "",
     "functionName": "waehleAngebot",
-    "parameterTypes": ["Double[][]", "Integer"],
+    "parameterTypes": [
+      "Double[][]",
+      "Integer"
+    ],
     "returnType": "Integer",
     "functionInputs": [
       "angebote",
@@ -500,7 +511,9 @@
     "referenceCode": "FUNKTION ordneAuftraege(auftraege: Integer[][]): Integer[][]\n    FÜR i VON 0 BIS LÄNGE(auftraege) - 2\n        FÜR j VON 0 BIS LÄNGE(auftraege) - 2 - i\n            a = auftraege[j]\n            b = auftraege[j + 1]\n            WENN a[0] > b[0] ODER (a[0] == b[0] UND a[1] > b[1]) DANN\n                auftraege[j] = b\n                auftraege[j + 1] = a\n            ENDE WENN\n        ENDE FÜR\n    ENDE FÜR\n    RÜCKGABE auftraege\nENDE FUNKTION",
     "givenCode": "",
     "functionName": "ordneAuftraege",
-    "parameterTypes": ["Integer[][]"],
+    "parameterTypes": [
+      "Integer[][]"
+    ],
     "returnType": "Integer[][]",
     "functionInputs": [
       "auftraege"
@@ -623,7 +636,9 @@
     "referenceCode": "FUNKTION messbericht(reihen: Integer[][]): Integer[]\n    anzahl = 0\n    summe = 0\n    beste = -1\n    maximum = -1\n    FÜR i VON 0 BIS LÄNGE(reihen) - 1\n        teilsumme = 0\n        FÜR JEDEN wert IN reihen[i]\n            WENN wert >= 0 UND wert <= 100 DANN\n                teilsumme = teilsumme + wert\n                anzahl = anzahl + 1\n            ENDE WENN\n        ENDE FÜR\n        summe = summe + teilsumme\n        WENN teilsumme > maximum DANN\n            maximum = teilsumme\n            beste = i\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE [anzahl, summe, beste]\nENDE FUNKTION",
     "givenCode": "",
     "functionName": "messbericht",
-    "parameterTypes": ["Integer[][]"],
+    "parameterTypes": [
+      "Integer[][]"
+    ],
     "returnType": "Integer[]",
     "functionInputs": [
       "reihen"
@@ -730,7 +745,11 @@
     "referenceCode": "FUNKTION zaehleAbweichungen(werte: Double[], minimum: Double, maximum: Double): Integer\n    anzahl = 0\n    FÜR i VON 0 BIS LÄNGE(werte) - 1\n        WENN werte[i] < minimum ODER werte[i] > maximum DANN\n            anzahl = anzahl + 1\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE anzahl\nENDE FUNKTION",
     "givenCode": "FUNKTION zaehleAbweichungen(werte: Double[], minimum: Double, maximum: Double): Integer\n    anzahl = 1\n    FÜR i VON 0 BIS LÄNGE(werte) - 2\n        WENN werte[i] < minimum UND werte[i] > maximum DANN\n            anzahl = anzahl + 1\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE anzahl\nENDE FUNKTION",
     "functionName": "zaehleAbweichungen",
-    "parameterTypes": ["Double[]", "Double", "Double"],
+    "parameterTypes": [
+      "Double[]",
+      "Double",
+      "Double"
+    ],
     "returnType": "Integer",
     "functionInputs": [
       "werte",
@@ -830,7 +849,10 @@
     "referenceCode": "FUNKTION gutschrift(tage: Integer, betrag: Double): Double\n    WENN tage < 0 ODER betrag < 0 DANN\n        RÜCKGABE -1\n    ENDE WENN\n    WENN tage <= 7 DANN\n        RÜCKGABE betrag\n    SONST\n        WENN tage <= 30 DANN\n            RÜCKGABE betrag * 0.5\n        SONST\n            RÜCKGABE 0\n        ENDE WENN\n    ENDE WENN\nENDE FUNKTION",
     "givenCode": "FUNKTION gutschrift(tage: Integer, betrag: Double): Double\n    WENN tage < 0 UND betrag < 0 DANN\n        RÜCKGABE -1\n    ENDE WENN\n    WENN tage < 7 DANN\n        RÜCKGABE betrag\n    SONST\n        WENN tage <= 30 DANN\n            RÜCKGABE betrag * 0.5\n        SONST\n            AUSGABE 0\n        ENDE WENN\n    ENDE WENN\nENDE FUNKTION",
     "functionName": "gutschrift",
-    "parameterTypes": ["Integer", "Double"],
+    "parameterTypes": [
+      "Integer",
+      "Double"
+    ],
     "returnType": "Double",
     "functionInputs": [
       "tage",
@@ -1000,5 +1022,510 @@
       }
     ],
     "referenceAnswer": "-1 => ungueltig\n0 => kurz\n15 => kurz\n16 => mittel\n60 => mittel\n61 => lang"
+  },
+  {
+    "id": 11,
+    "title": "Verfügbare Gerätearten ermitteln",
+    "kind": "Write",
+    "story": "Für ein Kulturfest werden Gerätearten zeitweise ausgeliehen. Diese Teilaufgabe ist unabhängig von den beiden folgenden.",
+    "task": "Implementiere `zaehleVerfuegbareArten(bestaende, buchungen, beginn, endzeit, bedarf)`. `bestaende` enthält `[geraetId, gesamtmenge]`, `buchungen` enthält `[geraetId, von, bis, menge]`. Alle Werte sind ganzzahlig; IDs der Bestände sind eindeutig. Zeiten sind Minuten ab Tagesbeginn, Intervalle gelten einschließlich Beginn und ausschließlich Ende. Es gilt `0 <= beginn < endzeit`, `bedarf > 0`; Buchungen besitzen gültige Zeitintervalle und positive Mengen.\nDie Disposition arbeitet vorsichtig: Jede Buchung, die den angefragten Zeitraum auch nur teilweise überschneidet, blockiert ihre gesamte Menge für diese Anfrage. Addiere diese Mengen je Geräteart, auch wenn zwei überlappende Buchungen untereinander zeitlich getrennt liegen. Angrenzende Intervalle blockieren nichts. Gib die Anzahl der Gerätearten zurück, deren Restmenge mindestens `bedarf` beträgt. Eine leere Bestandsliste ergibt 0. Eingabelisten dürfen unverändert bleiben.",
+    "referenceCode": "FUNKTION zaehleVerfuegbareArten(bestaende: Integer[][], buchungen: Integer[][], beginn: Integer, endzeit: Integer, bedarf: Integer): Integer\n    anzahl = 0\n    FÜR JEDEN bestand IN bestaende\n        belegt = 0\n        FÜR JEDE buchung IN buchungen\n            WENN buchung[0] == bestand[0] UND buchung[1] < endzeit UND buchung[2] > beginn DANN\n                belegt = belegt + buchung[3]\n            ENDE WENN\n        ENDE FÜR\n        WENN bestand[1] - belegt >= bedarf DANN\n            anzahl = anzahl + 1\n        ENDE WENN\n    ENDE FÜR\n    RÜCKGABE anzahl\nENDE FUNKTION",
+    "functionName": "zaehleVerfuegbareArten",
+    "functionInputs": [
+      "bestaende",
+      "buchungen",
+      "beginn",
+      "endzeit",
+      "bedarf"
+    ],
+    "parameterTypes": [
+      "Integer[][]",
+      "Integer[][]",
+      "Integer",
+      "Integer",
+      "Integer"
+    ],
+    "returnType": "Integer",
+    "requiresTypedSignature": true,
+    "exampleInputs": {
+      "bestaende": [
+        [
+          10,
+          6
+        ],
+        [
+          20,
+          3
+        ]
+      ],
+      "buchungen": [
+        [
+          10,
+          30,
+          60,
+          2
+        ],
+        [
+          10,
+          60,
+          90,
+          3
+        ],
+        [
+          20,
+          40,
+          80,
+          2
+        ]
+      ],
+      "beginn": 60,
+      "endzeit": 90,
+      "bedarf": 3
+    },
+    "tests": [
+      {
+        "name": "Anschluss ist frei",
+        "inputs": {
+          "bestaende": [
+            [
+              10,
+              6
+            ],
+            [
+              20,
+              3
+            ]
+          ],
+          "buchungen": [
+            [
+              10,
+              30,
+              60,
+              2
+            ],
+            [
+              10,
+              60,
+              90,
+              3
+            ],
+            [
+              20,
+              40,
+              80,
+              2
+            ]
+          ],
+          "beginn": 60,
+          "endzeit": 90,
+          "bedarf": 3
+        },
+        "output": [
+          "1"
+        ]
+      },
+      {
+        "name": "Linke Grenze",
+        "inputs": {
+          "bestaende": [
+            [
+              1,
+              2
+            ]
+          ],
+          "buchungen": [
+            [
+              1,
+              0,
+              30,
+              2
+            ]
+          ],
+          "beginn": 30,
+          "endzeit": 60,
+          "bedarf": 2
+        },
+        "output": [
+          "1"
+        ]
+      },
+      {
+        "name": "Rechte Grenze",
+        "inputs": {
+          "bestaende": [
+            [
+              1,
+              2
+            ]
+          ],
+          "buchungen": [
+            [
+              1,
+              60,
+              90,
+              2
+            ]
+          ],
+          "beginn": 30,
+          "endzeit": 60,
+          "bedarf": 2
+        },
+        "output": [
+          "1"
+        ]
+      },
+      {
+        "name": "Eine Minute Überschneidung",
+        "inputs": {
+          "bestaende": [
+            [
+              1,
+              2
+            ]
+          ],
+          "buchungen": [
+            [
+              1,
+              0,
+              31,
+              1
+            ]
+          ],
+          "beginn": 30,
+          "endzeit": 60,
+          "bedarf": 2
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Vollständig enthalten",
+        "inputs": {
+          "bestaende": [
+            [
+              1,
+              5
+            ]
+          ],
+          "buchungen": [
+            [
+              1,
+              35,
+              40,
+              3
+            ],
+            [
+              1,
+              50,
+              55,
+              1
+            ]
+          ],
+          "beginn": 30,
+          "endzeit": 60,
+          "bedarf": 2
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Umfassende Buchung",
+        "inputs": {
+          "bestaende": [
+            [
+              1,
+              4
+            ]
+          ],
+          "buchungen": [
+            [
+              1,
+              10,
+              100,
+              2
+            ]
+          ],
+          "beginn": 30,
+          "endzeit": 60,
+          "bedarf": 2
+        },
+        "output": [
+          "1"
+        ]
+      },
+      {
+        "name": "Gleiche Intervalle und Reihenfolge",
+        "inputs": {
+          "bestaende": [
+            [
+              9,
+              4
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              5,
+              3
+            ]
+          ],
+          "buchungen": [
+            [
+              9,
+              30,
+              60,
+              3
+            ],
+            [
+              2,
+              30,
+              60,
+              3
+            ]
+          ],
+          "beginn": 30,
+          "endzeit": 60,
+          "bedarf": 3
+        },
+        "output": [
+          "2"
+        ]
+      },
+      {
+        "name": "Keine Buchungen",
+        "inputs": {
+          "bestaende": [
+            [
+              8,
+              0
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              1,
+              7
+            ]
+          ],
+          "buchungen": [],
+          "beginn": 0,
+          "endzeit": 30,
+          "bedarf": 2
+        },
+        "output": [
+          "2"
+        ]
+      },
+      {
+        "name": "Keine Geräte",
+        "inputs": {
+          "bestaende": [],
+          "buchungen": [],
+          "beginn": 0,
+          "endzeit": 30,
+          "bedarf": 1
+        },
+        "output": [
+          "0"
+        ]
+      }
+    ],
+    "explanation": "Zwei halboffene Zeitintervalle überschneiden sich genau dann, wenn der Buchungsbeginn vor dem Anfrageende und das Buchungsende nach dem Anfragebeginn liegt. Bei Gleichheit an einer der Grenzen wird nichts abgezogen. Für jede Geräteart beginnt die belegte Menge bei null. Nach der ausdrücklich vorgegebenen vorsichtigen Dispositionsregel werden sämtliche überlappenden Mengen addiert; das ist keine Berechnung der maximal gleichzeitig belegten Menge. Erst danach wird der Rest mit dem Bedarf verglichen. Jede geeignete Geräteart erhöht den Zähler einmal, unabhängig von ihrer verbleibenden Stückzahl."
+  },
+  {
+    "id": 12,
+    "title": "Eine fehlerhafte Bestandsänderung reparieren",
+    "kind": "Repair",
+    "story": "Die Ausgabeverwaltung des Kulturfests erhält eine Bestandszahl und eine angeforderte Menge. Diese Teilaufgabe benötigt kein Ergebnis aus der Verfügbarkeitsprüfung.",
+    "task": "Repariere `bucheAusgabe(bestand, menge)`. `bestand` ist eine nichtnegative Ganzzahl, `menge` eine beliebige Ganzzahl. Eine Ausgabe ist nur zulässig, wenn `menge > 0` und nicht größer als der vorhandene Bestand ist. Dann liefert die Funktion den verminderten Bestand. Bei einer unzulässigen Menge muss sie den ursprünglichen Bestand unverändert zurückgeben. Auch die vollständige Ausgabe des Bestands ist erlaubt. Die Funktion liefert den neuen Wert zurück; die aufrufende Anwendung übernimmt ihn anschließend.",
+    "givenCode": "FUNKTION bucheAusgabe(bestand: Integer, menge: Integer): Integer\n    bestand = bestand - menge\n    WENN menge > 0 UND menge < bestand DANN\n        RÜCKGABE bestand\n    ENDE WENN\n    RÜCKGABE 0\nENDE FUNKTION",
+    "referenceCode": "FUNKTION bucheAusgabe(bestand: Integer, menge: Integer): Integer\n    WENN menge <= 0 ODER menge > bestand DANN\n        RÜCKGABE bestand\n    ENDE WENN\n    RÜCKGABE bestand - menge\nENDE FUNKTION",
+    "functionName": "bucheAusgabe",
+    "functionInputs": [
+      "bestand",
+      "menge"
+    ],
+    "parameterTypes": [
+      "Integer",
+      "Integer"
+    ],
+    "returnType": "Integer",
+    "requiresTypedSignature": true,
+    "exampleInputs": {
+      "bestand": 12,
+      "menge": 4
+    },
+    "tests": [
+      {
+        "name": "Teilmenge",
+        "inputs": {
+          "bestand": 12,
+          "menge": 4
+        },
+        "output": [
+          "8"
+        ]
+      },
+      {
+        "name": "Genau alles",
+        "inputs": {
+          "bestand": 12,
+          "menge": 12
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Überbestand",
+        "inputs": {
+          "bestand": 12,
+          "menge": 13
+        },
+        "output": [
+          "12"
+        ]
+      },
+      {
+        "name": "Negative Menge",
+        "inputs": {
+          "bestand": 12,
+          "menge": -2
+        },
+        "output": [
+          "12"
+        ]
+      },
+      {
+        "name": "Nullmenge",
+        "inputs": {
+          "bestand": 12,
+          "menge": 0
+        },
+        "output": [
+          "12"
+        ]
+      },
+      {
+        "name": "Leerer Bestand",
+        "inputs": {
+          "bestand": 0,
+          "menge": 1
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Letztes Gerät",
+        "inputs": {
+          "bestand": 1,
+          "menge": 1
+        },
+        "output": [
+          "0"
+        ]
+      },
+      {
+        "name": "Große Teilmenge",
+        "inputs": {
+          "bestand": 12,
+          "menge": 8
+        },
+        "output": [
+          "4"
+        ]
+      }
+    ],
+    "explanation": "Die fehlerhafte Vorlage verändert den Bestand vor der Prüfung und vergleicht die Menge anschließend mit dem bereits verminderten Wert. Außerdem lehnt < den erlaubten Grenzfall der vollständigen Ausgabe ab. Die Reparatur prüft zuerst Menge und ursprünglichen Bestand. Ungültige Anfragen geben den unveränderten Wert zurück. Erst im gültigen Fall wird subtrahiert; bei menge == bestand ist das Ergebnis null."
+  },
+  {
+    "id": 13,
+    "title": "Die Zeitgrenzen der Ausleihe prüfen",
+    "kind": "TestCases",
+    "story": "Ein einzelnes Gerät ist von Minute 60 einschließlich bis Minute 90 ausschließlich reserviert. Die neue Anfrage dauert immer 30 Minuten. Diese Angaben gelten unabhängig von den ersten beiden Teilaufgaben.",
+    "task": "Entwirf Testfälle für die ganzzahlige Eingabe `beginn`. Ein negativer Beginn ergibt `ungueltig`. Eine gültige Anfrage belegt `[beginn, beginn + 30)` und ergibt `belegt`, wenn sie die Reservierung `[60, 90)` überschneidet, andernfalls `frei`.\nDecke einen negativen Wert sowie genau die Anfänge 0, 30, 31, 89 und 90 ab. Schreibe pro Zeile `beginn => erwarteteAusgabe`, ohne Anführungszeichen. Höchstens 24 Zeilen; zusätzliche korrekte Fälle erhöhen die Punkte nicht.",
+    "referenceCode": "WENN beginn < 0 DANN\n    AUSGABE \"ungueltig\"\nSONST\n    WENN beginn < 90 UND beginn + 30 > 60 DANN\n        AUSGABE \"belegt\"\n    SONST\n        AUSGABE \"frei\"\n    ENDE WENN\nENDE WENN",
+    "givenCode": "",
+    "exampleInputs": {
+      "beginn": 30
+    },
+    "tests": [
+      {
+        "name": "Angrenzend davor",
+        "inputs": {
+          "beginn": 30
+        },
+        "output": [
+          "frei"
+        ]
+      },
+      {
+        "name": "Eine Minute hinein",
+        "inputs": {
+          "beginn": 31
+        },
+        "output": [
+          "belegt"
+        ]
+      },
+      {
+        "name": "Angrenzend danach",
+        "inputs": {
+          "beginn": 90
+        },
+        "output": [
+          "frei"
+        ]
+      },
+      {
+        "name": "Ungültig",
+        "inputs": {
+          "beginn": -1
+        },
+        "output": [
+          "ungueltig"
+        ]
+      }
+    ],
+    "caseInputName": "beginn",
+    "coverage": [
+      {
+        "name": "Negativer Beginn",
+        "minimum": null,
+        "maximum": -1
+      },
+      {
+        "name": "Tagesbeginn",
+        "minimum": 0,
+        "maximum": 0
+      },
+      {
+        "name": "Ende genau am Reservierungsbeginn",
+        "minimum": 30,
+        "maximum": 30
+      },
+      {
+        "name": "Eine Minute Überschneidung links",
+        "minimum": 31,
+        "maximum": 31
+      },
+      {
+        "name": "Eine Minute Überschneidung rechts",
+        "minimum": 89,
+        "maximum": 89
+      },
+      {
+        "name": "Beginn genau am Reservierungsende",
+        "minimum": 90,
+        "maximum": 90
+      }
+    ],
+    "referenceAnswer": "-1 => ungueltig\n0 => frei\n30 => frei\n31 => belegt\n89 => belegt\n90 => frei",
+    "explanation": "Bei Beginn 30 endet die Anfrage genau bei 60 und überschneidet sich deshalb nicht mit der Reservierung. Bereits Beginn 31 reicht bis Minute 61 und ist belegt. Beginn 89 enthält noch eine belegte Minute, Beginn 90 dagegen keine. Der Start bei null ist gültig, ein negativer Start nicht. Diese Nachbarwerte entdecken falsch verwendete <= beziehungsweise >= an den beiden Grenzen."
   }
 ]

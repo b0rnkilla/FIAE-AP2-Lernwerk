@@ -1,0 +1,67 @@
+/* Gemeinsame Zeichenfläche für eigene UML- und Datenbankmodelle. */
+.diagram-workbench { min-width: 0; }
+.diagram-toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; padding: 12px; border-bottom: 1px solid var(--line); }
+.diagram-toolbar .button { padding: 9px 12px; min-height: 40px; }
+.diagram-toolbar label { display: grid; gap: 4px; font-size: .85rem; }
+.diagram-toolbar select { max-width: 200px; }
+.diagram-toolbar select { padding: 8px; border: 1px solid var(--border-strong); border-radius: 6px; background: var(--paper); color: var(--ink); font: inherit; }
+.diagram-instructions, .diagram-status { margin: 8px 12px; color: var(--muted); font-size: .85rem; }
+.diagram-body { display: grid; grid-template-columns: minmax(0, 1fr) 260px; min-height: 480px; }
+.diagram-stage { position: relative; min-width: 0; height: min(68vh, 780px); min-height: 420px; overflow: hidden; touch-action: none; background: radial-gradient(var(--line) 1px, transparent 1px); background-size: 20px 20px; }
+.diagram-stage > .design-diagram-wrap, .diagram-stage > .design-er, .diagram-stage > .uml-canvas { height: 100%; overflow: hidden; }
+.diagram-stage .design-diagram { min-width: 0 !important; width: 100% !important; height: 100%; max-height: none; cursor: grab; user-select: none; }
+.diagram-stage .design-zoom, .diagram-stage .uml-diagram-tools, .diagram-stage .uml-text-model, .diagram-stage .diagram-text, .diagram-stage .design-relations-text, .diagram-stage .design-caption { display: none; }
+.diagram-stage [data-node-id], .diagram-stage [data-link-id], .diagram-stage [data-slot-id] { cursor: pointer; }
+.diagram-stage [data-link-id] path { pointer-events: stroke; stroke-width: 3; }
+.diagram-stage [data-slot-id] { text-decoration: underline; fill: var(--accent); }
+.diagram-stage .diagram-selected > rect, .diagram-stage .diagram-selected > ellipse, .diagram-stage .diagram-selected > polygon, .diagram-stage .diagram-selected > circle, .diagram-stage .diagram-selected > path { stroke: var(--accent); stroke-width: 4; }
+.diagram-edge-hit { fill: none; stroke: transparent; pointer-events: none; }
+.diagram-stage [data-link-id] .diagram-edge-hit { stroke: transparent; stroke-width: 16; pointer-events: stroke; }
+.diagram-stage [tabindex]:focus { outline: 2px solid var(--accent); outline-offset: 5px; }
+.diagram-inline-name { position: absolute; z-index: 4; width: 215px; background: var(--paper); color: var(--ink); border: 2px solid var(--accent); padding: 8px; border-radius: 6px; }
+.diagram-cardinality { font-size: 17px; font-weight: 700; fill: var(--ink); paint-order: stroke; stroke: var(--paper); stroke-width: 7px; stroke-linejoin: round; }
+.diagram-port { display: none; fill: var(--paper); stroke: var(--accent); stroke-width: 3; cursor: crosshair; }
+.diagram-stage [data-node-id]:hover .diagram-port, .diagram-stage .diagram-selected .diagram-port { display: block; }
+.diagram-workbench[data-readonly="true"] .diagram-port { display: none; }
+.diagram-connecting { stroke: var(--accent); stroke-width: 3; stroke-dasharray: 6 4; pointer-events: none; }
+.diagram-stage .design-er > .design-diagram-wrap { height: 100%; }
+.diagram-inspector { min-width: 0; max-height: min(68vh, 780px); overflow-y: auto; padding: 16px; background: var(--surface-tint); border-left: 1px solid var(--line); }
+.diagram-inspector h3 { margin: 0 0 10px; }
+.diagram-inspector p { font-size: .9rem; }
+.diagram-inspector label { display: grid; gap: 5px; margin-bottom: 12px; }
+.diagram-inspector input:not([type="checkbox"]), .diagram-inspector select { width: 100%; min-width: 0; background: var(--paper); color: var(--ink); border: 1px solid var(--border-strong); padding: 9px; border-radius: 6px; font: inherit; }
+.diagram-inspector fieldset { min-width: 0; border: 0; margin: 14px 0 0; padding: 0; }
+.diagram-inspector .uml-fields, .diagram-inspector .design-column-editor, .diagram-inspector .design-table-heading, .diagram-inspector .design-pair, .diagram-inspector .design-cardinalities { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; }
+.diagram-inspector .uml-member, .diagram-inspector .design-column-editor { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.diagram-inspector .uml-checkbox, .diagram-inspector .design-checkbox { display: flex; align-items: center; gap: 8px; }
+.diagram-inspector .button { padding: 9px 12px; }
+.diagram-toolbar button[aria-pressed="true"] { background: var(--accent); color: white; }
+.relational-svg { width: 100%; min-width: 0; }
+.diagram-fundamentals p, .solution > p { white-space: pre-line; }
+
+/* Auftrag und Arbeitsfläche bleiben auf breiten Bildschirmen zusammen sichtbar. */
+.workspace.uml-learning, .workspace.design-learning { grid-template-columns: 240px minmax(0, 1fr); }
+.workspace.uml-learning.rail-collapsed, .workspace.design-learning.rail-collapsed { grid-template-columns: 64px minmax(0, 1fr); }
+.uml-learning .design-notes, .design-learning .design-notes { grid-column: 2; position: static; max-height: none; }
+.diagram-lesson { display: grid; grid-template-columns: 245px minmax(0, 1fr); gap: 18px; align-items: start; margin-top: 20px; }
+.diagram-lesson > .task-card { position: sticky; top: 90px; max-height: 75vh; overflow-y: auto; margin: 0; padding: 18px; }
+.diagram-lesson .task-card p { font-size: 1rem; line-height: 1.6; white-space: pre-line; }
+.diagram-lesson > .diagram-answer-area { min-width: 0; }
+.diagram-lesson .design-answer { margin: 0; }
+.diagram-lesson .design-answer-content { padding: 0; }
+.diagram-story { margin: 18px 0; }
+.diagram-story > summary, .diagram-plan-summary { cursor: pointer; font-weight: 650; }
+.diagram-lesson .design-material { margin-bottom: 18px; }
+@media (max-width: 1400px) {
+    .diagram-lesson { grid-template-columns: minmax(0, 1fr); }
+    .diagram-lesson > .task-card { top: 70px; z-index: 2; max-height: 24vh; background: var(--paper); }
+}
+@media (max-width: 950px) {
+    .workspace.uml-learning, .workspace.design-learning, .workspace.uml-learning.rail-collapsed, .workspace.design-learning.rail-collapsed { grid-template-columns: minmax(0, 1fr); }
+    .uml-learning .design-notes, .design-learning .design-notes { grid-column: 1; }
+    .diagram-body { grid-template-columns: minmax(0, 1fr); }
+    .diagram-inspector { border-left: 0; border-top: 1px solid var(--line); max-height: 320px; }
+    .diagram-stage { height: 50vh; min-height: 320px; }
+    .diagram-lesson > .task-card { position: static; max-height: none; }
+    .diagram-toolbar { gap: 6px; }
+}

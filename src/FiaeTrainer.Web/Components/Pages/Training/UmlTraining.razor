@@ -26,6 +26,7 @@
         <div class="mission-topline"><span class="eyebrow">AUFGABE @CurrentId.ToString("D2") / @Catalog.Lessons.Count</span><span class="badge">@UmlKinds.Diagrams[_task.DiagramType] · @(_task.Format == "Read" ? "Lesen" : _task.Format == "Repair" ? "Reparieren" : "Selbst erstellen")</span></div>
         <h1>@_task.Title</h1>
         <LearningModePicker @key="CurrentId" ExamMode="_progress.IndependentMode" Busy="@(!CanEdit)" HasDraft="HasOwnDraft" AssistedAttempt="_progress.Assisted" CanReview="_progress.CanReview" HasSavedSolution="@(_progress.IndependentSolution != null)" ReturnToAnswer="ReturnToAnswer" ModeChanged="SetModeAsync" />
+        <details class="diagram-story"><summary>Geschichte und bisheriger Stand</summary>
         <section class="story-note" aria-label="Stand der Planung bei Nordhafen">
             <div class="avatar" aria-hidden="true">MK</div>
             <div>
@@ -38,19 +39,24 @@
                 <p>@_task.Story</p>
             </div>
         </section>
+        </details>
+        <div class="diagram-lesson">
         <section class="task-card"><div class="eyebrow">01 · AUFGABE VERSTEHEN</div><p>@_task.Task</p></section>
+        <div class="diagram-answer-area">
         @if (_task.Format == "Repair") { <section class="design-material"><h2>Vorgegebener Entwurf</h2><p>Diese Vorlage bleibt zum Vergleichen erhalten. Bearbeite darunter deine eigene Kopie.</p><UmlDiagram Task="_task" Model="_task.Starter" /></section> }
         <section class="editor-card design-answer" aria-label="Arbeitsbereich in UML und Modellierung">
             <div class="editor-toolbar"><strong>02 · @(_task.Format == "Read" ? "Deine Antwort" : "Dein Diagramm")</strong><span>@UmlKinds.Diagrams[_task.DiagramType]</span></div>
             <div class="design-answer-content"><UmlEditor @key="CurrentId" Task="_task" Answer="_progress.Answer" Changed="EditorChangedAsync" ReadOnly="@(!CanEdit || _progress.ShowingSavedAnswer)" Evaluation="_result" /></div>
             <div class="editor-actions"><div><button class="button primary" disabled="@(!CanEdit || !HasAnswer || _progress.ShowingSavedAnswer)" @onclick="CheckAsync">@(_busy ? "Wird geprüft …" : "Lösung prüfen") →</button></div></div>
         </section>
+        </div></div>
         @if (_result != null)
         {
             <div @ref="_feedback" tabindex="-1"><UmlLearningFeedback Reading="_progress.IsReading" Result="_result" Task="_task" IndependentMode="_progress.IndependentMode" Assisted="_progress.Assisted" /></div>
         }
         @if (!_progress.IndependentMode)
         {
+            <section class="diagram-fundamentals help-card"><h2>Das brauchst du für diese Aufgabe</h2><p>@_task.Fundamentals</p><p>Beschriftungen frei eingeben: Verwende die Namen aus dem Auftrag. Groß-/Kleinschreibung, Leerzeichen und Umlaute beziehungsweise ae/oe/ue sind gleichwertig. Eine unbekannte Formulierung wird nicht automatisch erraten.</p></section>
             <section class="help-card"><div class="help-row"><div><h2>Ein kleiner Denkanstoß?</h2><p>Du entscheidest, wie viel Unterstützung du brauchst.</p></div><button class="button secondary" disabled="@(!CanEdit || _progress.HintLevel == 3)" @onclick="HintAsync">@(_progress.HintLevel == 3 ? "Alle Hinweise geöffnet" : $"Hinweis {_progress.HintLevel + 1} von 3 öffnen")</button></div>
             @for (int i = 0; i < _progress.HintLevel; i++) { <div class="hint"><span>@(i + 1)</span><p>@_task.Hints[i]</p></div> }
             <div class="help-row"><div><h2>UML-Symbole und Regeln nachschlagen?</h2><p>Der Spickzettel erklärt Symbole, Pfeilrichtungen und Modellierungsregeln.</p></div><a class="button secondary" href="@($"/uml/spickzettel?aufgabe={CurrentId}")">Spickzettel öffnen</a></div>
@@ -62,7 +68,7 @@
     }
     </div>
     <aside class="inspector design-notes" aria-label="Bestätigte Planungsschritte">
-        <h2>Planungsschritte</h2><p>Deine bestätigten Schritte zum Softwaremodell.</p>
+        <details><summary class="diagram-plan-summary">Bestätigte Planungsschritte anzeigen</summary><h2>Planungsschritte</h2><p>Deine bestätigten Schritte zum Softwaremodell.</p>
         @if (!_state.UmlLessons.Any(item => item.Key <= CurrentId && item.Value.Completed)) { <p>Noch kein Schritt bestätigt. Deine erste gelöste Aufgabe eröffnet den Bericht.</p> }
         @foreach (var item in Catalog.Lessons.Where(task => task.Id <= CurrentId))
         {
@@ -75,5 +81,6 @@
                 <p>Planungsschritt noch offen: <a href="@($"/uml/{item.Id}")">Aufgabe @item.Id</a>.</p>
             }
         }
+        </details>
     </aside>
 </main>

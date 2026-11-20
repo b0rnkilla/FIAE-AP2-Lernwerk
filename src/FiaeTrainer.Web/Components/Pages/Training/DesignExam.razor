@@ -16,8 +16,9 @@
         else
         {
             <div class="design-exam-overview" role="group" aria-label="Teilaufgaben">@for (int i = 0; i < 3; i++) { int index = i; <button class="button secondary" disabled="@(_busy || _error != null)" aria-pressed="@(_round.Index == i ? "true" : "false")" @onclick="() => GoAsync(index)">Aufgabe @(i + 1)@(_round.FlaggedIds.Contains(i + 1) ? " ⚑" : "")</button> }</div>
-            <div class="eyebrow">@_case.Title · @_case.Points[_round.Index] Punkte</div><h1 class="business-question-title">@Current.Title</h1><section class="business-scenario"><h2>Dein Prüfungsfall</h2><p>@_case.Scenario</p></section><section class="task-card"><p>@Current.Task</p></section>
+            <div class="eyebrow">@_case.Title · @_case.Points[_round.Index] Punkte</div><h1 class="business-question-title">@Current.Title</h1><section class="business-scenario"><h2>Dein Prüfungsfall</h2><p>@_case.Scenario</p></section><div class="diagram-lesson"><section class="task-card"><p>@Current.Task</p></section><div class="diagram-answer-area">
             <DesignAnswerEditor @key="Current.Id" Task="Current" Answer="Answer" Changed="SaveAsync" ReadOnly="@(_busy || _error != null || _round.FinishedUtc != null)" />
+            </div></div>
             @if (_round.FinishedUtc != null) { <DesignFeedback Result="_round.Results[Current.Id]" Maximum="_case.Points[_round.Index]" /><details class="exam-solution"><summary>Musterlösung mit Erklärung</summary><p>@Current.Explanation</p>@if (Current.Kind == "Model") { <DesignDiagram Model="Current.Solutions[0]" /> } else { <ul>@foreach (string id in Current.CorrectIds) { <li>@Current.Options[id]</li> }</ul> }</details> }
             else { <div class="design-submit"><button class="button secondary" disabled="@(_error != null)" @onclick="FlagAsync">@(_round.FlaggedIds.Contains(Current.Id) ? "Markierung entfernen" : "Zur Kontrolle markieren")</button><button class="button primary" disabled="@(_busy || _error != null)" @onclick="RequestFinish">Prüfung abgeben →</button></div><div class="help-row"><div><h3>Du möchtest nachschlagen?</h3><p>Die Uhr pausiert. Dein Ergebnis wird als „mit Nachschlagen“ gekennzeichnet.</p></div><a class="button secondary" href="/datenbankentwurf/spickzettel?pruefung=true">Spickzettel öffnen →</a></div> }
         }
@@ -31,6 +32,8 @@
     private ElementReference _status;
     private Timer? _timer;
     private readonly SemaphoreSlim _actions = new(1, 1);
+    /// <summary> Verhindert das Zurücksetzen einer zwischenzeitlich geänderten Uhr beim Autospeichern. </summary>
+    private long _changeRevision;
     private DesignAssignment Current => _case!.Tasks[_round!.Index];
     private DesignAnswer Answer { get { if (!_round!.Answers.TryGetValue(Current.Id, out var answer)) _round.Answers[Current.Id] = answer = Current.InitialAnswer(); return answer; } }
     private string TimeLeft { get { int seconds = _round!.SecondsLeft(DateTimeOffset.UtcNow); return $"{seconds / 60:00}:{seconds % 60:00}"; } }
@@ -51,8 +54,22 @@
     private async Task SaveAsync()
     {
         if (_error != null || _round == null || _round.FinishedUtc != null) return;
+        _changeRevision++;
         await _actions.WaitAsync();
-        try { if (_round.FinishedUtc == null) _round = await Store.SaveDesignExamAsync(_round, Catalog); }
+        try
+        {
+            if (_round.FinishedUtc != null || _error != null) return;
+            long submittedRevision = _changeRevision;
+            var saved = await Store.SaveDesignExamAsync(_round, Catalog);
+            if (saved.FinishedUtc != null) _round = saved;
+            else
+            {
+                // Sichtbare Editorobjekte behalten ihre Identität und ihren Rückgängig-Verlauf.
+                _round.Revision = saved.Revision;
+                if (submittedRevision == _changeRevision) { _round.RemainingSeconds = saved.RemainingSeconds; _round.RunningSinceUtc = saved.RunningSinceUtc; }
+                _round.UsedReference |= saved.UsedReference;
+            }
+        }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidOperationException or System.Text.Json.JsonException) { _error = ex.Message; }
         finally { _actions.Release(); }
     }

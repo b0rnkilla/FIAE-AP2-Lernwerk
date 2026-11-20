@@ -116,6 +116,32 @@ public sealed class ExamComponentTests : IDisposable
         Assert.Null(restored.ExamRounds[ExamModule.Sql].EvaluatedUtc);
     }
 
+    [Fact]
+    public async Task EquipmentCasePreservesDraftsPauseAndOneFiftyPointResult()
+    {
+        using var services = Services(false);
+        var store = services.GetRequiredService<ProgressStore>(); var exams = services.GetRequiredService<ExamService>();
+        var round = exams.Create(ExamModule.Algorithms, AlgorithmExamCatalog.EQUIPMENT_CASE);
+        Assert.True(exams.IsCompatible(round));
+        foreach (int id in round.TaskIds)
+        {
+            var lesson = exams.AlgorithmTask(id).Lesson;
+            round.Drafts[id] = id == 13 ? lesson.ReferenceAnswer : lesson.ReferenceCode;
+        }
+        round.FlaggedIds.Add(12); await store.StartExamAsync(round);
+        round.Pause(DateTimeOffset.UtcNow); round = await store.SaveExamAsync(round);
+        var restored = (await store.LoadAsync()).ExamRounds[ExamModule.Algorithms];
+        Assert.True(restored.Paused); Assert.Equal(round.Drafts, restored.Drafts); Assert.Contains(12, restored.FlaggedIds);
+        restored.RunningSinceUtc = DateTimeOffset.UtcNow; restored = await store.SaveExamAsync(restored, true);
+        var results = await exams.EvaluateAsync(restored);
+        var finished = await store.CompleteExamAsync(restored, results);
+        Assert.Equal(50, finished.Earned); Assert.Single((await store.LoadAsync()).ExamHistory);
+        Assert.Contains("50", await RenderAsync(services));
+        var invalid = exams.Create(ExamModule.Algorithms, AlgorithmExamCatalog.EQUIPMENT_CASE); invalid.TaskIds.Reverse();
+        Assert.False(exams.IsCompatible(invalid));
+        invalid = exams.Create(ExamModule.Algorithms); invalid.ContentVersion = "2026-11-05"; Assert.True(exams.IsCompatible(invalid));
+    }
+
     private ServiceProvider Services(bool sql)
     {
         var env = new TestEnvironment();

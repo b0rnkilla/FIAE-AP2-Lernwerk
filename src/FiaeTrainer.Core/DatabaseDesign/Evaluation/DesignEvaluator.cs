@@ -10,9 +10,24 @@ public static class DesignEvaluator
     public static DesignEvaluation Evaluate(DesignAssignment task, DesignAnswer answer)
     {
         if (!DesignModelRules.Storable(answer)) return Failure("Der Entwurf ist beschädigt oder überschreitet die Grenzen des Baukastens.");
+        answer = answer.Copy();
+        foreach (var column in answer.Model.Tables.SelectMany(table => table.Columns))
+            if (column.Attribute.Length == 0) column.Attribute = FiaeTrainer.Core.Diagrams.DiagramNames.Resolve(column.Name, task.Attributes, task.NameAliases);
         if (task.Kind == "ErCompletion")
         {
-            if (answer.DiagramValues.Any(pair => !task.DiagramSlots.Any(slot => slot.Id == pair.Key && (pair.Value.Length == 0 || slot.Options.ContainsKey(pair.Value))))) return Failure("Eine Ergänzung gehört nicht zu diesem ER-Diagramm. Wähle die angebotenen Beschriftungen.");
+            if (answer.DiagramValues.Keys.Any(id => task.DiagramSlots.All(slot => slot.Id != id))) return Failure("Eine Ergänzung gehört nicht zu diesem ER-Diagramm.");
+            foreach (var slot in task.DiagramSlots)
+                if (answer.DiagramValues.TryGetValue(slot.Id, out string? value))
+                {
+                    string resolved = FiaeTrainer.Core.Diagrams.DiagramNames.Resolve(value, slot.Options);
+                    if (resolved.Length == 0)
+                    {
+                        string multiplicity = FiaeTrainer.Core.Diagrams.DiagramNames.Multiplicity(value);
+                        var matches = slot.Options.Where(option => FiaeTrainer.Core.Diagrams.DiagramNames.Multiplicity(option.Value) == multiplicity).Select(option => option.Key).ToArray();
+                        if (matches.Length == 1) resolved = matches[0];
+                    }
+                    answer.DiagramValues[slot.Id] = resolved;
+                }
             return new() { Checks = task.DiagramSlots.Select((slot, index) =>
             {
                 bool correct = answer.DiagramValues.GetValueOrDefault(slot.Id) == slot.CorrectId;
@@ -25,7 +40,7 @@ public static class DesignEvaluator
             bool correct = answer.SelectedIds.Count == answer.SelectedIds.Distinct().Count() && answer.SelectedIds.Order().SequenceEqual(task.CorrectIds.Order());
             return new() { Checks = [new("Fachliche Entscheidung", correct ? 50 : 0, 50, correct ? task.Explanation : "Deine Auswahl passt noch nicht zu allen Bedingungen des Auftrags. Prüfe die Aussagen erneut; im geführten Lernen kannst du schrittweise Hinweise öffnen.")] };
         }
-        if (answer.Model.Tables.SelectMany(table => table.Columns).Any(column => column.Attribute.Length > 0 && !task.Attributes.ContainsKey(column.Attribute))) return Failure("Ein Fachattribut gehört nicht zum Vokabular dieses Auftrags. Wähle seine Bedeutung aus der vorgegebenen Liste.");
+        if (answer.Model.Tables.SelectMany(table => table.Columns).Any(column => column.Attribute.Length > 0 && !task.Attributes.ContainsKey(column.Attribute))) return Failure("Ein Fachattribut gehört nicht zum Vokabular dieses Auftrags. Verwende die Attributbezeichnung aus dem Auftrag.");
         List<string> errors = DesignModelRules.Errors(answer.Model);
         if (answer.Model.Tables.Count == 0) return Failure("Lege zunächst mindestens eine Tabelle mit Attributen an.");
         DesignEvaluation result = task.Solutions.Select(expected => Compare(expected, answer.Model)).OrderByDescending(item => item.Earned).FirstOrDefault() ?? Failure("Für diesen Auftrag fehlt der Bewertungsvertrag.");
@@ -72,7 +87,7 @@ public static class DesignEvaluator
             if (found != null) foreign++;
             else foreignErrors.Add($"Ergänze die vollständige FK-Zuordnung von {source.Name} nach {target.Name}.");
             if (found != null && found.ParentMinimum == relation.ParentMinimum && found.ChildMinimum == relation.ChildMinimum && found.ChildMaximum == relation.ChildMaximum) cardinal++;
-            else cardinalErrors.Add($"Beziehung {source.Name} → {target.Name}: je abhängigem Satz {relation.ParentMinimum}..1 Elternsätze, je Elternsatz {relation.ChildMinimum}..{relation.ChildMaximum} abhängige Sätze.");
+            else cardinalErrors.Add($"Beziehung {source.Name} → {target.Name}: {relation.ParentMinimum}..1 Einträge aus {target.Name} pro Eintrag in {source.Name}; {relation.ChildMinimum}..{relation.ChildMaximum} Einträge aus {source.Name} pro Eintrag in {target.Name}.");
         }
         if (actual.Tables.Count > expected.Tables.Count) tableErrors.Add("Der Auftrag benötigt keine zusätzlichen Tabellen.");
         if (actual.Relations.Count > expected.Relations.Count) foreignErrors.Add("Zusätzliche Beziehungen können fachlich unabhängige Vorgänge unzulässig koppeln.");

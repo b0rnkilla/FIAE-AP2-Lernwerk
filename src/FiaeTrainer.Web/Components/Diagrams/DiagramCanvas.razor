@@ -1,0 +1,73 @@
+@using Microsoft.JSInterop
+@implements IAsyncDisposable
+@inject IServiceProvider Services
+
+<div class="diagram-workbench" @ref="_root" data-readonly="@(ReadOnly ? "true" : "false")" data-selected-id="@SelectedId">
+    <div class="diagram-toolbar" role="toolbar" aria-label="Diagramm bearbeiten">
+        @Tools
+        @if (AllowConnections) { <button type="button" class="button secondary" data-canvas-command="connect" disabled="@ReadOnly" aria-pressed="false">Verbinden</button> }
+        <button type="button" class="button secondary" data-canvas-command="fit">Einpassen</button>
+        <button type="button" class="button secondary" data-canvas-command="zoom-in" aria-label="Vergrößern">+</button>
+        <button type="button" class="button secondary" data-canvas-command="zoom-out" aria-label="Verkleinern">−</button>
+        <button type="button" class="button secondary" disabled="@(ReadOnly || !CanUndo)" @onclick="UndoAsync">Rückgängig</button>
+        <button type="button" class="button secondary" disabled="@(ReadOnly || !CanRedo)" @onclick="RedoAsync">Wiederholen</button>
+        @if (AllowArrange) { <button type="button" class="button secondary" disabled="@ReadOnly" @onclick="LayoutAsync">Anordnen</button> }
+    </div>
+    <p class="diagram-instructions">@(AllowConnections ? "Element wählen oder verschieben · Doppelklick: Name · Verbinden: Ausgang und Ziel anklicken oder Anschluss zum Ziel ziehen · Leere Fläche ziehen: Ansicht verschieben. Mit Tab und Enter auswählen; Pfeiltasten verschieben, Entf löscht." : "Lücke anklicken: Beschriftung bearbeiten · Doppelklick oder F2: Eingabe direkt an der Lücke · Leere Fläche ziehen: Ansicht verschieben. Mit Tab und Enter eine Lücke auswählen.")</p>
+    <div class="diagram-body">
+        <div class="diagram-stage" tabindex="0" aria-label="Zeichenfläche">@ChildContent</div>
+        <aside class="diagram-inspector" aria-label="Eigenschaften der Auswahl">@Inspector</aside>
+    </div>
+    <p class="diagram-status" role="status" aria-live="polite"></p>
+</div>
+
+@code {
+    /// <summary> Vorhandene fachliche SVG-Darstellung. </summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    /// <summary> Allgemeine Werkzeuge ohne Lösungsvokabular. </summary>
+    [Parameter] public RenderFragment? Tools { get; set; }
+    /// <summary> Eigenschaften genau des ausgewählten Elements. </summary>
+    [Parameter] public RenderFragment? Inspector { get; set; }
+    /// <summary> Gesperrte Prüfung oder geprüfte Antwort. </summary>
+    [Parameter] public bool ReadOnly { get; set; }
+    /// <summary> Auswahl aus Zeichenfläche, Werkzeugleiste oder Tastaturbedienung. </summary>
+    [Parameter] public string SelectedId { get; set; } = "";
+    /// <summary> Verfügbare vorherige Bearbeitung. </summary>
+    [Parameter] public bool CanUndo { get; set; }
+    /// <summary> Verfügbare zurückgenommene Bearbeitung. </summary>
+    [Parameter] public bool CanRedo { get; set; }
+    /// <summary> ER-Lückenvorlagen besitzen bereits feste Beziehungen. </summary>
+    [Parameter] public bool AllowConnections { get; set; } = true;
+    /// <summary> Feste Vorlagen dürfen nicht umgeordnet werden. </summary>
+    [Parameter] public bool AllowArrange { get; set; } = true;
+    /// <summary> Übergibt eine Geste an den zuständigen Editor. </summary>
+    [Parameter] public EventCallback<DiagramAction> Action { get; set; }
+    private ElementReference _root;
+    private IJSObjectReference? _module;
+    private DotNetObjectReference<DiagramCanvas>? _reference;
+    private Task UndoAsync() => SendAsync(new() { Kind = "undo" });
+    private Task RedoAsync() => SendAsync(new() { Kind = "redo" });
+    private Task LayoutAsync() => SendAsync(new() { Kind = "layout" });
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        _module = await Services.GetRequiredService<IJSRuntime>().InvokeAsync<IJSObjectReference>("import", "./js/diagram-canvas.js");
+        _reference = DotNetObjectReference.Create(this);
+        await _module.InvokeVoidAsync("attach", _root, _reference);
+    }
+
+    /// <summary> Prüft auch nach einer verzögerten Browsergeste die Antwortsperre. </summary>
+    [JSInvokable]
+    public Task SendAsync(DiagramAction action) => !ReadOnly || action.Kind == "select" ? Action.InvokeAsync(action) : Task.CompletedTask;
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_module != null)
+        {
+            try { await _module.InvokeVoidAsync("detach", _root); await _module.DisposeAsync(); }
+            catch (JSDisconnectedException) { }
+        }
+        _reference?.Dispose();
+    }
+}

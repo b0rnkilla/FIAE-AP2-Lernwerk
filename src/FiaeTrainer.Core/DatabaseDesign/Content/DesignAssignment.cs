@@ -5,6 +5,10 @@ namespace FiaeTrainer.Core.DatabaseDesign.Content;
 /// <summary> Eigener Arbeitsauftrag mit explizitem Vokabular, Annahmen und geprüften Modellvarianten. </summary>
 public sealed class DesignAssignment
 {
+    /// <summary> Ausdrücklich zugelassene alternative Attributnamen mit ihrer Fachkennung. </summary>
+    public Dictionary<string, string> NameAliases { get; set; } = [];
+    /// <summary> Notation und fremdes Beispiel für das geführte Lernen. </summary>
+    public string Fundamentals { get; set; } = "";
     /// <summary> Unveränderliche Kennung innerhalb des Lern- oder Prüfungskatalogs. </summary>
     public int Id { get; set; }
     /// <summary> Kapitel des Lernwegs. </summary>

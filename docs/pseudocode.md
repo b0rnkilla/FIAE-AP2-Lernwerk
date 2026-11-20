@@ -1,6 +1,6 @@
 # Pseudocode und Algorithmen
 
-Stand vom 16.11.2026. Die veröffentlichte Beta 4 enthält fünf erneuerte Leitstellenaufgaben. Die anschließende Quellfassung erweitert die Listenschleife und unterstützt Typangaben für Funktionsköpfe und Variablen.
+Quellstand vom 21.11.2026, `1.0.0-beta.6`. Die 30 Lernaufgaben, natürlichen Listenschleifen und Typangaben aus Beta 5 bleiben erhalten. Zusätzlich ist der Prüfungsfall **Geräteausleihe für ein Kulturfest** auswählbar: drei unabhängige Aufgaben zu Verfügbarkeit, Bestandsänderung und Zeitgrenzen, 45 Minuten und 20/20/10 Trainingspunkte. Der bisherige Zufallspool aus zehn Aufgaben bleibt unverändert. [Prüfungsvertrag](pruefungsmodus.md). Ein Beta-6-Paket wurde noch nicht gebaut.
 
 ## Lernweg und Aufgaben
 
@@ -47,7 +47,7 @@ Die Reihenfolge lautet Lernmodus, Story, Aufgabe und Editor. Neue Aufgaben begin
 
 Nach selbstständigem Erfolg öffnet die Moduswahl die geprüfte Antwort zum Nachlesen. Geführte Experimente verwenden eine Kopie. Für einen frischen Versuch gibt es **Neu üben**. [Moduswechsel und ältere Profile](lernkonzept.md#bedienung-und-lernmodus).
 
-In den Arbeitsaufträgen der 30 Lern- und zehn Prüfungsaufgaben kennzeichnet Codeschrift Variablen, Funktionsaufrufe und konkrete Ausdrücke. Das gilt auch für zweideutige Wörter wie `frei`, wenn sie als Eingabename gemeint sind. Beispieleingaben sind unter denselben Namen beschriftet.
+In den Arbeitsaufträgen der 30 Lern- und 13 Prüfungsaufgaben kennzeichnet Codeschrift Variablen, Funktionsaufrufe und konkrete Ausdrücke. Das gilt auch für zweideutige Wörter wie `frei`, wenn sie als Eingabename gemeint sind. Beispieleingaben sind unter denselben Namen beschriftet.
 
 Der Editor zeigt physische Zeilennummern einschließlich Leerzeilen, passend zu Fehlern und Ablaufspur. Lange Zeilen scrollen im Editor und in der nummerierten Schrittansicht waagerecht, statt die Zuordnung durch Umbruch zu verändern; im Editor folgen die Nummern dem senkrechten Scrollen. In Code- und Reparaturaufgaben fügt Tab vier Leerzeichen ein. Markierte Zeilen werden gemeinsam eingerückt; Umschalt+Tab entfernt bis zu vier führende Leerzeichen oder einen Tab je Zeile. **Esc, anschließend Tab** verlässt das Feld vorwärts, **Esc, anschließend Umschalt+Tab** rückwärts. Der kurze Tastaturhinweis steht am Editor. Strg+Tab bleibt für den Browser reserviert. Reine Antwortfelder für Ausgaben und Testfälle behalten die normale Tab-Navigation.
 

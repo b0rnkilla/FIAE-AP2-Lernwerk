@@ -16,9 +16,10 @@ public static class UmlEvaluator
             return new() { Checks = [new() { Name = "Diagramm verstehen", Maximum = 50, Earned = correct ? 50 : 0, Detail = correct ? "Deine Auswahl erfüllt den Auftrag." : "Deine Auswahl passt noch nicht vollständig. Lies die Darstellung und die Aussagen erneut." }] };
         }
         if (answer.Model.Nodes.Count == 0) return Failure("Lege zunächst die benötigten Diagrammelemente an.");
-        var errors = UmlRules.Errors(task, answer.Model);
+        var model = UmlNames.Resolve(task, answer.Model);
+        var errors = UmlRules.Errors(task, model);
         if (errors.Count > 0) return new() { Checks = [new() { Name = "Entwurf vervollständigen", Maximum = 50, Detail = string.Join(" ", errors.Select(issue => issue.Text).Distinct().Take(4)) }], Issues = errors };
-        return task.Solutions.Select(expected => Compare(task, expected, answer.Model)).OrderByDescending(result => result.Earned).First();
+        return task.Solutions.Select(expected => Compare(task, expected, model)).OrderByDescending(result => result.Earned).First();
     }
 
     /// <summary> Drei getrennte Kriterien gewichten Elemente, Verbindungen und Rahmung auf 20/25/5. </summary>

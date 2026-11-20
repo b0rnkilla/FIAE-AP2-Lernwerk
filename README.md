@@ -12,7 +12,7 @@ Ermittle mit SQL, entwickle eigene Algorithmen und UML-Diagramme, entwirf relati
 
 **474 Lernübungen in acht Lernbereichen** und eigene Prüfungsrunden.
 
-In der SQL-Werkstatt kannst du einzelne Abfragen ausführen und ihre Ergebnisse vergleichen. Selbstständig gelöste Aufgaben kannst du zum Nachlesen mit einer Arbeitskopie öffnen.
+In der SQL-Werkstatt kannst du einzelne Abfragen ausführen und ihre Ergebnisse vergleichen. Selbstständig gelöste Aufgaben kannst du zum Nachlesen mit einer Arbeitskopie öffnen. UML und Datenmodelle bearbeitest du direkt im Diagramm; Beispiele, drei Hinweise und erklärte Musterlösungen unterstützen das Lernen.
 
 <table>
   <thead><tr>
@@ -25,12 +25,12 @@ In der SQL-Werkstatt kannst du einzelne Abfragen ausführen und ihre Ergebnisse 
     <tr valign="top">
       <td>Löse einen Fall mit eigenen Abfragen. Übe JOINs, Mengenoperationen, Fremdschlüssel und Rollenrechte.</td>
       <td>Prüfe Grenzfälle in der Leitstelle, verfolge Schleifen auf Papier und übe Funktionsköpfe mit Parametern und Rückgabetyp.</td>
-      <td>Lies, repariere und erstelle eigene Diagramme in fünf UML-Notationen.</td>
-      <td>Ergänze ER-Diagramme und Tabellenmodelle. Entwirf aus Unterlagen normalisierte Tabellen.</td>
+      <td>Lies, repariere und erstelle eigene Diagramme in fünf UML-Notationen direkt auf der Zeichenfläche.</td>
+      <td>Ergänze ER-Diagramme und entwirf Tabellenmodelle mit frei eingegebenen Namen, Verbindungen und sichtbaren Kardinalitäten.</td>
     </tr>
     <tr>
       <td>60 Lernaufgaben · vier Prüfungsfälle mit je fünf Aufgaben</td>
-      <td>30 Lern- und zehn Prüfungsaufgaben</td>
+      <td>30 Lernaufgaben · zehn gemischte Prüfungsaufgaben und ein zusätzlicher Fall mit drei Teilen</td>
       <td>36 Lernaufgaben · drei Prüfungsfälle</td>
       <td>42 Lernaufgaben · drei Prüfungsfälle</td>
     </tr>

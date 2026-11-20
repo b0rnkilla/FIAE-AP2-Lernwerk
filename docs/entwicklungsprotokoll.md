@@ -1,5 +1,15 @@
 # Entwicklungsprotokoll
 
+## 21.11.2026 · Beta 6: Diagramme direkt bearbeiten und Prüfungsfall ergänzen
+
+Nach Konzeptfreigabe gemeinsame lokale SVG-Bedienung für UML und Datenbankentwurf ergänzt: Auswahl, Verschieben, Anschlüsse, direktes Umbenennen, Zoom/Einpassen, kompakte Eigenschaften und 40-stufiger Verlauf. Tabellen werden nach Beziehungen angeordnet; rechtwinklige Linien tragen Kardinalitäten. Aufgaben und Zeichenfläche bleiben zusammen sichtbar, Geschichte und Planungsbericht sind aufklappbar. Freie Namen lösen ausschließlich bekannte Bezeichnungen und explizite Varianten auf. Alte Fachkennungen bleiben gültig; additive Positionsfelder sind unbenotet. Offene Diagrammprüfungen erhalten ihre Editorobjekte beim Autospeichern.
+
+Alle 36 UML-/42 Entwurfsaufträge samt Prüfungsfällen sprachlich und didaktisch überarbeitet; konkrete Grundlagenbeispiele, gestufte Hinweise und erklärte Muster ergänzt. Primäre Orientierung waren die lokal vorliegenden IHK-Aufgaben zu Aktivitäten, Sequenzen, Zuständen, ER-Ergänzung und relationalem Entwurf. Der neue unabhängige Kulturfestfall ergänzt den Pseudocode-Pool um drei gezielt auswählbare Aufgaben. Softwareplanung 11/24 verwendet konsistente Funktionsköpfe und Blockschreibweise. Version zentral auf `1.0.0-beta.6` gesetzt. Kein Paket gebaut, kein Commit/Push. [Vertrag](diagramme.md) · [Tests](testprotokoll.md).
+
+## 17.11.2026 · Windows-Paket für Beta 5
+
+Nach bestätigtem Nutzer-Push aus dem sauberen Commit `75f2791` gebaut. Der lokale Remote-Verweis und die Produktversion der entpackten EXE bestätigen diesen Stand; der direkte GitHub-Abruf war gesperrt. Anleitung und Versionshinweise sind Bestandteil desselben Commits. Die native EXE startete auf Port 5393 mit getrenntem Profil; Paketinhalt, Lizenzen, Icon und Integrität wurden geprüft. Die interaktive Paketprüfung und der NuGet-Sicherheitsabgleich blieben durch die Testumgebung blockiert. [Testergebnisse](testprotokoll.md) · [Paketdaten](lokale-releases.md). Anwendungscode und geprüftes ZIP werden für diese nachträgliche Dokumentation nicht verändert.
+
 ## 17.11.2026 · Beta 5 zum Commit vorbereitet
 
 Die Quellversion `1.0.0-beta.5` bündelt die natürlichen Listenschleifen, typisierten Funktionsköpfe und den erweiterten Pseudocode-Spickzettel. Die [Versionshinweise](../release/Versionshinweise-1.0.0-beta.5.md) liegen bereit. Der Nutzer hat das Windows-ZIP nach seinem Commit und Push beauftragt; Zielcommit und Paketprüfung folgen danach. Das veröffentlichte Beta-4-Paket bleibt unverändert.

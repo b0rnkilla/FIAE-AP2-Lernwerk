@@ -4,9 +4,11 @@
 | --- | --- |
 | Anwendung | AP2 Lernwerk |
 | Projektmappe | FIAE_AP2_Trainer.sln |
-| Entwicklungsfassung | 1.0.0-beta.5 mit 474 Übungen in acht Lernbereichen |
-| Nächster Paketbau | Beta 5 nach Nutzer-Commit und Push beauftragt; Versionshinweise vorbereitet, ZIP und Paketprüfung stehen aus. |
-| Typisierte Funktionsköpfe nach Beta 4 | Neun Lern- und acht Prüfungsaufgaben zeigen Parametertypen und Rückgabetyp. Die erste Aufgabe neuer Pseudocode-Prüfungen kennzeichnet die Typenpflicht direkt im Auftrag. |
+| Entwicklungsfassung | 1.0.0-beta.6 mit 474 Übungen in acht Lernbereichen; Quellfassung, noch kein neues ZIP |
+| Diagrammüberarbeitung | Gemeinsame direkte Zeichenfläche, freie Namen, gespeicherte Positionen, Rückgängig und Kardinalitäten im relationalen Diagramm; 36 UML-/42 Entwurfsaufträge samt Prüfungsfällen didaktisch überarbeitet |
+| Zusätzlicher Pseudocode-Fall | Geräteausleihe für ein Kulturfest: Verfügbarkeit, Bestandsreparatur und Zeitgrenzen; 45 Minuten, 20/20/10 Punkte |
+| Aktuelles Windows-Paket | Beta 5 aus Commit `75f2791` gebaut. Dateiumfang und nativer EXE-Start geprüft; interaktiver Pakettest durch Socket-Sperre blockiert. Veröffentlichung durch Nutzer. |
+| Typisierte Funktionsköpfe | Neun Lern- und zehn Prüfungsaufgaben zeigen Parametertypen und Rückgabetyp. Die erste Aufgabe gemischter Runden sowie beide Codeaufgaben des Kulturfestfalls kennzeichnen die Typenpflicht direkt im Auftrag. |
 | Quelländerung nach Beta 4 | Pseudocode-Listenschleifen akzeptieren `FÜR JEDEN`, `FÜR JEDE`, `FÜR JEDES` und `FÜR ALLE`. Aufgabe 9 und der Spickzettel zeigen Beispiele. |
 | Im Quellstand nach Beta 3 | Fünf erneuerte Leitstellenaufgaben zu Reserve, Funkprotokoll, Schichtwechsel, Schaltjahren und Archivfächern. Frühere Entwürfe und Abschlüsse sind einsehbar. Variablen und Ausdrücke stehen in den Pseudocode-Aufträgen in Codeschrift. |
 | Ergänzungen nach Beta 3 | SQL-Werkstatt mit 20 erklärten Beispielen, sichtbaren Abfrageergebnissen und markierter Probeausführung. Geschütztes Nachlesen eigener Lösungen in acht Lernansichten. |
@@ -15,13 +17,13 @@
 | Aufgabenhilfen | Drei einzeln aufdeckbare Denkanstöße je Lernaufgabe in Abschnitt 01–07. Die fachliche Erklärung gehört zur Musterlösung. |
 | SQL-Prüfung | Vier Fälle mit je fünf Aufgaben. Der Stadtfest-Fall verbindet Lieferlisten, Fremdschlüssel, Inventur, Archivierung und Rechte. |
 | SQL-Werkstatt | Hinweise zur betroffenen SQL-Anweisung. Die Sensorpreis-Aufgabe prüft die Rundung auf Cent anhand der berechneten Werte. |
-| Zuletzt geprüftes Windows-Paket | 1.0.0-beta.4 aus Commit `1dffa97`, unsigniert, mit geprüftem a²-Icon und Paketwechsel von Beta 3 |
-| Nutzererprobung | In Beta 2 SQL-Ermittlung und Werkstatt abgeschlossen und alle drei SQL-Prüfungsfälle mehrfach bearbeitet. Die praktische Erprobung der überarbeiteten Pseudocode-Aufgaben läuft mit der veröffentlichten Beta 4. |
+| Zuletzt interaktiv geprüftes Windows-Paket | 1.0.0-beta.4 aus Commit `1dffa97`, unsigniert, mit geprüftem a²-Icon und Paketwechsel von Beta 3 |
+| Nutzererprobung | SQL laut aktuellem Nutzerbefund abgeschlossen und passend. Die umfangreiche Rückmeldung zu UML, Datenbankentwurf und Abschnitt 05 ist Grundlage des freigegebenen Beta-6-Umbaus; erneute praktische Abnahme steht aus. |
 | Windows-Build nach Beta 1 | EXE mit eingebettetem a²-App-Symbol. GitHub-ZIP standardmäßig unsigniert, Authenticode optional |
 | Alpha-16-Freigabe | Nach Nutzer-Commit/Push ausdrücklich beauftragt, ZIP und native Prüfung erfolgreich; Tag v0.1.1-alpha.16 auf 1dbcb12, Veröffentlichung durch Nutzer |
 | Plattform | Windows, lokale Browseroberfläche |
 | Technik | C#, .NET 10, ASP.NET Core, Blazor, Microsoft SQL Server |
-| Verfügbar im Quellstand | 60 SQL-, 30 Algorithmus-, 36 UML-, 42 Datenbankentwurfs-, 48 Softwareplanungs-, 54 Qualitäts-, 54 Projekt- und 150 WiSo-Aufgaben: 474 Lernübungen in acht Modulen; zusätzlich 30 SQL-/Pseudocode-Prüfungsaufgaben sowie je drei Entwurfs-, UML-, Softwareplanungs-, Qualitäts- und Projektprüfungen mit je neun Teilen |
+| Verfügbar im Quellstand | 60 SQL-, 30 Algorithmus-, 36 UML-, 42 Datenbankentwurfs-, 48 Softwareplanungs-, 54 Qualitäts-, 54 Projekt- und 150 WiSo-Aufgaben: 474 Lernübungen in acht Modulen; zusätzlich 33 SQL-/Pseudocode-Prüfungsaufgaben sowie je drei Entwurfs-, UML-, Softwareplanungs-, Qualitäts- und Projektprüfungen mit je neun Teilen |
 | Inhalt Windows-Paket Alpha 16 | 454 Lernübungen in acht Modulen, 25 SQL-/Pseudocode-Prüfungsaufgaben und je drei Datenbankentwurfs-, UML-, Softwareplanungs-, Qualitäts- und Projektprüfungsfälle |
 | Historischer Inhalt Windows-Paket Alpha 15 | 400 Lernübungen in sieben Modulen, 25 SQL-/Pseudocode-Prüfungsaufgaben und je drei Datenbankentwurfs-, UML-, Softwareplanungs- und Qualitätsprüfungsfälle |
 | Historischer Inhalt Windows-Paket Alpha 14 | 346 Lernübungen in sechs Modulen, 25 SQL-/Pseudocode-Prüfungsaufgaben und jeweils drei Datenbankentwurfs-, UML- und Softwareplanungs-Prüfungsfälle |

@@ -15,7 +15,7 @@
         "diagramType": "UseCase",
         "format": "Build",
         "story": "Das Projektteam benötigt diesen unabhängig beschriebenen Ausschnitt.",
-        "task": "Erstelle eine beschriftete Systemgrenze. Mitglied nutzt Proberaum buchen. Proberaum buchen bindet Mitgliedschaft prüfen verpflichtend per include ein. Verwende nur die beschriebenen Fachrollen, Merkmale und Verbindungen; eigene Anzeigenamen sind erlaubt.",
+        "task": "Mitglieder können einen Proberaum buchen. Bei jeder Buchung muss die Mitgliedschaft geprüft werden. Entwirf ein Anwendungsfalldiagramm mit benanntem System. Bezeichnungen: Mitglied, Proberaum buchen, Mitgliedschaft prüfen.",
         "nodeVocabulary": {
           "member": "Mitglied",
           "reserve": "Proberaum buchen",
@@ -88,7 +88,8 @@
           "Welche Tätigkeit kommt bei jeder Buchung zwingend hinzu, obwohl sie kein eigenes Ziel des Mitglieds ist?",
           "Lies den include-Pfeil als Satz. Kommt er bei der eingebundenen Funktion an?"
         ],
-        "explanation": "Ein Akteur, zwei Anwendungsfälle und eine include-Abhängigkeit vom Buchen zur Prüfung."
+        "explanation": "Ein Akteur, zwei Anwendungsfälle und eine include-Abhängigkeit vom Buchen zur Prüfung.\n\nMitglied — Proberaum buchen: Die Rolle nutzt dieses Ziel direkt.\n\nProberaum buchen benötigt bei jeder Ausführung Mitgliedschaft prüfen; deshalb zeigt die include-Abhängigkeit auf Mitgliedschaft prüfen.",
+        "fundamentals": "Ein Anwendungsfalldiagramm zeigt Nutzungsziele. Akteure stehen außerhalb der benannten Systemgrenze, Funktionen als Ellipsen darin. Eine einfache Linie bedeutet: Die Rolle nutzt diese Funktion.\nBeispiel aus einer Bibliothek: Leserin — Buch ausleihen. Muss bei jeder Ausleihe die Berechtigung geprüft werden, zeigt «include» von Buch ausleihen auf Berechtigung prüfen. Eine freiwillige Erinnerungsoption zeigt mit «extend» auf die auch ohne Zusatz sinnvolle Basis. Das leere Dreieck einer Spezialisierung zeigt zum allgemeineren Akteur."
       },
       {
         "id": 2,
@@ -96,7 +97,7 @@
         "diagramType": "Class",
         "format": "Build",
         "story": "Das Projektteam benötigt diesen unabhängig beschriebenen Ausschnitt.",
-        "task": "Erstelle die konkreten Klassen Mitglied mit privater nummer: Integer und Raumbuchung mit öffentlicher bestaetigen(): Boolean. Jede Raumbuchung gehört genau einem Mitglied, ein Mitglied hat 0..* Raumbuchungen. Verwende eine Assoziation. Verwende nur die beschriebenen Fachrollen, Merkmale und Verbindungen; eigene Anzeigenamen sind erlaubt.",
+        "task": "Ein Mitglied speichert seine nummer intern als Ganzzahl. Jede Raumbuchung gehört genau einem Mitglied; Mitglieder dürfen auch ohne Buchung und mit mehreren Buchungen existieren. Raumbuchung bietet öffentlich bestaetigen() mit einem Wahrheitswert als Ergebnis an. Entwirf den Klassenausschnitt mit Mengenangaben; beide Klassen sind konkret.",
         "nodeVocabulary": {
           "member": "Mitglied",
           "booking": "Raumbuchung"
@@ -174,7 +175,8 @@
           "Lies die Verbindung einmal für eine einzelne Raumbuchung und einmal für ein neues Mitglied.",
           "Teste zwei Buchungen derselben Person. Sind beide bei den gewählten Multiplizitäten möglich?"
         ],
-        "explanation": "1 am Mitgliedsende, 0..* am Buchungsende; nummer ist ein Attribut und bestaetigen eine Methode."
+        "explanation": "1 am Mitgliedsende, 0..* am Buchungsende; nummer ist ein Attribut und bestaetigen eine Methode.\n\nMitglied ist konkret. Merkmale: - nummer: Integer.\n\nRaumbuchung ist konkret. Merkmale: + bestaetigen(): Boolean.\n\nMitglied — Raumbuchung: 1 am Ende Mitglied, 0..* am Ende Raumbuchung.",
+        "fundamentals": "Ein Klassenkasten enthält Name, Attribute und Methoden. − bedeutet privat, + öffentlich; ein Methodenparameter steht in Klammern, der Rückgabetyp nach dem Doppelpunkt. Abstrakte Klassen/Operationen werden kursiv dargestellt.\nBeispiel: Konto besitzt − saldo: Double und + einzahlen(betrag: Double): Boolean. Bei einer Beziehung Besitzer—Konto bedeutet 1 am Besitzerende: ein Besitzer pro Konto; 0..* am Kontoende: beliebig viele Konten pro Besitzer. Eine gefüllte Raute liegt am besitzenden Ganzen, eine leere Raute kennzeichnet eine schwächere Teil-Ganzes-Zuordnung. Vererbung zeigt mit durchgezogenem, Realisierung eines Interfaces mit gestricheltem Dreieckspfeil auf den gemeinsamen Typ."
       },
       {
         "id": 3,
@@ -182,7 +184,7 @@
         "diagramType": "Activity",
         "format": "Build",
         "story": "Das Projektteam benötigt diesen unabhängig beschriebenen Ausschnitt.",
-        "task": "Start führt zur Entscheidung Schlüssel da?. Bei Schlüssel vorhanden folgt Schlüssel ausgeben, bei Schlüssel fehlt Wartehinweis senden. Beide Aktionen führen zum Finalknoten Ende. Verwende nur die beschriebenen Fachrollen, Merkmale und Verbindungen; eigene Anzeigenamen sind erlaubt.",
+        "task": "Vor der Raumnutzung wird betrachtet, ob der Schlüssel vorhanden ist. Dann wird er ausgegeben; andernfalls wird ein Wartehinweis gesendet. Danach endet die Bearbeitung. Entwirf den vollständigen Aktivitätsablauf. Bezeichnungen: Schlüssel da?, Schlüssel vorhanden, Schlüssel fehlt, Schlüssel ausgeben, Wartehinweis senden.",
         "nodeVocabulary": {
           "start": "Start",
           "decide": "Schlüssel da?",
@@ -311,11 +313,12 @@
           "Markiere die Bedingung an der Kante, auf der die jeweilige Nachricht erreicht wird.",
           "Verfolge danach den vorhandenen Schlüssel. Erreicht auch dieser Weg das Ende?"
         ],
-        "explanation": "Die beiden Entscheidungszweige sind unterschiedlich bedingt und führen nach ihrer Aktion zum Ende.",
+        "explanation": "Die beiden Entscheidungszweige sind unterschiedlich bedingt und führen nach ihrer Aktion zum Ende.\n\nStart → Schlüssel da?.\n\nSchlüssel da? → Schlüssel ausgeben [Schlüssel vorhanden].\n\nSchlüssel da? → Wartehinweis senden [Schlüssel fehlt].\n\nSchlüssel ausgeben → Ende.\n\nWartehinweis senden → Ende.",
         "conditions": {
           "yes": "Schlüssel vorhanden",
           "no": "Schlüssel fehlt"
-        }
+        },
+        "fundamentals": "Ein ausgefüllter Kreis beginnt den Ablauf, ein umrandeter Endkreis beendet ihn. Abgerundete Rechtecke sind Tätigkeiten, Pfeile zeigen die Reihenfolge. An einer Entscheidungsraute wählen Bedingungen wie [gültig] genau einen Weg; eine Zusammenführungsraute vereinigt alternative Wege ohne auf beide zu warten.\nBeispiel: Nach Bestellung prüfen können Küche vorbereiten und Tisch decken unabhängig starten. Ein dicker Querbalken teilt die Arbeit auf (Parallelisierung, englisch Fork). Ein zweiter wartet auf beide Ergebnisse (Synchronisation, englisch Join), bevor Essen servieren beginnen darf. Zuständigkeitsbahnen ordnen Tätigkeiten einer verantwortlichen Rolle zu."
       }
     ]
   },
@@ -335,7 +338,7 @@
         "diagramType": "Class",
         "format": "Build",
         "story": "Das Projektteam benötigt diesen unabhängig beschriebenen Ausschnitt.",
-        "task": "Erstelle konkrete Ausgabe und Ausgabeposition. Ausgabeposition hat privates anzahl: Integer. Jede Position ist ein existenziell gebundener Bestandteil genau einer Ausgabe; eine Ausgabe enthält 1..* Positionen. Modelliere Komposition mit der Raute bei Ausgabe. Verwende nur die beschriebenen Fachrollen, Merkmale und Verbindungen; eigene Anzeigenamen sind erlaubt.",
+        "task": "Eine Ausgabe besteht aus mindestens einer Ausgabeposition. Eine Position gehört ausschließlich zu einer Ausgabe, wird mit ihr gelöscht und speichert anzahl intern als Ganzzahl. Stelle die konkreten Klassen Ausgabe und Ausgabeposition mit ihrer fachlichen Zugehörigkeit und den Mengen dar.",
         "nodeVocabulary": {
           "loan": "Ausgabe",
           "position": "Ausgabeposition"
@@ -400,7 +403,8 @@
           "Welche Beziehung drückt diese Bindung aus, und an welchem Ende sitzt das Ganze?",
           "Lies die Mindestzahlen für eine einzelne Ausgabe und für eine einzelne Position getrennt."
         ],
-        "explanation": "Die Komposition zeigt den besitzenden Zusammenhang; die Raute liegt am Ganzen Ausgabe."
+        "explanation": "Die Komposition zeigt den besitzenden Zusammenhang; die Raute liegt am Ganzen Ausgabe.\n\nAusgabe ist konkret; hier sind keine Merkmale gefordert.\n\nAusgabeposition ist konkret. Merkmale: - anzahl: Integer.\n\nAusgabe ist das Ganze, Ausgabeposition der zugeordnete Teil. Die gefüllte Raute liegt bei Ausgabe. Am Teilende steht 1..*, am Ganzen 1.",
+        "fundamentals": "Ein Klassenkasten enthält Name, Attribute und Methoden. − bedeutet privat, + öffentlich; ein Methodenparameter steht in Klammern, der Rückgabetyp nach dem Doppelpunkt. Abstrakte Klassen/Operationen werden kursiv dargestellt.\nBeispiel: Konto besitzt − saldo: Double und + einzahlen(betrag: Double): Boolean. Bei einer Beziehung Besitzer—Konto bedeutet 1 am Besitzerende: ein Besitzer pro Konto; 0..* am Kontoende: beliebig viele Konten pro Besitzer. Eine gefüllte Raute liegt am besitzenden Ganzen, eine leere Raute kennzeichnet eine schwächere Teil-Ganzes-Zuordnung. Vererbung zeigt mit durchgezogenem, Realisierung eines Interfaces mit gestricheltem Dreieckspfeil auf den gemeinsamen Typ."
       },
       {
         "id": 2,
@@ -408,7 +412,7 @@
         "diagramType": "Sequence",
         "format": "Build",
         "story": "Das Projektteam benötigt diesen unabhängig beschriebenen Ausschnitt.",
-        "task": "Erstelle Ausgabeseite, Ausgabedienst und Gerätebestand als Lebenslinien. Reihenfolge: Seite ruft ausgeben() am Dienst auf, Dienst ruft sperren() am Bestand auf, Bestand liefert Sperrergebnis zum Dienst zurück, Dienst liefert Ausgabebeleg zur Seite zurück. Alle Aufrufe sind synchron; keine Gruppen. Verwende nur die beschriebenen Fachrollen, Merkmale und Verbindungen; eigene Anzeigenamen sind erlaubt.",
+        "task": "Die Ausgabeseite fordert mit ausgeben() beim Ausgabedienst eine Ausgabe an. Der Dienst muss zuvor die Geräte über sperren() beim Gerätebestand sperren lassen und dessen Sperrergebnis abwarten. Anschließend erhält die Seite den Ausgabebeleg. Stelle den synchronen Austausch einschließlich Rückgaben als Sequenzdiagramm dar; zusätzliche Bedingungen gibt es nicht.",
         "nodeVocabulary": {
           "desk": "Ausgabeseite",
           "service": "Ausgabedienst",
@@ -505,13 +509,14 @@
           "Welches Ergebnis muss der Dienst noch vom Bestand bekommen, bevor er antworten kann?",
           "Lege Aufruf und Rückgabe paarweise nebeneinander. Stimmen Empfänger und Reihenfolge?"
         ],
-        "explanation": "Die innere Abfrage wird vor dem äußeren Aufruf beantwortet.",
+        "explanation": "Die innere Abfrage wird vor dem äußeren Aufruf beantwortet.\n\nAusgabeseite → Ausgabedienst: synchroner Aufruf ausgeben().\n\nAusgabedienst → Gerätebestand: synchroner Aufruf sperren().\n\nGerätebestand → Ausgabedienst: Rückgabe Sperrergebnis.\n\nAusgabedienst → Ausgabeseite: Rückgabe Ausgabebeleg.\n\nDie Reihenfolge beschreibt die Abhängigkeiten der Nachrichten. Eine Rückgabe kann erst nach dem zugehörigen Aufruf entstehen; eine andere waagerechte Anordnung der Beteiligten ändert daran nichts.",
         "messages": {
           "issue": "ausgeben()",
           "lock": "sperren()",
           "locked": "Sperrergebnis",
           "done": "Ausgabebeleg"
-        }
+        },
+        "fundamentals": "Zeit verläuft von oben nach unten. Jeder Beteiligte besitzt einen Kopf und eine gestrichelte Lebenslinie. Durchgezogene Pfeile mit gefüllter Spitze sind synchrone Aufrufe; gestrichelte Pfeile sind Rückgaben.\nBeispiel: Kasse → Preisservice: berechnen(); danach Preisservice → Kasse: Gesamtpreis. Erst dann kann die Kasse weiterarbeiten. Der Rahmen alt enthält alternative Zweige mit Bedingungen, opt einen optionalen Ablauf, loop eine wiederholte Nachrichtenfolge. Aufruf und zugehörige Rückgabe gehören gemeinsam in ihren bedingten oder wiederholten Abschnitt."
       },
       {
         "id": 3,
@@ -519,7 +524,7 @@
         "diagramType": "State",
         "format": "Build",
         "story": "Das Projektteam benötigt diesen unabhängig beschriebenen Ausschnitt.",
-        "task": "Start führt ohne Ereignis nach Bereit. abholen führt nach Ausgegeben, zurückgeben von dort nach Zurückgegeben, abschließen von Zurückgegeben zum Finalknoten Ende. Die Geschäftsstände sind normale Zustände. Verwende nur die beschriebenen Fachrollen, Merkmale und Verbindungen; eigene Anzeigenamen sind erlaubt.",
+        "task": "Ein Ausleihvorgang beginnt als Bereit. abholen versetzt ihn in Ausgegeben, zurückgeben in Zurückgegeben. Erst abschließen beendet den Lebenszyklus. Entwirf diesen Zustandsablauf.",
         "nodeVocabulary": {
           "start": "Start",
           "ready": "Bereit",
@@ -636,12 +641,13 @@
           "Lies jede Tätigkeit als Ereignis auf dem Weg zum nächsten Zustand.",
           "Kann die zurückgegebene Sache noch abgeschlossen werden, oder endet dein Diagramm zu früh?"
         ],
-        "explanation": "Drei Geschäftsstände sind vom abschließenden Finalknoten unterschieden.",
+        "explanation": "Drei Geschäftsstände sind vom abschließenden Finalknoten unterschieden.\n\nStart → Bereit.\n\nBereit → Ausgegeben: abholen.\n\nAusgegeben → Zurückgegeben: zurückgeben.\n\nZurückgegeben → Ende: abschließen.",
         "events": {
           "pickup": "abholen",
           "return": "zurückgeben",
           "finish": "abschließen"
-        }
+        },
+        "fundamentals": "Ein Zustand beschreibt eine über eine Zeit bestehende Situation. Ein Übergang trägt ein Ereignis und bei Bedarf eine zusätzliche Bedingung in eckigen Klammern. Der Startpfeil zum Anfangszustand braucht kein Ereignis; ein normaler Zustand ist kein Endknoten.\nBeispiel: Ein Paket wechselt durch versenden von Gepackt zu Unterwegs. entry / Licht einschalten läuft beim Eintritt in einen Zustand, do / Temperatur überwachen während des Aufenthalts, exit / Licht ausschalten beim Verlassen. Das Ereignis abliefern kann den nächsten Zustandswechsel auslösen; die Zustandsaktion selbst ersetzt dieses Ereignis nicht."
       }
     ]
   },
@@ -661,7 +667,7 @@
         "diagramType": "UseCase",
         "format": "Build",
         "story": "Das Projektteam benötigt diesen unabhängig beschriebenen Ausschnitt.",
-        "task": "Erstelle eine beschriftete Grenze. Gast nutzt Eintritt anmelden. Infomail bestellen erweitert Eintritt anmelden optional per extend. Weitere Verbindungen werden nicht verlangt. Verwende nur die beschriebenen Fachrollen, Merkmale und Verbindungen; eigene Anzeigenamen sind erlaubt.",
+        "task": "Ein Gast kann seinen Eintritt anmelden. Auf Wunsch bestellt er dabei eine Infomail; die Anmeldung ist auch ohne diese Ergänzung vollständig. Entwirf ein Anwendungsfalldiagramm mit benanntem System. Bezeichnungen: Gast, Eintritt anmelden, Infomail bestellen.",
         "nodeVocabulary": {
           "guest": "Gast",
           "ticket": "Eintritt anmelden",
@@ -734,7 +740,8 @@
           "Welche Funktion erweitert das Anliegen des Gasts nur gelegentlich?",
           "Lies die Erweiterungsbeziehung ausgehend von der Zusatzfunktion. Zeigt sie zum passenden Grundfall?"
         ],
-        "explanation": "Die Erweiterung zeigt per extend auf den selbstständig nutzbaren Basisfall."
+        "explanation": "Die Erweiterung zeigt per extend auf den selbstständig nutzbaren Basisfall.\n\nGast — Eintritt anmelden: Die Rolle nutzt dieses Ziel direkt.\n\nInfomail bestellen ergänzt nur bei Bedarf Eintritt anmelden; deshalb zeigt extend von der Ergänzung zur Basis.",
+        "fundamentals": "Ein Anwendungsfalldiagramm zeigt Nutzungsziele. Akteure stehen außerhalb der benannten Systemgrenze, Funktionen als Ellipsen darin. Eine einfache Linie bedeutet: Die Rolle nutzt diese Funktion.\nBeispiel aus einer Bibliothek: Leserin — Buch ausleihen. Muss bei jeder Ausleihe die Berechtigung geprüft werden, zeigt «include» von Buch ausleihen auf Berechtigung prüfen. Eine freiwillige Erinnerungsoption zeigt mit «extend» auf die auch ohne Zusatz sinnvolle Basis. Das leere Dreieck einer Spezialisierung zeigt zum allgemeineren Akteur."
       },
       {
         "id": 2,
@@ -742,7 +749,7 @@
         "diagramType": "Activity",
         "format": "Build",
         "story": "Das Projektteam benötigt diesen unabhängig beschriebenen Ausschnitt.",
-        "task": "Erstelle Start → Fork Vorbereitung starten. Danach laufen Raum herrichten und Einlass vorbereiten parallel. Beide führen zum Join Vorbereitung fertig und danach zum Finalknoten Ende. Verwende nur die beschriebenen Fachrollen, Merkmale und Verbindungen; eigene Anzeigenamen sind erlaubt.",
+        "task": "Zur Vorbereitung des Abends werden Raum herrichten und Einlass vorbereiten unabhängig voneinander ausgeführt. Die Vorbereitung ist erst abgeschlossen, wenn beide Arbeiten erledigt sind. Stelle Beginn, Tätigkeiten und Abschluss als Aktivitätsdiagramm dar.",
         "nodeVocabulary": {
           "start": "Start",
           "fork": "Vorbereitung starten",
@@ -893,7 +900,8 @@
           "An welcher Stelle ist das frühere Fertigwerden nur eines Teams noch unzureichend?",
           "Spiele eine Verzögerung beim Einlass durch. Wartet der Abschluss auf beide Vorbereitungen?"
         ],
-        "explanation": "Der Fork eröffnet parallele Arbeit, der Join synchronisiert vor dem Abschluss."
+        "explanation": "Der Fork eröffnet parallele Arbeit, der Join synchronisiert vor dem Abschluss.\n\nStart → Vorbereitung starten.\n\nVorbereitung starten → Raum herrichten.\n\nVorbereitung starten → Einlass vorbereiten.\n\nRaum herrichten → Vorbereitung fertig.\n\nEinlass vorbereiten → Vorbereitung fertig.\n\nVorbereitung fertig → Ende.\n\nKontrolle: Ist nur der schnellere Zweig fertig, bleibt die Synchronisation geschlossen. Eine Zusammenführungsraute wäre hier falsch, weil sie nicht auf beide Arbeiten wartet.",
+        "fundamentals": "Ein ausgefüllter Kreis beginnt den Ablauf, ein umrandeter Endkreis beendet ihn. Abgerundete Rechtecke sind Tätigkeiten, Pfeile zeigen die Reihenfolge. An einer Entscheidungsraute wählen Bedingungen wie [gültig] genau einen Weg; eine Zusammenführungsraute vereinigt alternative Wege ohne auf beide zu warten.\nBeispiel: Nach Bestellung prüfen können Küche vorbereiten und Tisch decken unabhängig starten. Ein dicker Querbalken teilt die Arbeit auf (Parallelisierung, englisch Fork). Ein zweiter wartet auf beide Ergebnisse (Synchronisation, englisch Join), bevor Essen servieren beginnen darf. Zuständigkeitsbahnen ordnen Tätigkeiten einer verantwortlichen Rolle zu."
       },
       {
         "id": 3,
@@ -901,7 +909,7 @@
         "diagramType": "Sequence",
         "format": "Build",
         "story": "Das Projektteam benötigt diesen unabhängig beschriebenen Ausschnitt.",
-        "task": "Erstelle Einlassseite und Ticketdienst. Die Seite ruft kontrollieren() am Dienst auf. Danach folgt alt-Gruppe Prüfergebnis: zuerst Rückgabe Einlass erlaubt bei Ticket gültig, danach alternative Rückgabe Einlass abgelehnt bei Ticket ungültig. Beide Antworten laufen zur Seite und gehören zur Gruppe. Verwende nur die beschriebenen Fachrollen, Merkmale und Verbindungen; eigene Anzeigenamen sind erlaubt.",
+        "task": "Die Einlassseite ruft kontrollieren() beim Ticketdienst auf. Bei Ticket gültig antwortet der Dienst mit Einlass erlaubt, andernfalls bei Ticket ungültig mit Einlass abgelehnt. Entwirf das Sequenzdiagramm für beide möglichen Ergebnisse. Stelle den gültigen Fall oberhalb des ungültigen Falls dar.",
         "nodeVocabulary": {
           "ui": "Einlassseite",
           "service": "Ticketdienst"
@@ -983,7 +991,7 @@
           "Teile die möglichen Antworten nach dem Ergebnis der Ticketprüfung auf.",
           "Verfolge nur ein einziges Ticket. Kann es in deinem Diagramm versehentlich beide Antworten erhalten?"
         ],
-        "explanation": "Die Rückgaben stehen als bedingte Alternativen im alt-Fragment.",
+        "explanation": "Die Rückgaben stehen als bedingte Alternativen im alt-Fragment.\n\nEinlassseite → Ticketdienst: synchroner Aufruf kontrollieren().\n\nTicketdienst → Einlassseite: Rückgabe Einlass erlaubt [Ticket gültig].\n\nTicketdienst → Einlassseite: Rückgabe Einlass abgelehnt [Ticket ungültig].\n\nDie Reihenfolge beschreibt die Abhängigkeiten der Nachrichten. Eine Rückgabe kann erst nach dem zugehörigen Aufruf entstehen; eine andere waagerechte Anordnung der Beteiligten ändert daran nichts.",
         "conditions": {
           "valid": "Ticket gültig",
           "invalid": "Ticket ungültig"
@@ -995,7 +1003,8 @@
         },
         "fragmentVocabulary": {
           "result": "Prüfergebnis"
-        }
+        },
+        "fundamentals": "Zeit verläuft von oben nach unten. Jeder Beteiligte besitzt einen Kopf und eine gestrichelte Lebenslinie. Durchgezogene Pfeile mit gefüllter Spitze sind synchrone Aufrufe; gestrichelte Pfeile sind Rückgaben.\nBeispiel: Kasse → Preisservice: berechnen(); danach Preisservice → Kasse: Gesamtpreis. Erst dann kann die Kasse weiterarbeiten. Der Rahmen alt enthält alternative Zweige mit Bedingungen, opt einen optionalen Ablauf, loop eine wiederholte Nachrichtenfolge. Aufruf und zugehörige Rückgabe gehören gemeinsam in ihren bedingten oder wiederholten Abschnitt."
       }
     ]
   }

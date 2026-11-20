@@ -4,6 +4,10 @@ namespace FiaeTrainer.Core.Uml.Content;
 /// <summary> Eigene Aufgabe mit ausdrücklichem Vokabular und geprüften Modellvarianten. </summary>
 public sealed class UmlAssignment
 {
+    /// <summary> Ausdrücklich zugelassene alternative Bezeichnungen mit ihrer Fachkennung. </summary>
+    public Dictionary<string, string> NameAliases { get; set; } = [];
+    /// <summary> Notation und fremdes Beispiel für das geführte Lernen. </summary>
+    public string Fundamentals { get; set; } = "";
     /// <summary> Stabile Lern- oder Teilaufgabenkennung. </summary>
     public int Id { get; set; }
     /// <summary> Kapitel des Lernwegs. </summary>

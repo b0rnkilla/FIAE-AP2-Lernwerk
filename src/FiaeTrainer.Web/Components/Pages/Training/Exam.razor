@@ -1,6 +1,7 @@
 @page "/algorithmen/pruefung/runde"
 @page "/sql/pruefung/runde"
 @using FiaeTrainer.Core.Exams
+@using FiaeTrainer.Core.Algorithms.Exams
 @using FiaeTrainer.Core.Sql.Exams
 <PageTitle>Deine @Label-Prüfung · AP2 Lernwerk</PageTitle>
 <main class="page exam-round">
@@ -36,7 +37,7 @@
             }
             else
             {
-                <section class="business-scenario"><h2>Dein Prüfungsauftrag</h2><p>@AlgorithmTask.Story</p></section>
+                <section class="business-scenario"><h2>@(_round.CaseId == AlgorithmExamCatalog.EQUIPMENT_CASE ? AlgorithmExamCatalog.EQUIPMENT_TITLE : "Dein Prüfungsauftrag")</h2><p>@AlgorithmTask.Story</p></section>
                 <section class="task-card">
                     <p class="algorithm-task-text"><InlineCodeText Text="@AlgorithmTask.Task" /></p>
                     <AlgorithmFunctionContract Lesson="AlgorithmTask" RequireTypes="@Exams.AlgorithmTask(CurrentId).RequiresTypes(_round.ContentVersion)" />

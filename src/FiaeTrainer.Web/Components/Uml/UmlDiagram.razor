@@ -1,6 +1,6 @@
 <div class="uml-diagram-tools"><span class="badge">@UmlKinds.Diagrams[Task.DiagramType]</span><button class="button secondary" type="button" aria-pressed="@(_zoom ? "true" : "false")" @onclick="() => _zoom = !_zoom">@(_zoom ? "Diagramm verkleinern" : "Diagramm vergrößern")</button></div>
 <div class="design-diagram-wrap uml-canvas" tabindex="0" role="region" aria-label="UML-Diagramm – bei Bedarf seitlich scrollen">
-@if (Model.Nodes.Count == 0) { <p class="uml-empty">Deine Arbeitsfläche ist noch leer. Lege darunter die benötigten Elemente an und verbinde sie.</p> }
+@if (Model.Nodes.Count == 0) { <p class="uml-empty">Deine Arbeitsfläche ist noch leer. Füge über die Werkzeugleiste Elemente ein und verbinde sie.</p> }
 else
 {
     <svg class="design-diagram uml-svg" data-diagram-type="@Task.DiagramType" viewBox="0 0 @Width @Height" style="@(_zoom ? $"min-width:{Width}px;width:150%" : "min-width:560px")" role="img" aria-labelledby="@(_id + "-title") @(_id + "-desc")">
@@ -12,7 +12,7 @@ else
             <marker id="@(_id + "-diamond")" viewBox="0 0 20 14" markerWidth="18" markerHeight="14" refX="19" refY="7" orient="auto"><path d="M 1 7 L 10 1 L 19 7 L 10 13 Z" class="uml-hollow" /></marker>
             <marker id="@(_id + "-filled")" viewBox="0 0 20 14" markerWidth="18" markerHeight="14" refX="19" refY="7" orient="auto"><path d="M 1 7 L 10 1 L 19 7 L 10 13 Z" class="uml-filled" /></marker>
         </defs>
-        @if (Task.DiagramType == "UseCase" && !string.IsNullOrWhiteSpace(Model.SystemName)) { <rect x="240" y="15" width="550" height="@(Height - 35)" class="uml-boundary" /><g><text x="260" y="40" class="design-node-title">@Short(Model.SystemName)</text></g> }
+        @if (Task.DiagramType == "UseCase" && !string.IsNullOrWhiteSpace(Model.SystemName)) { var boundary = SystemBoundary; <rect x="@boundary.X" y="@boundary.Y" width="@boundary.Width" height="@boundary.Height" class="uml-boundary" /><g><text x="@(boundary.X + 20)" y="@(boundary.Y + 24)" class="design-node-title">@Short(Model.SystemName)</text></g> }
         @if (Task.DiagramType == "Activity" && Task.Lanes.Count > 0)
         {
             @for (int i = 0; i < Task.Lanes.Count; i++) { <g><rect x="@(i * 260 + 5)" y="5" width="260" height="@(Height - 15)" class="uml-boundary" /><g><text x="@(i * 260 + 20)" y="30" class="design-node-title">@Task.Lanes.ElementAt(i).Value</text></g></g> }
@@ -25,7 +25,7 @@ else
                 @if (indexes.Length > 0)
                 {
                     int top = 100 + indexes.Min() * 76, bottom = 170 + indexes.Max() * 76;
-                    <g><rect x="12" y="@top" width="@(Width - 24)" height="@(bottom - top)" class="uml-fragment" /><g><text x="22" y="@(top + 18)" class="design-node-column">@fragment.Kind @(fragment.Guard.Length > 0 ? "[" + Task.Conditions.GetValueOrDefault(fragment.Guard, "?") + "]" : "")</text></g>
+                    <g><rect x="12" y="@top" width="@(Width - 24)" height="@(bottom - top)" class="uml-fragment" /><g><text x="22" y="@(top + 18)" class="design-node-column">@fragment.Kind @(fragment.Guard.Length > 0 ? "[" + Task.Conditions.GetValueOrDefault(fragment.Guard, fragment.Guard) + "]" : "")</text></g>
                     @if (fragment.Kind == "alt")
                     {
                         @foreach (int index in indexes.Skip(1).Where(index => Model.Links[index].Guard != Model.Links[index - 1].Guard)) { <line x1="12" x2="@(Width - 12)" y1="@(122 + index * 76)" y2="@(122 + index * 76)" class="uml-fragment-divider" /> }
@@ -49,7 +49,7 @@ else
                         if (response >= 0 && Model.Fragments.Any(fragment => fragment.Id == Model.Links[response].Fragment && fragment.Kind == "alt")) response = Model.Links.FindLastIndex(candidate => candidate.Kind == "Return" && candidate.Source == link.Target && candidate.Target == link.Source && candidate.Fragment == Model.Links[response].Fragment);
                         <rect x="@(x2 - 6)" y="@y" width="12" height="@(response > i ? (response - i) * 76 : 26)" class="uml-activation" />
                     }
-                    <g class="@(WrongLink(link.Id) ? "uml-wrong" : null)"><path d="@(x1 == x2 ? $"M{x1} {y} h60 v30 h-60" : $"M{x1} {y} H{x2}")" class="uml-edge @(link.Kind == "Return" ? "uml-dashed" : "")" marker-end="url(#@(_id + (link.Kind == "Message" ? "-call" : "-arrow")))" /><g><text x="@(Math.Min(x1, x2) + 12)" y="@(y - 10)" class="design-node-column">@(i + 1). @Short(LinkLabel(link), 42)<title>@LinkLabel(link)</title></text></g></g>
+                    <g data-link-id="@link.Id" data-label="@link.Name" tabindex="0" role="button" aria-label="@LinkText(link)" class="@(WrongLink(link.Id) ? "uml-wrong" : null)"><path d="@(x1 == x2 ? $"M{x1} {y} h60 v30 h-60" : $"M{x1} {y} H{x2}")" class="diagram-edge-hit" aria-hidden="true" /><path d="@(x1 == x2 ? $"M{x1} {y} h60 v30 h-60" : $"M{x1} {y} H{x2}")" class="uml-edge @(link.Kind == "Return" ? "uml-dashed" : "")" marker-end="url(#@(_id + (link.Kind == "Message" ? "-call" : "-arrow")))" /><g><text x="@(Math.Min(x1, x2) + 12)" y="@(y - 10)" class="design-node-column">@(i + 1). @Short(LinkLabel(link), 42)<title>@LinkLabel(link)</title></text></g></g>
                 }
             }
         }
@@ -60,7 +60,7 @@ else
                 @if (Boxes.TryGetValue(link.Source, out var from) && Boxes.TryGetValue(link.Target, out var to))
                 {
                     var points = ConnectionPoints(link, from, to);
-                    <g class="@(WrongLink(link.Id) ? "uml-wrong" : null)"><path d="@Path(link, from, to)" class="uml-edge @(link.Kind is "Include" or "Extend" or "Realization" ? "uml-dashed" : "")" marker-end="@Marker(link)"><title>@LinkText(link)</title></path>
+                    <g data-link-id="@link.Id" data-label="@link.Name" tabindex="0" role="button" aria-label="@LinkText(link)" class="@(WrongLink(link.Id) ? "uml-wrong" : null)"><path d="@Path(link, from, to)" class="diagram-edge-hit" aria-hidden="true" /><path d="@Path(link, from, to)" class="uml-edge @(link.Kind is "Include" or "Extend" or "Realization" ? "uml-dashed" : "")" marker-end="@Marker(link)"><title>@LinkText(link)</title></path>
                     <g><text x="@((points.X1 + points.X2) / 2 + 8)" y="@((points.Y1 + points.Y2) / 2 - 10)" class="design-node-column">@Short(LinkLabel(link), 30)<title>@LinkLabel(link)</title></text></g>
                     @if (Task.DiagramType == "Class" && link.Kind is "Association" or "Aggregation" or "Composition")
                     {
@@ -74,12 +74,12 @@ else
         @foreach (var node in Model.Nodes)
         {
             var box = Boxes[node.Id]; int x = box.X, y = box.Y, center = x + box.Width / 2;
-            <g class="@(WrongNode(node.Id) ? "uml-wrong" : null)">
+            <g data-node-id="@node.Id" data-label="@node.Name" data-rename="@(UmlNames.Structural(node.Kind) ? "false" : "true")" tabindex="0" role="button" aria-label="@(node.Name.Length > 0 ? node.Name : UmlKinds.Nodes[node.Kind])" class="@(WrongNode(node.Id) ? "uml-wrong" : null)">
                 @if (node.Kind == "Actor") { <circle cx="@center" cy="@(y + 16)" r="13" class="uml-hollow" /><path d="@($"M{center} {y+29} v35 M{center-22} {y+40} h44 M{center} {y+64} l-20,22 M{center} {y+64} l20,22")" class="uml-edge" /><g><text x="@center" y="@(y + 107)" text-anchor="middle" class="design-node-column">@Short(node.Name)</text></g> }
                 else if (node.Kind == "UseCase") { <ellipse cx="@center" cy="@(y + box.Height / 2)" rx="@(box.Width / 2)" ry="@(box.Height / 2)" class="design-node" /><g><text x="@center" y="@(y + box.Height / 2 + 5)" text-anchor="middle" class="design-node-column">@Short(node.Name)</text></g> }
                 else if (node.Kind is "Initial" or "Final") { <circle cx="@center" cy="@(y + 17)" r="16" class="@(node.Kind == "Initial" ? "uml-filled" : "uml-hollow")" />@if (node.Kind == "Final") { <circle cx="@center" cy="@(y + 17)" r="10" class="uml-filled" /> } }
                 else if (node.Kind is "Decision" or "Merge") { <polygon points="@($"{x},{y+box.Height/2} {center},{y} {x+box.Width},{y+box.Height/2} {center},{y+box.Height}")" class="design-node" /><g><text x="@center" y="@(y - 10)" text-anchor="middle" class="design-node-column">@Short(node.Name)</text></g> }
-                else if (node.Kind is "Fork" or "Join") { <rect x="@x" y="@y" width="@box.Width" height="@box.Height" class="uml-filled" /><g><text x="@center" y="@(y - 10)" text-anchor="middle" class="design-node-column">@Short(node.Name)</text></g> }
+                else if (node.Kind is "Fork" or "Join") { <rect x="@x" y="@y" width="@box.Width" height="@box.Height" class="uml-filled" /><title>@UmlKinds.Nodes[node.Kind]</title> }
                 else
                 {
                     <rect x="@x" y="@y" width="@box.Width" height="@box.Height" rx="@(node.Kind is "Action" or "State" ? 16 : 0)" class="design-node" />
@@ -100,6 +100,7 @@ else
                         @for (int i = 0; i < node.Members.Count; i++) { var member = node.Members[i]; <g><text x="@(x + 10)" y="@(y + 73 + i * 28)" class="design-node-column @(member.Static ? "uml-static" : null) @(member.Abstract ? "uml-abstract" : null)">@Short(MemberText(member), 37)<title>@MemberText(member)</title></text></g> }
                     }
                 }
+            <circle data-port-id="@node.Id" cx="@(x + box.Width)" cy="@(y + box.Height / 2)" r="8" class="diagram-port"><title>Verbindung ziehen oder Verbinden wählen</title></circle>
             </g>
         }
     </svg>
@@ -119,14 +120,25 @@ else
     private readonly string _id = "uml-" + Guid.NewGuid().ToString("N");
     private bool _zoom;
     private Dictionary<string, UmlBox> Boxes => UmlLayout.Place(Task, Model);
-    private int Width => Task.DiagramType == "Sequence" ? Math.Max(560, Model.Nodes.Count * 230 + 70) : Task.DiagramType == "UseCase" ? 820 : Task.DiagramType == "Class" ? 720 : Math.Max(800, Boxes.Count == 0 ? 800 : Boxes.Values.Max(box => box.X + box.Width) + 35);
+    /// <summary> Die Systemgrenze folgt den Anwendungsfällen, nicht den externen Akteuren. </summary>
+    private UmlBox SystemBoundary
+    {
+        get
+        {
+            var boxes = Model.Nodes.Where(node => node.Kind == "UseCase").Select(node => Boxes[node.Id]).ToArray();
+            if (boxes.Length == 0) return new(240, 15, 550, Height - 35);
+            int x = Math.Max(0, boxes.Min(box => box.X) - 35), y = Math.Max(0, boxes.Min(box => box.Y) - 50);
+            return new(x, y, boxes.Max(box => box.X + box.Width) - x + 35, boxes.Max(box => box.Y + box.Height) - y + 35);
+        }
+    }
+    private int Width => Math.Max(Task.DiagramType == "UseCase" ? 820 : 720, Boxes.Count == 0 ? 720 : Boxes.Values.Max(box => box.X + box.Width) + 80);
     private int Height => Task.DiagramType == "Sequence" ? Math.Max(270, Model.Links.Count * 76 + 180) : Math.Max(220, Boxes.Count == 0 ? 220 : Boxes.Values.Max(box => box.Y + box.Height) + 60);
     private string Description => string.Join("; ", Model.Nodes.Select(node => node.Name + ": " + UmlKinds.Nodes.GetValueOrDefault(node.Kind, node.Kind))) + "; " + string.Join("; ", Model.Links.Select(LinkText));
     private bool WrongNode(string id) => Evaluation?.Issues.Any(issue => issue.NodeId == id) == true;
     private bool WrongLink(string id) => Evaluation?.Issues.Any(issue => issue.LinkId == id) == true;
     private static string Short(string value, int maximum = 24) => value.Length > maximum ? value[..(maximum - 1)] + "…" : value;
-    private static string MemberText(UmlMember member) => member.Kind is "Entry" or "Do" or "Exit" ? member.Kind.ToLowerInvariant() + " / " + member.Name : member.Visibility + " " + member.Name + (member.Kind == "Method" ? "(" + member.Parameters + ")" : "") + ": " + member.Type;
-    private string LinkLabel(UmlLink link) => (link.Kind is "Include" or "Extend" ? "«" + link.Kind.ToLowerInvariant() + "»" : link.Name) + (link.Guard.Length > 0 ? " [" + Task.Conditions.GetValueOrDefault(link.Guard, "?") + "]" : "");
+    private static string MemberText(UmlMember member) => member.Kind is "Entry" or "Do" or "Exit" ? member.Kind.ToLowerInvariant() + " / " + member.Name : member.Visibility + " " + (member.Kind == "Method" && member.Name.TrimEnd().EndsWith("()", StringComparison.Ordinal) ? member.Name.TrimEnd()[..^2] : member.Name) + (member.Kind == "Method" ? "(" + member.Parameters + ")" : "") + ": " + member.Type;
+    private string LinkLabel(UmlLink link) => (link.Kind is "Include" or "Extend" ? "«" + link.Kind.ToLowerInvariant() + "»" : link.Name) + (link.Guard.Length > 0 ? " [" + Task.Conditions.GetValueOrDefault(link.Guard, link.Guard) + "]" : "");
     private string LinkText(UmlLink link) => $"{Model.Nodes.FirstOrDefault(node => node.Id == link.Source)?.Name ?? "?"} → {Model.Nodes.FirstOrDefault(node => node.Id == link.Target)?.Name ?? "?"}: {UmlKinds.Links.GetValueOrDefault(link.Kind, link.Kind)} {LinkLabel(link)}" + (Task.DiagramType == "Class" && link.Kind is "Association" or "Aggregation" or "Composition" ? $"; am Ausgang {link.SourceMultiplicity}, am Ziel {link.TargetMultiplicity}" : "") + (link.Fragment.Length > 0 ? "; Gruppe " + (Task.FragmentVocabulary.GetValueOrDefault(Model.Fragments.FirstOrDefault(item => item.Id == link.Fragment)?.Key ?? "", "?")) : "");
     private string? Marker(UmlLink link) => link.Kind == "Association" ? null : "url(#" + _id + (link.Kind is "Generalization" or "Realization" ? "-triangle" : link.Kind == "Aggregation" ? "-diamond" : link.Kind == "Composition" ? "-filled" : "-arrow") + ")";
     private static (int X1, int Y1, int X2, int Y2) Endpoints(UmlBox a, UmlBox b)
@@ -138,6 +150,13 @@ else
     private (int X1, int Y1, int X2, int Y2) ConnectionPoints(UmlLink link, UmlBox a, UmlBox b)
     {
         var p = Endpoints(a, b);
+        if (Task.DiagramType == "Activity" && b.Y > a.Y)
+        {
+            string sourceKind = Model.Nodes.Single(node => node.Id == link.Source).Kind, targetKind = Model.Nodes.Single(node => node.Id == link.Target).Kind;
+            if (sourceKind == "Fork") return (Math.Clamp(b.X + b.Width / 2, a.X + 8, a.X + a.Width - 8), a.Y + a.Height, b.X + b.Width / 2, b.Y);
+            if (targetKind == "Join") return (a.X + a.Width / 2, a.Y + a.Height, Math.Clamp(a.X + a.Width / 2, b.X + 8, b.X + b.Width - 8), b.Y);
+            return (a.X + a.Width / 2, a.Y + a.Height, b.X + b.Width / 2, b.Y);
+        }
         if (Task.DiagramType != "Class") return p;
         int Offset(string id, int maximum)
         {
@@ -156,6 +175,7 @@ else
         var p = ConnectionPoints(link, a, b);
         if (Task.DiagramType == "Activity" && b.Y - a.Y > 160)
             return $"M{a.X} {a.Y + a.Height / 2} H10 V{b.Y + b.Height / 2} H{b.X}";
+        if (Task.DiagramType == "Activity" && b.Y > a.Y) return $"M{p.X1} {p.Y1} V{(p.Y1 + p.Y2) / 2} H{p.X2} V{p.Y2}";
         return a == b ? $"M{a.X+a.Width} {a.Y+15} h45 v60 h-45" : $"M{p.X1} {p.Y1} L{p.X2} {p.Y2}";
     }
 }

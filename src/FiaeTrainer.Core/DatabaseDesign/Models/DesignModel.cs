@@ -5,6 +5,8 @@ namespace FiaeTrainer.Core.DatabaseDesign.Models;
 /// <summary> Relationaler Entwurf mit stabilen Kennungen; Darstellung und Benennung beeinflussen die Fachbedeutung nicht. </summary>
 public sealed class DesignModel
 {
+    /// <summary> Freie Positionen; ältere Entwürfe beginnen mit automatischer Anordnung. </summary>
+    public Dictionary<string, FiaeTrainer.Core.Diagrams.DiagramPosition> Positions { get; set; } = [];
     /// <summary> Selbst angelegte Tabellenkarten. </summary>
     public List<DesignTable> Tables { get; set; } = [];
     /// <summary> Fremdschlüssel mit vollständigen Spaltenpaaren und fachlichen Kardinalitäten. </summary>

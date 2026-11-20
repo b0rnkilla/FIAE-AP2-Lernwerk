@@ -1,14 +1,16 @@
 @if (Task.Kind == "ErCompletion" && Task.SourceDiagram != null)
 {
-    <h2>Dein ER-Diagramm</h2>
-    <p class="design-caption">Ergänze die markierten Stellen über die beschrifteten Felder. Deine Auswahl erscheint direkt im Diagramm. PK und FK gehören erst zum relationalen Modell.</p>
-    <DesignErDiagramView Diagram="Task.SourceDiagram" Slots="Task.DiagramSlots" Values="Answer.DiagramValues" />
-    <fieldset class="design-er-fields" disabled="@ReadOnly"><legend>Fehlende Beschriftungen ergänzen</legend>
-        @foreach (var slot in Task.DiagramSlots)
-        {
-            <label>@slot.Id · @slot.Prompt<select value="@Answer.DiagramValues.GetValueOrDefault(slot.Id, string.Empty)" @onchange="args => DiagramValueAsync(slot.Id, args.Value?.ToString() ?? string.Empty)"><option value="">Bitte wählen</option>@foreach (var option in slot.Options) { <option value="@option.Key">@option.Value</option> }</select></label>
-        }
-    </fieldset>
+    <DiagramCanvas SelectedId="@_selected" ReadOnly="ReadOnly" CanUndo="_history.CanUndo" CanRedo="_history.CanRedo" Action="CanvasAsync" AllowConnections="false" AllowArrange="false">
+        <ChildContent><DesignErDiagramView Diagram="Task.SourceDiagram" Slots="Task.DiagramSlots" Values="Answer.DiagramValues" /></ChildContent>
+        <Inspector>
+            <h3>Beschriftung ergänzen</h3><p>Klicke eine markierte Lücke im Diagramm an oder wähle sie hier. Doppelklick öffnet die Eingabe direkt an der Lücke.</p>
+            <label>Lücke<select @bind="_selected"><option value="">Bitte wählen</option>@foreach (var slot in Task.DiagramSlots) { <option value="@slot.Id">@slot.Id · @slot.Prompt</option> }</select></label>
+            @foreach (var slot in Task.DiagramSlots.Where(item => item.Id == _selected))
+            {
+                <label>@slot.Prompt<input disabled="@ReadOnly" maxlength="80" value="@SlotLabel(slot)" @onchange="args => DiagramValueAsync(slot.Id, args.Value?.ToString() ?? string.Empty)" /></label>
+            }
+        </Inspector>
+    </DiagramCanvas>
 }
 else if (Task.Kind != "Model")
 {
@@ -22,19 +24,21 @@ else if (Task.Kind != "Model")
 }
 else
 {
-    <div class="design-builder">
-        <div class="design-builder-toolbar"><h2>Dein Datenmodell</h2><button class="button secondary" disabled="@(ReadOnly || Answer.Model.Tables.Count >= 8)" @onclick="AddTableAsync">+ Tabelle hinzufügen</button></div>
-        <p class="design-caption">Wähle die Fachattribute aus dem Auftrag. Tabellen- und Anzeigenamen sind frei. Alle PK-Häkchen einer Tabelle bilden gemeinsam ihren Primärschlüssel. Gleiche UQ-Gruppen bilden gemeinsam einen zusätzlichen eindeutigen Schlüssel.</p>
-        @foreach (var table in Answer.Model.Tables)
+    <DiagramCanvas SelectedId="@_selected" ReadOnly="ReadOnly" CanUndo="_history.CanUndo" CanRedo="_history.CanRedo" Action="CanvasAsync">
+        <Tools><button type="button" class="button secondary" disabled="@(ReadOnly || Answer.Model.Tables.Count >= 8)" @onclick="AddTableAsync">+ Tabelle hinzufügen</button><span>PK Primärschlüssel · FK Fremdschlüssel · UQ eindeutig</span></Tools>
+        <ChildContent><DesignDiagram Model="Answer.Model" /></ChildContent>
+        <Inspector>
+            <h3>Eigenschaften</h3><p>Wähle eine Tabelle oder Verbindung im Diagramm. Namen und Attribute gibst du selbst ein.</p>
+            <label>Auswahl<select @bind="_selected"><option value="">Keine</option>@foreach (var item in Answer.Model.Tables) { <option value="@item.Id">@item.Name</option> }@foreach (var item in Answer.Model.Relations) { <option value="@item.Id">Beziehung @(Answer.Model.Relations.IndexOf(item) + 1)</option> }</select></label>
+        @foreach (var table in Answer.Model.Tables.Where(item => item.Id == _selected))
         {
             <fieldset class="design-table-editor" disabled="@ReadOnly" @key="table.Id">
                 <legend>Tabelle @(Answer.Model.Tables.IndexOf(table) + 1)</legend>
-                <div class="design-table-heading"><label>Tabellenname<input maxlength="80" @bind="table.Name" @bind:event="oninput" @bind:after="ChangedAsync" /></label><button class="design-remove" @onclick="() => RemoveTableAsync(table)">Tabelle entfernen</button></div>
+                <div class="design-table-heading"><label>Tabellenname<input maxlength="80" @bind="table.Name" @bind:after="ChangedAsync" /></label><button class="design-remove" @onclick="() => RemoveTableAsync(table)">Tabelle entfernen</button></div>
                 @foreach (var column in table.Columns)
                 {
                     <div class="design-column-editor" @key="column.Id">
-                        <label>Fachattribut<select value="@column.Attribute" @onchange="args => AttributeAsync(column, args.Value?.ToString() ?? string.Empty)"><option value="">Bitte wählen</option>@foreach (var field in Task.Attributes) { <option value="@field.Key">@field.Value</option> }</select></label>
-                        <label>Anzeigename<input maxlength="80" @bind="column.Name" @bind:event="oninput" @bind:after="ChangedAsync" /></label>
+                        <label>Attributname<input maxlength="80" value="@column.Name" @onchange="args => RenameColumnAsync(column, args.Value?.ToString() ?? string.Empty)" /></label>
                         <label class="design-checkbox"><input type="checkbox" @bind="column.PrimaryKey" @bind:after="ChangedAsync" /> PK</label>
                         <label class="design-checkbox"><input type="checkbox" @bind="column.Nullable" @bind:after="ChangedAsync" /> NULL erlaubt</label>
                         <label>Eindeutige Gruppe<select @bind="column.UniqueGroup" @bind:after="ChangedAsync"><option value="">Keine</option><option value="A">UQ A</option><option value="B">UQ B</option><option value="C">UQ C</option></select></label>
@@ -44,8 +48,7 @@ else
                 <button class="button secondary" disabled="@(table.Columns.Count >= 20)" @onclick="() => AddColumnAsync(table)">+ Attribut</button>
             </fieldset>
         }
-        <div class="design-builder-toolbar"><h3>Beziehungen</h3><button class="button secondary" disabled="@(ReadOnly || Answer.Model.Tables.Count == 0 || Answer.Model.Relations.Count >= 16)" @onclick="AddRelationAsync">+ Beziehung hinzufügen</button></div>
-        @foreach (var relation in Answer.Model.Relations)
+        @foreach (var relation in Answer.Model.Relations.Where(item => item.Id == _selected))
         {
             <fieldset class="design-relation-editor" disabled="@ReadOnly" @key="relation.Id"><legend>Beziehung @(Answer.Model.Relations.IndexOf(relation) + 1)</legend>
                 <div class="design-pair"><label>Abhängige Tabelle (FK)<select value="@relation.SourceTable" @onchange="args => TableAsync(relation, true, args.Value?.ToString() ?? string.Empty)"><option value="">Bitte wählen</option>@foreach (var table in Answer.Model.Tables) { <option value="@table.Id">@table.Name</option> }</select></label><label>Referenzierte Tabelle (Schlüssel)<select value="@relation.TargetTable" @onchange="args => TableAsync(relation, false, args.Value?.ToString() ?? string.Empty)"><option value="">Bitte wählen</option>@foreach (var table in Answer.Model.Tables) { <option value="@table.Id">@table.Name</option> }</select></label></div>
@@ -54,15 +57,55 @@ else
                     <div class="design-pair" @key="pair"><label>FK-Attribut<select @bind="pair.Source" @bind:after="ChangedAsync"><option value="">Bitte wählen</option>@foreach (var column in Columns(relation.SourceTable)) { <option value="@column.Id">@column.Name</option> }</select></label><label>Referenziertes Attribut<select @bind="pair.Target" @bind:after="ChangedAsync"><option value="">Bitte wählen</option>@foreach (var column in Columns(relation.TargetTable)) { <option value="@column.Id">@column.Name</option> }</select></label><button class="design-remove" disabled="@(relation.Pairs.Count == 1)" @onclick="() => RemovePairAsync(relation, pair)">Paar entfernen</button></div>
                 }
                 <button class="button secondary" disabled="@(relation.Pairs.Count >= 8)" @onclick="() => AddPairAsync(relation)">+ Weiteres FK-Attributpaar</button>
-                <div class="design-cardinalities"><label>Elternsatz je abhängigem Satz<select @bind="relation.ParentMinimum" @bind:after="ChangedAsync"><option value="1">Genau einer (1..1)</option><option value="0">Optional (0..1)</option></select></label><label>Abhängige Sätze je Elternsatz: mindestens<select @bind="relation.ChildMinimum" @bind:after="ChangedAsync"><option value="0">0</option><option value="1">1</option><option value="2">2</option></select></label><label>Höchstens<select @bind="relation.ChildMaximum" @bind:after="ChangedAsync"><option value="n">Viele (n)</option><option value="1">Einer (1)</option></select></label></div>
+                <div class="design-cardinalities"><label>@($"Einträge in {TableName(relation.TargetTable)} pro Eintrag in {TableName(relation.SourceTable)}")<select @bind="relation.ParentMinimum" @bind:after="ChangedAsync"><option value="1">Genau einer (1..1)</option><option value="0">Optional (0..1)</option></select></label><label>@($"Einträge in {TableName(relation.SourceTable)} pro Eintrag in {TableName(relation.TargetTable)}: mindestens")<select @bind="relation.ChildMinimum" @bind:after="ChangedAsync"><option value="0">0</option><option value="1">1</option><option value="2">2</option></select></label><label>Höchstens<select @bind="relation.ChildMaximum" @bind:after="ChangedAsync"><option value="n">Viele (n)</option><option value="1">Einer (1)</option></select></label></div>
                 <button class="design-remove" @onclick="() => RemoveRelationAsync(relation)">Beziehung entfernen</button>
             </fieldset>
         }
-        <details class="design-preview" open><summary>Diagrammansicht · PK = Primärschlüssel, FK = Fremdschlüssel, UQ = eindeutig</summary><DesignDiagram Model="Answer.Model" /></details>
-    </div>
+        </Inspector>
+    </DiagramCanvas>
 }
 
 @code {
+    private readonly DiagramHistory<DesignAnswer> _history = new();
+    private DesignAnswer? _current;
+    private string _selected = "";
+    protected override void OnParametersSet()
+    {
+        if (!ReferenceEquals(_current, Answer)) { _current = Answer; _selected = Answer.Model.Tables.FirstOrDefault()?.Id ?? ""; _history.Reset(Answer); }
+    }
+    private string TableName(string id) => Answer.Model.Tables.FirstOrDefault(table => table.Id == id)?.Name ?? "…";
+    private string SlotLabel(DesignDiagramSlot slot) => slot.Options.GetValueOrDefault(Answer.DiagramValues.GetValueOrDefault(slot.Id, ""), Answer.DiagramValues.GetValueOrDefault(slot.Id, ""));
+    private async System.Threading.Tasks.Task RenameColumnAsync(DesignColumn column, string value) { if (ReadOnly || value.Length > 80) return; column.Name = value; column.Attribute = ""; await ChangedAsync(); }
+    /// <summary> Verarbeitet nur Gesten auf vorhandenen Elementen und respektiert gesperrte Antworten. </summary>
+    private async System.Threading.Tasks.Task CanvasAsync(DiagramAction action)
+    {
+        if (action.Kind == "select") { _selected = action.Id; return; }
+        if (ReadOnly) return;
+        if (action.Kind is "undo" or "redo")
+        {
+            var answer = _history.Move(action.Kind == "undo" ? -1 : 1);
+            if (answer != null) { Answer.Model = answer.Model; Answer.DiagramValues = answer.DiagramValues; Answer.SelectedIds = answer.SelectedIds; await Changed.InvokeAsync(); }
+            return;
+        }
+        if (Task.Kind == "ErCompletion") { if (action.Kind == "rename") await DiagramValueAsync(action.Id, action.Text); return; }
+        var table = Answer.Model.Tables.FirstOrDefault(item => item.Id == action.Id);
+        var relation = Answer.Model.Relations.FirstOrDefault(item => item.Id == action.Id);
+        if (action.Kind == "layout") Answer.Model.Positions.Clear();
+        else if (action.Kind == "delete") { if (table != null) await RemoveTableAsync(table); else if (relation != null) await RemoveRelationAsync(relation); return; }
+        else if (action.Kind == "rename" && table != null && action.Text.Length <= 80) table.Name = action.Text;
+        else if (action.Kind == "connect" && table != null && Answer.Model.Tables.Any(item => item.Id == action.Target) && Answer.Model.Relations.Count < 16)
+        {
+            var added = new DesignRelation { SourceTable = table.Id, TargetTable = action.Target }; Answer.Model.Relations.Add(added); _selected = added.Id;
+        }
+        else if (action.Kind == "move" && table != null)
+        {
+            var box = DesignLayout.Place(Answer.Model)[table.Id];
+            Answer.Model.Positions[table.Id] = new(Math.Clamp(box.X + Math.Clamp(action.X, -8000, 8000), 0, 8000), Math.Clamp(box.Y + Math.Clamp(action.Y, -8000, 8000), 0, 8000));
+        }
+        else return;
+        await ChangedAsync();
+    }
+
     /// <summary> Fachliches Vokabular und Aufgabenart. </summary>
     [Parameter, EditorRequired] public DesignAssignment Task { get; set; } = new();
     /// <summary> Bearbeitbare eigene Antwort; Änderungen werden an die Seite zurückgemeldet. </summary>
@@ -72,11 +115,11 @@ else
     /// <summary> Gesperrte Abgaben und Musterlösungen sind nicht bearbeitbar. </summary>
     [Parameter] public bool ReadOnly { get; set; }
     private readonly string _group = "design-choice-" + Guid.NewGuid().ToString("N");
-    private System.Threading.Tasks.Task ChangedAsync() => ReadOnly ? System.Threading.Tasks.Task.CompletedTask : Changed.InvokeAsync();
+    private async System.Threading.Tasks.Task ChangedAsync() { if (ReadOnly) return; _history.Record(Answer); await Changed.InvokeAsync(); }
     /// <summary> Speichert nur angebotene Diagrammergänzungen und respektiert gesperrte Antworten. </summary>
     private async System.Threading.Tasks.Task DiagramValueAsync(string id, string value)
     {
-        if (ReadOnly || !Task.DiagramSlots.Any(slot => slot.Id == id && (value.Length == 0 || slot.Options.ContainsKey(value)))) return;
+        if (ReadOnly || value.Length > 80 || !Task.DiagramSlots.Any(slot => slot.Id == id)) return;
         if (value.Length == 0) Answer.DiagramValues.Remove(id); else Answer.DiagramValues[id] = value;
         await ChangedAsync();
     }
@@ -88,10 +131,10 @@ else
         if (ReadOnly || Answer.Model.Tables.Count >= 8) return;
         int number = 1;
         while (Answer.Model.Tables.Any(table => string.Equals(table.Name.Trim(), "Tabelle" + number, StringComparison.OrdinalIgnoreCase))) number++;
-        Answer.Model.Tables.Add(new() { Name = "Tabelle" + number });
+        var table = new DesignTable { Name = "Tabelle" + number }; Answer.Model.Tables.Add(table); _selected = table.Id;
         await ChangedAsync();
     }
-    private async System.Threading.Tasks.Task RemoveTableAsync(DesignTable table) { if (ReadOnly) return; Answer.Model.Tables.Remove(table); Answer.Model.Relations.RemoveAll(relation => relation.SourceTable == table.Id || relation.TargetTable == table.Id); await ChangedAsync(); }
+    private async System.Threading.Tasks.Task RemoveTableAsync(DesignTable table) { if (ReadOnly) return; Answer.Model.Tables.Remove(table); Answer.Model.Positions.Remove(table.Id); Answer.Model.Relations.RemoveAll(relation => relation.SourceTable == table.Id || relation.TargetTable == table.Id); await ChangedAsync(); }
     private async System.Threading.Tasks.Task AddColumnAsync(DesignTable table) { if (ReadOnly || table.Columns.Count >= 20) return; table.Columns.Add(new()); await ChangedAsync(); }
     private async System.Threading.Tasks.Task RemoveColumnAsync(DesignTable table, DesignColumn column) { if (ReadOnly) return; table.Columns.Remove(column); Answer.Model.Relations.RemoveAll(relation => relation.Pairs.Any(pair => pair.Source == column.Id || pair.Target == column.Id)); await ChangedAsync(); }
     private async System.Threading.Tasks.Task AttributeAsync(DesignColumn column, string value) { if (ReadOnly) return; column.Attribute = value; column.Name = Task.Attributes.GetValueOrDefault(value) ?? ""; await ChangedAsync(); }

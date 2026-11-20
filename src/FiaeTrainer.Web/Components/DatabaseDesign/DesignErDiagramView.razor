@@ -17,24 +17,24 @@
                     <rect x="30" y="@(y - 30)" width="190" height="60" class="design-node" />
                     <rect x="540" y="@(y - 30)" width="190" height="60" class="design-node" />
                     <polygon points="@($"280,{y} 380,{y-50} 480,{y} 380,{y+50}")" class="design-node" />
-                    <text x="125" y="@(y + 5)" class="design-node-title" text-anchor="middle">@Label(left.Name)</text>
-                    <text x="635" y="@(y + 5)" class="design-node-title" text-anchor="middle">@Label(right.Name)</text>
-                    <text x="380" y="@(y + 5)" class="design-node-column" text-anchor="middle">@Label(relation.Name)</text>
-                    <text x="250" y="@(y - 16)" class="design-node-title" text-anchor="middle">@Label(relation.LeftCardinality)</text>
-                    <text x="510" y="@(y - 16)" class="design-node-title" text-anchor="middle">@Label(relation.RightCardinality)</text>
+                    <text x="125" y="@(y + 5)" class="design-node-title" text-anchor="middle" data-slot-id="@SlotId(left.Name)" data-label="@InputLabel(left.Name)" tabindex="@(SlotId(left.Name) == null ? null : "0")" role="@(SlotId(left.Name) == null ? null : "button")">@Label(left.Name)</text>
+                    <text x="635" y="@(y + 5)" class="design-node-title" text-anchor="middle" data-slot-id="@SlotId(right.Name)" data-label="@InputLabel(right.Name)" tabindex="@(SlotId(right.Name) == null ? null : "0")" role="@(SlotId(right.Name) == null ? null : "button")">@Label(right.Name)</text>
+                    <text x="380" y="@(y + 5)" class="design-node-column" text-anchor="middle" data-slot-id="@SlotId(relation.Name)" data-label="@InputLabel(relation.Name)" tabindex="@(SlotId(relation.Name) == null ? null : "0")" role="@(SlotId(relation.Name) == null ? null : "button")">@Label(relation.Name)</text>
+                    <text x="250" y="@(y - 16)" class="design-node-title" text-anchor="middle" data-slot-id="@SlotId(relation.LeftCardinality)" data-label="@InputLabel(relation.LeftCardinality)" tabindex="@(SlotId(relation.LeftCardinality) == null ? null : "0")" role="@(SlotId(relation.LeftCardinality) == null ? null : "button")">@Label(relation.LeftCardinality)</text>
+                    <text x="510" y="@(y - 16)" class="design-node-title" text-anchor="middle" data-slot-id="@SlotId(relation.RightCardinality)" data-label="@InputLabel(relation.RightCardinality)" tabindex="@(SlotId(relation.RightCardinality) == null ? null : "0")" role="@(SlotId(relation.RightCardinality) == null ? null : "button")">@Label(relation.RightCardinality)</text>
                     @foreach (var side in new[] { (Entity: left, X: 125), (Entity: right, X: 635) })
                     {
                         @for (int a = 0; a < side.Entity.Attributes.Count; a++)
                         {
                             int ay = y + (a == 0 ? -100 : 100);
                             <g><line x1="@side.X" y1="@(y + (a == 0 ? -30 : 30))" x2="@side.X" y2="@(ay + (a == 0 ? 24 : -24))" class="design-edge" />
-                            <ellipse cx="@side.X" cy="@ay" rx="95" ry="24" class="design-node" /><text x="@side.X" y="@(ay + 5)" class="design-node-column" text-anchor="middle">@Label(side.Entity.Attributes[a])</text></g>
+                            <ellipse cx="@side.X" cy="@ay" rx="95" ry="24" class="design-node" /><text x="@side.X" y="@(ay + 5)" class="design-node-column" text-anchor="middle" data-slot-id="@SlotId(side.Entity.Attributes[a])" data-label="@InputLabel(side.Entity.Attributes[a])" tabindex="@(SlotId(side.Entity.Attributes[a]) == null ? null : "0")" role="@(SlotId(side.Entity.Attributes[a]) == null ? null : "button")">@Label(side.Entity.Attributes[a])</text></g>
                         }
                     }
                     @foreach (string attribute in relation.Attributes)
                     {
                         <g><line x1="380" y1="@(y - 50)" x2="380" y2="@(y - 76)" class="design-edge" />
-                        <ellipse cx="380" cy="@(y - 100)" rx="95" ry="24" class="design-node" /><text x="380" y="@(y - 95)" class="design-node-column" text-anchor="middle">@Label(attribute)</text></g>
+                        <ellipse cx="380" cy="@(y - 100)" rx="95" ry="24" class="design-node" /><text x="380" y="@(y - 95)" class="design-node-column" text-anchor="middle" data-slot-id="@SlotId(attribute)" data-label="@InputLabel(attribute)" tabindex="@(SlotId(attribute) == null ? null : "0")" role="@(SlotId(attribute) == null ? null : "button")">@Label(attribute)</text></g>
                     }
                 </g>
             }
@@ -56,12 +56,14 @@
     /// <summary> Vergrößerung verändert ausschließlich die Abbildung. </summary>
     private bool _zoom;
     /// <summary> Unausgefüllte Lücken bleiben sichtbar, ohne die richtige Antwort vorwegzunehmen. </summary>
+    private static string? SlotId(string value) => value.StartsWith('$') ? value[1..] : null;
+    private string InputLabel(string value) => SlotId(value) is { } id && !Values.ContainsKey(id) ? "" : Label(value);
     private string Label(string value)
     {
         if (!value.StartsWith('$')) return value;
         string id = value[1..];
         var slot = Slots.SingleOrDefault(item => item.Id == id);
-        return slot != null && Values.TryGetValue(id, out string? selected) && slot.Options.TryGetValue(selected, out string? label) ? label : "[" + id + "]";
+        return slot != null && Values.TryGetValue(id, out string? selected) && selected.Length > 0 ? slot.Options.GetValueOrDefault(selected, selected) : "[" + id + "]";
     }
     /// <summary> Derselbe Zusammenhang bleibt ohne Bild und ohne Kenntnis der Linienposition lesbar. </summary>
     private string Describe(DesignErRelationship relation)

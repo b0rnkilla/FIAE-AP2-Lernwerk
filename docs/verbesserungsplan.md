@@ -1,8 +1,14 @@
 # Stand und weitere Entwicklung
 
-## Beta 5 zur Veröffentlichung vorbereiten
+## 21.11.2026 · freigegebene Diagrammüberarbeitung in Beta 6
 
-Am 17.11.2026 hat der Nutzer Committext, anschließend Windows-ZIP und Release-Informationen beauftragt. Version und [Versionshinweise](../release/Versionshinweise-1.0.0-beta.5.md) sind vorbereitet. Nach Nutzer-Commit und Push folgen der Abgleich des Zielcommits und die isolierte Prüfung des Pakets. Die praktische Erprobung der Pseudocode-Erweiterungen folgt mit Beta 5.
+SQL ist laut Nutzer fertig und bleibt in diesem Paket unverändert. Die freigegebenen Änderungen sind im Quellprojekt umgesetzt: direkte gemeinsame UML-/Datenmodell-Zeichenfläche, freie Namen statt Aufgabenwortschatz-Dropdowns, Positionsspeicherung, Rückgängig/Wiederholen, Kardinalitäten an relationalen Linienenden und freie ER-Lücken. 36 UML- und 42 Entwurfsaufträge samt je drei Prüfungsfällen wurden auf Geschäftsregeln ausgerichtet. Grundlagen verwenden ein anderes Beispiel, drei Hinweise bleiben getrennt, vollständige Erläuterungen stehen bei der Musterlösung.
+
+Zusätzlich: auswählbarer Kulturfest-Prüfungsfall für Pseudocode (drei Teile, 20/20/10), einheitliche Schreibweise in Softwareplanung 11/24. Lern-IDs, frühere Fachkennungen, Erfolge und veröffentlichte Pakete bleiben erhalten. [Diagrammvertrag und Prüfungsabgleich](diagramme.md), [Prüfnachweis und offene Umgebungsgrenzen](testprotokoll.md). Kein ZIP-Auftrag aus diesem GO; Commit und Push bleiben beim Nutzer.
+
+## Beta 5 zur Veröffentlichung gebaut
+
+Am 17.11.2026 nach bestätigtem Nutzer-Push aus `75f2791` gebaut. ZIP, Prüfsumme und [Versionshinweise](../release/Versionshinweise-1.0.0-beta.5.md) liegen vor. Der lokale Remote-Verweis stimmt überein, der direkte Online-Abgleich war gesperrt. Paketdateien und nativer EXE-Start mit eigenem Profil sind geprüft; interaktiver Pakettest und NuGet-Sicherheitsabgleich bleiben wegen der Testumgebung offen. [Prüfgrenzen](testprotokoll.md) · [Release-Daten](lokale-releases.md). Die praktische Erprobung der Pseudocode-Erweiterungen folgt mit Beta 5.
 
 ## Umgesetzt nach Beta 3 · SQL-Werkstatt und Nachlesen
 

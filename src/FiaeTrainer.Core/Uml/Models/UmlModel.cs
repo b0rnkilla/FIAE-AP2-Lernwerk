@@ -4,6 +4,8 @@ namespace FiaeTrainer.Core.Uml.Models;
 /// <summary> Begrenzter, selbst aufgebauter UML-Entwurf ohne bewertete Zeichenkoordinaten. </summary>
 public sealed class UmlModel
 {
+    /// <summary> Freie Positionen; ältere Entwürfe beginnen mit automatischer Anordnung. </summary>
+    public Dictionary<string, FiaeTrainer.Core.Diagrams.DiagramPosition> Positions { get; set; } = [];
     /// <summary> Beschriftete Systemgrenze im Anwendungsfalldiagramm. </summary>
     public string SystemName { get; set; } = "";
     /// <summary> Eigene Elemente in frei gewählter Erstellreihenfolge. </summary>

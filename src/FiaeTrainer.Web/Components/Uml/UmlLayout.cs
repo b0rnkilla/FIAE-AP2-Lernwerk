@@ -68,12 +68,23 @@ public static class UmlLayout
                 {
                     var node = nodes[i]; int width = node.Kind is "Initial" or "Final" ? 34 : node.Kind is "Decision" or "Merge" ? 130 : 210;
                     int height = node.Kind is "Initial" or "Final" ? 34 : node.Kind is "Fork" or "Join" ? 14 : node.Members.Count > 0 ? 78 + node.Members.Count * 28 : 60;
-                    int column = lanes.Length > 0 ? Math.Max(0, Array.IndexOf(lanes, node.Lane)) : i;
-                    int center = lanes.Length > 0 ? 130 + column * 260 : nodes.Length == 1 ? 390 : 130 + column * 260;
+                    string lane = task.Lanes.ContainsKey(node.Lane) ? node.Lane : FiaeTrainer.Core.Diagrams.DiagramNames.Resolve(node.Lane, task.Lanes);
+                    int column = lanes.Length > 0 ? Math.Max(0, Array.IndexOf(lanes, lane)) : i;
+                    int center = lanes.Length > 0 ? 130 + column * 260 : 390 + (2 * i - nodes.Length + 1) * 130;
                     result[node.Id] = new(center - width / 2, 75 + group.Key * (task.DiagramType == "Activity" ? 135 : 190), width, height);
                 }
             }
         }
+        foreach (var (id, position) in model.Positions)
+            if (result.TryGetValue(id, out var box)) result[id] = box with { X = position.X, Y = task.DiagramType == "Sequence" ? box.Y : position.Y };
+        if (task.DiagramType == "Activity")
+            foreach (var node in model.Nodes.Where(node => node.Kind is "Fork" or "Join" && !model.Positions.ContainsKey(node.Id)))
+            {
+                var adjacent = model.Links.Where(link => node.Kind == "Fork" ? link.Source == node.Id : link.Target == node.Id).Select(link => node.Kind == "Fork" ? link.Target : link.Source).Where(result.ContainsKey).Select(id => result[id]).ToArray();
+                if (adjacent.Length < 2) continue;
+                int left = adjacent.Min(box => box.X + box.Width / 2) - 40, right = adjacent.Max(box => box.X + box.Width / 2) + 40;
+                result[node.Id] = result[node.Id] with { X = Math.Max(0, left), Width = Math.Max(210, right - left) };
+            }
         return result;
     }
 }

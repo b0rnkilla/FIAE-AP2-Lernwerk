@@ -71,7 +71,9 @@
       ],
       "systemName": "Raumanfragen",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Anwendungsfalldiagramm zeigt Nutzungsziele. Akteure stehen außerhalb der benannten Systemgrenze, Funktionen als Ellipsen darin. Eine einfache Linie bedeutet: Die Rolle nutzt diese Funktion.\nBeispiel aus einer Bibliothek: Leserin — Buch ausleihen. Muss bei jeder Ausleihe die Berechtigung geprüft werden, zeigt «include» von Buch ausleihen auf Berechtigung prüfen. Eine freiwillige Erinnerungsoption zeigt mit «extend» auf die auch ohne Zusatz sinnvolle Basis. Das leere Dreieck einer Spezialisierung zeigt zum allgemeineren Akteur.",
+    "nameAliases": {}
   },
   {
     "id": 2,
@@ -150,7 +152,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Klassenkasten enthält Name, Attribute und Methoden. − bedeutet privat, + öffentlich; ein Methodenparameter steht in Klammern, der Rückgabetyp nach dem Doppelpunkt. Abstrakte Klassen/Operationen werden kursiv dargestellt.\nBeispiel: Konto besitzt − saldo: Double und + einzahlen(betrag: Double): Boolean. Bei einer Beziehung Besitzer—Konto bedeutet 1 am Besitzerende: ein Besitzer pro Konto; 0..* am Kontoende: beliebig viele Konten pro Besitzer. Eine gefüllte Raute liegt am besitzenden Ganzen, eine leere Raute kennzeichnet eine schwächere Teil-Ganzes-Zuordnung. Vererbung zeigt mit durchgezogenem, Realisierung eines Interfaces mit gestricheltem Dreieckspfeil auf den gemeinsamen Typ.",
+    "nameAliases": {}
   },
   {
     "id": 3,
@@ -246,7 +250,9 @@
       ],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein ausgefüllter Kreis beginnt den Ablauf, ein umrandeter Endkreis beendet ihn. Abgerundete Rechtecke sind Tätigkeiten, Pfeile zeigen die Reihenfolge. An einer Entscheidungsraute wählen Bedingungen wie [gültig] genau einen Weg; eine Zusammenführungsraute vereinigt alternative Wege ohne auf beide zu warten.\nBeispiel: Nach Bestellung prüfen können Küche vorbereiten und Tisch decken unabhängig starten. Ein dicker Querbalken teilt die Arbeit auf (Parallelisierung, englisch Fork). Ein zweiter wartet auf beide Ergebnisse (Synchronisation, englisch Join), bevor Essen servieren beginnen darf. Zuständigkeitsbahnen ordnen Tätigkeiten einer verantwortlichen Rolle zu.",
+    "nameAliases": {}
   },
   {
     "id": 4,
@@ -344,7 +350,9 @@
       ],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Zustand beschreibt eine über eine Zeit bestehende Situation. Ein Übergang trägt ein Ereignis und bei Bedarf eine zusätzliche Bedingung in eckigen Klammern. Der Startpfeil zum Anfangszustand braucht kein Ereignis; ein normaler Zustand ist kein Endknoten.\nBeispiel: Ein Paket wechselt durch versenden von Gepackt zu Unterwegs. entry / Licht einschalten läuft beim Eintritt in einen Zustand, do / Temperatur überwachen während des Aufenthalts, exit / Licht ausschalten beim Verlassen. Das Ereignis abliefern kann den nächsten Zustandswechsel auslösen; die Zustandsaktion selbst ersetzt dieses Ereignis nicht.",
+    "nameAliases": {}
   },
   {
     "id": 5,
@@ -353,14 +361,14 @@
     "chapter": "02 · Anwendungsfälle modellieren",
     "format": "Build",
     "story": "Mira übergibt dir eine leere Arbeitsfläche. Für den nächsten Termin soll zunächst nur eine Möglichkeit der Besucher sichtbar sein: einen Raum anzufragen. Du baust die erste Skizze selbst auf, damit das Team anschließend gezielt weitere Funktionen ergänzen kann.",
-    "task": "Erstelle eine beschriftete Systemgrenze. Lege Besucher als Akteur und Raum anfragen als Anwendungsfall an. Verbinde beide durch eine Assoziation. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Die Anwendung ermöglicht Besuchern, einen Raum anzufragen. Stelle diesen Ausschnitt als Anwendungsfalldiagramm dar und benenne das betrachtete System. Verwende die Bezeichnungen Besucher und Raum anfragen.",
     "discovery": "Die erste eigene Skizze verbindet eine Besucherrolle mit ihrem Ziel.",
     "hints": [
       "Unterstreiche im Auftrag die Rolle und das Ziel dieser Rolle.",
       "Zeichne die Sicht des Besuchers auf die Leistung. Wer benutzt das System von außen?",
       "Lies die Verbindung als Satz „Die Rolle nutzt …“. Ist die Grenze so beschriftet, dass klar ist, wessen Leistung gemeint ist?"
     ],
-    "explanation": "Besucher ist ein Akteur, Raum anfragen ein Anwendungsfall. Die Assoziation verbindet beide; die beschriftete Systemgrenze umfasst die Funktion.",
+    "explanation": "Besucher ist ein Akteur, Raum anfragen ein Anwendungsfall. Die Assoziation verbindet beide; die beschriftete Systemgrenze umfasst die Funktion.\n\nBesucher — Raum anfragen: Die Rolle nutzt dieses Ziel direkt.",
     "previousContext": "Der Planungsschritt „Ein Ereignis verändert den Zustand“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "guest": "Besucher",
@@ -420,7 +428,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Anwendungsfalldiagramm zeigt Nutzungsziele. Akteure stehen außerhalb der benannten Systemgrenze, Funktionen als Ellipsen darin. Eine einfache Linie bedeutet: Die Rolle nutzt diese Funktion.\nBeispiel aus einer Bibliothek: Leserin — Buch ausleihen. Muss bei jeder Ausleihe die Berechtigung geprüft werden, zeigt «include» von Buch ausleihen auf Berechtigung prüfen. Eine freiwillige Erinnerungsoption zeigt mit «extend» auf die auch ohne Zusatz sinnvolle Basis. Das leere Dreieck einer Spezialisierung zeigt zum allgemeineren Akteur.",
+    "nameAliases": {}
   },
   {
     "id": 6,
@@ -429,14 +439,14 @@
     "chapter": "02 · Anwendungsfälle modellieren",
     "format": "Build",
     "story": "Besucher übermitteln ihre Wünsche, während Mitarbeitende der Anmeldung darüber entscheiden. Mira möchte diese Zuständigkeiten im Überblick trennen. Anmeldung bezeichnet hier die menschliche Personalrolle, nicht einen internen Programmteil.",
-    "task": "Erstelle eine beschriftete Systemgrenze. Besucher nutzt Raum anfragen, Anmeldung nutzt Anfrage entscheiden. Stelle beide Rollen als Akteure und beide Funktionen als Anwendungsfälle mit den jeweiligen Assoziationen dar. Weitere Beziehungen zwischen Funktionen werden hier nicht verlangt. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Besucher möchten einen Raum anfragen; die Anmeldung entscheidet über eingegangene Anfragen. Stelle die beiden unterschiedlichen Nutzungsziele in einem Anwendungsfalldiagramm dar. Verwende Besucher, Anmeldung, Raum anfragen und Anfrage entscheiden. Weitere Abhängigkeiten zwischen den Funktionen werden nicht betrachtet.",
     "discovery": "Besucher und Anmeldung haben unterschiedliche Ziele an derselben Anwendung.",
     "hints": [
       "Erzähle das Anliegen einmal aus Besuchersicht und einmal aus Sicht der Anmeldung.",
       "Ordne jeder Rolle nur das Ziel zu, das sie selbst beim System verfolgt.",
       "Verfolge beide Linien. Macht dein Bild aus zwei verschiedenen Zuständigkeiten versehentlich eine gemeinsame?"
     ],
-    "explanation": "Die Rollen stehen außerhalb, die Funktionen innerhalb der Systemgrenze. Der geschäftliche Zusammenhang allein begründet hier kein include.",
+    "explanation": "Die Rollen stehen außerhalb, die Funktionen innerhalb der Systemgrenze. Der geschäftliche Zusammenhang allein begründet hier kein include.\n\nBesucher — Raum anfragen: Die Rolle nutzt dieses Ziel direkt.\n\nAnmeldung — Anfrage entscheiden: Die Rolle nutzt dieses Ziel direkt.",
     "previousContext": "Der Planungsschritt „Den ersten Anwendungsfall selbst aufbauen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "guest": "Besucher",
@@ -528,7 +538,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Anwendungsfalldiagramm zeigt Nutzungsziele. Akteure stehen außerhalb der benannten Systemgrenze, Funktionen als Ellipsen darin. Eine einfache Linie bedeutet: Die Rolle nutzt diese Funktion.\nBeispiel aus einer Bibliothek: Leserin — Buch ausleihen. Muss bei jeder Ausleihe die Berechtigung geprüft werden, zeigt «include» von Buch ausleihen auf Berechtigung prüfen. Eine freiwillige Erinnerungsoption zeigt mit «extend» auf die auch ohne Zusatz sinnvolle Basis. Das leere Dreieck einer Spezialisierung zeigt zum allgemeineren Akteur.",
+    "nameAliases": {}
   },
   {
     "id": 7,
@@ -537,14 +549,14 @@
     "chapter": "02 · Anwendungsfälle modellieren",
     "format": "Repair",
     "story": "Jede abgesendete Reservierung braucht geprüfte Kontaktdaten. Ein Kollege hat die wiederverwendbare Prüfung schon eingezeichnet, aber die Richtung der gestrichelten Beziehung wurde vertauscht. Du reparierst den begonnenen Entwurf.",
-    "task": "Korrigiere die include-Richtung: Reservierung absenden bindet Kontaktdaten prüfen verpflichtend ein. Besucher bleibt mit Reservierung absenden assoziiert. Die vorhandenen Elemente und die beschriftete Grenze bleiben erhalten. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Eine Reservierung kann nur abgesendet werden, wenn dabei immer die Kontaktdaten geprüft werden. Besucher stoßen Reservierung absenden an. Prüfe, ob die vorgegebene Beziehung diese verpflichtende Teilfunktion Kontaktdaten prüfen richtig ausdrückt, und repariere den Entwurf. Elemente und Systemgrenze bleiben erhalten.",
     "discovery": "Die verpflichtende Kontaktprüfung wird vom absendenden Anwendungsfall aus eingebunden.",
     "hints": [
       "Lies den Ablauf einmal ohne Kontaktprüfung. Wäre das Absenden dann vollständig?",
       "Sprich die Beziehung als „A schließt B ein“ und vergleiche Subjekt und Ziel mit dem vorhandenen Pfeil.",
       "Folge der gestrichelten Linie. Kommst du beim eingebundenen Verhalten an?"
     ],
-    "explanation": "Die include-Abhängigkeit beginnt beim einbindenden und endet beim eingebundenen Anwendungsfall.",
+    "explanation": "Die include-Abhängigkeit beginnt beim einbindenden und endet beim eingebundenen Anwendungsfall.\n\nBesucher — Reservierung absenden: Die Rolle nutzt dieses Ziel direkt.\n\nReservierung absenden benötigt bei jeder Ausführung Kontaktdaten prüfen; deshalb zeigt die include-Abhängigkeit auf Kontaktdaten prüfen.",
     "previousContext": "Der Planungsschritt „Zwei Rollen mit verschiedenen Zielen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "guest": "Besucher",
@@ -679,7 +691,9 @@
       ],
       "systemName": "Buchung",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Anwendungsfalldiagramm zeigt Nutzungsziele. Akteure stehen außerhalb der benannten Systemgrenze, Funktionen als Ellipsen darin. Eine einfache Linie bedeutet: Die Rolle nutzt diese Funktion.\nBeispiel aus einer Bibliothek: Leserin — Buch ausleihen. Muss bei jeder Ausleihe die Berechtigung geprüft werden, zeigt «include» von Buch ausleihen auf Berechtigung prüfen. Eine freiwillige Erinnerungsoption zeigt mit «extend» auf die auch ohne Zusatz sinnvolle Basis. Das leere Dreieck einer Spezialisierung zeigt zum allgemeineren Akteur.",
+    "nameAliases": {}
   },
   {
     "id": 8,
@@ -688,14 +702,14 @@
     "chapter": "02 · Anwendungsfälle modellieren",
     "format": "Build",
     "story": "Manche Besucher benötigen zusätzlich mobile Technik. Eine Raumanfrage bleibt aber auch ohne diese Angabe vollständig möglich. Mira möchte diese optionale Erweiterung zeigen, ohne daraus eine Pflicht für jede Anfrage zu machen.",
-    "task": "Besucher nutzt Raum anfragen. Technikbedarf angeben erweitert Raum anfragen optional über extend. Erstelle die zwei Anwendungsfälle innerhalb einer beschrifteten Systemgrenze und die passende Assoziation zur Besucherrolle. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Besucher nutzen Raum anfragen. Auf Wunsch können sie dabei zusätzlich Technikbedarf angeben; eine Raumanfrage ist auch ohne diesen Zusatz vollständig. Stelle diesen Ausschnitt als Anwendungsfalldiagramm mit benanntem System dar.",
     "discovery": "Die Technikangabe ist als optionale Erweiterung der Raumanfrage dargestellt.",
     "hints": [
       "Spiele eine Raumanfrage ohne Technikbedarf durch.",
       "Welcher Fall ist allein sinnvoll, und welcher ergänzt ihn nur bei Bedarf?",
       "Lies den Erweiterungspfeil vom zusätzlichen Verhalten aus. Wo liegt der Fall, den es ergänzt?"
     ],
-    "explanation": "Die Erweiterung zeigt per extend auf die Basis Raum anfragen. Die Basis ist ohne die Erweiterung sinnvoll nutzbar.",
+    "explanation": "Die Erweiterung zeigt per extend auf die Basis Raum anfragen. Die Basis ist ohne die Erweiterung sinnvoll nutzbar.\n\nBesucher — Raum anfragen: Die Rolle nutzt dieses Ziel direkt.\n\nTechnikbedarf angeben ergänzt nur bei Bedarf Raum anfragen; deshalb zeigt extend von der Ergänzung zur Basis.",
     "previousContext": "Der Planungsschritt „Eine verpflichtende Teilfunktion einbinden“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "guest": "Besucher",
@@ -777,7 +791,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Anwendungsfalldiagramm zeigt Nutzungsziele. Akteure stehen außerhalb der benannten Systemgrenze, Funktionen als Ellipsen darin. Eine einfache Linie bedeutet: Die Rolle nutzt diese Funktion.\nBeispiel aus einer Bibliothek: Leserin — Buch ausleihen. Muss bei jeder Ausleihe die Berechtigung geprüft werden, zeigt «include» von Buch ausleihen auf Berechtigung prüfen. Eine freiwillige Erinnerungsoption zeigt mit «extend» auf die auch ohne Zusatz sinnvolle Basis. Das leere Dreieck einer Spezialisierung zeigt zum allgemeineren Akteur.",
+    "nameAliases": {}
   },
   {
     "id": 9,
@@ -786,14 +802,14 @@
     "chapter": "02 · Anwendungsfälle modellieren",
     "format": "Build",
     "story": "Vereine stellen häufig mehrere Anfragen auf einmal. Ihr Vereinskontakt darf alles nutzen, was ein Besucher nutzen darf, und erhält zusätzlich die Sammelanfrage. Mira möchte diese Spezialisierung ohne doppelte Nutzungsbeziehungen ausdrücken.",
-    "task": "Modelliere Vereinskontakt als Spezialisierung des Akteurs Besucher. Besucher nutzt Raum anfragen. Vereinskontakt nutzt zusätzlich Sammelanfrage stellen. Beide Funktionen liegen in einer beschrifteten Systemgrenze. Zeichne keine zusätzliche geerbte Assoziation ein. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Ein Vereinskontakt hat alle Möglichkeiten eines Besuchers und kann zusätzlich eine Sammelanfrage stellen. Besucher können einen Raum anfragen. Modelliere Besucher, Vereinskontakt, Raum anfragen und Sammelanfrage stellen als Anwendungsfalldiagramm. Bereits geerbte Nutzungsmöglichkeiten sollen nicht doppelt eingezeichnet werden.",
     "discovery": "Die Vereinsrolle übernimmt allgemeine Möglichkeiten und ergänzt eine eigene Funktion.",
     "hints": [
       "Welche Möglichkeiten hat ein Vereinskontakt bereits als Besucher?",
       "Trenne geerbte Fähigkeiten von der zusätzlichen Sammelanfrage.",
       "Prüfe das Dreiecksende und suche dann nach einer Verbindung, die durch die Vererbung schon abgedeckt ist."
     ],
-    "explanation": "Vereinskontakt spezialisiert Besucher und übernimmt dessen Nutzungsmöglichkeiten. Die Generalisierung zeigt auf den allgemeineren Akteur.",
+    "explanation": "Vereinskontakt spezialisiert Besucher und übernimmt dessen Nutzungsmöglichkeiten. Die Generalisierung zeigt auf den allgemeineren Akteur.\n\nBesucher — Raum anfragen: Die Rolle nutzt dieses Ziel direkt.\n\nVereinskontakt übernimmt den allgemeineren Typ Besucher. Das leere Dreieck liegt am Ziel.\n\nVereinskontakt — Sammelanfrage stellen: Die Rolle nutzt dieses Ziel direkt.",
     "previousContext": "Der Planungsschritt „Einen optionalen Technikbedarf ergänzen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "guest": "Besucher",
@@ -897,7 +913,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Anwendungsfalldiagramm zeigt Nutzungsziele. Akteure stehen außerhalb der benannten Systemgrenze, Funktionen als Ellipsen darin. Eine einfache Linie bedeutet: Die Rolle nutzt diese Funktion.\nBeispiel aus einer Bibliothek: Leserin — Buch ausleihen. Muss bei jeder Ausleihe die Berechtigung geprüft werden, zeigt «include» von Buch ausleihen auf Berechtigung prüfen. Eine freiwillige Erinnerungsoption zeigt mit «extend» auf die auch ohne Zusatz sinnvolle Basis. Das leere Dreieck einer Spezialisierung zeigt zum allgemeineren Akteur.",
+    "nameAliases": {}
   },
   {
     "id": 10,
@@ -906,14 +924,14 @@
     "chapter": "02 · Anwendungsfälle modellieren",
     "format": "Build",
     "story": "Vor der Freigabe legt Mira die bisherigen Anforderungen zusammen. Der Überblick soll Besuchereingaben, Pflichtprüfung und Personalentscheidung enthalten. Du erstellst den gemeinsamen Ausschnitt für die Besprechung.",
-    "task": "Erstelle eine beschriftete Grenze. Besucher nutzt Reservierung absenden. Dieser Fall bindet Kontaktdaten prüfen verpflichtend ein und wird optional durch Technikbedarf angeben erweitert. Anmeldung nutzt Anfrage entscheiden. Weitere Funktionen oder Verbindungen werden hier nicht verlangt. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Besucher können eine Reservierung absenden. Dabei werden immer die Kontaktdaten geprüft; nur bei Bedarf wird zusätzlich der Technikbedarf angegeben. Die Anmeldung entscheidet über die Anfrage. Entwirf für diese Anforderungen ein Anwendungsfalldiagramm mit benanntem System. Bezeichnungen: Besucher, Anmeldung, Reservierung absenden, Kontaktdaten prüfen, Technikbedarf angeben, Anfrage entscheiden.",
     "discovery": "Rollen, verpflichtende Prüfung und optionale Erweiterung sind gemeinsam modelliert.",
     "hints": [
       "Markiere die zwei Rollen und die Ziele, die sie unmittelbar verfolgen.",
       "Spiele das Absenden einmal mit und einmal ohne Technikwunsch. Welche Teilfunktion kommt beide Male vor?",
       "Lies include und extend jeweils als eigenen Satz. Passen Pfeilrichtung und Pflichtcharakter zusammen?"
     ],
-    "explanation": "Zwei Assoziationen, eine include- und eine extend-Abhängigkeit erfüllen verschiedene Aufgaben. Ihre jeweiligen Richtungen tragen fachliche Bedeutung.",
+    "explanation": "Zwei Assoziationen, eine include- und eine extend-Abhängigkeit erfüllen verschiedene Aufgaben. Ihre jeweiligen Richtungen tragen fachliche Bedeutung.\n\nBesucher — Reservierung absenden: Die Rolle nutzt dieses Ziel direkt.\n\nAnmeldung — Anfrage entscheiden: Die Rolle nutzt dieses Ziel direkt.\n\nReservierung absenden benötigt bei jeder Ausführung Kontaktdaten prüfen; deshalb zeigt die include-Abhängigkeit auf Kontaktdaten prüfen.\n\nTechnikbedarf angeben ergänzt nur bei Bedarf Reservierung absenden; deshalb zeigt extend von der Ergänzung zur Basis.",
     "previousContext": "Der Planungsschritt „Eine besondere Besucherrolle darstellen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "guest": "Besucher",
@@ -1049,7 +1067,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Anwendungsfalldiagramm zeigt Nutzungsziele. Akteure stehen außerhalb der benannten Systemgrenze, Funktionen als Ellipsen darin. Eine einfache Linie bedeutet: Die Rolle nutzt diese Funktion.\nBeispiel aus einer Bibliothek: Leserin — Buch ausleihen. Muss bei jeder Ausleihe die Berechtigung geprüft werden, zeigt «include» von Buch ausleihen auf Berechtigung prüfen. Eine freiwillige Erinnerungsoption zeigt mit «extend» auf die auch ohne Zusatz sinnvolle Basis. Das leere Dreieck einer Spezialisierung zeigt zum allgemeineren Akteur.",
+    "nameAliases": {}
   },
   {
     "id": 11,
@@ -1058,14 +1078,14 @@
     "chapter": "03 · Klassen und Beziehungen",
     "format": "Build",
     "story": "Nach den Nutzerzielen nimmt Mira die Informationen einzelner Objekte in den Blick. Jede Reservierung benötigt eine intern verwaltete ganzzahlige Nummer. Du erstellst den ersten Klassenkasten selbst, bevor Verhalten und Beziehungen hinzukommen.",
-    "task": "Erstelle die konkrete Klasse Reservierung mit dem privaten Attribut nummer: Integer. Methoden und Beziehungen sind in diesem Ausschnitt nicht erforderlich. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Eine Reservierung speichert ihre nummer als Ganzzahl. Diese darf nicht direkt von außen zugänglich sein. Stelle den Bauplan als konkrete Klasse Reservierung dar. Verhalten und Beziehungen werden in diesem Ausschnitt noch nicht betrachtet.",
     "discovery": "Die Reservierung besitzt einen eigenen Klassenentwurf mit internem Nummernattribut.",
     "hints": [
       "Stell dir einen konkreten Reservierungseintrag mit einer Nummer vor.",
       "Wo hält eine Klasse fest, welchen Typ ein gespeicherter Wert hat?",
       "Prüfe, wie das Diagramm den Zugriff auf die Nummer kennzeichnet. Eine Nummer wird gespeichert, nicht aufgerufen."
     ],
-    "explanation": "Die konkrete Klasse Reservierung enthält - nummer: Integer. Die Fachrolle bestimmt das gemeinte Merkmal; sein Anzeigename darf selbst gewählt werden.",
+    "explanation": "Die konkrete Klasse Reservierung enthält - nummer: Integer. Das Minuszeichen schützt den internen Zustand; Integer beschreibt eine ganzzahlige Nummer.\n\nReservierung ist konkret. Merkmale: - nummer: Integer.",
     "previousContext": "Der Planungsschritt „Den Funktionsüberblick zusammenführen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "booking": "Reservierung",
@@ -1116,7 +1136,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Klassenkasten enthält Name, Attribute und Methoden. − bedeutet privat, + öffentlich; ein Methodenparameter steht in Klammern, der Rückgabetyp nach dem Doppelpunkt. Abstrakte Klassen/Operationen werden kursiv dargestellt.\nBeispiel: Konto besitzt − saldo: Double und + einzahlen(betrag: Double): Boolean. Bei einer Beziehung Besitzer—Konto bedeutet 1 am Besitzerende: ein Besitzer pro Konto; 0..* am Kontoende: beliebig viele Konten pro Besitzer. Eine gefüllte Raute liegt am besitzenden Ganzen, eine leere Raute kennzeichnet eine schwächere Teil-Ganzes-Zuordnung. Vererbung zeigt mit durchgezogenem, Realisierung eines Interfaces mit gestricheltem Dreieckspfeil auf den gemeinsamen Typ.",
+    "nameAliases": {}
   },
   {
     "id": 12,
@@ -1125,14 +1147,14 @@
     "chapter": "03 · Klassen und Beziehungen",
     "format": "Repair",
     "story": "Der Reservierungsstatus soll nicht beliebig von außen überschrieben werden. Eine öffentliche Bestätigungsmethode kontrolliert die Änderung und meldet ihren Erfolg. Im übergebenen Kasten wurden die Sichtbarkeiten vertauscht. Du korrigierst sie.",
-    "task": "Reservierung ist konkret. status: String muss privat, bestaetigen(): Boolean öffentlich sein. Korrigiere die Sichtbarkeiten und behalte die zwei vorhandenen Merkmale. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Bei einer Reservierung soll der gespeicherte status nur innerhalb des Objekts zugänglich sein. Von außen darf bestaetigen() aufgerufen werden; die Methode meldet mit einem Wahrheitswert, ob die Bestätigung gelungen ist. Prüfe die Sichtbarkeiten im vorgegebenen Klassenausschnitt und korrigiere sie. Die beiden Merkmale und ihre Typen bleiben erhalten.",
     "discovery": "Interner Status und öffentlich erreichbare Bestätigung sind korrekt getrennt.",
     "hints": [
       "Lies die beiden Merkmale einmal als gespeicherten Wert und einmal als Aufruf.",
       "Wer soll den Zustand direkt lesen oder ändern dürfen, und wer darf das Verhalten auslösen?",
       "Vergleiche die Sichtbarkeitssymbole mit diesen beiden Entscheidungen, ohne die Merkmale neu anzulegen."
     ],
-    "explanation": "status ist ein privates Attribut; bestaetigen eine öffentliche Methode mit Boolean als Rückgabetyp.",
+    "explanation": "status ist ein privates Attribut; bestaetigen eine öffentliche Methode mit Boolean als Rückgabetyp.\n\nReservierung ist konkret. Merkmale: - status: String, + bestaetigen(): Boolean.",
     "previousContext": "Der Planungsschritt „Die erste eigene Klasse“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "booking": "Reservierung",
@@ -1228,7 +1250,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Klassenkasten enthält Name, Attribute und Methoden. − bedeutet privat, + öffentlich; ein Methodenparameter steht in Klammern, der Rückgabetyp nach dem Doppelpunkt. Abstrakte Klassen/Operationen werden kursiv dargestellt.\nBeispiel: Konto besitzt − saldo: Double und + einzahlen(betrag: Double): Boolean. Bei einer Beziehung Besitzer—Konto bedeutet 1 am Besitzerende: ein Besitzer pro Konto; 0..* am Kontoende: beliebig viele Konten pro Besitzer. Eine gefüllte Raute liegt am besitzenden Ganzen, eine leere Raute kennzeichnet eine schwächere Teil-Ganzes-Zuordnung. Vererbung zeigt mit durchgezogenem, Realisierung eines Interfaces mit gestricheltem Dreieckspfeil auf den gemeinsamen Typ.",
+    "nameAliases": {}
   },
   {
     "id": 13,
@@ -1237,14 +1261,14 @@
     "chapter": "03 · Klassen und Beziehungen",
     "format": "Build",
     "story": "Für die Raumauswahl muss ein Raum prüfen können, ob eine gewünschte Personenzahl hineinpasst. Mira möchte die Schnittstelle vor dem Programmieren abstimmen. Du modellierst die Kapazität und die nach außen angebotene Prüfung.",
-    "task": "Erstelle Raum als konkrete Klasse mit privater kapazitaet: Integer und öffentlicher Methode passt(anzahl: Integer): Boolean. Eigene Parameternamen sind erlaubt; Anzahl und Typ müssen stimmen. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Ein Raum kennt seine kapazitaet als intern gespeicherte Ganzzahl. Andere Objekte sollen mit passt(anzahl) fragen können, ob eine ganzzahlige Personenzahl hineinpasst; das Ergebnis ist ein Wahrheitswert. Entwirf die konkrete Klasse Raum mit Attribut und vollständiger Methodensignatur. Eigene Parameternamen sind erlaubt.",
     "discovery": "Die Raumprüfung besitzt einen eindeutigen Eingabe- und Rückgabevertrag.",
     "hints": [
       "Stell dir vor, du fragst einen Raum, ob eine Gruppe hineinpasst.",
       "Welche Information kennt der Raum schon selbst, welche muss der Aufrufer mitbringen?",
       "Lies die Methodensignatur laut. Ist die Antwort auf die Frage vom selben Typ wie die Gruppengröße?"
     ],
-    "explanation": "kapazitaet wird intern gespeichert. passt erhält genau einen ganzzahligen Parameter und liefert einen Wahrheitswert zurück.",
+    "explanation": "kapazitaet wird intern gespeichert. passt erhält genau einen ganzzahligen Parameter und liefert einen Wahrheitswert zurück.\n\nRaum ist konkret. Merkmale: - kapazitaet: Integer, + passt(anzahl: Integer): Boolean.",
     "previousContext": "Der Planungsschritt „Zugriff und Verhalten auseinanderhalten“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "room": "Raum",
@@ -1307,7 +1331,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Klassenkasten enthält Name, Attribute und Methoden. − bedeutet privat, + öffentlich; ein Methodenparameter steht in Klammern, der Rückgabetyp nach dem Doppelpunkt. Abstrakte Klassen/Operationen werden kursiv dargestellt.\nBeispiel: Konto besitzt − saldo: Double und + einzahlen(betrag: Double): Boolean. Bei einer Beziehung Besitzer—Konto bedeutet 1 am Besitzerende: ein Besitzer pro Konto; 0..* am Kontoende: beliebig viele Konten pro Besitzer. Eine gefüllte Raute liegt am besitzenden Ganzen, eine leere Raute kennzeichnet eine schwächere Teil-Ganzes-Zuordnung. Vererbung zeigt mit durchgezogenem, Realisierung eines Interfaces mit gestricheltem Dreieckspfeil auf den gemeinsamen Typ.",
+    "nameAliases": {}
   },
   {
     "id": 14,
@@ -1316,14 +1342,14 @@
     "chapter": "03 · Klassen und Beziehungen",
     "format": "Build",
     "story": "Ein Kunde kann bereits angelegt sein, bevor er etwas gebucht hat. Jede vorhandene Reservierung benötigt dagegen genau einen Kunden. Mira betrachtet nur diese Beziehung, ohne Attribute und Methoden. Du hältst ihre beiden Richtungen fest.",
-    "task": "Erstelle die konkreten Klassen Kunde und Reservierung ohne Merkmale. Verbinde sie durch eine Assoziation: genau ein Kunde je Reservierung, null bis viele Reservierungen je Kunde. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Jede Reservierung gehört genau einem Kunden. Ein Kunde darf bereits ohne Reservierung erfasst sein und später beliebig viele Reservierungen besitzen. Stelle Kunde und Reservierung samt ihren Mengenbeziehungen als konkrete Klassen dar; Attribute und Methoden werden hier nicht benötigt.",
     "discovery": "Die Mengenangaben drücken beide Richtungen derselben Beziehung aus.",
     "hints": [
       "Halte zuerst eine einzige Reservierung fest und zähle ihre möglichen Kunden.",
       "Wechsle dann den Blickpunkt zu einer Person, die gerade erst Kunde geworden ist.",
       "Lies beide Zahlen am gegenüberliegenden Ende. Erlaubt dein Bild auch die zweite Reservierung desselben Kunden?"
     ],
-    "explanation": "1 beim Kunden und 0..* bei der Reservierung beschreiben die geforderte Regel. Die Assoziation darf mit vertauschten Enden angelegt werden, wenn ihre Mengen mitgetauscht werden.",
+    "explanation": "1 beim Kunden und 0..* bei der Reservierung beschreiben die geforderte Regel. Die Assoziation darf mit vertauschten Enden angelegt werden, wenn ihre Mengen mitgetauscht werden.\n\nKunde ist konkret; hier sind keine Merkmale gefordert.\n\nReservierung ist konkret; hier sind keine Merkmale gefordert.\n\nKunde — Reservierung: 1 am Ende Kunde, 0..* am Ende Reservierung.",
     "previousContext": "Der Planungsschritt „Parameter und Rückgabe festhalten“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "guest": "Kunde",
@@ -1383,7 +1409,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Klassenkasten enthält Name, Attribute und Methoden. − bedeutet privat, + öffentlich; ein Methodenparameter steht in Klammern, der Rückgabetyp nach dem Doppelpunkt. Abstrakte Klassen/Operationen werden kursiv dargestellt.\nBeispiel: Konto besitzt − saldo: Double und + einzahlen(betrag: Double): Boolean. Bei einer Beziehung Besitzer—Konto bedeutet 1 am Besitzerende: ein Besitzer pro Konto; 0..* am Kontoende: beliebig viele Konten pro Besitzer. Eine gefüllte Raute liegt am besitzenden Ganzen, eine leere Raute kennzeichnet eine schwächere Teil-Ganzes-Zuordnung. Vererbung zeigt mit durchgezogenem, Realisierung eines Interfaces mit gestricheltem Dreieckspfeil auf den gemeinsamen Typ.",
+    "nameAliases": {}
   },
   {
     "id": 15,
@@ -1491,7 +1519,9 @@
       ],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Klassenkasten enthält Name, Attribute und Methoden. − bedeutet privat, + öffentlich; ein Methodenparameter steht in Klammern, der Rückgabetyp nach dem Doppelpunkt. Abstrakte Klassen/Operationen werden kursiv dargestellt.\nBeispiel: Konto besitzt − saldo: Double und + einzahlen(betrag: Double): Boolean. Bei einer Beziehung Besitzer—Konto bedeutet 1 am Besitzerende: ein Besitzer pro Konto; 0..* am Kontoende: beliebig viele Konten pro Besitzer. Eine gefüllte Raute liegt am besitzenden Ganzen, eine leere Raute kennzeichnet eine schwächere Teil-Ganzes-Zuordnung. Vererbung zeigt mit durchgezogenem, Realisierung eines Interfaces mit gestricheltem Dreieckspfeil auf den gemeinsamen Typ.",
+    "nameAliases": {}
   },
   {
     "id": 16,
@@ -1500,14 +1530,14 @@
     "chapter": "03 · Klassen und Beziehungen",
     "format": "Build",
     "story": "Für Nutzerarten soll derselbe Rabattvertrag gelten. Ein allgemeiner Nutzer wird in diesem Ausschnitt nicht direkt erzeugt. Vereinsnutzer liefert seine eigene konkrete Umsetzung. Mira bittet dich um den Klassenentwurf dieser Spezialisierung.",
-    "task": "Nutzer ist abstrakt und besitzt private kennung: String sowie öffentliche abstrakte rabatt(): Double. Vereinsnutzer ist konkret, erbt von Nutzer und überschreibt rabatt(): Double öffentlich und konkret. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Nutzer beschreibt einen gemeinsamen Typ, von dem keine Objekte direkt angelegt werden. Er speichert eine interne kennung als Text und verlangt eine öffentlich aufrufbare Rabattberechnung rabatt() mit Ergebnis Double, ohne sie selbst umzusetzen. Vereinsnutzer ist ein konkret anlegbarer Nutzertyp und setzt diese Berechnung um. Stelle Typen, Merkmale und ihre Beziehung im Klassendiagramm dar.",
     "discovery": "Abstrakter Vertrag und konkrete Überschreibung sind im Entwurf erkennbar.",
     "hints": [
       "Unterscheide den gemeinsamen Nutzertyp von der tatsächlich anlegbaren Nutzerart.",
       "Welche Operation verspricht die Basis und wo erscheint die konkrete Umsetzung?",
       "Stell dir einen Aufruf an einen Vereinsnutzer vor. Findest du Vertrag, Implementierung und geerbte Kennung?"
     ],
-    "explanation": "Die abstrakte Basisklasse definiert den Vertrag. Vereinsnutzer spezialisiert sie und implementiert die Rabattmethode konkret.",
+    "explanation": "Die abstrakte Basisklasse definiert den Vertrag. Vereinsnutzer spezialisiert sie und implementiert die Rabattmethode konkret.\n\nNutzer ist abstrakt. Merkmale: - kennung: String, + rabatt(): Double (abstrakt).\n\nVereinsnutzer ist konkret. Merkmale: + rabatt(): Double.\n\nVereinsnutzer übernimmt den allgemeineren Typ Nutzer. Das leere Dreieck liegt am Ziel.",
     "previousContext": "Der Planungsschritt „Leere und gefüllte Raute verstehen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "user": "Nutzer",
@@ -1605,7 +1635,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Klassenkasten enthält Name, Attribute und Methoden. − bedeutet privat, + öffentlich; ein Methodenparameter steht in Klammern, der Rückgabetyp nach dem Doppelpunkt. Abstrakte Klassen/Operationen werden kursiv dargestellt.\nBeispiel: Konto besitzt − saldo: Double und + einzahlen(betrag: Double): Boolean. Bei einer Beziehung Besitzer—Konto bedeutet 1 am Besitzerende: ein Besitzer pro Konto; 0..* am Kontoende: beliebig viele Konten pro Besitzer. Eine gefüllte Raute liegt am besitzenden Ganzen, eine leere Raute kennzeichnet eine schwächere Teil-Ganzes-Zuordnung. Vererbung zeigt mit durchgezogenem, Realisierung eines Interfaces mit gestricheltem Dreieckspfeil auf den gemeinsamen Typ.",
+    "nameAliases": {}
   },
   {
     "id": 17,
@@ -1614,14 +1646,14 @@
     "chapter": "03 · Klassen und Beziehungen",
     "format": "Repair",
     "story": "Benachrichtigungen sollen später über unterschiedliche Wege versendet werden können. Benachrichtigung ist deshalb ein Interface, Mailversand erfüllt seinen Vertrag. In der Vorlage wurde die falsche Beziehung gewählt. Du korrigierst den Zusammenhang.",
-    "task": "Die konkrete Klasse Mailversand realisiert das Interface Benachrichtigung. Beide zeigen öffentliche senden(text: String): Void. Korrigiere die Beziehung; eine zusätzliche abstrakt-Markierung am Interface-Methodenfeld ist hier nicht verlangt. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Benachrichtigung ist ein Vertrag mit der öffentlich aufrufbaren Operation senden(text: String): Void. Mailversand ist eine konkrete Klasse, die diesen Vertrag erfüllt und die Operation bereitstellt. Prüfe die Beziehung in der Vorlage und repariere sie. Signaturen und Elemente bleiben erhalten.",
     "discovery": "Versandschnittstelle und konkrete Realisierung sind fachlich getrennt.",
     "hints": [
       "Lies das Interface als Versprechen an alle, die Nachrichten versenden möchten.",
       "Vergleiche die beiden Methodensignaturen. Welche Beziehung drückt das Einlösen eines Vertrags aus?",
       "Kontrolliere Ziel und Linienart des vorhandenen Pfeils. Bleiben die beiden Rollen unterscheidbar?"
     ],
-    "explanation": "Interface-Realisierung ist eine gestrichelte Verbindung mit leerem Dreieck zum Interface. Eine Generalisierung zwischen Klasse und Interface ist hier falsch.",
+    "explanation": "Interface-Realisierung ist eine gestrichelte Verbindung mit leerem Dreieck zum Interface. Eine Generalisierung zwischen Klasse und Interface ist hier falsch.\n\nBenachrichtigung ist ein Interface. Merkmale: + senden(text: String): Void.\n\nMailversand ist konkret. Merkmale: + senden(text: String): Void.\n\nMailversand erfüllt den Vertrag von Benachrichtigung. Das leere Dreieck liegt am Ziel.",
     "previousContext": "Der Planungsschritt „Eine abstrakte Basisklasse nutzen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "notify": "Benachrichtigung",
@@ -1763,7 +1795,9 @@
       ],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Klassenkasten enthält Name, Attribute und Methoden. − bedeutet privat, + öffentlich; ein Methodenparameter steht in Klammern, der Rückgabetyp nach dem Doppelpunkt. Abstrakte Klassen/Operationen werden kursiv dargestellt.\nBeispiel: Konto besitzt − saldo: Double und + einzahlen(betrag: Double): Boolean. Bei einer Beziehung Besitzer—Konto bedeutet 1 am Besitzerende: ein Besitzer pro Konto; 0..* am Kontoende: beliebig viele Konten pro Besitzer. Eine gefüllte Raute liegt am besitzenden Ganzen, eine leere Raute kennzeichnet eine schwächere Teil-Ganzes-Zuordnung. Vererbung zeigt mit durchgezogenem, Realisierung eines Interfaces mit gestricheltem Dreieckspfeil auf den gemeinsamen Typ.",
+    "nameAliases": {}
   },
   {
     "id": 18,
@@ -1772,14 +1806,14 @@
     "chapter": "03 · Klassen und Beziehungen",
     "format": "Build",
     "story": "Mira führt Raumzuordnung und Technikpositionen zusammen. Räume sollen unabhängig bleiben; Positionen gehören dagegen ihrem Reservierungsvorgang. Du baust den gemeinsamen Entwurf aus den vereinbarten Anforderungen selbst auf.",
-    "task": "Erstelle konkrete Klassen: Raum mit privater kapazitaet: Integer; Reservierung mit privater nummer: Integer und öffentlicher bestaetigen(): Boolean; Technikposition mit privater menge: Integer. Assoziation: genau ein Raum je Reservierung, 0..* Reservierungen je Raum. Komposition: genau eine besitzende Reservierung je Technikposition, 0..* Positionen je Reservierung. Die gefüllte Raute liegt bei Reservierung. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Eine Reservierung gehört genau zu einem Raum; ein Raum kann noch keine oder mehrere Reservierungen haben. Technikpositionen gehören jeweils ausschließlich zu einer Reservierung und werden mit ihr gelöscht; eine Reservierung darf ohne Technikposition bestehen. Raum speichert intern kapazitaet: Integer, Reservierung nummer: Integer, Technikposition menge: Integer. Reservierung bietet öffentlich bestaetigen(): Boolean an. Entwirf den Klassenausschnitt mit Beziehungen und Mengenangaben. Alle drei Klassen sind konkret.",
     "discovery": "Raumzuordnung und besitzende Reservierung sind konsistent zusammengeführt.",
     "hints": [
       "Ordne zuerst Nummer, Menge und Kapazität ihrem jeweiligen Besitzer zu.",
       "Untersuche den Lebenszyklus einer Technikposition. Zu welchem Ganzen gehört sie?",
       "Teste einen Raum ohne Reservierungen und eine Reservierung ohne Technik. Lies dann die Bindung einer einzelnen Position."
     ],
-    "explanation": "Der Entwurf verwendet eine Assoziation für den Raum und eine Komposition für die Technikpositionen. Ihre Mengen gelten jeweils an den richtigen Enden.",
+    "explanation": "Der Entwurf verwendet eine Assoziation für den Raum und eine Komposition für die Technikpositionen. Ihre Mengen gelten jeweils an den richtigen Enden.\n\nRaum ist konkret. Merkmale: - kapazitaet: Integer.\n\nReservierung ist konkret. Merkmale: - nummer: Integer, + bestaetigen(): Boolean.\n\nTechnikposition ist konkret. Merkmale: - menge: Integer.\n\nReservierung — Raum: 0..* am Ende Reservierung, 1 am Ende Raum.\n\nReservierung ist das Ganze, Technikposition der zugeordnete Teil. Die gefüllte Raute liegt bei Reservierung. Am Teilende steht 0..*, am Ganzen 1.",
     "previousContext": "Der Planungsschritt „Ein Interface richtig anbinden“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "room": "Raum",
@@ -1913,7 +1947,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Klassenkasten enthält Name, Attribute und Methoden. − bedeutet privat, + öffentlich; ein Methodenparameter steht in Klammern, der Rückgabetyp nach dem Doppelpunkt. Abstrakte Klassen/Operationen werden kursiv dargestellt.\nBeispiel: Konto besitzt − saldo: Double und + einzahlen(betrag: Double): Boolean. Bei einer Beziehung Besitzer—Konto bedeutet 1 am Besitzerende: ein Besitzer pro Konto; 0..* am Kontoende: beliebig viele Konten pro Besitzer. Eine gefüllte Raute liegt am besitzenden Ganzen, eine leere Raute kennzeichnet eine schwächere Teil-Ganzes-Zuordnung. Vererbung zeigt mit durchgezogenem, Realisierung eines Interfaces mit gestricheltem Dreieckspfeil auf den gemeinsamen Typ.",
+    "nameAliases": {}
   },
   {
     "id": 19,
@@ -1922,14 +1958,14 @@
     "chapter": "04 · Aktivitäten und Verantwortungen",
     "format": "Build",
     "story": "Mira dokumentiert für neue Mitarbeitende den ersten Bearbeitungsweg. Der betrachtete Ausschnitt beginnt mit dem Öffnen und endet nach der Prüfung. Du überträgst die Reihenfolge in ein eigenes Aktivitätsdiagramm.",
-    "task": "Erstelle Start → Anfrage öffnen → Angaben prüfen → Ende. Start ist Initial, Ende ein Aktivitätsendknoten; dazwischen stehen zwei Aktionen und gerichtete Kontrollflüsse. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Bei der Bearbeitung wird zuerst die Anfrage geöffnet und danach werden die Angaben geprüft. Anschließend ist dieser Bearbeitungsschritt beendet. Stelle den vollständigen Ablauf mit Beginn und Abschluss als Aktivitätsdiagramm dar. Tätigkeiten: Anfrage öffnen und Angaben prüfen.",
     "discovery": "Ein eigener gerichteter Ablauf beschreibt Öffnen und Prüfen der Anfrage.",
     "hints": [
       "Schreibe die zwei Tätigkeiten in der Reihenfolge auf, in der die Bearbeitung sie braucht.",
       "Wähle für Tätigkeiten andere Knotentypen als für Eintritt und Abschluss.",
       "Folge dem Kontrollfluss vom Anfang bis zum Ende. Wird eine Tätigkeit übersprungen?"
     ],
-    "explanation": "Die Verbindungen bestimmen den Ablauf. Die Erstellreihenfolge der Karten bestimmt weder Zeitfolge noch Fachbedeutung.",
+    "explanation": "Die Verbindungen bestimmen den Ablauf. Die Erstellreihenfolge der Karten bestimmt weder Zeitfolge noch Fachbedeutung.\n\nStart → Anfrage öffnen.\n\nAnfrage öffnen → Angaben prüfen.\n\nAngaben prüfen → Ende.",
     "previousContext": "Der Planungsschritt „Den Klassenausschnitt selbst entwerfen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "start": "Start",
@@ -2033,7 +2069,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein ausgefüllter Kreis beginnt den Ablauf, ein umrandeter Endkreis beendet ihn. Abgerundete Rechtecke sind Tätigkeiten, Pfeile zeigen die Reihenfolge. An einer Entscheidungsraute wählen Bedingungen wie [gültig] genau einen Weg; eine Zusammenführungsraute vereinigt alternative Wege ohne auf beide zu warten.\nBeispiel: Nach Bestellung prüfen können Küche vorbereiten und Tisch decken unabhängig starten. Ein dicker Querbalken teilt die Arbeit auf (Parallelisierung, englisch Fork). Ein zweiter wartet auf beide Ergebnisse (Synchronisation, englisch Join), bevor Essen servieren beginnen darf. Zuständigkeitsbahnen ordnen Tätigkeiten einer verantwortlichen Rolle zu.",
+    "nameAliases": {}
   },
   {
     "id": 20,
@@ -2042,14 +2080,14 @@
     "chapter": "04 · Aktivitäten und Verantwortungen",
     "format": "Repair",
     "story": "Ein freier Raum soll zur Zusage, ein belegter zur Absage führen. In der übergebenen Skizze stehen die Beschriftungen jedoch an den falschen Zweigen. Du korrigierst diese konkrete Stelle.",
-    "task": "Start führt zur Entscheidung Verfügbarkeit?. Raum frei führt zu Zusage senden, Raum belegt zu Absage senden. Beide Aktionen führen zum Ende. Korrigiere nur die Bedingungen der vorbereiteten Flüsse. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei. Als gleichwertige Variante dürfen die beiden Benachrichtigungen vor dem Ende in einem zusätzlichen Merge Wege bündeln zusammenlaufen.",
+    "task": "Die Raumverfügbarkeit entscheidet über die Antwort: Bei freiem Raum wird eine Zusage, bei belegtem Raum eine Absage gesendet. Danach ist der Ablauf beendet. Prüfe die Bedingungen in der Vorlage und repariere falsche Zuordnungen. Bezeichnungen: Verfügbarkeit?, Raum frei, Raum belegt, Zusage senden, Absage senden. Die alternativen Wege dürfen vor dem Ende auch gemeinsam zusammenlaufen.",
     "discovery": "Die Verfügbarkeitsentscheidung führt zu den passenden Benachrichtigungen.",
     "hints": [
       "Spiele die Vorlage für einen belegten Raum durch.",
       "Lies jeden ausgehenden Pfeil als „wenn …, dann …“. Welche Zuordnung widerspricht der Fachregel?",
       "Verfolge anschließend den freien Raum. Passt die Nachricht jetzt auch auf diesem Weg?"
     ],
-    "explanation": "Vertauschte Bedingungen ändern das fachliche Verhalten, obwohl alle Elemente vorhanden sind. Die ausdrücklich zugelassene Variante ergänzt einen gemeinsamen Merge vor dem Endknoten.",
+    "explanation": "Vertauschte Bedingungen ändern das fachliche Verhalten, obwohl alle Elemente vorhanden sind. Die ausdrücklich zugelassene Variante ergänzt einen gemeinsamen Zusammenführung vor dem Endknoten.\n\nStart → Verfügbarkeit?.\n\nVerfügbarkeit? → Zusage senden [Raum frei].\n\nVerfügbarkeit? → Absage senden [Raum belegt].\n\nZusage senden → Ende.\n\nAbsage senden → Ende.",
     "previousContext": "Der Planungsschritt „Einen Bearbeitungsablauf aufbauen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "start": "Start",
@@ -2432,7 +2470,9 @@
       ],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein ausgefüllter Kreis beginnt den Ablauf, ein umrandeter Endkreis beendet ihn. Abgerundete Rechtecke sind Tätigkeiten, Pfeile zeigen die Reihenfolge. An einer Entscheidungsraute wählen Bedingungen wie [gültig] genau einen Weg; eine Zusammenführungsraute vereinigt alternative Wege ohne auf beide zu warten.\nBeispiel: Nach Bestellung prüfen können Küche vorbereiten und Tisch decken unabhängig starten. Ein dicker Querbalken teilt die Arbeit auf (Parallelisierung, englisch Fork). Ein zweiter wartet auf beide Ergebnisse (Synchronisation, englisch Join), bevor Essen servieren beginnen darf. Zuständigkeitsbahnen ordnen Tätigkeiten einer verantwortlichen Rolle zu.",
+    "nameAliases": {}
   },
   {
     "id": 21,
@@ -2441,14 +2481,14 @@
     "chapter": "04 · Aktivitäten und Verantwortungen",
     "format": "Build",
     "story": "Je nach Vollständigkeit der Kontaktdaten fordert die Anmeldung Angaben nach oder übernimmt sie. Anschließend wird in beiden Fällen der Bearbeitungsstand gespeichert. Mira möchte den gemeinsamen Folgeweg ausdrücklich sichtbar machen.",
-    "task": "Start führt zur Entscheidung Kontakt vollständig?. Daten fehlen führt zu Daten nachfordern; Daten vollständig zu Angaben übernehmen. Beide Wege führen zum Merge Wege zusammenführen, danach zu Bearbeitung speichern und Ende. Verwende den ausdrücklich verlangten Merge. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Zu Beginn wird betrachtet, ob die Kontaktdaten vollständig sind. Bei fehlenden Daten werden Angaben nachgefordert, andernfalls werden sie übernommen. Anschließend wird in beiden Fällen dieselbe Bearbeitung gespeichert. Stelle den Ablauf als Aktivitätsdiagramm dar, in dem die alternativen Wege vor dem gemeinsamen Folgeschritt wieder zusammenlaufen. Bezeichnungen: Kontakt vollständig?, Daten fehlen, Daten vollständig, Daten nachfordern, Angaben übernehmen, Bearbeitung speichern.",
     "discovery": "Die Alternativen haben einen gemeinsamen Folgeweg ohne gegenseitiges Warten.",
     "hints": [
       "Markiere im Auftrag die erste Stelle, an der zwei Bearbeitungswege möglich sind.",
       "Nach welchem Arbeitsschritt sollen beide Varianten wieder denselben Ablauf nehmen?",
       "Verfolge getrennt eine vollständige und eine unvollständige Anfrage bis zum Speichern."
     ],
-    "explanation": "Die Entscheidung erzeugt alternative Wege. Ein Merge führt sie ohne gemeinsame Wartebedingung zusammen.",
+    "explanation": "Die Entscheidung erzeugt alternative Wege. Ein Zusammenführung führt sie ohne gemeinsame Wartebedingung zusammen.\n\nStart → Kontakt vollständig?.\n\nKontakt vollständig? → Daten nachfordern [Daten fehlen].\n\nKontakt vollständig? → Angaben übernehmen [Daten vollständig].\n\nDaten nachfordern → Wege zusammenführen.\n\nAngaben übernehmen → Wege zusammenführen.\n\nWege zusammenführen → Bearbeitung speichern.\n\nBearbeitung speichern → Ende.",
     "previousContext": "Der Planungsschritt „Die vertauschten Entscheidungszweige“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "start": "Start",
@@ -2633,7 +2673,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein ausgefüllter Kreis beginnt den Ablauf, ein umrandeter Endkreis beendet ihn. Abgerundete Rechtecke sind Tätigkeiten, Pfeile zeigen die Reihenfolge. An einer Entscheidungsraute wählen Bedingungen wie [gültig] genau einen Weg; eine Zusammenführungsraute vereinigt alternative Wege ohne auf beide zu warten.\nBeispiel: Nach Bestellung prüfen können Küche vorbereiten und Tisch decken unabhängig starten. Ein dicker Querbalken teilt die Arbeit auf (Parallelisierung, englisch Fork). Ein zweiter wartet auf beide Ergebnisse (Synchronisation, englisch Join), bevor Essen servieren beginnen darf. Zuständigkeitsbahnen ordnen Tätigkeiten einer verantwortlichen Rolle zu.",
+    "nameAliases": {}
   },
   {
     "id": 22,
@@ -2642,14 +2684,14 @@
     "chapter": "04 · Aktivitäten und Verantwortungen",
     "format": "Build",
     "story": "Nach einer Zusage können Bestätigung und Technikvorbereitung unabhängig beginnen. Abgeschlossen wird aber erst, wenn beides erledigt ist. Mira benötigt dafür eine andere Struktur als bei alternativen Wegen.",
-    "task": "Start führt zum Fork Arbeit aufteilen. Danach laufen Bestätigung senden und Technik vorbereiten parallel. Beide führen zum Join Auf beide warten, danach zu Vorgang abschließen und Ende. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Nach der Zusage werden die Bestätigung versendet und die Technik vorbereitet. Beide Arbeiten können unabhängig voneinander stattfinden. Der Vorgang darf erst abgeschlossen werden, wenn beide erledigt sind. Stelle diesen Ablauf mit Beginn und Ende als Aktivitätsdiagramm dar. Tätigkeiten: Bestätigung senden, Technik vorbereiten, Vorgang abschließen.",
     "discovery": "Parallelisierung und Synchronisation bilden die Wartebedingung des Abschlusses ab.",
     "hints": [
       "Stelle dir vor, die Technik ist deutlich später fertig als die Bestätigung.",
       "Wo braucht der Ablauf zwei gleichzeitig aktive Wege, und ab wann müssen beide fertig sein?",
       "Gehe nur den schnelleren Weg bis zum Ende. Kann der Abschluss bei dir fälschlich schon starten?"
     ],
-    "explanation": "Fork eröffnet die parallelen Zweige. Der Join wartet auf ihre eingehenden Kontrollflüsse; erst danach wird abgeschlossen.",
+    "explanation": "Die Parallelisierung eröffnet die unabhängigen Zweige. Die Synchronisation wartet auf ihre eingehenden Kontrollflüsse; erst danach wird abgeschlossen.\n\nStart → Arbeit aufteilen.\n\nArbeit aufteilen → Bestätigung senden.\n\nArbeit aufteilen → Technik vorbereiten.\n\nBestätigung senden → Auf beide warten.\n\nTechnik vorbereiten → Auf beide warten.\n\nAuf beide warten → Vorgang abschließen.\n\nVorgang abschließen → Ende.\n\nKontrolle: Ist nur der schnellere Zweig fertig, bleibt die Synchronisation geschlossen. Eine Zusammenführungsraute wäre hier falsch, weil sie nicht auf beide Arbeiten wartet.",
     "previousContext": "Der Planungsschritt „Alternative Wege wieder zusammenführen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "start": "Start",
@@ -2831,7 +2873,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein ausgefüllter Kreis beginnt den Ablauf, ein umrandeter Endkreis beendet ihn. Abgerundete Rechtecke sind Tätigkeiten, Pfeile zeigen die Reihenfolge. An einer Entscheidungsraute wählen Bedingungen wie [gültig] genau einen Weg; eine Zusammenführungsraute vereinigt alternative Wege ohne auf beide zu warten.\nBeispiel: Nach Bestellung prüfen können Küche vorbereiten und Tisch decken unabhängig starten. Ein dicker Querbalken teilt die Arbeit auf (Parallelisierung, englisch Fork). Ein zweiter wartet auf beide Ergebnisse (Synchronisation, englisch Join), bevor Essen servieren beginnen darf. Zuständigkeitsbahnen ordnen Tätigkeiten einer verantwortlichen Rolle zu.",
+    "nameAliases": {}
   },
   {
     "id": 23,
@@ -2840,14 +2884,14 @@
     "chapter": "04 · Aktivitäten und Verantwortungen",
     "format": "Build",
     "story": "Besucher, Anwendung und Anmeldung übernehmen verschiedene Schritte. Für die Übergabe möchte Mira die Verantwortung direkt am Ablauf erkennen. Du ordnest die Aktionen den passenden Bereichen zu.",
-    "task": "Erstelle Start → Wünsche eingeben → Angaben prüfen → Anfrage entscheiden → Ende. Start und Wünsche eingeben gehören zu Besucher, Angaben prüfen zu System, Anfrage entscheiden und Ende zu Anmeldung. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Besucher beginnen den Vorgang, indem sie Wünsche eingeben. Danach prüft das System die Angaben. Die Anmeldung entscheidet anschließend über die Anfrage und beendet ihre Bearbeitung. Stelle Ablauf und Zuständigkeiten als Aktivitätsdiagramm dar. Tätigkeiten: Wünsche eingeben, Angaben prüfen, Anfrage entscheiden. Verantwortungsbereiche: Besucher, System, Anmeldung.",
     "discovery": "Die Übergaben zwischen Besucher, Anwendung und Anmeldung sind sichtbar.",
     "hints": [
       "Schreibe neben jede Tätigkeit, wer sie tatsächlich ausführt.",
       "Ein Wechsel der Zuständigkeit unterbricht den Kontrollfluss nicht. Zeichne ihn über die Bereichsgrenze weiter.",
       "Lies den Ablauf je Bahn und anschließend über alle Bahnen hinweg. Stimmen Zuständigkeit und Reihenfolge?"
     ],
-    "explanation": "Die Verantwortungsbereiche gliedern denselben gerichteten Ablauf. Ihre grafische Reihenfolge ist unerheblich; die Zuordnung der Schritte zählt.",
+    "explanation": "Die Verantwortungsbereiche gliedern denselben gerichteten Ablauf. Ihre grafische Reihenfolge ist unerheblich; die Zuordnung der Schritte zählt.\n\nStart → Wünsche eingeben.\n\nWünsche eingeben → Angaben prüfen.\n\nAngaben prüfen → Anfrage entscheiden.\n\nAnfrage entscheiden → Ende.",
     "previousContext": "Der Planungsschritt „Zwei Arbeiten parallel ausführen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "start": "Start",
@@ -2977,7 +3021,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein ausgefüllter Kreis beginnt den Ablauf, ein umrandeter Endkreis beendet ihn. Abgerundete Rechtecke sind Tätigkeiten, Pfeile zeigen die Reihenfolge. An einer Entscheidungsraute wählen Bedingungen wie [gültig] genau einen Weg; eine Zusammenführungsraute vereinigt alternative Wege ohne auf beide zu warten.\nBeispiel: Nach Bestellung prüfen können Küche vorbereiten und Tisch decken unabhängig starten. Ein dicker Querbalken teilt die Arbeit auf (Parallelisierung, englisch Fork). Ein zweiter wartet auf beide Ergebnisse (Synchronisation, englisch Join), bevor Essen servieren beginnen darf. Zuständigkeitsbahnen ordnen Tätigkeiten einer verantwortlichen Rolle zu.",
+    "nameAliases": {}
   },
   {
     "id": 24,
@@ -2986,14 +3032,14 @@
     "chapter": "04 · Aktivitäten und Verantwortungen",
     "format": "Build",
     "story": "Bei fehlender Verfügbarkeit genügt eine Absage. Ist ein Raum frei, müssen Bestätigung und Technikreservierung erledigt werden. Mira möchte die bisher getrennt geübten Muster im gemeinsamen Ablauf prüfen.",
-    "task": "Erstelle Start → Entscheidung Raum frei?. Raum belegt führt zu Absage senden und Ende. Raum frei führt zum Fork Zusage vorbereiten, danach parallel zu Bestätigung senden und Technik reservieren. Beide Zweige werden im Join Zusage vollständig synchronisiert und führen zum selben Ende. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Zunächst wird entschieden, ob ein Raum frei ist. Bei belegtem Raum wird eine Absage gesendet und die Bearbeitung endet. Bei freiem Raum werden unabhängig voneinander die Bestätigung gesendet und die Technik reserviert. Erst wenn beides fertig ist, endet auch diese Bearbeitung. Stelle den vollständigen Ablauf dar. Bezeichnungen: Raum frei?, Raum frei, Raum belegt, Absage senden, Bestätigung senden, Technik reservieren.",
     "discovery": "Der vollständige Ausschnitt verbindet Alternative und synchronisierte Zusage.",
     "hints": [
       "Spiele zuerst einen belegten Raum durch. Muss dieser Fall auf die Technik warten?",
       "Trenne die Wahl zwischen Zusage und Absage vom Aufteilen der Arbeit innerhalb einer Zusage.",
       "Lass im Zusagefall nur einen parallelen Zweig enden. Wird die Synchronisation erst nach dem zweiten verlassen?"
     ],
-    "explanation": "Die Synchronisation betrifft nur den Zusageweg. Der Endknoten beendet den jeweils erreichten Bearbeitungsdurchlauf.",
+    "explanation": "Die Synchronisation betrifft nur den Zusageweg. Der Endknoten beendet den jeweils erreichten Bearbeitungsdurchlauf.\n\nStart → Raum frei?.\n\nRaum frei? → Absage senden [Raum belegt].\n\nAbsage senden → Ende.\n\nRaum frei? → Zusage vorbereiten [Raum frei].\n\nZusage vorbereiten → Bestätigung senden.\n\nZusage vorbereiten → Technik reservieren.\n\nBestätigung senden → Zusage vollständig.\n\nTechnik reservieren → Zusage vollständig.\n\nZusage vollständig → Ende.\n\nKontrolle: Ist nur der schnellere Zweig fertig, bleibt die Synchronisation geschlossen. Eine Zusammenführungsraute wäre hier falsch, weil sie nicht auf beide Arbeiten wartet.",
     "previousContext": "Der Planungsschritt „Verantwortung im Ablauf zuordnen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "start": "Start",
@@ -3212,7 +3258,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein ausgefüllter Kreis beginnt den Ablauf, ein umrandeter Endkreis beendet ihn. Abgerundete Rechtecke sind Tätigkeiten, Pfeile zeigen die Reihenfolge. An einer Entscheidungsraute wählen Bedingungen wie [gültig] genau einen Weg; eine Zusammenführungsraute vereinigt alternative Wege ohne auf beide zu warten.\nBeispiel: Nach Bestellung prüfen können Küche vorbereiten und Tisch decken unabhängig starten. Ein dicker Querbalken teilt die Arbeit auf (Parallelisierung, englisch Fork). Ein zweiter wartet auf beide Ergebnisse (Synchronisation, englisch Join), bevor Essen servieren beginnen darf. Zuständigkeitsbahnen ordnen Tätigkeiten einer verantwortlichen Rolle zu.",
+    "nameAliases": {}
   },
   {
     "id": 25,
@@ -3301,6 +3349,10 @@
       ],
       "systemName": "",
       "fragments": []
+    },
+    "fundamentals": "Zeit verläuft von oben nach unten. Jeder Beteiligte besitzt einen Kopf und eine gestrichelte Lebenslinie. Durchgezogene Pfeile mit gefüllter Spitze sind synchrone Aufrufe; gestrichelte Pfeile sind Rückgaben.\nBeispiel: Kasse → Preisservice: berechnen(); danach Preisservice → Kasse: Gesamtpreis. Erst dann kann die Kasse weiterarbeiten. Der Rahmen alt enthält alternative Zweige mit Bedingungen, opt einen optionalen Ablauf, loop eine wiederholte Nachrichtenfolge. Aufruf und zugehörige Rückgabe gehören gemeinsam in ihren bedingten oder wiederholten Abschnitt.",
+    "nameAliases": {
+      "pruefen": "check"
     }
   },
   {
@@ -3310,14 +3362,14 @@
     "chapter": "05 · Nachrichten und Zusammenarbeit",
     "format": "Build",
     "story": "Die Buchungsseite kennt den Bestand nicht direkt. Sie fragt den Reservierungsdienst, der seinerseits den Bestand prüft. Mira möchte den Aufruf und seinen Rückweg in einer eigenen Sequenz dokumentieren.",
-    "task": "Erstelle drei Lebenslinien. Reihenfolge: Buchungsseite → Reservierungsdienst: pruefen(); Reservierungsdienst → Bestand: frei(); Bestand → Reservierungsdienst: Rückgabe Verfügbarkeit; Reservierungsdienst → Buchungsseite: Rückgabe Ergebnis. Beide Aufrufe sind synchron. Es gibt keine Gruppen. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Die Buchungsseite fragt den Reservierungsdienst mit pruefen() nach einem Ergebnis. Der Dienst benötigt dazu die Verfügbarkeit vom Bestand und fragt sie mit frei() ab. Alle Aufrufe warten auf ihre jeweilige Antwort. Entwirf das Sequenzdiagramm einschließlich Rückgaben Verfügbarkeit und Ergebnis. Beteiligte: Buchungsseite, Reservierungsdienst, Bestand; keine zusätzlichen bedingten Abläufe.",
     "discovery": "Die Anfrage und ihr Rückweg sind über die zuständigen Objekte dargestellt.",
     "hints": [
       "Lege für Seite, Dienst und Bestand je eine eigene Zeitlinie an.",
       "Welche Information braucht der Dienst, bevor er die Frage der Seite beantworten kann?",
       "Paare jeden Aufruf mit dem passenden Rückweg. Ist noch eine Anfrage offen, während eine andere beantwortet wird?"
     ],
-    "explanation": "Die vier Nachrichten stehen in der beschriebenen Reihenfolge. Aktivierungsbalken werden aus Aufrufen und Rückgaben dargestellt; Zeichenkoordinaten werden nicht bewertet.",
+    "explanation": "Die vier Nachrichten stehen in der beschriebenen Reihenfolge. Aktivierungsbalken werden aus Aufrufen und Rückgaben dargestellt; Zeichenkoordinaten werden nicht bewertet.\n\nBuchungsseite → Reservierungsdienst: synchroner Aufruf pruefen().\n\nReservierungsdienst → Bestand: synchroner Aufruf frei().\n\nBestand → Reservierungsdienst: Rückgabe Verfügbarkeit.\n\nReservierungsdienst → Buchungsseite: Rückgabe Ergebnis.\n\nDie Reihenfolge beschreibt die Abhängigkeiten der Nachrichten. Eine Rückgabe kann erst nach dem zugehörigen Aufruf entstehen; eine andere waagerechte Anordnung der Beteiligten ändert daran nichts.",
     "previousContext": "Der Planungsschritt „Wer ruft wen auf?“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "ui": "Buchungsseite",
@@ -3428,6 +3480,11 @@
       "links": [],
       "systemName": "",
       "fragments": []
+    },
+    "fundamentals": "Zeit verläuft von oben nach unten. Jeder Beteiligte besitzt einen Kopf und eine gestrichelte Lebenslinie. Durchgezogene Pfeile mit gefüllter Spitze sind synchrone Aufrufe; gestrichelte Pfeile sind Rückgaben.\nBeispiel: Kasse → Preisservice: berechnen(); danach Preisservice → Kasse: Gesamtpreis. Erst dann kann die Kasse weiterarbeiten. Der Rahmen alt enthält alternative Zweige mit Bedingungen, opt einen optionalen Ablauf, loop eine wiederholte Nachrichtenfolge. Aufruf und zugehörige Rückgabe gehören gemeinsam in ihren bedingten oder wiederholten Abschnitt.",
+    "nameAliases": {
+      "pruefen": "check",
+      "frei": "lookup"
     }
   },
   {
@@ -3437,14 +3494,14 @@
     "chapter": "05 · Nachrichten und Zusammenarbeit",
     "format": "Repair",
     "story": "In einer vorbereiteten Sequenz steht die Bestandsantwort vor ihrer Abfrage. Lebenslinien und Nachrichtentypen passen bereits. Mira bittet dich, nur die Reihenfolge zu reparieren.",
-    "task": "Ordne die Vorlage: zuerst pruefen() von Buchungsseite an Reservierungsdienst, dann frei() an Bestand, dann Rückgabe Verfügbarkeit an den Dienst, zuletzt Rückgabe Ergebnis an die Buchungsseite. Endpunkte und Nachrichtentypen bleiben erhalten. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Die Buchungsseite wartet auf das Ergebnis von pruefen(). Bevor der Reservierungsdienst antworten kann, muss er mit frei() beim Bestand die Verfügbarkeit erfragen. Die Vorlage enthält die erforderlichen Nachrichten, beantwortet aber eine Anfrage zu früh. Repariere die zeitliche Reihenfolge; Absender, Empfänger und Nachrichtenarten bleiben erhalten.",
     "discovery": "Die Bestandsantwort folgt ihrer Abfrage, die äußere Antwort erst danach.",
     "hints": [
       "Suche die Nachricht, die ein Ergebnis liefert, bevor die nötige Information vorliegt.",
       "Ordne die Nachrichten nach ihrer Abhängigkeit, ohne Sender und Empfänger zu vertauschen.",
       "Lies die Wartezeit der Buchungsseite von oben nach unten. Welche beiden Nachrichten müssen darin stattfinden?"
     ],
-    "explanation": "Die vertikale Nachrichtenfolge zählt. Die waagerechte Lebenslinienanordnung darf variieren, solange Absender und Empfänger dieselben Fachrollen tragen.",
+    "explanation": "Die vertikale Nachrichtenfolge zählt. Die waagerechte Lebenslinienanordnung darf variieren, solange Absender und Empfänger dieselben Fachrollen tragen.\n\nBuchungsseite → Reservierungsdienst: synchroner Aufruf pruefen().\n\nReservierungsdienst → Bestand: synchroner Aufruf frei().\n\nBestand → Reservierungsdienst: Rückgabe Verfügbarkeit.\n\nReservierungsdienst → Buchungsseite: Rückgabe Ergebnis.\n\nDie Reihenfolge beschreibt die Abhängigkeiten der Nachrichten. Eine Rückgabe kann erst nach dem zugehörigen Aufruf entstehen; eine andere waagerechte Anordnung der Beteiligten ändert daran nichts.",
     "previousContext": "Der Planungsschritt „Eine Aufrufkette selbst darstellen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "ui": "Buchungsseite",
@@ -3632,6 +3689,11 @@
       ],
       "systemName": "",
       "fragments": []
+    },
+    "fundamentals": "Zeit verläuft von oben nach unten. Jeder Beteiligte besitzt einen Kopf und eine gestrichelte Lebenslinie. Durchgezogene Pfeile mit gefüllter Spitze sind synchrone Aufrufe; gestrichelte Pfeile sind Rückgaben.\nBeispiel: Kasse → Preisservice: berechnen(); danach Preisservice → Kasse: Gesamtpreis. Erst dann kann die Kasse weiterarbeiten. Der Rahmen alt enthält alternative Zweige mit Bedingungen, opt einen optionalen Ablauf, loop eine wiederholte Nachrichtenfolge. Aufruf und zugehörige Rückgabe gehören gemeinsam in ihren bedingten oder wiederholten Abschnitt.",
+    "nameAliases": {
+      "pruefen": "check",
+      "frei": "lookup"
     }
   },
   {
@@ -3641,14 +3703,14 @@
     "chapter": "05 · Nachrichten und Zusammenarbeit",
     "format": "Build",
     "story": "Je nach Verfügbarkeit sendet der Dienst entweder eine Bestätigung oder eine Absage. Es sollen nicht beide Antworten im selben Durchlauf erfolgen. Mira benötigt eine Darstellung dieser Alternative.",
-    "task": "Erstelle die Lebenslinien Buchungsseite und Reservierungsdienst. Zuerst ruft die Buchungsseite reservieren() auf. Im alt-Fragment Antwortwahl sendet der Dienst bei Raum frei die Rückgabe Bestätigung und bei Raum belegt die Rückgabe Absage. Beide Rückgaben gehören zur Gruppe und ihrem jeweiligen Zweig. Notiere die zwei Alternativen in dieser Reihenfolge. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Die Buchungsseite ruft reservieren() am Reservierungsdienst auf. Der Dienst antwortet abhängig von der Verfügbarkeit entweder mit Bestätigung (Raum frei) oder mit Absage (Raum belegt). Stelle beide möglichen Antworten in einem Sequenzdiagramm dar. Zeige den freien Fall oberhalb des belegten Falls, damit die beiden Zweige einheitlich lesbar sind.",
     "discovery": "Die beiden Antwortmöglichkeiten sind als bedingte Alternativen modelliert.",
     "hints": [
       "Markiere, was bei jeder Reservierungsanfrage passiert und was vom Raum abhängt.",
       "Eine Alternative braucht unterscheidbare Bedingungen. Ordne Rückgaben ihren Zweigen zu.",
       "Verfolge nur den belegten Raum. Kann in demselben Durchlauf zusätzlich eine Bestätigung erscheinen?"
     ],
-    "explanation": "Die bedingten Rückgaben liegen in den beiden alt-Zweigen. Sie sind Alternativen und nicht zwei aufeinanderfolgende Antworten desselben Durchlaufs.",
+    "explanation": "Die bedingten Rückgaben liegen in den beiden alt-Zweigen. Sie sind Alternativen und nicht zwei aufeinanderfolgende Antworten desselben Durchlaufs.\n\nBuchungsseite → Reservierungsdienst: synchroner Aufruf reservieren().\n\nReservierungsdienst → Buchungsseite: Rückgabe Bestätigung [Raum frei].\n\nReservierungsdienst → Buchungsseite: Rückgabe Absage [Raum belegt].\n\nDie Reihenfolge beschreibt die Abhängigkeiten der Nachrichten. Eine Rückgabe kann erst nach dem zugehörigen Aufruf entstehen; eine andere waagerechte Anordnung der Beteiligten ändert daran nichts.",
     "previousContext": "Der Planungsschritt „Die Antwort steht zu früh“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "ui": "Buchungsseite",
@@ -3748,6 +3810,10 @@
       "links": [],
       "systemName": "",
       "fragments": []
+    },
+    "fundamentals": "Zeit verläuft von oben nach unten. Jeder Beteiligte besitzt einen Kopf und eine gestrichelte Lebenslinie. Durchgezogene Pfeile mit gefüllter Spitze sind synchrone Aufrufe; gestrichelte Pfeile sind Rückgaben.\nBeispiel: Kasse → Preisservice: berechnen(); danach Preisservice → Kasse: Gesamtpreis. Erst dann kann die Kasse weiterarbeiten. Der Rahmen alt enthält alternative Zweige mit Bedingungen, opt einen optionalen Ablauf, loop eine wiederholte Nachrichtenfolge. Aufruf und zugehörige Rückgabe gehören gemeinsam in ihren bedingten oder wiederholten Abschnitt.",
+    "nameAliases": {
+      "reservieren": "reserve"
     }
   },
   {
@@ -3757,14 +3823,14 @@
     "chapter": "05 · Nachrichten und Zusammenarbeit",
     "format": "Build",
     "story": "Für die Reservierung werden mehrere Geräte geprüft. Mira zeigt stellvertretend die Lebenslinie des gerade betrachteten Geräts. Abfrage und Antwort sollen sich für jedes weitere Gerät wiederholen. Du modellierst diesen Abschnitt.",
-    "task": "Erstelle Reservierungsdienst und Geraet als Lebenslinien. Ein loop-Fragment Geräteprüfung mit Bedingung weiteres Gerät vorhanden umfasst genau den synchronen Aufruf verfuegbar() vom Dienst zum Gerät und die anschließende Rückgabe Ergebnis zum Dienst. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Der Reservierungsdienst fragt für jedes noch vorhandene Gerät synchron verfuegbar() ab und erhält jeweils Ergebnis zurück. Entwirf den wiederholbaren Nachrichtenaustausch zwischen Reservierungsdienst und Geraet. Die Wiederholungsbedingung lautet weiteres Gerät vorhanden. Auch eine leere Geräteliste muss darstellbar sein.",
     "discovery": "Aufruf und Rückgabe bilden gemeinsam einen wiederholbaren Geräteprüfschritt.",
     "hints": [
       "Stell dir nacheinander zwei zu prüfende Geräte vor.",
       "Welche Nachrichten gehören vollständig zu einer einzigen Geräteprüfung?",
       "Lies den Rahmen einmal bei leerer Geräteliste und einmal beim zweiten Gerät. Passt seine Bedingung?"
     ],
-    "explanation": "Der loop-Rahmen beschreibt eine wiederholte Interaktion. Seine Bedingung gehört zur Gruppe; die einzelnen Nachrichten benötigen keine zusätzliche Bedingung.",
+    "explanation": "Der loop-Rahmen beschreibt eine wiederholte Interaktion. Seine Bedingung gehört zur Gruppe; die einzelnen Nachrichten benötigen keine zusätzliche Bedingung.\n\nReservierungsdienst → Geraet: synchroner Aufruf verfuegbar().\n\nGeraet → Reservierungsdienst: Rückgabe Ergebnis.\n\nDie Reihenfolge beschreibt die Abhängigkeiten der Nachrichten. Eine Rückgabe kann erst nach dem zugehörigen Aufruf entstehen; eine andere waagerechte Anordnung der Beteiligten ändert daran nichts.",
     "previousContext": "Der Planungsschritt „Zwei Antworten als Alternativen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "service": "Reservierungsdienst",
@@ -3850,6 +3916,10 @@
       "links": [],
       "systemName": "",
       "fragments": []
+    },
+    "fundamentals": "Zeit verläuft von oben nach unten. Jeder Beteiligte besitzt einen Kopf und eine gestrichelte Lebenslinie. Durchgezogene Pfeile mit gefüllter Spitze sind synchrone Aufrufe; gestrichelte Pfeile sind Rückgaben.\nBeispiel: Kasse → Preisservice: berechnen(); danach Preisservice → Kasse: Gesamtpreis. Erst dann kann die Kasse weiterarbeiten. Der Rahmen alt enthält alternative Zweige mit Bedingungen, opt einen optionalen Ablauf, loop eine wiederholte Nachrichtenfolge. Aufruf und zugehörige Rückgabe gehören gemeinsam in ihren bedingten oder wiederholten Abschnitt.",
+    "nameAliases": {
+      "verfuegbar": "check"
     }
   },
   {
@@ -3859,14 +3929,14 @@
     "chapter": "05 · Nachrichten und Zusammenarbeit",
     "format": "Build",
     "story": "Auf Wunsch wird eine Bestätigung zusätzlich per E-Mail versendet. Die Buchungsseite erhält ihr Ergebnis auch ohne diesen Versand. Mira möchte den optionalen Teil innerhalb der vollständigen Sequenz erkennen können.",
-    "task": "Erstelle Buchungsseite, Reservierungsdienst und Versand als Lebenslinien. Zuerst ruft die Seite bestaetigen() am Dienst auf. Im opt-Fragment Benachrichtigung bei E-Mail gewünscht ruft der Dienst senden() am Versand auf und erhält Versandergebnis zurück. Beide Nachrichten tragen dieselbe Bedingung und gehören zur Gruppe. Abschließend liefert der Dienst außerhalb der Gruppe Bestätigung an die Seite zurück. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Die Buchungsseite ruft bestaetigen() am Reservierungsdienst auf. Nur wenn E-Mail gewünscht ist, lässt der Dienst über senden() beim Versand eine Nachricht verschicken und wartet auf Versandergebnis. Unabhängig vom E-Mail-Wunsch erhält die Buchungsseite abschließend Bestätigung. Entwirf das Sequenzdiagramm mit synchronen Aufrufen und Rückgaben; kennzeichne den bedingten Teil und seine Nachrichten mit E-Mail gewünscht.",
     "discovery": "Der optionale Versand ist in den Bestätigungsablauf eingeordnet.",
     "hints": [
       "Spiele die Bestätigung zunächst ohne E-Mail-Wunsch.",
       "Markiere die Nachrichten, die nur wegen des Wunschs hinzukommen. Wo endet ihre Gruppe?",
       "Verfolge den Rückweg zur Seite. Erhält sie ihr Ergebnis auch dann, wenn kein Versand stattfindet?"
     ],
-    "explanation": "Die abschließende Bestätigung liegt außerhalb des opt-Fragments und wird unabhängig von der Versandbedingung geliefert.",
+    "explanation": "Die abschließende Bestätigung liegt außerhalb des opt-Fragments und wird unabhängig von der Versandbedingung geliefert.\n\nBuchungsseite → Reservierungsdienst: synchroner Aufruf bestaetigen().\n\nReservierungsdienst → Versand: synchroner Aufruf senden() [E-Mail gewünscht].\n\nVersand → Reservierungsdienst: Rückgabe Versandergebnis [E-Mail gewünscht].\n\nReservierungsdienst → Buchungsseite: Rückgabe Bestätigung.\n\nDie Reihenfolge beschreibt die Abhängigkeiten der Nachrichten. Eine Rückgabe kann erst nach dem zugehörigen Aufruf entstehen; eine andere waagerechte Anordnung der Beteiligten ändert daran nichts.",
     "previousContext": "Der Planungsschritt „Eine Prüfung wiederholen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "ui": "Buchungsseite",
@@ -3988,6 +4058,11 @@
       "links": [],
       "systemName": "",
       "fragments": []
+    },
+    "fundamentals": "Zeit verläuft von oben nach unten. Jeder Beteiligte besitzt einen Kopf und eine gestrichelte Lebenslinie. Durchgezogene Pfeile mit gefüllter Spitze sind synchrone Aufrufe; gestrichelte Pfeile sind Rückgaben.\nBeispiel: Kasse → Preisservice: berechnen(); danach Preisservice → Kasse: Gesamtpreis. Erst dann kann die Kasse weiterarbeiten. Der Rahmen alt enthält alternative Zweige mit Bedingungen, opt einen optionalen Ablauf, loop eine wiederholte Nachrichtenfolge. Aufruf und zugehörige Rückgabe gehören gemeinsam in ihren bedingten oder wiederholten Abschnitt.",
+    "nameAliases": {
+      "bestaetigen": "confirm",
+      "senden": "send"
     }
   },
   {
@@ -4123,7 +4198,9 @@
       ],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Zustand beschreibt eine über eine Zeit bestehende Situation. Ein Übergang trägt ein Ereignis und bei Bedarf eine zusätzliche Bedingung in eckigen Klammern. Der Startpfeil zum Anfangszustand braucht kein Ereignis; ein normaler Zustand ist kein Endknoten.\nBeispiel: Ein Paket wechselt durch versenden von Gepackt zu Unterwegs. entry / Licht einschalten läuft beim Eintritt in einen Zustand, do / Temperatur überwachen während des Aufenthalts, exit / Licht ausschalten beim Verlassen. Das Ereignis abliefern kann den nächsten Zustandswechsel auslösen; die Zustandsaktion selbst ersetzt dieses Ereignis nicht.",
+    "nameAliases": {}
   },
   {
     "id": 32,
@@ -4132,14 +4209,14 @@
     "chapter": "06 · Zustände und Ereignisse",
     "format": "Build",
     "story": "Eine neue Reservierung beginnt als Entwurf, wird abgesendet und später freigegeben. Mira möchte zunächst diesen positiven Weg dokumentieren. Du setzt ihn ohne weitere Sonderfälle selbst um.",
-    "task": "Erstelle den Initialknoten Start und die normalen Zustände Entwurf, Angefragt und Bestätigt. Start führt ohne Ereignis nach Entwurf. absenden führt nach Angefragt, freigeben von dort nach Bestätigt. Bestätigt ist kein Finalknoten. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Eine neue Reservierung befindet sich zunächst im Entwurf. Durch absenden wird sie Angefragt, durch das spätere Ereignis freigeben wird sie Bestätigt. Die Bestätigung beendet ihren Lebenszyklus noch nicht. Stelle diesen Zustandsausschnitt mit dem Eintritt in den Anfangszustand dar.",
     "discovery": "Der positive Lebenszyklus ist mit seinen Ereignissen modelliert.",
     "hints": [
       "Erzähle den Weg einer neuen Reservierung bis zur Bestätigung.",
       "Unterscheide das erstmalige Erreichen eines Zustands vom späteren Wechsel durch ein Ereignis.",
       "Betrachte den bestätigten Stand. Kennzeichnet ihn dein Diagramm versehentlich als Ende des Lebenszyklus?"
     ],
-    "explanation": "Die Ereignisse gehören an Übergänge. Bestätigt bleibt ein aktiver Zustand der Reservierung und ist nicht das Ende ihres gesamten Lebenszyklus.",
+    "explanation": "Die Ereignisse gehören an Übergänge. Bestätigt bleibt ein aktiver Zustand der Reservierung und ist nicht das Ende ihres gesamten Lebenszyklus.\n\nStart → Entwurf.\n\nEntwurf → Angefragt: absenden.\n\nAngefragt → Bestätigt: freigeben.",
     "previousContext": "Der Planungsschritt „Eine Reservierung hat einen Lebenszyklus“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "start": "Start",
@@ -4246,7 +4323,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Zustand beschreibt eine über eine Zeit bestehende Situation. Ein Übergang trägt ein Ereignis und bei Bedarf eine zusätzliche Bedingung in eckigen Klammern. Der Startpfeil zum Anfangszustand braucht kein Ereignis; ein normaler Zustand ist kein Endknoten.\nBeispiel: Ein Paket wechselt durch versenden von Gepackt zu Unterwegs. entry / Licht einschalten läuft beim Eintritt in einen Zustand, do / Temperatur überwachen während des Aufenthalts, exit / Licht ausschalten beim Verlassen. Das Ereignis abliefern kann den nächsten Zustandswechsel auslösen; die Zustandsaktion selbst ersetzt dieses Ereignis nicht.",
+    "nameAliases": {}
   },
   {
     "id": 33,
@@ -4255,14 +4334,14 @@
     "chapter": "06 · Zustände und Ereignisse",
     "format": "Repair",
     "story": "Das Ereignis prüfen hat abhängig vom Raum zwei mögliche Folgen. In Miras Vorlage sind die Bedingungen vertauscht. Du ordnest sie den richtigen Folgezuständen zu.",
-    "task": "Start führt ohne Ereignis nach Angefragt. Beim Ereignis prüfen führt Raum frei nach Bestätigt und Raum belegt nach Abgelehnt. Korrigiere die Bedingungen; die drei Geschäftsstände bleiben normale Zustände. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Eine neue Reservierung ist Angefragt. Das Ereignis prüfen soll bei Raum frei zum Zustand Bestätigt und bei Raum belegt zu Abgelehnt führen. Repariere die Bedingungen der Vorlage. Keiner dieser Geschäftsstände beendet den Lebenszyklus.",
     "discovery": "Dasselbe Ereignis führt abhängig von seiner Bedingung zum richtigen Folgezustand.",
     "hints": [
       "Notiere das Ereignis, das beide abgehenden Pfeile gemeinsam haben.",
       "Spiele die Prüfung für genau einen Raum durch. Welcher Tatsachenwert unterscheidet ihre Ausgänge?",
       "Teste frei und belegt getrennt. Welche der vorhandenen Beschriftungen müsstest du jeweils lesen?"
     ],
-    "explanation": "Eine Bedingung begrenzt den durch prüfen ausgelösten Übergang. Ihre Vertauschung ändert das fachliche Verhalten.",
+    "explanation": "Eine Bedingung begrenzt den durch prüfen ausgelösten Übergang. Ihre Vertauschung ändert das fachliche Verhalten.\n\nStart → Angefragt.\n\nAngefragt → Bestätigt: prüfen [Raum frei].\n\nAngefragt → Abgelehnt: prüfen [Raum belegt].",
     "previousContext": "Der Planungsschritt „Den ersten Zustandsweg selbst aufbauen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "start": "Start",
@@ -4445,7 +4524,9 @@
       ],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Zustand beschreibt eine über eine Zeit bestehende Situation. Ein Übergang trägt ein Ereignis und bei Bedarf eine zusätzliche Bedingung in eckigen Klammern. Der Startpfeil zum Anfangszustand braucht kein Ereignis; ein normaler Zustand ist kein Endknoten.\nBeispiel: Ein Paket wechselt durch versenden von Gepackt zu Unterwegs. entry / Licht einschalten läuft beim Eintritt in einen Zustand, do / Temperatur überwachen während des Aufenthalts, exit / Licht ausschalten beim Verlassen. Das Ereignis abliefern kann den nächsten Zustandswechsel auslösen; die Zustandsaktion selbst ersetzt dieses Ereignis nicht.",
+    "nameAliases": {}
   },
   {
     "id": 34,
@@ -4454,14 +4535,14 @@
     "chapter": "06 · Zustände und Ereignisse",
     "format": "Build",
     "story": "Ein bereitgestelltes Leihgerät meldet seine Bereitschaft einmalig durch ein Signal. Während es wartet, wird die Abholung überwacht. Beim Verlassen der Bereitschaft wird die Anzeige gelöscht. Mira möchte diese Verhaltensarten klar unterscheiden.",
-    "task": "Erstelle Start → Bereit ohne Ereignis und Bereit → Abgeholt mit abholen. Bereit besitzt entry Signal abspielen, do Abholung überwachen und exit Anzeige löschen. Abgeholt ist ein normaler Zustand ohne Aktionen. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Eine Ausgabe beginnt im Zustand Bereit. Beim Eintritt wird Signal abspielen ausgeführt, während des Aufenthalts Abholung überwachen und beim Verlassen Anzeige löschen. Das Ereignis abholen versetzt sie in Abgeholt, ohne den Lebenszyklus zu beenden. Stelle Zustände, Übergang und Zustandsaktionen dar.",
     "discovery": "Eintritt, laufende Aktivität und Austritt sind am Bereitschaftszustand getrennt.",
     "hints": [
       "Ordne die drei Aktionen auf einer Zeitachse an: Ankunft, Aufenthalt, Weggang.",
       "Welche Aktion läuft, während die Abholung noch aussteht?",
       "Spiele den Moment der Abholung durch. An welchem Zustand hängt das Aufräumen der Anzeige?"
     ],
-    "explanation": "Zustandsaktionen ersetzen weder den Zustand noch sein auslösendes Ereignis. Jede Aktion ist der passenden Ausführungsart zugeordnet.",
+    "explanation": "Zustandsaktionen ersetzen weder den Zustand noch sein auslösendes Ereignis. Jede Aktion ist der passenden Ausführungsart zugeordnet.\n\nStart → Bereit.\n\nBereit → Abgeholt: abholen.",
     "previousContext": "Der Planungsschritt „Ein Ereignis mit zwei Bedingungen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "start": "Start",
@@ -4583,7 +4664,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Zustand beschreibt eine über eine Zeit bestehende Situation. Ein Übergang trägt ein Ereignis und bei Bedarf eine zusätzliche Bedingung in eckigen Klammern. Der Startpfeil zum Anfangszustand braucht kein Ereignis; ein normaler Zustand ist kein Endknoten.\nBeispiel: Ein Paket wechselt durch versenden von Gepackt zu Unterwegs. entry / Licht einschalten läuft beim Eintritt in einen Zustand, do / Temperatur überwachen während des Aufenthalts, exit / Licht ausschalten beim Verlassen. Das Ereignis abliefern kann den nächsten Zustandswechsel auslösen; die Zustandsaktion selbst ersetzt dieses Ereignis nicht.",
+    "nameAliases": {}
   },
   {
     "id": 35,
@@ -4592,14 +4675,14 @@
     "chapter": "06 · Zustände und Ereignisse",
     "format": "Build",
     "story": "Stornieren ist vor und nach einer Zusage möglich. Erst das Archivieren beendet den betrachteten Lebenszyklus. Mira möchte verhindern, dass eine Bestätigung versehentlich schon als Ende gezeichnet wird.",
-    "task": "Erstelle Start → Angefragt ohne Ereignis. freigeben führt nach Bestätigt. stornieren führt von Angefragt und von Bestätigt nach Storniert. Erst archivieren führt von Storniert zum Finalknoten Ende. Alle drei Geschäftsstände bleiben normale Zustände. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Eine Reservierung beginnt als Angefragt. freigeben bestätigt sie. Sowohl vor als auch nach der Freigabe kann stornieren sie in Storniert versetzen. Erst archivieren beendet den Lebenszyklus eines stornierten Vorgangs. Entwirf das Zustandsdiagramm mit den Geschäftsständen Angefragt, Bestätigt und Storniert.",
     "discovery": "Stornierung bleibt vor und nach Bestätigung möglich; Archivieren beendet den Lebenszyklus.",
     "hints": [
       "Spiele eine Stornierung vor der Freigabe und eine danach.",
       "Suche für jeden dieser Fälle die passende Ausgangskante. Wo treffen sich ihre Wege?",
       "Was kann mit dem stornierten Vorgang anschließend noch geschehen? Achte auf den Typ seines Knotens."
     ],
-    "explanation": "Zwei Übergänge beschreiben die Stornierung aus unterschiedlichen Zuständen. Der Finalknoten wird erst beim Archivieren erreicht.",
+    "explanation": "Zwei Übergänge beschreiben die Stornierung aus unterschiedlichen Zuständen. Der Finalknoten wird erst beim Archivieren erreicht.\n\nStart → Angefragt.\n\nAngefragt → Bestätigt: freigeben.\n\nAngefragt → Storniert: stornieren.\n\nBestätigt → Storniert: stornieren.\n\nStorniert → Ende: archivieren.",
     "previousContext": "Der Planungsschritt „Was beim Eintritt und Verlassen geschieht“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "start": "Start",
@@ -4741,7 +4824,9 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Zustand beschreibt eine über eine Zeit bestehende Situation. Ein Übergang trägt ein Ereignis und bei Bedarf eine zusätzliche Bedingung in eckigen Klammern. Der Startpfeil zum Anfangszustand braucht kein Ereignis; ein normaler Zustand ist kein Endknoten.\nBeispiel: Ein Paket wechselt durch versenden von Gepackt zu Unterwegs. entry / Licht einschalten läuft beim Eintritt in einen Zustand, do / Temperatur überwachen während des Aufenthalts, exit / Licht ausschalten beim Verlassen. Das Ereignis abliefern kann den nächsten Zustandswechsel auslösen; die Zustandsaktion selbst ersetzt dieses Ereignis nicht.",
+    "nameAliases": {}
   },
   {
     "id": 36,
@@ -4750,14 +4835,14 @@
     "chapter": "06 · Zustände und Ereignisse",
     "format": "Build",
     "story": "Für die Übergabe verbindet Mira Entscheidung, Rückmeldung und Stornierung. Abgelehnte oder stornierte Vorgänge können archiviert werden. Eine bestätigte Reservierung bleibt vorerst aktiv. Du erstellst das Modell aus den vereinbarten Regeln.",
-    "task": "Erstelle Start → Angefragt ohne Ereignis. prüfen führt bei Raum frei nach Bestätigt und bei Raum belegt nach Abgelehnt. Bestätigt besitzt die Eintrittsaktion Zusage anzeigen. stornieren führt von Angefragt und Bestätigt nach Storniert. archivieren führt von Abgelehnt und Storniert zum Finalknoten Ende. Weitere Übergänge werden nicht verlangt. Verwende nur die benötigten Fachrollen, Merkmale und Verbindungen. Jede Element-Fachrolle kommt einmal vor. Eigene Anzeigenamen sind frei.",
+    "task": "Eine Reservierung beginnt als Angefragt. prüfen ergibt je nach Raum frei oder Raum belegt den Stand Bestätigt oder Abgelehnt. Beim Eintritt in Bestätigt wird Zusage anzeigen ausgeführt. Angefragte und bestätigte Reservierungen können durch stornieren zu Storniert werden. archivieren beendet den Lebenszyklus abgelehnter oder stornierter Vorgänge. Stelle genau diesen Zustandsausschnitt dar.",
     "discovery": "Die Nordhafen-Unterlagen verbinden Nutzerziele, Struktur, Zusammenarbeit und Lebenszyklus in nachvollziehbaren Modellen.",
     "hints": [
       "Zeichne die Wege einer abgelehnten, einer bestätigten und einer später stornierten Reservierung getrennt nach.",
       "Beim Prüfen wählt eine Bedingung den Weg. Die Anzeige gehört hingegen zum Eintritt in einen Zustand.",
       "Verfolge die Archivierung aus beiden erlaubten Ausgangslagen. Führt ein unerlaubter Weg direkt zum Ende?"
     ],
-    "explanation": "Der Ausschnitt enthält zwei bedingte Prüfungen, zwei Stornierungen, zwei Archivierungen und eine Eintrittsaktion.",
+    "explanation": "Der Ausschnitt enthält zwei bedingte Prüfungen, zwei Stornierungen, zwei Archivierungen und eine Eintrittsaktion.\n\nStart → Angefragt.\n\nAngefragt → Bestätigt: prüfen [Raum frei].\n\nAngefragt → Abgelehnt: prüfen [Raum belegt].\n\nAngefragt → Storniert: stornieren.\n\nBestätigt → Storniert: stornieren.\n\nAbgelehnt → Ende: archivieren.\n\nStorniert → Ende: archivieren.",
     "previousContext": "Der Planungsschritt „Stornierung aus mehreren Zuständen“ ist abgeschlossen. Mira nimmt nun den nächsten beschriebenen Ausschnitt der Nordhafen-Planung in den Blick.",
     "nodeVocabulary": {
       "start": "Start",
@@ -4950,6 +5035,8 @@
       "links": [],
       "systemName": "",
       "fragments": []
-    }
+    },
+    "fundamentals": "Ein Zustand beschreibt eine über eine Zeit bestehende Situation. Ein Übergang trägt ein Ereignis und bei Bedarf eine zusätzliche Bedingung in eckigen Klammern. Der Startpfeil zum Anfangszustand braucht kein Ereignis; ein normaler Zustand ist kein Endknoten.\nBeispiel: Ein Paket wechselt durch versenden von Gepackt zu Unterwegs. entry / Licht einschalten läuft beim Eintritt in einen Zustand, do / Temperatur überwachen während des Aufenthalts, exit / Licht ausschalten beim Verlassen. Das Ereignis abliefern kann den nächsten Zustandswechsel auslösen; die Zustandsaktion selbst ersetzt dieses Ereignis nicht.",
+    "nameAliases": {}
   }
 ]

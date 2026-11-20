@@ -11,7 +11,7 @@ public sealed class ExamService(AlgorithmExamCatalog algorithms, AlgorithmExamEv
     /// <summary> Eigene SQL-Fälle für die Auswahl vor dem Start. </summary>
     public IReadOnlyList<SqlExamCase> SqlCases => sql.Cases;
     /// <summary> Erzeugt einen fachlich passenden, bis zur Abgabe festen Aufgabenmix. </summary>
-    public ExamRound Create(ExamModule module, string? caseId = null) => module == ExamModule.Sql ? sql.CreateRound(caseId) : algorithms.CreateRound();
+    public ExamRound Create(ExamModule module, string? caseId = null) => module == ExamModule.Sql ? sql.CreateRound(caseId) : algorithms.CreateRound(caseId);
     /// <summary> Liefert ausschließlich die zum SQL-Fall gehörenden Tabellen. </summary>
     public SqlExamCase SqlCase(ExamRound round) => sql.Cases.Single(item => item.Id == round.CaseId);
     /// <summary> Liefert eine Aufgabe aus dem separaten Algorithmus-Prüfungspool. </summary>
@@ -21,7 +21,9 @@ public sealed class ExamService(AlgorithmExamCatalog algorithms, AlgorithmExamEv
     /// <summary> Verhindert die Fortsetzung mit unpassendem oder verändertem Aufgabenbestand. </summary>
     public bool IsCompatible(ExamRound round) => round.Module == ExamModule.Sql
         ? round.ContentVersion == "2026-11-05" && sql.Cases.Any(item => item.Id == round.CaseId && item.Tasks.Select(task => task.Id).SequenceEqual(round.TaskIds))
-        : round.ContentVersion is "2026-11-05" or AlgorithmExamCatalog.TYPED_VERSION && round.CaseId.Length == 0 && round.TaskIds.Count == 3 && round.TaskIds[0] is >= 1 and <= 3 && round.TaskIds[1] is >= 4 and <= 8 && round.TaskIds[2] is 9 or 10;
+        : round.CaseId == AlgorithmExamCatalog.EQUIPMENT_CASE
+            ? round.ContentVersion == AlgorithmExamCatalog.TYPED_VERSION && round.TaskIds.SequenceEqual(new[] { 11, 12, 13 })
+            : round.ContentVersion is "2026-11-05" or AlgorithmExamCatalog.TYPED_VERSION && round.CaseId.Length == 0 && round.TaskIds.Count == 3 && round.TaskIds[0] is >= 1 and <= 3 && round.TaskIds[1] is >= 4 and <= 8 && round.TaskIds[2] is 9 or 10;
     /// <summary> Bewertet nur eine gesperrte Abgabe; technische SQL-Störungen liefern keine Nullpunkte. </summary>
     public async Task<List<ExamTaskResult>> EvaluateAsync(ExamRound round)
     {

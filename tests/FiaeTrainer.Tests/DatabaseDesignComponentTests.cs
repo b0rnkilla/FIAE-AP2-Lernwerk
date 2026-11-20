@@ -95,6 +95,26 @@ public sealed class DatabaseDesignComponentTests : IDisposable
         await store.StartDesignExamAsync(round); await store.SaveDesignExamAsync(round, _catalog, true);
         string html = await RenderAsync<DesignExam>(services); Assert.Contains("DEINE PRÜFUNGSAUSWERTUNG", html); Assert.Contains("Musterlösung", html); Assert.Contains("disabled", html);
     }
+    [Fact]
+    public async Task AutosaveKeepsTheVisibleAnswerAndItsDiagramIdentity()
+    {
+        using var services = Services(); var store = services.GetRequiredService<ProgressStore>();
+        var round = new DesignExamRound { CaseId = "werkstatt" };
+        round.Answers[1] = new() { Model = _catalog.Cases[0].Tasks[0].Solutions[0].Copy() };
+        await store.StartDesignExamAsync(round);
+        var page = new DesignExam();
+        const System.Reflection.BindingFlags flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public;
+        typeof(DesignExam).GetProperty("Store", flags)!.SetValue(page, store);
+        typeof(DesignExam).GetProperty("Catalog", flags)!.SetValue(page, _catalog);
+        typeof(DesignExam).GetField("_round", flags)!.SetValue(page, round);
+        var answer = round.Answers[1]; var model = answer.Model;
+        model.Positions[model.Tables[0].Id] = new(850, 450);
+        await (Task)typeof(DesignExam).GetMethod("SaveAsync", flags)!.Invoke(page, null)!;
+        Assert.Same(round, typeof(DesignExam).GetField("_round", flags)!.GetValue(page));
+        Assert.Same(answer, round.Answers[1]); Assert.Same(model, answer.Model);
+        Assert.Equal(new(850, 450), (await store.LoadAsync()).DesignExam!.Answers[1].Model.Positions[model.Tables[0].Id]);
+    }
+
     private ServiceProvider Services()
     {
         var config = new ConfigurationBuilder().AddInMemoryCollection(new Dictionary<string, string?> { ["Training:ProgressDirectory"] = _directory }).Build();

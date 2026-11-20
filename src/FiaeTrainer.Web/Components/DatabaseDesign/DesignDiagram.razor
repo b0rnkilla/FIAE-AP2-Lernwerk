@@ -1,59 +1,85 @@
-<button class="button secondary design-zoom" type="button" aria-pressed="@(_zoom ? "true" : "false")" @onclick="() => _zoom = !_zoom">@(_zoom ? "Diagramm verkleinern" : "Diagramm vergrößern")</button>
-<div class="design-diagram-wrap" tabindex="0" role="region" aria-label="Relationales Modell – bei Bedarf seitlich scrollen">
-    @if (Model.Tables.Count == 0) { <p>Noch keine Tabellen. Dein Diagramm wächst mit deinem Entwurf.</p> }
+<div class="design-diagram-wrap" tabindex="0" role="region" aria-label="Relationales Modell">
+    @if (Model.Tables.Count == 0) { <p>Noch keine Tabellen. Füge eine Tabelle über die Werkzeugleiste ein.</p> }
     else
     {
-        <svg class="design-diagram" viewBox="0 0 1060 @Height" style="@(_zoom ? "min-width:1060px;width:160%" : "min-width:760px")" role="img" aria-labelledby="@(_marker + "-title") @(_marker + "-desc")">
-            <title id="@(_marker + "-title")">Relationales Datenbankmodell</title>
-            <desc id="@(_marker + "-desc")">@Description</desc>
-            <defs><marker id="@_marker" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" class="design-arrow" /></marker></defs>
-            @foreach (DesignRelation relation in Model.Relations)
+        <svg class="design-diagram relational-svg" viewBox="0 0 @Width @Height" role="img" aria-labelledby="@(_id + "-title")">
+            <title id="@(_id + "-title")">Relationales Datenbankmodell · PK Primärschlüssel · FK Fremdschlüssel · UQ eindeutig</title>
+            <desc>@string.Join("; ", Model.Tables.Select(table => table.Name + ": " + string.Join(", ", table.Columns.Select(column => Flags(column) + column.Name)))) @string.Join("; ", Model.Relations.Select(RelationText))</desc>
+            @foreach (var relation in Model.Relations)
             {
-                int source = Model.Tables.FindIndex(table => table.Id == relation.SourceTable), target = Model.Tables.FindIndex(table => table.Id == relation.TargetTable);
-                @if (source >= 0 && target >= 0)
+                @if (Boxes.TryGetValue(relation.SourceTable, out var source) && Boxes.TryGetValue(relation.TargetTable, out var target))
                 {
-                    <path d="@Edge(source, target)" class="design-edge" marker-end="url(#@_marker)"><title>@RelationText(relation)</title></path>
+                    var route = Route(relation, source, target);
+                    <g data-link-id="@relation.Id" data-rename="false" tabindex="0" role="button" aria-label="@RelationText(relation)">
+                        <path d="@route.Path" class="diagram-edge-hit" aria-hidden="true" />
+                        <path d="@route.Path" class="design-edge" /><title>@RelationText(relation)</title>
+                        <text x="@route.SX" y="@route.SY" class="diagram-cardinality" text-anchor="middle">@relation.ChildMinimum..@relation.ChildMaximum</text>
+                        <text x="@route.TX" y="@route.TY" class="diagram-cardinality" text-anchor="middle">@(relation.ParentMinimum == 1 ? "1" : "0..1")</text>
+                    </g>
                 }
             }
-            @for (int i = 0; i < Model.Tables.Count; i++)
+            @foreach (var table in Model.Tables)
             {
-                var table = Model.Tables[i]; int x = X(i), y = Y(i);
-                <g>
-                    <rect x="@x" y="@y" width="290" height="@(74 + table.Columns.Count * 24)" rx="14" class="design-node" />
-                    <text x="@(x + 16)" y="@(y + 30)" class="design-node-title">@Short(table.Name)</text>
-                    @for (int c = 0; c < table.Columns.Count; c++)
+                var box = Boxes[table.Id];
+                <g data-node-id="@table.Id" data-label="@table.Name" tabindex="0" role="button" aria-label="@table.Name">
+                    <rect x="@box.X" y="@box.Y" width="@box.Width" height="@box.Height" rx="12" class="design-node" />
+                    <text x="@(box.X + 16)" y="@(box.Y + 30)" class="design-node-title">@Short(table.Name)<title>@table.Name</title></text>
+                    <line x1="@box.X" x2="@(box.X + box.Width)" y1="@(box.Y + 44)" y2="@(box.Y + 44)" class="uml-divider" />
+                    @for (int i = 0; i < table.Columns.Count; i++)
                     {
-                        var column = table.Columns[c];
-                        <g><text x="@(x + 16)" y="@(y + 61 + c * 24)" class="design-node-column">@Flags(column) @Short(column.Name)<title>@column.Name</title></text></g>
+                        var column = table.Columns[i];
+                        <g><text x="@(box.X + 16)" y="@(box.Y + 69 + i * 28)" class="design-node-column">@Flags(column) @Short(column.Name)<title>@column.Name @(column.Nullable ? "· NULL erlaubt" : "· Pflicht")</title></text></g>
                     }
+                    <circle data-port-id="@table.Id" cx="@(box.X + box.Width)" cy="@(box.Y + box.Height / 2)" r="8" class="diagram-port"><title>Verbindung ziehen oder Verbinden wählen</title></circle>
                 </g>
             }
         </svg>
-        <ul class="design-relations-text">@foreach (var relation in Model.Relations) { <li>@RelationText(relation)</li> }</ul>
+        <details class="diagram-text"><summary>Beziehungen und vollständige Fremdschlüssel als Text</summary><ul>@foreach (var relation in Model.Relations) { <li>@RelationText(relation)</li> }</ul></details>
     }
 </div>
+
 @code {
-    /// <summary> Nur Darstellung; Änderungen erfolgen im Baukasten. </summary>
+    /// <summary> Fachlicher Entwurf mit optionalen Zeichenpositionen. </summary>
     [Parameter, EditorRequired] public DesignModel Model { get; set; } = new();
-    /// <summary> Lokale Markerkennung verhindert Kollisionen zwischen Entwurf und Musterlösung. </summary>
-    private readonly string _marker = "fk-" + Guid.NewGuid().ToString("N");
-    private bool _zoom;
-    private int Height => Model.Tables.Count == 0 ? 140 : Y(Model.Tables.Count - 1) + Model.Tables.Skip((Model.Tables.Count - 1) / 3 * 3).Max(table => 74 + table.Columns.Count * 24) + 30;
-    private string Description => string.Join("; ", Model.Tables.Select(table => table.Name + ": " + string.Join(", ", table.Columns.Select(column => Flags(column) + " " + column.Name))));
-    private static int X(int index) => 25 + index % 3 * 350;
-    private int Y(int index) => 40 + Enumerable.Range(0, index / 3).Sum(row => Model.Tables.Skip(row * 3).Take(3).Max(table => 74 + table.Columns.Count * 24) + 90);
-    private static string Short(string value) => value.Length > 26 ? value[..25] + "…" : value;
-    private string Flags(DesignColumn column) => (column.PrimaryKey ? "PK " : "") + (Model.Relations.Any(relation => relation.Pairs.Any(pair => pair.Source == column.Id)) ? "FK " : "") + (column.UniqueGroup.Length > 0 ? "UQ " : "");
-    /// <summary> Automatischer Linienverlauf; die Textliste nennt die vollständige Zuordnung auch bei überkreuzten Linien. </summary>
-    private string Edge(int source, int target)
+    private readonly string _id = "relations-" + Guid.NewGuid().ToString("N");
+    private Dictionary<string, UmlBox> Boxes => DesignLayout.Place(Model);
+    private int Width => Math.Max(820, Boxes.Values.Select(box => box.X + box.Width + 100).DefaultIfEmpty(820).Max());
+    private int Height => Math.Max(300, Boxes.Values.Select(box => box.Y + box.Height + 100).DefaultIfEmpty(300).Max());
+    private static string Short(string value) => value.Length > 28 ? value[..27] + "…" : value;
+    private string Flags(DesignColumn column) => (column.PrimaryKey ? "PK " : "") + (Model.Relations.Any(relation => relation.Pairs.Any(pair => pair.Source == column.Id)) ? "FK " : "") + (column.UniqueGroup.Length > 0 ? "UQ " + column.UniqueGroup + " " : "");
+
+    /// <summary> Orthogonale Verbindungen verteilen Anschlüsse und zeigen Mengen an den jeweiligen Tabellen. </summary>
+    private (string Path, int SX, int SY, int TX, int TY) Route(DesignRelation relation, UmlBox source, UmlBox target)
     {
-        int x1 = X(source) + 290, y1 = Y(source) + 30, x2 = X(target), y2 = Y(target) + 30;
-        return source == target ? $"M {x1} {y1} h 28 v -52 h -100 v 22" : $"M {x1} {y1} C {x1 + 50} {y1 - 45}, {x2 - 50} {y2 - 45}, {x2} {y2}";
+        int Offset(string id)
+        {
+            var links = Model.Relations.Where(item => item.SourceTable == id || item.TargetTable == id).ToList();
+            return (links.IndexOf(relation) * 2 - links.Count + 1) * 28;
+        }
+        if (relation.SourceTable == relation.TargetTable)
+        {
+            int x = source.X + source.Width, y = source.Y + 30;
+            return ($"M{x} {y} H{x + 70} V{y + 60} H{x}", x + 25, y - 10, x + 25, y + 82);
+        }
+        bool vertical = Math.Abs(source.Y - target.Y) > Math.Min(source.Height, target.Height);
+        if (vertical)
+        {
+            bool down = target.Y > source.Y;
+            int x1 = source.X + source.Width / 2 + Offset(relation.SourceTable), x2 = target.X + target.Width / 2 + Offset(relation.TargetTable);
+            int y1 = source.Y + (down ? source.Height : 0), y2 = target.Y + (down ? 0 : target.Height), middle = (y1 + y2) / 2;
+            return ($"M{x1} {y1} V{middle} H{x2} V{y2}", x1 + 26, y1 + (down ? 25 : -12), x2 + 26, y2 + (down ? -12 : 25));
+        }
+        bool right = target.X > source.X;
+        int sx = source.X + (right ? source.Width : 0), tx = target.X + (right ? 0 : target.Width);
+        int sy = source.Y + 30 + Offset(relation.SourceTable), ty = target.Y + 30 + Offset(relation.TargetTable), mid = (sx + tx) / 2;
+        return ($"M{sx} {sy} H{mid} V{ty} H{tx}", sx + (right ? 30 : -30), sy - 12, tx + (right ? -30 : 30), ty - 12);
     }
-    /// <summary> Eltern- und Kindrichtung werden ausgeschrieben und enthalten die Attributpaare. </summary>
+
+    /// <summary> Beschreibt beide Leserichtungen mit den tatsächlich eingetragenen Tabellennamen. </summary>
     private string RelationText(DesignRelation relation)
     {
-        var from = Model.Tables.FirstOrDefault(table => table.Id == relation.SourceTable); var to = Model.Tables.FirstOrDefault(table => table.Id == relation.TargetTable);
-        return $"{from?.Name ?? "?"} ({string.Join(", ", relation.Pairs.Select(pair => from?.Columns.FirstOrDefault(column => column.Id == pair.Source)?.Name ?? "?"))}) → {to?.Name ?? "?"} ({string.Join(", ", relation.Pairs.Select(pair => to?.Columns.FirstOrDefault(column => column.Id == pair.Target)?.Name ?? "?"))}): je abhängigem Satz {relation.ParentMinimum}..1 Elternsatz; je Elternsatz {relation.ChildMinimum}..{relation.ChildMaximum} abhängige Sätze.";
+        var source = Model.Tables.FirstOrDefault(table => table.Id == relation.SourceTable); var target = Model.Tables.FirstOrDefault(table => table.Id == relation.TargetTable);
+        string pairs = string.Join(", ", relation.Pairs.Select(pair => (source?.Columns.FirstOrDefault(column => column.Id == pair.Source)?.Name ?? "?") + " → " + (target?.Columns.FirstOrDefault(column => column.Id == pair.Target)?.Name ?? "?")));
+        return $"{source?.Name ?? "?"} → {target?.Name ?? "?"} ({pairs}). Pro Eintrag in {source?.Name ?? "?"}: {relation.ParentMinimum}..1 Einträge in {target?.Name ?? "?"}. Pro Eintrag in {target?.Name ?? "?"}: {relation.ChildMinimum}..{relation.ChildMaximum} Einträge in {source?.Name ?? "?"}.";
     }
 }

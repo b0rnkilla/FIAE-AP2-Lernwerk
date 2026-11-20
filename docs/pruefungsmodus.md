@@ -1,6 +1,6 @@
 # Prüfungsrunden und modulbezogene Trainingsprüfungen
 
-In **1.0.0-beta.3** ergänzen die Prüfungsrunden 474 Lernübungen in acht Modulen. SQL und Pseudocode haben 20 beziehungsweise zehn eigene Prüfungsaufgaben. Datenbankentwurf, UML, Softwareplanung, Qualitätssicherung und Projekte bieten jeweils drei Fälle mit je drei Teilen. WiSo nutzt seinen eigenen Fragenbestand. Lernabschlüsse und Prüfungsergebnisse werden getrennt gespeichert.
+In der Quellfassung **1.0.0-beta.6** ergänzen die Prüfungsrunden 474 Lernübungen in acht Modulen. SQL und Pseudocode haben 20 beziehungsweise 13 eigene Prüfungsaufgaben. Datenbankentwurf, UML, Softwareplanung, Qualitätssicherung und Projekte bieten jeweils drei Fälle mit je drei Teilen. WiSo nutzt seinen eigenen Fragenbestand. Lernabschlüsse und Prüfungsergebnisse werden getrennt gespeichert.
 
 Historischer Grundstand Alpha 10: SQL-/Pseudocode-Prüfungen ergänzten 220 Lernübungen. Das damalige Alpha-8-Paket enthielt diese Runden noch nicht. Die bisherigen Prüfungsnachweise bleiben im Testprotokoll erhalten.
 
@@ -16,7 +16,11 @@ Der Spickzettel bleibt erreichbar. Er pausiert die Runde, merkt **mit Nachschlag
 
 Bei SQL-Syntaxfehlern nennt die Auswertung Zeile und Spalte des abgegebenen Entwurfs. Sie erläutert unter anderem Bindestriche in Aliasnamen, Textvergleiche mit IS und falsch platzierte JOINs. Jede der 20 Musterlösungen erklärt ihre Tabellenbezüge, Filter oder Änderungen. Die November-Aufgabe akzeptiert auch UPDATE mit einem im FROM-Teil definierten Zielalias und JOIN.
 
-## Pseudocode: zehn eigene Aufgaben
+## Pseudocode: gemischter Pool und Kulturfestfall
+
+Die bisherigen zehn Aufgaben bilden weiterhin den unveränderten Zufallspool. Zusätzlich ist **Geräteausleihe für ein Kulturfest** (`kulturfest-ausleihe`) mit den neuen, stabilen IDs 11–13 auswählbar: geeignete Gerätearten anhand überlappender Buchungen zählen, eine Bestandsänderung reparieren und Testfälle an Zeitgrenzen entwerfen. Alle Teile sind unabhängig, 45 Minuten und 20/20/10 Punkte. Der Fall zählt konservativ alle Mengen der zur Anfrage überlappenden Buchungen; diese Geschäftsregel ist ausdrücklich vorgegeben und keine Berechnung maximaler gleichzeitiger Belegung.
+
+Die ersten beiden Fallaufgaben verlangen Parametertypen und Rückgabetyp. Derselbe Pflichtvermerk wie bei den bisherigen Funktionsaufgaben erscheint direkt am Auftrag. Keine Erweiterung der Pseudocode-Syntax: Listen werden durchlaufen, einzelne Werte gelesen und ein ganzzahliger Zähler zurückgegeben. Die skalare Testfalleingabe bleibt `beginn => erwarteteAusgabe`. Bestehende gemischte Runden und ihre Inhaltsversionen bleiben gültig; die Fallkennung verhindert ein Vermischen der drei neuen Aufgaben mit alten Runden.
 
 Neue Pseudocode-Runden der Quellfassung nach Beta 4 speichern die Inhaltsversion `2026-11-16`. Der erste gezogene Programmierauftrag (Pool-ID 1, 2 oder 3) zeigt **Typangaben erforderlich** direkt beim Arbeitsauftrag. Jeder Prüffall setzt passende Typangaben für alle Parameter und den Rückgabetyp am benannten Einstieg voraus. Die Anzeige nennt die Signatur. Eigene Parameternamen, gleichwertige Typnamen, unterschiedliche Positionen der Typangabe und typfreie Hilfsfunktionen sind zulässig. Beim zweiten Auftrag sind Typangaben freiwillig. Die dritte Aufgabe prüft Ausgaben oder Testfälle.
 

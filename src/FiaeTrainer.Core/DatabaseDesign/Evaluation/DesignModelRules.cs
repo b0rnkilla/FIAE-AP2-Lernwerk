@@ -11,6 +11,7 @@ public static class DesignModelRules
         if (answer?.DiagramValues == null || answer.DiagramValues.Count > 20 || answer.DiagramValues.Any(pair => !Text(pair.Key, 80) || !Text(pair.Value, 80))) return false;
         if (answer?.Model?.Tables == null || answer.Model.Relations == null || answer.SelectedIds == null || answer.SelectedIds.Count > 20 || answer.SelectedIds.Any(id => !Text(id, 80)) || answer.Model.Tables.Count > 8 || answer.Model.Relations.Count > 16) return false;
         var tables = answer.Model.Tables;
+        if (!FiaeTrainer.Core.Diagrams.DiagramPosition.Valid(answer.Model.Positions, 8)) return false;
         if (tables.Any(table => table == null || !Text(table.Id, 80) || table.Id.Length == 0 || !Text(table.Name, 80) || table.Columns == null || table.Columns.Count > 20) || tables.Select(table => table.Id).Distinct().Count() != tables.Count) return false;
         var columns = tables.SelectMany(table => table.Columns).ToList();
         if (columns.Any(column => column == null || !Text(column.Id, 80) || column.Id.Length == 0 || !Text(column.Name, 80) || !Text(column.Attribute, 80) || !Text(column.UniqueGroup, 8)) || columns.Select(column => column.Id).Distinct().Count() != columns.Count) return false;

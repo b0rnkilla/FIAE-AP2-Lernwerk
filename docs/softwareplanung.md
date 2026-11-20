@@ -1,5 +1,9 @@
 # Softwareplanung und OOP – Abschnitt 05
 
+## Quellfassung Beta 6 · einheitliche Pseudocode-Schreibweise
+
+Aufgabe 11 zeigt `FUNKTION setCapacity(neu: Integer): Boolean`, getrennte Anweisungszeilen, `WENN … DANN`, `ENDE WENN` und `WAHR/FALSCH` auch in den Antwortoptionen. Optionskennungen und Sollwerte bleiben unverändert. `capacity` ist ausdrücklich das gespeicherte Attribut desselben Objekts; die Aufrufe verwenden weiterhin nacheinander dessen Zustand. Aufgabe 24 kennzeichnet ihren typisierten Erzeugerablauf als OOP-Skizze mit Objektanlage, die nicht im Algorithmusinterpreter ausgeführt wird. Diagrammaufgaben nutzen den gemeinsamen direkten UML-Editor und freie Namen; ihre bestehenden Fachverträge bleiben erhalten.
+
 Die Quellfassung **1.0.0-beta.1** umfasst 48 Lernaufgaben und drei Prüfungsfälle mit je drei Teilen. Der Inhaltsvertrag gilt seit **2026-11-09**. Seit Beta 1 zeigt jede Teilaufgabe der Prüfung ihren eigenen Falltext.
 
 ## Lernweg und Umfang
