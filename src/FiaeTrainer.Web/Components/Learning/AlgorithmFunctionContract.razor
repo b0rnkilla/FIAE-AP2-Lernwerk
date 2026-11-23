@@ -4,7 +4,18 @@
         <strong>@(RequireTypes ? "Typangaben erforderlich" : "Typangaben freiwillig")</strong>
         <p>@(RequireTypes ? "Die Prüffälle setzen den vollständigen Funktionskopf voraus. Gib den Typ jedes Parameters und den Rückgabetyp an. Gleichwertige Schreibweisen sind erlaubt." : "Du kannst den Funktionskopf mit oder ohne Datentypen schreiben.")</p>
         <code>@Lesson.Signature</code>
-        <p>Die App ruft deine Funktion auf. Gib das Ergebnis mit <code>RÜCKGABE</code> zurück.</p>
+        @if (Lesson.ReturnType == "Void")
+        {
+            <p>Die App ruft deine Funktion ohne Argumente auf und prüft die Ausgaben der vorgegebenen Hilfsfunktionen. <code>Void</code> bedeutet: kein Rückgabewert. Eine <code>RÜCKGABE</code> mit Ergebnis ist hier nicht vorgesehen.</p>
+        }
+        else
+        {
+            <p>Die App ruft deine Funktion auf. Gib das Ergebnis mit <code>RÜCKGABE</code> zurück.</p>
+        }
+        @if (Lesson.MaxOperations > 10000)
+        {
+            <p>Für längere Zeichenfolgen erlaubt diese Aufgabe bis zu @Lesson.MaxOperations.ToString("N0", System.Globalization.CultureInfo.GetCultureInfo("de-DE")) Rechenschritte. Die Ablaufanzeige bleibt auf höchstens 500 Schritte begrenzt.</p>
+        }
     </div>
 }
 @code {

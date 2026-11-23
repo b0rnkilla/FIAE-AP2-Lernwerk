@@ -20,19 +20,19 @@ public sealed class AlgorithmInterpreter
 
     /// <summary> Vorschau und Bewertung verwenden denselben Vertrag; Typenpflicht gilt nur im angekündigten Auftrag. </summary>
     public AlgorithmRun RunFunction(string code, AlgorithmLesson lesson, IReadOnlyDictionary<string, JsonElement> inputs, bool trace = false, bool requireTypes = false)
-        => RunCore(code, null, trace, lesson.FunctionName, lesson.FunctionInputs.Select(name => inputs[name]).ToArray(), lesson.RequiresBooleanReturn, lesson, requireTypes);
+        => RunCore(code, inputs, trace, lesson.FunctionName, lesson.FunctionInputs.Select(name => inputs[name]).ToArray(), lesson.RequiresBooleanReturn, lesson, requireTypes);
 
     /// <summary> Beide Bewertungswege teilen Parser, Ausführungsbudgets und deutsche Fehlerbehandlung. </summary>
     private static AlgorithmRun RunCore(string code, IReadOnlyDictionary<string, JsonElement>? inputs, bool trace, string? function, IReadOnlyList<JsonElement> arguments, bool requiresBooleanReturn, AlgorithmLesson? lesson = null, bool requireTypes = false)
     {
         if (string.IsNullOrWhiteSpace(code)) return new([], [], "Schreibe zuerst deinen Ablauf in den Editor.");
         if (code.Length > 12000) return new([], [], "Dein Ablauf ist zu lang. Maximal 12.000 Zeichen sind möglich.");
-        Machine machine = new(trace);
+        Machine machine = new(trace, lesson?.MaxOperations ?? 10000, lesson?.UsesTableFunctions == true ? new AlgorithmTableFunctions(inputs ?? new Dictionary<string, JsonElement>()) : null);
         try
         {
             AlgorithmProgram program = new AlgorithmParser(Tokenize(code)).Parse();
             machine.Register(program.Functions);
-            if (inputs != null)
+            if (function == null && inputs != null)
                 foreach (var input in inputs) machine.Variables[input.Key] = FromJson(input.Value);
             if (function == null) machine.Execute(program.Statements);
             else
@@ -42,7 +42,8 @@ public sealed class AlgorithmInterpreter
                 object result = machine.Invoke(function, arguments.Select(FromJson).ToArray(), lesson, requireTypes);
                 if (requiresBooleanReturn && result is not bool)
                     return new(machine.Output, machine.Steps, $"Die Funktion {function} muss einen Wahrheitswert zurückgeben. Verwende WAHR oder FALSCH ohne Anführungszeichen oder gib einen Vergleich zurück.", machine.TraceTruncated);
-                machine.PrintResult(result, false);
+                if (!ReferenceEquals(result, NO_VALUE)) machine.PrintResult(result, false);
+                machine.Complete();
             }
             return new(machine.Output, machine.Steps, TraceTruncated: machine.TraceTruncated);
         }
@@ -64,8 +65,12 @@ public sealed class AlgorithmInterpreter
         _ => throw new ArgumentException("Eingabedaten benötigen Zahlen, Texte, Wahrheitswerte oder kleine Listen.")
     };
 
+    /// <summary> Kontrollsignale sind von Zahlen, Texten und Leerstrings ausdrücklich getrennt. </summary>
+    private static readonly object NO_VALUE = new();
+    private static readonly object BREAK_LOOP = new();
+
     /// <summary> Ein Ausführungszustand gehört immer genau einem Aufruf; kein Zugriff auf Dateien, Netzwerk oder .NET-Code. </summary>
-    private sealed class Machine(bool trace)
+    private sealed class Machine(bool trace, int maxOperations, AlgorithmTableFunctions? table)
     {
         #region Fields
 
@@ -101,7 +106,7 @@ public sealed class AlgorithmInterpreter
 
         #region Methods
 
-        /// <summary> Interpretiert bekannte Anweisungen mit gemeinsamem Budget; ein nicht-null-Ergebnis signalisiert die Rückgabe aus einer Funktion. </summary>
+        /// <summary> Interpretiert bekannte Anweisungen mit gemeinsamem Budget; ein Kontrollsignal beendet eine Funktion oder die innerste Schleife. </summary>
         internal object? Execute(IReadOnlyList<Statement> statements)
         {
             foreach (Statement statement in statements)
@@ -115,8 +120,14 @@ public sealed class AlgorithmInterpreter
                     case IndexedAssignment assignment:
                         AssignIndex(assignment); Snapshot($"{assignment.Name}: Listeneintrag zuweisen"); break;
                     case Return result:
-                        object returned = CopyValue(Evaluate(result.Value)); Snapshot($"Rückgabe: {Format(returned)}"); return returned;
+                        object returned = result.Value == null ? NO_VALUE : CopyValue(Evaluate(result.Value));
+                        Snapshot(ReferenceEquals(returned, NO_VALUE) ? "Aufruf ohne Rückgabewert beenden" : $"Rückgabe: {Format(returned)}"); return returned;
+                    case Break:
+                        Snapshot("Innere Schleife verlassen"); return BREAK_LOOP;
+                    case CallStatement call:
+                        Invoke(call.Call.Name, call.Call.Arguments.Select(Evaluate).ToArray(), allowProcedure: true); Snapshot($"Aufruf {call.Call.Name} beendet"); break;
                     case Print print:
+                        if (table != null) Fail("Verwende für diesen Auftrag die vorgegebenen schreibe_…-Funktionen statt AUSGABE.");
                         PrintResult(Evaluate(print.Value)); break;
                     case Branch branch:
                         bool condition = Boolean(Evaluate(branch.Condition)); Snapshot($"Bedingung: {(condition ? "WAHR" : "FALSCH")}");
@@ -129,6 +140,7 @@ public sealed class AlgorithmInterpreter
                             _line = loop.Line; Tick(); bool repeat = Boolean(Evaluate(loop.Condition)); Snapshot($"Schleifenbedingung: {(repeat ? "WAHR" : "FALSCH")}");
                             if (!repeat) break;
                             object? whileResult = Execute(loop.Body);
+                            if (ReferenceEquals(whileResult, BREAK_LOOP)) break;
                             if (whileResult != null) return whileResult;
                         }
                         break;
@@ -138,14 +150,28 @@ public sealed class AlgorithmInterpreter
                         {
                             _line = loop.Line; Tick(); StoreValue(loop.Name, i); Snapshot($"Schleifendurchlauf: {loop.Name}");
                             object? forResult = Execute(loop.Body);
+                            if (ReferenceEquals(forResult, BREAK_LOOP)) break;
                             if (forResult != null) return forResult;
                         }
                         _line = loop.Line; Snapshot("Zählschleife beendet"); break;
+                    case ConditionalFor loop:
+                        Execute([loop.Initializer]);
+                        while (true)
+                        {
+                            _line = loop.ConditionLine; Tick(); bool repeat = Boolean(Evaluate(loop.Condition)); Snapshot($"FÜR-Bedingung: {(repeat ? "WAHR" : "FALSCH")}");
+                            if (!repeat) break;
+                            object? conditionalResult = Execute(loop.Body);
+                            if (ReferenceEquals(conditionalResult, BREAK_LOOP)) break;
+                            if (conditionalResult != null) return conditionalResult;
+                            Execute([loop.Advance]);
+                        }
+                        _line = loop.Line; Snapshot("Bedingte FÜR-Schleife beendet"); break;
                     case Each loop:
                         foreach (object item in Array(Evaluate(loop.Array)))
                         {
                             _line = loop.Line; Tick(); StoreValue(loop.Name, CopyValue(item)); Snapshot($"Nächster Eintrag: {loop.Name}");
                             object? eachResult = Execute(loop.Body);
+                            if (ReferenceEquals(eachResult, BREAK_LOOP)) break;
                             if (eachResult != null) return eachResult;
                         }
                         _line = loop.Line; Snapshot("Listenschleife beendet"); break;
@@ -167,13 +193,24 @@ public sealed class AlgorithmInterpreter
         /// <summary> Vorwärtsaufrufe sind möglich; jede Definition wurde zuvor vollständig geparst. </summary>
         internal void Register(IReadOnlyList<Function> functions)
         {
-            foreach (Function function in functions) _functions.Add(function.Name, function);
+            foreach (Function function in functions)
+            {
+                if (table != null && AlgorithmTableFunctions.Contains(function.Name)) throw new AlgorithmException(function.Line, $"„{function.Name}“ ist im Auftrag bereits vorgegeben. Rufe die Funktion auf, statt sie neu zu definieren.");
+                _functions.Add(function.Name, function);
+            }
         }
 
         /// <summary> Ein Aufruf besitzt eigene Variablen und Wertkopien der Argumente; Rückgabe beendet auch verschachtelte Blöcke. </summary>
-        internal object Invoke(string name, IReadOnlyList<object> arguments, AlgorithmLesson? lesson = null, bool requireTypes = false)
+        internal object Invoke(string name, IReadOnlyList<object> arguments, AlgorithmLesson? lesson = null, bool requireTypes = false, bool allowProcedure = false)
         {
             Tick();
+            if (name is "ALS_TEXT" or "ALS_GANZZAHL") return ConvertValue(name, arguments);
+            if (table != null && AlgorithmTableFunctions.Contains(name))
+            {
+                object result = table.Invoke(name, arguments, _line, value => PrintResult(value, false)) ?? NO_VALUE;
+                Snapshot($"Vorgegebene Funktion {name} aufrufen");
+                return result;
+            }
             if (!_functions.TryGetValue(name, out Function? function)) throw new AlgorithmException(_line, $"Die Funktion „{name}“ ist nicht definiert. Prüfe ihren Namen und FUNKTION … ENDE FUNKTION.");
             if (arguments.Count != function.Parameters.Count) Fail($"„{name}“ erwartet {function.Parameters.Count} Argumente, übergeben wurden {arguments.Count}.");
             if (_calls.Count >= 16) Fail("Zu viele verschachtelte Funktionsaufrufe. Verwende höchstens 16 Aufrufebenen. Prüfe bei Rekursion den Basisfall und ob sich das Argument diesem Fall nähert.");
@@ -196,10 +233,13 @@ public sealed class AlgorithmInterpreter
                     StoreValue(function.Parameters[i].Name, CopyValue(arguments[i]), function.Parameters[i].Type);
                 Snapshot($"Funktion {function.Name} aufrufen");
                 object? result = Execute(function.Body);
-                if (result == null) Fail($"Die Funktion „{function.Name}“ endet ohne RÜCKGABE. Jeder ausgeführte Pfad braucht einen Rückgabewert.");
                 AlgorithmType? returnType = function.ReturnType;
                 if (returnType == null && lesson?.ReturnType.Length > 0) returnType = AlgorithmType.FromCatalog(lesson.ReturnType);
-                if (returnType != null && !returnType.Accepts(result))
+                if (result == null && (returnType?.IsVoid == true || returnType == null && allowProcedure)) result = NO_VALUE;
+                if (result == null) Fail($"Die Funktion „{function.Name}“ endet ohne RÜCKGABE. Jeder ausgeführte Pfad braucht einen Rückgabewert.");
+                if (returnType?.IsVoid == true && !ReferenceEquals(result, NO_VALUE)) Fail($"„{function.Name}“ hat den Rückgabetyp Void und darf keinen Wert zurückgeben.");
+                if (ReferenceEquals(result, NO_VALUE) && returnType?.IsVoid != true && (returnType != null || !allowProcedure)) Fail($"Die Funktion „{function.Name}“ benötigt einen Rückgabewert.");
+                if (returnType != null && !returnType.IsVoid && !returnType.Accepts(result))
                 {
                     string expected = returnType is { Scalar: "Boolean", Depth: 0 } ? "Boolean (Wahrheitswert)" : returnType.ToString();
                     Fail($"Die Rückgabe von „{function.Name}“ erwartet {expected}. Der Wert ist {AlgorithmType.Describe(result)}. Prüfe den Ausdruck hinter RÜCKGABE und bei Listen die Elementtypen.");
@@ -265,16 +305,28 @@ public sealed class AlgorithmInterpreter
             {
                 case Literal literal: return literal.Value;
                 case Variable variable: return Variables.TryGetValue(variable.Name, out object? value) ? value : throw new AlgorithmException(_line, $"„{variable.Name}“ hat noch keinen Wert. Prüfe den Namen oder weise der Variablen zuerst etwas zu.");
-                case Call call: return Invoke(call.Name, call.Arguments.Select(Evaluate).ToArray());
+                case Call call:
+                    object result = Invoke(call.Name, call.Arguments.Select(Evaluate).ToArray());
+                    if (ReferenceEquals(result, NO_VALUE)) Fail($"„{call.Name}“ liefert keinen Wert. Rufe die Funktion in einer eigenen Zeile auf.");
+                    return result;
                 case Unary unary:
                     object operand = Evaluate(unary.Operand);
                     return unary.Operator switch { "NICHT" => !Boolean(operand), "-" => -Number(operand), _ => Number(operand) };
                 case ArrayLiteral literal:
                     object[] items = literal.Items.Select(Evaluate).ToArray();
                     int size = 0; CheckValue(items, 0, ref size); return items;
-                case Length length: return (decimal)Array(Evaluate(length.Array)).Length;
+                case Length length:
+                    object sequence = Evaluate(length.Array);
+                    return (decimal)(sequence is string text ? text.Length : Array(sequence).Length);
                 case ListIndex index:
-                    object[] array = Array(Evaluate(index.Array));
+                    object indexed = Evaluate(index.Array);
+                    if (indexed is string textValue)
+                    {
+                        decimal position = Integer(Evaluate(index.Position));
+                        if (position < 0 || position >= textValue.Length) Fail($"Der Textindex {position} liegt außerhalb des Textes. Gültig sind 0 bis LÄNGE(text) − 1.");
+                        return textValue[(int)position].ToString();
+                    }
+                    object[] array = Array(indexed);
                     return array[Position(array, Evaluate(index.Position))];
                 case Binary binary:
                     object left = Evaluate(binary.Left);
@@ -283,7 +335,7 @@ public sealed class AlgorithmInterpreter
                     object right = Evaluate(binary.Right);
                     return binary.Operator switch
                     {
-                        "+" => Number(left) + Number(right), "-" => Number(left) - Number(right), "*" => Number(left) * Number(right),
+                        "+" => left is string first && right is string second ? JoinText(first, second) : Number(left) + Number(right), "-" => Number(left) - Number(right), "*" => Number(left) * Number(right),
                         "/" => Number(left) / NonZero(right), "DIV" => decimal.Truncate(Number(left) / NonZero(right)), "MOD" or "%" => Number(left) % NonZero(right),
                         "=" or "==" => Equal(left, right), "<>" or "!=" => !Equal(left, right),
                         "<" => Compare(left, right) < 0, "<=" => Compare(left, right) <= 0, ">" => Compare(left, right) > 0, ">=" => Compare(left, right) >= 0,
@@ -293,7 +345,32 @@ public sealed class AlgorithmInterpreter
             }
         }
 
-        private void Tick() { if (++_operations > 10000) Fail("Der Ablauf wurde nach 10.000 Rechenschritten angehalten. Prüfe, ob sich die Schleifenbedingung verändert und die Schleife enden kann."); }
+        /// <summary> Erzeugte Texte dürfen das gemeinsame Ausgabelimit auch als Zwischenwert nicht überschreiten. </summary>
+        private string JoinText(string left, string right)
+        {
+            if (left.Length + right.Length > 16000) Fail("Der Text wird zu lang. Höchstens 16.000 Zeichen je Text sind erlaubt; prüfe Wiederholungszahlen und Schleifen.");
+            return left + right;
+        }
+
+        /// <summary> Explizite Konvertierungen vermeiden eine stillschweigende Mischung aus Text und Zahl. </summary>
+        private object ConvertValue(string name, IReadOnlyList<object> arguments)
+        {
+            if (arguments.Count != 1) Fail($"{name} erwartet genau ein Argument.");
+            object value = arguments[0];
+            if (name == "ALS_TEXT")
+            {
+                if (value is object[]) Fail("ALS_TEXT erwartet eine Zahl, einen Wahrheitswert oder einen Text, keine Liste.");
+                return Format(value);
+            }
+            if (value is string text && text.Length > 0 && text.Trim() == text && decimal.TryParse(text, NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out decimal number)) return number;
+            Fail("ALS_GANZZAHL erwartet einen Text aus Dezimalziffern mit optionalem Vorzeichen, zum Beispiel \"123\". Leere Texte und Nachkommastellen sind nicht erlaubt.");
+            return 0m;
+        }
+
+        /// <summary> Der Tabellenabschluss wird zusätzlich zur sichtbaren Ausgabefolge geprüft. </summary>
+        internal void Complete() => table?.EnsureComplete(_line);
+
+        private void Tick() { if (++_operations > maxOperations) Fail($"Der Ablauf wurde nach {maxOperations.ToString("N0", CultureInfo.GetCultureInfo("de-DE"))} Rechenschritten angehalten. Prüfe, ob sich die Schleifenbedingung verändert und die Schleife enden kann."); }
         private void Snapshot(string action)
         {
             if (!trace || TraceTruncated) return;

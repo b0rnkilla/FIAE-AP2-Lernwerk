@@ -10,7 +10,9 @@ Ermittle mit SQL, entwickle eigene Algorithmen und UML-Diagramme, entwirf relati
 
 ## Dein Lernraum für die Prüfung
 
-**474 Lernübungen in acht Lernbereichen** und eigene Prüfungsrunden.
+**477 Lernübungen in acht Lernbereichen** und eigene Prüfungsrunden.
+
+Die 33 Pseudocode-Aufgaben umfassen jetzt auch Textkompression, Dekompression mit mehrstelligen Anzahlen und eine Tabellenausgabe über vorgegebene Funktionen mit FÜR- oder SOLANGE-Schleife.
 
 In der SQL-Werkstatt kannst du einzelne Abfragen ausführen und ihre Ergebnisse vergleichen. Selbstständig gelöste Aufgaben kannst du zum Nachlesen mit einer Arbeitskopie öffnen. UML und Datenmodelle bearbeitest du direkt im Diagramm; Beispiele, drei Hinweise und erklärte Musterlösungen unterstützen das Lernen.
 
@@ -30,7 +32,7 @@ In der SQL-Werkstatt kannst du einzelne Abfragen ausführen und ihre Ergebnisse 
     </tr>
     <tr>
       <td>60 Lernaufgaben · vier Prüfungsfälle mit je fünf Aufgaben</td>
-      <td>30 Lernaufgaben · zehn gemischte Prüfungsaufgaben und ein zusätzlicher Fall mit drei Teilen</td>
+      <td>33 Lernaufgaben · zehn gemischte Prüfungsaufgaben und ein zusätzlicher Fall mit drei Teilen</td>
       <td>36 Lernaufgaben · drei Prüfungsfälle</td>
       <td>42 Lernaufgaben · drei Prüfungsfälle</td>
     </tr>

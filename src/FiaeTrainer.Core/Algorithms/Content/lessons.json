@@ -2198,5 +2198,437 @@
     "functionInputs": [
       "nummern"
     ]
+  },
+  {
+    "chapter": "Text und Ausgabe",
+    "kind": "Write",
+    "givenCode": "",
+    "referenceAnswer": "",
+    "requiresTypedSignature": false,
+    "id": 31,
+    "title": "Wiederholungen für das Archiv komprimieren",
+    "story": "Die Leitstelle übergibt ihre technischen Meldungen an das Archiv. Nora möchte lange Folgen gleicher Statusbuchstaben zusammenfassen, ohne Informationen zu verlieren. Einzelne Buchstaben und kurze Wiederholungen sollen lesbar bleiben.",
+    "previousContext": "Die paarweisen Vergleiche sind geprüft. Jetzt geht es um direkt aufeinanderfolgende Zeichen in den Archivtexten.",
+    "task": "Entwickle `komprimiere(text)`. Der Eingabetext enthält ausschließlich Großbuchstaben von A bis Z und kann leer sein. Ersetze jede zusammenhängende Folge von mindestens vier gleichen Zeichen durch `%ZEICHEN%ANZAHL`. Die Anzahl bezeichnet die gesamte Länge dieser Folge. Folgen mit ein bis drei Zeichen bleiben unverändert. Das Zeichen `%` kommt im ursprünglichen Text nicht vor. Verarbeite auch zwei- und dreistellige Anzahlen. Gib den vollständigen komprimierten Text zurück. Beispiel: `XXDDDDDFFFFFFFFFLLWWWSSSSSSSSS` wird zu `XX%D%5%F%9LLWWW%S%9`. Reiche nur Funktionsdefinitionen ein.",
+    "exampleInputs": {
+      "text": "XXDDDDDFFFFFFFFFLLWWWSSSSSSSSS"
+    },
+    "briefing": "Ein Text lässt sich wie eine Zeichenfolge lesen: Bei `wort = \"KLM\"` ist `wort[0]` der Text `\"K\"`, `wort[2]` ist `\"M\"` und `LÄNGE(wort)` ergibt 3. `\"P\" + \"Q\"` ergibt `\"PQ\"`; `\"Nr\" + ALS_TEXT(12)` ergibt `\"Nr12\"`. Zahlen werden nicht automatisch zu Text. Mit `VERLASSE SCHLEIFE` beendest du nur die gerade innerste Schleife. Markiere auf Papier zusammenhängende Zeichenfolgen und ihre Grenzen.",
+    "hints": [
+      "Betrachte eine vollständige Folge gleicher Zeichen auf einmal. Welche Positionen brauchst du, um ihre Länge zu bestimmen?",
+      "Die erste Position nach der Folge gehört bereits zum nächsten Abschnitt oder liegt am Textende. Wie ergibt sich aus Start und Ende die Anzahl, ohne ein Zeichen doppelt zu verarbeiten?",
+      "Vergleiche drei und vier gleiche Zeichen sowie eine Wiederholung ganz am Ende. Was muss bei leerem Text passieren, bevor du auf die erste Position zugreifst?"
+    ],
+    "referenceCode": "FUNKTION komprimiere(text: String): String\n    ergebnis = \"\"\n    i = 0\n    SOLANGE i < LÄNGE(text)\n        zeichen = text[i]\n        j = i + 1\n        SOLANGE j < LÄNGE(text)\n            WENN text[j] != zeichen DANN\n                VERLASSE SCHLEIFE\n            ENDE WENN\n            j = j + 1\n        ENDE SOLANGE\n        anzahl = j - i\n        WENN anzahl >= 4 DANN\n            ergebnis = ergebnis + \"%\" + zeichen + \"%\" + ALS_TEXT(anzahl)\n        SONST\n            FÜR wiederholung VON 1 BIS anzahl\n                ergebnis = ergebnis + zeichen\n            ENDE FÜR\n        ENDE WENN\n        i = j\n    ENDE SOLANGE\n    RÜCKGABE ergebnis\nENDE FUNKTION",
+    "functionName": "komprimiere",
+    "functionInputs": [
+      "text"
+    ],
+    "parameterTypes": [
+      "String"
+    ],
+    "returnType": "String",
+    "maxOperations": 100000,
+    "exactTextOutput": true,
+    "explanation": "i zeigt auf das erste noch nicht verarbeitete Zeichen. j läuft bis zum ersten anderen Zeichen oder bis hinter das Textende. Daher ist j − i genau die Länge der gesamten Folge. Bei mindestens vier Zeichen wird die Markierung mit dieser Anzahl angehängt, sonst werden die ursprünglichen Zeichen übernommen. Danach setzt i = j die Verarbeitung am nächsten Abschnitt fort. Im Beispiel bleiben XX, LL und WWW unverändert; D, F und S werden mit 5, 9 und 9 gespeichert. Auch eine letzte Folge wird vollständig verarbeitet, weil j bis LÄNGE(text) laufen darf. Bei leerem Text wird kein Index gelesen und der Leerstring zurückgegeben. Die Bezeichnung Komprimierung bedeutet hier das vorgeschriebene Format: Vier gleiche Zeichen ergeben ebenfalls vier Ausgabezeichen, dreistellige Anzahlen benötigen entsprechend mehr Platz.",
+    "discovery": "Die Archivtexte lassen sich nach derselben Regel in kurze und zusammengefasste Abschnitte zerlegen. Auch die letzte Zeichenfolge geht nicht verloren.",
+    "tests": [
+      {
+        "name": "Vorgegebenes Beispiel",
+        "inputs": {
+          "text": "XXDDDDDFFFFFFFFFLLWWWSSSSSSSSS"
+        },
+        "output": [
+          "XX%D%5%F%9LLWWW%S%9"
+        ]
+      },
+      {
+        "name": "Leerer Text",
+        "inputs": {
+          "text": ""
+        },
+        "output": [
+          ""
+        ]
+      },
+      {
+        "name": "Ein Zeichen",
+        "inputs": {
+          "text": "A"
+        },
+        "output": [
+          "A"
+        ]
+      },
+      {
+        "name": "Direkt unter der Grenze",
+        "inputs": {
+          "text": "AAA"
+        },
+        "output": [
+          "AAA"
+        ]
+      },
+      {
+        "name": "Genau vier Zeichen",
+        "inputs": {
+          "text": "AAAA"
+        },
+        "output": [
+          "%A%4"
+        ]
+      },
+      {
+        "name": "Fünf Zeichen",
+        "inputs": {
+          "text": "BBBBB"
+        },
+        "output": [
+          "%B%5"
+        ]
+      },
+      {
+        "name": "Getrennte Folgen desselben Zeichens",
+        "inputs": {
+          "text": "AAAABAAA"
+        },
+        "output": [
+          "%A%4BAAA"
+        ]
+      },
+      {
+        "name": "Wiederholung am Ende",
+        "inputs": {
+          "text": "XYZCCCC"
+        },
+        "output": [
+          "XYZ%C%4"
+        ]
+      },
+      {
+        "name": "Keine Wiederholung",
+        "inputs": {
+          "text": "AZBYCX"
+        },
+        "output": [
+          "AZBYCX"
+        ]
+      },
+      {
+        "name": "Zweistellige Anzahl",
+        "inputs": {
+          "text": "QQQQQQQQQQQQ"
+        },
+        "output": [
+          "%Q%12"
+        ]
+      },
+      {
+        "name": "Letzte zweistellige Anzahl",
+        "inputs": {
+          "text": "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR"
+        },
+        "output": [
+          "%R%99"
+        ]
+      },
+      {
+        "name": "Erste dreistellige Anzahl",
+        "inputs": {
+          "text": "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
+        },
+        "output": [
+          "%S%100"
+        ]
+      },
+      {
+        "name": "Gemischte lange Folgen",
+        "inputs": {
+          "text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
+        },
+        "output": [
+          "%A%123BB%Z%100"
+        ]
+      },
+      {
+        "name": "Dreistellige Anzahl mit mehreren Neunen",
+        "inputs": {
+          "text": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
+        },
+        "output": [
+          "%Z%999"
+        ]
+      }
+    ]
+  },
+  {
+    "chapter": "Text und Ausgabe",
+    "kind": "Write",
+    "givenCode": "",
+    "referenceAnswer": "",
+    "requiresTypedSignature": false,
+    "id": 32,
+    "title": "Archivtexte vollständig wiederherstellen",
+    "story": "Ein Partnerbetrieb liefert Archivtexte bereits im vereinbarten Format. Nora braucht einen unabhängigen Leser, der daraus wieder die ursprünglichen Statusmeldungen erzeugt. Dafür soll keine Komprimierungsfunktion aufgerufen werden.",
+    "previousContext": "Der Verdichter ist geprüft. Der nächste Auftrag stellt die Zeichenfolgen aus dem gespeicherten Format wieder her.",
+    "task": "Entwickle `dekomprimiere(text)`. Du erhältst eine gültige, möglicherweise leere Zeichenkette aus unveränderten Großbuchstaben A bis Z und komprimierten Abschnitten im Format `%ZEICHEN%ANZAHL`. Die Anzahl besteht aus zusammenhängenden Dezimalziffern und gibt an, wie oft das Zeichen insgesamt vorkommt. Sie beträgt mindestens 4; auch zwei- und dreistellige Anzahlen sind möglich. Stelle den vollständigen ursprünglichen Text wieder her und gib ihn zurück. Beispiel: `XX%D%5%F%9LLWWW%S%9` wird zu `XXDDDDDFFFFFFFFFLLWWWSSSSSSSSS`. Es müssen keine fehlerhaften Eingaben behandelt werden. Reiche nur Funktionsdefinitionen ein.",
+    "exampleInputs": {
+      "text": "XX%D%5%F%9LLWWW%S%9"
+    },
+    "briefing": "Textpositionen beginnen bei 0. Ein gelesener Textbuchstabe ist selbst ein Text: Bei `kennung = \"R27Q\"` ergibt `kennung[1]` den Text `\"2\"`. `ALS_GANZZAHL(\"27\")` liefert die Zahl 27. Mit `\"0\" <= zeichen UND zeichen <= \"9\"` erkennst du eine Dezimalziffer. Prüfe vor jedem Zugriff, ob die Position noch im Text liegt. Ein Leerstring hat die Länge 0. Die Zahl 27 und der Text `\"27\"` erfüllen unterschiedliche Aufgaben.",
+    "hints": [
+      "Unterscheide gewöhnliche Buchstaben von einer Markierung. Welche Bedeutung haben die nächsten Zeichen, wenn du ein Prozentzeichen erreichst?",
+      "Die Anzahl endet nicht nach einer festen Zahl von Stellen. Sammle die Ziffern bis zum ersten anderen Zeichen oder bis zum Textende und wandle erst den vollständigen Zifferntext um.",
+      "Prüfe einen markierten Abschnitt mit drei Ziffern ganz am Ende und zwei direkt aufeinanderfolgende Markierungen. Darf das erste Zeichen nach der Zahl beim nächsten Durchlauf übersprungen werden?"
+    ],
+    "referenceCode": "FUNKTION dekomprimiere(text: String): String\n    ergebnis = \"\"\n    i = 0\n    SOLANGE i < LÄNGE(text)\n        WENN text[i] == \"%\" DANN\n            zeichen = text[i + 1]\n            i = i + 3\n            ziffern = \"\"\n            SOLANGE i < LÄNGE(text)\n                WENN text[i] < \"0\" ODER text[i] > \"9\" DANN\n                    VERLASSE SCHLEIFE\n                ENDE WENN\n                ziffern = ziffern + text[i]\n                i = i + 1\n            ENDE SOLANGE\n            anzahl = ALS_GANZZAHL(ziffern)\n            FÜR wiederholung VON 1 BIS anzahl\n                ergebnis = ergebnis + zeichen\n            ENDE FÜR\n        SONST\n            ergebnis = ergebnis + text[i]\n            i = i + 1\n        ENDE WENN\n    ENDE SOLANGE\n    RÜCKGABE ergebnis\nENDE FUNKTION",
+    "functionName": "dekomprimiere",
+    "functionInputs": [
+      "text"
+    ],
+    "parameterTypes": [
+      "String"
+    ],
+    "returnType": "String",
+    "maxOperations": 100000,
+    "exactTextOutput": true,
+    "explanation": "Bei einem normalen Buchstaben wird genau dieses Zeichen angehängt und i um eins erhöht. Bei einer Markierung liest text[i + 1] den zu wiederholenden Buchstaben; i + 1 allein wäre nur eine Positionszahl. Nach dem Sprung um drei Positionen beginnt die Anzahl. Alle folgenden Ziffern werden im selben Text ziffern gesammelt. ALS_GANZZAHL wandelt erst die vollständige Anzahl um, anschließend hängt die Zählschleife den Buchstaben genau so oft an. Die Ziffernschleife lässt i auf dem ersten Zeichen nach der Zahl stehen. Deshalb wird dort kein zusätzliches i + 1 ausgeführt: Sonst ginge ein Buchstabe oder die nächste Markierung verloren. Am Textende verhindert die Längenprüfung einen Zugriff außerhalb des Textes. Im Beispiel entstehen aus den drei Markierungen fünf D, neun F und neun S; XX, LL und WWW werden direkt übernommen.",
+    "discovery": "Die archivierten Meldungen sind wieder vollständig lesbar. Mehrstellige Anzahlen und direkt benachbarte Markierungen bleiben eindeutig.",
+    "tests": [
+      {
+        "name": "Vorgegebenes Beispiel",
+        "inputs": {
+          "text": "XX%D%5%F%9LLWWW%S%9"
+        },
+        "output": [
+          "XXDDDDDFFFFFFFFFLLWWWSSSSSSSSS"
+        ]
+      },
+      {
+        "name": "Leerer Text",
+        "inputs": {
+          "text": ""
+        },
+        "output": [
+          ""
+        ]
+      },
+      {
+        "name": "Nur unveränderte Buchstaben",
+        "inputs": {
+          "text": "XXLLWWW"
+        },
+        "output": [
+          "XXLLWWW"
+        ]
+      },
+      {
+        "name": "Kleinster markierter Abschnitt",
+        "inputs": {
+          "text": "%A%4"
+        },
+        "output": [
+          "AAAA"
+        ]
+      },
+      {
+        "name": "Zahl mit folgendem Buchstaben",
+        "inputs": {
+          "text": "%B%12Z"
+        },
+        "output": [
+          "BBBBBBBBBBBBZ"
+        ]
+      },
+      {
+        "name": "Benachbarte Markierungen",
+        "inputs": {
+          "text": "%A%4%B%5"
+        },
+        "output": [
+          "AAAABBBBB"
+        ]
+      },
+      {
+        "name": "Markierung am Ende",
+        "inputs": {
+          "text": "XYZ%C%9"
+        },
+        "output": [
+          "XYZCCCCCCCCC"
+        ]
+      },
+      {
+        "name": "Zweistellige Anzahl am Ende",
+        "inputs": {
+          "text": "%R%99"
+        },
+        "output": [
+          "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR"
+        ]
+      },
+      {
+        "name": "Erste dreistellige Anzahl",
+        "inputs": {
+          "text": "%S%100"
+        },
+        "output": [
+          "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
+        ]
+      },
+      {
+        "name": "Dreistellige Anzahl und kurze Folge",
+        "inputs": {
+          "text": "Q%A%123BB"
+        },
+        "output": [
+          "QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABB"
+        ]
+      },
+      {
+        "name": "Mehrere lange Abschnitte",
+        "inputs": {
+          "text": "%A%100%B%123C%D%999"
+        },
+        "output": [
+          "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBCDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+        ]
+      },
+      {
+        "name": "Letzte dreistellige Anzahl",
+        "inputs": {
+          "text": "%Z%999"
+        },
+        "output": [
+          "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
+        ]
+      }
+    ]
+  },
+  {
+    "chapter": "Text und Ausgabe",
+    "kind": "Write",
+    "givenCode": "",
+    "referenceAnswer": "",
+    "requiresTypedSignature": false,
+    "id": 33,
+    "title": "Kundendaten bis zum Ende ausgeben",
+    "story": "Für die Übergabe an das Serviceteam soll die Leitstelle eine Kundentabelle erzeugen. Die Datenquelle liefert immer nur den nächsten Datensatz. Wie viele Datensätze vorliegen, ist beim Start unbekannt.",
+    "previousContext": "Die Archivtexte lassen sich wiederherstellen. Für die nächste Übergabe steuert nun das Ende einer Datenfolge den Ablauf.",
+    "task": "Entwickle `output()` ohne Parameter und ohne Rückgabewert. Verwende die bereits bereitgestellten Hilfsfunktionen: `hole_daten(): String` liefert bei jedem Aufruf den nächsten Datensatz; nach dem letzten liefert sie `\"\"`. Ein gültiger Datensatz ist nie leer. `schreibe_header(): Void` gibt die Spaltenüberschriften aus, `schreibe_datensatz(daten: String): Void` genau den übergebenen Datensatz und `schreibe_footer(): Void` den Tabellenabschluss. Gib die Überschrift einmal aus, danach alle verfügbaren Datensätze unverändert und in Abrufreihenfolge und zum Schluss einmal den Tabellenabschluss. Auch bei einer leeren Datenquelle gehören Überschrift und Abschluss zur Ausgabe. Gib den Leerstring nicht als Datensatz aus. Implementiere die vier Hilfsfunktionen nicht selbst und verwende hier kein `AUSGABE`. Die gezeigten `datensaetze` beschreiben nur die Datenquelle des Beispielaufrufs; sie sind kein Parameter und keine direkt verfügbare Variable in `output()`.",
+    "exampleInputs": {
+      "datensaetze": [
+        "104 | Aylin | Köln",
+        "209 | Ben | Bonn",
+        "310 | Clara | Kiel"
+      ]
+    },
+    "briefing": "Eine bedingte FÜR-Schleife hat drei Teile: `FÜR start; bedingung; fortschritt`. Beispiel: `FÜR rest = 7; rest > 0; rest = rest - 3` führt den Rumpf mit rest = 7, 4 und 1 aus. Der Start wird einmal ausgeführt, die Bedingung vor jedem Durchlauf geprüft und der Fortschritt nach dem Rumpf. Die drei Teile dürfen auch auf drei Zeilen stehen. Ein Aufruf wie `meldung = lies_meldung()` holt einen neuen Wert; meldung erneut zu lesen ruft die Funktion nicht erneut auf. Ein Aufruf ohne Rückgabewert steht allein, zum Beispiel `zeichne_rahmen()`. `Void` bedeutet: kein Ergebniswert. Der Leerstring `\"\"` ist dagegen ein gültiger Textwert und kann als Endsignal dienen. Ein Nachrichtendienst liefert beispielsweise nacheinander `\"bereit\"`, `\"belegt\"`, `\"\"`; erst der dritte Abruf meldet das Ende.",
+    "hints": [
+      "Trenne die Aktionen, die genau einmal ausgeführt werden, von der Verarbeitung jedes einzelnen Datensatzes. Wo gehören Überschrift und Abschluss hin?",
+      "Bevor du entscheiden kannst, ob ein Datensatz ausgegeben werden darf, musst du einen abrufen. Welche Aktion liefert nach der Ausgabe den nächsten Wert für die Entscheidung?",
+      "Spiele die Datenfolgen leer, ein Datensatz und zwei Datensätze durch. Wird ein Datensatz übersprungen oder doppelt ausgegeben? Erreichst du den Abschluss auch dann, wenn der allererste Abruf schon den Leerstring liefert?"
+    ],
+    "referenceCode": "FUNKTION output(): Void\n    schreibe_header()\n    FÜR daten = hole_daten(); daten != \"\"; daten = hole_daten()\n        schreibe_datensatz(daten)\n    ENDE FÜR\n    schreibe_footer()\nENDE FUNKTION",
+    "functionName": "output",
+    "functionInputs": [],
+    "parameterTypes": [],
+    "returnType": "Void",
+    "usesTableFunctions": true,
+    "explanation": "Die Überschrift wird genau einmal vor der Schleife ausgegeben. Im ersten Teil des FÜR-Kopfs liefert hole_daten() einmalig den ersten Datensatz. Der zweite Teil prüft vor jedem Durchlauf, ob daten noch nicht leer ist. Nur dann gibt der Rumpf diesen Datensatz aus. Erst danach ruft der dritte Teil den nächsten Datensatz ab; anschließend wird wieder die Bedingung geprüft. Der dritte Kopfteil wird also nicht vor der ersten Ausgabe ausgeführt. Beim ersten Leerstring endet die Schleife; er wird nicht ausgegeben. Danach folgt genau einmal der Tabellenabschluss. Bei einer leeren Quelle ist schon die erste Bedingung falsch, sodass nur Überschrift und Abschluss erscheinen. Eine SOLANGE-Schleife mit einem ersten Abruf davor und einem weiteren Abruf am Ende ihres Rumpfs ist gleichwertig. Auch der Abruf innerhalb einer Schleife mit VERLASSE SCHLEIFE beim Leerstring bleibt möglich. output hat den Rückgabetyp Void: Geprüft werden die Ausgaben der bereitgestellten Hilfsfunktionen; ein Rückgabewert ist nicht vorgesehen.",
+    "discovery": "Das Serviceteam erhält eine vollständige Tabelle unabhängig von der Anzahl der Kunden. Die Datenquelle und die Darstellung bleiben hinter ihren vorgegebenen Funktionen getrennt.",
+    "tests": [
+      {
+        "name": "Vorgegebene Datenfolge",
+        "inputs": {
+          "datensaetze": [
+            "104 | Aylin | Köln",
+            "209 | Ben | Bonn",
+            "310 | Clara | Kiel"
+          ]
+        },
+        "output": [
+          "Kundennummer | Name | Ort",
+          "104 | Aylin | Köln",
+          "209 | Ben | Bonn",
+          "310 | Clara | Kiel",
+          "Ende der Tabelle"
+        ]
+      },
+      {
+        "name": "Leere Datenquelle",
+        "inputs": {
+          "datensaetze": []
+        },
+        "output": [
+          "Kundennummer | Name | Ort",
+          "Ende der Tabelle"
+        ]
+      },
+      {
+        "name": "Genau ein Datensatz",
+        "inputs": {
+          "datensaetze": [
+            "7 | Nora | Ulm"
+          ]
+        },
+        "output": [
+          "Kundennummer | Name | Ort",
+          "7 | Nora | Ulm",
+          "Ende der Tabelle"
+        ]
+      },
+      {
+        "name": "Zwei Datensätze",
+        "inputs": {
+          "datensaetze": [
+            "2 | Jan | Essen",
+            "1 | Ada | Mainz"
+          ]
+        },
+        "output": [
+          "Kundennummer | Name | Ort",
+          "2 | Jan | Essen",
+          "1 | Ada | Mainz",
+          "Ende der Tabelle"
+        ]
+      },
+      {
+        "name": "Gleiche Datensätze bleiben erhalten",
+        "inputs": {
+          "datensaetze": [
+            "8 | Sam | Trier",
+            "8 | Sam | Trier"
+          ]
+        },
+        "output": [
+          "Kundennummer | Name | Ort",
+          "8 | Sam | Trier",
+          "8 | Sam | Trier",
+          "Ende der Tabelle"
+        ]
+      },
+      {
+        "name": "Andere Anzahl und Reihenfolge",
+        "inputs": {
+          "datensaetze": [
+            "6 | Fina | Bonn",
+            "3 | Tim | Kiel",
+            "9 | Luis | Ulm",
+            "4 | Eva | Köln",
+            "2 | Anna | Jena"
+          ]
+        },
+        "output": [
+          "Kundennummer | Name | Ort",
+          "6 | Fina | Bonn",
+          "3 | Tim | Kiel",
+          "9 | Luis | Ulm",
+          "4 | Eva | Köln",
+          "2 | Anna | Jena",
+          "Ende der Tabelle"
+        ]
+      }
+    ]
   }
 ]

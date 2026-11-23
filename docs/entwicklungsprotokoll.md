@@ -1,5 +1,21 @@
 # Entwicklungsprotokoll
 
+## 23.11.2026 · Release-Vorbereitung Beta 7
+
+Nach Nutzerabnahme Committext und Versionshinweise vorbereitet. Die Beschreibung folgt dem Stil von Beta 5 und Beta 6; Anleitung und fachliche Prüfdokumentation liegen bereits für den Nutzer-Commit vor. ZIP samt Prüfsumme ist für die Zeit nach Nutzer-Commit und Push beauftragt. Noch kein Paket gebaut. [Release-Angaben](lokale-releases.md#beta-7-vorbereitet).
+
+## 23.11.2026 · Nachtrag: FÜR-Musterlösung für Aufgabe 33
+
+Auf Nutzerwunsch verwendet output jetzt die bedingte FÜR-Schleife mit Start, Bedingung und Fortschritt. Einzeiliger Kopf mit Semikola und dreizeiliger Kopf sind ausführbar; SOLANGE bleibt gleichwertig. Geführtes Beispiel, vollständige Mustererklärung und Spickzettel ergänzt. Umwandlungsfunktion zu ALS_GANZZAHL berichtigt. Aufgabenverträge, Testdaten, IDs und Profilstände unverändert. [Prüfungen](testprotokoll.md).
+
+## 23.11.2026 · Drei Pseudocode-Aufgaben nach Nutzervorgabe
+
+Quellfassung Beta 7 ergänzt nacheinander `komprimiere`, `dekomprimiere` und `output` als Aufgaben 31–33. Aufträge in Leitstellenstil, konkrete geführte Beispiele, drei gestufte Hinweise und erklärte Musterlösungen. Die Dekomprimierungsvorlage verwendet korrigiert den Zeichenwert und einheitlich `ziffern`. Der Interpreter ergänzt Textoperationen, Umwandlungen, Schleifenabbruch, eigenständige Aufrufe und Void; die Tabellenquelle wird je Test isoliert bereitgestellt. Spickzettel und sichtbare Funktionsverträge angepasst. Bestehende Aufgaben und Profile bleiben erhalten. [Prüfnachweis](testprotokoll.md). Kein neues Paket; Beta-6-Archiv bleibt unverändert.
+
+## 21.11.2026 · Windows-Paket Beta 6
+
+Nach Nutzer-Commit, bestätigtem Push und ausdrücklichem ZIP-Auftrag aus Anwendungscode `bfed97f` gebaut. Paketanleitung auf direkte Diagrammbedienung und den Kulturfestfall aktualisiert; Release-Beschreibung im vorhandenen Beta-Stil ergänzt. Code unverändert. Die native entpackte EXE, Paketdateien, Lizenzen, Icon, Version und SHA256 sind geprüft. Lokale HTTP-Aufrufe und der NuGet-Sicherheitsabgleich blieben blockiert; kein vollständiger interaktiver Paketdurchlauf behauptet. Vorhandene Archive und synthetisches Testprofil unverändert. [Paketdaten](lokale-releases.md) · [Prüfnachweis](testprotokoll.md). Veröffentlichung führt der Nutzer aus.
+
 ## 21.11.2026 · Beta 6: Diagramme direkt bearbeiten und Prüfungsfall ergänzen
 
 Nach Konzeptfreigabe gemeinsame lokale SVG-Bedienung für UML und Datenbankentwurf ergänzt: Auswahl, Verschieben, Anschlüsse, direktes Umbenennen, Zoom/Einpassen, kompakte Eigenschaften und 40-stufiger Verlauf. Tabellen werden nach Beziehungen angeordnet; rechtwinklige Linien tragen Kardinalitäten. Aufgaben und Zeichenfläche bleiben zusammen sichtbar, Geschichte und Planungsbericht sind aufklappbar. Freie Namen lösen ausschließlich bekannte Bezeichnungen und explizite Varianten auf. Alte Fachkennungen bleiben gültig; additive Positionsfelder sind unbenotet. Offene Diagrammprüfungen erhalten ihre Editorobjekte beim Autospeichern.

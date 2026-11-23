@@ -10,7 +10,7 @@ internal static class AlgorithmSyntax
     {
         "WENN", "SONST", "ENDE", "DANN", "SOLANGE", "FÜR", "FUER", "JEDES", "IN", "VON", "BIS", "TUE",
         "AUSGABE", "WAHR", "FALSCH", "NICHT", "UND", "ODER", "DIV", "MOD", "LÄNGE", "LAENGE",
-        "FUNKTION", "RÜCKGABE", "RUECKGABE"
+        "FUNKTION", "RÜCKGABE", "RUECKGABE", "VERLASSE", "SCHLEIFE", "ALS_TEXT", "ALS_GANZZAHL"
     };
 
     internal sealed record Token(string Text, int Line, bool Quoted = false);
@@ -29,11 +29,14 @@ internal static class AlgorithmSyntax
     internal abstract record Statement(int Line);
     internal sealed record Assignment(int Line, string Name, Expression Value, AlgorithmType? Type) : Statement(Line);
     internal sealed record IndexedAssignment(int Line, string Name, IReadOnlyList<Expression> Indices, Expression Value) : Statement(Line);
-    internal sealed record Return(int Line, Expression Value) : Statement(Line);
+    internal sealed record Return(int Line, Expression? Value) : Statement(Line);
+    internal sealed record Break(int Line) : Statement(Line);
+    internal sealed record CallStatement(int Line, Call Call) : Statement(Line);
     internal sealed record Print(int Line, Expression Value) : Statement(Line);
     internal sealed record Branch(int Line, Expression Condition, IReadOnlyList<Statement> Then, IReadOnlyList<Statement> Else) : Statement(Line);
     internal sealed record While(int Line, Expression Condition, IReadOnlyList<Statement> Body) : Statement(Line);
     internal sealed record For(int Line, string Name, Expression Start, Expression End, IReadOnlyList<Statement> Body) : Statement(Line);
+    internal sealed record ConditionalFor(int Line, Assignment Initializer, int ConditionLine, Expression Condition, Assignment Advance, IReadOnlyList<Statement> Body) : Statement(Line);
     internal sealed record Each(int Line, string Name, Expression Array, IReadOnlyList<Statement> Body) : Statement(Line);
 
     /// <summary> Erhält Zeilen für Fehlermeldungen und erkennt Kommentare außerhalb von Textwerten. </summary>

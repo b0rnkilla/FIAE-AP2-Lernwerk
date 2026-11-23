@@ -1,4 +1,5 @@
 using System.Text.Json;
+using FiaeTrainer.Core.Algorithms.Execution;
 using System.Text.Json.Serialization;
 
 namespace FiaeTrainer.Core.Algorithms.Content;
@@ -18,6 +19,15 @@ public sealed class AlgorithmCatalog
         Lessons = JsonSerializer.Deserialize<List<AlgorithmLesson>>(resource, options) ?? throw new InvalidDataException("Der Algorithmus-Katalog ist leer.");
         if (Lessons.Count == 0 || Lessons.Where((lesson, index) => lesson.Id != index + 1 || lesson.Hints.Length != 3 || string.IsNullOrWhiteSpace(lesson.Task) || lesson.Tests.Length == 0).Any())
             throw new InvalidDataException("Die Algorithmus-Aufgaben sind unvollständig oder falsch nummeriert.");
+        if (Lessons.Any(lesson => lesson.MaxOperations is < 10000 or > 100000))
+            throw new InvalidDataException("Das Rechenbudget muss zwischen 10.000 und 100.000 Schritten liegen.");
+        foreach (AlgorithmLesson lesson in Lessons.Where(x => x.UsesTableFunctions))
+        {
+            if (lesson.FunctionName.Length == 0 || lesson.FunctionInputs.Length != 0 || lesson.ReturnType != "Void")
+                throw new InvalidDataException("Der Tabellenauftrag benötigt eine parameterlose Funktion ohne Rückgabewert.");
+            _ = new AlgorithmTableFunctions(lesson.ExampleInputs);
+            foreach (AlgorithmTest test in lesson.Tests) _ = new AlgorithmTableFunctions(test.Inputs);
+        }
         foreach (AlgorithmLesson lesson in Lessons.Where(x => x.FunctionName.Length > 0))
         {
             lesson.ValidateSignature();

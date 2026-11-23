@@ -1,5 +1,19 @@
 # AP2 Lernwerk lokal starten
 
+## Beta 7 vorbereitet
+
+Der Paketbau ist am 23.11.2026 für die Zeit nach dem Nutzer-Commit und Push beauftragt. Quellfassung `1.0.0-beta.7` enthält 33 Pseudocode-Aufgaben und insgesamt 477 Lernübungen. Anleitung und [Versionshinweise](../release/Versionshinweise-1.0.0-beta.7.md) sind vor dem Commit vorbereitet. Das ZIP ist noch nicht gebaut; Zielcommit, Dateiumfang und Prüfsumme werden erst am fertigen Paket geprüft.
+
+Vorgesehene GitHub-Angaben: Tag `v1.0.0-beta.7`, Titel **AP2 Lernwerk 1.0.0-beta.7**, **Pre-release**. Assets nach dem Paketbau: `AP2-Lernwerk-1.0.0-beta.7-win-x64.zip` und die zugehörige `.zip.sha256`. Veröffentlichung durch den Nutzer.
+
+## Beta 6 für Windows
+
+Das unsignierte Windows-x64-Paket wurde am 21.11.2026 nach ausdrücklichem Auftrag und bestätigtem Nutzer-Push aus Anwendungscode-Commit `bfed97fdebfa02fbfa1cea4c79b6a5509ae3a11b` gebaut. `origin/master` ist lokal identisch; der direkte GitHub-Abgleich blieb durch die Netzwerkauflösung blockiert. Anleitung und [Versionshinweise](../release/Versionshinweise-1.0.0-beta.6.md) wurden anschließend für dieses Paket ergänzt, der Anwendungscode blieb unverändert.
+
+`AP2-Lernwerk-1.0.0-beta.6-win-x64.zip`: **68 Dateien, 51.893.446 Bytes**, SHA256 `efda266efa3684916fc0d352683ecc5ed2142262ef8f1f0f6bed6dc0c91709ea`. Die zusätzlichen sechs Dateien sind Diagramm-CSS und Gestenmodul mit ihren komprimierten Varianten. Dateiumfang, Lizenzen, private Dateiausschlüsse, Icon, Produktversion und nativer EXE-Start auf Port 5395 mit eigenem Profil geprüft. Der interaktive Pakettest bleibt durch die Socket-Sperre offen. [Prüfgrenzen](testprotokoll.md); Nachweis `artifacts/beta6-verification.json`.
+
+GitHub: Tag `v1.0.0-beta.6` auf `bfed97f`, Titel **AP2 Lernwerk 1.0.0-beta.6**, **Pre-release**. ZIP und `.zip.sha256` anhängen. Veröffentlichung durch den Nutzer; geprüftes ZIP, Prüfsumme und ältere Pakete unverändert erhalten. Nachträgliche Dokumentation ist nicht Bestandteil des Anwendungscode-Commits.
+
 ## Beta 5 für Windows
 
 Das unsignierte Windows-x64-Paket wurde am 17.11.2026 nach bestätigtem Nutzer-Push aus dem sauberen Commit `75f2791f9319c209f72a6892fe1558c9317d1d2f` gebaut. Der lokale Verweis `origin/master` stimmt überein; ein direkter GitHub-Abgleich war wegen der Netzwerkauflösung nicht möglich. Anwendungscode, Anleitung und [Versionshinweise](../release/Versionshinweise-1.0.0-beta.5.md) stammen aus diesem Commit.

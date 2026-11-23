@@ -44,6 +44,12 @@ public sealed class AlgorithmLesson
     public string ReturnType { get; init; } = "";
     /// <summary> Die Aufgabe verlangt bei aktueller Inhaltsversion einen vollständig typisierten Einstieg. </summary>
     public bool RequiresTypedSignature { get; init; }
+    /// <summary> Stellt ausschließlich für den Tabellenauftrag die vier vorgegebenen lokalen Hilfsfunktionen bereit. </summary>
+    public bool UsesTableFunctions { get; init; }
+    /// <summary> Texttransformationen müssen auch äußere Leerzeichen exakt erhalten beziehungsweise vermeiden. </summary>
+    public bool ExactTextOutput { get; init; }
+    /// <summary> Gemeinsames Rechenbudget des Auftrags einschließlich aller Hilfsaufrufe. </summary>
+    public int MaxOperations { get; init; } = 10000;
     /// <summary> Lesbare Signatur für den Hinweis am Auftrag; eigene Parameternamen bleiben möglich. </summary>
     public string Signature => $"FUNKTION {FunctionName}({string.Join(", ", FunctionInputs.Zip(ParameterTypes, (name, type) => $"{name}: {type}"))}): {ReturnType}";
 
@@ -53,7 +59,8 @@ public sealed class AlgorithmLesson
         if (FunctionName.Length == 0) return;
         if (FunctionInputs.Length != ParameterTypes.Length || ReturnType.Length == 0)
             throw new InvalidDataException($"Die Typangaben für {FunctionName} sind unvollständig.");
-        foreach (string type in ParameterTypes) AlgorithmType.FromCatalog(type);
+        foreach (string type in ParameterTypes)
+            if (AlgorithmType.FromCatalog(type).IsVoid) throw new InvalidDataException("Parameter benötigen einen Werttyp, nicht Void.");
         AlgorithmType.FromCatalog(ReturnType);
     }
     /// <summary> Erläutert die fachliche Entscheidung in der Musterlösung. </summary>

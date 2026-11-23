@@ -1,5 +1,21 @@
 # Stand und weitere Entwicklung
 
+## 23.11.2026 · Beta 7 zur Paketvorbereitung freigegeben
+
+Der Nutzer hat die Pseudocode-Erweiterung einschließlich FÜR-Musterlösung und ALS_GANZZAHL bestätigt und Committext, anschließendes ZIP und Release-Informationen angefordert. Versionshinweise im bisherigen Release-Stil und Anleitung sind vor dem Nutzer-Commit vorbereitet. Nach dessen Commit und Push folgen Paketbau, isolierte Paketprüfung und Prüfsumme. [Release-Vorbereitung](lokale-releases.md#beta-7-vorbereitet).
+
+## 23.11.2026 · Korrekturen an Aufgabe 33 und Umwandlungsfunktion umgesetzt
+
+Die Musterlösung verwendet jetzt die bedingte FÜR-Schleife mit drei Kopfteilen. Beide Darstellungen (Semikola/eigene Zeilen) sowie die bisherige SOLANGE-Lösung werden unterstützt. Grundlagen und Erklärung erläutern insbesondere den weiteren Abruf erst nach der Ausgabe. Der richtige Name lautet überall ALS_GANZZAHL. [Schreibweise](pseudocode.md) · [Prüfungen](testprotokoll.md).
+
+## 23.11.2026 · Drei zusätzliche Pseudocode-Lernaufgaben umgesetzt
+
+Die angeforderten Aufgaben stehen in der Quellfassung Beta 7 als 31–33: Komprimieren, direkt anschließend Dekomprimieren und schließlich Tabellenausgabe bis zum Leerstring. Jeweils Beispiele, drei Hinweise und erklärte Musterlösungen; Textfunktionen, Schleifenabbruch und Aufrufe ohne Ergebnis sind ausführbar und im Spickzettel dokumentiert. Die alte Aufgabenfolge und Prüfungsrunden behalten ihre IDs und Regeln. Die praktische Erprobung erfolgt mit einem später beauftragten Release; aktuell kein neues ZIP erstellt. [Fachlicher Umfang](pseudocode.md) · [Prüfungen](testprotokoll.md).
+
+## 21.11.2026 · Beta 6 zur Veröffentlichung gebaut
+
+Der Nutzer hat `bfed97f` committed und gepusht und anschließend das Windows-ZIP ausdrücklich beauftragt. ZIP, Prüfsumme und [Release-Beschreibung](../release/Versionshinweise-1.0.0-beta.6.md) liegen bereit. Anwendungscode unverändert; Anleitung und Prüfdokumentation danach ergänzt. Dateiumfang, Lizenzen und nativer EXE-Start mit separatem Profil geprüft; die interaktive Paketoberfläche blieb durch die Socket-Sperre der Testumgebung blockiert. [Paketdaten](lokale-releases.md) · [Prüfgrenzen](testprotokoll.md). Praktische Nutzererprobung folgt mit Beta 6. Veröffentlichung und Tag bleiben beim Nutzer.
+
 ## 21.11.2026 · freigegebene Diagrammüberarbeitung in Beta 6
 
 SQL ist laut Nutzer fertig und bleibt in diesem Paket unverändert. Die freigegebenen Änderungen sind im Quellprojekt umgesetzt: direkte gemeinsame UML-/Datenmodell-Zeichenfläche, freie Namen statt Aufgabenwortschatz-Dropdowns, Positionsspeicherung, Rückgängig/Wiederholen, Kardinalitäten an relationalen Linienenden und freie ER-Lücken. 36 UML- und 42 Entwurfsaufträge samt je drei Prüfungsfällen wurden auf Geschäftsregeln ausgerichtet. Grundlagen verwenden ein anderes Beispiel, drei Hinweise bleiben getrennt, vollständige Erläuterungen stehen bei der Musterlösung.

@@ -87,7 +87,7 @@ public sealed class AlgorithmTypeTests
     {
         AlgorithmEvaluator learning = new(_interpreter);
         var lessons = new AlgorithmCatalog().Lessons.Where(x => x.FunctionName.Length > 0).ToList();
-        Assert.Equal(9, lessons.Count);
+        Assert.Equal(12, lessons.Count);
         foreach (AlgorithmLesson lesson in lessons)
         {
             string oldHeader = $"FUNKTION {lesson.FunctionName}({string.Join(", ", lesson.FunctionInputs)})";

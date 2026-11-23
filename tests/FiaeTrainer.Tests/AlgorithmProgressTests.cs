@@ -206,6 +206,30 @@ public sealed class AlgorithmProgressTests : IDisposable
         navigation.Visit("algorithmen-falsch"); Assert.False(navigation.Algorithms);
     }
 
+    [Fact]
+    public async Task NewTextTasksKeepAllThirtyFormerAnswersAndSqlProgress()
+    {
+        ProgressStore store = Store();
+        for (int id = 1; id <= 30; id++)
+            await store.SaveAlgorithmAsync(id, new() { Draft = $"Antwort {id}", IndependentSolution = $"Antwort {id}", Completed = true, Independent = true });
+        await store.SaveLessonAsync(17, new() { Sql = "SQL bleibt erhalten", Completed = true });
+        await store.SaveAlgorithmAsync(31, new() { Draft = "FUNKTION komprimiere(text)", HintLevel = 1, ExamMode = false });
+        await store.SaveAlgorithmAsync(33, new() { Draft = "FUNKTION output()" });
+        TrainingProgress restored = await Store().LoadAsync();
+        Assert.Equal(33, restored.LastAlgorithmLessonId);
+        for (int id = 1; id <= 30; id++)
+        {
+            Assert.Equal($"Antwort {id}", restored.AlgorithmLessons[id].Draft);
+            Assert.Equal($"Antwort {id}", restored.AlgorithmLessons[id].IndependentSolution);
+            Assert.True(restored.AlgorithmLessons[id].Independent);
+            Assert.True(restored.AlgorithmLessons[id].Completed);
+        }
+        Assert.Equal(1, restored.AlgorithmLessons[31].HintLevel);
+        Assert.False(restored.AlgorithmLessons[31].ExamMode);
+        Assert.False(restored.AlgorithmLessons.ContainsKey(32));
+        Assert.Equal("SQL bleibt erhalten", restored.Lessons[17].Sql);
+    }
+
     private ProgressStore Store() => new(new TestEnvironment(), new ConfigurationBuilder().AddInMemoryCollection(new Dictionary<string, string?> { ["Training:ProgressDirectory"] = _directory }).Build());
     public void Dispose() { if (Directory.Exists(_directory)) Directory.Delete(_directory, true); }
 

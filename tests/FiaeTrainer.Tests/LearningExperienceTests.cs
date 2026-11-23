@@ -84,7 +84,7 @@ public sealed class LearningExperienceTests : IDisposable
         await store.SaveAlgorithmAsync(2, new AlgorithmProgress { Completed = true });
         await store.SaveAlgorithmAsync(3, new AlgorithmProgress { Draft = "Entwurf" });
         string html = await RenderPlanAsync();
-        Assert.Contains("2 / 30 gelöst", html);
+        Assert.Contains("2 / 33 gelöst", html);
         string review = html.Split("Gelöst – jetzt ohne Hilfe wiederholen")[1].Split("DEINE LERNROUTINE")[0];
         Assert.Contains("href=\"/algorithmen/2\"", review);
         Assert.DoesNotContain("href=\"/algorithmen/1\"", review);
@@ -129,7 +129,7 @@ public sealed class LearningExperienceTests : IDisposable
         foreach (var lesson in new FiaeTrainer.Core.Algorithms.Content.AlgorithmCatalog().Lessons)
             await store.SaveAlgorithmAsync(lesson.Id, new AlgorithmProgress { Completed = true, Independent = true });
         string html = await RenderPlanAsync();
-        Assert.Contains("Alle 90 Übungen aus SQL und Algorithmen sind gelöst", html);
+        Assert.Contains("Alle 93 Übungen aus SQL und Algorithmen sind gelöst", html);
         Assert.Contains("unbekannte Aufgaben auf Papier", html);
         Assert.DoesNotContain("Weiter ermitteln →", html);
     }
@@ -146,7 +146,7 @@ public sealed class LearningExperienceTests : IDisposable
             await store.SaveAlgorithmAsync(lesson.Id, new AlgorithmProgress { Draft = "Entwurf" });
         string html = await RenderPlanAsync();
         Assert.Contains("Du hast alle Aufgaben aus SQL und Algorithmen bereits begonnen", html);
-        Assert.DoesNotContain("Alle 90 Übungen aus SQL und Algorithmen sind gelöst", html);
+        Assert.DoesNotContain("Alle 93 Übungen aus SQL und Algorithmen sind gelöst", html);
         Assert.Contains("href=\"/sql/1\"", html);
         Assert.Contains("href=\"/sql-werkstatt/10\"", html);
     }

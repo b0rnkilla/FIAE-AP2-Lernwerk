@@ -28,7 +28,8 @@ public sealed class AlgorithmEvaluator(AlgorithmInterpreter interpreter)
                 AlgorithmRun run = lesson.FunctionName.Length == 0
                     ? interpreter.Run(answer, test.Inputs)
                     : interpreter.RunFunction(answer, lesson, test.Inputs, requireTypes: lesson.RequiresTypedSignature);
-                checks.Add(new(test.Name, Inputs(test.Inputs), string.Join(" → ", test.Output), run.Error ?? (run.Output.Count == 0 ? "Keine Ausgabe" : string.Join(" → ", run.Output)), run.Error == null && Same(test.Output, run.Output)));
+                bool matches = lesson.ExactTextOutput ? test.Output.SequenceEqual(run.Output) : Same(test.Output, run.Output);
+                checks.Add(new(test.Name, Inputs(test.Inputs), DisplayOutput(test.Output), run.Error ?? (run.Output.Count == 0 ? "Keine Ausgabe" : DisplayOutput(run.Output)), run.Error == null && matches));
                 if (run.Error != null) return new(false, run.Error, checks);
             }
         }
@@ -69,6 +70,8 @@ public sealed class AlgorithmEvaluator(AlgorithmInterpreter interpreter)
     }
     private static bool Same(IReadOnlyList<string> expected, IReadOnlyList<string> actual) => expected.Count == actual.Count && expected.Zip(actual).All(x => Normalize(x.First) == Normalize(x.Second));
     private static string Normalize(string value) => value.Trim();
+    /// <summary> Ein zurückgegebener Leerstring bleibt sichtbar von einer fehlenden Ausgabe unterscheidbar. </summary>
+    private static string DisplayOutput(IEnumerable<string> values) => string.Join(" → ", values.Select(value => value.Length == 0 ? "\"\"" : value));
     private static string[] Lines(string text) => text.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
     private static string Inputs(IReadOnlyDictionary<string, JsonElement> inputs) => inputs.Count == 0 ? "Keine zusätzlichen Eingaben" : string.Join(", ", inputs.Select(x => $"{x.Key} = {AlgorithmDisplay.Input(x.Value)}"));
 }

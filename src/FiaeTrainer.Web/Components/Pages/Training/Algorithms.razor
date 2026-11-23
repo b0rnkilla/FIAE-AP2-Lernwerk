@@ -48,7 +48,7 @@ else
                 }
                 <section class="task-card"><div class="eyebrow">01 · AUFGABE VERSTEHEN</div><p class="algorithm-task-text"><InlineCodeText Text="@_lesson.Task" /></p>
                     <AlgorithmFunctionContract Lesson="_lesson" RequireTypes="_lesson.RequiresTypedSignature" />
-                    @if (_lesson.ExampleInputs.Count > 0) { <div class="algorithm-inputs"><strong>Beispieleingaben für die Vorschau</strong><dl>@foreach (var input in _lesson.ExampleInputs) { <div><dt><code>@input.Key</code></dt><dd><code>@AlgorithmDisplay.Input(input.Value)</code></dd></div> }</dl></div> }
+                    @if (_lesson.ExampleInputs.Count > 0) { <div class="algorithm-inputs"><strong>@(_lesson.UsesTableFunctions ? "Datenfolge für hole_daten() in der Vorschau" : "Beispieleingaben für die Vorschau")</strong><dl>@foreach (var input in _lesson.ExampleInputs) { <div><dt><code>@input.Key</code></dt><dd><code>@AlgorithmDisplay.Input(input.Value)</code></dd></div> }</dl></div> }
                     @if (_lesson.Kind == AlgorithmTaskKind.Trace) { <pre class="given-algorithm"><code>@_lesson.GivenCode</code></pre> }
                 </section>
                 @if (_progress.Beta3AlgorithmArchive?.TryGetValue(_lesson.Id, out var previousAttempt) == true)
@@ -86,7 +86,7 @@ else
                     {
                         <section class="algorithm-trace" aria-label="Schrittweise Ausführung">
                             <h2>Den Ablauf verstehen</h2>
-                            @if (_lesson.FunctionName.Length > 0 && _run.Error == null) { <p><strong>Rückgabewert des Beispielaufrufs:</strong> <code>@string.Join(" → ", _run.Output)</code></p> }
+                            @if (_lesson.FunctionName.Length > 0 && _run.Error == null) { <p><strong>@(_lesson.ReturnType == "Void" ? "Ausgaben des Beispielaufrufs:" : "Rückgabewert des Beispielaufrufs:")</strong> <code>@string.Join(" → ", _run.Output)</code></p> }
                             @if (_run.Error != null) { <p class="notice warning" role="alert">@_run.Error</p> }
                             @if (_run.Steps.Count > 0)
                             {

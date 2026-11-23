@@ -12,6 +12,7 @@ internal sealed record AlgorithmType(string Scalar, int Depth = 0)
         "DOUBLE" or "KOMMAZAHL" or "DEZIMALZAHL" => "Double",
         "BOOLEAN" or "BOOL" or "WAHRHEITSWERT" => "Boolean",
         "STRING" or "TEXT" or "ZEICHENKETTE" => "String",
+        "VOID" or "KEINRUECKGABEWERT" or "KEINRÜCKGABEWERT" => "Void",
         _ => null
     };
 
@@ -25,13 +26,16 @@ internal sealed record AlgorithmType(string Scalar, int Depth = 0)
             scalar = scalar[..^2];
             depth++;
         }
-        if (depth > MAX_DEPTH || ScalarName(scalar) != scalar)
+        if (depth > MAX_DEPTH || ScalarName(scalar) != scalar || scalar == "Void" && depth > 0)
             throw new InvalidDataException($"Unbekannter Typ im Aufgabenkatalog: {name}.");
         return new(scalar, depth);
     }
 
     /// <summary> Prüft den tatsächlichen Wert einschließlich aller Einträge. Eine leere Liste erfüllt jeden Elementtyp. </summary>
     internal bool Accepts(object value) => Accepts(value, Depth);
+
+    /// <summary> Kein Werttyp für Variablen, sondern ausschließlich ein Funktionsvertrag ohne Rückgabewert. </summary>
+    internal bool IsVoid => Scalar == "Void" && Depth == 0;
 
     /// <summary> Erklärt besonders den Unterschied zwischen einem Text in Anführungszeichen und seinem Inhalt. </summary>
     internal static string Describe(object value) => value switch

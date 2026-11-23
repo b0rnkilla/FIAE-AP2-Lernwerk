@@ -24,7 +24,7 @@ public sealed class AlgorithmTests
     [Fact]
     public void AllReferenceProgramsMatchIndependentlySpecifiedOutputs()
     {
-        Assert.Equal(30, _catalog.Lessons.Count);
+        Assert.Equal(33, _catalog.Lessons.Count);
         foreach (AlgorithmLesson lesson in _catalog.Lessons)
         {
             Assert.Equal(3, lesson.Hints.Length);
@@ -34,7 +34,7 @@ public sealed class AlgorithmTests
             {
                 AlgorithmRun run = lesson.FunctionName.Length == 0
                     ? _interpreter.Run(lesson.ReferenceCode, test.Inputs, true)
-                    : _interpreter.RunFunction(lesson.ReferenceCode, lesson.FunctionName, lesson.FunctionInputs.Select(name => test.Inputs[name]).ToArray(), true);
+                    : _interpreter.RunFunction(lesson.ReferenceCode, lesson, test.Inputs, true);
                 Assert.True(run.Error == null, $"Aufgabe {lesson.Id}, Fall {test.Name}: {run.Error}");
                 Assert.Equal(test.Output, run.Output);
             }

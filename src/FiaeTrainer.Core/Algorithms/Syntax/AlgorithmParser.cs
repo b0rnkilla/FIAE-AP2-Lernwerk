@@ -14,6 +14,8 @@ internal sealed class AlgorithmParser(List<Token> tokens)
     private int _depth;
     /// <summary> Rückgaben sind nur innerhalb einer Funktionsdefinition zulässig. </summary>
     private bool _insideFunction;
+    /// <summary> Ein Abbruch gehört zur nächsten lexikalisch umgebenden Schleife derselben Funktion. </summary>
+    private int _loopDepth;
 
     #endregion
 
@@ -37,7 +39,7 @@ internal sealed class AlgorithmParser(List<Token> tokens)
             int line = Current.Line;
             bool functionKeyword = Take("FUNKTION");
             AlgorithmType? prefix = ReadPrefixType();
-            if (functionKeyword || (IsName(Current) && tokens[_position + 1] is { Quoted: false, Text: "(" }))
+            if (functionKeyword || IsFunctionHeader(prefix))
             {
                 string name = Name(); Require("(");
                 List<Binding> parameters = [];
@@ -87,9 +89,17 @@ internal sealed class AlgorithmParser(List<Token> tokens)
         if (Take("RÜCKGABE") || Take("RUECKGABE"))
         {
             if (!_insideFunction) throw Error("RÜCKGABE gehört in eine Funktion. Im Hauptablauf verwendest du AUSGABE.");
-            return new Return(line, ReadExpression());
+            return new Return(line, Is("\n") ? null : ReadExpression());
+        }
+        if (Take("VERLASSE"))
+        {
+            Require("SCHLEIFE");
+            if (_loopDepth == 0) throw Error("VERLASSE SCHLEIFE gehört in eine Schleife derselben Funktion.");
+            return new Break(line);
         }
         if (Take("AUSGABE")) return new Print(line, ReadExpression());
+        if (prefix == null && IsName(Current) && tokens[_position + 1] is { Quoted: false, Text: "(" })
+            return new CallStatement(line, ReadCall(Name()));
         if (Take("WENN"))
         {
             Expression condition = ReadExpression(); Require("DANN"); EndLine();
@@ -102,7 +112,7 @@ internal sealed class AlgorithmParser(List<Token> tokens)
         if (Take("SOLANGE"))
         {
             Expression condition = ReadExpression(); Take("TUE"); EndLine();
-            IReadOnlyList<Statement> body = Block(); Require("ENDE"); Require("SOLANGE");
+            IReadOnlyList<Statement> body = LoopBlock(); Require("ENDE"); Require("SOLANGE");
             return new While(line, condition, body);
         }
         if (Take("FÜR") || Take("FUER"))
@@ -112,11 +122,23 @@ internal sealed class AlgorithmParser(List<Token> tokens)
             if (each)
             {
                 Require("IN"); Expression array = ReadExpression(); Take("TUE"); EndLine();
-                IReadOnlyList<Statement> body = Block(); Require("ENDE"); RequireFor();
+                IReadOnlyList<Statement> body = LoopBlock(); Require("ENDE"); RequireFor();
                 return new Each(line, name, array, body);
             }
+            if (Take("=") || Take(":=") || Take("←") || Take("<-"))
+            {
+                Assignment initializer = new(line, name, ReadExpression(), null);
+                EndLine();
+                int conditionLine = Current.Line;
+                Expression condition = ReadExpression(); EndLine();
+                if (ReadStatement() is not Assignment advance)
+                    throw Error("Der dritte Teil der FÜR-Schleife braucht eine Zuweisung, zum Beispiel daten = hole_daten().");
+                Take("TUE"); EndLine();
+                IReadOnlyList<Statement> body = LoopBlock(); Require("ENDE"); RequireFor();
+                return new ConditionalFor(line, initializer, conditionLine, condition, advance, body);
+            }
             Require("VON"); Expression start = ReadExpression(); Require("BIS"); Expression end = ReadExpression(); Take("TUE"); EndLine();
-            IReadOnlyList<Statement> loop = Block(); Require("ENDE"); RequireFor();
+            IReadOnlyList<Statement> loop = LoopBlock(); Require("ENDE"); RequireFor();
             return new For(line, name, start, end, loop);
         }
         Binding binding = ReadBinding(prefix ?? ReadPrefixType());
@@ -172,22 +194,56 @@ internal sealed class AlgorithmParser(List<Token> tokens)
         else if (Take("LÄNGE") || Take("LAENGE")) { Require("("); value = new Length(ReadExpression()); Require(")"); }
         else
         {
-            string name = Name();
-            if (Take("("))
-            {
-                List<Expression> arguments = [];
-                if (!Is(")"))
-                    do
-                    {
-                        if (arguments.Count >= 16) throw Error("Verwende höchstens 16 Argumente je Funktionsaufruf.");
-                        arguments.Add(ReadExpression());
-                    } while (Take(","));
-                Require(")"); value = new Call(name, arguments);
-            }
-            else value = new Variable(name);
+            string name;
+            if (Is("ALS_TEXT") || Is("ALS_GANZZAHL")) { name = Current.Text; _position++; value = ReadCall(name); }
+            else { name = Name(); value = Is("(") ? ReadCall(name) : new Variable(name); }
         }
         while (Take("[")) { Expression index = ReadExpression(); Require("]"); value = new ListIndex(value, index); }
         return value;
+    }
+
+    /// <summary> Standalone-Aufrufe und Aufrufe in Ausdrücken besitzen dieselbe Argumentauswertung. </summary>
+    private Call ReadCall(string name)
+    {
+        Require("(");
+        List<Expression> arguments = [];
+        if (!Is(")"))
+            do
+            {
+                if (arguments.Count >= 16) throw Error("Verwende höchstens 16 Argumente je Funktionsaufruf.");
+                arguments.Add(ReadExpression());
+            } while (Take(","));
+        Require(")");
+        return new(name, arguments);
+    }
+
+    private IReadOnlyList<Statement> LoopBlock()
+    {
+        _loopDepth++;
+        try { return Block(); }
+        finally { _loopDepth--; }
+    }
+
+    /// <summary> Erhält frühere Köpfe ohne FUNKTION; ein Aufruf vor einer expliziten Definition bleibt eine Anweisung. </summary>
+    private bool IsFunctionHeader(AlgorithmType? prefix)
+    {
+        if (!IsName(Current) || tokens[_position + 1] is not { Quoted: false, Text: "(" }) return false;
+        if (prefix != null) return true;
+        for (int i = _position + 2; i < tokens.Count; i++)
+        {
+            if (!tokens[i].Quoted && tokens[i].Text.Equals("FUNKTION", StringComparison.OrdinalIgnoreCase))
+                return tokens[i - 1] is { Quoted: false, Text: "ENDE" };
+            if (tokens[i - 1].Text != "\n" || !IsName(tokens[i])) continue;
+            bool typed = AlgorithmType.ScalarName(tokens[i].Text) != null || tokens[i].Text.Equals("List", StringComparison.OrdinalIgnoreCase) || tokens[i].Text.Equals("Liste", StringComparison.OrdinalIgnoreCase);
+            if (!typed) continue;
+            // Ein späterer typisierter Kopf gehört nicht zum vorausgehenden Aufruf.
+            for (int j = i + 1; j < tokens.Count && tokens[j].Text != "\n"; j++)
+            {
+                if (!tokens[j].Quoted && tokens[j].Text is "=" or ":=" or "←" or "<-") break;
+                if (j > i + 1 && tokens[j] is { Quoted: false, Text: "(" } && IsName(tokens[j - 1])) return false;
+            }
+        }
+        return false;
     }
 
     private static int Priority(Token token) => token.Quoted ? 0 : token.Text.ToUpperInvariant() switch
@@ -206,7 +262,12 @@ internal sealed class AlgorithmParser(List<Token> tokens)
         return IsName(next) || arraySuffix || (list && next is { Quoted: false, Text: "<" or "<>" }) ? ReadType() : null;
     }
 
-    private Binding ReadBinding(AlgorithmType? prefix) => new(Name(), ReadSuffixType(prefix));
+    private Binding ReadBinding(AlgorithmType? prefix)
+    {
+        var binding = new Binding(Name(), ReadSuffixType(prefix));
+        if (binding.Type?.IsVoid == true) throw Error("Void ist nur als Rückgabetyp erlaubt; Variablen und Parameter brauchen einen Werttyp.");
+        return binding;
+    }
 
     private AlgorithmType? ReadSuffixType(AlgorithmType? prefix)
     {
@@ -237,6 +298,7 @@ internal sealed class AlgorithmParser(List<Token> tokens)
             type = new(scalar);
         }
         while (Take("[")) { Require("]"); type = type with { Depth = type.Depth + 1 }; }
+        if (type.Scalar == "Void" && type.Depth > 0) throw Error("Eine Liste braucht einen Werttyp; Void bezeichnet keinen Wert.");
         if (type.Depth > AlgorithmType.MAX_DEPTH) throw Error("Der Listentyp ist zu tief verschachtelt.");
         return type;
     }
@@ -261,8 +323,8 @@ internal sealed class AlgorithmParser(List<Token> tokens)
     {
         if (Take("JEDES")) return true;
         if (!Is("JEDEN") && !Is("JEDE") && !Is("ALLE")) return false;
-        // In „FÜR alle VON …“ bleibt alle der frei gewählte Name des Zählers.
-        if (tokens[_position + 1] is { Quoted: false, Text: "VON" }) return false;
+        // In Zähl- und bedingten Schleifen bleiben etwa alle und jede frei wählbare Variablennamen.
+        if (tokens[_position + 1] is { Quoted: false, Text: "VON" or "=" or ":=" or "←" or "<-" }) return false;
         RequireUppercase(Current.Text, Current.Line);
         _position++;
         return true;
